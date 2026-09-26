@@ -13,3 +13,20 @@ CREATE TABLE IF NOT EXISTS token_sessions (
 -- Index for sub-millisecond session lookup & TTL expiration queries
 CREATE INDEX IF NOT EXISTS idx_token_sessions_expires_at ON token_sessions(expires_at);
 
+-- =========================================================================
+-- API Key Authentication, Rate Limiting & Usage Metering Table
+-- =========================================================================
+CREATE TABLE IF NOT EXISTS api_keys (
+    id TEXT PRIMARY KEY,
+    key_hash TEXT UNIQUE NOT NULL,
+    key_prefix TEXT NOT NULL,
+    name TEXT NOT NULL,
+    tier TEXT DEFAULT 'free',
+    monthly_quota INTEGER DEFAULT 10000,
+    requests_used INTEGER DEFAULT 0,
+    is_active INTEGER DEFAULT 1,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS idx_api_keys_hash ON api_keys(key_hash);
+

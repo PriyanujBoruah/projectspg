@@ -2,6 +2,13 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 import tokenizationApp from "./routes/tokenization";
 import openaiApp from "./routes/openai";
+import { DASHBOARD_HTML } from "./dashboard";
+import {
+  createApiKey,
+  listApiKeys,
+  revokeApiKey,
+  createAuthMiddleware,
+} from "./auth/keys";
 
 const app = new Hono();
 
@@ -15,6 +22,8 @@ app.use(
       "Content-Type",
       "Authorization",
       "api-key",
+      "x-api-key",
+      "x-spg-api-key",
       "x-detection-categories",
       "x-categories",
       "x-custom-entities",
@@ -42,6 +51,12 @@ app.use(
 
 app.options("*", (c) => c.body(null, 204));
 
+// Serve Single-File Enterprise Dashboard
+app.get("/dashboard", (c) => c.html(DASHBOARD_HTML));
+
+// Mount API Key Authentication Middleware on /v1 routes
+app.use("/v1/*", createAuthMiddleware());
+
 // Mount Data De-identification & Reversible Tokenization Engine on /v1
 app.route("/v1", tokenizationApp);
 
@@ -49,17 +64,59 @@ app.route("/v1", tokenizationApp);
 app.route("/v1", openaiApp);
 app.route("/", openaiApp);
 
+// =========================================================================
+// API Key Management REST Endpoints (Dashboard / Administrative)
+// =========================================================================
+app.get("/api/keys", async (c) => {
+  const keys = await listApiKeys(c.env);
+  return c.json({ keys });
+});
+
+app.post("/api/keys", async (c) => {
+  let body: any = {};
+  try {
+    body = await c.req.json();
+  } catch {
+    // empty body fallback
+  }
+  const name = body.name || "Default Key";
+  const tier = body.tier || "free";
+  const quota = body.monthlyQuota || 10_000;
+  const result = await createApiKey(name, tier, quota, c.env);
+  return c.json(result, 201);
+});
+
+app.delete("/api/keys/:id", async (c) => {
+  const id = c.req.param("id");
+  await revokeApiKey(id, c.env);
+  return c.json({ success: true, message: `API key ${id} revoked.` });
+});
+
 // Health check endpoint
 app.get("/health", (c) => {
   return c.json({
     status: "ok",
     version: "2.0.0",
-    features: ["de-identification", "detokenization", "openai-proxy", "streaming-sse", "embeddings"],
+    features: [
+      "de-identification",
+      "detokenization",
+      "openai-proxy",
+      "streaming-sse",
+      "embeddings",
+      "byok-kms",
+      "siem-audit",
+      "api-keys",
+      "dashboard",
+    ],
   });
 });
 
 app.get("/", (c) => {
-  return c.text("AI Privacy Core — Sovereign De-identification & Reversible Tokenization Gateway is active.");
+  const accept = c.req.header("Accept") || "";
+  if (accept.includes("text/html")) {
+    return c.html(DASHBOARD_HTML);
+  }
+  return c.text("ProjectSPG — Sovereign Privacy Gateway & Edge De-identification is active. Visit /dashboard in your browser.");
 });
 
 export default app;
