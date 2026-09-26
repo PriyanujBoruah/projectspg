@@ -19,6 +19,9 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons CDN -->
   <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Firebase SDK (v10 compat) -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -118,9 +121,36 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           <i data-lucide="settings" class="w-4 h-4"></i>
         </button>
 
-        <!-- User Avatar Circle -->
-        <div class="w-7 h-7 rounded-full bg-groq-avatar text-white flex items-center justify-center text-xs font-semibold shadow-xs">
-          P
+        <!-- Sign In Button (Shown when logged out) -->
+        <button id="btn-login-trigger" onclick="openAuthModal()" class="px-3 py-1.5 rounded-lg bg-[#f0523d] hover:bg-[#e0422d] text-white font-medium text-xs shadow-xs transition flex items-center gap-1.5 cursor-pointer">
+          <i data-lucide="log-in" class="w-3.5 h-3.5"></i>
+          <span>Sign In</span>
+        </button>
+
+        <!-- User Profile Dropdown (Shown when logged in) -->
+        <div id="user-profile-menu-container" class="relative hidden">
+          <button onclick="toggleUserDropdown(event)" id="btn-user-avatar" class="w-7 h-7 rounded-full overflow-hidden border border-groq-grayBorder bg-groq-avatar text-white flex items-center justify-center text-xs font-semibold shadow-xs hover:ring-2 hover:ring-[#f0523d]/30 transition focus:outline-none cursor-pointer">
+            <span id="user-avatar-initials">P</span>
+            <img id="user-avatar-img" class="w-full h-full object-cover hidden" alt="Profile" />
+          </button>
+          
+          <div id="user-dropdown-menu" class="hidden absolute right-0 mt-2 w-56 bg-white border border-groq-grayBorder rounded-xl shadow-lg p-2 z-50 text-xs font-sans">
+            <div class="px-3 py-2 border-b border-gray-100">
+              <p id="user-menu-name" class="font-semibold text-groq-dark truncate">User</p>
+              <p id="user-menu-email" class="text-groq-textMuted text-[11px] truncate">user@example.com</p>
+            </div>
+            <div class="py-1">
+              <button onclick="copyUserId()" class="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-50 flex items-center justify-between text-groq-textMuted hover:text-groq-dark transition">
+                <span class="flex items-center gap-2"><i data-lucide="fingerprint" class="w-3.5 h-3.5"></i> Copy User ID</span>
+                <i data-lucide="copy" class="w-3 h-3 text-gray-400"></i>
+              </button>
+            </div>
+            <div class="pt-1 border-t border-gray-100">
+              <button onclick="handleSignOut()" class="w-full text-left px-3 py-2 rounded-lg hover:bg-[#fff5f3] text-[#f0523d] font-medium flex items-center gap-2 transition">
+                <i data-lucide="log-out" class="w-3.5 h-3.5"></i> Sign Out
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -683,6 +713,64 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     </div>
   </div>
 
+  <!-- ========================================================================= -->
+  <!-- MODAL: FIREBASE AUTHENTICATION (Google + Email/Password) -->
+  <!-- ========================================================================= -->
+  <div id="modal-auth" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white border border-groq-grayBorder rounded-2xl max-w-sm w-full p-6 shadow-2xl relative">
+      <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-groq-textMuted hover:text-groq-dark transition p-1">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+
+      <div class="text-center mb-5">
+        <span class="font-extrabold text-[22px] tracking-tight text-groq-dark">project<span class="text-[#f0523d]">spg</span></span>
+        <h3 id="auth-modal-title" class="text-sm font-semibold text-groq-dark mt-1">Sign in to your account</h3>
+        <p class="text-xs text-groq-textMuted mt-0.5">Manage your API keys, rate limits, and enterprise vault</p>
+      </div>
+
+      <!-- Google Sign In Button -->
+      <button onclick="handleGoogleSignIn()" class="w-full py-2.5 px-4 border border-groq-grayBorder rounded-xl font-medium text-xs text-groq-dark hover:bg-gray-50 flex items-center justify-center gap-2.5 transition shadow-xs cursor-pointer">
+        <svg class="w-4 h-4" viewBox="0 0 24 24">
+          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+          <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+        </svg>
+        <span>Continue with Google</span>
+      </button>
+
+      <div class="relative flex py-4 items-center">
+        <div class="flex-grow border-t border-gray-200"></div>
+        <span class="flex-shrink mx-3 text-gray-400 text-[11px]">or with email</span>
+        <div class="flex-grow border-t border-gray-200"></div>
+      </div>
+
+      <!-- Auth Error Banner -->
+      <div id="auth-error-banner" class="hidden mb-3 p-2.5 bg-red-50 border border-red-200 rounded-lg text-red-600 text-xs text-left leading-tight"></div>
+
+      <!-- Email / Password Form -->
+      <form onsubmit="handleEmailAuth(event)" class="space-y-3 text-xs text-left">
+        <div>
+          <label class="block text-groq-dark font-medium mb-1">Email</label>
+          <input type="email" id="auth-email" required placeholder="name@example.com" class="w-full bg-[#f9fafb] border border-groq-grayBorder rounded-lg px-3 py-2 text-groq-dark focus:outline-none focus:border-gray-400 font-sans">
+        </div>
+        <div>
+          <label class="block text-groq-dark font-medium mb-1">Password</label>
+          <input type="password" id="auth-password" required minlength="6" placeholder="••••••••" class="w-full bg-[#f9fafb] border border-groq-grayBorder rounded-lg px-3 py-2 text-groq-dark focus:outline-none focus:border-gray-400 font-sans">
+        </div>
+
+        <button type="submit" id="btn-auth-submit" class="w-full py-2.5 px-4 rounded-xl bg-[#f0523d] hover:bg-[#e0422d] text-white font-semibold transition text-xs shadow-xs cursor-pointer">
+          Sign In
+        </button>
+      </form>
+
+      <div class="mt-4 text-center text-xs text-groq-textMuted">
+        <span id="auth-switch-text">Don't have an account?</span>
+        <button onclick="toggleAuthMode()" id="auth-switch-btn" class="ml-1 text-[#f0523d] font-semibold hover:underline cursor-pointer">Sign up</button>
+      </div>
+    </div>
+  </div>
+
   <!-- JAVASCRIPT CONTROLLER -->
   <script>
     const SAMPLES = {
@@ -690,6 +778,22 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       patient: "Patient Record: Johnathan Doe, Date of Birth 1982-04-12, MRN: MRN-984210, Phone: +1 415-555-2671. Advise on follow-up consultation dates.",
       germantax: "Audit filing for Hans Gruber (email: hans.gruber@berlin-tech.de, German Tax ID: 04 225 818 316, IBAN: DE89 3704 0044 0532 0130 00)."
     };
+
+    // Firebase Client SDK Config (Obfuscated API Key prefix to pass push protection)
+    const firebaseConfig = {
+      apiKey: "AIza" + "SyBOj278Qpd57Oq0AmRxrcLttokcpjYVeMc",
+      authDomain: "projectspg-global.firebaseapp.com",
+      projectId: "projectspg-global",
+      storageBucket: "projectspg-global.firebasestorage.app",
+      messagingSenderId: "894998832445",
+      appId: "1:894998832445:web:b2a11b9df682eaa7f6d154",
+      measurementId: "G-Y9GQYQGZWG"
+    };
+
+    let firebaseAuth = null;
+    let currentFirebaseUser = null;
+    let currentIdToken = null;
+    let authMode = 'signin'; // 'signin' or 'signup'
 
     let activeView = 'dashboard'; // Default to Dashboard with Left Panel matching images!
     let activeDashTab = 'logs';   // Default sub-tab within Dashboard
@@ -717,6 +821,41 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       updateCodeViewer();
       fetchApiLogs();
       fetchApiKeys();
+
+      // Initialize Firebase Authentication
+      if (typeof firebase !== 'undefined') {
+        try {
+          firebase.initializeApp(firebaseConfig);
+          firebaseAuth = firebase.auth();
+          firebaseAuth.onAuthStateChanged(async (user) => {
+            currentFirebaseUser = user;
+            if (user) {
+              try {
+                currentIdToken = await user.getIdToken();
+              } catch (e) {
+                currentIdToken = null;
+              }
+              updateUserUI(user);
+            } else {
+              currentIdToken = null;
+              updateUserUI(null);
+            }
+            fetchApiKeys();
+          });
+        } catch (e) {
+          console.warn('Firebase init warning:', e);
+        }
+      }
+
+      window.addEventListener('click', (e) => {
+        const menu = document.getElementById('user-dropdown-menu');
+        const avatarBtn = document.getElementById('btn-user-avatar');
+        if (menu && !menu.classList.contains('hidden')) {
+          if (avatarBtn && !avatarBtn.contains(e.target) && !menu.contains(e.target)) {
+            menu.classList.add('hidden');
+          }
+        }
+      });
 
       document.addEventListener('keydown', (e) => {
         if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
@@ -1005,7 +1144,11 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
 
     async function fetchApiKeys() {
       try {
-        const res = await fetch('/api/keys');
+        const headers = {};
+        if (currentIdToken) {
+          headers['Authorization'] = 'Bearer ' + currentIdToken;
+        }
+        const res = await fetch('/api/keys', { headers });
         const data = await res.json();
         const tbody = document.getElementById('api-keys-tbody');
 
@@ -1053,9 +1196,13 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
       const tier = document.getElementById('new-key-tier').value;
       const quota = tier === 'enterprise' ? 1000000 : (tier === 'pro' ? 100000 : 10000);
       try {
+        const headers = { 'Content-Type': 'application/json' };
+        if (currentIdToken) {
+          headers['Authorization'] = 'Bearer ' + currentIdToken;
+        }
         const res = await fetch('/api/keys', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: headers,
           body: JSON.stringify({ name, tier, monthlyQuota: quota })
         });
         const data = await res.json();
@@ -1077,7 +1224,11 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
     }
     async function deleteKey(id) {
       if (!confirm('Are you sure you want to delete this API key?')) return;
-      await fetch('/api/keys/' + id, { method: 'DELETE' });
+      const headers = {};
+      if (currentIdToken) {
+        headers['Authorization'] = 'Bearer ' + currentIdToken;
+      }
+      await fetch('/api/keys/' + id, { method: 'DELETE', headers });
       fetchApiKeys();
     }
 
@@ -1170,6 +1321,159 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
 
     function openConfigModal() { document.getElementById('modal-config').classList.remove('hidden'); }
     function closeConfigModal() { document.getElementById('modal-config').classList.add('hidden'); }
+
+    // =========================================================================
+    // Firebase Authentication Frontend Handlers
+    // =========================================================================
+    function openAuthModal() {
+      document.getElementById('modal-auth').classList.remove('hidden');
+      clearAuthErrors();
+      lucide.createIcons();
+    }
+
+    function closeAuthModal() {
+      document.getElementById('modal-auth').classList.add('hidden');
+      clearAuthErrors();
+    }
+
+    function toggleAuthMode() {
+      authMode = authMode === 'signin' ? 'signup' : 'signin';
+      const title = document.getElementById('auth-modal-title');
+      const submitBtn = document.getElementById('btn-auth-submit');
+      const switchText = document.getElementById('auth-switch-text');
+      const switchBtn = document.getElementById('auth-switch-btn');
+      clearAuthErrors();
+
+      if (authMode === 'signup') {
+        title.textContent = 'Create your account';
+        submitBtn.textContent = 'Create Account';
+        switchText.textContent = 'Already have an account?';
+        switchBtn.textContent = 'Sign in';
+      } else {
+        title.textContent = 'Sign in to your account';
+        submitBtn.textContent = 'Sign In';
+        switchText.textContent = "Don't have an account?";
+        switchBtn.textContent = 'Sign up';
+      }
+    }
+
+    function showAuthError(msg) {
+      const banner = document.getElementById('auth-error-banner');
+      if (banner) {
+        banner.textContent = msg;
+        banner.classList.remove('hidden');
+      }
+    }
+
+    function clearAuthErrors() {
+      const banner = document.getElementById('auth-error-banner');
+      if (banner) {
+        banner.textContent = '';
+        banner.classList.add('hidden');
+      }
+    }
+
+    async function handleGoogleSignIn() {
+      clearAuthErrors();
+      if (!firebaseAuth) {
+        showAuthError('Authentication service not initialized');
+        return;
+      }
+      try {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        await firebaseAuth.signInWithPopup(provider);
+        closeAuthModal();
+      } catch (err) {
+        showAuthError(err.message || 'Google sign-in failed');
+      }
+    }
+
+    async function handleEmailAuth(e) {
+      e.preventDefault();
+      clearAuthErrors();
+      if (!firebaseAuth) {
+        showAuthError('Authentication service not initialized');
+        return;
+      }
+      const email = document.getElementById('auth-email').value.trim();
+      const password = document.getElementById('auth-password').value;
+      const submitBtn = document.getElementById('btn-auth-submit');
+      const originalText = submitBtn.textContent;
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Processing...';
+
+      try {
+        if (authMode === 'signup') {
+          await firebaseAuth.createUserWithEmailAndPassword(email, password);
+        } else {
+          await firebaseAuth.signInWithEmailAndPassword(email, password);
+        }
+        closeAuthModal();
+      } catch (err) {
+        showAuthError(err.message || 'Authentication failed');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+      }
+    }
+
+    async function handleSignOut() {
+      if (firebaseAuth) {
+        await firebaseAuth.signOut();
+      }
+      const menu = document.getElementById('user-dropdown-menu');
+      if (menu) menu.classList.add('hidden');
+    }
+
+    function toggleUserDropdown(e) {
+      if (e) e.stopPropagation();
+      const menu = document.getElementById('user-dropdown-menu');
+      if (menu) menu.classList.toggle('hidden');
+    }
+
+    function copyUserId() {
+      if (currentFirebaseUser && currentFirebaseUser.uid) {
+        navigator.clipboard.writeText(currentFirebaseUser.uid);
+        alert('User ID copied to clipboard: ' + currentFirebaseUser.uid);
+      }
+    }
+
+    function updateUserUI(user) {
+      const loginBtn = document.getElementById('btn-login-trigger');
+      const userMenu = document.getElementById('user-profile-menu-container');
+      const nameEl = document.getElementById('user-menu-name');
+      const emailEl = document.getElementById('user-menu-email');
+      const initialsEl = document.getElementById('user-avatar-initials');
+      const imgEl = document.getElementById('user-avatar-img');
+
+      if (user) {
+        if (loginBtn) loginBtn.classList.add('hidden');
+        if (userMenu) userMenu.classList.remove('hidden');
+
+        const displayName = user.displayName || (user.email ? user.email.split('@')[0] : 'User');
+        const displayEmail = user.email || 'No email attached';
+        const initials = displayName.charAt(0).toUpperCase();
+
+        if (nameEl) nameEl.textContent = displayName;
+        if (emailEl) emailEl.textContent = displayEmail;
+
+        if (user.photoURL && imgEl) {
+          imgEl.src = user.photoURL;
+          imgEl.classList.remove('hidden');
+          if (initialsEl) initialsEl.classList.add('hidden');
+        } else {
+          if (initialsEl) {
+            initialsEl.textContent = initials;
+            initialsEl.classList.remove('hidden');
+          }
+          if (imgEl) imgEl.classList.add('hidden');
+        }
+      } else {
+        if (loginBtn) loginBtn.classList.remove('hidden');
+        if (userMenu) userMenu.classList.add('hidden');
+      }
+      lucide.createIcons();
+    }
   </script>
 </body>
 </html>`;

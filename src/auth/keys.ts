@@ -15,6 +15,7 @@ export interface ApiKeyRecord {
   requests_used: number;
   is_active: number;
   created_at: string;
+  user_id?: string;
 }
 
 export interface ApiKeyValidationResult {
@@ -65,7 +66,8 @@ export async function createApiKey(
   name: string,
   tier: "free" | "pro" | "enterprise" = "free",
   monthlyQuota: number = 10_000,
-  env: any
+  env: any,
+  userId: string = "anonymous"
 ): Promise<{ rawKey: string; record: ApiKeyRecord }> {
   const rawKey = generateRawKey(tier === "free" && name.toLowerCase().includes("test"));
   const keyHash = await hashApiKey(rawKey);
@@ -82,6 +84,7 @@ export async function createApiKey(
     requests_used: 0,
     is_active: 1,
     created_at: createdAt,
+    user_id: userId,
   };
 
   const db = env?.DB;
@@ -89,10 +92,10 @@ export async function createApiKey(
     try {
       await db
         .prepare(
-          `INSERT INTO api_keys (id, key_hash, key_prefix, name, tier, monthly_quota, requests_used, is_active, created_at)
-           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
+          `INSERT INTO api_keys (id, key_hash, key_prefix, name, tier, monthly_quota, requests_used, is_active, created_at, user_id)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
         )
-        .bind(id, keyHash, keyPrefix, record.name, tier, monthlyQuota, 0, 1, createdAt)
+        .bind(id, keyHash, keyPrefix, record.name, tier, monthlyQuota, 0, 1, createdAt, userId)
         .run();
     } catch {
       // If table doesn't exist yet, attempt creation on the fly
@@ -107,17 +110,18 @@ export async function createApiKey(
              monthly_quota INTEGER DEFAULT 10000,
              requests_used INTEGER DEFAULT 0,
              is_active INTEGER DEFAULT 1,
-             created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+             created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+             user_id TEXT DEFAULT 'anonymous'
            )`
         )
         .run();
 
       await db
         .prepare(
-          `INSERT INTO api_keys (id, key_hash, key_prefix, name, tier, monthly_quota, requests_used, is_active, created_at)
-           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
+          `INSERT INTO api_keys (id, key_hash, key_prefix, name, tier, monthly_quota, requests_used, is_active, created_at, user_id)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
         )
-        .bind(id, keyHash, keyPrefix, record.name, tier, monthlyQuota, 0, 1, createdAt)
+        .bind(id, keyHash, keyPrefix, record.name, tier, monthlyQuota, 0, 1, createdAt, userId)
         .run();
     }
   }
@@ -205,13 +209,18 @@ export async function validateApiKey(rawKey: string, env: any): Promise<ApiKeyVa
 /**
  * List all API keys (without sensitive hashes)
  */
-export async function listApiKeys(env: any): Promise<ApiKeyRecord[]> {
+export async function listApiKeys(env: any, userId?: string): Promise<ApiKeyRecord[]> {
   const db = env?.DB;
   if (db && typeof db.prepare === "function") {
     try {
-      const res = await db
-        .prepare(`SELECT id, key_prefix, name, tier, monthly_quota, requests_used, is_active, created_at FROM api_keys ORDER BY created_at DESC`)
-        .all();
+      let query = `SELECT id, key_prefix, name, tier, monthly_quota, requests_used, is_active, created_at, user_id FROM api_keys WHERE is_active = 1`;
+      const params: any[] = [];
+      if (userId) {
+        query += ` AND (user_id = ? OR user_id = 'anonymous')`;
+        params.push(userId);
+      }
+      query += ` ORDER BY created_at DESC`;
+      const res = await db.prepare(query).bind(...params).all();
       if (res && Array.isArray(res.results)) {
         return res.results as ApiKeyRecord[];
       }
@@ -219,7 +228,11 @@ export async function listApiKeys(env: any): Promise<ApiKeyRecord[]> {
       // fallback to local store
     }
   }
-  return Array.from(localKeyStore.values()).sort(
+  let keys = Array.from(localKeyStore.values()).filter((k) => k.is_active === 1);
+  if (userId) {
+    keys = keys.filter((k) => !k.user_id || k.user_id === userId || k.user_id === "anonymous");
+  }
+  return keys.sort(
     (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
   );
 }

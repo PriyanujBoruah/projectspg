@@ -10,6 +10,7 @@ import {
   createAuthMiddleware,
 } from "./auth/keys";
 import { getApiCallLogs } from "./audit/logger";
+import { verifyFirebaseIdToken, FIREBASE_CONFIG } from "./auth/firebase";
 
 const app = new Hono();
 
@@ -66,10 +67,31 @@ app.route("/v1", openaiApp);
 app.route("/", openaiApp);
 
 // =========================================================================
-// API Key Management REST Endpoints (Dashboard / Administrative)
+// API Key Management & Firebase Auth REST Endpoints
 // =========================================================================
+app.get("/api/config/firebase", (c) => {
+  return c.json({ config: FIREBASE_CONFIG });
+});
+
+app.get("/api/auth/me", async (c) => {
+  const authHeader = c.req.header("Authorization") || "";
+  if (!authHeader.startsWith("Bearer ")) {
+    return c.json({ user: null });
+  }
+  const token = authHeader.slice(7).trim();
+  const user = await verifyFirebaseIdToken(token);
+  return c.json({ user });
+});
+
 app.get("/api/keys", async (c) => {
-  const keys = await listApiKeys(c.env);
+  const authHeader = c.req.header("Authorization") || "";
+  let userId: string | undefined = undefined;
+  if (authHeader.startsWith("Bearer ")) {
+    const token = authHeader.slice(7).trim();
+    const user = await verifyFirebaseIdToken(token);
+    if (user) userId = user.uid;
+  }
+  const keys = await listApiKeys(c.env, userId);
   return c.json({ keys });
 });
 
@@ -80,10 +102,17 @@ app.post("/api/keys", async (c) => {
   } catch {
     // empty body fallback
   }
+  const authHeader = c.req.header("Authorization") || "";
+  let userId = "anonymous";
+  if (authHeader.startsWith("Bearer ")) {
+    const token = authHeader.slice(7).trim();
+    const user = await verifyFirebaseIdToken(token);
+    if (user) userId = user.uid;
+  }
   const name = body.name || "Default Key";
   const tier = body.tier || "free";
   const quota = body.monthlyQuota || 10_000;
-  const result = await createApiKey(name, tier, quota, c.env);
+  const result = await createApiKey(name, tier, quota, c.env, userId);
   return c.json(result, 201);
 });
 
