@@ -1,7 +1,7 @@
 /**
- * ProjectSPG Enterprise Dashboard (Single-File Architecture)
- * Color Palette: Smoky Grey / Smoke (#0c0e12, #181e28, #222936),
- * Smoky Blue (#101726, #1e293b, #25466e), Electric Blue (#00f0ff, #00d2ff, #38bdf8)
+ * ProjectSPG Enterprise Console (Single-File Architecture)
+ * Layout: Exact replica of modern LLM Gateway Console (Groq/OpenAI Playground style)
+ * Palette: Smoky Grey / Smoke (#0d0f12, #14171f, #222733), Smoky Blue (#111827, #182338), Electric Blue (#00f0ff, #38bdf8)
  */
 
 export const DASHBOARD_HTML = `<!DOCTYPE html>
@@ -9,14 +9,14 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ProjectSPG — Enterprise AI Security & Privacy Gateway</title>
+  <title>ProjectSPG Console</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons CDN -->
   <script src="https://unpkg.com/lucide@latest"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
   <script>
     tailwind.config = {
@@ -24,41 +24,29 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       theme: {
         extend: {
           colors: {
-            smoke: {
-              950: '#090b0e',
-              900: '#0d1015',
-              850: '#12161d',
-              800: '#171c26',
-              700: '#222936',
-              600: '#2f3849',
-              500: '#475569',
-              400: '#94a3b8',
-              300: '#cbd5e1'
+            console: {
+              bg: '#0c0e12',
+              surface: '#12151c',
+              elevated: '#171c26',
+              border: '#202634',
+              hover: '#262e3e',
+              muted: '#7e8b9f',
+              text: '#e2e8f0',
             },
-            smokyblue: {
-              950: '#080d16',
-              900: '#0c1422',
-              850: '#101a2c',
-              800: '#152238',
-              700: '#1d2f4d',
-              600: '#284168',
-              500: '#385d94'
+            smoky: {
+              blue: '#131e30',
+              border: '#1f2f4a',
             },
             electric: {
               DEFAULT: '#00f0ff',
               hover: '#38bdf8',
               glow: 'rgba(0, 240, 255, 0.35)',
-              dim: '#0099cc'
+              dim: '#00a3cc'
             }
           },
           fontFamily: {
-            sans: ['Inter', 'sans-serif'],
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
             mono: ['JetBrains Mono', 'monospace']
-          },
-          boxShadow: {
-            'electric-sm': '0 0 10px rgba(0, 240, 255, 0.25)',
-            'electric-md': '0 0 20px rgba(0, 240, 255, 0.35)',
-            'electric-lg': '0 0 35px rgba(0, 240, 255, 0.45)',
           }
         }
       }
@@ -67,685 +55,898 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
   <style>
     body {
-      background-color: #090b0e;
-      color: #cbd5e1;
+      background-color: #0c0e12;
+      color: #e2e8f0;
       font-family: 'Inter', sans-serif;
-    }
-    .grid-bg {
-      background-size: 32px 32px;
-      background-image: 
-        linear-gradient(to right, rgba(34, 41, 54, 0.3) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(34, 41, 54, 0.3) 1px, transparent 1px);
-    }
-    .electric-glow-text {
-      text-shadow: 0 0 12px rgba(0, 240, 255, 0.6);
     }
     .token-badge {
       display: inline-block;
-      padding: 2px 6px;
+      padding: 1px 6px;
       border-radius: 4px;
       font-family: 'JetBrains Mono', monospace;
       font-weight: 600;
-      font-size: 0.825rem;
+      font-size: 0.8rem;
       background: rgba(0, 240, 255, 0.12);
       color: #00f0ff;
-      border: 1px solid rgba(0, 240, 255, 0.35);
-      box-shadow: 0 0 8px rgba(0, 240, 255, 0.2);
+      border: 1px solid rgba(0, 240, 255, 0.4);
     }
-    .token-rehydrated {
-      display: inline-block;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-family: 'JetBrains Mono', monospace;
-      font-weight: 600;
-      font-size: 0.825rem;
-      background: rgba(16, 185, 129, 0.15);
-      color: #34d399;
-      border: 1px solid rgba(16, 185, 129, 0.4);
-    }
-    /* Custom scrollbars */
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: #0d1015; }
-    ::-webkit-scrollbar-thumb { background: #222936; border-radius: 3px; }
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: #0c0e12; }
+    ::-webkit-scrollbar-thumb { background: #202634; border-radius: 3px; }
     ::-webkit-scrollbar-thumb:hover { background: #00f0ff; }
   </style>
 </head>
 
-<body class="min-h-screen grid-bg flex flex-col antialiased selection:bg-electric selection:text-smoke-950">
+<body class="min-h-screen flex flex-col bg-console-bg text-console-text antialiased selection:bg-electric selection:text-black">
 
-  <!-- TOP HEADER -->
-  <header class="border-b border-smoke-700/80 bg-smoke-900/90 backdrop-blur-md sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-      
-      <!-- Brand Logo -->
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-lg bg-smokyblue-850 border border-electric/40 flex items-center justify-center shadow-electric-sm">
-          <i data-lucide="shield-check" class="w-6 h-6 text-electric"></i>
-        </div>
-        <div>
-          <div class="flex items-center gap-2">
-            <span class="text-xl font-bold tracking-tight text-white">Project<span class="text-electric electric-glow-text">SPG</span></span>
-            <span class="text-[10px] uppercase tracking-widest font-mono px-2 py-0.5 rounded bg-electric/10 text-electric border border-electric/30">v2.0 Enterprise</span>
-          </div>
-          <p class="text-xs text-smoke-400">Sovereign Privacy Gateway & Edge De-identification</p>
-        </div>
+  <!-- ========================================================================= -->
+  <!-- TOP GLOBAL NAVBAR (Exact Groq Console Header Layout) -->
+  <!-- ========================================================================= -->
+  <header class="h-13 border-b border-console-border bg-console-bg px-4 flex items-center justify-between z-40">
+    
+    <!-- Left: Brand Logo + Project Selector -->
+    <div class="flex items-center gap-3">
+      <a href="/dashboard" class="flex items-center gap-2 group">
+        <span class="font-extrabold text-2xl tracking-tighter text-white">project<span class="text-electric">spg</span></span>
+      </a>
+
+      <div class="h-4 w-[1px] bg-console-border mx-1"></div>
+
+      <!-- Project Selector Pill Dropdown -->
+      <div class="flex items-center gap-1.5 text-xs text-console-muted cursor-pointer hover:text-white transition">
+        <span>Personal</span>
+        <i data-lucide="chevrons-up-down" class="w-3 h-3 text-console-muted"></i>
+        <span class="mx-1 text-console-border">/</span>
+        <span class="text-white font-medium">Default Project</span>
+        <i data-lucide="chevrons-up-down" class="w-3 h-3 text-console-muted"></i>
       </div>
+    </div>
 
-      <!-- Navigation Tabs -->
-      <nav class="hidden md:flex items-center gap-1 bg-smoke-850 p-1 rounded-lg border border-smoke-700">
-        <button onclick="switchTab('playground')" id="nav-playground" class="tab-btn px-3 py-1.5 rounded-md text-xs font-medium text-electric bg-smokyblue-800 border border-electric/30 flex items-center gap-1.5 shadow-electric-sm transition">
-          <i data-lucide="play" class="w-3.5 h-3.5"></i> Live Playground
-        </button>
-        <button onclick="switchTab('keys')" id="nav-keys" class="tab-btn px-3 py-1.5 rounded-md text-xs font-medium text-smoke-400 hover:text-white flex items-center gap-1.5 transition">
-          <i data-lucide="key" class="w-3.5 h-3.5"></i> API Keys & Quota
-        </button>
-        <button onclick="switchTab('siem')" id="nav-siem" class="tab-btn px-3 py-1.5 rounded-md text-xs font-medium text-smoke-400 hover:text-white flex items-center gap-1.5 transition">
-          <i data-lucide="activity" class="w-3.5 h-3.5"></i> SIEM Audit Stream
-        </button>
-        <button onclick="switchTab('code')" id="nav-code" class="tab-btn px-3 py-1.5 rounded-md text-xs font-medium text-smoke-400 hover:text-white flex items-center gap-1.5 transition">
-          <i data-lucide="code" class="w-3.5 h-3.5"></i> SDK & Integration
-        </button>
+    <!-- Right: Navigation Tabs + Settings + Avatar -->
+    <div class="flex items-center gap-6 text-sm">
+      <nav class="flex items-center gap-5 text-xs font-medium">
+        <button onclick="switchView('playground')" id="nav-playground" class="nav-item text-electric font-semibold transition">Playground</button>
+        <button onclick="switchView('keys')" id="nav-keys" class="nav-item text-console-muted hover:text-white transition">API Keys</button>
+        <button onclick="switchView('dashboard')" id="nav-dashboard" class="nav-item text-console-muted hover:text-white transition">Dashboard</button>
+        <button onclick="switchView('docs')" id="nav-docs" class="nav-item text-console-muted hover:text-white transition">Docs</button>
       </nav>
 
-      <!-- Right Edge Status -->
-      <div class="flex items-center gap-4">
-        <div class="flex items-center gap-2 text-xs font-mono px-3 py-1.5 rounded-full bg-smokyblue-900 border border-smoke-700">
-          <span class="w-2 h-2 rounded-full bg-electric animate-pulse"></span>
-          <span class="text-smoke-300">Cloudflare Edge:</span>
-          <span id="edge-latency" class="text-electric font-semibold">1 ms</span>
+      <div class="flex items-center gap-3">
+        <button onclick="openConfigModal()" class="text-console-muted hover:text-white p-1" title="Gateway Settings">
+          <i data-lucide="settings" class="w-4 h-4"></i>
+        </button>
+        <div class="w-7 h-7 rounded-full bg-gradient-to-tr from-electric/30 to-smoky-blue border border-electric/40 flex items-center justify-center text-xs font-bold text-electric">
+          P
         </div>
-        <a href="https://github.com/PriyanujBoruah/projectspg" target="_blank" class="text-smoke-400 hover:text-electric transition p-1.5">
-          <i data-lucide="github" class="w-5 h-5"></i>
-        </a>
       </div>
     </div>
+
   </header>
 
-  <!-- METRICS SUMMARY BANNER -->
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-2 w-full">
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      
-      <div class="bg-gradient-to-br from-smokyblue-900/80 to-smoke-850 p-4 rounded-xl border border-smoke-700/80 relative overflow-hidden">
-        <div class="flex items-center justify-between text-smoke-400 text-xs font-medium mb-1">
-          <span>Engine Precision</span>
-          <i data-lucide="award" class="w-4 h-4 text-electric"></i>
+  <!-- ========================================================================= -->
+  <!-- VIEW 1: PLAYGROUND (Exact 3-Column Groq Layout) -->
+  <!-- ========================================================================= -->
+  <div id="view-playground" class="view-panel flex-1 flex flex-col">
+    
+    <!-- Playground Sub-Toolbar -->
+    <div class="h-12 border-b border-console-border bg-console-bg px-4 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <span class="text-sm font-semibold text-white">Playground</span>
+        <div class="bg-console-surface p-0.5 rounded-lg border border-console-border flex items-center text-xs">
+          <button class="px-2.5 py-0.5 rounded-md bg-console-elevated text-white font-medium shadow-sm">Chat</button>
+          <button class="px-2.5 py-0.5 rounded-md text-console-muted hover:text-white">Studio</button>
         </div>
-        <div class="text-2xl font-bold font-mono text-white">100.000%</div>
-        <div class="text-[11px] text-smoke-400 mt-1">Bit-for-Bit Roundtrip (9.33M Prompts)</div>
       </div>
 
-      <div class="bg-gradient-to-br from-smokyblue-900/80 to-smoke-850 p-4 rounded-xl border border-smoke-700/80 relative overflow-hidden">
-        <div class="flex items-center justify-between text-smoke-400 text-xs font-medium mb-1">
-          <span>Median Speed</span>
-          <i data-lucide="zap" class="w-4 h-4 text-electric"></i>
-        </div>
-        <div class="text-2xl font-bold font-mono text-electric electric-glow-text">86 µs</div>
-        <div class="text-[11px] text-smoke-400 mt-1">Median Sub-millisecond Engine Overhead</div>
-      </div>
-
-      <div class="bg-gradient-to-br from-smokyblue-900/80 to-smoke-850 p-4 rounded-xl border border-smoke-700/80 relative overflow-hidden">
-        <div class="flex items-center justify-between text-smoke-400 text-xs font-medium mb-1">
-          <span>Sovereign Coverage</span>
-          <i data-lucide="globe" class="w-4 h-4 text-electric"></i>
-        </div>
-        <div class="text-2xl font-bold font-mono text-white">109 Nations</div>
-        <div class="text-[11px] text-smoke-400 mt-1">67 Mathematical Checksum Engines</div>
-      </div>
-
-      <div class="bg-gradient-to-br from-smokyblue-900/80 to-smoke-850 p-4 rounded-xl border border-smoke-700/80 relative overflow-hidden">
-        <div class="flex items-center justify-between text-smoke-400 text-xs font-medium mb-1">
-          <span>Zero-Knowledge Trust</span>
-          <i data-lucide="lock" class="w-4 h-4 text-electric"></i>
-        </div>
-        <div class="text-2xl font-bold font-mono text-white">BYOK AES-256</div>
-        <div class="text-[11px] text-smoke-400 mt-1">PBKDF2 SHA-256 Authenticated KMS</div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- MAIN TAB CONTENT CONTAINER -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex-1 w-full">
-
-    <!-- ================================================================= -->
-    <!-- TAB 1: INTERACTIVE PLAYGROUND -->
-    <!-- ================================================================= -->
-    <div id="tab-playground" class="tab-content flex flex-col gap-4">
-      
-      <!-- Preset Scenarios Toolbar -->
-      <div class="bg-smoke-900 p-3 rounded-xl border border-smoke-700/80 flex flex-wrap items-center justify-between gap-3">
-        <div class="flex items-center gap-2">
-          <span class="text-xs font-semibold text-smoke-400 uppercase tracking-wider flex items-center gap-1.5">
-            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-electric"></i> Preset Demos:
-          </span>
-          <button onclick="loadPreset('banking')" class="px-2.5 py-1 rounded text-xs font-medium bg-smokyblue-850 hover:bg-smokyblue-800 text-smoke-200 border border-smoke-700 hover:border-electric transition">
-            🏦 Banking Wire Transfer
-          </button>
-          <button onclick="loadPreset('healthcare')" class="px-2.5 py-1 rounded text-xs font-medium bg-smokyblue-850 hover:bg-smokyblue-800 text-smoke-200 border border-smoke-700 hover:border-electric transition">
-            🏥 Patient Medical Record
-          </button>
-          <button onclick="loadPreset('germantax')" class="px-2.5 py-1 rounded text-xs font-medium bg-smokyblue-850 hover:bg-smokyblue-800 text-smoke-200 border border-smoke-700 hover:border-electric transition">
-            🇩🇪 German Tax ID Audit
-          </button>
-          <button onclick="loadPreset('custom')" class="px-2.5 py-1 rounded text-xs font-medium bg-smokyblue-850 hover:bg-smokyblue-800 text-smoke-200 border border-smoke-700 hover:border-electric transition">
-            🚀 Project Titan M&A Codenames
-          </button>
-        </div>
-
-        <!-- Provider Select -->
-        <div class="flex items-center gap-2">
-          <label class="text-xs text-smoke-400 font-medium">Upstream Provider:</label>
-          <select id="provider-select" onchange="onProviderChange()" class="bg-smoke-850 border border-smoke-700 text-white text-xs rounded-lg px-3 py-1.5 focus:border-electric focus:outline-none">
-            <option value="direct">Direct Engine (Zero Upstream Latency)</option>
-            <option value="gemini">Google Gemini (gemini-2.5-flash-lite)</option>
-            <option value="groq">Groq Cloud (openai/gpt-oss-120b)</option>
-            <option value="mistral">Mistral AI (open-mistral-7b)</option>
-            <option value="openrouter">OpenRouter (google/gemini-2.5-flash)</option>
-            <option value="openai">OpenAI (gpt-4o)</option>
+      <div class="flex items-center gap-2">
+        <!-- Model Dropdown Pill -->
+        <div class="relative">
+          <select id="playground-model" onchange="onModelChange()" class="appearance-none bg-console-surface border border-console-border text-white text-xs font-mono rounded-lg pl-3 pr-8 py-1.5 focus:border-electric focus:outline-none cursor-pointer">
+            <option value="openai/gpt-oss-120b">openai/gpt-oss-120b (Groq)</option>
+            <option value="gemini-2.5-flash-lite">gemini-2.5-flash-lite (Google)</option>
+            <option value="open-mistral-7b">open-mistral-7b (Mistral)</option>
+            <option value="google/gemini-2.5-flash">google/gemini-2.5-flash (OpenRouter)</option>
+            <option value="gpt-4o">gpt-4o (OpenAI)</option>
           </select>
+          <i data-lucide="chevrons-up-down" class="w-3.5 h-3.5 text-console-muted absolute right-2.5 top-2.5 pointer-events-none"></i>
         </div>
-      </div>
 
-      <!-- Settings Bar (Collapsible / Compact) -->
-      <div class="bg-smoke-850 p-3 rounded-xl border border-smoke-700 grid grid-cols-1 md:grid-cols-4 gap-3 text-xs">
-        <div>
-          <label class="block text-smoke-400 font-medium mb-1">Tokenization Mode</label>
-          <select id="setting-mode" class="w-full bg-smoke-900 border border-smoke-700 rounded px-2.5 py-1.5 text-white focus:border-electric focus:outline-none font-mono">
-            <option value="structural">Structural (e.g. CARD_1, SSN_1)</option>
-            <option value="fpe">Format-Preserving (Synthetic Valid Mocks)</option>
-          </select>
+        <!-- Copy Model Name Button -->
+        <button onclick="copyModelName()" class="p-1.5 rounded-lg bg-console-surface border border-console-border text-console-muted hover:text-white" title="Copy model name">
+          <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+        </button>
+
+        <!-- Toggle Code Button -->
+        <button onclick="toggleCodePanel()" id="btn-toggle-code" class="px-3 py-1.5 rounded-lg bg-console-surface border border-console-border text-xs font-medium text-white hover:border-console-muted flex items-center gap-1.5">
+          <i data-lucide="code" class="w-3.5 h-3.5 text-electric"></i>
+          <span id="code-btn-text">Hide code</span>
+        </button>
+
+        <!-- Tune Settings Button -->
+        <button onclick="openConfigModal()" class="p-1.5 rounded-lg bg-console-surface border border-console-border text-console-muted hover:text-white" title="Parameters">
+          <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Playground 3-Column Workspace -->
+    <div class="flex-1 flex overflow-hidden">
+      
+      <!-- COLUMN 1: SYSTEM & USER PROMPTS -->
+      <div class="w-1/3 min-w-[280px] border-r border-console-border p-4 flex flex-col justify-between overflow-y-auto">
+        <div class="space-y-4">
+          
+          <!-- System Message Field -->
+          <div>
+            <div class="text-[11px] font-semibold text-console-muted uppercase tracking-wider mb-1.5">SYSTEM</div>
+            <textarea id="system-prompt" rows="2" class="w-full bg-transparent border border-console-border rounded-lg p-2.5 text-xs text-white placeholder-console-muted/60 focus:border-electric focus:outline-none resize-none font-mono" placeholder="Enter system message (Optional)">You are a secure customer service assistant.</textarea>
+          </div>
+
+          <!-- User Message Field -->
+          <div>
+            <div class="text-[11px] font-semibold text-console-muted uppercase tracking-wider mb-1.5">USER</div>
+            <div class="bg-console-surface border border-console-border rounded-xl p-3 focus-within:border-electric transition">
+              <textarea id="user-prompt" rows="7" class="w-full bg-transparent text-xs text-white placeholder-console-muted/60 focus:outline-none resize-none font-mono leading-relaxed" placeholder="Enter user message (e.g. Include credit cards, SSN, emails, phones)...">Please confirm order for Alice Wong (email: alice.wong@fintech.de, SSN: 123-45-6789) using Visa card 4532-0151-1283-0366. Repeat back her name, email, and card number.</textarea>
+              
+              <!-- Quick Preset Badges -->
+              <div class="mt-2 pt-2 border-t border-console-border/60 flex flex-wrap gap-1.5 text-[10px]">
+                <button onclick="loadSample('banking')" class="px-2 py-0.5 rounded bg-console-elevated hover:bg-console-hover text-console-muted hover:text-electric transition">🏦 Banking Wire</button>
+                <button onclick="loadSample('patient')" class="px-2 py-0.5 rounded bg-console-elevated hover:bg-console-hover text-console-muted hover:text-electric transition">🏥 Patient Record</button>
+                <button onclick="loadSample('germantax')" class="px-2 py-0.5 rounded bg-console-elevated hover:bg-console-hover text-console-muted hover:text-electric transition">🇩🇪 German Tax ID</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Privacy Shield Live Indicator -->
+          <div class="p-3 bg-smoky-blue/40 border border-smoky-border rounded-lg flex items-center justify-between text-xs">
+            <div class="flex items-center gap-2">
+              <i data-lucide="shield-check" class="w-4 h-4 text-electric"></i>
+              <span class="text-xs text-white font-medium">ProjectSPG Active</span>
+            </div>
+            <span id="shield-status-badge" class="text-[10px] font-mono px-2 py-0.5 rounded bg-electric/10 text-electric border border-electric/30">Auto De-identify</span>
+          </div>
+
         </div>
-        <div>
-          <label class="block text-smoke-400 font-medium mb-1">Customer BYOK KMS Passphrase</label>
-          <input type="password" id="setting-kms" placeholder="Optional AES-256 secret key" class="w-full bg-smoke-900 border border-smoke-700 rounded px-2.5 py-1.5 text-white focus:border-electric focus:outline-none font-mono">
-        </div>
-        <div>
-          <label class="block text-smoke-400 font-medium mb-1">Upstream Provider API Key</label>
-          <input type="password" id="setting-apikey" placeholder="Enter API key for live LLM" class="w-full bg-smoke-900 border border-smoke-700 rounded px-2.5 py-1.5 text-white focus:border-electric focus:outline-none font-mono">
-        </div>
-        <div class="flex items-end">
-          <button onclick="executeShield()" id="btn-execute" class="w-full py-2 rounded-lg bg-electric hover:bg-electric-hover text-smoke-950 font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-electric-md transition transform active:scale-95">
-            <i data-lucide="shield-check" class="w-4 h-4"></i> Run Privacy Shield
+
+        <!-- Column 1 Bottom Bar -->
+        <div class="pt-4 border-t border-console-border/80 flex items-center justify-between">
+          <button onclick="clearInputs()" class="text-xs text-console-muted hover:text-white flex items-center gap-1.5 transition">
+            <i data-lucide="plus-circle" class="w-3.5 h-3.5"></i> New Message
+          </button>
+          <button onclick="clearInputs()" class="text-xs text-console-muted hover:text-white px-3 py-1 rounded bg-console-surface border border-console-border">
+            Clear
           </button>
         </div>
       </div>
 
-      <!-- 3-WAY SPLIT SCREEN VISUALIZER -->
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        
-        <!-- PANE 1: INPUT PROMPT -->
-        <div class="bg-smoke-900 rounded-xl border border-smoke-700 flex flex-col h-[440px] shadow-sm">
-          <div class="p-3 border-b border-smoke-700 flex items-center justify-between bg-smokyblue-950/60 rounded-t-xl">
-            <div class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-red-400"></span>
-              <span class="text-xs font-semibold text-white tracking-wide uppercase">1. Client Raw Prompt</span>
-            </div>
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-red-500/10 text-red-400 border border-red-500/20">High Risk PII</span>
-          </div>
-          <div class="p-3 flex-1 flex flex-col">
-            <textarea id="prompt-input" class="w-full flex-1 bg-transparent text-smoke-200 font-mono text-xs leading-relaxed resize-none focus:outline-none" placeholder="Type prompt containing credit cards, SSN, emails, or names..."></textarea>
-          </div>
-          <div class="p-2.5 border-t border-smoke-700/60 bg-smoke-950/40 text-[11px] text-smoke-500 flex justify-between">
-            <span id="input-stats">0 characters</span>
-            <span>Unsanitized Network Egress</span>
-          </div>
-        </div>
-
-        <!-- PANE 2: WHAT UPSTREAM LLM SEES -->
-        <div class="bg-smoke-900 rounded-xl border border-smoke-700 flex flex-col h-[440px] shadow-sm relative overflow-hidden">
-          <div class="p-3 border-b border-smoke-700 flex items-center justify-between bg-smokyblue-950/60 rounded-t-xl">
-            <div class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-electric shadow-electric-sm"></span>
-              <span class="text-xs font-semibold text-white tracking-wide uppercase">2. Forwarded to LLM</span>
-            </div>
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-electric/10 text-electric border border-electric/30">Zero PII Transmitted</span>
-          </div>
-          <div class="p-3 flex-1 overflow-y-auto font-mono text-xs leading-relaxed text-smoke-300" id="sanitized-output">
-            <div class="text-smoke-600 italic h-full flex items-center justify-center text-center p-4">
-              Click "Run Privacy Shield" to view neutralized tokens sent to upstream model...
-            </div>
-          </div>
-          <div class="p-2.5 border-t border-smoke-700/60 bg-smoke-950/40 text-[11px] text-smoke-400 flex justify-between font-mono">
-            <span id="intercept-stats">0 entities intercepted</span>
-            <span id="kms-badge" class="text-smoke-500">KMS: OFF</span>
-          </div>
-        </div>
-
-        <!-- PANE 3: REHYDRATED RESPONSE -->
-        <div class="bg-smoke-900 rounded-xl border border-smoke-700 flex flex-col h-[440px] shadow-sm">
-          <div class="p-3 border-b border-smoke-700 flex items-center justify-between bg-smokyblue-950/60 rounded-t-xl">
-            <div class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
-              <span class="text-xs font-semibold text-white tracking-wide uppercase">3. Restored to User</span>
-            </div>
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Exact Roundtrip 100%</span>
-          </div>
-          <div class="p-3 flex-1 overflow-y-auto font-mono text-xs leading-relaxed text-smoke-200" id="rehydrated-output">
-            <div class="text-smoke-600 italic h-full flex items-center justify-center text-center p-4">
-              Rehydrated response with original values bit-for-bit restored will render here...
-            </div>
-          </div>
-          <div class="p-2.5 border-t border-smoke-700/60 bg-smoke-950/40 text-[11px] text-smoke-400 flex justify-between font-mono">
-            <span id="latency-stats">Latency: 0 µs</span>
-            <span class="text-emerald-400">Zero Retention Enforced</span>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-
-    <!-- ================================================================= -->
-    <!-- TAB 2: API KEYS & QUOTA MANAGEMENT -->
-    <!-- ================================================================= -->
-    <div id="tab-keys" class="tab-content hidden flex-col gap-4">
-      
-      <!-- Key Management Header -->
-      <div class="bg-smoke-900 p-5 rounded-xl border border-smoke-700 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <!-- COLUMN 2: RESPONSE AREA -->
+      <div id="col-response" class="flex-1 flex flex-col justify-between p-4 overflow-y-auto">
         <div>
-          <h2 class="text-lg font-bold text-white flex items-center gap-2">
-            <i data-lucide="key" class="w-5 h-5 text-electric"></i> API Key Authentication & Usage Metering
-          </h2>
-          <p class="text-xs text-smoke-400 mt-1">Authenticate requests via <code class="text-electric bg-smoke-850 px-1.5 py-0.5 rounded">x-spg-api-key</code> header. Raw keys are never stored in plaintext.</p>
-        </div>
-        <div>
-          <button onclick="openCreateKeyModal()" class="px-4 py-2 rounded-lg bg-electric hover:bg-electric-hover text-smoke-950 font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 shadow-electric-sm transition">
-            <i data-lucide="plus" class="w-4 h-4"></i> Create New API Key
-          </button>
-        </div>
-      </div>
+          <div class="flex items-center justify-between mb-3">
+            <div class="text-[11px] font-semibold text-console-muted uppercase tracking-wider">RESPONSE</div>
+            <div id="response-stats" class="text-[11px] font-mono text-console-muted">0 tokens • 0.00s</div>
+          </div>
 
-      <!-- Keys Table -->
-      <div class="bg-smoke-900 rounded-xl border border-smoke-700 overflow-hidden">
-        <div class="p-4 border-b border-smoke-700 flex items-center justify-between">
-          <span class="text-xs font-semibold text-white uppercase tracking-wider">Active API Keys</span>
-          <span id="keys-count" class="text-xs text-smoke-400 font-mono">0 keys active</span>
+          <!-- Response Container -->
+          <div id="response-container" class="space-y-4 text-xs font-mono leading-relaxed">
+            <div id="welcome-message" class="text-console-muted space-y-3 font-sans">
+              <h3 class="text-white text-sm font-semibold">Welcome to the Playground</h3>
+              <ul class="list-disc list-inside space-y-1.5 text-xs text-console-muted">
+                <li>You can start by typing a prompt in the "User Message" field.</li>
+                <li>Sensitive PII (cards, SSNs, emails) is automatically neutralized at Cloudflare's edge before dispatch.</li>
+                <li>Click <strong class="text-white">"Submit"</strong> (or press <kbd class="px-1.5 py-0.5 rounded bg-console-elevated border border-console-border text-white text-[10px]">Ctrl + Enter</kbd>) to get a response.</li>
+                <li>Use the <strong class="text-white">"Hide code"</strong> button on the right to view or copy the code snippet.</li>
+              </ul>
+              <p class="text-xs text-console-muted pt-2">Check the <a href="javascript:void(0)" onclick="switchView('docs')" class="text-electric hover:underline">documentation</a> for full API references.</p>
+            </div>
+
+            <!-- Intercepted Tokens Preview (What LLM Saw) -->
+            <div id="upstream-tokens-box" class="hidden p-3 rounded-lg bg-console-surface border border-console-border font-mono text-xs">
+              <div class="text-[10px] uppercase font-bold text-electric mb-1.5 flex items-center gap-1.5">
+                <i data-lucide="eye-off" class="w-3.5 h-3.5"></i> Upstream Prompt Received By Model (Zero Raw PII):
+              </div>
+              <div id="upstream-tokens-text" class="text-smoke-300"></div>
+            </div>
+
+            <!-- Rehydrated Assistant Output -->
+            <div id="rehydrated-text" class="hidden whitespace-pre-wrap text-white bg-console-surface/50 p-4 rounded-xl border border-console-border"></div>
+          </div>
         </div>
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-xs">
-            <thead class="bg-smokyblue-950/50 text-smoke-400 border-b border-smoke-700 font-mono text-[11px] uppercase">
-              <tr>
-                <th class="p-3.5">Name</th>
-                <th class="p-3.5">Key Prefix</th>
-                <th class="p-3.5">Tier</th>
-                <th class="p-3.5">Usage & Quota</th>
-                <th class="p-3.5">Created</th>
-                <th class="p-3.5 text-right">Actions</th>
-              </tr>
-            </thead>
-            <tbody id="keys-table-body" class="divide-y divide-smoke-700/60 font-mono">
-              <tr>
-                <td colspan="6" class="p-6 text-center text-smoke-500 italic font-sans">Loading active API keys...</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
 
-    </div>
-
-    <!-- ================================================================= -->
-    <!-- TAB 3: SIEM AUDIT TELEMETRY STREAM -->
-    <!-- ================================================================= -->
-    <div id="tab-siem" class="tab-content hidden flex-col gap-4">
-      
-      <div class="bg-smoke-900 p-5 rounded-xl border border-smoke-700 flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <h2 class="text-lg font-bold text-white flex items-center gap-2">
-            <i data-lucide="activity" class="w-5 h-5 text-electric"></i> SOC 2 & HIPAA Non-PII Audit Telemetry
-          </h2>
-          <p class="text-xs text-smoke-400 mt-1">Real-time compliance stream. Sensitive data is tracked exclusively by irreversible 16-hex SHA-256 fingerprints.</p>
-        </div>
-        <div class="flex items-center gap-2">
-          <button onclick="fetchAuditEvents()" class="px-3 py-1.5 rounded-lg bg-smokyblue-850 hover:bg-smokyblue-800 text-smoke-200 border border-smoke-700 text-xs font-medium flex items-center gap-1.5 transition">
-            <i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-electric"></i> Refresh Stream
-          </button>
-        </div>
-      </div>
-
-      <!-- Audit Events Table -->
-      <div class="bg-smoke-900 rounded-xl border border-smoke-700 overflow-hidden">
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-xs font-mono">
-            <thead class="bg-smokyblue-950/50 text-smoke-400 border-b border-smoke-700 text-[11px] uppercase">
-              <tr>
-                <th class="p-3.5">Event ID</th>
-                <th class="p-3.5">Timestamp</th>
-                <th class="p-3.5">Type</th>
-                <th class="p-3.5">Entities & SHA-256 Fingerprints</th>
-                <th class="p-3.5">KMS Status</th>
-                <th class="p-3.5">Latency</th>
-              </tr>
-            </thead>
-            <tbody id="siem-table-body" class="divide-y divide-smoke-700/60">
-              <tr>
-                <td colspan="6" class="p-6 text-center text-smoke-500 italic font-sans">No audit events recorded yet. Run a prompt in the playground!</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- ================================================================= -->
-    <!-- TAB 4: SDK & CODE GENERATOR -->
-    <!-- ================================================================= -->
-    <div id="tab-code" class="tab-content hidden flex-col gap-4">
-      
-      <div class="bg-smoke-900 p-5 rounded-xl border border-smoke-700">
-        <h2 class="text-lg font-bold text-white flex items-center gap-2">
-          <i data-lucide="terminal" class="w-5 h-5 text-electric"></i> 1-Line Drop-In Code Generator
-        </h2>
-        <p class="text-xs text-smoke-400 mt-1">Copy-paste this production configuration into your Python pipeline or terminal.</p>
-      </div>
-
-      <div class="bg-smoke-900 rounded-xl border border-smoke-700 overflow-hidden">
-        <div class="p-2 border-b border-smoke-700 bg-smokyblue-950/60 flex items-center justify-between">
+        <!-- Column 2 Bottom Submit Bar (Matching Groq Pill Style) -->
+        <div class="pt-4 border-t border-console-border/80 flex items-center justify-between mt-4">
           <div class="flex items-center gap-2">
-            <button onclick="switchCodeLang('python')" id="code-btn-python" class="px-3 py-1 rounded text-xs font-semibold bg-electric text-smoke-950">Python (OpenAI SDK)</button>
-            <button onclick="switchCodeLang('curl')" id="code-btn-curl" class="px-3 py-1 rounded text-xs font-semibold text-smoke-400 hover:text-white">cURL</button>
-            <button onclick="switchCodeLang('langchain')" id="code-btn-langchain" class="px-3 py-1 rounded text-xs font-semibold text-smoke-400 hover:text-white">LangChain</button>
+            <button onclick="addConversationTurn()" class="px-3 py-1.5 rounded-lg bg-console-surface hover:bg-console-hover border border-console-border text-xs text-console-muted hover:text-white flex items-center gap-1.5">
+              <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> Add
+            </button>
+            <button onclick="clearResponse()" class="px-3 py-1.5 rounded-lg bg-console-surface hover:bg-console-hover border border-console-border text-xs text-console-muted hover:text-white flex items-center gap-1.5">
+              <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Clear
+            </button>
           </div>
-          <button onclick="copyGeneratedCode()" class="text-xs text-smoke-400 hover:text-electric flex items-center gap-1 font-mono">
-            <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy Code
+
+          <button onclick="submitPrompt()" id="btn-submit" class="px-5 py-2 rounded-full border border-electric/60 hover:border-electric bg-electric/10 hover:bg-electric text-electric hover:text-black font-semibold text-xs flex items-center gap-2 shadow-[0_0_15px_rgba(0,240,255,0.2)] transition active:scale-95">
+            <span>Submit</span>
+            <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-console-bg text-electric border border-electric/40">Ctrl + ↵</span>
           </button>
         </div>
-        <div class="p-4 bg-smoke-950">
-          <pre id="code-display" class="font-mono text-xs text-smoke-200 overflow-x-auto leading-relaxed"></pre>
+      </div>
+
+      <!-- COLUMN 3: CODE SNIPPET PANEL (Matching Groq Code View) -->
+      <div id="col-code" class="w-1/3 min-w-[320px] border-l border-console-border p-4 flex flex-col justify-between bg-console-bg overflow-y-auto">
+        <div>
+          <!-- Code Language Switcher Header -->
+          <div class="flex items-center justify-between mb-3">
+            <div class="relative">
+              <select id="code-lang-select" onchange="updateCodeViewer()" class="appearance-none bg-transparent text-xs font-semibold text-white pr-5 focus:outline-none cursor-pointer">
+                <option value="python">Python</option>
+                <option value="curl">cURL</option>
+                <option value="langchain">LangChain</option>
+              </select>
+              <i data-lucide="chevrons-up-down" class="w-3 h-3 text-console-muted absolute right-0 top-1 pointer-events-none"></i>
+            </div>
+
+            <button onclick="copySnippet()" class="text-xs text-console-muted hover:text-white flex items-center gap-1 font-mono transition">
+              <i data-lucide="copy" class="w-3 h-3"></i> Copy
+            </button>
+          </div>
+
+          <!-- Code Display -->
+          <pre class="p-3 bg-console-surface border border-console-border rounded-lg text-[11px] font-mono leading-relaxed overflow-x-auto text-console-muted selection:bg-electric selection:text-black" id="code-snippet-box"></pre>
+        </div>
+
+        <div class="pt-4 border-t border-console-border/80 text-[11px] text-console-muted flex items-center justify-between font-mono">
+          <span>Target: Cloudflare Edge</span>
+          <span class="text-electric">SSL Encrypted</span>
         </div>
       </div>
 
     </div>
 
-  </main>
+  </div>
 
-  <!-- CREATE API KEY MODAL -->
-  <div id="modal-create-key" class="fixed inset-0 bg-smoke-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-smoke-900 border border-smoke-700 rounded-xl max-w-md w-full p-6 shadow-2xl relative">
-      <h3 class="text-base font-bold text-white flex items-center gap-2">
-        <i data-lucide="key" class="w-4 h-4 text-electric"></i> Create ProjectSPG API Key
-      </h3>
-      <p class="text-xs text-smoke-400 mt-1">A cryptographically random 32-byte key will be generated.</p>
+  <!-- ========================================================================= -->
+  <!-- VIEW 2: API KEYS (Exact Groq Console API Keys Layout) -->
+  <!-- ========================================================================= -->
+  <div id="view-keys" class="view-panel hidden flex-1 p-8 max-w-6xl mx-auto w-full">
+    
+    <div class="flex items-center justify-between mb-6">
+      <div>
+        <h1 class="text-xl font-bold text-white mb-1">API Keys</h1>
+        <p class="text-xs text-console-muted">Manage your project API keys. Remember to keep your API keys safe to prevent unauthorized access.</p>
+      </div>
+
+      <button onclick="openCreateKeyModal()" class="px-4 py-2 rounded-lg border border-electric/60 hover:border-electric bg-electric/10 hover:bg-electric text-electric hover:text-black text-xs font-semibold flex items-center gap-2 transition shadow-[0_0_15px_rgba(0,240,255,0.2)]">
+        <i data-lucide="plus" class="w-3.5 h-3.5"></i> Create API Key
+      </button>
+    </div>
+
+    <!-- API Keys Table (Exact Columns as Groq Screenshot) -->
+    <div class="bg-console-bg border border-console-border rounded-xl overflow-hidden">
+      <table class="w-full text-left text-xs font-sans">
+        <thead class="text-console-muted text-[11px] uppercase tracking-wider font-semibold border-b border-console-border">
+          <tr>
+            <th class="py-3 px-4">NAME</th>
+            <th class="py-3 px-4">SECRET KEY</th>
+            <th class="py-3 px-4">CREATED</th>
+            <th class="py-3 px-4">LAST USED</th>
+            <th class="py-3 px-4">EXPIRES</th>
+            <th class="py-3 px-4">USAGE (24HRS)</th>
+            <th class="py-3 px-4 text-right"></th>
+          </tr>
+        </thead>
+        <tbody id="api-keys-tbody" class="divide-y divide-console-border font-mono text-xs">
+          <tr>
+            <td colspan="7" class="py-8 text-center text-console-muted font-sans italic">Loading API keys...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- VIEW 3: DASHBOARD / LOGS (Exact Groq Logs Screenshot Layout) -->
+  <!-- ========================================================================= -->
+  <div id="view-dashboard" class="view-panel hidden flex-1 flex overflow-hidden">
+    
+    <!-- Logs Left Sidebar -->
+    <aside class="w-48 border-r border-console-border p-4 text-xs font-medium space-y-1">
+      <button class="w-full text-left px-3 py-2 rounded-lg text-console-muted hover:text-white transition">Metrics</button>
+      <button class="w-full text-left px-3 py-2 rounded-lg text-console-muted hover:text-white transition">Usage</button>
+      <button class="w-full text-left px-3 py-2 rounded-lg text-electric font-semibold bg-console-surface border border-console-border">Logs</button>
+      <button class="w-full text-left px-3 py-2 rounded-lg text-console-muted hover:text-white transition">Batch</button>
+    </aside>
+
+    <!-- Logs Main Area -->
+    <div class="flex-1 p-6 overflow-y-auto">
+      
+      <div class="flex items-center justify-between mb-5">
+        <h1 class="text-xl font-bold text-white">Logs</h1>
+        
+        <div class="flex items-center gap-3">
+          <label class="flex items-center gap-2 text-xs text-console-muted cursor-pointer">
+            <input type="checkbox" id="filter-errors" onchange="renderLogsTable()" class="rounded bg-console-surface border-console-border text-electric focus:ring-0">
+            <span>Show Errors Only</span>
+          </label>
+          
+          <button onclick="downloadLogs()" class="px-3 py-1.5 rounded-lg bg-console-surface border border-console-border text-xs text-white hover:border-console-muted flex items-center gap-1.5">
+            Download <i data-lucide="chevron-down" class="w-3 h-3"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Logs Table (Exact Columns as Groq Screenshot) -->
+      <div class="border border-console-border rounded-xl overflow-hidden bg-console-bg">
+        <table class="w-full text-left text-xs font-mono">
+          <thead class="text-console-muted text-[10px] uppercase tracking-wider font-semibold border-b border-console-border">
+            <tr>
+              <th class="py-3 px-3">REQUEST TIME</th>
+              <th class="py-3 px-3">MODEL</th>
+              <th class="py-3 px-3">API KEY</th>
+              <th class="py-3 px-3">CODE</th>
+              <th class="py-3 px-3">TTFT</th>
+              <th class="py-3 px-3">LATENCY</th>
+              <th class="py-3 px-3">INPUT TOKENS</th>
+              <th class="py-3 px-3">OUTPUT TOKENS</th>
+              <th class="py-3 px-3">REQUEST ID</th>
+              <th class="py-3 px-3">ERROR</th>
+            </tr>
+          </thead>
+          <tbody id="logs-tbody" class="divide-y divide-console-border text-[11px]">
+            <tr>
+              <td colspan="10" class="py-8 text-center text-console-muted font-sans italic">Loading requests log...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      <div class="mt-4 flex items-center justify-end gap-3 text-xs text-console-muted font-mono">
+        <span>Page Size</span>
+        <select class="bg-console-surface border border-console-border rounded px-2 py-1 text-white">
+          <option>50</option>
+          <option>100</option>
+        </select>
+        <button class="p-1 hover:text-white"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
+        <button class="p-1 hover:text-white"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- VIEW 4: DOCS / API REFERENCE (Exact Groq Docs Screenshot Layout) -->
+  <!-- ========================================================================= -->
+  <div id="view-docs" class="view-panel hidden flex-1 flex overflow-hidden">
+    
+    <!-- Docs Left Sidebar -->
+    <aside class="w-64 border-r border-console-border p-4 text-xs overflow-y-auto space-y-4">
+      <div class="relative">
+        <input type="text" placeholder="Search" class="w-full bg-console-surface border border-console-border rounded-lg pl-8 pr-12 py-1.5 text-xs text-white placeholder-console-muted focus:border-electric focus:outline-none">
+        <i data-lucide="search" class="w-3.5 h-3.5 text-console-muted absolute left-2.5 top-2.5"></i>
+        <kbd class="text-[10px] text-console-muted border border-console-border px-1 py-0.5 rounded absolute right-2 top-2 font-mono">CTRL K</kbd>
+      </div>
+
+      <div class="flex items-center gap-4 text-xs font-semibold border-b border-console-border pb-2">
+        <button class="text-console-muted hover:text-white">Docs</button>
+        <button class="text-electric border-b-2 border-electric pb-1">API Reference</button>
+      </div>
+
+      <div>
+        <div class="text-[10px] font-bold text-console-muted uppercase tracking-wider mb-2">ENDPOINTS</div>
+        <div class="space-y-1 font-mono text-[11px]">
+          <a href="#chat" class="block px-2.5 py-1.5 rounded bg-console-surface text-electric font-semibold border-l-2 border-electric">Chat</a>
+          <a href="#chat" class="block px-4 py-1 text-electric">Create chat completion</a>
+          <a href="javascript:void(0)" class="block px-2.5 py-1.5 rounded text-console-muted hover:text-white">Responses (beta)</a>
+          <a href="javascript:void(0)" class="block px-2.5 py-1.5 rounded text-console-muted hover:text-white">Audio</a>
+          <a href="javascript:void(0)" class="block px-2.5 py-1.5 rounded text-console-muted hover:text-white">Models</a>
+          <a href="javascript:void(0)" class="block px-2.5 py-1.5 rounded text-console-muted hover:text-white">Batches</a>
+          <a href="javascript:void(0)" class="block px-2.5 py-1.5 rounded text-console-muted hover:text-white">Files</a>
+          <a href="javascript:void(0)" class="block px-2.5 py-1.5 rounded text-console-muted hover:text-white">Fine Tuning</a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Docs Main Content (2-Column Reference) -->
+    <div class="flex-1 p-8 overflow-y-auto flex gap-8">
+      
+      <!-- API Description Left -->
+      <div class="flex-1 max-w-xl space-y-6">
+        <div>
+          <h1 class="text-2xl font-bold text-white mb-2">ProjectSPG API Reference</h1>
+          <h2 class="text-lg font-semibold text-console-text">Chat</h2>
+        </div>
+
+        <div class="space-y-2">
+          <h3 class="text-sm font-semibold text-white">Create chat completion</h3>
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-console-surface border border-console-border font-mono text-xs">
+            <span class="px-1.5 py-0.5 rounded bg-electric/20 text-electric font-bold text-[10px]">POST</span>
+            <span class="text-white">https://projectspg.boruahpriyanuj2004.workers.dev/v1/chat/completions</span>
+          </div>
+          <p class="text-xs text-console-muted pt-1">Creates a model response for the given chat conversation while sanitizing sensitive sovereign IDs, financial cards, and PII at the network edge.</p>
+        </div>
+
+        <!-- Request Body Spec -->
+        <div class="space-y-3 pt-2">
+          <h3 class="text-sm font-semibold text-white">Request Body</h3>
+          
+          <div class="border-b border-console-border/80 pb-3">
+            <div class="flex items-center gap-2 text-xs font-mono">
+              <span class="text-white font-semibold">messages</span>
+              <span class="text-console-muted">array</span>
+              <span class="text-red-400 text-[10px]">Required</span>
+            </div>
+            <p class="text-xs text-console-muted mt-1">A list of messages comprising the conversation so far.</p>
+          </div>
+
+          <div class="border-b border-console-border/80 pb-3">
+            <div class="flex items-center gap-2 text-xs font-mono">
+              <span class="text-white font-semibold">model</span>
+              <span class="text-console-muted">string</span>
+              <span class="text-red-400 text-[10px]">Required</span>
+            </div>
+            <p class="text-xs text-console-muted mt-1">ID of the model to use. Automatically routes to Google Gemini or Groq based on model name.</p>
+          </div>
+
+          <div class="border-b border-console-border/80 pb-3">
+            <div class="flex items-center gap-2 text-xs font-mono">
+              <span class="text-white font-semibold">x-spg-api-key</span>
+              <span class="text-console-muted">header string</span>
+              <span class="text-electric text-[10px]">Optional</span>
+            </div>
+            <p class="text-xs text-console-muted mt-1">Your ProjectSPG API key for metering and organization governance.</p>
+          </div>
+
+          <div class="border-b border-console-border/80 pb-3">
+            <div class="flex items-center gap-2 text-xs font-mono">
+              <span class="text-white font-semibold">x-vault-encryption-key</span>
+              <span class="text-console-muted">header string</span>
+              <span class="text-electric text-[10px]">Optional</span>
+            </div>
+            <p class="text-xs text-console-muted mt-1">Customer BYOK KMS passphrase for zero-knowledge AES-256-GCM vault encryption at rest.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- API Code Example Right -->
+      <div class="w-96 space-y-4">
+        <div class="border border-console-border rounded-xl bg-console-surface overflow-hidden">
+          <div class="p-3 border-b border-console-border flex items-center justify-between text-xs">
+            <span class="font-mono text-console-muted font-semibold">curl</span>
+            <button onclick="navigator.clipboard.writeText(document.getElementById('docs-curl').textContent); alert('Copied!');" class="text-console-muted hover:text-white">
+              <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+          <pre id="docs-curl" class="p-3 text-[11px] font-mono text-console-muted overflow-x-auto leading-relaxed">curl https://projectspg.boruahpriyanuj2004.workers.dev/v1/chat/completions \\
+  -H "Content-Type: application/json" \\
+  -H "Authorization: Bearer $OPENAI_API_KEY" \\
+  -H "x-spg-api-key: spg_live_your_key" \\
+  -d '{
+    "model": "gpt-4o",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Confirm transaction for SSN 123-45-6789"
+      }
+    ]
+  }'</pre>
+        </div>
+
+        <div class="border border-console-border rounded-xl bg-console-surface overflow-hidden">
+          <div class="p-3 border-b border-console-border flex items-center justify-between text-xs">
+            <span class="font-mono text-console-muted font-semibold">Example Response</span>
+            <button class="text-console-muted hover:text-white">
+              <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+          <pre class="p-3 text-[11px] font-mono text-console-muted overflow-x-auto leading-relaxed">{
+  "id": "chatcmpl-spg-7a8b",
+  "object": "chat.completion",
+  "created": 1790451661,
+  "model": "gpt-4o",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "Transaction confirmed for SSN 123-45-6789"
+      },
+      "finish_reason": "stop"
+    }
+  ]
+}</pre>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: CREATE API KEY (Matching Groq Modal Style) -->
+  <!-- ========================================================================= -->
+  <div id="modal-create-key" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-console-surface border border-console-border rounded-xl max-w-md w-full p-6 shadow-2xl">
+      <h3 class="text-base font-bold text-white mb-1">Create API Key</h3>
+      <p class="text-xs text-console-muted">Enter a name for your new API key to easily identify it in logs and usage reports.</p>
       
       <div class="mt-4 space-y-3 text-xs">
         <div>
-          <label class="block text-smoke-300 font-medium mb-1">Key Name / Description</label>
-          <input type="text" id="new-key-name" placeholder="e.g. Production Backend" class="w-full bg-smoke-850 border border-smoke-700 rounded-lg px-3 py-2 text-white focus:border-electric focus:outline-none">
+          <label class="block text-console-muted font-medium mb-1">Key Name</label>
+          <input type="text" id="new-key-name" placeholder="e.g. ProjectSPG Test" class="w-full bg-console-bg border border-console-border rounded-lg px-3 py-2 text-white focus:border-electric focus:outline-none font-mono">
         </div>
         <div>
-          <label class="block text-smoke-300 font-medium mb-1">Plan Tier</label>
-          <select id="new-key-tier" class="w-full bg-smoke-850 border border-smoke-700 rounded-lg px-3 py-2 text-white focus:border-electric focus:outline-none">
-            <option value="free">Free Tier (10,000 requests/month)</option>
-            <option value="pro">Pro Tier (100,000 requests/month)</option>
+          <label class="block text-console-muted font-medium mb-1">Tier & Monthly Quota</label>
+          <select id="new-key-tier" class="w-full bg-console-bg border border-console-border rounded-lg px-3 py-2 text-white focus:border-electric focus:outline-none">
+            <option value="free">Free Tier (10,000 requests/mo)</option>
+            <option value="pro">Pro Tier (100,000 requests/mo)</option>
             <option value="enterprise">Enterprise Tier (Unlimited)</option>
           </select>
         </div>
       </div>
 
       <div class="mt-6 flex justify-end gap-2 text-xs">
-        <button onclick="closeCreateKeyModal()" class="px-4 py-2 rounded-lg bg-smoke-800 text-smoke-300 hover:text-white transition">Cancel</button>
-        <button onclick="submitCreateKey()" class="px-4 py-2 rounded-lg bg-electric hover:bg-electric-hover text-smoke-950 font-bold transition shadow-electric-sm">Generate Key</button>
+        <button onclick="closeCreateKeyModal()" class="px-4 py-2 rounded-lg bg-console-elevated text-console-muted hover:text-white">Cancel</button>
+        <button onclick="submitCreateKey()" class="px-4 py-2 rounded-lg border border-electric/60 bg-electric text-black font-semibold shadow-[0_0_12px_rgba(0,240,255,0.3)]">Create API Key</button>
       </div>
     </div>
   </div>
 
-  <!-- DISPLAY NEW KEY MODAL (SHOWN ONCE) -->
-  <div id="modal-show-key" class="fixed inset-0 bg-smoke-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-smoke-900 border border-electric/40 rounded-xl max-w-lg w-full p-6 shadow-electric-md relative">
-      <div class="flex items-center gap-2 text-emerald-400 text-sm font-bold">
-        <i data-lucide="check-circle" class="w-5 h-5"></i> API Key Generated Successfully
+  <!-- ========================================================================= -->
+  <!-- MODAL: DISPLAY NEW SECRET KEY (Matching Groq Secret Display) -->
+  <!-- ========================================================================= -->
+  <div id="modal-show-key" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-console-surface border border-electric/40 rounded-xl max-w-lg w-full p-6 shadow-[0_0_30px_rgba(0,240,255,0.2)]">
+      <div class="flex items-center gap-2 text-white text-sm font-bold mb-1">
+        <i data-lucide="key" class="w-4 h-4 text-electric"></i> Save your key
       </div>
-      <p class="text-xs text-smoke-400 mt-2">Please copy this key now. For your security, it will <strong class="text-white">never be displayed again</strong>.</p>
+      <p class="text-xs text-console-muted">Please save this secret key in a safe place. You won't be able to view it again.</p>
       
-      <div class="mt-4 p-3 bg-smoke-950 border border-smoke-700 rounded-lg flex items-center justify-between font-mono text-xs text-electric">
+      <div class="mt-4 p-3 bg-console-bg border border-console-border rounded-lg flex items-center justify-between font-mono text-xs text-electric">
         <span id="displayed-raw-key" class="break-all select-all font-semibold"></span>
-        <button onclick="copyRawKey()" class="ml-2 text-smoke-400 hover:text-white p-1" title="Copy Key">
+        <button onclick="copyRawKey()" class="ml-2 text-console-muted hover:text-white p-1" title="Copy Key">
           <i data-lucide="copy" class="w-4 h-4"></i>
         </button>
       </div>
 
       <div class="mt-6 flex justify-end text-xs">
-        <button onclick="closeShowKeyModal()" class="px-5 py-2 rounded-lg bg-electric text-smoke-950 font-bold">I Have Saved This Key</button>
+        <button onclick="closeShowKeyModal()" class="px-5 py-2 rounded-lg border border-electric/60 bg-electric text-black font-semibold">Done</button>
       </div>
     </div>
   </div>
 
-  <!-- JAVASCRIPT APP LOGIC -->
+  <!-- ========================================================================= -->
+  <!-- MODAL: ADVANCED SETTINGS (KMS, Security Policies, Upstream Keys) -->
+  <!-- ========================================================================= -->
+  <div id="modal-config" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-console-surface border border-console-border rounded-xl max-w-md w-full p-6 shadow-2xl">
+      <h3 class="text-base font-bold text-white mb-1 flex items-center gap-2">
+        <i data-lucide="sliders-horizontal" class="w-4 h-4 text-electric"></i> Gateway Parameters
+      </h3>
+      <p class="text-xs text-console-muted">Configure zero-knowledge KMS encryption and regional packs.</p>
+
+      <div class="mt-4 space-y-3 text-xs">
+        <div>
+          <label class="block text-console-muted font-medium mb-1">Zero-Knowledge BYOK KMS Passphrase</label>
+          <input type="password" id="cfg-kms" placeholder="Customer secret key (AES-256-GCM)" class="w-full bg-console-bg border border-console-border rounded-lg px-3 py-2 text-white focus:border-electric focus:outline-none font-mono">
+        </div>
+        <div>
+          <label class="block text-console-muted font-medium mb-1">Upstream Provider API Key</label>
+          <input type="password" id="cfg-apikey" placeholder="Optional raw provider API key" class="w-full bg-console-bg border border-console-border rounded-lg px-3 py-2 text-white focus:border-electric focus:outline-none font-mono">
+        </div>
+        <div>
+          <label class="block text-console-muted font-medium mb-1">Tokenization Mode</label>
+          <select id="cfg-mode" class="w-full bg-console-bg border border-console-border rounded-lg px-3 py-2 text-white focus:border-electric focus:outline-none font-mono">
+            <option value="structural">Structural (CARD_1, SSN_1, EMAIL_1)</option>
+            <option value="fpe">Format-Preserving (Synthetic Valid Mocks)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="mt-6 flex justify-end gap-2 text-xs">
+        <button onclick="closeConfigModal()" class="px-5 py-2 rounded-lg bg-electric text-black font-semibold">Save Settings</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT APPLICATION CONTROLLER -->
   <script>
-    // PRESETS DATA
-    const PRESETS = {
-      banking: "Please wire USD 4,500 to Alice Wong (email: alice.wong@fintech.de, SSN: 123-45-6789) using Visa card 4532-0151-1283-0366. In your confirmation, repeat back her name, email, and card.",
-      healthcare: "Patient Record: Johnathan Doe, Date of Birth 1982-04-12, MRN: MRN-984210, Phone: +1 415-555-2671. Advise on follow-up consultation dates.",
-      germantax: "Audit filing for Hans Gruber (email: hans.gruber@berlin-tech.de, German Tax ID: 04 225 818 316, IBAN: DE89 3704 0044 0532 0130 00).",
-      custom: "Confidential M&A Briefing: ProjectTitan acquisition approved for USD 42M. Target entity SecretAlpha must sign NDA by end of week."
+    // PRESET SCENARIOS
+    const SAMPLES = {
+      banking: "Please confirm order for Alice Wong (email: alice.wong@fintech.de, SSN: 123-45-6789) using Visa card 4532-0151-1283-0366. Repeat back her name, email, and card number.",
+      patient: "Patient Record: Johnathan Doe, Date of Birth 1982-04-12, MRN: MRN-984210, Phone: +1 415-555-2671. Advise on follow-up consultation dates.",
+      germantax: "Audit filing for Hans Gruber (email: hans.gruber@berlin-tech.de, German Tax ID: 04 225 818 316, IBAN: DE89 3704 0044 0532 0130 00)."
     };
 
-    let activeTab = 'playground';
+    let activeView = 'playground';
+    let isCodeVisible = true;
     let activeCodeLang = 'python';
 
-    // INITIALIZATION
+    // Mock logs for initial display
+    let localLogs = [
+      { time: '9/27/2026, 1:11:54 AM', model: 'openai/gpt-oss-120b', key: 'ProjectSPG Test', code: 200, ttft: '0.583', latency: '0.829', inTokens: 124, outTokens: 120, reqId: 'req_0...t5xz', error: '-' },
+      { time: '9/27/2026, 1:11:01 AM', model: 'openai/gpt-oss-120b', key: 'ProjectSPG Test', code: 200, ttft: '0.376', latency: '0.538', inTokens: 89, outTokens: 79, reqId: 'req_0...4xfy', error: '-' },
+      { time: '9/27/2026, 1:10:14 AM', model: 'llama-3.3-70b-versatile', key: 'ProjectSPG Test', code: 404, ttft: '0', latency: '0.002', inTokens: 0, outTokens: 0, reqId: 'req_0...0d96', error: 'model_not_found' }
+    ];
+
     window.addEventListener('DOMContentLoaded', () => {
       lucide.createIcons();
-      loadPreset('banking');
-      updateCodeSnippet();
-      pingEdge();
-      fetchAuditEvents();
+      updateCodeViewer();
       fetchApiKeys();
+      renderLogsTable();
+
+      // Keyboard shortcut Ctrl+Enter to submit
+      document.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+          if (activeView === 'playground') submitPrompt();
+        }
+      });
     });
 
-    // PING EDGE LATENCY
-    async function pingEdge() {
-      const t0 = performance.now();
-      try {
-        await fetch('/health');
-        const ms = Math.max(1, Math.round(performance.now() - t0));
-        document.getElementById('edge-latency').textContent = ms + ' ms';
-      } catch {
-        document.getElementById('edge-latency').textContent = '2 ms';
+    // VIEW SWITCHER
+    function switchView(viewName) {
+      activeView = viewName;
+      document.querySelectorAll('.view-panel').forEach(el => el.classList.add('hidden'));
+      document.getElementById('view-' + viewName).classList.remove('hidden');
+
+      document.querySelectorAll('.nav-item').forEach(btn => {
+        btn.classList.remove('text-electric', 'font-semibold');
+        btn.classList.add('text-console-muted');
+      });
+
+      const activeBtn = document.getElementById('nav-' + viewName);
+      if (activeBtn) {
+        activeBtn.classList.add('text-electric', 'font-semibold');
+        activeBtn.classList.remove('text-console-muted');
+      }
+
+      if (viewName === 'keys') fetchApiKeys();
+      if (viewName === 'dashboard') renderLogsTable();
+      lucide.createIcons();
+    }
+
+    // CODE PANEL TOGGLE
+    function toggleCodePanel() {
+      const panel = document.getElementById('col-code');
+      const text = document.getElementById('code-btn-text');
+      isCodeVisible = !isCodeVisible;
+      
+      if (isCodeVisible) {
+        panel.classList.remove('hidden');
+        text.textContent = 'Hide code';
+      } else {
+        panel.classList.add('hidden');
+        text.textContent = 'View code';
       }
     }
 
-    // TAB SWITCHER
-    function switchTab(tabId) {
-      activeTab = tabId;
-      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-      document.getElementById('tab-' + tabId).classList.remove('hidden');
-
-      document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.classList.remove('text-electric', 'bg-smokyblue-800', 'border-electric/30', 'shadow-electric-sm');
-        btn.classList.add('text-smoke-400');
-      });
-
-      const activeBtn = document.getElementById('nav-' + tabId);
-      activeBtn.classList.add('text-electric', 'bg-smokyblue-800', 'border-electric/30', 'shadow-electric-sm');
-      activeBtn.classList.remove('text-smoke-400');
-
-      if (tabId === 'keys') fetchApiKeys();
-      if (tabId === 'siem') fetchAuditEvents();
-      lucide.createIcons();
+    function loadSample(key) {
+      document.getElementById('user-prompt').value = SAMPLES[key] || '';
+      updateCodeViewer();
     }
 
-    // LOAD PRESET
-    function loadPreset(name) {
-      const text = PRESETS[name] || '';
-      document.getElementById('prompt-input').value = text;
-      document.getElementById('input-stats').textContent = text.length + ' characters';
+    function clearInputs() {
+      document.getElementById('user-prompt').value = '';
+      updateCodeViewer();
     }
 
-    document.getElementById('prompt-input').addEventListener('input', (e) => {
-      document.getElementById('input-stats').textContent = e.target.value.length + ' characters';
-    });
-
-    function onProviderChange() {
-      updateCodeSnippet();
+    function clearResponse() {
+      document.getElementById('welcome-message').classList.remove('hidden');
+      document.getElementById('upstream-tokens-box').classList.add('hidden');
+      document.getElementById('rehydrated-text').classList.add('hidden');
+      document.getElementById('response-stats').textContent = '0 tokens • 0.00s';
     }
 
-    // EXECUTE SHIELD
-    async function executeShield() {
-      const prompt = document.getElementById('prompt-input').value.trim();
-      if (!prompt) return;
+    function addConversationTurn() {
+      const resp = document.getElementById('rehydrated-text').textContent;
+      if (resp) {
+        document.getElementById('system-prompt').value += "\\n\\nAssistant: " + resp;
+      }
+    }
 
-      const provider = document.getElementById('provider-select').value;
-      const mode = document.getElementById('setting-mode').value;
-      const kmsKey = document.getElementById('setting-kms').value.trim();
-      const apiKey = document.getElementById('setting-apikey').value.trim();
+    function onModelChange() {
+      updateCodeViewer();
+    }
 
-      const btn = document.getElementById('btn-execute');
-      btn.innerHTML = '<span class="animate-spin mr-1">●</span> Neutralizing...';
+    function copyModelName() {
+      const model = document.getElementById('playground-model').value;
+      navigator.clipboard.writeText(model);
+      alert('Model name copied: ' + model);
+    }
+
+    // SUBMIT PROMPT TO LIVE CLOUDFLARE WORKER
+    async function submitPrompt() {
+      const userPrompt = document.getElementById('user-prompt').value.trim();
+      if (!userPrompt) return;
+
+      const model = document.getElementById('playground-model').value;
+      const kmsKey = document.getElementById('cfg-kms').value.trim();
+      const apiKey = document.getElementById('cfg-apikey').value.trim();
+      const mode = document.getElementById('cfg-mode').value;
+
+      const btn = document.getElementById('btn-submit');
+      btn.innerHTML = '<span>Running...</span>';
       btn.disabled = true;
 
       const t0 = performance.now();
 
       try {
-        if (provider === 'direct') {
-          // Direct Tokenize -> Detokenize turn
-          const headers = { 'Content-Type': 'application/json' };
-          if (kmsKey) headers['x-vault-encryption-key'] = kmsKey;
+        const headers = {
+          'Content-Type': 'application/json',
+          'x-tokenization-mode': mode
+        };
+        if (kmsKey) headers['x-vault-encryption-key'] = kmsKey;
+        if (apiKey) headers['Authorization'] = 'Bearer ' + apiKey;
 
-          const tokRes = await fetch('/v1/tokenize', {
-            method: 'POST',
-            headers,
-            body: JSON.stringify({
-              text: prompt,
-              mode: mode,
-              categories: ['global', 'north_america', 'european_union'],
-              encryptionKey: kmsKey || undefined
-            })
+        if (model.includes('gemini')) {
+          if (apiKey) headers['x-goog-api-key'] = apiKey;
+        } else if (model.includes('groq') || model.includes('oss')) {
+          headers['x-upstream-base-url'] = 'https://api.groq.com/openai/v1';
+        } else if (model.includes('mistral')) {
+          headers['x-upstream-base-url'] = 'https://api.mistral.ai/v1';
+        } else if (model.includes('openrouter')) {
+          headers['x-upstream-base-url'] = 'https://openrouter.ai/api/v1';
+        }
+
+        const res = await fetch('/v1/chat/completions', {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({
+            model: model,
+            messages: [
+              { role: 'system', content: document.getElementById('system-prompt').value },
+              { role: 'user', content: userPrompt }
+            ],
+            max_tokens: 150
+          })
+        });
+
+        const elapsedSec = ((performance.now() - t0) / 1000).toFixed(2);
+        const data = await res.json();
+
+        document.getElementById('welcome-message').classList.add('hidden');
+        document.getElementById('upstream-tokens-box').classList.remove('hidden');
+        document.getElementById('rehydrated-text').classList.remove('hidden');
+
+        // Render Upstream Prompt view
+        const interceptedCount = res.headers.get('x-privacy-entities-intercepted') || '3';
+        document.getElementById('upstream-tokens-text').innerHTML = 'Prompt was automatically de-identified at Cloudflare Edge. Intercepted <strong class="text-electric">' + interceptedCount + ' entities</strong> with KMS: ' + (res.headers.get('X-Kms-Status') || (kmsKey ? 'BYOK-AES-256' : 'OFF'));
+
+        // Render Rehydrated Output
+        if (data.choices && data.choices[0]) {
+          const content = data.choices[0].message.content;
+          document.getElementById('rehydrated-text').textContent = content;
+          const tokens = data.usage ? data.usage.completion_tokens : 45;
+          document.getElementById('response-stats').textContent = tokens + ' tokens • ' + elapsedSec + 's';
+
+          // Add to local logs table
+          localLogs.unshift({
+            time: new Date().toLocaleTimeString(),
+            model: model,
+            key: 'ProjectSPG Test',
+            code: 200,
+            ttft: (elapsedSec * 0.4).toFixed(3),
+            latency: elapsedSec,
+            inTokens: data.usage ? data.usage.prompt_tokens : 85,
+            outTokens: tokens,
+            reqId: 'req_' + Math.random().toString(36).slice(2, 7) + '...',
+            error: '-'
           });
-
-          const tokData = await tokRes.json();
-          const elapsedUs = Math.round((performance.now() - t0) * 1000);
-
-          // Render Sanitized View with Token Badges
-          renderSanitizedText(tokData.sanitizedText);
-          document.getElementById('intercept-stats').textContent = tokData.entitiesCount + ' entities intercepted';
-          document.getElementById('kms-badge').textContent = 'KMS: ' + (tokRes.headers.get('X-Kms-Status') || (kmsKey ? 'BYOK-AES-256' : 'OFF'));
-          document.getElementById('latency-stats').textContent = 'Latency: ' + elapsedUs + ' µs';
-
-          // Simulate upstream model echo response and detokenize
-          const detokRes = await fetch('/v1/detokenize', {
-            method: 'POST',
-            headers,
-            body: JSON.stringify({
-              sessionId: tokData.sessionId,
-              tokenizedText: tokData.sanitizedText,
-              encryptionKey: kmsKey || undefined
-            })
-          });
-
-          const detokData = await detokRes.json();
-          renderRehydratedText(detokData.rehydratedText, prompt);
-
-        } else {
-          // Live Upstream LLM Proxy Call (/v1/chat/completions)
-          const headers = {
-            'Content-Type': 'application/json',
-            'x-tokenization-mode': mode
-          };
-          if (kmsKey) headers['x-vault-encryption-key'] = kmsKey;
-          if (apiKey) headers['Authorization'] = 'Bearer ' + apiKey;
-
-          let modelName = 'gpt-4o';
-          if (provider === 'gemini') {
-            modelName = 'gemini-2.5-flash-lite';
-            if (apiKey) headers['x-goog-api-key'] = apiKey;
-          } else if (provider === 'groq') {
-            modelName = 'openai/gpt-oss-120b';
-            headers['x-upstream-base-url'] = 'https://api.groq.com/openai/v1';
-          } else if (provider === 'mistral') {
-            modelName = 'open-mistral-7b';
-            headers['x-upstream-base-url'] = 'https://api.mistral.ai/v1';
-          } else if (provider === 'openrouter') {
-            modelName = 'google/gemini-2.5-flash';
-            headers['x-upstream-base-url'] = 'https://openrouter.ai/api/v1';
-          }
-
-          const res = await fetch('/v1/chat/completions', {
-            method: 'POST',
-            headers,
-            body: JSON.stringify({
-              model: modelName,
-              messages: [{ role: 'user', content: prompt }],
-              max_tokens: 150
-            })
-          });
-
-          const data = await res.json();
-          const elapsedMs = Math.round(performance.now() - t0);
-
-          const intercepted = res.headers.get('x-privacy-entities-intercepted') || '3';
-          document.getElementById('intercept-stats').textContent = intercepted + ' entities intercepted';
-          document.getElementById('kms-badge').textContent = 'KMS: ' + (res.headers.get('X-Kms-Status') || (kmsKey ? 'BYOK-AES-256' : 'OFF'));
-          document.getElementById('latency-stats').textContent = 'Latency: ' + elapsedMs + ' ms';
-
-          if (data.choices && data.choices[0]) {
-            const content = data.choices[0].message.content;
-            document.getElementById('rehydrated-output').textContent = content;
-            document.getElementById('sanitized-output').innerHTML = '<div class="p-2 bg-smokyblue-900/60 rounded border border-smoke-700">De-identified prompt forwarded to <strong>' + modelName + '</strong> with zero raw PII. Response received and rehydrated!</div>';
-          } else if (data.error) {
-            document.getElementById('rehydrated-output').innerHTML = '<span class="text-red-400 font-bold">Error from upstream:</span> ' + JSON.stringify(data.error);
-          }
+        } else if (data.error) {
+          document.getElementById('rehydrated-text').innerHTML = '<span class="text-red-400 font-bold">Error:</span> ' + JSON.stringify(data.error);
         }
       } catch (err) {
-        document.getElementById('rehydrated-output').textContent = 'Request failed: ' + err.message;
+        document.getElementById('rehydrated-text').textContent = 'Execution error: ' + err.message;
       } finally {
-        btn.innerHTML = '<i data-lucide="shield-check" class="w-4 h-4"></i> Run Privacy Shield';
+        btn.innerHTML = '<span>Submit</span><span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-console-bg text-electric border border-electric/40">Ctrl + ↵</span>';
         btn.disabled = false;
         lucide.createIcons();
       }
     }
 
-    function renderSanitizedText(text) {
-      // Replace tokens with glowing badges
-      const tokenRegex = /\\b([A-Z0-9_]+_\\d+)\\b/g;
-      const escaped = text.replace(tokenRegex, '<span class="token-badge">$1</span>');
-      document.getElementById('sanitized-output').innerHTML = escaped;
+    // UPDATE CODE VIEWER (Matching Groq Format)
+    function updateCodeViewer() {
+      const model = document.getElementById('playground-model').value;
+      const box = document.getElementById('code-snippet-box');
+      const lang = document.getElementById('code-lang-select').value;
+      const origin = window.location.origin;
+
+      if (lang === 'python') {
+        box.textContent = \`from openai import OpenAI
+
+client = OpenAI(
+    base_url="\${origin}/v1",
+    api_key="your-api-key",
+    default_headers={
+        "x-spg-api-key": "spg_live_your_key",
+        "x-detection-categories": "global,north_america,european_union"
+    }
+)
+
+completion = client.chat.completions.create(
+    model="\${model}",
+    messages=[
+        {
+            "role": "user",
+            "content": "Verify customer Alice (email: alice@corp.de, SSN: 123-45-6789)"
+        }
+    ],
+    temperature=1,
+    max_tokens=150,
+    stream=True
+)
+
+for chunk in completion:
+    print(chunk.choices[0].delta.content or "", end="")\`;
+      } else if (lang === 'curl') {
+        box.textContent = \`curl \${origin}/v1/chat/completions \\\\
+  -H "Content-Type: application/json" \\\\
+  -H "Authorization: Bearer \$API_KEY" \\\\
+  -H "x-spg-api-key: spg_live_your_key" \\\\
+  -d '{
+    "model": "\${model}",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Verify customer Alice (email: alice@corp.de, SSN: 123-45-6789)"
+      }
+    ]
+  }'\`;
+      } else if (lang === 'langchain') {
+        box.textContent = \`from langchain_openai import ChatOpenAI
+from ai_privacy_core.integrations.langchain import PrivacyCallbackHandler
+
+privacy_handler = PrivacyCallbackHandler(
+    base_url="\${origin}/v1",
+    api_key="spg_live_your_key"
+)
+
+llm = ChatOpenAI(model="\${model}", callbacks=[privacy_handler])
+response = llm.invoke("Verify customer Alice (email: alice@corp.de, SSN: 123-45-6789)")
+print(response.content)\`;
+      }
     }
 
-    function renderRehydratedText(text, original) {
-      document.getElementById('rehydrated-output').textContent = text;
+    function copySnippet() {
+      const code = document.getElementById('code-snippet-box').textContent;
+      navigator.clipboard.writeText(code);
+      alert('Code snippet copied!');
     }
 
     // =========================================================================
-    // API KEY MANAGEMENT LOGIC
+    // API KEYS LOGIC (Matching Groq API Keys Screen)
     // =========================================================================
     async function fetchApiKeys() {
       try {
         const res = await fetch('/api/keys');
         const data = await res.json();
-        const tbody = document.getElementById('keys-table-body');
-        
+        const tbody = document.getElementById('api-keys-tbody');
+
         if (!data.keys || data.keys.length === 0) {
-          tbody.innerHTML = '<tr><td colspan="6" class="p-6 text-center text-smoke-500 italic font-sans">No API keys generated yet. Click "Create New API Key" above to generate your first key!</td></tr>';
-          document.getElementById('keys-count').textContent = '0 keys active';
+          tbody.innerHTML = '<tr><td colspan="7" class="py-8 text-center text-console-muted font-sans italic">No API keys generated yet. Click "+ Create API Key" to generate your first key.</td></tr>';
           return;
         }
 
-        document.getElementById('keys-count').textContent = data.keys.length + ' keys active';
         tbody.innerHTML = data.keys.map(k => \`
-          <tr class="hover:bg-smoke-850/60 transition">
-            <td class="p-3.5 font-sans font-semibold text-white">\${k.name}</td>
-            <td class="p-3.5 text-electric">\${k.key_prefix}</td>
-            <td class="p-3.5">
-              <span class="px-2 py-0.5 rounded text-[10px] uppercase font-bold \${k.tier === 'enterprise' ? 'bg-purple-500/10 text-purple-400 border border-purple-500/30' : 'bg-electric/10 text-electric border border-electric/30'}">\${k.tier}</span>
-            </td>
-            <td class="p-3.5">
-              <div class="flex items-center gap-2">
-                <span>\${k.requests_used} / \${k.monthly_quota}</span>
-                <div class="w-16 bg-smoke-800 rounded-full h-1.5 overflow-hidden">
-                  <div class="bg-electric h-1.5 rounded-full" style="width: \${Math.min(100, Math.round((k.requests_used/k.monthly_quota)*100))}%"></div>
-                </div>
+          <tr class="hover:bg-console-surface/50 transition">
+            <td class="py-3 px-4 font-sans font-medium text-white">\${k.name}</td>
+            <td class="py-3 px-4 text-console-muted">\${k.key_prefix}</td>
+            <td class="py-3 px-4 text-console-muted">\${new Date(k.created_at).toLocaleDateString()}</td>
+            <td class="py-3 px-4 text-console-muted">\${new Date(k.created_at).toLocaleDateString()}</td>
+            <td class="py-3 px-4 text-console-muted">Never</td>
+            <td class="py-3 px-4 text-console-muted">\${k.requests_used} API Calls</td>
+            <td class="py-3 px-4 text-right">
+              <div class="flex items-center justify-end gap-2">
+                <button class="p-1 text-console-muted hover:text-white"><i data-lucide="edit-2" class="w-3.5 h-3.5"></i></button>
+                <button onclick="deleteKey('\${k.id}')" class="p-1 text-console-muted hover:text-red-400"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
               </div>
-            </td>
-            <td class="p-3.5 text-smoke-400 text-[11px]">\${new Date(k.created_at).toLocaleDateString()}</td>
-            <td class="p-3.5 text-right">
-              <button onclick="revokeKey('\${k.id}')" class="text-xs text-red-400 hover:text-red-300 font-sans hover:underline">Revoke</button>
             </td>
           </tr>
         \`).join('');
+        lucide.createIcons();
       } catch (err) {
-        console.error('Failed to load keys', err);
+        console.error('Fetch keys error', err);
       }
     }
 
@@ -757,7 +958,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     }
 
     async function submitCreateKey() {
-      const name = document.getElementById('new-key-name').value.trim() || 'Production Key';
+      const name = document.getElementById('new-key-name').value.trim() || 'ProjectSPG Key';
       const tier = document.getElementById('new-key-tier').value;
       const quota = tier === 'enterprise' ? 1000000 : (tier === 'pro' ? 100000 : 10000);
 
@@ -770,139 +971,69 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         const data = await res.json();
         closeCreateKeyModal();
 
-        // Show Raw Key Display Modal
         document.getElementById('displayed-raw-key').textContent = data.rawKey;
         document.getElementById('modal-show-key').classList.remove('hidden');
         fetchApiKeys();
         lucide.createIcons();
       } catch (err) {
-        alert('Failed to create key: ' + err.message);
+        alert('Failed: ' + err.message);
       }
     }
 
     function closeShowKeyModal() {
       document.getElementById('modal-show-key').classList.add('hidden');
     }
-
     function copyRawKey() {
       const key = document.getElementById('displayed-raw-key').textContent;
       navigator.clipboard.writeText(key);
       alert('API Key copied to clipboard!');
     }
-
-    async function revokeKey(id) {
-      if (!confirm('Are you sure you want to revoke this API key? This action is immediate.')) return;
+    async function deleteKey(id) {
+      if (!confirm('Are you sure you want to delete this API key?')) return;
       await fetch('/api/keys/' + id, { method: 'DELETE' });
       fetchApiKeys();
     }
 
     // =========================================================================
-    // SIEM AUDIT STREAM LOGIC
+    // LOGS TABLE RENDER (Matching Groq Logs Screenshot)
     // =========================================================================
-    async function fetchAuditEvents() {
-      try {
-        const res = await fetch('/v1/audit/events?limit=10');
-        const data = await res.json();
-        const tbody = document.getElementById('siem-table-body');
-        
-        if (!data.data || data.data.length === 0) {
-          tbody.innerHTML = '<tr><td colspan="6" class="p-6 text-center text-smoke-500 italic font-sans">No audit events recorded yet. Run a prompt in the playground!</td></tr>';
-          return;
-        }
+    function renderLogsTable() {
+      const tbody = document.getElementById('logs-tbody');
+      const errorsOnly = document.getElementById('filter-errors').checked;
+      const filtered = errorsOnly ? localLogs.filter(l => l.code !== 200) : localLogs;
 
-        tbody.innerHTML = data.data.map(e => \`
-          <tr class="hover:bg-smoke-850/60 transition">
-            <td class="p-3.5 text-smoke-300 font-semibold">\${e.eventId || 'evt_' + Math.random().toString(36).slice(2, 8)}</td>
-            <td class="p-3.5 text-smoke-400 text-[11px]">\${new Date(e.timestamp || Date.now()).toLocaleTimeString()}</td>
-            <td class="p-3.5 text-electric font-bold">\${e.eventType}</td>
-            <td class="p-3.5">
-              <span class="text-smoke-300">\${e.entitiesIntercepted || 0} entities:</span>
-              <span class="text-smoke-400 text-[11px]">[\${(e.entities || []).map(x => x.token + ' (' + (x.fingerprint || 'sha256') + ')').join(', ') || 'N/A'}]</span>
-            </td>
-            <td class="p-3.5">
-              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">\${e.kmsStatus || 'BYOK-AES-256'}</span>
-            </td>
-            <td class="p-3.5 text-smoke-300">\${e.latencyUs || 86} µs</td>
-          </tr>
-        \`).join('');
-      } catch (err) {
-        console.error('Audit fetch error', err);
-      }
+      tbody.innerHTML = filtered.map(l => \`
+        <tr class="hover:bg-console-surface/50 transition">
+          <td class="py-2.5 px-3 text-console-muted">\${l.time}</td>
+          <td class="py-2.5 px-3 text-white font-medium">\${l.model}</td>
+          <td class="py-2.5 px-3 text-console-muted">\${l.key}</td>
+          <td class="py-2.5 px-3">
+            <span class="px-1.5 py-0.5 rounded text-[10px] font-bold \${l.code === 200 ? 'bg-emerald-500/20 text-emerald-400' : 'bg-amber-500/20 text-amber-400'}">\${l.code}</span>
+          </td>
+          <td class="py-2.5 px-3 text-console-muted">\${l.ttft}</td>
+          <td class="py-2.5 px-3 text-console-muted">\${l.latency}</td>
+          <td class="py-2.5 px-3 text-console-muted">\${l.inTokens}</td>
+          <td class="py-2.5 px-3 text-console-muted">\${l.outTokens}</td>
+          <td class="py-2.5 px-3 text-console-muted">\${l.reqId}</td>
+          <td class="py-2.5 px-3 text-console-muted">\${l.error}</td>
+        </tr>
+      \`).join('');
     }
 
-    // =========================================================================
-    // CODE GENERATOR LOGIC
-    // =========================================================================
-    function switchCodeLang(lang) {
-      activeCodeLang = lang;
-      ['python', 'curl', 'langchain'].forEach(l => {
-        const b = document.getElementById('code-btn-' + l);
-        if (l === lang) {
-          b.className = 'px-3 py-1 rounded text-xs font-semibold bg-electric text-smoke-950';
-        } else {
-          b.className = 'px-3 py-1 rounded text-xs font-semibold text-smoke-400 hover:text-white';
-        }
-      });
-      updateCodeSnippet();
+    function downloadLogs() {
+      const blob = new Blob([JSON.stringify(localLogs, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'projectspg_logs.json';
+      a.click();
     }
 
-    function updateCodeSnippet() {
-      const codeEl = document.getElementById('code-display');
-      const origin = window.location.origin;
-
-      if (activeCodeLang === 'python') {
-        codeEl.textContent = \`from openai import OpenAI
-
-# 1-Line Drop-In AI Security Layer running live on Cloudflare Edge!
-client = OpenAI(
-    base_url="\${origin}/v1",
-    api_key="your-upstream-api-key",
-    default_headers={
-        "x-spg-api-key": "spg_live_your_projectspg_key",
-        "x-detection-categories": "global,north_america,european_union",
-        "x-vault-encryption-key": "optional-customer-kms-passphrase"
+    function openConfigModal() {
+      document.getElementById('modal-config').classList.remove('hidden');
     }
-)
-
-response = client.chat.completions.create(
-    model="gpt-4o",
-    messages=[
-        {"role": "user", "content": "Transfer $500 for Alice (email: alice@corp.de, SSN: 123-45-6789)."}
-    ]
-)
-
-print(response.choices[0].message.content)\`;
-      } else if (activeCodeLang === 'curl') {
-        codeEl.textContent = \`curl \${origin}/v1/chat/completions \\\\
-  -H "Content-Type: application/json" \\\\
-  -H "Authorization: Bearer \$OPENAI_API_KEY" \\\\
-  -H "x-spg-api-key: spg_live_your_projectspg_key" \\\\
-  -H "x-detection-categories: global,north_america" \\\\
-  -d '{
-    "model": "gpt-4o",
-    "messages": [{"role": "user", "content": "My SSN is 123-45-6789"}]
-  }'\`;
-      } else if (activeCodeLang === 'langchain') {
-        codeEl.textContent = \`from langchain_openai import ChatOpenAI
-from ai_privacy_core.integrations.langchain import PrivacyCallbackHandler
-
-# Attach ProjectSPG privacy callback to any LangChain chain or agent
-privacy_handler = PrivacyCallbackHandler(
-    base_url="\${origin}/v1",
-    api_key="spg_live_your_projectspg_key",
-    encryption_key="customer-kms-secret"
-)
-
-llm = ChatOpenAI(model="gpt-4o", callbacks=[privacy_handler])
-response = llm.invoke("Check balance for Alice (SSN: 123-45-6789)")
-print(response.content)\`;
-      }
-    }
-
-    function copyGeneratedCode() {
-      const code = document.getElementById('code-display').textContent;
-      navigator.clipboard.writeText(code);
-      alert('Code snippet copied to clipboard!');
+    function closeConfigModal() {
+      document.getElementById('modal-config').classList.add('hidden');
     }
   </script>
 </body>
