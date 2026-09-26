@@ -1,0 +1,893 @@
+import { Hono, Context } from "hono";
+import { tokenize, rehydrate, DetectedEntity } from "../tokenizer/engine";
+import { StreamTokenBuffer } from "../tokenizer/stream";
+import { saveTokenSession } from "../vault/session";
+import { computeSha256Fingerprint } from "../vault/crypto";
+import { recordAuditEvent, getRecentAuditEvents, AuditEntitySummary } from "../audit/logger";
+import { Env } from "./tokenization";
+
+const openaiApp = new Hono<{ Bindings: Env }>();
+
+/**
+ * Standard OpenAI error builder
+ */
+function createOpenAIError(
+  message: string,
+  type: string = "invalid_request_error",
+  param: string | null = null,
+  code: string | null = null,
+  status: number = 400
+) {
+  return {
+    error: {
+      message,
+      type,
+      param,
+      code,
+    },
+    status,
+  };
+}
+
+/**
+ * Extract Custom Enterprise Entities/Keywords from request headers
+ */
+function resolveCustomKeywords(c: Context): string[] {
+  const headerVal = c.req.header("x-custom-entities") || c.req.header("x-custom-keywords");
+  if (!headerVal) return [];
+
+  try {
+    const trimmed = headerVal.trim();
+    if (trimmed.startsWith("[")) {
+      return JSON.parse(trimmed);
+    }
+    return trimmed.split(",").map((s: string) => s.trim()).filter(Boolean);
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Extract Detection Categories from request body or headers
+ */
+function resolveCategories(c: Context, bodyCategories?: string[]): string[] {
+  if (Array.isArray(bodyCategories) && bodyCategories.length > 0) {
+    return bodyCategories;
+  }
+  const headerVal = c.req.header("x-detection-categories") || c.req.header("x-categories");
+  if (!headerVal) return [];
+
+  try {
+    const trimmed = headerVal.trim();
+    if (trimmed.startsWith("[")) {
+      return JSON.parse(trimmed);
+    }
+    return trimmed.split(",").map((s: string) => s.trim()).filter(Boolean);
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Resolve Tokenization Mode (structural vs. fpe)
+ */
+function resolveMode(c: Context, bodyMode?: string): "structural" | "fpe" {
+  const headerMode = c.req.header("x-tokenization-mode") || bodyMode;
+  if (headerMode === "fpe") return "fpe";
+  return "structural";
+}
+
+/**
+ * Resolve upstream base URL (e.g. OpenAI, Google AI Studio, Anthropic/Groq proxy, Ollama, Azure)
+ */
+export function resolveUpstreamBaseUrl(c: Context, model?: string): string {
+  const headerUrl = c.req.header("x-upstream-base-url") || c.req.header("x-upstream-url");
+  if (headerUrl) {
+    return headerUrl.trim().replace(/\/+$/, "");
+  }
+
+  const queryUrl = c.req.query("upstream_url");
+  if (queryUrl) {
+    return queryUrl.trim().replace(/\/+$/, "");
+  }
+
+  const envUrl = (c.env as any)?.UPSTREAM_BASE_URL || (c.env as any)?.OPENAI_BASE_URL;
+  if (envUrl) {
+    return envUrl.trim().replace(/\/+$/, "");
+  }
+
+  const procEnv = (globalThis as any).process?.env;
+  if (procEnv?.OPENAI_BASE_URL) {
+    return procEnv.OPENAI_BASE_URL.trim().replace(/\/+$/, "");
+  }
+
+  // Automatic Smart Provider Detection:
+  // If the model is a Google Gemini model (e.g. gemini-2.5-flash, gemini-3.5-flash, gemini-1.5-pro)
+  // or the API key is a Google AI Studio key (starts with AIza...), automatically route to
+  // Google AI Studio's official OpenAI-compatible gateway!
+  const authHeader = c.req.header("Authorization") || "";
+  const googHeader = c.req.header("x-goog-api-key") || "";
+  if (
+    model?.toLowerCase().startsWith("gemini") ||
+    authHeader.includes("AIza") ||
+    googHeader.startsWith("AIza")
+  ) {
+    return "https://generativelanguage.googleapis.com/v1beta/openai";
+  }
+
+  return "https://api.openai.com/v1";
+}
+
+/**
+ * Resolve Authorization / API Key for upstream LLM provider
+ */
+export function resolveUpstreamAuth(c: Context): { headerName: string; headerValue: string } | null {
+  const authHeader = c.req.header("Authorization");
+  if (authHeader) {
+    return { headerName: "Authorization", headerValue: authHeader };
+  }
+
+  const googKey = c.req.header("x-goog-api-key");
+  if (googKey) {
+    return { headerName: "Authorization", headerValue: `Bearer ${googKey}` };
+  }
+
+  const azureKey = c.req.header("api-key");
+  if (azureKey) {
+    return { headerName: "api-key", headerValue: azureKey };
+  }
+
+  const geminiEnv = (c.env as any)?.GEMINI_API_KEY || (globalThis as any).process?.env?.GEMINI_API_KEY;
+  if (geminiEnv) {
+    return { headerName: "Authorization", headerValue: `Bearer ${geminiEnv}` };
+  }
+
+  const envKey = (c.env as any)?.OPENAI_API_KEY || (globalThis as any).process?.env?.OPENAI_API_KEY;
+  if (envKey) {
+    return { headerName: "Authorization", headerValue: `Bearer ${envKey}` };
+  }
+
+  return null;
+}
+
+/**
+ * Intercepts and sanitizes all prompt messages (both single string and multimodal content arrays)
+ */
+export function sanitizeMessages(
+  messages: any[],
+  options: {
+    customKeywords?: string[];
+    mode?: "structural" | "fpe";
+    categories?: string[];
+  }
+): {
+  sanitizedMessages: any[];
+  combinedTokenMap: Record<string, string>;
+  entitiesDetected: DetectedEntity[];
+  categoriesApplied: string[];
+  totalEntities: number;
+} {
+  const combinedTokenMap: Record<string, string> = {};
+  const entitiesDetected: DetectedEntity[] = [];
+  const categoriesSet = new Set<string>();
+
+  const sanitizedMessages = messages.map((msg) => {
+    if (!msg || typeof msg !== "object") return msg;
+    const cloned = { ...msg };
+
+    if (typeof cloned.content === "string") {
+      const result = tokenize(cloned.content, options);
+      cloned.content = result.sanitizedText;
+      Object.assign(combinedTokenMap, result.tokenMap);
+      entitiesDetected.push(...result.entitiesDetected);
+      result.categoriesApplied?.forEach((c) => categoriesSet.add(c));
+    } else if (Array.isArray(cloned.content)) {
+      cloned.content = cloned.content.map((part: any) => {
+        if (part && part.type === "text" && typeof part.text === "string") {
+          const result = tokenize(part.text, options);
+          Object.assign(combinedTokenMap, result.tokenMap);
+          entitiesDetected.push(...result.entitiesDetected);
+          result.categoriesApplied?.forEach((c) => categoriesSet.add(c));
+          return { ...part, text: result.sanitizedText };
+        }
+        return part;
+      });
+    }
+
+    return cloned;
+  });
+
+  return {
+    sanitizedMessages,
+    combinedTokenMap,
+    entitiesDetected,
+    categoriesApplied: Array.from(categoriesSet),
+    totalEntities: entitiesDetected.length,
+  };
+}
+
+/**
+ * Creates an SSE transform stream that decodes incoming chunks,
+ * rehydrates synthetic tokens across chunk boundaries, and emits clean SSE events.
+ */
+export function createRehydratingSSEStream(
+  upstreamStream: ReadableStream<Uint8Array>,
+  tokenMap: Record<string, string>,
+  requestedModel: string
+): ReadableStream<Uint8Array> {
+  const reader = upstreamStream.getReader();
+  const decoder = new TextDecoder();
+  const encoder = new TextEncoder();
+  const tokenBuffer = new StreamTokenBuffer(tokenMap);
+
+  let sseLineBuffer = "";
+
+  function processLine(line: string, controller: ReadableStreamDefaultController) {
+    const trimmed = line.trim();
+    if (!trimmed) {
+      controller.enqueue(encoder.encode("\n"));
+      return;
+    }
+
+    if (trimmed === "data: [DONE]") {
+      const leftover = tokenBuffer.flush();
+      if (leftover) {
+        const flushChunk = {
+          id: `chatcmpl-${Date.now()}`,
+          object: "chat.completion.chunk",
+          created: Math.floor(Date.now() / 1000),
+          model: requestedModel,
+          choices: [
+            {
+              index: 0,
+              delta: { content: leftover },
+              finish_reason: null,
+            },
+          ],
+        };
+        controller.enqueue(encoder.encode(`data: ${JSON.stringify(flushChunk)}\n\n`));
+      }
+      controller.enqueue(encoder.encode("data: [DONE]\n\n"));
+      return;
+    }
+
+    if (trimmed.startsWith("data: ")) {
+      const rawJson = trimmed.slice(6);
+      try {
+        const data = JSON.parse(rawJson);
+        if (data.choices && Array.isArray(data.choices)) {
+          for (const choice of data.choices) {
+            if (choice.delta && typeof choice.delta.content === "string") {
+              choice.delta.content = tokenBuffer.processChunk(choice.delta.content);
+            }
+            if (choice.delta?.tool_calls && Array.isArray(choice.delta.tool_calls)) {
+              for (const tc of choice.delta.tool_calls) {
+                if (tc.function?.arguments) {
+                  tc.function.arguments = rehydrate(tc.function.arguments, tokenMap);
+                }
+              }
+            }
+          }
+        }
+        controller.enqueue(encoder.encode(`data: ${JSON.stringify(data)}\n\n`));
+      } catch {
+        controller.enqueue(encoder.encode(`${line}\n`));
+      }
+    } else {
+      controller.enqueue(encoder.encode(`${line}\n`));
+    }
+  }
+
+  return new ReadableStream({
+    async start(controller) {
+      try {
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) {
+            const leftover = tokenBuffer.flush();
+            if (leftover) {
+              const flushChunk = {
+                id: `chatcmpl-${Date.now()}`,
+                object: "chat.completion.chunk",
+                created: Math.floor(Date.now() / 1000),
+                model: requestedModel,
+                choices: [
+                  {
+                    index: 0,
+                    delta: { content: leftover },
+                    finish_reason: null,
+                  },
+                ],
+              };
+              controller.enqueue(encoder.encode(`data: ${JSON.stringify(flushChunk)}\n\n`));
+            }
+            if (sseLineBuffer.trim().length > 0) {
+              processLine(sseLineBuffer, controller);
+            }
+            controller.close();
+            break;
+          }
+
+          sseLineBuffer += decoder.decode(value, { stream: true });
+          const lines = sseLineBuffer.split(/\r?\n/);
+          sseLineBuffer = lines.pop() || "";
+
+          for (const line of lines) {
+            processLine(line, controller);
+          }
+        }
+      } catch (err) {
+        controller.error(err);
+      }
+    },
+    cancel() {
+      reader.cancel();
+    },
+  });
+}
+
+// =========================================================================
+// POST /chat/completions (OpenAI Drop-In Wire-Compatible Route)
+// =========================================================================
+openaiApp.post("/chat/completions", async (c) => {
+  const startTime = performance.now();
+
+  let body: any;
+  try {
+    body = await c.req.json();
+  } catch {
+    const err = createOpenAIError("Invalid JSON in request body.", "invalid_request_error", null, null, 400);
+    return c.json(err, 400);
+  }
+
+  if (!body || !Array.isArray(body.messages)) {
+    const err = createOpenAIError(
+      "Missing or invalid 'messages' field: must be an array of chat messages.",
+      "invalid_request_error",
+      "messages",
+      null,
+      400
+    );
+    return c.json(err, 400);
+  }
+
+  const customKeywords = resolveCustomKeywords(c);
+  const categories = resolveCategories(c, body.categories);
+  const mode = resolveMode(c, body.mode);
+  const isStreaming = body.stream === true;
+  const requestedModel = body.model || "gpt-4o";
+
+  // Step 1: Intercept & Sanitize All Prompt Messages at Sub-Millisecond Speed
+  const {
+    sanitizedMessages,
+    combinedTokenMap,
+    entitiesDetected,
+    categoriesApplied,
+    totalEntities,
+  } = sanitizeMessages(body.messages, {
+    customKeywords,
+    mode,
+    categories,
+  });
+
+  const engineLatencyUs = Math.round((performance.now() - startTime) * 1000);
+  const sessionId = `sess_proxy_${Math.random().toString(36).substring(2, 12)}`;
+
+  // Save session into vault for potential auditing or manual detokenization
+  const encryptionKey = c.req.header("x-vault-encryption-key");
+  const ttlSeconds = body.ttlSeconds || 600;
+  let executionCtx;
+  try {
+    executionCtx = c.executionCtx;
+  } catch {}
+
+  let isKmsEncrypted = false;
+  if (Object.keys(combinedTokenMap).length > 0) {
+    const saveRes = await saveTokenSession(
+      c.env?.DB,
+      sessionId,
+      combinedTokenMap,
+      ttlSeconds,
+      executionCtx,
+      encryptionKey
+    );
+    isKmsEncrypted = saveRes.isEncrypted;
+  }
+
+  // Compute non-PII SHA-256 entity fingerprints for SIEM audit matching
+  const auditEntities: AuditEntitySummary[] = [];
+  for (const [token, originalVal] of Object.entries(combinedTokenMap)) {
+    const fingerprint = await computeSha256Fingerprint(originalVal);
+    const entity = entitiesDetected.find((e) => e.token === token);
+    auditEntities.push({
+      ruleId: entity?.type || "RULE_GENERIC",
+      token,
+      fingerprint,
+    });
+  }
+
+  // Step 2: Resolve Upstream Destination & Forward Sanitized Prompt
+  const upstreamBaseUrl = resolveUpstreamBaseUrl(c, requestedModel);
+  const upstreamUrl = `${upstreamBaseUrl}/chat/completions`;
+  const upstreamAuth = resolveUpstreamAuth(c);
+
+  // Emit structured SIEM compliance audit event
+  recordAuditEvent(
+    {
+      eventType: "PROMPT_INTERCEPTED",
+      sessionId,
+      model: requestedModel,
+      categoriesApplied,
+      entitiesCount: totalEntities,
+      entities: auditEntities,
+      engineLatencyUs,
+      kmsEncrypted: isKmsEncrypted,
+      upstreamUrl: upstreamBaseUrl,
+    },
+    executionCtx
+  );
+
+  const upstreamHeaders: Record<string, string> = {
+    "Content-Type": "application/json",
+  };
+
+  if (upstreamAuth) {
+    upstreamHeaders[upstreamAuth.headerName] = upstreamAuth.headerValue;
+  }
+
+  // Forward optional standard OpenAI headers
+  const orgHeader = c.req.header("OpenAI-Organization");
+  if (orgHeader) upstreamHeaders["OpenAI-Organization"] = orgHeader;
+
+  const projHeader = c.req.header("OpenAI-Project");
+  if (projHeader) upstreamHeaders["OpenAI-Project"] = projHeader;
+
+  const upstreamPayload = {
+    ...body,
+    messages: sanitizedMessages,
+  };
+  delete upstreamPayload.categories;
+  delete upstreamPayload.mode;
+  delete upstreamPayload.ttlSeconds;
+
+  let upstreamRes: Response;
+  try {
+    upstreamRes = await fetch(upstreamUrl, {
+      method: "POST",
+      headers: upstreamHeaders,
+      body: JSON.stringify(upstreamPayload),
+    });
+  } catch (fetchErr: any) {
+    const err = createOpenAIError(
+      `Failed to connect to upstream LLM gateway (${upstreamBaseUrl}): ${fetchErr?.message}`,
+      "api_connection_error",
+      null,
+      null,
+      502
+    );
+    return c.json(err, 502);
+  }
+
+  // If upstream returns an error status (e.g. 401, 429, 500), forward raw response faithfully
+  if (!upstreamRes.ok) {
+    const errorBody = await upstreamRes.text();
+    let errorJson;
+    try {
+      errorJson = JSON.parse(errorBody);
+    } catch {
+      errorJson = { error: { message: errorBody, type: "upstream_error", code: upstreamRes.status } };
+    }
+    return c.json(errorJson, upstreamRes.status as any);
+  }
+
+  // Response Metadata Headers
+  const privacyHeaders: Record<string, string> = {
+    "x-privacy-gateway": "ai-privacy-core",
+    "x-privacy-session-id": sessionId,
+    "x-privacy-entities-intercepted": String(totalEntities),
+    "x-privacy-latency-us": String(engineLatencyUs),
+    "x-privacy-mode": mode,
+    "X-Kms-Status": isKmsEncrypted ? "encrypted" : "active",
+  };
+
+  // Step 3A: Streaming Response Handling (SSE)
+  if (isStreaming || upstreamRes.headers.get("content-type")?.includes("text/event-stream")) {
+    if (!upstreamRes.body) {
+      const err = createOpenAIError("Upstream stream response body is null.", "api_error", null, null, 500);
+      return c.json(err, 500);
+    }
+
+    // Fast-path: If no entities were intercepted, pass raw stream directly with zero latency
+    if (Object.keys(combinedTokenMap).length === 0) {
+      return new Response(upstreamRes.body, {
+        status: 200,
+        headers: {
+          "Content-Type": "text/event-stream; charset=utf-8",
+          "Cache-Control": "no-cache, no-transform",
+          "Connection": "keep-alive",
+          ...privacyHeaders,
+        },
+      });
+    }
+
+    // Rehydrate split tokens across streaming chunks
+    const transformedStream = createRehydratingSSEStream(
+      upstreamRes.body,
+      combinedTokenMap,
+      requestedModel
+    );
+
+    return new Response(transformedStream, {
+      status: 200,
+      headers: {
+        "Content-Type": "text/event-stream; charset=utf-8",
+        "Cache-Control": "no-cache, no-transform",
+        "Connection": "keep-alive",
+        ...privacyHeaders,
+      },
+    });
+  }
+
+  // Step 3B: Non-Streaming Response Handling (Exact Roundtrip Rehydration)
+  const responseData: any = await upstreamRes.json();
+
+  if (responseData && Array.isArray(responseData.choices)) {
+    for (const choice of responseData.choices) {
+      if (choice.message && typeof choice.message.content === "string") {
+        choice.message.content = rehydrate(choice.message.content, combinedTokenMap);
+      }
+      if (choice.message?.tool_calls && Array.isArray(choice.message.tool_calls)) {
+        for (const tc of choice.message.tool_calls) {
+          if (tc.function?.arguments) {
+            tc.function.arguments = rehydrate(tc.function.arguments, combinedTokenMap);
+          }
+        }
+      }
+      if (choice.message?.function_call?.arguments) {
+        choice.message.function_call.arguments = rehydrate(
+          choice.message.function_call.arguments,
+          combinedTokenMap
+        );
+      }
+    }
+  }
+
+  return c.json(responseData, 200, privacyHeaders);
+});
+
+// =========================================================================
+// POST /embeddings (Vector Embedding De-identification Gateway)
+// =========================================================================
+openaiApp.post("/embeddings", async (c) => {
+  let body: any;
+  try {
+    body = await c.req.json();
+  } catch {
+    const err = createOpenAIError("Invalid JSON in request body.", "invalid_request_error", null, null, 400);
+    return c.json(err, 400);
+  }
+
+  if (!body.input) {
+    const err = createOpenAIError("Field 'input' is required for embeddings.", "invalid_request_error", "input", null, 400);
+    return c.json(err, 400);
+  }
+
+  const customKeywords = resolveCustomKeywords(c);
+  const categories = resolveCategories(c, body.categories);
+  const mode = resolveMode(c, body.mode);
+
+  let sanitizedInput: string | string[];
+  let totalIntercepted = 0;
+
+  if (typeof body.input === "string") {
+    const result = tokenize(body.input, { customKeywords, mode, categories });
+    sanitizedInput = result.sanitizedText;
+    totalIntercepted += result.count;
+  } else if (Array.isArray(body.input)) {
+    sanitizedInput = body.input.map((item: string) => {
+      if (typeof item === "string") {
+        const result = tokenize(item, { customKeywords, mode, categories });
+        totalIntercepted += result.count;
+        return result.sanitizedText;
+      }
+      return item;
+    });
+  } else {
+    sanitizedInput = body.input;
+  }
+
+  const upstreamBaseUrl = resolveUpstreamBaseUrl(c);
+  const upstreamUrl = `${upstreamBaseUrl}/embeddings`;
+  const upstreamAuth = resolveUpstreamAuth(c);
+
+  const upstreamHeaders: Record<string, string> = {
+    "Content-Type": "application/json",
+  };
+  if (upstreamAuth) {
+    upstreamHeaders[upstreamAuth.headerName] = upstreamAuth.headerValue;
+  }
+
+  const upstreamPayload = {
+    ...body,
+    input: sanitizedInput,
+  };
+  delete upstreamPayload.categories;
+  delete upstreamPayload.mode;
+
+  try {
+    const upstreamRes = await fetch(upstreamUrl, {
+      method: "POST",
+      headers: upstreamHeaders,
+      body: JSON.stringify(upstreamPayload),
+    });
+
+    const resJson = await upstreamRes.json();
+    return c.json(resJson, upstreamRes.status as any, {
+      "x-privacy-gateway": "ai-privacy-core",
+      "x-privacy-entities-intercepted": String(totalIntercepted),
+    });
+  } catch (err: any) {
+    const errorObj = createOpenAIError(`Failed to proxy embeddings to upstream: ${err?.message}`, "api_error", null, null, 502);
+    return c.json(errorObj, 502);
+  }
+});
+
+// =========================================================================
+// GET /models & GET /models/:model (Compatibility Model Catalog)
+// =========================================================================
+openaiApp.get("/models", async (c) => {
+  const upstreamBaseUrl = resolveUpstreamBaseUrl(c);
+  const upstreamAuth = resolveUpstreamAuth(c);
+
+  if (upstreamAuth) {
+    try {
+      const upstreamRes = await fetch(`${upstreamBaseUrl}/models`, {
+        method: "GET",
+        headers: {
+          [upstreamAuth.headerName]: upstreamAuth.headerValue,
+        },
+      });
+      if (upstreamRes.ok) {
+        const data = await upstreamRes.json();
+        return c.json(data);
+      }
+    } catch {
+      // Fallback to static catalog if upstream unreachable
+    }
+  }
+
+  // Default standard catalog
+  return c.json({
+    object: "list",
+    data: [
+      { id: "gpt-4o", object: "model", created: 1715368132, owned_by: "system" },
+      { id: "gpt-4o-mini", object: "model", created: 1721235600, owned_by: "system" },
+      { id: "gpt-4-turbo", object: "model", created: 1712361441, owned_by: "system" },
+      { id: "claude-3-5-sonnet", object: "model", created: 1718841600, owned_by: "system" },
+      { id: "gemini-2.5-flash", object: "model", created: 1721235600, owned_by: "google" },
+      { id: "gemini-2.5-pro", object: "model", created: 1721235600, owned_by: "google" },
+      { id: "gemini-1.5-flash", object: "model", created: 1715368132, owned_by: "google" },
+      { id: "gemini-1.5-pro", object: "model", created: 1715368132, owned_by: "google" },
+      { id: "text-embedding-3-small", object: "model", created: 1705948997, owned_by: "system" },
+      { id: "text-embedding-3-large", object: "model", created: 1705948997, owned_by: "system" },
+    ],
+  });
+});
+
+openaiApp.get("/models/:model", (c) => {
+  const modelId = c.req.param("model");
+  return c.json({
+    id: modelId,
+    object: "model",
+    created: 1715368132,
+    owned_by: "system",
+  });
+});
+
+// =========================================================================
+// GET /audit/events (Compliance SIEM Telemetry Query Endpoint)
+// =========================================================================
+openaiApp.get("/audit/events", (c) => {
+  const limitParam = c.req.query("limit");
+  const sessionId = c.req.query("sessionId") || c.req.query("session_id");
+  const eventType = c.req.query("eventType") || c.req.query("event_type");
+
+  const limit = limitParam ? parseInt(limitParam, 10) : 50;
+  const events = getRecentAuditEvents({ limit, sessionId, eventType });
+
+  return c.json({
+    object: "list",
+    total: events.length,
+    data: events,
+  });
+});
+
+// =========================================================================
+// Native Google AI Studio Endpoint: POST /v1beta/models/:action
+// Supports Google GenAI SDK (google.generativeai, @google/genai)
+// =========================================================================
+openaiApp.post("/v1beta/models/:action{.+}", async (c) => {
+  const startTime = performance.now();
+  const actionParam = c.req.param("action");
+
+  let body: any;
+  try {
+    body = await c.req.json();
+  } catch {
+    return c.json({ error: { message: "Invalid JSON body", code: 400 } }, 400);
+  }
+
+  const customKeywords = resolveCustomKeywords(c);
+  const categories = resolveCategories(c);
+  const mode = resolveMode(c);
+  const combinedTokenMap: Record<string, string> = {};
+  let totalEntities = 0;
+
+  // Sanitize native Gemini contents array
+  if (body && Array.isArray(body.contents)) {
+    for (const item of body.contents) {
+      if (item && Array.isArray(item.parts)) {
+        for (const part of item.parts) {
+          if (part && typeof part.text === "string") {
+            const result = tokenize(part.text, { customKeywords, mode, categories });
+            part.text = result.sanitizedText;
+            Object.assign(combinedTokenMap, result.tokenMap);
+            totalEntities += result.count;
+          }
+        }
+      }
+    }
+  }
+
+  // Sanitize native systemInstruction if present
+  if (body?.systemInstruction && Array.isArray(body.systemInstruction.parts)) {
+    for (const part of body.systemInstruction.parts) {
+      if (part && typeof part.text === "string") {
+        const result = tokenize(part.text, { customKeywords, mode, categories });
+        part.text = result.sanitizedText;
+        Object.assign(combinedTokenMap, result.tokenMap);
+        totalEntities += result.count;
+      }
+    }
+  }
+
+  const engineLatencyUs = Math.round((performance.now() - startTime) * 1000);
+  const sessionId = `sess_gemini_${Math.random().toString(36).substring(2, 12)}`;
+
+  const urlObj = new URL(c.req.raw.url);
+  const queryStr = urlObj.search || "";
+  const upstreamUrl = `https://generativelanguage.googleapis.com/v1beta/models/${actionParam}${queryStr}`;
+
+  const forwardHeaders: Record<string, string> = {
+    "Content-Type": "application/json",
+  };
+  const authHeader = c.req.header("Authorization");
+  if (authHeader) forwardHeaders["Authorization"] = authHeader;
+  const googKey = c.req.header("x-goog-api-key");
+  if (googKey) forwardHeaders["x-goog-api-key"] = googKey;
+
+  let upstreamRes: Response;
+  try {
+    upstreamRes = await fetch(upstreamUrl, {
+      method: "POST",
+      headers: forwardHeaders,
+      body: JSON.stringify(body),
+    });
+  } catch (fetchErr: any) {
+    return c.json(
+      { error: { message: `Failed to connect to Google AI Studio: ${fetchErr?.message}`, code: 502 } },
+      502
+    );
+  }
+
+  if (!upstreamRes.ok) {
+    const errorText = await upstreamRes.text();
+    return c.text(errorText, upstreamRes.status as any, {
+      "Content-Type": upstreamRes.headers.get("content-type") || "application/json",
+    });
+  }
+
+  const isStreaming = actionParam.includes("streamGenerateContent") ||
+                      upstreamRes.headers.get("content-type")?.includes("text/event-stream");
+
+  const privacyHeaders: Record<string, string> = {
+    "x-privacy-gateway": "ai-privacy-core",
+    "x-privacy-session-id": sessionId,
+    "x-privacy-entities-intercepted": String(totalEntities),
+    "x-privacy-latency-us": String(engineLatencyUs),
+  };
+
+  if (isStreaming) {
+    if (!upstreamRes.body) return c.json({ error: "Empty stream body" }, 500);
+
+    if (Object.keys(combinedTokenMap).length === 0) {
+      return new Response(upstreamRes.body, {
+        status: 200,
+        headers: { ...privacyHeaders, "Content-Type": "text/event-stream" },
+      });
+    }
+
+    const reader = upstreamRes.body.getReader();
+    const decoder = new TextDecoder();
+    const encoder = new TextEncoder();
+    const tokenBuffer = new StreamTokenBuffer(combinedTokenMap);
+    let sseBuffer = "";
+
+    const transformedStream = new ReadableStream({
+      async start(controller) {
+        try {
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) {
+              const leftover = tokenBuffer.flush();
+              if (leftover) {
+                const chunkObj = { candidates: [{ content: { parts: [{ text: leftover }] } }] };
+                controller.enqueue(encoder.encode(`data: ${JSON.stringify(chunkObj)}\n\n`));
+              }
+              controller.close();
+              break;
+            }
+            sseBuffer += decoder.decode(value, { stream: true });
+            const lines = sseBuffer.split(/\r?\n/);
+            sseBuffer = lines.pop() || "";
+
+            for (const line of lines) {
+              if (line.startsWith("data: ")) {
+                try {
+                  const chunkJson = JSON.parse(line.slice(6));
+                  if (chunkJson.candidates && Array.isArray(chunkJson.candidates)) {
+                    for (const cand of chunkJson.candidates) {
+                      if (cand.content?.parts && Array.isArray(cand.content.parts)) {
+                        for (const part of cand.content.parts) {
+                          if (typeof part.text === "string") {
+                            part.text = tokenBuffer.processChunk(part.text);
+                          }
+                        }
+                      }
+                    }
+                  }
+                  controller.enqueue(encoder.encode(`data: ${JSON.stringify(chunkJson)}\n\n`));
+                } catch {
+                  controller.enqueue(encoder.encode(`${line}\n`));
+                }
+              } else {
+                controller.enqueue(encoder.encode(`${line}\n`));
+              }
+            }
+          }
+        } catch (err) {
+          controller.error(err);
+        }
+      },
+      cancel() {
+        reader.cancel();
+      },
+    });
+
+    return new Response(transformedStream, {
+      status: 200,
+      headers: {
+        "Content-Type": "text/event-stream",
+        ...privacyHeaders,
+      },
+    });
+  }
+
+  // Non-streaming response rehydration
+  const geminiData: any = await upstreamRes.json();
+  if (geminiData.candidates && Array.isArray(geminiData.candidates)) {
+    for (const cand of geminiData.candidates) {
+      if (cand.content?.parts && Array.isArray(cand.content.parts)) {
+        for (const part of cand.content.parts) {
+          if (typeof part.text === "string") {
+            part.text = rehydrate(part.text, combinedTokenMap);
+          }
+        }
+      }
+    }
+  }
+
+  return c.json(geminiData, 200, privacyHeaders);
+});
+
+export default openaiApp;
