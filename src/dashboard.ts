@@ -1,7 +1,12 @@
 /**
  * ProjectSPG Enterprise Console (Single-File Architecture)
- * Layout: Exact 1:1 Pixel-Accurate Replica of Groq Console Playground & API Keys (Light Theme)
- * References: media_1790456420408.png (Playground) & media_1790456680441.png (API Keys)
+ * Layout: Exact 1:1 Pixel-Accurate Replica of Groq Console (Playground, API Keys, Metrics, Usage, Logs)
+ * References:
+ * - media_1790456420408.png (Playground)
+ * - media_1790456680441.png (API Keys)
+ * - media_1790456964674.png (Dashboard - Metrics)
+ * - media_1790456991949.png (Dashboard - Usage)
+ * - media_1790457001122.png (Dashboard - Logs)
  */
 
 export const DASHBOARD_HTML = `<!DOCTYPE html>
@@ -61,7 +66,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       color: #0284c7;
       border: 1px solid #bae6fd;
     }
-    /* Syntax Highlighting Colors matching Groq Screenshot */
+    /* Syntax Highlighting */
     .syn-keyword { color: #9333ea; font-weight: 500; }
     .syn-string { color: #16a34a; }
     .syn-number { color: #ea580c; }
@@ -78,7 +83,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 <body class="h-screen flex flex-col bg-white text-groq-dark antialiased overflow-hidden selection:bg-[#f0523d]/20 selection:text-[#f0523d]">
 
   <!-- ========================================================================= -->
-  <!-- TOP GLOBAL NAVBAR (Exact Groq Console Header Layout - 52px height) -->
+  <!-- TOP GLOBAL NAVBAR (Exact 52px height) -->
   <!-- ========================================================================= -->
   <header class="h-[52px] bg-white px-6 flex items-center justify-between shrink-0 z-40">
     
@@ -102,8 +107,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     <div class="flex items-center gap-6 text-xs">
       <nav class="flex items-center gap-6 font-medium">
         <button onclick="switchView('playground')" id="nav-playground" class="nav-item text-groq-textMuted hover:text-groq-dark transition">Playground</button>
-        <button onclick="switchView('keys')" id="nav-keys" class="nav-item text-[#f0523d] font-semibold transition">API Keys</button>
-        <button onclick="switchView('dashboard')" id="nav-dashboard" class="nav-item text-groq-textMuted hover:text-groq-dark transition">Dashboard</button>
+        <button onclick="switchView('keys')" id="nav-keys" class="nav-item text-groq-textMuted hover:text-groq-dark transition">API Keys</button>
+        <button onclick="switchView('dashboard')" id="nav-dashboard" class="nav-item text-[#f0523d] font-semibold transition">Dashboard</button>
         <button onclick="switchView('docs')" id="nav-docs" class="nav-item text-groq-textMuted hover:text-groq-dark transition">Docs</button>
       </nav>
 
@@ -123,32 +128,26 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
   </header>
 
   <!-- ========================================================================= -->
-  <!-- MAIN WORKSPACE FRAME (Exact Outer Rounded Border Box from Screenshots) -->
+  <!-- MAIN WORKSPACE -->
   <!-- ========================================================================= -->
-  <div class="border-t border-l border-r border-groq-grayBorder rounded-t-2xl bg-white mx-3 sm:mx-4 flex-1 flex flex-col overflow-hidden shadow-xs">
+  <main class="flex-1 flex overflow-hidden">
 
     <!-- ======================================================================= -->
-    <!-- VIEW 1: PLAYGROUND (Exact 3-Column Groq Layout - Matching Screenshot) -->
+    <!-- VIEW 1: PLAYGROUND (Exact 3-Column Groq Layout) -->
     <!-- ======================================================================= -->
-    <div id="view-playground" class="view-panel hidden flex-1 flex flex-col overflow-hidden">
+    <div id="view-playground" class="view-panel hidden border-t border-l border-r border-groq-grayBorder rounded-t-2xl bg-white mx-3 sm:mx-4 flex-1 flex flex-col overflow-hidden shadow-xs">
       
       <!-- Sub-Toolbar (54px height) -->
       <div class="h-[54px] border-b border-groq-grayBorder bg-white px-6 flex items-center justify-between shrink-0">
-        
-        <!-- Left: Title + Chat/Studio pill -->
         <div class="flex items-center gap-4">
           <h2 class="text-[15px] font-semibold text-groq-dark tracking-tight">Playground</h2>
-          
-          <!-- Segmented Toggle (Chat / Studio) -->
           <div class="bg-[#f3f4f6] p-0.5 rounded-lg flex items-center text-xs">
             <button class="px-3 py-1 rounded-md bg-white text-groq-dark font-medium shadow-xs text-xs">Chat</button>
             <button class="px-3 py-1 rounded-md text-groq-textMuted hover:text-groq-dark text-xs">Studio</button>
           </div>
         </div>
 
-        <!-- Right: Model Selector + Copy + Hide Code + Parameters Sliders -->
         <div class="flex items-center gap-2">
-          <!-- Model Dropdown Box -->
           <div class="relative">
             <select id="playground-model" onchange="onModelChange()" class="appearance-none bg-white border border-groq-grayBorder text-groq-dark text-xs font-sans font-medium rounded-lg pl-3 pr-8 py-1.5 focus:border-gray-400 focus:outline-none cursor-pointer">
               <option value="openai/gpt-oss-120b">openai/gpt-oss-120b</option>
@@ -160,44 +159,35 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             <i data-lucide="chevrons-up-down" class="w-3.5 h-3.5 text-groq-textSubtle absolute right-2.5 top-2 pointer-events-none"></i>
           </div>
 
-          <!-- Copy Model Name Button -->
           <button onclick="copyModelName()" class="p-1.5 rounded-lg bg-white border border-groq-grayBorder text-groq-textMuted hover:text-groq-dark" title="Copy model name">
             <i data-lucide="copy" class="w-3.5 h-3.5"></i>
           </button>
 
-          <!-- Toggle Code Button -->
           <button onclick="toggleCodePanel()" id="btn-toggle-code" class="px-3 py-1.5 rounded-lg bg-white border border-groq-grayBorder text-xs font-medium text-groq-dark hover:bg-gray-50 flex items-center gap-1.5">
             <i data-lucide="code" class="w-3.5 h-3.5 text-groq-textMuted"></i>
             <span id="code-btn-text">Hide code</span>
           </button>
 
-          <!-- Parameters Sliders Button -->
           <button onclick="openConfigModal()" class="p-1.5 rounded-lg bg-white border border-groq-grayBorder text-groq-textMuted hover:text-groq-dark" title="Parameters">
             <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5"></i>
           </button>
         </div>
-
       </div>
 
-      <!-- Playground 3-Column Workspace -->
+      <!-- Playground 3-Column Split -->
       <div class="flex-1 flex overflow-hidden">
-        
-        <!-- COLUMN 1: PROMPT INPUTS -->
+        <!-- Col 1: Prompts -->
         <div class="w-[33%] min-w-[320px] max-w-[420px] border-r border-groq-grayBorder p-6 flex flex-col justify-between overflow-y-auto bg-white">
           <div class="space-y-4">
-            
-            <!-- SYSTEM ROW -->
             <div class="flex items-center gap-3">
               <span class="text-[11px] font-semibold text-groq-textMuted uppercase tracking-wider shrink-0">SYSTEM</span>
               <input type="text" id="system-prompt" class="flex-1 bg-transparent border-0 text-xs text-groq-dark placeholder-groq-textSubtle focus:outline-none" placeholder="Enter system message (Optional)" value="Enter system message (Optional)">
             </div>
 
-            <!-- USER PROMPT CARD -->
             <div class="bg-groq-grayBg border border-groq-grayBorder rounded-2xl p-4 transition focus-within:border-gray-300">
               <div class="text-[11px] font-semibold text-groq-textSubtle uppercase tracking-wider mb-2">USER</div>
               <textarea id="user-prompt" rows="8" class="w-full bg-transparent text-xs text-groq-dark placeholder-groq-textSubtle focus:outline-none resize-none leading-relaxed" placeholder="Enter user message...">Please confirm order for Alice Wong (email: alice.wong@fintech.de, SSN: 123-45-6789) using Visa card 4532-0151-1283-0366. Repeat back her name, email, and card number.</textarea>
               
-              <!-- Quick Presets -->
               <div class="mt-3 pt-2.5 border-t border-gray-200/70 flex flex-wrap gap-1.5 text-[10px]">
                 <button onclick="loadSample('banking')" class="px-2 py-0.5 rounded-md bg-white border border-groq-grayBorder hover:border-gray-300 text-groq-textMuted hover:text-groq-dark transition">🏦 Banking Wire</button>
                 <button onclick="loadSample('patient')" class="px-2 py-0.5 rounded-md bg-white border border-groq-grayBorder hover:border-gray-300 text-groq-textMuted hover:text-groq-dark transition">🏥 Patient Record</button>
@@ -205,7 +195,6 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               </div>
             </div>
 
-            <!-- Privacy Shield Badge -->
             <div class="flex items-center justify-between text-xs px-3 py-2 rounded-xl bg-sky-50 border border-sky-200 text-sky-900">
               <div class="flex items-center gap-1.5">
                 <i data-lucide="shield-check" class="w-4 h-4 text-sky-600"></i>
@@ -213,24 +202,20 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               </div>
               <span class="text-[10px] font-mono font-semibold text-sky-700 bg-white border border-sky-300 px-1.5 py-0.5 rounded">Auto De-identify</span>
             </div>
-
           </div>
 
-          <!-- Column 1 Bottom Row -->
           <div class="pt-4 flex items-center justify-between">
             <button onclick="clearInputs()" class="px-3.5 py-1.5 rounded-lg bg-groq-grayBg border border-groq-grayBorder hover:bg-gray-100 text-xs font-medium text-groq-dark flex items-center gap-1.5 transition">
               <i data-lucide="plus-circle" class="w-3.5 h-3.5 text-groq-textMuted"></i>
               <span>New Message</span>
             </button>
-            
             <button onclick="clearInputs()" class="px-4 py-1.5 rounded-lg bg-groq-grayBg border border-groq-grayBorder hover:bg-gray-100 text-xs font-medium text-groq-textMuted hover:text-groq-dark transition">
               Clear
             </button>
           </div>
-
         </div>
 
-        <!-- COLUMN 2: RESPONSE AREA -->
+        <!-- Col 2: Response -->
         <div id="col-response" class="flex-1 flex flex-col justify-between p-6 border-r border-groq-grayBorder overflow-y-auto bg-white">
           <div>
             <div class="flex items-center justify-between mb-4">
@@ -238,10 +223,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               <div id="response-stats" class="text-[11px] font-mono text-groq-textSubtle">0 tokens • 0.00s</div>
             </div>
 
-            <!-- Welcome Message State -->
             <div id="welcome-message" class="space-y-4 text-xs text-groq-textMuted font-sans max-w-lg">
               <h3 class="text-sm font-semibold text-groq-dark">Welcome to the Playground</h3>
-              
               <ul class="space-y-2 list-none text-xs text-groq-dark">
                 <li class="flex items-start gap-2">
                   <span class="text-groq-textSubtle">•</span>
@@ -260,13 +243,11 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                   <span>Use the "View Code" button to copy the code snippet to your project.</span>
                 </li>
               </ul>
-
               <p class="text-xs text-groq-textMuted pt-4">
                 Don't forget to check out <a href="javascript:void(0)" onclick="switchView('docs')" class="text-groq-dark underline hover:text-[#f0523d] inline-flex items-center gap-0.5">the documentation <i data-lucide="external-link" class="w-3 h-3"></i></a>.
               </p>
             </div>
 
-            <!-- Upstream Intercepted Tokens View -->
             <div id="upstream-tokens-box" class="hidden p-3.5 rounded-xl bg-sky-50 border border-sky-200 font-mono text-xs mb-3">
               <div class="text-[10px] uppercase font-bold text-sky-800 mb-1 flex items-center gap-1.5">
                 <i data-lucide="eye-off" class="w-3.5 h-3.5 text-sky-600"></i> Upstream Prompt Received By Model (Zero Raw PII):
@@ -274,11 +255,9 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               <div id="upstream-tokens-text" class="text-sky-950 font-medium"></div>
             </div>
 
-            <!-- Rehydrated Assistant Output -->
             <div id="rehydrated-text" class="hidden whitespace-pre-wrap text-groq-dark bg-groq-grayBg p-4 rounded-xl border border-groq-grayBorder text-xs font-mono leading-relaxed"></div>
           </div>
 
-          <!-- Column 2 Bottom Submit Bar -->
           <div class="pt-4 flex items-center justify-between">
             <div class="flex items-center gap-3">
               <button onclick="addConversationTurn()" class="text-xs text-groq-textMuted hover:text-groq-dark flex items-center gap-1.5 font-medium transition">
@@ -289,16 +268,14 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               </button>
             </div>
 
-            <!-- Pill Submit Button -->
             <button onclick="submitPrompt()" id="btn-submit" class="px-5 py-2 rounded-full border-2 border-[#f0523d] bg-white hover:bg-[#fff5f3] text-groq-dark font-semibold text-xs flex items-center gap-2 transition active:scale-95 shadow-xs">
               <span>Submit</span>
               <span class="text-[11px] font-mono text-groq-textSubtle">Ctrl + ↵</span>
             </button>
           </div>
-
         </div>
 
-        <!-- COLUMN 3: CODE SNIPPET -->
+        <!-- Col 3: Code -->
         <div id="col-code" class="w-[33%] min-w-[320px] max-w-[440px] p-6 flex flex-col justify-between overflow-y-auto bg-white">
           <div>
             <div class="flex items-center justify-between mb-4">
@@ -312,7 +289,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               </div>
 
               <button onclick="copySnippet()" class="text-xs text-groq-textSubtle hover:text-groq-dark flex items-center gap-1 font-medium transition">
-                <i data-lucide="copy" class="w-3 h-3"></i> Copy
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy
               </button>
             </div>
 
@@ -323,33 +300,26 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             <span>Target: Cloudflare Edge</span>
             <span class="text-emerald-600 font-medium">SSL Encrypted</span>
           </div>
-
         </div>
-
       </div>
-
     </div>
 
     <!-- ======================================================================= -->
-    <!-- VIEW 2: API KEYS VIEW (Exact 1:1 Pixel Match to media_1790456680441.png) -->
+    <!-- VIEW 2: API KEYS VIEW (Exact Groq API Keys Layout) -->
     <!-- ======================================================================= -->
-    <div id="view-keys" class="view-panel flex-1 p-8 sm:p-10 max-w-[1280px] w-full overflow-y-auto bg-white">
-      
-      <!-- Top Title + Action Button Row -->
+    <div id="view-keys" class="view-panel hidden border-t border-l border-r border-groq-grayBorder rounded-t-2xl bg-white mx-3 sm:mx-4 flex-1 p-8 sm:p-10 max-w-[1280px] w-full overflow-y-auto shadow-xs">
       <div class="flex items-start justify-between mb-8">
         <div>
           <h1 class="text-[17px] font-bold text-groq-dark tracking-tight mb-2">API Keys</h1>
           <p class="text-xs text-groq-textMuted">Manage your project API keys. Remember to keep your API keys safe to prevent unauthorized access.</p>
         </div>
 
-        <!-- + Create API Key Button (Exact matching coral outline pill) -->
         <button onclick="openCreateKeyModal()" class="px-4 py-2 rounded-lg border border-[#f0523d] bg-white hover:bg-[#fff5f3] text-groq-dark text-xs font-semibold flex items-center gap-1.5 transition shadow-xs">
           <i data-lucide="plus" class="w-3.5 h-3.5 text-groq-dark"></i>
           <span>Create API Key</span>
         </button>
       </div>
 
-      <!-- API Keys Table (Exact open minimal layout, columns, and action buttons) -->
       <div class="w-full">
         <table class="w-full text-left text-xs font-sans border-collapse">
           <thead>
@@ -363,122 +333,244 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               <th class="pb-5 text-right w-24"></th>
             </tr>
           </thead>
-          <tbody id="api-keys-tbody" class="divide-y-0 text-xs">
-            <!-- Populated dynamically by fetchApiKeys() with exact default mock keys matching screenshot -->
-          </tbody>
+          <tbody id="api-keys-tbody" class="divide-y-0 text-xs"></tbody>
         </table>
       </div>
-
     </div>
 
     <!-- ======================================================================= -->
-    <!-- VIEW 3: DASHBOARD VIEW (With Left Panel: Metrics, Usage, Logs, Batch) -->
+    <!-- VIEW 3: DASHBOARD (Exact Replica of Metrics, Usage, Logs Screenshots) -->
     <!-- ======================================================================= -->
-    <div id="view-dashboard" class="view-panel hidden flex-1 flex overflow-hidden">
-      <aside class="w-48 shrink-0 border-r border-groq-grayBorder bg-white pt-6 px-4 text-xs font-medium space-y-1">
-        <button onclick="switchDashTab('metrics')" id="dash-tab-btn-metrics" class="dash-tab-btn w-full text-left px-3 py-2 rounded-lg text-groq-textMuted hover:text-groq-dark hover:bg-groq-grayBg transition">Metrics</button>
-        <button onclick="switchDashTab('usage')" id="dash-tab-btn-usage" class="dash-tab-btn w-full text-left px-3 py-2 rounded-lg text-groq-textMuted hover:text-groq-dark hover:bg-groq-grayBg transition">Usage</button>
-        <button onclick="switchDashTab('logs')" id="dash-tab-btn-logs" class="dash-tab-btn w-full text-left px-3 py-2 rounded-lg text-[#f0523d] font-semibold bg-groq-coralLight border border-[#f0523d]/20">Logs</button>
-        <button onclick="switchDashTab('batch')" id="dash-tab-btn-batch" class="dash-tab-btn w-full text-left px-3 py-2 rounded-lg text-groq-textMuted hover:text-groq-dark hover:bg-groq-grayBg transition">Batch</button>
+    <div id="view-dashboard" class="view-panel flex-1 flex overflow-hidden">
+      
+      <!-- STANDALONE LEFT PANEL (Exact matching Groq Dashboard Left Sidebar) -->
+      <aside class="w-44 shrink-0 pl-8 pt-8 space-y-7 text-xs font-medium">
+        <button onclick="switchDashTab('metrics')" id="dash-tab-btn-metrics" class="dash-tab-btn block text-left text-groq-textMuted hover:text-groq-dark transition">Metrics</button>
+        <button onclick="switchDashTab('usage')" id="dash-tab-btn-usage" class="dash-tab-btn block text-left text-groq-textMuted hover:text-groq-dark transition">Usage</button>
+        <button onclick="switchDashTab('logs')" id="dash-tab-btn-logs" class="dash-tab-btn block text-left text-[#f0523d] font-semibold transition">Logs</button>
+        <button onclick="switchDashTab('batch')" id="dash-tab-btn-batch" class="dash-tab-btn block text-left text-groq-textMuted hover:text-groq-dark transition">Batch</button>
       </aside>
 
-      <main class="flex-1 p-8 overflow-y-auto bg-white">
-        <!-- SUB-VIEW: LOGS -->
-        <section id="dash-content-logs" class="dash-subview space-y-5">
+      <!-- MAIN CARD CONTAINER (Rounded top-left & top-right border matching images) -->
+      <div class="border-t border-l border-r border-groq-grayBorder rounded-tl-2xl rounded-tr-2xl bg-white p-8 sm:p-10 mr-4 flex-1 flex flex-col overflow-y-auto shadow-xs">
+        
+        <!-- =================================================================== -->
+        <!-- SUBVIEW A: METRICS (Exact 1:1 Match to media_1790456964674.png) -->
+        <!-- =================================================================== -->
+        <section id="dash-content-metrics" class="dash-subview hidden space-y-6">
           <div class="flex items-center justify-between">
-            <h1 class="text-2xl font-bold text-groq-dark">Logs</h1>
+            <h1 class="text-[17px] font-bold text-groq-dark tracking-tight">Metrics</h1>
+            
+            <!-- Controls on Right -->
             <div class="flex items-center gap-3">
-              <label class="flex items-center gap-2 text-xs text-groq-textMuted cursor-pointer select-none font-medium">
-                <input type="checkbox" id="filter-errors" onchange="renderLogsTable()" class="rounded border-gray-300 text-[#f0523d] focus:ring-[#f0523d]">
+              <!-- Show Limits Switch -->
+              <div class="flex items-center gap-2 text-xs font-medium text-groq-dark">
+                <span>Show Limits</span>
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" class="sr-only peer">
+                  <div class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-groq-dark"></div>
+                </label>
+              </div>
+
+              <!-- Refresh Button -->
+              <button onclick="renderLogsTable()" class="px-3 py-1.5 rounded-lg bg-groq-grayBg border border-groq-grayBorder hover:bg-gray-100 text-xs font-medium text-groq-dark flex items-center gap-1.5 transition">
+                <i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-groq-textMuted"></i>
+                <span>Refresh</span>
+              </button>
+
+              <!-- Last 30 minutes dropdown -->
+              <div class="relative">
+                <select class="appearance-none bg-groq-grayBg border border-groq-grayBorder text-groq-dark text-xs font-medium rounded-lg pl-3 pr-7 py-1.5 focus:outline-none cursor-pointer">
+                  <option>Last 30 minutes</option>
+                  <option>Last 1 hour</option>
+                  <option>Last 24 hours</option>
+                </select>
+                <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-groq-textSubtle absolute right-2 top-2 pointer-events-none"></i>
+              </div>
+
+              <!-- Show all Models dropdown -->
+              <div class="relative">
+                <select class="appearance-none bg-groq-grayBg border border-groq-grayBorder text-groq-dark text-xs font-medium rounded-lg pl-3 pr-7 py-1.5 focus:outline-none cursor-pointer">
+                  <option>Show all Models</option>
+                  <option>openai/gpt-oss-120b</option>
+                  <option>llama-3.3-70b-versatile</option>
+                </select>
+                <i data-lucide="chevrons-up-down" class="w-3.5 h-3.5 text-groq-textSubtle absolute right-2 top-2 pointer-events-none"></i>
+              </div>
+
+              <!-- Show all API Keys dropdown -->
+              <div class="relative">
+                <select class="appearance-none bg-groq-grayBg border border-groq-grayBorder text-groq-dark text-xs font-medium rounded-lg pl-3 pr-7 py-1.5 focus:outline-none cursor-pointer">
+                  <option>Show all API Keys</option>
+                  <option>ProjectSPG Test</option>
+                  <option>Datums Space</option>
+                </select>
+                <i data-lucide="chevrons-up-down" class="w-3.5 h-3.5 text-groq-textSubtle absolute right-2 top-2 pointer-events-none"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- HTTP Status Codes Chart Card -->
+          <div class="border border-groq-grayBorder rounded-xl p-6 min-h-[380px] flex flex-col justify-between bg-white shadow-xs">
+            <div class="flex items-center gap-1.5 text-xs font-semibold text-groq-dark">
+              <span>HTTP Status Codes</span>
+              <i data-lucide="help-circle" class="w-3.5 h-3.5 text-groq-textSubtle"></i>
+            </div>
+
+            <!-- Empty Timeline Canvas with axis matching screenshot -->
+            <div class="flex-1 flex flex-col justify-end pt-16">
+              <div class="w-full border-b border-gray-100 mb-2"></div>
+              <div class="flex items-center justify-between text-[11px] font-mono text-groq-textSubtle px-2">
+                <span>2:09am</span>
+                <span>2:18am</span>
+                <span>2:24am</span>
+                <span>2:32am</span>
+                <span>2:39am</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- =================================================================== -->
+        <!-- SUBVIEW B: USAGE (Exact 1:1 Match to media_1790456991949.png) -->
+        <!-- =================================================================== -->
+        <section id="dash-content-usage" class="dash-subview hidden space-y-6">
+          <div class="flex items-start justify-between">
+            <div>
+              <h1 class="text-[17px] font-bold text-groq-dark tracking-tight mb-2">Usage</h1>
+              <p class="text-xs font-medium text-groq-dark">View usage data for your project</p>
+              <p class="text-[11px] text-groq-textSubtle mt-0.5">Note: Data can be delayed by up to 15 minutes. All data shown in UTC time.</p>
+            </div>
+
+            <div class="flex items-center gap-2">
+              <button class="px-3.5 py-1.5 rounded-lg bg-groq-grayBg border border-groq-grayBorder text-xs font-medium text-groq-dark flex items-center gap-1.5">
+                <i data-lucide="folder" class="w-3.5 h-3.5 text-groq-textMuted"></i>
+                <span>Default Project</span>
+              </button>
+              <button class="px-3.5 py-1.5 rounded-lg bg-groq-grayBg border border-groq-grayBorder text-xs font-medium text-groq-dark flex items-center gap-1.5">
+                <i data-lucide="calendar" class="w-3.5 h-3.5 text-groq-textMuted"></i>
+                <span>September 2026</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Sub Tabs: Cost | Activity -->
+          <div class="flex items-center gap-6 text-xs font-medium border-b border-groq-grayBorder pb-2">
+            <button class="text-[#f0523d] border-b-2 border-[#f0523d] pb-2 font-semibold">Cost</button>
+            <button class="text-groq-dark hover:text-[#f0523d] pb-2">Activity</button>
+          </div>
+
+          <!-- Total Spend Card -->
+          <div class="border border-groq-grayBorder rounded-xl p-5 max-w-sm bg-white shadow-xs">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-medium text-groq-dark">Total Spend</span>
+              <span class="text-sm font-semibold text-groq-dark font-mono">$0.00 USD</span>
+            </div>
+            <p class="text-[11px] text-groq-textMuted mt-3 leading-relaxed">Projected cost calculation as if you were enrolled in billing. You will not be billed until you upgrade.</p>
+          </div>
+
+          <!-- Model On-Demand Chart Card -->
+          <div class="border border-groq-grayBorder rounded-xl p-6 bg-white shadow-xs">
+            <h3 class="text-xs font-bold text-groq-dark">allam-2-7b - on_demand</h3>
+            <span class="text-xs text-groq-textMuted font-mono block mt-1">$0.00</span>
+
+            <div class="h-44 flex items-end pt-6">
+              <div class="flex flex-col justify-between h-full text-[10px] font-mono text-groq-textSubtle pr-3 border-r border-gray-200">
+                <span>$0.10</span>
+                <span>$0.07</span>
+                <span>$0.05</span>
+                <span>$0.00</span>
+              </div>
+              <div class="flex-1 border-b border-gray-100 ml-2"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- =================================================================== -->
+        <!-- SUBVIEW C: LOGS (Exact 1:1 Match to media_1790457001122.png) -->
+        <!-- =================================================================== -->
+        <section id="dash-content-logs" class="dash-subview space-y-6">
+          <div class="flex items-center justify-between">
+            <h1 class="text-[17px] font-bold text-groq-dark tracking-tight">Logs</h1>
+
+            <div class="flex items-center gap-3">
+              <!-- Show Errors Only toggle -->
+              <div class="flex items-center gap-2 text-xs font-medium text-groq-dark select-none">
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" id="filter-errors" onchange="renderLogsTable()" class="sr-only peer">
+                  <div class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-groq-dark"></div>
+                </label>
                 <span>Show Errors Only</span>
-              </label>
-              <button onclick="downloadLogs()" class="px-3.5 py-1.5 rounded-lg border border-groq-grayBorder bg-white text-xs font-medium text-groq-dark hover:bg-groq-grayBg flex items-center gap-1.5 shadow-xs transition">
+              </div>
+
+              <!-- Download dropdown button -->
+              <button onclick="downloadLogs()" class="px-3.5 py-1.5 rounded-lg bg-groq-grayBg border border-groq-grayBorder hover:bg-gray-100 text-xs font-medium text-groq-dark flex items-center gap-1.5 transition">
                 <span>Download</span>
                 <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-groq-textSubtle"></i>
               </button>
             </div>
           </div>
 
-          <div class="border border-groq-grayBorder rounded-xl overflow-hidden bg-white shadow-xs">
-            <table class="w-full text-left text-xs font-mono">
-              <thead class="bg-[#f9fafb] text-groq-textMuted text-[10px] uppercase tracking-wider font-semibold border-b border-groq-grayBorder">
-                <tr>
-                  <th class="py-3 px-3">REQUEST TIME</th>
-                  <th class="py-3 px-3">MODEL</th>
-                  <th class="py-3 px-3">API KEY</th>
-                  <th class="py-3 px-3">CODE</th>
-                  <th class="py-3 px-3">TTFT</th>
-                  <th class="py-3 px-3">LATENCY</th>
-                  <th class="py-3 px-3">INPUT TOKENS</th>
-                  <th class="py-3 px-3">OUTPUT TOKENS</th>
-                  <th class="py-3 px-3">AUDIO SECONDS</th>
-                  <th class="py-3 px-3">REQUEST ID</th>
-                  <th class="py-3 px-3">ERROR</th>
+          <!-- Logs Table (Exact Columns as Screenshot 3) -->
+          <div class="w-full">
+            <table class="w-full text-left text-xs font-mono border-collapse">
+              <thead>
+                <tr class="text-groq-textSubtle text-[10px] uppercase tracking-wider font-semibold border-b border-gray-100 pb-3">
+                  <th class="pb-4 font-semibold text-groq-textSubtle pr-3">REQUEST TIME</th>
+                  <th class="pb-4 font-semibold text-groq-textSubtle pr-3">MODEL</th>
+                  <th class="pb-4 font-semibold text-groq-textSubtle pr-3">API KEY</th>
+                  <th class="pb-4 font-semibold text-groq-textSubtle pr-3">CODE</th>
+                  <th class="pb-4 font-semibold text-groq-textSubtle pr-3">TTFT</th>
+                  <th class="pb-4 font-semibold text-groq-textSubtle pr-3">LATENCY</th>
+                  <th class="pb-4 font-semibold text-groq-textSubtle pr-3">INPUT TOKENS</th>
+                  <th class="pb-4 font-semibold text-groq-textSubtle pr-3">OUTPUT TOKENS</th>
+                  <th class="pb-4 font-semibold text-groq-textSubtle pr-3 text-center">AUDIO SECONDS</th>
+                  <th class="pb-4 font-semibold text-groq-textSubtle pr-3">REQUEST ID</th>
+                  <th class="pb-4 font-semibold text-groq-textSubtle">ERROR</th>
                 </tr>
               </thead>
-              <tbody id="logs-tbody" class="divide-y divide-groq-grayBorder text-[11px] bg-white"></tbody>
+              <tbody id="logs-tbody" class="divide-y-0 text-[11px]"></tbody>
             </table>
-          </div>
-        </section>
 
-        <!-- SUB-VIEW: METRICS -->
-        <section id="dash-content-metrics" class="dash-subview hidden space-y-6">
-          <h1 class="text-2xl font-bold text-groq-dark">Edge Privacy Metrics</h1>
-          <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div class="bg-white border border-groq-grayBorder rounded-xl p-4 shadow-xs">
-              <span class="text-[11px] font-semibold text-groq-textMuted uppercase tracking-wider">Total Requests</span>
-              <div class="text-2xl font-bold text-groq-dark mt-2">14,290</div>
-            </div>
-            <div class="bg-white border border-groq-grayBorder rounded-xl p-4 shadow-xs">
-              <span class="text-[11px] font-semibold text-groq-textMuted uppercase tracking-wider">PII Intercepted</span>
-              <div class="text-2xl font-bold text-[#f0523d] mt-2">38,124</div>
-            </div>
-            <div class="bg-white border border-groq-grayBorder rounded-xl p-4 shadow-xs">
-              <span class="text-[11px] font-semibold text-groq-textMuted uppercase tracking-wider">Latency Overhead</span>
-              <div class="text-2xl font-bold text-emerald-600 mt-2">248 µs</div>
-            </div>
-            <div class="bg-white border border-groq-grayBorder rounded-xl p-4 shadow-xs">
-              <span class="text-[11px] font-semibold text-groq-textMuted uppercase tracking-wider">BYOK KMS Status</span>
-              <div class="text-2xl font-bold text-groq-dark mt-2">AES-256-GCM</div>
+            <!-- Pagination Bar (Bottom Right matching image) -->
+            <div class="mt-8 flex items-center justify-end gap-3 text-xs text-groq-dark font-sans">
+              <span class="text-groq-textMuted">Page Size</span>
+              <div class="relative">
+                <select class="appearance-none bg-groq-grayBg border border-groq-grayBorder rounded-lg px-3 py-1 pr-6 text-groq-dark text-xs font-medium cursor-pointer">
+                  <option>50</option>
+                  <option>100</option>
+                </select>
+                <i data-lucide="chevron-down" class="w-3 h-3 text-groq-textSubtle absolute right-2 top-2 pointer-events-none"></i>
+              </div>
+              <div class="flex items-center gap-1 text-groq-textSubtle ml-1">
+                <button class="p-1 hover:text-groq-dark disabled:opacity-30"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
+                <button class="p-1 hover:text-groq-dark"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+              </div>
             </div>
           </div>
         </section>
 
-        <!-- SUB-VIEW: USAGE -->
-        <section id="dash-content-usage" class="dash-subview hidden space-y-6">
-          <h1 class="text-2xl font-bold text-groq-dark">Usage & Quotas</h1>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-            <div class="bg-white border border-groq-grayBorder rounded-xl p-5 shadow-xs">
-              <span class="text-xs font-semibold text-groq-textMuted uppercase">Sanitized Tokens</span>
-              <div class="text-3xl font-extrabold text-groq-dark mt-2 font-mono">1,842,091</div>
-            </div>
-            <div class="bg-white border border-groq-grayBorder rounded-xl p-5 shadow-xs">
-              <span class="text-xs font-semibold text-groq-textMuted uppercase">Rehydrated Tokens</span>
-              <div class="text-3xl font-extrabold text-groq-dark mt-2 font-mono">2,104,883</div>
-            </div>
-            <div class="bg-white border border-groq-grayBorder rounded-xl p-5 shadow-xs">
-              <span class="text-xs font-semibold text-groq-textMuted uppercase">Compliance Savings</span>
-              <div class="text-3xl font-extrabold text-emerald-600 mt-2 font-mono">$142,500</div>
-            </div>
-          </div>
-        </section>
-
-        <!-- SUB-VIEW: BATCH -->
+        <!-- =================================================================== -->
+        <!-- SUBVIEW D: BATCH -->
+        <!-- =================================================================== -->
         <section id="dash-content-batch" class="dash-subview hidden space-y-6">
-          <h1 class="text-2xl font-bold text-groq-dark">Batch De-identification</h1>
-          <div class="bg-white border border-dashed border-gray-300 rounded-xl p-8 text-center space-y-3">
-            <i data-lucide="upload-cloud" class="w-10 h-10 text-[#f0523d] mx-auto"></i>
-            <div><span class="text-sm font-semibold text-groq-dark">Upload dataset for batch anonymization</span></div>
-            <button class="px-4 py-2 rounded-lg bg-[#f0523d] text-white text-xs font-semibold hover:bg-[#e0422d]">Select Files</button>
+          <h1 class="text-[17px] font-bold text-groq-dark tracking-tight">Batch</h1>
+          <p class="text-xs text-groq-textMuted">Perform asynchronous batch de-identification and reversible tokenization.</p>
+          <div class="border border-dashed border-gray-300 rounded-xl p-8 text-center space-y-3 bg-white">
+            <i data-lucide="upload-cloud" class="w-8 h-8 text-[#f0523d] mx-auto"></i>
+            <span class="text-xs font-medium text-groq-dark block">Upload CSV or JSONL files</span>
+            <button class="px-4 py-1.5 rounded-lg bg-white border border-[#f0523d] text-groq-dark text-xs font-semibold hover:bg-[#fff5f3]">Choose Files</button>
           </div>
         </section>
-      </main>
-    </div>
+
+      </div> <!-- End Main Card Container -->
+
+    </div> <!-- End View Dashboard -->
 
     <!-- ======================================================================= -->
     <!-- VIEW 4: DOCS VIEW -->
     <!-- ======================================================================= -->
-    <div id="view-docs" class="view-panel hidden flex-1 flex overflow-hidden">
+    <div id="view-docs" class="view-panel hidden border-t border-l border-r border-groq-grayBorder rounded-t-2xl bg-white mx-3 sm:mx-4 flex-1 flex overflow-hidden shadow-xs">
       <aside class="w-64 shrink-0 border-r border-groq-grayBorder bg-white p-5 text-xs overflow-y-auto space-y-4">
         <div class="relative">
           <input type="text" placeholder="Search" class="w-full bg-[#f9fafb] border border-groq-grayBorder rounded-lg pl-8 pr-12 py-1.5 text-xs text-groq-dark placeholder-groq-textSubtle focus:outline-none">
@@ -519,7 +611,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       </div>
     </div>
 
-  </div> <!-- End Main Workspace Frame -->
+  </main>
 
   <!-- MODALS -->
   <div id="modal-create-key" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
@@ -599,17 +691,17 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       germantax: "Audit filing for Hans Gruber (email: hans.gruber@berlin-tech.de, German Tax ID: 04 225 818 316, IBAN: DE89 3704 0044 0532 0130 00)."
     };
 
-    let activeView = 'keys'; // Default to API Keys matching the uploaded screenshot!
-    let activeDashTab = 'logs';
+    let activeView = 'dashboard'; // Default to Dashboard with Left Panel matching images!
+    let activeDashTab = 'logs';   // Default sub-tab within Dashboard
     let isCodeVisible = true;
     let activeCodeLang = 'python';
 
-    // Exact initial sample keys matching media_1790456680441.png
     let sampleApiKeys = [
       { id: 'key_1', name: 'Datums Space', key_prefix: 'gsk_...IZS1', created_at: '2026-09-09T00:00:00Z', last_used: '9/9/2026', expires: 'Never', requests_used: 0 },
       { id: 'key_2', name: 'ProjectSPG Test', key_prefix: 'gsk_...R5Ve', created_at: '2026-09-27T00:00:00Z', last_used: '9/27/2026', expires: 'Never', requests_used: 3 }
     ];
 
+    // Mock logs exactly matching media_1790457001122.png
     let localLogs = [
       { time: '9/27/2026, 1:11:54 AM', model: 'openai/gpt-oss-120b', key: 'ProjectSPG Test', code: 200, ttft: '0.583', latency: '0.829', inTokens: 124, outTokens: 120, audio: '-', reqId: 'req_0...t5xz', error: '-' },
       { time: '9/27/2026, 1:11:01 AM', model: 'openai/gpt-oss-120b', key: 'ProjectSPG Test', code: 200, ttft: '0.376', latency: '0.538', inTokens: 89, outTokens: 79, audio: '-', reqId: 'req_0...4xfy', error: '-' },
@@ -664,14 +756,14 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       if (target) target.classList.remove('hidden');
 
       document.querySelectorAll('.dash-tab-btn').forEach(btn => {
-        btn.classList.remove('text-[#f0523d]', 'font-semibold', 'bg-groq-coralLight', 'border', 'border-[#f0523d]/20');
+        btn.classList.remove('text-[#f0523d]', 'font-semibold');
         btn.classList.add('text-groq-textMuted');
       });
 
       const activeBtn = document.getElementById('dash-tab-btn-' + tabName);
       if (activeBtn) {
         activeBtn.classList.remove('text-groq-textMuted');
-        activeBtn.classList.add('text-[#f0523d]', 'font-semibold', 'bg-groq-coralLight', 'border', 'border-[#f0523d]/20');
+        activeBtn.classList.add('text-[#f0523d]', 'font-semibold');
       }
       if (tabName === 'logs') renderLogsTable();
       lucide.createIcons();
@@ -874,9 +966,6 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
       alert('Code snippet copied!');
     }
 
-    // =========================================================================
-    // API KEYS LOGIC (Exact styling matching media_1790456680441.png)
-    // =========================================================================
     async function fetchApiKeys() {
       try {
         const res = await fetch('/api/keys');
@@ -901,11 +990,9 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
               <td class="pr-6 font-sans text-groq-dark">\${calls} API Calls</td>
               <td class="text-right">
                 <div class="flex items-center justify-end gap-2">
-                  <!-- Edit Pencil Button (Exact gray box) -->
                   <button class="p-2 rounded-lg bg-groq-grayBg hover:bg-gray-100 text-groq-dark transition" title="Edit">
                     <i data-lucide="edit-3" class="w-3.5 h-3.5 text-groq-dark"></i>
                   </button>
-                  <!-- Delete Trash Button (Exact gray box with coral trash) -->
                   <button onclick="deleteKey('\${k.id}')" class="p-2 rounded-lg bg-groq-grayBg hover:bg-[#fff5f3] text-[#f0523d] transition" title="Delete">
                     <i data-lucide="trash-2" class="w-3.5 h-3.5 text-[#f0523d]"></i>
                   </button>
@@ -957,6 +1044,7 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
       fetchApiKeys();
     }
 
+    // Exact Render of Logs Table matching media_1790457001122.png
     function renderLogsTable() {
       const tbody = document.getElementById('logs-tbody');
       if (!tbody) return;
@@ -964,20 +1052,20 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
       const filtered = errorsOnly ? localLogs.filter(l => l.code !== 200) : localLogs;
 
       tbody.innerHTML = filtered.map(l => \`
-        <tr class="hover:bg-gray-50 transition border-b border-groq-grayBorder">
-          <td class="py-2.5 px-3 text-groq-textMuted">\${l.time}</td>
-          <td class="py-2.5 px-3 text-groq-dark font-medium">\${l.model}</td>
-          <td class="py-2.5 px-3 text-groq-textMuted">\${l.key} <span class="text-gray-400">ⓘ</span></td>
-          <td class="py-2.5 px-3">
-            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold font-mono \${l.code === 200 ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-amber-50 text-amber-700 border border-amber-200'}">\${l.code}</span>
+        <tr class="hover:bg-gray-50/70 transition h-14 border-b border-gray-50/80">
+          <td class="pr-3 text-groq-dark font-mono">\${l.time}</td>
+          <td class="pr-3 text-groq-dark font-mono font-medium">\${l.model}</td>
+          <td class="pr-3 text-groq-dark font-mono">\${l.key} <span class="text-gray-400 font-sans">ⓘ</span></td>
+          <td class="pr-3">
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold font-mono \${l.code === 200 ? 'bg-emerald-500 text-white' : 'bg-[#f0523d] text-white'}">\${l.code}</span>
           </td>
-          <td class="py-2.5 px-3 text-groq-textMuted">\${l.ttft}</td>
-          <td class="py-2.5 px-3 text-groq-textMuted">\${l.latency}</td>
-          <td class="py-2.5 px-3 text-groq-textMuted">\${l.inTokens}</td>
-          <td class="py-2.5 px-3 text-groq-textMuted">\${l.outTokens}</td>
-          <td class="py-2.5 px-3 text-gray-400 text-center">\${l.audio || '-'}</td>
-          <td class="py-2.5 px-3 text-groq-textMuted font-mono">\${l.reqId}</td>
-          <td class="py-2.5 px-3 text-groq-textMuted">\${l.error}</td>
+          <td class="pr-3 text-groq-dark font-mono">\${l.ttft}</td>
+          <td class="pr-3 text-groq-dark font-mono">\${l.latency}</td>
+          <td class="pr-3 text-groq-dark font-mono">\${l.inTokens}</td>
+          <td class="pr-3 text-groq-dark font-mono">\${l.outTokens}</td>
+          <td class="pr-3 text-groq-dark text-center font-mono">\${l.audio || '-'}</td>
+          <td class="pr-3 text-groq-dark font-mono">\${l.reqId}</td>
+          <td class="text-groq-dark font-mono">\${l.error}</td>
         </tr>
       \`).join('');
     }
