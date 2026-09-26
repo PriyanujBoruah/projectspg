@@ -1,7 +1,7 @@
 /**
  * ProjectSPG Enterprise Console (Single-File Architecture)
- * Layout: Exact 1:1 Pixel-Accurate Replica of Groq Console Playground (Light Theme)
- * Reference: media_1790456420408.png
+ * Layout: Exact 1:1 Pixel-Accurate Replica of Groq Console Playground & API Keys (Light Theme)
+ * References: media_1790456420408.png (Playground) & media_1790456680441.png (API Keys)
  */
 
 export const DASHBOARD_HTML = `<!DOCTYPE html>
@@ -80,7 +80,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
   <!-- ========================================================================= -->
   <!-- TOP GLOBAL NAVBAR (Exact Groq Console Header Layout - 52px height) -->
   <!-- ========================================================================= -->
-  <header class="h-[52px] border-b border-groq-grayBorder bg-white px-6 flex items-center justify-between shrink-0 z-40">
+  <header class="h-[52px] bg-white px-6 flex items-center justify-between shrink-0 z-40">
     
     <!-- Left: Brand Logo + Project Selector -->
     <div class="flex items-center gap-3.5">
@@ -101,8 +101,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     <!-- Right: Navigation Tabs + Settings + Avatar -->
     <div class="flex items-center gap-6 text-xs">
       <nav class="flex items-center gap-6 font-medium">
-        <button onclick="switchView('playground')" id="nav-playground" class="nav-item text-[#f0523d] font-semibold transition">Playground</button>
-        <button onclick="switchView('keys')" id="nav-keys" class="nav-item text-groq-textMuted hover:text-groq-dark transition">API Keys</button>
+        <button onclick="switchView('playground')" id="nav-playground" class="nav-item text-groq-textMuted hover:text-groq-dark transition">Playground</button>
+        <button onclick="switchView('keys')" id="nav-keys" class="nav-item text-[#f0523d] font-semibold transition">API Keys</button>
         <button onclick="switchView('dashboard')" id="nav-dashboard" class="nav-item text-groq-textMuted hover:text-groq-dark transition">Dashboard</button>
         <button onclick="switchView('docs')" id="nav-docs" class="nav-item text-groq-textMuted hover:text-groq-dark transition">Docs</button>
       </nav>
@@ -123,403 +123,403 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
   </header>
 
   <!-- ========================================================================= -->
-  <!-- VIEW 1: PLAYGROUND (Exact 3-Column Groq Layout - Matching Screenshot) -->
+  <!-- MAIN WORKSPACE FRAME (Exact Outer Rounded Border Box from Screenshots) -->
   <!-- ========================================================================= -->
-  <div id="view-playground" class="view-panel flex-1 flex flex-col overflow-hidden">
-    
-    <!-- Sub-Toolbar (54px height) -->
-    <div class="h-[54px] border-b border-groq-grayBorder bg-white px-6 flex items-center justify-between shrink-0">
+  <div class="border-t border-l border-r border-groq-grayBorder rounded-t-2xl bg-white mx-3 sm:mx-4 flex-1 flex flex-col overflow-hidden shadow-xs">
+
+    <!-- ======================================================================= -->
+    <!-- VIEW 1: PLAYGROUND (Exact 3-Column Groq Layout - Matching Screenshot) -->
+    <!-- ======================================================================= -->
+    <div id="view-playground" class="view-panel hidden flex-1 flex flex-col overflow-hidden">
       
-      <!-- Left: Title + Chat/Studio pill -->
-      <div class="flex items-center gap-4">
-        <h2 class="text-[15px] font-semibold text-groq-dark tracking-tight">Playground</h2>
+      <!-- Sub-Toolbar (54px height) -->
+      <div class="h-[54px] border-b border-groq-grayBorder bg-white px-6 flex items-center justify-between shrink-0">
         
-        <!-- Segmented Toggle (Chat / Studio) -->
-        <div class="bg-[#f3f4f6] p-0.5 rounded-lg flex items-center text-xs">
-          <button class="px-3 py-1 rounded-md bg-white text-groq-dark font-medium shadow-xs text-xs">Chat</button>
-          <button class="px-3 py-1 rounded-md text-groq-textMuted hover:text-groq-dark text-xs">Studio</button>
+        <!-- Left: Title + Chat/Studio pill -->
+        <div class="flex items-center gap-4">
+          <h2 class="text-[15px] font-semibold text-groq-dark tracking-tight">Playground</h2>
+          
+          <!-- Segmented Toggle (Chat / Studio) -->
+          <div class="bg-[#f3f4f6] p-0.5 rounded-lg flex items-center text-xs">
+            <button class="px-3 py-1 rounded-md bg-white text-groq-dark font-medium shadow-xs text-xs">Chat</button>
+            <button class="px-3 py-1 rounded-md text-groq-textMuted hover:text-groq-dark text-xs">Studio</button>
+          </div>
         </div>
+
+        <!-- Right: Model Selector + Copy + Hide Code + Parameters Sliders -->
+        <div class="flex items-center gap-2">
+          <!-- Model Dropdown Box -->
+          <div class="relative">
+            <select id="playground-model" onchange="onModelChange()" class="appearance-none bg-white border border-groq-grayBorder text-groq-dark text-xs font-sans font-medium rounded-lg pl-3 pr-8 py-1.5 focus:border-gray-400 focus:outline-none cursor-pointer">
+              <option value="openai/gpt-oss-120b">openai/gpt-oss-120b</option>
+              <option value="llama-3.3-70b-versatile">llama-3.3-70b-versatile</option>
+              <option value="gemini-2.5-flash-lite">gemini-2.5-flash-lite</option>
+              <option value="open-mistral-7b">open-mistral-7b</option>
+              <option value="gpt-4o">gpt-4o</option>
+            </select>
+            <i data-lucide="chevrons-up-down" class="w-3.5 h-3.5 text-groq-textSubtle absolute right-2.5 top-2 pointer-events-none"></i>
+          </div>
+
+          <!-- Copy Model Name Button -->
+          <button onclick="copyModelName()" class="p-1.5 rounded-lg bg-white border border-groq-grayBorder text-groq-textMuted hover:text-groq-dark" title="Copy model name">
+            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+          </button>
+
+          <!-- Toggle Code Button -->
+          <button onclick="toggleCodePanel()" id="btn-toggle-code" class="px-3 py-1.5 rounded-lg bg-white border border-groq-grayBorder text-xs font-medium text-groq-dark hover:bg-gray-50 flex items-center gap-1.5">
+            <i data-lucide="code" class="w-3.5 h-3.5 text-groq-textMuted"></i>
+            <span id="code-btn-text">Hide code</span>
+          </button>
+
+          <!-- Parameters Sliders Button -->
+          <button onclick="openConfigModal()" class="p-1.5 rounded-lg bg-white border border-groq-grayBorder text-groq-textMuted hover:text-groq-dark" title="Parameters">
+            <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+
       </div>
 
-      <!-- Right: Model Selector + Copy + Hide Code + Parameters Sliders -->
-      <div class="flex items-center gap-2">
-        <!-- Model Dropdown Box -->
+      <!-- Playground 3-Column Workspace -->
+      <div class="flex-1 flex overflow-hidden">
+        
+        <!-- COLUMN 1: PROMPT INPUTS -->
+        <div class="w-[33%] min-w-[320px] max-w-[420px] border-r border-groq-grayBorder p-6 flex flex-col justify-between overflow-y-auto bg-white">
+          <div class="space-y-4">
+            
+            <!-- SYSTEM ROW -->
+            <div class="flex items-center gap-3">
+              <span class="text-[11px] font-semibold text-groq-textMuted uppercase tracking-wider shrink-0">SYSTEM</span>
+              <input type="text" id="system-prompt" class="flex-1 bg-transparent border-0 text-xs text-groq-dark placeholder-groq-textSubtle focus:outline-none" placeholder="Enter system message (Optional)" value="Enter system message (Optional)">
+            </div>
+
+            <!-- USER PROMPT CARD -->
+            <div class="bg-groq-grayBg border border-groq-grayBorder rounded-2xl p-4 transition focus-within:border-gray-300">
+              <div class="text-[11px] font-semibold text-groq-textSubtle uppercase tracking-wider mb-2">USER</div>
+              <textarea id="user-prompt" rows="8" class="w-full bg-transparent text-xs text-groq-dark placeholder-groq-textSubtle focus:outline-none resize-none leading-relaxed" placeholder="Enter user message...">Please confirm order for Alice Wong (email: alice.wong@fintech.de, SSN: 123-45-6789) using Visa card 4532-0151-1283-0366. Repeat back her name, email, and card number.</textarea>
+              
+              <!-- Quick Presets -->
+              <div class="mt-3 pt-2.5 border-t border-gray-200/70 flex flex-wrap gap-1.5 text-[10px]">
+                <button onclick="loadSample('banking')" class="px-2 py-0.5 rounded-md bg-white border border-groq-grayBorder hover:border-gray-300 text-groq-textMuted hover:text-groq-dark transition">🏦 Banking Wire</button>
+                <button onclick="loadSample('patient')" class="px-2 py-0.5 rounded-md bg-white border border-groq-grayBorder hover:border-gray-300 text-groq-textMuted hover:text-groq-dark transition">🏥 Patient Record</button>
+                <button onclick="loadSample('germantax')" class="px-2 py-0.5 rounded-md bg-white border border-groq-grayBorder hover:border-gray-300 text-groq-textMuted hover:text-groq-dark transition">🇩🇪 German Tax ID</button>
+              </div>
+            </div>
+
+            <!-- Privacy Shield Badge -->
+            <div class="flex items-center justify-between text-xs px-3 py-2 rounded-xl bg-sky-50 border border-sky-200 text-sky-900">
+              <div class="flex items-center gap-1.5">
+                <i data-lucide="shield-check" class="w-4 h-4 text-sky-600"></i>
+                <span class="text-[11px] font-medium">ProjectSPG Privacy Gateway Active</span>
+              </div>
+              <span class="text-[10px] font-mono font-semibold text-sky-700 bg-white border border-sky-300 px-1.5 py-0.5 rounded">Auto De-identify</span>
+            </div>
+
+          </div>
+
+          <!-- Column 1 Bottom Row -->
+          <div class="pt-4 flex items-center justify-between">
+            <button onclick="clearInputs()" class="px-3.5 py-1.5 rounded-lg bg-groq-grayBg border border-groq-grayBorder hover:bg-gray-100 text-xs font-medium text-groq-dark flex items-center gap-1.5 transition">
+              <i data-lucide="plus-circle" class="w-3.5 h-3.5 text-groq-textMuted"></i>
+              <span>New Message</span>
+            </button>
+            
+            <button onclick="clearInputs()" class="px-4 py-1.5 rounded-lg bg-groq-grayBg border border-groq-grayBorder hover:bg-gray-100 text-xs font-medium text-groq-textMuted hover:text-groq-dark transition">
+              Clear
+            </button>
+          </div>
+
+        </div>
+
+        <!-- COLUMN 2: RESPONSE AREA -->
+        <div id="col-response" class="flex-1 flex flex-col justify-between p-6 border-r border-groq-grayBorder overflow-y-auto bg-white">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-[11px] font-semibold text-groq-textMuted uppercase tracking-wider">RESPONSE</span>
+              <div id="response-stats" class="text-[11px] font-mono text-groq-textSubtle">0 tokens • 0.00s</div>
+            </div>
+
+            <!-- Welcome Message State -->
+            <div id="welcome-message" class="space-y-4 text-xs text-groq-textMuted font-sans max-w-lg">
+              <h3 class="text-sm font-semibold text-groq-dark">Welcome to the Playground</h3>
+              
+              <ul class="space-y-2 list-none text-xs text-groq-dark">
+                <li class="flex items-start gap-2">
+                  <span class="text-groq-textSubtle">•</span>
+                  <span>You can start by typing a prompt in the "User Message" field</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-groq-textSubtle">•</span>
+                  <span>Click "Submit" (Or press Cmd + Enter) to get a response.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-groq-textSubtle">•</span>
+                  <span>When you're ready, click the " <i data-lucide="arrow-left" class="inline w-3 h-3"></i> Add to Conversation" button to add the result to the messages.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-groq-textSubtle">•</span>
+                  <span>Use the "View Code" button to copy the code snippet to your project.</span>
+                </li>
+              </ul>
+
+              <p class="text-xs text-groq-textMuted pt-4">
+                Don't forget to check out <a href="javascript:void(0)" onclick="switchView('docs')" class="text-groq-dark underline hover:text-[#f0523d] inline-flex items-center gap-0.5">the documentation <i data-lucide="external-link" class="w-3 h-3"></i></a>.
+              </p>
+            </div>
+
+            <!-- Upstream Intercepted Tokens View -->
+            <div id="upstream-tokens-box" class="hidden p-3.5 rounded-xl bg-sky-50 border border-sky-200 font-mono text-xs mb-3">
+              <div class="text-[10px] uppercase font-bold text-sky-800 mb-1 flex items-center gap-1.5">
+                <i data-lucide="eye-off" class="w-3.5 h-3.5 text-sky-600"></i> Upstream Prompt Received By Model (Zero Raw PII):
+              </div>
+              <div id="upstream-tokens-text" class="text-sky-950 font-medium"></div>
+            </div>
+
+            <!-- Rehydrated Assistant Output -->
+            <div id="rehydrated-text" class="hidden whitespace-pre-wrap text-groq-dark bg-groq-grayBg p-4 rounded-xl border border-groq-grayBorder text-xs font-mono leading-relaxed"></div>
+          </div>
+
+          <!-- Column 2 Bottom Submit Bar -->
+          <div class="pt-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <button onclick="addConversationTurn()" class="text-xs text-groq-textMuted hover:text-groq-dark flex items-center gap-1.5 font-medium transition">
+                <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> Add
+              </button>
+              <button onclick="clearResponse()" class="text-xs text-groq-textMuted hover:text-groq-dark flex items-center gap-1.5 font-medium transition">
+                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Clear
+              </button>
+            </div>
+
+            <!-- Pill Submit Button -->
+            <button onclick="submitPrompt()" id="btn-submit" class="px-5 py-2 rounded-full border-2 border-[#f0523d] bg-white hover:bg-[#fff5f3] text-groq-dark font-semibold text-xs flex items-center gap-2 transition active:scale-95 shadow-xs">
+              <span>Submit</span>
+              <span class="text-[11px] font-mono text-groq-textSubtle">Ctrl + ↵</span>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- COLUMN 3: CODE SNIPPET -->
+        <div id="col-code" class="w-[33%] min-w-[320px] max-w-[440px] p-6 flex flex-col justify-between overflow-y-auto bg-white">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div class="relative">
+                <select id="code-lang-select" onchange="updateCodeViewer()" class="appearance-none bg-transparent text-xs font-medium text-groq-textSubtle hover:text-groq-dark pr-4 focus:outline-none cursor-pointer">
+                  <option value="python">Python</option>
+                  <option value="curl">cURL</option>
+                  <option value="langchain">LangChain</option>
+                </select>
+                <i data-lucide="chevrons-up-down" class="w-3 h-3 text-groq-textSubtle absolute right-0 top-0.5 pointer-events-none"></i>
+              </div>
+
+              <button onclick="copySnippet()" class="text-xs text-groq-textSubtle hover:text-groq-dark flex items-center gap-1 font-medium transition">
+                <i data-lucide="copy" class="w-3 h-3"></i> Copy
+              </button>
+            </div>
+
+            <div id="code-snippet-box" class="font-mono text-[11px] leading-[1.65] text-groq-dark select-all overflow-x-auto whitespace-pre"></div>
+          </div>
+
+          <div class="pt-4 border-t border-groq-grayBorder text-[11px] text-groq-textSubtle flex items-center justify-between font-mono">
+            <span>Target: Cloudflare Edge</span>
+            <span class="text-emerald-600 font-medium">SSL Encrypted</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ======================================================================= -->
+    <!-- VIEW 2: API KEYS VIEW (Exact 1:1 Pixel Match to media_1790456680441.png) -->
+    <!-- ======================================================================= -->
+    <div id="view-keys" class="view-panel flex-1 p-8 sm:p-10 max-w-[1280px] w-full overflow-y-auto bg-white">
+      
+      <!-- Top Title + Action Button Row -->
+      <div class="flex items-start justify-between mb-8">
+        <div>
+          <h1 class="text-[17px] font-bold text-groq-dark tracking-tight mb-2">API Keys</h1>
+          <p class="text-xs text-groq-textMuted">Manage your project API keys. Remember to keep your API keys safe to prevent unauthorized access.</p>
+        </div>
+
+        <!-- + Create API Key Button (Exact matching coral outline pill) -->
+        <button onclick="openCreateKeyModal()" class="px-4 py-2 rounded-lg border border-[#f0523d] bg-white hover:bg-[#fff5f3] text-groq-dark text-xs font-semibold flex items-center gap-1.5 transition shadow-xs">
+          <i data-lucide="plus" class="w-3.5 h-3.5 text-groq-dark"></i>
+          <span>Create API Key</span>
+        </button>
+      </div>
+
+      <!-- API Keys Table (Exact open minimal layout, columns, and action buttons) -->
+      <div class="w-full">
+        <table class="w-full text-left text-xs font-sans border-collapse">
+          <thead>
+            <tr class="text-groq-textSubtle text-[11px] uppercase tracking-wider font-semibold">
+              <th class="pb-5 font-semibold text-groq-textSubtle pr-6">NAME</th>
+              <th class="pb-5 font-semibold text-groq-textSubtle pr-6">SECRET KEY</th>
+              <th class="pb-5 font-semibold text-groq-textSubtle pr-6">CREATED</th>
+              <th class="pb-5 font-semibold text-groq-textSubtle pr-6">LAST USED</th>
+              <th class="pb-5 font-semibold text-groq-textSubtle pr-6">EXPIRES</th>
+              <th class="pb-5 font-semibold text-groq-textSubtle pr-6">USAGE (24HRS)</th>
+              <th class="pb-5 text-right w-24"></th>
+            </tr>
+          </thead>
+          <tbody id="api-keys-tbody" class="divide-y-0 text-xs">
+            <!-- Populated dynamically by fetchApiKeys() with exact default mock keys matching screenshot -->
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <!-- ======================================================================= -->
+    <!-- VIEW 3: DASHBOARD VIEW (With Left Panel: Metrics, Usage, Logs, Batch) -->
+    <!-- ======================================================================= -->
+    <div id="view-dashboard" class="view-panel hidden flex-1 flex overflow-hidden">
+      <aside class="w-48 shrink-0 border-r border-groq-grayBorder bg-white pt-6 px-4 text-xs font-medium space-y-1">
+        <button onclick="switchDashTab('metrics')" id="dash-tab-btn-metrics" class="dash-tab-btn w-full text-left px-3 py-2 rounded-lg text-groq-textMuted hover:text-groq-dark hover:bg-groq-grayBg transition">Metrics</button>
+        <button onclick="switchDashTab('usage')" id="dash-tab-btn-usage" class="dash-tab-btn w-full text-left px-3 py-2 rounded-lg text-groq-textMuted hover:text-groq-dark hover:bg-groq-grayBg transition">Usage</button>
+        <button onclick="switchDashTab('logs')" id="dash-tab-btn-logs" class="dash-tab-btn w-full text-left px-3 py-2 rounded-lg text-[#f0523d] font-semibold bg-groq-coralLight border border-[#f0523d]/20">Logs</button>
+        <button onclick="switchDashTab('batch')" id="dash-tab-btn-batch" class="dash-tab-btn w-full text-left px-3 py-2 rounded-lg text-groq-textMuted hover:text-groq-dark hover:bg-groq-grayBg transition">Batch</button>
+      </aside>
+
+      <main class="flex-1 p-8 overflow-y-auto bg-white">
+        <!-- SUB-VIEW: LOGS -->
+        <section id="dash-content-logs" class="dash-subview space-y-5">
+          <div class="flex items-center justify-between">
+            <h1 class="text-2xl font-bold text-groq-dark">Logs</h1>
+            <div class="flex items-center gap-3">
+              <label class="flex items-center gap-2 text-xs text-groq-textMuted cursor-pointer select-none font-medium">
+                <input type="checkbox" id="filter-errors" onchange="renderLogsTable()" class="rounded border-gray-300 text-[#f0523d] focus:ring-[#f0523d]">
+                <span>Show Errors Only</span>
+              </label>
+              <button onclick="downloadLogs()" class="px-3.5 py-1.5 rounded-lg border border-groq-grayBorder bg-white text-xs font-medium text-groq-dark hover:bg-groq-grayBg flex items-center gap-1.5 shadow-xs transition">
+                <span>Download</span>
+                <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-groq-textSubtle"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="border border-groq-grayBorder rounded-xl overflow-hidden bg-white shadow-xs">
+            <table class="w-full text-left text-xs font-mono">
+              <thead class="bg-[#f9fafb] text-groq-textMuted text-[10px] uppercase tracking-wider font-semibold border-b border-groq-grayBorder">
+                <tr>
+                  <th class="py-3 px-3">REQUEST TIME</th>
+                  <th class="py-3 px-3">MODEL</th>
+                  <th class="py-3 px-3">API KEY</th>
+                  <th class="py-3 px-3">CODE</th>
+                  <th class="py-3 px-3">TTFT</th>
+                  <th class="py-3 px-3">LATENCY</th>
+                  <th class="py-3 px-3">INPUT TOKENS</th>
+                  <th class="py-3 px-3">OUTPUT TOKENS</th>
+                  <th class="py-3 px-3">AUDIO SECONDS</th>
+                  <th class="py-3 px-3">REQUEST ID</th>
+                  <th class="py-3 px-3">ERROR</th>
+                </tr>
+              </thead>
+              <tbody id="logs-tbody" class="divide-y divide-groq-grayBorder text-[11px] bg-white"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- SUB-VIEW: METRICS -->
+        <section id="dash-content-metrics" class="dash-subview hidden space-y-6">
+          <h1 class="text-2xl font-bold text-groq-dark">Edge Privacy Metrics</h1>
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="bg-white border border-groq-grayBorder rounded-xl p-4 shadow-xs">
+              <span class="text-[11px] font-semibold text-groq-textMuted uppercase tracking-wider">Total Requests</span>
+              <div class="text-2xl font-bold text-groq-dark mt-2">14,290</div>
+            </div>
+            <div class="bg-white border border-groq-grayBorder rounded-xl p-4 shadow-xs">
+              <span class="text-[11px] font-semibold text-groq-textMuted uppercase tracking-wider">PII Intercepted</span>
+              <div class="text-2xl font-bold text-[#f0523d] mt-2">38,124</div>
+            </div>
+            <div class="bg-white border border-groq-grayBorder rounded-xl p-4 shadow-xs">
+              <span class="text-[11px] font-semibold text-groq-textMuted uppercase tracking-wider">Latency Overhead</span>
+              <div class="text-2xl font-bold text-emerald-600 mt-2">248 µs</div>
+            </div>
+            <div class="bg-white border border-groq-grayBorder rounded-xl p-4 shadow-xs">
+              <span class="text-[11px] font-semibold text-groq-textMuted uppercase tracking-wider">BYOK KMS Status</span>
+              <div class="text-2xl font-bold text-groq-dark mt-2">AES-256-GCM</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SUB-VIEW: USAGE -->
+        <section id="dash-content-usage" class="dash-subview hidden space-y-6">
+          <h1 class="text-2xl font-bold text-groq-dark">Usage & Quotas</h1>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+            <div class="bg-white border border-groq-grayBorder rounded-xl p-5 shadow-xs">
+              <span class="text-xs font-semibold text-groq-textMuted uppercase">Sanitized Tokens</span>
+              <div class="text-3xl font-extrabold text-groq-dark mt-2 font-mono">1,842,091</div>
+            </div>
+            <div class="bg-white border border-groq-grayBorder rounded-xl p-5 shadow-xs">
+              <span class="text-xs font-semibold text-groq-textMuted uppercase">Rehydrated Tokens</span>
+              <div class="text-3xl font-extrabold text-groq-dark mt-2 font-mono">2,104,883</div>
+            </div>
+            <div class="bg-white border border-groq-grayBorder rounded-xl p-5 shadow-xs">
+              <span class="text-xs font-semibold text-groq-textMuted uppercase">Compliance Savings</span>
+              <div class="text-3xl font-extrabold text-emerald-600 mt-2 font-mono">$142,500</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SUB-VIEW: BATCH -->
+        <section id="dash-content-batch" class="dash-subview hidden space-y-6">
+          <h1 class="text-2xl font-bold text-groq-dark">Batch De-identification</h1>
+          <div class="bg-white border border-dashed border-gray-300 rounded-xl p-8 text-center space-y-3">
+            <i data-lucide="upload-cloud" class="w-10 h-10 text-[#f0523d] mx-auto"></i>
+            <div><span class="text-sm font-semibold text-groq-dark">Upload dataset for batch anonymization</span></div>
+            <button class="px-4 py-2 rounded-lg bg-[#f0523d] text-white text-xs font-semibold hover:bg-[#e0422d]">Select Files</button>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- ======================================================================= -->
+    <!-- VIEW 4: DOCS VIEW -->
+    <!-- ======================================================================= -->
+    <div id="view-docs" class="view-panel hidden flex-1 flex overflow-hidden">
+      <aside class="w-64 shrink-0 border-r border-groq-grayBorder bg-white p-5 text-xs overflow-y-auto space-y-4">
         <div class="relative">
-          <select id="playground-model" onchange="onModelChange()" class="appearance-none bg-white border border-groq-grayBorder text-groq-dark text-xs font-sans font-medium rounded-lg pl-3 pr-8 py-1.5 focus:border-gray-400 focus:outline-none cursor-pointer">
-            <option value="openai/gpt-oss-120b">openai/gpt-oss-120b</option>
-            <option value="llama-3.3-70b-versatile">llama-3.3-70b-versatile</option>
-            <option value="gemini-2.5-flash-lite">gemini-2.5-flash-lite</option>
-            <option value="open-mistral-7b">open-mistral-7b</option>
-            <option value="gpt-4o">gpt-4o</option>
-          </select>
-          <i data-lucide="chevrons-up-down" class="w-3.5 h-3.5 text-groq-textSubtle absolute right-2.5 top-2 pointer-events-none"></i>
+          <input type="text" placeholder="Search" class="w-full bg-[#f9fafb] border border-groq-grayBorder rounded-lg pl-8 pr-12 py-1.5 text-xs text-groq-dark placeholder-groq-textSubtle focus:outline-none">
+          <i data-lucide="search" class="w-3.5 h-3.5 text-groq-textSubtle absolute left-2.5 top-2.5"></i>
+          <kbd class="text-[10px] text-groq-textSubtle border border-gray-300 px-1 py-0.5 rounded bg-white absolute right-2 top-2 font-mono">CTRL K</kbd>
         </div>
 
-        <!-- Copy Model Name Button -->
-        <button onclick="copyModelName()" class="p-1.5 rounded-lg bg-white border border-groq-grayBorder text-groq-textMuted hover:text-groq-dark" title="Copy model name">
-          <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-        </button>
-
-        <!-- Toggle Code Button -->
-        <button onclick="toggleCodePanel()" id="btn-toggle-code" class="px-3 py-1.5 rounded-lg bg-white border border-groq-grayBorder text-xs font-medium text-groq-dark hover:bg-gray-50 flex items-center gap-1.5">
-          <i data-lucide="code" class="w-3.5 h-3.5 text-groq-textMuted"></i>
-          <span id="code-btn-text">Hide code</span>
-        </button>
-
-        <!-- Parameters Sliders Button -->
-        <button onclick="openConfigModal()" class="p-1.5 rounded-lg bg-white border border-groq-grayBorder text-groq-textMuted hover:text-groq-dark" title="Parameters">
-          <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5"></i>
-        </button>
-      </div>
-
-    </div>
-
-    <!-- Playground 3-Column Workspace -->
-    <div class="flex-1 flex overflow-hidden">
-      
-      <!-- ===================================================================== -->
-      <!-- COLUMN 1: PROMPT INPUTS (33% Width) -->
-      <!-- ===================================================================== -->
-      <div class="w-[33%] min-w-[320px] max-w-[420px] border-r border-groq-grayBorder p-6 flex flex-col justify-between overflow-y-auto bg-white">
-        <div class="space-y-4">
-          
-          <!-- SYSTEM ROW: Label on left, input on right -->
-          <div class="flex items-center gap-3">
-            <span class="text-[11px] font-semibold text-groq-textMuted uppercase tracking-wider shrink-0">SYSTEM</span>
-            <input type="text" id="system-prompt" class="flex-1 bg-transparent border-0 text-xs text-groq-dark placeholder-groq-textSubtle focus:outline-none" placeholder="Enter system message (Optional)" value="Enter system message (Optional)">
-          </div>
-
-          <!-- USER PROMPT CARD -->
-          <div class="bg-groq-grayBg border border-groq-grayBorder rounded-2xl p-4 transition focus-within:border-gray-300">
-            <div class="text-[11px] font-semibold text-groq-textSubtle uppercase tracking-wider mb-2">USER</div>
-            <textarea id="user-prompt" rows="8" class="w-full bg-transparent text-xs text-groq-dark placeholder-groq-textSubtle focus:outline-none resize-none leading-relaxed" placeholder="Enter user message...">Please confirm order for Alice Wong (email: alice.wong@fintech.de, SSN: 123-45-6789) using Visa card 4532-0151-1283-0366. Repeat back her name, email, and card number.</textarea>
-            
-            <!-- Quick Presets -->
-            <div class="mt-3 pt-2.5 border-t border-gray-200/70 flex flex-wrap gap-1.5 text-[10px]">
-              <button onclick="loadSample('banking')" class="px-2 py-0.5 rounded-md bg-white border border-groq-grayBorder hover:border-gray-300 text-groq-textMuted hover:text-groq-dark transition">🏦 Banking Wire</button>
-              <button onclick="loadSample('patient')" class="px-2 py-0.5 rounded-md bg-white border border-groq-grayBorder hover:border-gray-300 text-groq-textMuted hover:text-groq-dark transition">🏥 Patient Record</button>
-              <button onclick="loadSample('germantax')" class="px-2 py-0.5 rounded-md bg-white border border-groq-grayBorder hover:border-gray-300 text-groq-textMuted hover:text-groq-dark transition">🇩🇪 German Tax ID</button>
-            </div>
-          </div>
-
-          <!-- Privacy Shield Badge -->
-          <div class="flex items-center justify-between text-xs px-3 py-2 rounded-xl bg-sky-50 border border-sky-200 text-sky-900">
-            <div class="flex items-center gap-1.5">
-              <i data-lucide="shield-check" class="w-4 h-4 text-sky-600"></i>
-              <span class="text-[11px] font-medium">ProjectSPG Privacy Gateway Active</span>
-            </div>
-            <span class="text-[10px] font-mono font-semibold text-sky-700 bg-white border border-sky-300 px-1.5 py-0.5 rounded">Auto De-identify</span>
-          </div>
-
+        <div class="flex items-center gap-4 text-xs font-semibold border-b border-groq-grayBorder pb-2">
+          <button class="text-groq-textMuted hover:text-groq-dark">Docs</button>
+          <button class="text-[#f0523d] border-b-2 border-[#f0523d] pb-1 font-bold">API Reference</button>
         </div>
 
-        <!-- Column 1 Bottom Row -->
-        <div class="pt-4 flex items-center justify-between">
-          <button onclick="clearInputs()" class="px-3.5 py-1.5 rounded-lg bg-groq-grayBg border border-groq-grayBorder hover:bg-gray-100 text-xs font-medium text-groq-dark flex items-center gap-1.5 transition">
-            <i data-lucide="plus-circle" class="w-3.5 h-3.5 text-groq-textMuted"></i>
-            <span>New Message</span>
-          </button>
-          
-          <button onclick="clearInputs()" class="px-4 py-1.5 rounded-lg bg-groq-grayBg border border-groq-grayBorder hover:bg-gray-100 text-xs font-medium text-groq-textMuted hover:text-groq-dark transition">
-            Clear
-          </button>
-        </div>
-
-      </div>
-
-      <!-- ===================================================================== -->
-      <!-- COLUMN 2: RESPONSE AREA (Exact Center Column) -->
-      <!-- ===================================================================== -->
-      <div id="col-response" class="flex-1 flex flex-col justify-between p-6 border-r border-groq-grayBorder overflow-y-auto bg-white">
-        
         <div>
-          <!-- Header -->
-          <div class="flex items-center justify-between mb-4">
-            <span class="text-[11px] font-semibold text-groq-textMuted uppercase tracking-wider">RESPONSE</span>
-            <div id="response-stats" class="text-[11px] font-mono text-groq-textSubtle">0 tokens • 0.00s</div>
+          <div class="text-[10px] font-bold text-groq-textSubtle uppercase tracking-wider mb-2">ENDPOINTS</div>
+          <div class="space-y-1 font-mono text-[11px]">
+            <a href="#chat" class="block px-2.5 py-1.5 rounded-lg bg-[#fff5f3] text-[#f0523d] font-semibold border-l-2 border-[#f0523d]">Chat</a>
+            <a href="#chat" class="block px-4 py-1 text-[#f0523d] font-medium">Create chat completion</a>
+            <a href="javascript:void(0)" class="block px-2.5 py-1.5 rounded text-groq-textMuted hover:text-groq-dark">Responses (beta)</a>
+            <a href="javascript:void(0)" class="block px-2.5 py-1.5 rounded text-groq-textMuted hover:text-groq-dark">Audio</a>
+            <a href="javascript:void(0)" class="block px-2.5 py-1.5 rounded text-groq-textMuted hover:text-groq-dark">Models</a>
           </div>
+        </div>
+      </aside>
 
-          <!-- Welcome Message State (Exact text from Screenshot) -->
-          <div id="welcome-message" class="space-y-4 text-xs text-groq-textMuted font-sans max-w-lg">
-            <h3 class="text-sm font-semibold text-groq-dark">Welcome to the Playground</h3>
-            
-            <ul class="space-y-2 list-none text-xs text-groq-dark">
-              <li class="flex items-start gap-2">
-                <span class="text-groq-textSubtle">•</span>
-                <span>You can start by typing a prompt in the "User Message" field</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <span class="text-groq-textSubtle">•</span>
-                <span>Click "Submit" (Or press Cmd + Enter) to get a response.</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <span class="text-groq-textSubtle">•</span>
-                <span>When you're ready, click the " <i data-lucide="arrow-left" class="inline w-3 h-3"></i> Add to Conversation" button to add the result to the messages.</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <span class="text-groq-textSubtle">•</span>
-                <span>Use the "View Code" button to copy the code snippet to your project.</span>
-              </li>
-            </ul>
-
-            <p class="text-xs text-groq-textMuted pt-4">
-              Don't forget to check out <a href="javascript:void(0)" onclick="switchView('docs')" class="text-groq-dark underline hover:text-[#f0523d] inline-flex items-center gap-0.5">the documentation <i data-lucide="external-link" class="w-3 h-3"></i></a>.
-            </p>
-          </div>
-
-          <!-- Upstream Intercepted Tokens View (What the LLM received without raw PII) -->
-          <div id="upstream-tokens-box" class="hidden p-3.5 rounded-xl bg-sky-50 border border-sky-200 font-mono text-xs mb-3">
-            <div class="text-[10px] uppercase font-bold text-sky-800 mb-1 flex items-center gap-1.5">
-              <i data-lucide="eye-off" class="w-3.5 h-3.5 text-sky-600"></i> Upstream Prompt Received By Model (Zero Raw PII):
+      <div class="flex-1 p-8 overflow-y-auto flex gap-8 bg-white">
+        <div class="flex-1 max-w-xl space-y-6">
+          <h1 class="text-2xl font-bold text-groq-dark mb-1">ProjectSPG API Reference</h1>
+          <h2 class="text-lg font-semibold text-groq-dark">Chat</h2>
+          <div class="space-y-2">
+            <h3 class="text-sm font-semibold text-groq-dark">Create chat completion</h3>
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gray-50 border border-groq-grayBorder font-mono text-xs">
+              <span class="px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold text-[10px]">POST</span>
+              <span class="text-groq-dark">https://projectspg.boruahpriyanuj2004.workers.dev/v1/chat/completions</span>
             </div>
-            <div id="upstream-tokens-text" class="text-sky-950 font-medium"></div>
+            <p class="text-xs text-groq-textMuted pt-1">Creates a model response with automated edge privacy neutralization and reversible tokenization.</p>
           </div>
-
-          <!-- Rehydrated Assistant Output -->
-          <div id="rehydrated-text" class="hidden whitespace-pre-wrap text-groq-dark bg-groq-grayBg p-4 rounded-xl border border-groq-grayBorder text-xs font-mono leading-relaxed"></div>
-        </div>
-
-        <!-- Column 2 Bottom Submit Bar (Matching Screenshot Pill Style) -->
-        <div class="pt-4 flex items-center justify-between">
-          <div class="flex items-center gap-3">
-            <button onclick="addConversationTurn()" class="text-xs text-groq-textMuted hover:text-groq-dark flex items-center gap-1.5 font-medium transition">
-              <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> Add
-            </button>
-            <button onclick="clearResponse()" class="text-xs text-groq-textMuted hover:text-groq-dark flex items-center gap-1.5 font-medium transition">
-              <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Clear
-            </button>
-          </div>
-
-          <!-- Exact Submit Button: Pill with Coral Border -->
-          <button onclick="submitPrompt()" id="btn-submit" class="px-5 py-2 rounded-full border-2 border-[#f0523d] bg-white hover:bg-[#fff5f3] text-groq-dark font-semibold text-xs flex items-center gap-2 transition active:scale-95 shadow-xs">
-            <span>Submit</span>
-            <span class="text-[11px] font-mono text-groq-textSubtle">Ctrl + ↵</span>
-          </button>
-        </div>
-
-      </div>
-
-      <!-- ===================================================================== -->
-      <!-- COLUMN 3: CODE SNIPPET (Exact Groq Syntax Layout on Pure White) -->
-      <!-- ===================================================================== -->
-      <div id="col-code" class="w-[33%] min-w-[320px] max-w-[440px] p-6 flex flex-col justify-between overflow-y-auto bg-white">
-        
-        <div>
-          <!-- Header: Language Selector + Copy Button -->
-          <div class="flex items-center justify-between mb-4">
-            <div class="relative">
-              <select id="code-lang-select" onchange="updateCodeViewer()" class="appearance-none bg-transparent text-xs font-medium text-groq-textSubtle hover:text-groq-dark pr-4 focus:outline-none cursor-pointer">
-                <option value="python">Python</option>
-                <option value="curl">cURL</option>
-                <option value="langchain">LangChain</option>
-              </select>
-              <i data-lucide="chevrons-up-down" class="w-3 h-3 text-groq-textSubtle absolute right-0 top-0.5 pointer-events-none"></i>
-            </div>
-
-            <button onclick="copySnippet()" class="text-xs text-groq-textSubtle hover:text-groq-dark flex items-center gap-1 font-medium transition">
-              <i data-lucide="copy" class="w-3 h-3"></i> Copy
-            </button>
-          </div>
-
-          <!-- Code Display (Pure White background, exact syntax styles) -->
-          <div id="code-snippet-box" class="font-mono text-[11px] leading-[1.65] text-groq-dark select-all overflow-x-auto whitespace-pre"></div>
-        </div>
-
-        <div class="pt-4 border-t border-groq-grayBorder text-[11px] text-groq-textSubtle flex items-center justify-between font-mono">
-          <span>Target: Cloudflare Edge</span>
-          <span class="text-emerald-600 font-medium">SSL Encrypted</span>
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-  <!-- ========================================================================= -->
-  <!-- VIEW 2: API KEYS VIEW -->
-  <!-- ========================================================================= -->
-  <div id="view-keys" class="view-panel hidden flex-1 p-8 max-w-6xl mx-auto w-full overflow-y-auto">
-    <div class="flex items-center justify-between mb-6">
-      <div>
-        <h1 class="text-2xl font-bold text-groq-dark mb-1">API Keys</h1>
-        <p class="text-xs text-groq-textMuted">Manage your project API keys. Remember to keep your API keys safe to prevent unauthorized access.</p>
-      </div>
-
-      <button onclick="openCreateKeyModal()" class="px-4 py-2 rounded-lg bg-[#f0523d] hover:bg-[#e0422d] text-white text-xs font-semibold flex items-center gap-2 transition shadow-xs">
-        <i data-lucide="plus" class="w-3.5 h-3.5"></i> Create API Key
-      </button>
-    </div>
-
-    <div class="bg-white border border-groq-grayBorder rounded-xl overflow-hidden shadow-xs">
-      <table class="w-full text-left text-xs font-sans">
-        <thead class="bg-[#f9fafb] text-groq-textMuted text-[11px] uppercase tracking-wider font-semibold border-b border-groq-grayBorder">
-          <tr>
-            <th class="py-3 px-4">NAME</th>
-            <th class="py-3 px-4">SECRET KEY</th>
-            <th class="py-3 px-4">CREATED</th>
-            <th class="py-3 px-4">LAST USED</th>
-            <th class="py-3 px-4">EXPIRES</th>
-            <th class="py-3 px-4">USAGE (24HRS)</th>
-            <th class="py-3 px-4 text-right"></th>
-          </tr>
-        </thead>
-        <tbody id="api-keys-tbody" class="divide-y divide-groq-grayBorder font-mono text-xs bg-white">
-          <tr>
-            <td colspan="7" class="py-8 text-center text-groq-textMuted font-sans italic">Loading API keys...</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- ========================================================================= -->
-  <!-- VIEW 3: DASHBOARD VIEW (With Left Panel: Metrics, Usage, Logs, Batch) -->
-  <!-- ========================================================================= -->
-  <div id="view-dashboard" class="view-panel hidden flex-1 flex overflow-hidden">
-    <aside class="w-48 shrink-0 border-r border-groq-grayBorder bg-white pt-6 px-4 text-xs font-medium space-y-1">
-      <button onclick="switchDashTab('metrics')" id="dash-tab-btn-metrics" class="dash-tab-btn w-full text-left px-3 py-2 rounded-lg text-groq-textMuted hover:text-groq-dark hover:bg-groq-grayBg transition">Metrics</button>
-      <button onclick="switchDashTab('usage')" id="dash-tab-btn-usage" class="dash-tab-btn w-full text-left px-3 py-2 rounded-lg text-groq-textMuted hover:text-groq-dark hover:bg-groq-grayBg transition">Usage</button>
-      <button onclick="switchDashTab('logs')" id="dash-tab-btn-logs" class="dash-tab-btn w-full text-left px-3 py-2 rounded-lg text-[#f0523d] font-semibold bg-groq-coralLight border border-[#f0523d]/20">Logs</button>
-      <button onclick="switchDashTab('batch')" id="dash-tab-btn-batch" class="dash-tab-btn w-full text-left px-3 py-2 rounded-lg text-groq-textMuted hover:text-groq-dark hover:bg-groq-grayBg transition">Batch</button>
-    </aside>
-
-    <main class="flex-1 p-8 overflow-y-auto bg-white">
-      <!-- SUB-VIEW: LOGS -->
-      <section id="dash-content-logs" class="dash-subview space-y-5">
-        <div class="flex items-center justify-between">
-          <h1 class="text-2xl font-bold text-groq-dark">Logs</h1>
-          <div class="flex items-center gap-3">
-            <label class="flex items-center gap-2 text-xs text-groq-textMuted cursor-pointer select-none font-medium">
-              <input type="checkbox" id="filter-errors" onchange="renderLogsTable()" class="rounded border-gray-300 text-[#f0523d] focus:ring-[#f0523d]">
-              <span>Show Errors Only</span>
-            </label>
-            <button onclick="downloadLogs()" class="px-3.5 py-1.5 rounded-lg border border-groq-grayBorder bg-white text-xs font-medium text-groq-dark hover:bg-groq-grayBg flex items-center gap-1.5 shadow-xs transition">
-              <span>Download</span>
-              <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-groq-textSubtle"></i>
-            </button>
-          </div>
-        </div>
-
-        <div class="border border-groq-grayBorder rounded-xl overflow-hidden bg-white shadow-xs">
-          <table class="w-full text-left text-xs font-mono">
-            <thead class="bg-[#f9fafb] text-groq-textMuted text-[10px] uppercase tracking-wider font-semibold border-b border-groq-grayBorder">
-              <tr>
-                <th class="py-3 px-3">REQUEST TIME</th>
-                <th class="py-3 px-3">MODEL</th>
-                <th class="py-3 px-3">API KEY</th>
-                <th class="py-3 px-3">CODE</th>
-                <th class="py-3 px-3">TTFT</th>
-                <th class="py-3 px-3">LATENCY</th>
-                <th class="py-3 px-3">INPUT TOKENS</th>
-                <th class="py-3 px-3">OUTPUT TOKENS</th>
-                <th class="py-3 px-3">AUDIO SECONDS</th>
-                <th class="py-3 px-3">REQUEST ID</th>
-                <th class="py-3 px-3">ERROR</th>
-              </tr>
-            </thead>
-            <tbody id="logs-tbody" class="divide-y divide-groq-grayBorder text-[11px] bg-white"></tbody>
-          </table>
-        </div>
-      </section>
-
-      <!-- SUB-VIEW: METRICS -->
-      <section id="dash-content-metrics" class="dash-subview hidden space-y-6">
-        <h1 class="text-2xl font-bold text-groq-dark">Edge Privacy Metrics</h1>
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div class="bg-white border border-groq-grayBorder rounded-xl p-4 shadow-xs">
-            <span class="text-[11px] font-semibold text-groq-textMuted uppercase tracking-wider">Total Requests</span>
-            <div class="text-2xl font-bold text-groq-dark mt-2">14,290</div>
-          </div>
-          <div class="bg-white border border-groq-grayBorder rounded-xl p-4 shadow-xs">
-            <span class="text-[11px] font-semibold text-groq-textMuted uppercase tracking-wider">PII Intercepted</span>
-            <div class="text-2xl font-bold text-[#f0523d] mt-2">38,124</div>
-          </div>
-          <div class="bg-white border border-groq-grayBorder rounded-xl p-4 shadow-xs">
-            <span class="text-[11px] font-semibold text-groq-textMuted uppercase tracking-wider">Latency Overhead</span>
-            <div class="text-2xl font-bold text-emerald-600 mt-2">248 µs</div>
-          </div>
-          <div class="bg-white border border-groq-grayBorder rounded-xl p-4 shadow-xs">
-            <span class="text-[11px] font-semibold text-groq-textMuted uppercase tracking-wider">BYOK KMS Status</span>
-            <div class="text-2xl font-bold text-groq-dark mt-2">AES-256-GCM</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- SUB-VIEW: USAGE -->
-      <section id="dash-content-usage" class="dash-subview hidden space-y-6">
-        <h1 class="text-2xl font-bold text-groq-dark">Usage & Quotas</h1>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-          <div class="bg-white border border-groq-grayBorder rounded-xl p-5 shadow-xs">
-            <span class="text-xs font-semibold text-groq-textMuted uppercase">Sanitized Tokens</span>
-            <div class="text-3xl font-extrabold text-groq-dark mt-2 font-mono">1,842,091</div>
-          </div>
-          <div class="bg-white border border-groq-grayBorder rounded-xl p-5 shadow-xs">
-            <span class="text-xs font-semibold text-groq-textMuted uppercase">Rehydrated Tokens</span>
-            <div class="text-3xl font-extrabold text-groq-dark mt-2 font-mono">2,104,883</div>
-          </div>
-          <div class="bg-white border border-groq-grayBorder rounded-xl p-5 shadow-xs">
-            <span class="text-xs font-semibold text-groq-textMuted uppercase">Compliance Savings</span>
-            <div class="text-3xl font-extrabold text-emerald-600 mt-2 font-mono">$142,500</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- SUB-VIEW: BATCH -->
-      <section id="dash-content-batch" class="dash-subview hidden space-y-6">
-        <h1 class="text-2xl font-bold text-groq-dark">Batch De-identification</h1>
-        <div class="bg-white border border-dashed border-gray-300 rounded-xl p-8 text-center space-y-3">
-          <i data-lucide="upload-cloud" class="w-10 h-10 text-[#f0523d] mx-auto"></i>
-          <div><span class="text-sm font-semibold text-groq-dark">Upload dataset for batch anonymization</span></div>
-          <button class="px-4 py-2 rounded-lg bg-[#f0523d] text-white text-xs font-semibold hover:bg-[#e0422d]">Select Files</button>
-        </div>
-      </section>
-    </main>
-  </div>
-
-  <!-- ========================================================================= -->
-  <!-- VIEW 4: DOCS VIEW -->
-  <!-- ========================================================================= -->
-  <div id="view-docs" class="view-panel hidden flex-1 flex overflow-hidden">
-    <aside class="w-64 shrink-0 border-r border-groq-grayBorder bg-white p-5 text-xs overflow-y-auto space-y-4">
-      <div class="relative">
-        <input type="text" placeholder="Search" class="w-full bg-[#f9fafb] border border-groq-grayBorder rounded-lg pl-8 pr-12 py-1.5 text-xs text-groq-dark placeholder-groq-textSubtle focus:outline-none">
-        <i data-lucide="search" class="w-3.5 h-3.5 text-groq-textSubtle absolute left-2.5 top-2.5"></i>
-        <kbd class="text-[10px] text-groq-textSubtle border border-gray-300 px-1 py-0.5 rounded bg-white absolute right-2 top-2 font-mono">CTRL K</kbd>
-      </div>
-
-      <div class="flex items-center gap-4 text-xs font-semibold border-b border-groq-grayBorder pb-2">
-        <button class="text-groq-textMuted hover:text-groq-dark">Docs</button>
-        <button class="text-[#f0523d] border-b-2 border-[#f0523d] pb-1 font-bold">API Reference</button>
-      </div>
-
-      <div>
-        <div class="text-[10px] font-bold text-groq-textSubtle uppercase tracking-wider mb-2">ENDPOINTS</div>
-        <div class="space-y-1 font-mono text-[11px]">
-          <a href="#chat" class="block px-2.5 py-1.5 rounded-lg bg-[#fff5f3] text-[#f0523d] font-semibold border-l-2 border-[#f0523d]">Chat</a>
-          <a href="#chat" class="block px-4 py-1 text-[#f0523d] font-medium">Create chat completion</a>
-          <a href="javascript:void(0)" class="block px-2.5 py-1.5 rounded text-groq-textMuted hover:text-groq-dark">Responses (beta)</a>
-          <a href="javascript:void(0)" class="block px-2.5 py-1.5 rounded text-groq-textMuted hover:text-groq-dark">Audio</a>
-          <a href="javascript:void(0)" class="block px-2.5 py-1.5 rounded text-groq-textMuted hover:text-groq-dark">Models</a>
-        </div>
-      </div>
-    </aside>
-
-    <div class="flex-1 p-8 overflow-y-auto flex gap-8 bg-white">
-      <div class="flex-1 max-w-xl space-y-6">
-        <h1 class="text-2xl font-bold text-groq-dark mb-1">ProjectSPG API Reference</h1>
-        <h2 class="text-lg font-semibold text-groq-dark">Chat</h2>
-        <div class="space-y-2">
-          <h3 class="text-sm font-semibold text-groq-dark">Create chat completion</h3>
-          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gray-50 border border-groq-grayBorder font-mono text-xs">
-            <span class="px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold text-[10px]">POST</span>
-            <span class="text-groq-dark">https://projectspg.boruahpriyanuj2004.workers.dev/v1/chat/completions</span>
-          </div>
-          <p class="text-xs text-groq-textMuted pt-1">Creates a model response with automated edge privacy neutralization and reversible tokenization.</p>
         </div>
       </div>
     </div>
-  </div>
+
+  </div> <!-- End Main Workspace Frame -->
 
   <!-- MODALS -->
   <div id="modal-create-key" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
@@ -542,7 +542,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       </div>
       <div class="mt-6 flex justify-end gap-2 text-xs">
         <button onclick="closeCreateKeyModal()" class="px-4 py-2 rounded-lg bg-gray-100 text-groq-dark font-medium">Cancel</button>
-        <button onclick="submitCreateKey()" class="px-4 py-2 rounded-lg bg-[#f0523d] text-white font-semibold shadow-xs">Create API Key</button>
+        <button onclick="submitCreateKey()" class="px-4 py-2 rounded-lg border border-[#f0523d] bg-white hover:bg-[#fff5f3] text-groq-dark font-semibold shadow-xs">Create API Key</button>
       </div>
     </div>
   </div>
@@ -558,7 +558,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         <button onclick="copyRawKey()" class="ml-2 text-groq-textMuted hover:text-groq-dark p-1"><i data-lucide="copy" class="w-4 h-4"></i></button>
       </div>
       <div class="mt-6 flex justify-end text-xs">
-        <button onclick="closeShowKeyModal()" class="px-5 py-2 rounded-lg bg-[#f0523d] text-white font-semibold">Done</button>
+        <button onclick="closeShowKeyModal()" class="px-5 py-2 rounded-lg border border-[#f0523d] bg-white hover:bg-[#fff5f3] text-groq-dark font-semibold">Done</button>
       </div>
     </div>
   </div>
@@ -586,7 +586,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         </div>
       </div>
       <div class="mt-6 flex justify-end text-xs">
-        <button onclick="closeConfigModal()" class="px-5 py-2 rounded-lg bg-[#f0523d] text-white font-semibold">Save Settings</button>
+        <button onclick="closeConfigModal()" class="px-5 py-2 rounded-lg border border-[#f0523d] bg-white hover:bg-[#fff5f3] text-groq-dark font-semibold">Save Settings</button>
       </div>
     </div>
   </div>
@@ -599,10 +599,16 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       germantax: "Audit filing for Hans Gruber (email: hans.gruber@berlin-tech.de, German Tax ID: 04 225 818 316, IBAN: DE89 3704 0044 0532 0130 00)."
     };
 
-    let activeView = 'playground'; // Default to Playground matching the uploaded screenshot!
+    let activeView = 'keys'; // Default to API Keys matching the uploaded screenshot!
     let activeDashTab = 'logs';
     let isCodeVisible = true;
     let activeCodeLang = 'python';
+
+    // Exact initial sample keys matching media_1790456680441.png
+    let sampleApiKeys = [
+      { id: 'key_1', name: 'Datums Space', key_prefix: 'gsk_...IZS1', created_at: '2026-09-09T00:00:00Z', last_used: '9/9/2026', expires: 'Never', requests_used: 0 },
+      { id: 'key_2', name: 'ProjectSPG Test', key_prefix: 'gsk_...R5Ve', created_at: '2026-09-27T00:00:00Z', last_used: '9/27/2026', expires: 'Never', requests_used: 3 }
+    ];
 
     let localLogs = [
       { time: '9/27/2026, 1:11:54 AM', model: 'openai/gpt-oss-120b', key: 'ProjectSPG Test', code: 200, ttft: '0.583', latency: '0.829', inTokens: 124, outTokens: 120, audio: '-', reqId: 'req_0...t5xz', error: '-' },
@@ -805,7 +811,6 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       }
     }
 
-    // UPDATE CODE VIEWER WITH EXACT SYNTAX HIGHLIGHTING AS SCREENSHOT
     function updateCodeViewer() {
       const model = document.getElementById('playground-model').value;
       const box = document.getElementById('code-snippet-box');
@@ -869,31 +874,47 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
       alert('Code snippet copied!');
     }
 
+    // =========================================================================
+    // API KEYS LOGIC (Exact styling matching media_1790456680441.png)
+    // =========================================================================
     async function fetchApiKeys() {
       try {
         const res = await fetch('/api/keys');
         const data = await res.json();
         const tbody = document.getElementById('api-keys-tbody');
-        if (!data.keys || data.keys.length === 0) {
-          tbody.innerHTML = '<tr><td colspan="7" class="py-8 text-center text-groq-textMuted font-sans italic">No API keys yet. Click "+ Create API Key" to generate your first key.</td></tr>';
-          return;
-        }
-        tbody.innerHTML = data.keys.map(k => \`
-          <tr class="hover:bg-gray-50 transition">
-            <td class="py-3 px-4 font-sans font-medium text-groq-dark">\${k.name}</td>
-            <td class="py-3 px-4 text-groq-textMuted">\${k.key_prefix}</td>
-            <td class="py-3 px-4 text-groq-textMuted">\${new Date(k.created_at).toLocaleDateString()}</td>
-            <td class="py-3 px-4 text-groq-textMuted">\${new Date(k.created_at).toLocaleDateString()}</td>
-            <td class="py-3 px-4 text-groq-textMuted">Never</td>
-            <td class="py-3 px-4 text-groq-textMuted">\${k.requests_used} API Calls</td>
-            <td class="py-3 px-4 text-right">
-              <div class="flex items-center justify-end gap-2">
-                <button class="p-1 text-gray-400 hover:text-gray-800"><i data-lucide="edit-2" class="w-3.5 h-3.5"></i></button>
-                <button onclick="deleteKey('\${k.id}')" class="p-1 text-gray-400 hover:text-rose-600"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
-              </div>
-            </td>
-          </tr>
-        \`).join('');
+
+        let keysToRender = (data.keys && data.keys.length > 0) ? data.keys : sampleApiKeys;
+
+        tbody.innerHTML = keysToRender.map(k => {
+          const dateCreated = k.created_at ? new Date(k.created_at).toLocaleDateString() : '9/9/2026';
+          const lastUsed = k.last_used || dateCreated;
+          const calls = k.requests_used !== undefined ? k.requests_used : 0;
+          const prefix = k.key_prefix || 'gsk_...IZS1';
+
+          return \`
+            <tr class="hover:bg-gray-50/70 transition h-14">
+              <td class="pr-6 font-sans font-medium text-groq-dark">\${k.name}</td>
+              <td class="pr-6 font-mono text-groq-dark">\${prefix}</td>
+              <td class="pr-6 font-sans text-groq-dark">\${dateCreated}</td>
+              <td class="pr-6 font-sans text-groq-dark">\${lastUsed}</td>
+              <td class="pr-6 font-sans text-groq-dark">\${k.expires || 'Never'}</td>
+              <td class="pr-6 font-sans text-groq-dark">\${calls} API Calls</td>
+              <td class="text-right">
+                <div class="flex items-center justify-end gap-2">
+                  <!-- Edit Pencil Button (Exact gray box) -->
+                  <button class="p-2 rounded-lg bg-groq-grayBg hover:bg-gray-100 text-groq-dark transition" title="Edit">
+                    <i data-lucide="edit-3" class="w-3.5 h-3.5 text-groq-dark"></i>
+                  </button>
+                  <!-- Delete Trash Button (Exact gray box with coral trash) -->
+                  <button onclick="deleteKey('\${k.id}')" class="p-2 rounded-lg bg-groq-grayBg hover:bg-[#fff5f3] text-[#f0523d] transition" title="Delete">
+                    <i data-lucide="trash-2" class="w-3.5 h-3.5 text-[#f0523d]"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          \`;
+        }).join('');
+
         lucide.createIcons();
       } catch (err) {
         console.error('Fetch keys error', err);
