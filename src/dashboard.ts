@@ -486,32 +486,59 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
           <!-- Sub Tabs: Cost | Activity -->
           <div class="flex items-center gap-6 text-xs font-medium border-b border-groq-grayBorder pb-2">
-            <button class="text-[#f0523d] border-b-2 border-[#f0523d] pb-2 font-semibold">Cost</button>
-            <button class="text-groq-dark hover:text-[#f0523d] pb-2">Activity</button>
+            <button id="btn-usage-cost" onclick="switchUsageSubTab('cost')" class="usage-subtab-btn text-[#f0523d] border-b-2 border-[#f0523d] pb-2 font-semibold transition cursor-pointer">Cost</button>
+            <button id="btn-usage-activity" onclick="switchUsageSubTab('activity')" class="usage-subtab-btn text-groq-dark hover:text-[#f0523d] pb-2 font-medium transition cursor-pointer">Activity</button>
           </div>
 
-          <!-- Total Spend Card -->
-          <div class="border border-groq-grayBorder rounded-xl p-5 max-w-sm bg-white shadow-xs">
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-medium text-groq-dark">Total Spend</span>
-              <span id="usage-total-spend" class="text-sm font-semibold text-groq-dark font-mono">$0.00 USD</span>
-            </div>
-            <p class="text-[11px] text-groq-textMuted mt-3 leading-relaxed">Projected cost calculation as if you were enrolled in billing. You will not be billed until you upgrade.</p>
-          </div>
-
-          <!-- Model On-Demand Chart Card -->
-          <div class="border border-groq-grayBorder rounded-xl p-6 bg-white shadow-xs">
-            <h3 class="text-xs font-bold text-groq-dark">allam-2-7b - on_demand</h3>
-            <span id="usage-model-spend" class="text-xs text-groq-textMuted font-mono block mt-1">$0.00</span>
-
-            <div class="h-44 flex items-end pt-6">
-              <div class="flex flex-col justify-between h-full text-[10px] font-mono text-groq-textSubtle pr-3 border-r border-gray-200">
-                <span>$0.10</span>
-                <span>$0.07</span>
-                <span>$0.05</span>
-                <span>$0.00</span>
+          <!-- SUBTAB 1: COST -->
+          <div id="usage-view-cost" class="space-y-6">
+            <!-- Total Spend Card -->
+            <div class="border border-groq-grayBorder rounded-xl p-5 max-w-sm bg-white shadow-xs">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-medium text-groq-dark">Total Spend</span>
+                <span id="usage-total-spend" class="text-sm font-semibold text-groq-dark font-mono">$0.0000 USD</span>
               </div>
-              <div class="flex-1 border-b border-gray-100 ml-2"></div>
+              <p class="text-[11px] text-groq-textMuted mt-3 leading-relaxed">Projected cost calculation as if you were enrolled in billing. You will not be billed until you upgrade.</p>
+            </div>
+
+            <!-- Dynamic On-Demand Usage Cards for each supported model -->
+            <div id="models-usage-container" class="space-y-6">
+              <!-- Dynamically populated by updateUsageStats() -->
+            </div>
+          </div>
+
+          <!-- SUBTAB 2: ACTIVITY -->
+          <div id="usage-view-activity" class="hidden space-y-6">
+            <div class="border border-groq-grayBorder rounded-xl overflow-hidden bg-white shadow-xs">
+              <div class="p-5 border-b border-gray-100 flex items-center justify-between">
+                <div>
+                  <h3 class="text-xs font-bold text-groq-dark">Model Activity Breakdown</h3>
+                  <p class="text-[11px] text-groq-textMuted mt-0.5">Aggregate usage, token consumption, and privacy interception counts per supported model</p>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="text-[11px] font-mono text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200">Live Metering</span>
+                </div>
+              </div>
+
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs border-collapse font-sans">
+                  <thead>
+                    <tr class="bg-gray-50/70 text-groq-textSubtle text-[10px] uppercase tracking-wider font-semibold border-b border-gray-100">
+                      <th class="py-3 px-4">Supported Model</th>
+                      <th class="py-3 px-4">Provider</th>
+                      <th class="py-3 px-4">Requests</th>
+                      <th class="py-3 px-4">Input Tokens</th>
+                      <th class="py-3 px-4">Output Tokens</th>
+                      <th class="py-3 px-4">Total Tokens</th>
+                      <th class="py-3 px-4">Protected Entities</th>
+                      <th class="py-3 px-4 text-right">Est. Spend</th>
+                    </tr>
+                  </thead>
+                  <tbody id="usage-activity-tbody" class="divide-y divide-gray-100 text-[11px] font-mono">
+                    <!-- Populated dynamically -->
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </section>
@@ -1269,16 +1296,217 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
       renderLogsTable();
     }
 
+    const SUPPORTED_MODELS_CATALOG = [
+      { id: 'openai/gpt-oss-120b', name: 'OpenAI GPT-OSS 120B', provider: 'OpenRouter', ratePer1MTokens: 0.15, tag: 'on_demand' },
+      { id: 'llama-3.3-70b-versatile', name: 'Llama 3.3 70B Versatile', provider: 'Groq Cloud', ratePer1MTokens: 0.59, tag: 'on_demand' },
+      { id: 'gemini-2.5-flash-lite', name: 'Gemini 2.5 Flash Lite', provider: 'Google AI Studio', ratePer1MTokens: 0.075, tag: 'on_demand' },
+      { id: 'open-mistral-7b', name: 'Mistral 7B Instruct', provider: 'Mistral AI', ratePer1MTokens: 0.20, tag: 'on_demand' },
+      { id: 'gpt-4o', name: 'GPT-4o (Omni)', provider: 'OpenAI', ratePer1MTokens: 2.50, tag: 'on_demand' },
+      { id: 'claude-3-5-sonnet', name: 'Claude 3.5 Sonnet', provider: 'Anthropic', ratePer1MTokens: 3.00, tag: 'on_demand' }
+    ];
+
+    function switchUsageSubTab(tab) {
+      const costBtn = document.getElementById('btn-usage-cost');
+      const actBtn = document.getElementById('btn-usage-activity');
+      const costView = document.getElementById('usage-view-cost');
+      const actView = document.getElementById('usage-view-activity');
+      if (!costBtn || !actBtn || !costView || !actView) return;
+
+      if (tab === 'cost') {
+        costBtn.className = 'usage-subtab-btn text-[#f0523d] border-b-2 border-[#f0523d] pb-2 font-semibold transition cursor-pointer';
+        actBtn.className = 'usage-subtab-btn text-groq-dark hover:text-[#f0523d] pb-2 font-medium transition cursor-pointer';
+        costView.classList.remove('hidden');
+        actView.classList.add('hidden');
+      } else {
+        actBtn.className = 'usage-subtab-btn text-[#f0523d] border-b-2 border-[#f0523d] pb-2 font-semibold transition cursor-pointer';
+        costBtn.className = 'usage-subtab-btn text-groq-dark hover:text-[#f0523d] pb-2 font-medium transition cursor-pointer';
+        costView.classList.add('hidden');
+        actView.classList.remove('hidden');
+      }
+      lucide.createIcons();
+    }
+
     function updateUsageStats() {
-      let totalTokens = 0;
-      localLogs.forEach(l => {
-        totalTokens += (Number(l.inTokens) || 0) + (Number(l.outTokens) || 0);
+      // Gather all models: start with known catalog, add any unique models found in logs
+      const modelMap = new Map();
+      SUPPORTED_MODELS_CATALOG.forEach(m => {
+        modelMap.set(m.id, {
+          id: m.id,
+          name: m.name,
+          provider: m.provider,
+          ratePer1MTokens: m.ratePer1MTokens,
+          tag: m.tag,
+          requests: 0,
+          inTokens: 0,
+          outTokens: 0,
+          totalTokens: 0,
+          protectedEntities: 0,
+          totalLatency: 0,
+          avgLatency: 0,
+          spend: 0
+        });
       });
-      const projectedCost = (totalTokens * 0.0000003).toFixed(4);
+
+      localLogs.forEach(l => {
+        const modelId = l.model || 'openai/gpt-oss-120b';
+        if (!modelMap.has(modelId)) {
+          modelMap.set(modelId, {
+            id: modelId,
+            name: modelId,
+            provider: 'AI Gateway',
+            ratePer1MTokens: 0.50,
+            tag: 'on_demand',
+            requests: 0,
+            inTokens: 0,
+            outTokens: 0,
+            totalTokens: 0,
+            protectedEntities: 0,
+            totalLatency: 0,
+            avgLatency: 0,
+            spend: 0
+          });
+        }
+        const stats = modelMap.get(modelId);
+        stats.requests += 1;
+        stats.inTokens += (Number(l.inTokens) || 0);
+        stats.outTokens += (Number(l.outTokens) || 0);
+        stats.totalTokens += ((Number(l.inTokens) || 0) + (Number(l.outTokens) || 0));
+        stats.protectedEntities += (Number(l.protectedEntities) || 0);
+        stats.totalLatency += (Number(l.latency) || 0);
+      });
+
+      let grandTotalSpend = 0;
+      const modelStatsList = Array.from(modelMap.values()).map(m => {
+        m.avgLatency = m.requests > 0 ? (m.totalLatency / m.requests) : 0;
+        m.spend = (m.totalTokens * m.ratePer1MTokens) / 1000000;
+        grandTotalSpend += m.spend;
+        return m;
+      });
+
       const totalSpendEl = document.getElementById('usage-total-spend');
-      if (totalSpendEl) totalSpendEl.textContent = '$' + projectedCost + ' USD';
-      const modelSpendEl = document.getElementById('usage-model-spend');
-      if (modelSpendEl) modelSpendEl.textContent = '$' + projectedCost;
+      if (totalSpendEl) totalSpendEl.textContent = '$' + grandTotalSpend.toFixed(4) + ' USD';
+
+      // Render On-Demand Usage Cards for EACH model in Cost subtab
+      const container = document.getElementById('models-usage-container');
+      if (container) {
+        container.innerHTML = modelStatsList.map(m => {
+          const barHeightPct = m.spend > 0 ? Math.min(92, Math.max(12, (m.spend / 0.10) * 100)) : 0;
+          return \`
+            <div class="border border-groq-grayBorder rounded-xl p-6 bg-white shadow-xs">
+              <div class="flex items-start justify-between">
+                <div>
+                  <h3 class="text-xs font-bold text-groq-dark flex items-center gap-2">
+                    <span>\${m.id} - \${m.tag}</span>
+                    <span class="text-[10px] font-medium text-groq-textMuted bg-gray-100 px-2 py-0.5 rounded">\${m.provider}</span>
+                  </h3>
+                  <span class="text-xs text-groq-textMuted font-mono block mt-1">
+                    $\${m.spend.toFixed(4)} <span class="text-[11px] text-gray-400 font-sans">• \${m.requests} requests • \${m.totalTokens.toLocaleString()} tokens</span>
+                  </span>
+                </div>
+                <div class="flex items-center gap-2">
+                  \${m.protectedEntities > 0 ? \`
+                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium bg-sky-50 text-sky-700 border border-sky-200">
+                      🛡️ \${m.protectedEntities} protected
+                    </span>\` : ''}
+                  <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">
+                    Active
+                  </span>
+                </div>
+              </div>
+
+              <!-- Groq-exact Chart Area matching media_1790456991949.png -->
+              <div class="h-44 flex items-end pt-6 mt-2">
+                <!-- Y-Axis labels -->
+                <div class="flex flex-col justify-between h-full text-[10px] font-mono text-groq-textSubtle pr-3 border-r border-gray-200 shrink-0">
+                  <span>$0.10</span>
+                  <span>$0.07</span>
+                  <span>$0.05</span>
+                  <span>$0.00</span>
+                </div>
+
+                <!-- Chart Canvas with Day Grid -->
+                <div class="flex-1 flex flex-col justify-end h-full ml-3 relative">
+                  <!-- Horizontal guideline grid -->
+                  <div class="absolute inset-0 flex flex-col justify-between pointer-events-none opacity-40">
+                    <div class="border-b border-dashed border-gray-200 w-full"></div>
+                    <div class="border-b border-dashed border-gray-200 w-full"></div>
+                    <div class="border-b border-dashed border-gray-200 w-full"></div>
+                    <div class="border-b border-gray-200 w-full"></div>
+                  </div>
+
+                  <!-- Bar Column for September 27 (Live Data) -->
+                  <div class="flex-1 flex items-end justify-end pr-8 z-10">
+                    \${m.requests > 0 ? \`
+                      <div class="flex flex-col items-center group relative cursor-pointer">
+                        <div class="w-7 bg-[#f0523d] rounded-t-sm shadow-xs transition-all group-hover:bg-[#e0422d]" style="height: \${barHeightPct}%;"></div>
+                        <!-- Tooltip on hover -->
+                        <div class="hidden group-hover:block absolute bottom-full mb-2 bg-slate-900 text-white text-[10px] font-mono py-1.5 px-2.5 rounded-lg shadow-xl whitespace-nowrap z-30">
+                          <p class="font-bold">Sep 27, 2026</p>
+                          <p>Spend: $\${m.spend.toFixed(4)}</p>
+                          <p>Tokens: \${m.totalTokens.toLocaleString()}</p>
+                          <p>Requests: \${m.requests}</p>
+                        </div>
+                      </div>
+                    \` : \`
+                      <div class="text-[11px] text-gray-300 font-sans italic self-center pb-8">No usage recorded for this billing cycle</div>
+                    \`}
+                  </div>
+
+                  <!-- X-Axis timeline labels across September -->
+                  <div class="border-b border-gray-200 w-full"></div>
+                  <div class="flex items-center justify-between text-[10px] font-mono text-groq-textSubtle pt-1.5 px-1">
+                    <span>Sep 1</span>
+                    <span>Sep 5</span>
+                    <span>Sep 10</span>
+                    <span>Sep 15</span>
+                    <span>Sep 20</span>
+                    <span>Sep 25</span>
+                    <span class="text-groq-dark font-semibold">Sep 27</span>
+                    <span>Sep 30</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Footer breakdown metrics -->
+              <div class="mt-4 pt-3 border-t border-gray-100 grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+                <div>
+                  <span class="text-[10px] uppercase tracking-wider text-groq-textSubtle font-semibold block">Input Tokens</span>
+                  <span class="font-mono font-medium text-groq-dark">\${m.inTokens.toLocaleString()}</span>
+                </div>
+                <div>
+                  <span class="text-[10px] uppercase tracking-wider text-groq-textSubtle font-semibold block">Output Tokens</span>
+                  <span class="font-mono font-medium text-groq-dark">\${m.outTokens.toLocaleString()}</span>
+                </div>
+                <div>
+                  <span class="text-[10px] uppercase tracking-wider text-groq-textSubtle font-semibold block">Protected Entities</span>
+                  <span class="font-mono font-medium text-sky-600">🛡️ \${m.protectedEntities}</span>
+                </div>
+                <div>
+                  <span class="text-[10px] uppercase tracking-wider text-groq-textSubtle font-semibold block">Avg Latency</span>
+                  <span class="font-mono font-medium text-groq-dark">\${m.avgLatency.toFixed(3)}s</span>
+                </div>
+              </div>
+            </div>
+          \`;
+        }).join('');
+      }
+
+      // Render Activity Table
+      const actTbody = document.getElementById('usage-activity-tbody');
+      if (actTbody) {
+        actTbody.innerHTML = modelStatsList.map(m => \`
+          <tr class="hover:bg-gray-50/70 transition h-12">
+            <td class="py-3 px-4 font-semibold text-groq-dark">\${m.id}</td>
+            <td class="py-3 px-4 font-sans text-groq-textMuted"><span class="px-2 py-0.5 rounded bg-gray-100 text-[10px] font-medium text-gray-700">\${m.provider}</span></td>
+            <td class="py-3 px-4 text-groq-dark">\${m.requests}</td>
+            <td class="py-3 px-4 text-groq-dark">\${m.inTokens.toLocaleString()}</td>
+            <td class="py-3 px-4 text-groq-dark">\${m.outTokens.toLocaleString()}</td>
+            <td class="py-3 px-4 font-semibold text-groq-dark">\${m.totalTokens.toLocaleString()}</td>
+            <td class="py-3 px-4 text-sky-600 font-sans font-medium">\${m.protectedEntities > 0 ? '🛡️ ' + m.protectedEntities : '-'}</td>
+            <td class="py-3 px-4 text-right font-semibold text-groq-dark font-mono">$\${m.spend.toFixed(4)}</td>
+          </tr>
+        \`).join('');
+      }
     }
 
     // Exact Render of Logs Table matching media_1790457001122.png

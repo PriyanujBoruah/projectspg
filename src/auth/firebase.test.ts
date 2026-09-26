@@ -43,7 +43,7 @@ describe("Firebase Authentication & Configuration", () => {
     expect(found?.user_id).toBe(testUserId);
   });
 
-  it("should serve the dashboard with Firebase scripts and auth modal", async () => {
+  it("should serve the dashboard with Firebase scripts, auth modal, and per-model usage panel", async () => {
     const res = await app.request("/dashboard");
     expect(res.status).toBe(200);
     const html = await res.text();
@@ -52,5 +52,8 @@ describe("Firebase Authentication & Configuration", () => {
     expect(html).toContain("modal-auth");
     expect(html).toContain("btn-login-trigger");
     expect(html).toContain("user-profile-menu-container");
+    expect(html).toContain("models-usage-container");
+    expect(html).toContain("usage-activity-tbody");
+    expect(html).toContain("SUPPORTED_MODELS_CATALOG");
   });
 });
