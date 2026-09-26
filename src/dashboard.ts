@@ -464,7 +464,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           <div class="border border-groq-grayBorder rounded-xl p-5 max-w-sm bg-white shadow-xs">
             <div class="flex items-center justify-between">
               <span class="text-xs font-medium text-groq-dark">Total Spend</span>
-              <span class="text-sm font-semibold text-groq-dark font-mono">$0.00 USD</span>
+              <span id="usage-total-spend" class="text-sm font-semibold text-groq-dark font-mono">$0.00 USD</span>
             </div>
             <p class="text-[11px] text-groq-textMuted mt-3 leading-relaxed">Projected cost calculation as if you were enrolled in billing. You will not be billed until you upgrade.</p>
           </div>
@@ -472,7 +472,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           <!-- Model On-Demand Chart Card -->
           <div class="border border-groq-grayBorder rounded-xl p-6 bg-white shadow-xs">
             <h3 class="text-xs font-bold text-groq-dark">allam-2-7b - on_demand</h3>
-            <span class="text-xs text-groq-textMuted font-mono block mt-1">$0.00</span>
+            <span id="usage-model-spend" class="text-xs text-groq-textMuted font-mono block mt-1">$0.00</span>
 
             <div class="h-44 flex items-end pt-6">
               <div class="flex flex-col justify-between h-full text-[10px] font-mono text-groq-textSubtle pr-3 border-r border-gray-200">
@@ -715,7 +715,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       }
       switchView(activeView);
       updateCodeViewer();
-      renderLogsTable();
+      fetchApiLogs();
       fetchApiKeys();
 
       document.addEventListener('keydown', (e) => {
@@ -765,7 +765,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         activeBtn.classList.remove('text-groq-textMuted');
         activeBtn.classList.add('text-[#f0523d]', 'font-semibold');
       }
-      if (tabName === 'logs') renderLogsTable();
+      if (tabName === 'logs') fetchApiLogs();
+      if (tabName === 'usage') updateUsageStats();
       lucide.createIcons();
     }
 
@@ -891,6 +892,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             reqId: 'req_' + Math.random().toString(36).slice(2, 7) + '...',
             error: '-'
           });
+          fetchApiLogs();
         } else if (data.error) {
           document.getElementById('rehydrated-text').innerHTML = '<span class="text-red-500 font-bold">Error:</span> ' + JSON.stringify(data.error);
         }
@@ -1044,6 +1046,55 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
       fetchApiKeys();
     }
 
+    // Live API Usage and Telemetry Logs
+    async function fetchApiLogs() {
+      try {
+        const res = await fetch('/api/logs?limit=50');
+        if (res.ok) {
+          const data = await res.json();
+          if (data && Array.isArray(data.logs) && data.logs.length > 0) {
+            localLogs = data.logs.map(l => {
+              const d = new Date(l.timestamp);
+              const timeStr = isNaN(d.getTime()) ? l.timestamp : d.toLocaleString();
+              const ttft = (Math.max(0.08, (l.latencyMs || 200) * 0.0004)).toFixed(3);
+              const latency = ((l.latencyMs || 200) / 1000).toFixed(3);
+              const reqId = l.id ? (l.id.length > 13 ? l.id.slice(0, 5) + '...' + l.id.slice(-4) : l.id) : 'req_...';
+              return {
+                time: timeStr,
+                model: l.model || 'openai/gpt-oss-120b',
+                key: (l.apiKeyPrefix && l.apiKeyPrefix !== 'none') ? l.apiKeyPrefix : 'ProjectSPG Test',
+                code: l.statusCode || 200,
+                ttft: ttft,
+                latency: latency,
+                inTokens: l.promptTokens || 0,
+                outTokens: l.completionTokens || 0,
+                audio: '-',
+                reqId: reqId,
+                error: (l.statusCode >= 400) ? ('HTTP ' + l.statusCode) : '-',
+                protectedEntities: l.protectedEntityCount || 0
+              };
+            });
+            updateUsageStats();
+          }
+        }
+      } catch (err) {
+        console.error('Fetch logs error', err);
+      }
+      renderLogsTable();
+    }
+
+    function updateUsageStats() {
+      let totalTokens = 0;
+      localLogs.forEach(l => {
+        totalTokens += (Number(l.inTokens) || 0) + (Number(l.outTokens) || 0);
+      });
+      const projectedCost = (totalTokens * 0.0000003).toFixed(4);
+      const totalSpendEl = document.getElementById('usage-total-spend');
+      if (totalSpendEl) totalSpendEl.textContent = '$' + projectedCost + ' USD';
+      const modelSpendEl = document.getElementById('usage-model-spend');
+      if (modelSpendEl) modelSpendEl.textContent = '$' + projectedCost;
+    }
+
     // Exact Render of Logs Table matching media_1790457001122.png
     function renderLogsTable() {
       const tbody = document.getElementById('logs-tbody');
@@ -1055,7 +1106,10 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
         <tr class="hover:bg-gray-50/70 transition h-14 border-b border-gray-50/80">
           <td class="pr-3 text-groq-dark font-mono">\${l.time}</td>
           <td class="pr-3 text-groq-dark font-mono font-medium">\${l.model}</td>
-          <td class="pr-3 text-groq-dark font-mono">\${l.key} <span class="text-gray-400 font-sans">ⓘ</span></td>
+          <td class="pr-3 text-groq-dark font-mono">
+            \${l.key} <span class="text-gray-400 font-sans cursor-pointer" title="\${(l.protectedEntities !== undefined ? l.protectedEntities : 0) + ' protected entities intercepted and de-identified'}">ⓘ</span>
+            \${l.protectedEntities > 0 ? \`<span class="ml-1 text-[10px] text-sky-600 font-medium font-sans" title="\${l.protectedEntities} entities protected">🛡️\${l.protectedEntities}</span>\` : ''}
+          </td>
           <td class="pr-3">
             <span class="px-2 py-0.5 rounded-full text-[10px] font-bold font-mono \${l.code === 200 ? 'bg-emerald-500 text-white' : 'bg-[#f0523d] text-white'}">\${l.code}</span>
           </td>

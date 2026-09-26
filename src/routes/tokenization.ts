@@ -2,7 +2,7 @@ import { Hono, Context } from "hono";
 import { tokenize, rehydrate } from "../tokenizer/engine";
 import { saveTokenSession, getTokenSession, purgeTokenSession } from "../vault/session";
 import { computeSha256Fingerprint } from "../vault/crypto";
-import { recordAuditEvent, AuditEntitySummary } from "../audit/logger";
+import { recordAuditEvent, recordApiCallLog, AuditEntitySummary } from "../audit/logger";
 
 export interface Env {
   DB?: D1Database;
@@ -157,6 +157,28 @@ tokenizationApp.post("/tokenize", async (c) => {
         engineLatencyUs,
         kmsEncrypted: isEncrypted,
       },
+      executionCtx
+    );
+
+    // Record API Call Usage Log (model, token count, protected entity count, timestamp, API key)
+    const apiKeyRecord = (c as any).get("apiKeyRecord");
+    const apiKeyId = apiKeyRecord?.id || "anonymous";
+    const apiKeyPrefix = apiKeyRecord?.key_prefix || "none";
+    const promptTokens = Math.max(1, Math.ceil(body.text.length / 4));
+
+    recordApiCallLog(
+      {
+        apiKeyId,
+        apiKeyPrefix,
+        model: body.mode === "fpe" ? "tokenizer-fpe" : "tokenizer-structural",
+        promptTokens,
+        completionTokens: 0,
+        totalTokens: promptTokens,
+        protectedEntityCount: tokenResult.count,
+        statusCode: 200,
+        latencyMs: Math.round(performance.now() - startTime),
+      },
+      c.env,
       executionCtx
     );
 

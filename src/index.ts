@@ -9,6 +9,7 @@ import {
   revokeApiKey,
   createAuthMiddleware,
 } from "./auth/keys";
+import { getApiCallLogs } from "./audit/logger";
 
 const app = new Hono();
 
@@ -90,6 +91,23 @@ app.delete("/api/keys/:id", async (c) => {
   const id = c.req.param("id");
   await revokeApiKey(id, c.env);
   return c.json({ success: true, message: `API key ${id} revoked.` });
+});
+
+// =========================================================================
+// API Request & Token Usage Logs (Identified by API Key)
+// =========================================================================
+app.get("/api/logs", async (c) => {
+  const apiKeyId = c.req.query("api_key_id");
+  const limit = Number(c.req.query("limit")) || 50;
+  const logs = await getApiCallLogs({ apiKeyId, limit }, c.env);
+  return c.json({ logs });
+});
+
+app.get("/v1/logs", async (c) => {
+  const apiKeyRecord = (c as any).get("apiKeyRecord");
+  const limit = Number(c.req.query("limit")) || 50;
+  const logs = await getApiCallLogs({ apiKeyId: apiKeyRecord?.id, limit }, c.env);
+  return c.json({ object: "list", data: logs });
 });
 
 // Health check endpoint

@@ -3,6 +3,9 @@ import {
   recordAuditEvent,
   getRecentAuditEvents,
   clearAuditEvents,
+  recordApiCallLog,
+  getApiCallLogs,
+  clearApiCallLogs,
 } from "./logger";
 
 describe("SIEM Audit Logger & Telemetry Engine", () => {
@@ -73,5 +76,75 @@ describe("SIEM Audit Logger & Telemetry Engine", () => {
     const rehydratedEvents = getRecentAuditEvents({ eventType: "RESPONSE_REHYDRATED" });
     expect(rehydratedEvents.length).toBe(1);
     expect(rehydratedEvents[0].sessionId).toBe("sess_alpha");
+  });
+});
+
+describe("API Key Request Usage & Telemetry Logging", () => {
+  beforeEach(() => {
+    clearApiCallLogs();
+  });
+
+  it("should record API call logs keyed by api_key_id with model, tokens, and protected entities", async () => {
+    const log = recordApiCallLog({
+      apiKeyId: "key_org123_abc",
+      apiKeyPrefix: "spg_live_97e4d...",
+      model: "gpt-4o",
+      promptTokens: 42,
+      completionTokens: 88,
+      totalTokens: 130,
+      protectedEntityCount: 3,
+      statusCode: 200,
+      latencyMs: 145,
+    });
+
+    expect(log.id).toMatch(/^log_/);
+    expect(log.apiKeyId).toBe("key_org123_abc");
+    expect(log.apiKeyPrefix).toBe("spg_live_97e4d...");
+    expect(log.model).toBe("gpt-4o");
+    expect(log.promptTokens).toBe(42);
+    expect(log.completionTokens).toBe(88);
+    expect(log.totalTokens).toBe(130);
+    expect(log.protectedEntityCount).toBe(3);
+    expect(log.timestamp).toBeDefined();
+
+    const recentLogs = await getApiCallLogs();
+    expect(recentLogs.length).toBe(1);
+    expect(recentLogs[0].apiKeyId).toBe("key_org123_abc");
+    expect(recentLogs[0].model).toBe("gpt-4o");
+    expect(recentLogs[0].protectedEntityCount).toBe(3);
+  });
+
+  it("should query logs specifically by api_key_id for organization compatibility", async () => {
+    recordApiCallLog({
+      apiKeyId: "key_team_engineering",
+      apiKeyPrefix: "spg_live_eng...",
+      model: "openai/gpt-oss-120b",
+      promptTokens: 100,
+      completionTokens: 50,
+      totalTokens: 150,
+      protectedEntityCount: 5,
+    });
+
+    recordApiCallLog({
+      apiKeyId: "key_team_finance",
+      apiKeyPrefix: "spg_live_fin...",
+      model: "claude-3-5-sonnet",
+      promptTokens: 200,
+      completionTokens: 100,
+      totalTokens: 300,
+      protectedEntityCount: 12,
+    });
+
+    const engLogs = await getApiCallLogs({ apiKeyId: "key_team_engineering" });
+    expect(engLogs.length).toBe(1);
+    expect(engLogs[0].apiKeyId).toBe("key_team_engineering");
+    expect(engLogs[0].model).toBe("openai/gpt-oss-120b");
+    expect(engLogs[0].protectedEntityCount).toBe(5);
+
+    const finLogs = await getApiCallLogs({ apiKeyId: "key_team_finance" });
+    expect(finLogs.length).toBe(1);
+    expect(finLogs[0].apiKeyId).toBe("key_team_finance");
+    expect(finLogs[0].model).toBe("claude-3-5-sonnet");
+    expect(finLogs[0].protectedEntityCount).toBe(12);
   });
 });

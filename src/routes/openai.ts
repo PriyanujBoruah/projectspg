@@ -3,7 +3,7 @@ import { tokenize, rehydrate, DetectedEntity } from "../tokenizer/engine";
 import { StreamTokenBuffer } from "../tokenizer/stream";
 import { saveTokenSession } from "../vault/session";
 import { computeSha256Fingerprint } from "../vault/crypto";
-import { recordAuditEvent, getRecentAuditEvents, AuditEntitySummary } from "../audit/logger";
+import { recordAuditEvent, recordApiCallLog, getRecentAuditEvents, AuditEntitySummary } from "../audit/logger";
 import { Env } from "./tokenization";
 
 const openaiApp = new Hono<{ Bindings: Env }>();
@@ -497,6 +497,29 @@ openaiApp.post("/chat/completions", async (c) => {
       return c.json(err, 500);
     }
 
+    // Extract API Key metadata attached by auth middleware
+    const apiKeyRecord = (c as any).get("apiKeyRecord");
+    const apiKeyId = apiKeyRecord?.id || "anonymous";
+    const apiKeyPrefix = apiKeyRecord?.key_prefix || "none";
+    const promptTokens = Math.max(1, Math.ceil(JSON.stringify(sanitizedMessages).length / 4));
+
+    // Log streaming API call
+    recordApiCallLog(
+      {
+        apiKeyId,
+        apiKeyPrefix,
+        model: requestedModel,
+        promptTokens,
+        completionTokens: 0,
+        totalTokens: promptTokens,
+        protectedEntityCount: totalEntities,
+        statusCode: 200,
+        latencyMs: Math.round(performance.now() - startTime),
+      },
+      c.env,
+      executionCtx
+    );
+
     // Fast-path: If no entities were intercepted, pass raw stream directly with zero latency
     if (Object.keys(combinedTokenMap).length === 0) {
       return new Response(upstreamRes.body, {
@@ -552,6 +575,35 @@ openaiApp.post("/chat/completions", async (c) => {
     }
   }
 
+  // Extract API Key metadata and token counts for usage logging
+  const apiKeyRecord = (c as any).get("apiKeyRecord");
+  const apiKeyId = apiKeyRecord?.id || "anonymous";
+  const apiKeyPrefix = apiKeyRecord?.key_prefix || "none";
+  const promptTokens =
+    responseData?.usage?.prompt_tokens ?? Math.max(1, Math.ceil(JSON.stringify(sanitizedMessages).length / 4));
+  let completionTokens = responseData?.usage?.completion_tokens ?? 0;
+  if (!completionTokens && responseData?.choices?.[0]?.message?.content) {
+    completionTokens = Math.max(1, Math.ceil(responseData.choices[0].message.content.length / 4));
+  }
+  const totalTokens = responseData?.usage?.total_tokens ?? (promptTokens + completionTokens);
+  const latencyMs = Math.round(performance.now() - startTime);
+
+  recordApiCallLog(
+    {
+      apiKeyId,
+      apiKeyPrefix,
+      model: requestedModel,
+      promptTokens,
+      completionTokens,
+      totalTokens,
+      protectedEntityCount: totalEntities,
+      statusCode: upstreamRes.status || 200,
+      latencyMs,
+    },
+    c.env,
+    executionCtx
+  );
+
   return c.json(responseData, 200, privacyHeaders);
 });
 
@@ -559,6 +611,12 @@ openaiApp.post("/chat/completions", async (c) => {
 // POST /embeddings (Vector Embedding De-identification Gateway)
 // =========================================================================
 openaiApp.post("/embeddings", async (c) => {
+  const startTime = performance.now();
+  let executionCtx: any;
+  try {
+    executionCtx = c.executionCtx;
+  } catch {}
+
   let body: any;
   try {
     body = await c.req.json();
@@ -622,6 +680,29 @@ openaiApp.post("/embeddings", async (c) => {
     });
 
     const resJson = await upstreamRes.json();
+
+    const apiKeyRecord = (c as any).get("apiKeyRecord");
+    const apiKeyId = apiKeyRecord?.id || "anonymous";
+    const apiKeyPrefix = apiKeyRecord?.key_prefix || "none";
+    const promptTokens = Math.max(1, Math.ceil(JSON.stringify(sanitizedInput).length / 4));
+    const latencyMs = Math.round(performance.now() - startTime);
+
+    recordApiCallLog(
+      {
+        apiKeyId,
+        apiKeyPrefix,
+        model: body.model || "text-embedding-3-small",
+        promptTokens,
+        completionTokens: 0,
+        totalTokens: promptTokens,
+        protectedEntityCount: totalIntercepted,
+        statusCode: upstreamRes.status || 200,
+        latencyMs,
+      },
+      c.env,
+      executionCtx
+    );
+
     return c.json(resJson, upstreamRes.status as any, {
       "x-privacy-gateway": "ai-privacy-core",
       "x-privacy-entities-intercepted": String(totalIntercepted),
