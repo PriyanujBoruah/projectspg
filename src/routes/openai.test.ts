@@ -8,6 +8,7 @@ describe("OpenAI Drop-In Wire-Compatible Proxy (/v1/chat/completions)", () => {
 
   beforeEach(() => {
     vi.restoreAllMocks();
+    (globalThis as any).__DISABLE_RATE_LIMIT__ = true;
     app = new Hono();
     app.route("/v1", openaiApp);
     app.route("/", openaiApp);
@@ -519,5 +520,98 @@ describe("OpenAI Drop-In Wire-Compatible Proxy (/v1/chat/completions)", () => {
 
     const data: any = await res.json();
     expect(data.choices[0].message.content).toBe("Acknowledged secure@vault.io");
+  });
+
+  it("should automatically forward with pre-configured Groq platform key when user has no key", async () => {
+    let capturedUrl: string = "";
+    let capturedAuth: string = "";
+
+    globalThis.fetch = vi.fn().mockImplementation(async (url: string, init: any) => {
+      capturedUrl = url;
+      capturedAuth = init.headers["Authorization"];
+      return new Response(
+        JSON.stringify({ choices: [{ message: { content: "Groq response" } }] }),
+        { status: 200, headers: { "Content-Type": "application/json" } }
+      );
+    });
+
+    const res = await app.request("/v1/chat/completions", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "llama-3.3-70b-versatile",
+        messages: [{ role: "user", content: "Explain quantum computing" }],
+      }),
+    });
+
+    expect(res.status).toBe(200);
+    expect(capturedUrl).toBe("https://api.groq.com/openai/v1/chat/completions");
+    expect(capturedAuth.startsWith("Bearer gsk_")).toBe(true);
+  });
+
+  it("should automatically forward with pre-configured Google Gemini platform key when user has no key", async () => {
+    let capturedUrl: string = "";
+    let capturedAuth: string = "";
+
+    globalThis.fetch = vi.fn().mockImplementation(async (url: string, init: any) => {
+      capturedUrl = url;
+      capturedAuth = init.headers["Authorization"];
+      return new Response(
+        JSON.stringify({ choices: [{ message: { content: "Gemini response" } }] }),
+        { status: 200, headers: { "Content-Type": "application/json" } }
+      );
+    });
+
+    const res = await app.request("/v1/chat/completions", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "gemini-2.5-flash",
+        messages: [{ role: "user", content: "Summarize this report" }],
+      }),
+    });
+
+    expect(res.status).toBe(200);
+    expect(capturedUrl).toBe("https://generativelanguage.googleapis.com/v1beta/openai/chat/completions");
+    expect(capturedAuth.startsWith("Bearer AQ.")).toBe(true);
+  });
+
+  it("should enforce 1 request per 15 seconds rate limit on free tier when enabled", async () => {
+    (globalThis as any).__DISABLE_RATE_LIMIT__ = false;
+
+    globalThis.fetch = vi.fn().mockImplementation(async () => {
+      return new Response(
+        JSON.stringify({ choices: [{ message: { content: "OK" } }] }),
+        { status: 200, headers: { "Content-Type": "application/json" } }
+      );
+    });
+
+    // 1st request -> 200 OK
+    const res1 = await app.request("/v1/chat/completions", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "cf-connecting-ip": "198.51.100.42" },
+      body: JSON.stringify({
+        model: "llama-3.3-70b-versatile",
+        messages: [{ role: "user", content: "Test call 1" }],
+      }),
+    });
+    expect(res1.status).toBe(200);
+
+    // 2nd request immediately -> 429 Too Many Requests
+    const res2 = await app.request("/v1/chat/completions", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "cf-connecting-ip": "198.51.100.42" },
+      body: JSON.stringify({
+        model: "llama-3.3-70b-versatile",
+        messages: [{ role: "user", content: "Test call 2" }],
+      }),
+    });
+    expect(res2.status).toBe(429);
+    expect(res2.headers.get("Retry-After")).toBeDefined();
+    expect(res2.headers.get("x-ratelimit-period")).toBe("15s");
+
+    const errData: any = await res2.json();
+    expect(errData.error.code).toBe("rate_limit_exceeded");
+    expect(errData.error.message).toContain("1 protected request per 15 seconds");
   });
 });

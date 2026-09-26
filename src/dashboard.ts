@@ -893,16 +893,51 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             error: '-'
           });
           fetchApiLogs();
+        } else if (res.status === 429) {
+          const retrySec = (data.error && data.error.retry_after) || 15;
+          document.getElementById('welcome-message').classList.add('hidden');
+          document.getElementById('upstream-tokens-box').classList.remove('hidden');
+          document.getElementById('upstream-tokens-text').innerHTML =
+            '<span class="text-[#f0523d] font-semibold">⚠️ Free Tier Limit:</span> 1 protected request per 15 seconds. Cooldown: <span id="cooldown-timer" class="font-bold text-[#f0523d]">' + retrySec + 's</span>.';
+          document.getElementById('rehydrated-text').classList.remove('hidden');
+          document.getElementById('rehydrated-text').innerHTML =
+            '<div class="p-3.5 bg-amber-50 border border-amber-200 rounded-xl text-amber-900 text-xs leading-relaxed">' +
+            '<strong>Free Tier Rate Limit (1 request / 15s)</strong><br/>' +
+            'To keep free inference available for everyone, free tier requests are rate limited to 1 protected request per 15 seconds.<br/>' +
+            'Please retry in <strong class="text-[#f0523d]">' + retrySec + 's</strong>, or enter your API key in Settings (gear icon) for unlimited requests.' +
+            '</div>';
+          startCooldown(retrySec);
         } else if (data.error) {
           document.getElementById('rehydrated-text').innerHTML = '<span class="text-red-500 font-bold">Error:</span> ' + JSON.stringify(data.error);
         }
       } catch (err) {
         document.getElementById('rehydrated-text').textContent = 'Execution error: ' + err.message;
       } finally {
-        btn.innerHTML = '<span>Submit</span> <span class="text-[11px] font-mono text-groq-textSubtle">Ctrl + ↵</span>';
-        btn.disabled = false;
+        if (!document.getElementById('btn-submit').disabled) {
+          btn.innerHTML = '<span>Submit</span> <span class="text-[11px] font-mono text-groq-textSubtle">Ctrl + ↵</span>';
+        }
         lucide.createIcons();
       }
+    }
+
+    function startCooldown(sec) {
+      const btn = document.getElementById('btn-submit');
+      if (!btn) return;
+      let remaining = sec;
+      btn.disabled = true;
+      btn.innerHTML = '<span>Wait ' + remaining + 's</span>';
+      const interval = setInterval(() => {
+        remaining--;
+        const timerEl = document.getElementById('cooldown-timer');
+        if (timerEl) timerEl.textContent = remaining + 's';
+        if (remaining <= 0) {
+          clearInterval(interval);
+          btn.disabled = false;
+          btn.innerHTML = '<span>Submit</span> <span class="text-[11px] font-mono text-groq-textSubtle">Ctrl + ↵</span>';
+        } else {
+          btn.innerHTML = '<span>Wait ' + remaining + 's</span>';
+        }
+      }, 1000);
     }
 
     function updateCodeViewer() {

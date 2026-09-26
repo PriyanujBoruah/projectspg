@@ -4,6 +4,14 @@ import { StreamTokenBuffer } from "../tokenizer/stream";
 import { saveTokenSession } from "../vault/session";
 import { computeSha256Fingerprint } from "../vault/crypto";
 import { recordAuditEvent, recordApiCallLog, getRecentAuditEvents, AuditEntitySummary } from "../audit/logger";
+import {
+  DEFAULT_PLATFORM_KEYS,
+  resolveClientIdentifier,
+  isFreeTierRequest,
+  checkFreeTierRateLimit,
+  createRateLimitErrorPayload,
+  getRateLimitHeaders,
+} from "../auth/rate_limiter";
 import { Env } from "./tokenization";
 
 const openaiApp = new Hono<{ Bindings: Env }>();
@@ -101,18 +109,44 @@ export function resolveUpstreamBaseUrl(c: Context, model?: string): string {
     return procEnv.OPENAI_BASE_URL.trim().replace(/\/+$/, "");
   }
 
-  // Automatic Smart Provider Detection:
-  // If the model is a Google Gemini model (e.g. gemini-2.5-flash, gemini-3.5-flash, gemini-1.5-pro)
-  // or the API key is a Google AI Studio key (starts with AIza...), automatically route to
-  // Google AI Studio's official OpenAI-compatible gateway!
+  // Automatic Smart Provider Detection
   const authHeader = c.req.header("Authorization") || "";
   const googHeader = c.req.header("x-goog-api-key") || "";
+  const modelLower = (model || "").toLowerCase();
+
+  // 1. Google AI Studio
   if (
-    model?.toLowerCase().startsWith("gemini") ||
+    modelLower.startsWith("gemini") ||
     authHeader.includes("AIza") ||
     googHeader.startsWith("AIza")
   ) {
     return "https://generativelanguage.googleapis.com/v1beta/openai";
+  }
+
+  // 2. Mistral AI
+  if (
+    modelLower.startsWith("mistral") ||
+    modelLower.startsWith("codestral") ||
+    modelLower.startsWith("open-mistral")
+  ) {
+    return "https://api.mistral.ai/v1";
+  }
+
+  // 3. OpenRouter (models containing slash or oss)
+  if (modelLower.includes("/") || modelLower.includes("oss")) {
+    return "https://openrouter.ai/api/v1";
+  }
+
+  // 4. Groq Cloud (llama, mixtral, gemma, qwen, whisper, or groq explicit)
+  if (
+    modelLower.startsWith("llama") ||
+    modelLower.startsWith("mixtral") ||
+    modelLower.startsWith("gemma") ||
+    modelLower.startsWith("qwen") ||
+    modelLower.startsWith("whisper") ||
+    modelLower.includes("groq")
+  ) {
+    return "https://api.groq.com/openai/v1";
   }
 
   return "https://api.openai.com/v1";
@@ -120,34 +154,93 @@ export function resolveUpstreamBaseUrl(c: Context, model?: string): string {
 
 /**
  * Resolve Authorization / API Key for upstream LLM provider
+ * If user hasn't provided their own key, provide platform free tier key!
  */
-export function resolveUpstreamAuth(c: Context): { headerName: string; headerValue: string } | null {
+export function resolveUpstreamAuth(
+  c: Context,
+  model?: string,
+  targetUrl?: string
+): { headerName: string; headerValue: string; isUserKey: boolean } | null {
   const authHeader = c.req.header("Authorization");
-  if (authHeader) {
-    return { headerName: "Authorization", headerValue: authHeader };
+  const isSpgKey = authHeader ? authHeader.toLowerCase().startsWith("bearer spg_") : false;
+
+  // 1. If user supplied their own direct upstream provider key
+  if (authHeader && !isSpgKey) {
+    return { headerName: "Authorization", headerValue: authHeader, isUserKey: true };
   }
 
   const googKey = c.req.header("x-goog-api-key");
   if (googKey) {
-    return { headerName: "Authorization", headerValue: `Bearer ${googKey}` };
+    return { headerName: "Authorization", headerValue: `Bearer ${googKey}`, isUserKey: true };
   }
 
   const azureKey = c.req.header("api-key");
   if (azureKey) {
-    return { headerName: "api-key", headerValue: azureKey };
+    return { headerName: "api-key", headerValue: azureKey, isUserKey: true };
   }
 
-  const geminiEnv = (c.env as any)?.GEMINI_API_KEY || (globalThis as any).process?.env?.GEMINI_API_KEY;
-  if (geminiEnv) {
-    return { headerName: "Authorization", headerValue: `Bearer ${geminiEnv}` };
+  // 2. User has NOT added their own key: provide free tier platform key
+  const url = targetUrl || resolveUpstreamBaseUrl(c, model);
+  const modelLower = (model || "").toLowerCase();
+
+  // Google AI Studio
+  if (url.includes("generativelanguage.googleapis.com") || modelLower.startsWith("gemini")) {
+    const key =
+      (c.env as any)?.GEMINI_API_KEY ||
+      (globalThis as any).process?.env?.GEMINI_API_KEY ||
+      DEFAULT_PLATFORM_KEYS.gemini;
+    if (key) {
+      return { headerName: "Authorization", headerValue: `Bearer ${key}`, isUserKey: false };
+    }
   }
 
-  const envKey = (c.env as any)?.OPENAI_API_KEY || (globalThis as any).process?.env?.OPENAI_API_KEY;
-  if (envKey) {
-    return { headerName: "Authorization", headerValue: `Bearer ${envKey}` };
+  // Mistral AI
+  if (url.includes("mistral.ai") || modelLower.startsWith("mistral") || modelLower.startsWith("codestral")) {
+    const key =
+      (c.env as any)?.MISTRAL_API_KEY ||
+      (globalThis as any).process?.env?.MISTRAL_API_KEY ||
+      DEFAULT_PLATFORM_KEYS.mistral;
+    if (key) {
+      return { headerName: "Authorization", headerValue: `Bearer ${key}`, isUserKey: false };
+    }
   }
 
-  return null;
+  // OpenRouter
+  if (url.includes("openrouter.ai") || modelLower.includes("/") || modelLower.includes("oss")) {
+    const key =
+      (c.env as any)?.OPENROUTER_API_KEY ||
+      (globalThis as any).process?.env?.OPENROUTER_API_KEY ||
+      DEFAULT_PLATFORM_KEYS.openrouter;
+    if (key) {
+      return { headerName: "Authorization", headerValue: `Bearer ${key}`, isUserKey: false };
+    }
+  }
+
+  // Groq Cloud
+  if (
+    url.includes("groq.com") ||
+    modelLower.startsWith("llama") ||
+    modelLower.startsWith("mixtral") ||
+    modelLower.startsWith("gemma") ||
+    modelLower.startsWith("qwen")
+  ) {
+    const key =
+      (c.env as any)?.GROQ_API_KEY ||
+      (globalThis as any).process?.env?.GROQ_API_KEY ||
+      DEFAULT_PLATFORM_KEYS.groq;
+    if (key) {
+      return { headerName: "Authorization", headerValue: `Bearer ${key}`, isUserKey: false };
+    }
+  }
+
+  // Fallback to OpenAI env or default Groq platform key
+  const envOpenAiKey = (c.env as any)?.OPENAI_API_KEY || (globalThis as any).process?.env?.OPENAI_API_KEY;
+  if (envOpenAiKey) {
+    return { headerName: "Authorization", headerValue: `Bearer ${envOpenAiKey}`, isUserKey: false };
+  }
+
+  const defaultKey = (c.env as any)?.GROQ_API_KEY || DEFAULT_PLATFORM_KEYS.groq;
+  return { headerName: "Authorization", headerValue: `Bearer ${defaultKey}`, isUserKey: false };
 }
 
 /**
@@ -409,7 +502,25 @@ openaiApp.post("/chat/completions", async (c) => {
   // Step 2: Resolve Upstream Destination & Forward Sanitized Prompt
   const upstreamBaseUrl = resolveUpstreamBaseUrl(c, requestedModel);
   const upstreamUrl = `${upstreamBaseUrl}/chat/completions`;
-  const upstreamAuth = resolveUpstreamAuth(c);
+  const upstreamAuth = resolveUpstreamAuth(c, requestedModel, upstreamBaseUrl);
+
+  // Enforce Free Tier Rate Limit: 1 protected request per 15 seconds
+  const apiKeyRecord = (c as any).get("apiKeyRecord");
+  const isFreeTier = isFreeTierRequest(c, apiKeyRecord, upstreamAuth?.isUserKey);
+
+  if (isFreeTier) {
+    const clientId = resolveClientIdentifier(c, apiKeyRecord);
+    const rateLimit = await checkFreeTierRateLimit(clientId, c.env, {
+      bypassTest: c.req.header("x-test-bypass-rate-limit") === "true",
+    });
+    if (!rateLimit.allowed) {
+      return c.json(
+        createRateLimitErrorPayload(rateLimit.retryAfterSec),
+        429,
+        getRateLimitHeaders(rateLimit.retryAfterSec)
+      );
+    }
+  }
 
   // Emit structured SIEM compliance audit event
   recordAuditEvent(
@@ -576,7 +687,6 @@ openaiApp.post("/chat/completions", async (c) => {
   }
 
   // Extract API Key metadata and token counts for usage logging
-  const apiKeyRecord = (c as any).get("apiKeyRecord");
   const apiKeyId = apiKeyRecord?.id || "anonymous";
   const apiKeyPrefix = apiKeyRecord?.key_prefix || "none";
   const promptTokens =
@@ -654,9 +764,27 @@ openaiApp.post("/embeddings", async (c) => {
     sanitizedInput = body.input;
   }
 
-  const upstreamBaseUrl = resolveUpstreamBaseUrl(c);
+  const upstreamBaseUrl = resolveUpstreamBaseUrl(c, body.model);
   const upstreamUrl = `${upstreamBaseUrl}/embeddings`;
-  const upstreamAuth = resolveUpstreamAuth(c);
+  const upstreamAuth = resolveUpstreamAuth(c, body.model, upstreamBaseUrl);
+
+  // Enforce Free Tier Rate Limit: 1 protected request per 15 seconds
+  const apiKeyRecord = (c as any).get("apiKeyRecord");
+  const isFreeTier = isFreeTierRequest(c, apiKeyRecord, upstreamAuth?.isUserKey);
+
+  if (isFreeTier) {
+    const clientId = resolveClientIdentifier(c, apiKeyRecord);
+    const rateLimit = await checkFreeTierRateLimit(clientId, c.env, {
+      bypassTest: c.req.header("x-test-bypass-rate-limit") === "true",
+    });
+    if (!rateLimit.allowed) {
+      return c.json(
+        createRateLimitErrorPayload(rateLimit.retryAfterSec),
+        429,
+        getRateLimitHeaders(rateLimit.retryAfterSec)
+      );
+    }
+  }
 
   const upstreamHeaders: Record<string, string> = {
     "Content-Type": "application/json",
@@ -681,7 +809,6 @@ openaiApp.post("/embeddings", async (c) => {
 
     const resJson = await upstreamRes.json();
 
-    const apiKeyRecord = (c as any).get("apiKeyRecord");
     const apiKeyId = apiKeyRecord?.id || "anonymous";
     const apiKeyPrefix = apiKeyRecord?.key_prefix || "none";
     const promptTokens = Math.max(1, Math.ceil(JSON.stringify(sanitizedInput).length / 4));
@@ -839,13 +966,44 @@ openaiApp.post("/v1beta/models/:action{.+}", async (c) => {
   const queryStr = urlObj.search || "";
   const upstreamUrl = `https://generativelanguage.googleapis.com/v1beta/models/${actionParam}${queryStr}`;
 
+  const authHeader = c.req.header("Authorization");
+  const googKey = c.req.header("x-goog-api-key");
+  const isUserKey = Boolean(authHeader || googKey);
+
+  // Enforce Free Tier Rate Limit: 1 protected request per 15 seconds
+  const apiKeyRecord = (c as any).get("apiKeyRecord");
+  const isFreeTier = isFreeTierRequest(c, apiKeyRecord, isUserKey);
+
+  if (isFreeTier) {
+    const clientId = resolveClientIdentifier(c, apiKeyRecord);
+    const rateLimit = await checkFreeTierRateLimit(clientId, c.env, {
+      bypassTest: c.req.header("x-test-bypass-rate-limit") === "true",
+    });
+    if (!rateLimit.allowed) {
+      return c.json(
+        createRateLimitErrorPayload(rateLimit.retryAfterSec),
+        429,
+        getRateLimitHeaders(rateLimit.retryAfterSec)
+      );
+    }
+  }
+
   const forwardHeaders: Record<string, string> = {
     "Content-Type": "application/json",
   };
-  const authHeader = c.req.header("Authorization");
   if (authHeader) forwardHeaders["Authorization"] = authHeader;
-  const googKey = c.req.header("x-goog-api-key");
   if (googKey) forwardHeaders["x-goog-api-key"] = googKey;
+
+  // If user hasn't provided their own key, provide platform Gemini key
+  if (!authHeader && !googKey) {
+    const geminiKey =
+      (c.env as any)?.GEMINI_API_KEY ||
+      (globalThis as any).process?.env?.GEMINI_API_KEY ||
+      DEFAULT_PLATFORM_KEYS.gemini;
+    if (geminiKey) {
+      forwardHeaders["x-goog-api-key"] = geminiKey;
+    }
+  }
 
   let upstreamRes: Response;
   try {

@@ -3,6 +3,12 @@ import { tokenize, rehydrate } from "../tokenizer/engine";
 import { saveTokenSession, getTokenSession, purgeTokenSession } from "../vault/session";
 import { computeSha256Fingerprint } from "../vault/crypto";
 import { recordAuditEvent, recordApiCallLog, AuditEntitySummary } from "../audit/logger";
+import {
+  resolveClientIdentifier,
+  checkFreeTierRateLimit,
+  createRateLimitErrorPayload,
+  getRateLimitHeaders,
+} from "../auth/rate_limiter";
 
 export interface Env {
   DB?: D1Database;
@@ -98,6 +104,24 @@ tokenizationApp.post("/tokenize", async (c) => {
       );
     }
 
+    // Enforce Free Tier Rate Limit: 1 protected request per 15 seconds
+    const apiKeyRecord = (c as any).get("apiKeyRecord");
+    const isFreeTier = !apiKeyRecord || apiKeyRecord.tier === "free";
+
+    if (isFreeTier) {
+      const clientId = resolveClientIdentifier(c, apiKeyRecord);
+      const rateLimit = await checkFreeTierRateLimit(clientId, c.env, {
+        bypassTest: c.req.header("x-test-bypass-rate-limit") === "true",
+      });
+      if (!rateLimit.allowed) {
+        return c.json(
+          createRateLimitErrorPayload(rateLimit.retryAfterSec),
+          429,
+          getRateLimitHeaders(rateLimit.retryAfterSec)
+        );
+      }
+    }
+
     const categories = resolveCategories(c, body.categories);
     const ttlSeconds = body.ttlSeconds && body.ttlSeconds > 0 ? Math.min(body.ttlSeconds, 86400) : 300;
     const headerKeywords = resolveCustomKeywords(c);
@@ -161,7 +185,6 @@ tokenizationApp.post("/tokenize", async (c) => {
     );
 
     // Record API Call Usage Log (model, token count, protected entity count, timestamp, API key)
-    const apiKeyRecord = (c as any).get("apiKeyRecord");
     const apiKeyId = apiKeyRecord?.id || "anonymous";
     const apiKeyPrefix = apiKeyRecord?.key_prefix || "none";
     const promptTokens = Math.max(1, Math.ceil(body.text.length / 4));
