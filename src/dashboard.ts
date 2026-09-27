@@ -205,7 +205,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     <!-- ======================================================================= -->
     <!-- VIEW 0: LANDING PAGE (Hero Section Inspired by Together AI) -->
     <!-- ======================================================================= -->
-    <div id="view-landing" class="view-panel flex-1 flex flex-col w-full bg-gradient-to-b from-[#f2f7fc] via-[#f9fbfe] to-[#060814] relative pb-28">
+    <div id="view-landing" class="view-panel flex-1 flex flex-col w-full bg-white relative pb-32">
       
       <!-- Ambient Glow Behind Hero -->
       <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-b from-sky-200/35 via-blue-100/20 to-transparent blur-3xl pointer-events-none -z-0"></div>
@@ -1276,6 +1276,208 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
         </div>
 
+      </section>
+
+      <!-- ======================================================================= -->
+      <!-- SECTION 4: WHAT'S NEW AT TOGETHER AI (Blog & Updates)                   -->
+      <!-- Matches uploaded media: 1790541881610.png                               -->
+      <!-- ======================================================================= -->
+      <section id="news-section" class="w-full bg-white text-gray-900 py-20 sm:py-28 border-t border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <!-- Section Header Row -->
+          <div class="flex items-center justify-between mb-10 sm:mb-12">
+            <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-gray-950 font-sans">
+              What’s new at Together AI
+            </h2>
+            <a href="#docs" onclick="switchView('docs')" class="px-4 py-2 rounded-lg bg-gray-100/90 hover:bg-gray-200/90 text-gray-800 text-[11px] font-bold tracking-wider uppercase transition shadow-2xs cursor-pointer flex items-center gap-1.5">
+              <span>ALL BLOG POSTS</span>
+            </a>
+          </div>
+
+          <!-- Two-Column Grid: Large Featured Post on Left, 3 Stacked Posts on Right -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+            
+            <!-- Left Column: Featured Post (The Open Source AI Stack) -->
+            <div class="lg:col-span-6 group cursor-pointer">
+              <!-- Stack Illustration Card -->
+              <div class="w-full aspect-[16/10] bg-[#0f121d] rounded-2xl p-6 sm:p-8 flex flex-col justify-between border border-gray-800/80 shadow-md relative overflow-hidden transition-all duration-300 group-hover:shadow-xl group-hover:border-gray-700">
+                <!-- Background Ambient Glow -->
+                <div class="absolute -right-20 -top-20 w-80 h-80 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="flex h-full w-full">
+                  <!-- Left Side: Title Typography -->
+                  <div class="w-[42%] flex flex-col justify-center pr-3">
+                    <h3 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-tight">
+                      The<br><span class="text-gray-100">Open</span><br><span class="text-gray-200">Model</span><br><span class="text-gray-300">AI Stack</span>
+                    </h3>
+                    <p class="text-[10px] font-mono tracking-wider text-gray-400 mt-4 uppercase">
+                      the <span class="text-white font-bold">MIGHT</span> stack
+                    </p>
+                  </div>
+
+                  <!-- Right Side: Layered Stack Pills -->
+                  <div class="w-[58%] flex flex-col justify-center gap-2 text-[10px] font-sans">
+                    <!-- Layer 1: models -->
+                    <div class="bg-[#171c2b] border border-gray-800/90 rounded-lg p-2.5 flex items-center justify-between shadow-2xs">
+                      <span class="text-gray-400 font-mono text-[9.5px] uppercase">models</span>
+                      <div class="flex items-center gap-1.5">
+                        <span class="w-2.5 h-2.5 rounded-full bg-orange-400/90 inline-block shadow-xs"></span>
+                        <span class="w-2.5 h-2.5 rounded-full bg-blue-400/90 inline-block shadow-xs"></span>
+                        <span class="w-2.5 h-2.5 rounded-full bg-purple-400/90 inline-block shadow-xs"></span>
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400/90 inline-block shadow-xs"></span>
+                        <span class="text-[10px] font-bold text-white ml-0.5">∞</span>
+                      </div>
+                    </div>
+
+                    <!-- Layer 2: inference -->
+                    <div class="bg-[#171c2b] border border-gray-800/90 rounded-lg p-2.5 flex items-center justify-between shadow-2xs">
+                      <span class="text-gray-400 font-mono text-[9.5px] uppercase">inference</span>
+                      <div class="flex items-center gap-2 text-[9.5px] font-semibold text-gray-200">
+                        <span>• SGLang</span>
+                        <span>• vLLM</span>
+                        <span>• TRT-LLM</span>
+                        <span class="text-[#f0523d] font-bold flex items-center gap-0.5">♥ Together AI</span>
+                      </div>
+                    </div>
+
+                    <!-- Layer 3: gateways & routers -->
+                    <div class="bg-[#171c2b] border border-gray-800/90 rounded-lg p-2.5 flex items-center justify-between shadow-2xs">
+                      <span class="text-gray-400 font-mono text-[9.5px] uppercase truncate mr-1">gateways &amp; routers</span>
+                      <div class="flex items-center gap-2 text-[9.5px] font-semibold text-gray-300">
+                        <span>LiteLLM</span>
+                        <span>OpenRouter</span>
+                        <span>AI Gateway</span>
+                      </div>
+                    </div>
+
+                    <!-- Layer 4: harness -->
+                    <div class="bg-[#171c2b] border border-gray-800/90 rounded-lg p-2.5 flex items-center justify-between shadow-2xs">
+                      <span class="text-gray-400 font-mono text-[9.5px] uppercase">harness</span>
+                      <div class="flex items-center gap-2 text-[9.5px] font-semibold text-gray-300">
+                        <span>opencode</span>
+                        <span>pi</span>
+                        <span>Cursor</span>
+                      </div>
+                    </div>
+
+                    <!-- Layer 5: tools -->
+                    <div class="bg-[#171c2b] border border-gray-800/90 rounded-lg p-2.5 flex items-center justify-between shadow-2xs">
+                      <span class="text-gray-400 font-mono text-[9.5px] uppercase">tools</span>
+                      <div class="flex items-center gap-2.5 text-[9.5px] font-semibold text-gray-300">
+                        <span>MCP</span>
+                        <span>Skills</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Post Meta & Details -->
+              <div class="mt-4">
+                <span class="px-2.5 py-0.5 rounded bg-gray-100 text-gray-700 font-bold text-[10px] tracking-wider uppercase">
+                  INFERENCE
+                </span>
+                <h3 class="text-xl sm:text-2xl font-bold text-gray-950 mt-2 group-hover:text-[#f0523d] transition-colors leading-snug">
+                  The Open Source AI Stack
+                </h3>
+                <p class="text-sm text-gray-500 mt-1.5 line-clamp-2 leading-relaxed">
+                  A deep dive into the open model AI stack — model, inference, gateways and routers, harness, and tools ...
+                </p>
+              </div>
+            </div>
+
+            <!-- Right Column: 3 Horizontal Post Rows -->
+            <div class="lg:col-span-6 flex flex-col gap-6 sm:gap-7">
+              
+              <!-- Item 1: Migrating from closed to open source models, Together -->
+              <div class="group flex items-start gap-5 cursor-pointer">
+                <!-- Pastel Gradient Thumbnail with subtle title overlay -->
+                <div class="w-44 sm:w-52 aspect-[16/10] shrink-0 rounded-xl overflow-hidden relative shadow-xs border border-gray-200/60 bg-gradient-to-br from-[#ffd5cc] via-[#f7e0ff] to-[#d8e6ff] flex items-center justify-center p-3 text-center transition-all duration-300 group-hover:shadow-md group-hover:scale-[1.02]">
+                  <div class="flex flex-col items-center">
+                    <div class="flex items-center gap-1 mb-1">
+                      <span class="w-2 h-2 rounded-full bg-pink-500"></span>
+                      <span class="text-[9px] font-bold text-gray-800 lowercase tracking-tight">together<span class="text-purple-600">.ai</span></span>
+                    </div>
+                    <p class="text-[10px] sm:text-[11px] font-bold text-gray-900 leading-tight">
+                      Migrating from closed to open source models, Together
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Text Details -->
+                <div class="flex-1 min-w-0">
+                  <span class="px-2.5 py-0.5 rounded bg-gray-100 text-gray-700 font-bold text-[10px] tracking-wider uppercase">
+                    INFERENCE
+                  </span>
+                  <h4 class="text-base sm:text-lg font-bold text-gray-950 mt-1.5 group-hover:text-[#f0523d] transition-colors leading-snug">
+                    Migrating from closed to open source models, Together
+                  </h4>
+                  <p class="text-xs sm:text-sm text-gray-500 mt-1 line-clamp-2 leading-relaxed">
+                    Moving from closed to open source models can take wee...
+                  </p>
+                </div>
+              </div>
+
+              <!-- Item 2: Together AI and Y Combinator partner -->
+              <div class="group flex items-start gap-5 cursor-pointer">
+                <div class="w-44 sm:w-52 aspect-[16/10] shrink-0 rounded-xl overflow-hidden relative shadow-xs border border-gray-200/60 bg-gradient-to-br from-[#fed7aa] via-[#fde047]/30 to-[#c7d2fe] flex items-center justify-center p-3 text-center transition-all duration-300 group-hover:shadow-md group-hover:scale-[1.02]">
+                  <div class="flex flex-col items-center">
+                    <div class="flex items-center gap-1 mb-1">
+                      <span class="w-2 h-2 rounded-full bg-orange-500"></span>
+                      <span class="text-[9px] font-bold text-gray-800 lowercase tracking-tight">together<span class="text-orange-600">.ai</span></span>
+                    </div>
+                    <p class="text-[10px] sm:text-[11px] font-bold text-gray-900 leading-tight">
+                      Introducing the first dedicated GPU cluster for the YC community
+                    </p>
+                  </div>
+                </div>
+
+                <div class="flex-1 min-w-0">
+                  <span class="px-2.5 py-0.5 rounded bg-gray-100 text-gray-700 font-bold text-[10px] tracking-wider uppercase">
+                    GPU CLUSTERS
+                  </span>
+                  <h4 class="text-base sm:text-lg font-bold text-gray-950 mt-1.5 group-hover:text-[#f0523d] transition-colors leading-snug">
+                    Together AI and Y Combinator partner to launch the first dedicated GPU cluster for the YC community
+                  </h4>
+                  <p class="text-xs sm:text-sm text-gray-500 mt-1 line-clamp-2 leading-relaxed">
+                    No more two-year compute contracts. Together AI and Y...
+                  </p>
+                </div>
+              </div>
+
+              <!-- Item 3: GLM-5.3 vs. Claude Fable 5 on DeepSWE -->
+              <div class="group flex items-start gap-5 cursor-pointer">
+                <div class="w-44 sm:w-52 aspect-[16/10] shrink-0 rounded-xl overflow-hidden relative shadow-xs border border-gray-200/60 bg-gradient-to-br from-[#fecdd3] via-[#e9d5ff] to-[#bfdbfe] flex items-center justify-center p-3 text-center transition-all duration-300 group-hover:shadow-md group-hover:scale-[1.02]">
+                  <div class="flex flex-col items-center">
+                    <div class="flex items-center gap-1 mb-1">
+                      <span class="w-2 h-2 rounded-full bg-purple-500"></span>
+                      <span class="text-[9px] font-bold text-gray-800 lowercase tracking-tight">together<span class="text-purple-600">.ai</span></span>
+                    </div>
+                    <p class="text-[10px] sm:text-[11px] font-bold text-gray-900 leading-tight">
+                      GLM-5.3 vs Claude Fable 5
+                    </p>
+                  </div>
+                </div>
+
+                <div class="flex-1 min-w-0">
+                  <span class="px-2.5 py-0.5 rounded bg-gray-100 text-gray-700 font-bold text-[10px] tracking-wider uppercase">
+                    MODEL LIBRARY
+                  </span>
+                  <h4 class="text-base sm:text-lg font-bold text-gray-950 mt-1.5 group-hover:text-[#f0523d] transition-colors leading-snug">
+                    GLM-5.3 vs. Claude Fable 5 on DeepSWE: Cost, Coding, and Routing
+                  </h4>
+                  <p class="text-xs sm:text-sm text-gray-500 mt-1 line-clamp-2 leading-relaxed">
+                    We ran 904 DeepSWE rollouts on GLM-5.3 and Claude ...
+                  </p>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
       </section>
 
     </div>
