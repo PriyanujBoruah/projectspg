@@ -80,6 +80,46 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: #e5e7eb; border-radius: 3px; }
     ::-webkit-scrollbar-thumb:hover { background: #d1d5db; }
+
+    /* Custom Parameter Sliders matching Groq console */
+    .param-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 4px;
+      background: #e5e7eb;
+      border-radius: 9999px;
+      outline: none;
+      cursor: pointer;
+    }
+    .param-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 2px solid #111827;
+      cursor: pointer;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+      transition: transform 0.1s ease;
+    }
+    .param-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.1);
+    }
+    .param-slider::-moz-range-thumb {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 2px solid #111827;
+      cursor: pointer;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+      transition: transform 0.1s ease;
+    }
+    .param-slider::-moz-range-thumb:hover {
+      transform: scale(1.1);
+    }
   </style>
 </head>
 
@@ -198,7 +238,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             <span id="code-btn-text">Hide code</span>
           </button>
 
-          <button onclick="openConfigModal()" class="p-1.5 rounded-lg bg-white border border-groq-grayBorder text-groq-textMuted hover:text-groq-dark" title="Parameters">
+          <button onclick="toggleParametersPanel()" id="btn-toggle-params" class="p-1.5 rounded-lg bg-white border border-groq-grayBorder text-groq-textMuted hover:text-groq-dark transition" title="Parameters">
             <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5"></i>
           </button>
         </div>
@@ -329,6 +369,145 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           <div class="pt-4 border-t border-groq-grayBorder text-[11px] text-groq-textSubtle flex items-center justify-between font-mono">
             <span>Target: Cloudflare Edge</span>
             <span class="text-emerald-600 font-medium">SSL Encrypted</span>
+          </div>
+        </div>
+
+        <!-- Col 4: Parameters Panel (Exact 1:1 Match to media_1790517999090.png & media_1790518000351.png) -->
+        <div id="col-parameters" class="hidden w-[280px] min-w-[280px] max-w-[320px] border-l border-groq-grayBorder bg-white flex flex-col h-full overflow-hidden shrink-0 z-20 shadow-xs">
+          <!-- Panel Header -->
+          <div class="h-[50px] px-5 border-b border-gray-100 flex items-center justify-between shrink-0">
+            <span class="text-[11px] font-semibold text-gray-500 uppercase tracking-wider">PARAMETERS</span>
+            <button onclick="toggleParametersPanel()" class="text-groq-textMuted hover:text-groq-dark transition p-1 rounded-md hover:bg-gray-100 cursor-pointer" title="Close Parameters">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="18" height="18" x="3" y="3" rx="2"/>
+                <path d="M15 3v18"/>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Panel Scrollable Body -->
+          <div class="flex-1 overflow-y-auto px-5 py-5 space-y-6">
+            
+            <!-- Temperature -->
+            <div class="space-y-2.5">
+              <div class="flex items-center justify-between">
+                <label class="text-xs font-semibold text-groq-dark">Temperature</label>
+                <input type="number" id="param-temp-input" min="0" max="2" step="0.01" value="1" oninput="syncParamSlider('temp', this.value)" class="w-16 h-8 text-center text-xs font-mono font-medium border border-gray-200 rounded-xl focus:border-gray-400 focus:outline-none bg-white">
+              </div>
+              <input type="range" id="param-temp-slider" min="0" max="2" step="0.01" value="1" oninput="syncParamInput('temp', this.value)" class="param-slider">
+            </div>
+
+            <!-- Max Completion Tokens -->
+            <div class="space-y-2.5">
+              <div class="flex items-center justify-between">
+                <label class="text-xs font-semibold text-groq-dark">Max Completion Tokens</label>
+                <input type="number" id="param-tokens-input" min="1" max="8192" step="1" value="2048" oninput="syncParamSlider('tokens', this.value)" class="w-20 h-8 text-center text-xs font-mono font-medium border border-gray-200 rounded-xl focus:border-gray-400 focus:outline-none bg-white">
+              </div>
+              <input type="range" id="param-tokens-slider" min="1" max="8192" step="1" value="2048" oninput="syncParamInput('tokens', this.value)" class="param-slider">
+            </div>
+
+            <!-- Reasoning -->
+            <div class="flex items-center justify-between pt-1">
+              <label class="text-xs font-semibold text-groq-dark">Reasoning</label>
+              <div class="relative">
+                <select id="param-reasoning" onchange="onParamChange()" class="appearance-none bg-gray-50 hover:bg-gray-100 border border-transparent text-groq-dark text-xs font-medium rounded-xl pl-3 pr-8 py-1.5 focus:outline-none cursor-pointer">
+                  <option value="none">none</option>
+                  <option value="low">low</option>
+                  <option value="medium" selected>medium</option>
+                  <option value="high">high</option>
+                </select>
+                <i data-lucide="chevrons-up-down" class="w-3.5 h-3.5 text-groq-textSubtle absolute right-2.5 top-2 pointer-events-none"></i>
+              </div>
+            </div>
+
+            <!-- Stream -->
+            <div class="flex items-center justify-between pt-1">
+              <label class="text-xs font-semibold text-groq-dark">Stream</label>
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" id="param-stream" checked onchange="onParamChange()" class="sr-only peer">
+                <div class="w-10 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-200 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-groq-dark peer-checked:after:translate-x-5"></div>
+              </label>
+            </div>
+
+            <!-- JSON Mode -->
+            <div class="flex items-center justify-between pt-1">
+              <label class="text-xs font-semibold text-groq-dark">JSON Mode</label>
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" id="param-json" onchange="onParamChange()" class="sr-only peer">
+                <div class="w-10 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-200 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-groq-dark peer-checked:after:translate-x-5"></div>
+              </label>
+            </div>
+
+            <!-- Built-in tools Section -->
+            <div class="pt-4 border-t border-gray-100">
+              <span class="text-[11px] font-semibold text-gray-400 block mb-3.5">Built-in tools</span>
+              <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                  <label class="text-xs font-semibold text-groq-dark">Browser Search</label>
+                  <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" id="param-browser" onchange="onParamChange()" class="sr-only peer">
+                    <div class="w-10 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-200 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-groq-dark peer-checked:after:translate-x-5"></div>
+                  </label>
+                </div>
+                <div class="flex items-center justify-between">
+                  <label class="text-xs font-semibold text-groq-dark">Code Interpreter</label>
+                  <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" id="param-code-interpreter" onchange="onParamChange()" class="sr-only peer">
+                    <div class="w-10 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-200 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-groq-dark peer-checked:after:translate-x-5"></div>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Advanced Collapsible Section (Exact 1:1 Match to media_1790518000351.png) -->
+            <div class="pt-4 border-t border-gray-100">
+              <button type="button" onclick="toggleAdvancedParams()" class="w-full flex items-center justify-between py-1 text-xs font-semibold text-groq-dark hover:text-[#f0523d] transition cursor-pointer">
+                <span>Advanced</span>
+                <i id="param-advanced-chevron" data-lucide="chevron-down" class="w-4 h-4 text-groq-textSubtle transition-transform duration-200"></i>
+              </button>
+
+              <div id="param-advanced-content" class="space-y-4 pt-3.5">
+                <!-- Moderation: safeguard -->
+                <div class="flex items-center justify-between">
+                  <label class="text-xs font-semibold text-groq-dark">Moderation: safeguard</label>
+                  <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" id="param-safeguard" onchange="onParamChange()" class="sr-only peer">
+                    <div class="w-10 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-200 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-groq-dark peer-checked:after:translate-x-5"></div>
+                  </label>
+                </div>
+
+                <!-- Top P -->
+                <div class="space-y-2.5">
+                  <div class="flex items-center justify-between">
+                    <label class="text-xs font-semibold text-groq-dark">Top P</label>
+                    <input type="number" id="param-top-p-input" min="0" max="1" step="0.01" value="1" oninput="syncParamSlider('top-p', this.value)" class="w-16 h-8 text-center text-xs font-mono font-medium border border-gray-200 rounded-xl focus:border-gray-400 focus:outline-none bg-white">
+                  </div>
+                  <input type="range" id="param-top-p-slider" min="0" max="1" step="0.01" value="1" oninput="syncParamInput('top-p', this.value)" class="param-slider">
+                </div>
+
+                <!-- Seed -->
+                <div class="flex items-center justify-between">
+                  <label class="text-xs font-semibold text-groq-dark">Seed</label>
+                  <input type="number" id="param-seed" placeholder="" oninput="onParamChange()" class="w-24 h-8 text-center text-xs font-mono font-medium border border-gray-200 rounded-xl focus:border-gray-400 focus:outline-none bg-white">
+                </div>
+
+                <!-- Stop Sequence -->
+                <div class="space-y-1.5">
+                  <label class="text-xs font-semibold text-groq-dark">Stop Sequence</label>
+                  <input type="text" id="param-stop" placeholder="" oninput="onParamChange()" class="w-full h-9 px-3 text-xs font-mono border border-gray-200 rounded-xl focus:border-gray-400 focus:outline-none bg-white font-sans">
+                </div>
+
+                <!-- Template -->
+                <div class="flex items-center justify-between">
+                  <label class="text-xs font-semibold text-groq-dark">Template</label>
+                  <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" id="param-template" onchange="onParamChange()" class="sr-only peer">
+                    <div class="w-10 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-200 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-groq-dark peer-checked:after:translate-x-5"></div>
+                  </label>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
@@ -849,6 +1028,11 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       fetchApiLogs();
       fetchApiKeys();
 
+      // Initialize parameter slider fills
+      updateSliderFill(document.getElementById('param-temp-slider'));
+      updateSliderFill(document.getElementById('param-tokens-slider'));
+      updateSliderFill(document.getElementById('param-top-p-slider'));
+
       // Initialize Firebase Authentication
       if (typeof firebase !== 'undefined') {
         try {
@@ -1016,17 +1200,31 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           headers['x-upstream-base-url'] = 'https://openrouter.ai/api/v1';
         }
 
+        const temp = parseFloat(document.getElementById('param-temp-input') ? document.getElementById('param-temp-input').value : '1');
+        const maxTokens = parseInt(document.getElementById('param-tokens-input') ? document.getElementById('param-tokens-input').value : '2048', 10);
+        const topP = parseFloat(document.getElementById('param-top-p-input') ? document.getElementById('param-top-p-input').value : '1');
+        const stopVal = document.getElementById('param-stop') ? document.getElementById('param-stop').value.trim() : '';
+        const jsonMode = document.getElementById('param-json') ? document.getElementById('param-json').checked : false;
+        const seedVal = document.getElementById('param-seed') ? document.getElementById('param-seed').value.trim() : '';
+
+        const payload = {
+          model: model,
+          messages: [
+            { role: 'system', content: document.getElementById('system-prompt').value },
+            { role: 'user', content: userPrompt }
+          ],
+          temperature: isNaN(temp) ? 1 : temp,
+          max_tokens: isNaN(maxTokens) ? 2048 : maxTokens,
+          top_p: isNaN(topP) ? 1 : topP
+        };
+        if (stopVal) payload.stop = stopVal;
+        if (seedVal && !isNaN(parseInt(seedVal, 10))) payload.seed = parseInt(seedVal, 10);
+        if (jsonMode) payload.response_format = { type: 'json_object' };
+
         const res = await fetch('/v1/chat/completions', {
           method: 'POST',
           headers,
-          body: JSON.stringify({
-            model: model,
-            messages: [
-              { role: 'system', content: document.getElementById('system-prompt').value },
-              { role: 'user', content: userPrompt }
-            ],
-            max_tokens: 150
-          })
+          body: JSON.stringify(payload)
         });
 
         const elapsedSec = ((performance.now() - t0) / 1000).toFixed(2);
@@ -1112,6 +1310,15 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       const lang = document.getElementById('code-lang-select').value;
       const userPrompt = document.getElementById('user-prompt').value.trim();
 
+      const tempVal = document.getElementById('param-temp-input') ? document.getElementById('param-temp-input').value : '1';
+      const tokensVal = document.getElementById('param-tokens-input') ? document.getElementById('param-tokens-input').value : '2048';
+      const topPVal = document.getElementById('param-top-p-input') ? document.getElementById('param-top-p-input').value : '1';
+      const reasoningVal = document.getElementById('param-reasoning') ? document.getElementById('param-reasoning').value : 'medium';
+      const streamChecked = document.getElementById('param-stream') ? document.getElementById('param-stream').checked : true;
+      const streamVal = streamChecked ? 'True' : 'False';
+      const stopInput = document.getElementById('param-stop') ? document.getElementById('param-stop').value.trim() : '';
+      const stopVal = stopInput ? ('"' + stopInput + '"') : 'None';
+
       if (lang === 'python') {
         box.innerHTML = \`<span class="syn-keyword">from</span> groq <span class="syn-keyword">import</span> Groq
 
@@ -1124,12 +1331,12 @@ completion = client.chat.completions.create(
             <span class="syn-string">"content"</span>: <span class="syn-string">"\${userPrompt ? userPrompt.slice(0, 30) + '...' : ''}"</span>
         }
     ],
-    temperature=<span class="syn-number">1</span>,
-    max_completion_tokens=<span class="syn-number">2048</span>,
-    top_p=<span class="syn-number">1</span>,
-    reasoning_effort=<span class="syn-string">"medium"</span>,
-    stream=<span class="syn-bool">True</span>,
-    stop=<span class="syn-bool">None</span>
+    temperature=<span class="syn-number">\${tempVal}</span>,
+    max_completion_tokens=<span class="syn-number">\${tokensVal}</span>,
+    top_p=<span class="syn-number">\${topPVal}</span>,
+    reasoning_effort=<span class="syn-string">"\${reasoningVal}"</span>,
+    stream=<span class="syn-bool">\${streamVal}</span>,
+    stop=<span class="syn-keyword">\${stopVal}</span>
 )
 
 <span class="syn-keyword">for</span> chunk <span class="syn-keyword">in</span> completion:
@@ -1146,7 +1353,11 @@ completion = client.chat.completions.create(
         <span class="syn-string">"role"</span>: <span class="syn-string">"user"</span>,
         <span class="syn-string">"content"</span>: <span class="syn-string">"\${userPrompt ? userPrompt.slice(0, 30) + '...' : ''}"</span>
       }
-    ]
+    ],
+    <span class="syn-string">"temperature"</span>: \${tempVal},
+    <span class="syn-string">"max_completion_tokens"</span>: \${tokensVal},
+    <span class="syn-string">"top_p"</span>: \${topPVal},
+    <span class="syn-string">"stream"</span>: \${streamChecked ? 'true' : 'false'}
   }'\`;
       } else if (lang === 'langchain') {
         box.innerHTML = \`<span class="syn-keyword">from</span> langchain_openai <span class="syn-keyword">import</span> ChatOpenAI
@@ -1157,10 +1368,89 @@ privacy_handler = PrivacyCallbackHandler(
     api_key=<span class="syn-string">"spg_live_your_key"</span>
 )
 
-llm = ChatOpenAI(model=<span class="syn-string">"\${model}"</span>, callbacks=[privacy_handler])
+llm = ChatOpenAI(
+    model=<span class="syn-string">"\${model}"</span>,
+    temperature=<span class="syn-number">\${tempVal}</span>,
+    max_tokens=<span class="syn-number">\${tokensVal}</span>,
+    callbacks=[privacy_handler]
+)
 response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
 <span class="syn-keyword">print</span>(response.content)\`;
       }
+    }
+
+    // =========================================================================
+    // Playground Parameters Controller (Matching Groq console layout)
+    // =========================================================================
+    let isParamsVisible = false;
+    let isAdvancedParamsOpen = true;
+
+    function toggleParametersPanel() {
+      const panel = document.getElementById('col-parameters');
+      const btn = document.getElementById('btn-toggle-params');
+      if (!panel) return;
+      isParamsVisible = !isParamsVisible;
+      if (isParamsVisible) {
+        panel.classList.remove('hidden');
+        if (btn) {
+          btn.classList.add('bg-gray-100', 'text-groq-dark');
+          btn.classList.remove('text-groq-textMuted');
+        }
+        updateSliderFill(document.getElementById('param-temp-slider'));
+        updateSliderFill(document.getElementById('param-tokens-slider'));
+        updateSliderFill(document.getElementById('param-top-p-slider'));
+      } else {
+        panel.classList.add('hidden');
+        if (btn) {
+          btn.classList.remove('bg-gray-100', 'text-groq-dark');
+          btn.classList.add('text-groq-textMuted');
+        }
+      }
+      lucide.createIcons();
+    }
+
+    function toggleAdvancedParams() {
+      const content = document.getElementById('param-advanced-content');
+      const chevron = document.getElementById('param-advanced-chevron');
+      if (!content) return;
+      isAdvancedParamsOpen = !isAdvancedParamsOpen;
+      if (isAdvancedParamsOpen) {
+        content.classList.remove('hidden');
+        if (chevron) chevron.style.transform = 'rotate(0deg)';
+      } else {
+        content.classList.add('hidden');
+        if (chevron) chevron.style.transform = 'rotate(-90deg)';
+      }
+    }
+
+    function updateSliderFill(slider) {
+      if (!slider) return;
+      const min = parseFloat(slider.min) || 0;
+      const max = parseFloat(slider.max) || 100;
+      const val = parseFloat(slider.value) || 0;
+      const pct = Math.max(0, Math.min(100, ((val - min) / (max - min)) * 100));
+      slider.style.background = 'linear-gradient(to right, #111827 0%, #111827 ' + pct + '%, #e5e7eb ' + pct + '%, #e5e7eb 100%)';
+    }
+
+    function syncParamSlider(type, val) {
+      const slider = document.getElementById('param-' + type + '-slider');
+      if (slider) {
+        slider.value = val;
+        updateSliderFill(slider);
+      }
+      onParamChange();
+    }
+
+    function syncParamInput(type, val) {
+      const input = document.getElementById('param-' + type + '-input');
+      if (input) input.value = val;
+      const slider = document.getElementById('param-' + type + '-slider');
+      if (slider) updateSliderFill(slider);
+      onParamChange();
+    }
+
+    function onParamChange() {
+      updateCodeViewer();
     }
 
     function copySnippet() {
