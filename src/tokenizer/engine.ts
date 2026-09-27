@@ -108,13 +108,16 @@ export function tokenize(
 
       // Assign priority score based on rule tier
       let priority = 10; // Default Tier 1
-      if (rule.validator) {
-        priority = 20; // Tier 2 Checksums (All verified algorithmic IDs)
-      } else if (rule.id.startsWith("RULE_CONTEXT_NAME") || rule.id.startsWith("RULE_INVOICE") || match[1]) {
-        priority = 15; // Tier 3 Contextual Anchors
-      }
       if (rule.priority !== undefined) {
         priority = rule.priority;
+      } else if (rule.id.startsWith("RULE_EMAIL") || rule.id.startsWith("RULE_CREDIT_CARD") || rule.id.startsWith("RULE_PHONE") || rule.id.startsWith("RULE_DEV_KEYS")) {
+        priority = 20; // High-confidence structured formats
+      } else if (rule.id.startsWith("RULE_CONTEXT_NAME") || rule.id.startsWith("RULE_NAME") || rule.id.startsWith("RULE_INVOICE")) {
+        priority = 15; // Tier 3 Contextual Anchors
+      } else if (rule.validator) {
+        priority = 20; // Tier 2 Checksums (All verified algorithmic IDs)
+      } else if (match[1]) {
+        priority = 15;
       }
 
       rawSpans.push({
@@ -230,28 +233,36 @@ export function tokenize(
       targetVal.length > 2 &&
       /^[A-Z\u00C0-\u00DD\u4E00-\u9FFF]/.test(targetVal)
     ) {
-      const escapedVal = targetVal.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-      const nameRegex = new RegExp(`(?<![A-Za-z0-9_])${escapedVal}(?![A-Za-z0-9_])`, "g");
-      let nMatch: RegExpExecArray | null;
+      const namesToScan = [targetVal];
+      const parts = targetVal.split(/\s+/);
+      if (parts.length >= 2 && parts[0].length >= 3 && !["The", "Sir", "Mr", "Mrs", "Ms", "Dr", "Prof"].includes(parts[0])) {
+        namesToScan.push(parts[0]);
+      }
 
-      while ((nMatch = nameRegex.exec(text)) !== null) {
-        const nStart = nMatch.index;
-        const nEnd = nStart + targetVal.length;
+      for (const nameCandidate of namesToScan) {
+        const escapedVal = nameCandidate.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        const nameRegex = new RegExp(`(?<![A-Za-z0-9_])${escapedVal}(?![A-Za-z0-9_])`, "g");
+        let nMatch: RegExpExecArray | null;
 
-        const overlaps = assignedSpans.some(
-          (s) => nStart < s.end && nEnd > s.start
-        );
+        while ((nMatch = nameRegex.exec(text)) !== null) {
+          const nStart = nMatch.index;
+          const nEnd = nStart + nameCandidate.length;
 
-        if (!overlaps) {
-          assignedSpans.push({
-            start: nStart,
-            end: nEnd,
-            ruleId: "RULE_COREFERENCE",
-            tokenPrefix: "PERSON",
-            targetValue: targetVal,
-            priority: 15,
-            syntheticToken,
-          });
+          const overlaps = assignedSpans.some(
+            (s) => nStart < s.end && nEnd > s.start
+          );
+
+          if (!overlaps) {
+            assignedSpans.push({
+              start: nStart,
+              end: nEnd,
+              ruleId: "RULE_COREFERENCE",
+              tokenPrefix: "PERSON",
+              targetValue: nameCandidate,
+              priority: 15,
+              syntheticToken,
+            });
+          }
         }
       }
     }

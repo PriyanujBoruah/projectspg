@@ -5,6 +5,7 @@ import {
   validateHandleUsername,
   validateSwiftBIC,
   validateUniversalContextId,
+  validatePersonName,
 } from "../validators/global";
 
 export const GLOBAL_RULES: Rule[] = [
@@ -92,8 +93,17 @@ export const GLOBAL_RULES: Rule[] = [
     id: "RULE_CONTEXT_NAME",
     type: "PII_NAME",
     category: "global",
-    pattern: /(?:^|[\s"'])(?<!(?:Product|Expense|Report|File|Table|Group|Domain|Brand|Field|Class|Server|Database|Host|Folder|Project|Item|Device|Model|App|Application|Service)\s+)(?:Customer|Patient|User|Client|Contact|Dear|Name:|Mr\.|Mrs\.|Ms\.|Dr\.)\s+([A-Z\u00C0-\u00DD\u4E00-\u9FFF\u0600-\u06FF\u0900-\u097F][a-zA-Z'\u00DE-\u024F\u4E00-\u9FFF\u0600-\u06FF\u0900-\u097F]{1,30}\b(?:\s+[A-Z\u00C0-\u00DD\u4E00-\u9FFF\u0600-\u06FF\u0900-\u097F][a-zA-Z'\u00DE-\u024F\u4E00-\u9FFF\u0600-\u06FF\u0900-\u097F]{1,30}\b){0,2})(?![A-Za-z0-9_])/gu,
+    pattern: /(?:^|[\s"'])(?<!(?:Product|Expense|Report|File|Table|Group|Domain|Brand|Field|Class|Server|Database|Host|Folder|Project|Item|Device|Model|App|Application|Service)\s+)(?:[Cc]ustomer|[Pp]atient|[Uu]ser|[Cc]lient|[Cc]ontact|[Dd]ear|[Nn]ame:|[Mm]r\.|[Mm]rs\.|[Mm]s\.|[Dd]r\.|[Pp]rof\.|[Ee]mployee|[Ss]taff|[Aa]gent|[Oo]fficer|[Cc]ardholder|[Bb]eneficiary|[Pp]ayee|[Pp]ayer|[Bb]orrower|[Aa]pplicant|[Cc]laimant|[Rr]ecipient|[Oo]wner|[Dd]irector|[Pp]artner|[Oo]rder\s+(?:for|of)|[Bb]ooking\s+(?:for|of)|[Tt]icket\s+(?:for|of)|[Aa]ccount\s+(?:of|for|holder)|[Bb]illed\s+to|[Ss]hipped\s+to|[Dd]elivered\s+to|[Ss]ent\s+to|[Ss]end\s+to|[Ww]ire\s+for|[Tt]ransfer\s+for|[Ss]peaking\s+(?:with|to)|[Ss]poke\s+(?:with|to)|[Mm]y\s+name\s+is|[Tt]his\s+is|[Ii]\s+am|[Rr]ep:\s*|[Aa]gent:\s*|[Ff]or(?=\s+[A-Z\u00C0-\u00DD\u4E00-\u9FFF\u0600-\u06FF\u0900-\u097F][a-zA-Z'\u00DE-\u024F\u4E00-\u9FFF\u0600-\u06FF\u0900-\u097F]{1,30}\s+[A-Z\u00C0-\u00DD\u4E00-\u9FFF\u0600-\u06FF\u0900-\u097F]))\s+([A-Z\u00C0-\u00DD\u4E00-\u9FFF\u0600-\u06FF\u0900-\u097F][a-zA-Z'\u00DE-\u024F\u4E00-\u9FFF\u0600-\u06FF\u0900-\u097F]{1,30}\b(?:\s+[A-Z\u00C0-\u00DD\u4E00-\u9FFF\u0600-\u06FF\u0900-\u097F][a-zA-Z'\u00DE-\u024F\u4E00-\u9FFF\u0600-\u06FF\u0900-\u097F]{1,30}\b){0,2})(?![A-Za-z0-9_@.])/gu,
     tokenPrefix: "PERSON",
+    validator: (nameStr) => validatePersonName(nameStr),
+  },
+  {
+    id: "RULE_NAME_PRE_PII",
+    type: "PII_NAME",
+    category: "global",
+    pattern: /(?:^|[\s"'])([A-Z\u00C0-\u00DD\u4E00-\u9FFF\u0600-\u06FF\u0900-\u097F][a-zA-Z'\u00DE-\u024F\u4E00-\u9FFF\u0600-\u06FF\u0900-\u097F]{1,30}(?:\s+[A-Z\u00C0-\u00DD\u4E00-\u9FFF\u0600-\u06FF\u0900-\u097F][a-zA-Z'\u00DE-\u024F\u4E00-\u9FFF\u0600-\u06FF\u0900-\u097F]{1,30}){1,2})\s*(?=\s*[\(\[,]\s*(?:email|ssn|tax|dob|phone|card|id|resident|sin|nric|account)\b)/gu,
+    tokenPrefix: "PERSON",
+    validator: (nameStr) => validatePersonName(nameStr),
   },
   {
     id: "RULE_HANDLE_USERNAME",

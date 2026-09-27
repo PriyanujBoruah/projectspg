@@ -192,4 +192,44 @@ export function validateUniversalContextId(idStr: string): boolean {
   return true;
 }
 
+const NON_PERSON_WORDS = new Set([
+  // Days & Months
+  "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday",
+  "january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december",
+  // Common Companies & Brands
+  "google", "microsoft", "apple", "amazon", "meta", "facebook", "netflix", "twitter",
+  "visa", "mastercard", "amex", "paypal", "stripe", "deutsche", "bank", "chase", "citibank",
+  // Tech & Protocols
+  "json", "http", "https", "html", "css", "api", "rest", "sql", "python", "javascript", "typescript",
+  "docker", "kubernetes", "linux", "windows", "macos", "android", "ios", "cloudflare",
+  // Countries / Major Cities
+  "united", "states", "kingdom", "america", "europe", "germany", "france", "china", "japan", "india",
+  "london", "berlin", "paris", "tokyo", "beijing", "delhi", "singapore", "sydney",
+  // Common False Positive Entities
+  "product", "expense", "report", "file", "table", "group", "domain", "brand", "field",
+  "server", "database", "host", "folder", "project", "item", "device", "model", "service",
+  "account", "order", "invoice", "payment", "transaction", "amount", "total", "balance"
+]);
+
+/**
+ * Validates extracted person name strings against known technical, geographical,
+ * and brand false-positives while supporting global multi-word names.
+ */
+export function validatePersonName(nameStr: string): boolean {
+  if (!nameStr || typeof nameStr !== "string") return false;
+  const trimmed = nameStr.trim();
+  if (trimmed.length < 2 || trimmed.length > 60) return false;
+
+  const parts = trimmed.split(/\s+/);
+  for (const part of parts) {
+    if (part.length === 0) continue;
+    const clean = part.toLowerCase().replace(/[^a-z]/g, "");
+    if (clean.length > 0 && NON_PERSON_WORDS.has(clean)) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
 
