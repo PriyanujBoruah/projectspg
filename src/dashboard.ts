@@ -1084,8 +1084,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               </p>
             </div>
 
-            <!-- Carousel Navigation Arrows -->
-            <div class="flex items-center gap-2 self-end sm:self-auto">
+            <!-- Carousel Navigation Arrows (shown on desktop, hidden on mobile) -->
+            <div class="hidden lg:flex items-center gap-2">
               <button onclick="scrollResearchCards('left')" class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-gray-300 hover:text-white flex items-center justify-center transition shadow-xs cursor-pointer" aria-label="Previous research">
                 <i data-lucide="chevron-left" class="w-4 h-4"></i>
               </button>
@@ -1101,11 +1101,11 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             <!-- Horizontal Connecting Line passing behind cards -->
             <div class="hidden lg:block absolute top-[50%] left-0 right-0 h-1 bg-[#8b7ff5]/60 -translate-y-1/2 z-0 pointer-events-none"></div>
 
-            <!-- Cards Track: Grid on desktop, horizontal carousel on mobile/tablet -->
-            <div id="research-cards-track" class="flex lg:grid lg:grid-cols-4 gap-4 sm:gap-6 relative z-10 overflow-x-auto lg:overflow-visible scrollbar-none pb-6 lg:pb-0 snap-x snap-mandatory -mx-4 sm:mx-0 px-4 sm:px-0">
+            <!-- Cards Track: Grid on desktop, stacked on top of each other on mobile -->
+            <div id="research-cards-track" class="grid grid-cols-1 lg:grid-cols-4 gap-6 relative z-10">
               
               <!-- Card 1: ThunderKittens on Vera Rubin NVL72 -->
-              <div class="group relative rounded-2xl min-h-[380px] sm:min-h-[420px] w-[270px] sm:w-[320px] lg:w-auto shrink-0 lg:shrink p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-[#262c52] hover:border-amber-300 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_35px_rgba(251,191,36,0.25)] bg-[#0d1224] snap-start">
+              <div class="group relative rounded-2xl min-h-[320px] sm:min-h-[380px] lg:min-h-[420px] w-full p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-[#262c52] hover:border-amber-300 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_35px_rgba(251,191,36,0.25)] bg-[#0d1224]">
                 <!-- Base Solid Dark Underlay -->
                 <div class="absolute inset-0 bg-[#0d1224] -z-10"></div>
 
@@ -1147,7 +1147,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               </div>
 
               <!-- Card 2: ThunderAgent: 2x Faster Agentic Inference -->
-              <div class="group relative rounded-2xl min-h-[380px] sm:min-h-[420px] w-[270px] sm:w-[320px] lg:w-auto shrink-0 lg:shrink p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-[#262c52] hover:border-amber-300 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_35px_rgba(251,191,36,0.25)] bg-[#0d1224] snap-start">
+              <div class="group relative rounded-2xl min-h-[320px] sm:min-h-[380px] lg:min-h-[420px] w-full p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-[#262c52] hover:border-amber-300 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_35px_rgba(251,191,36,0.25)] bg-[#0d1224]">
                 <!-- Base Solid Dark Underlay -->
                 <div class="absolute inset-0 bg-[#0d1224] -z-10"></div>
 
@@ -1186,7 +1186,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               </div>
 
               <!-- Card 3: ProjectSPG at ICML 2026 -->
-              <div class="group relative rounded-2xl min-h-[380px] sm:min-h-[420px] w-[270px] sm:w-[320px] lg:w-auto shrink-0 lg:shrink p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-[#262c52] hover:border-amber-300 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_35px_rgba(251,191,36,0.25)] bg-[#0d1224] snap-start">
+              <div class="group relative rounded-2xl min-h-[320px] sm:min-h-[380px] lg:min-h-[420px] w-full p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-[#262c52] hover:border-amber-300 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_35px_rgba(251,191,36,0.25)] bg-[#0d1224]">
                 <!-- Base Solid Dark Underlay -->
                 <div class="absolute inset-0 bg-[#0d1224] -z-10"></div>
 
@@ -1225,7 +1225,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               </div>
 
               <!-- Card 4: ParallelKernelBench -->
-              <div class="group relative rounded-2xl min-h-[380px] sm:min-h-[420px] w-[270px] sm:w-[320px] lg:w-auto shrink-0 lg:shrink p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-[#262c52] hover:border-amber-300 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_35px_rgba(251,191,36,0.25)] bg-[#0d1224] snap-start">
+              <div class="group relative rounded-2xl min-h-[320px] sm:min-h-[380px] lg:min-h-[420px] w-full p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-[#262c52] hover:border-amber-300 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_35px_rgba(251,191,36,0.25)] bg-[#0d1224]">
                 <!-- Base Solid Dark Underlay -->
                 <div class="absolute inset-0 bg-[#0d1224] -z-10"></div>
 
