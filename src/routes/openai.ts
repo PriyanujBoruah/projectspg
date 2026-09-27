@@ -577,6 +577,11 @@ openaiApp.post("/chat/completions", async (c) => {
   delete upstreamPayload.mode;
   delete upstreamPayload.ttlSeconds;
 
+  // Normalize model aliases for upstream providers (Google AI Studio Gemma 4)
+  if (upstreamPayload.model === "gemma-4-26b-it") {
+    upstreamPayload.model = "gemma-4-26b-a4b-it";
+  }
+
   let upstreamRes: Response;
   try {
     upstreamRes = await fetch(upstreamUrl, {
@@ -899,6 +904,7 @@ openaiApp.get("/models", async (c) => {
       { id: "openai/gpt-oss-20b", object: "model", created: 1721235600, owned_by: "groq" },
       { id: "qwen/qwen3.8-27b", object: "model", created: 1721235600, owned_by: "groq" },
       { id: "gemma-4-26b-it", object: "model", created: 1721235600, owned_by: "google" },
+      { id: "gemma-4-26b-a4b-it", object: "model", created: 1721235600, owned_by: "google" },
       { id: "gemma-4-31b-it", object: "model", created: 1721235600, owned_by: "google" },
       { id: "codestral-2508", object: "model", created: 1721235600, owned_by: "mistral" },
       { id: "ministral-8b-2512", object: "model", created: 1721235600, owned_by: "mistral" },

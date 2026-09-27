@@ -226,7 +226,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                 <option value="qwen/qwen3.8-27b">qwen/qwen3.8-27b</option>
               </optgroup>
               <optgroup label="Google AI Studio">
-                <option value="gemma-4-26b-it">gemma-4-26b-it</option>
+                <option value="gemma-4-26b-a4b-it">gemma-4-26b-a4b-it</option>
                 <option value="gemma-4-31b-it">gemma-4-31b-it</option>
               </optgroup>
               <optgroup label="Mistral AI">
@@ -645,7 +645,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                   <option>openai/gpt-oss-120b</option>
                   <option>openai/gpt-oss-20b</option>
                   <option>qwen/qwen3.8-27b</option>
-                  <option>gemma-4-26b-it</option>
+                  <option>gemma-4-26b-a4b-it</option>
                   <option>gemma-4-31b-it</option>
                   <option>codestral-2508</option>
                   <option>ministral-8b-2512</option>
@@ -1852,7 +1852,7 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
       { id: 'openai/gpt-oss-120b', name: 'OpenAI GPT-OSS 120B', provider: 'Groq Cloud', ratePer1MTokens: 0.15, tag: 'on_demand' },
       { id: 'openai/gpt-oss-20b', name: 'OpenAI GPT-OSS 20B', provider: 'Groq Cloud', ratePer1MTokens: 0.08, tag: 'on_demand' },
       { id: 'qwen/qwen3.8-27b', name: 'Qwen 3.8 27B', provider: 'Groq Cloud', ratePer1MTokens: 0.20, tag: 'on_demand' },
-      { id: 'gemma-4-26b-it', name: 'Gemma 4 26B Instruct', provider: 'Google AI Studio', ratePer1MTokens: 0.10, tag: 'on_demand' },
+      { id: 'gemma-4-26b-a4b-it', name: 'Gemma 4 26B Instruct (a4b)', provider: 'Google AI Studio', ratePer1MTokens: 0.10, tag: 'on_demand' },
       { id: 'gemma-4-31b-it', name: 'Gemma 4 31B Instruct', provider: 'Google AI Studio', ratePer1MTokens: 0.15, tag: 'on_demand' },
       { id: 'codestral-2508', name: 'Codestral 2508', provider: 'Mistral AI', ratePer1MTokens: 0.30, tag: 'on_demand' },
       { id: 'ministral-8b-2512', name: 'Ministral 8B 2512', provider: 'Mistral AI', ratePer1MTokens: 0.10, tag: 'on_demand' },

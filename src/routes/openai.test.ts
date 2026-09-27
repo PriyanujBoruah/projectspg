@@ -617,8 +617,10 @@ describe("OpenAI Drop-In Wire-Compatible Proxy (/v1/chat/completions)", () => {
 
   it("should correctly route specific playground models to Groq, Google AI Studio, and Mistral AI", async () => {
     let capturedUrl = "";
-    globalThis.fetch = vi.fn().mockImplementation(async (url: string) => {
+    let capturedBody: any = null;
+    globalThis.fetch = vi.fn().mockImplementation(async (url: string, init: any) => {
       capturedUrl = url;
+      if (init?.body) capturedBody = JSON.parse(init.body);
       return new Response(JSON.stringify({ choices: [{ message: { content: "OK" } }] }), {
         status: 200,
         headers: { "Content-Type": "application/json" },
@@ -635,14 +637,17 @@ describe("OpenAI Drop-In Wire-Compatible Proxy (/v1/chat/completions)", () => {
       expect(capturedUrl).toBe("https://api.groq.com/openai/v1/chat/completions");
     }
 
-    // 2. Google AI Studio: gemma-4-26b-it, gemma-4-31b-it
-    for (const model of ["gemma-4-26b-it", "gemma-4-31b-it"]) {
+    // 2. Google AI Studio: gemma-4-26b-it (normalized to a4b), gemma-4-31b-it
+    for (const model of ["gemma-4-26b-it", "gemma-4-31b-it", "gemma-4-26b-a4b-it"]) {
       await app.request("/v1/chat/completions", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ model, messages: [{ role: "user", content: "hi" }] }),
       });
       expect(capturedUrl).toBe("https://generativelanguage.googleapis.com/v1beta/openai/chat/completions");
+      if (model === "gemma-4-26b-it") {
+        expect(capturedBody.model).toBe("gemma-4-26b-a4b-it");
+      }
     }
 
     // 3. Mistral AI: codestral-2508, ministral-8b-2512, mistral-large-2512
