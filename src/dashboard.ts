@@ -459,6 +459,648 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
       </section>
 
+      <!-- ======================================================================= -->
+      <!-- SECTION 2: THE TOGETHER AI PLATFORM (Interactive 3-Tab Feature Showcase)-->
+      <!-- Matches uploaded media: 1790540329449, 1790540346632, 1790540364464, 1790540377437 -->
+      <!-- ======================================================================= -->
+      <section id="platform-section" class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10 border-t border-gray-100">
+        
+        <!-- Section Header -->
+        <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-14">
+          <h2 class="text-3xl sm:text-4xl lg:text-[46px] font-bold tracking-tight text-gray-950 mb-4 font-sans">
+            The Together AI Platform
+          </h2>
+          <p class="text-base sm:text-lg text-gray-600 font-normal leading-relaxed">
+            Powering every step of the AI development journey — from experimentation to massive scale.
+          </p>
+        </div>
+
+        <!-- 3 Large Category Pills (Inference, Compute, Model shaping) -->
+        <div class="grid grid-cols-3 gap-3 sm:gap-6 max-w-4xl mx-auto mb-12 sm:mb-14">
+          <button id="cat-tab-inference" onclick="selectPlatformCategory('inference')" class="cat-pill py-3.5 sm:py-4 px-4 sm:px-6 rounded-2xl sm:rounded-3xl text-center font-bold text-base sm:text-xl transition-all duration-200 cursor-pointer bg-[#d8f5f6] text-gray-950 shadow-2xs">
+            Inference
+          </button>
+          <button id="cat-tab-compute" onclick="selectPlatformCategory('compute')" class="cat-pill py-3.5 sm:py-4 px-4 sm:px-6 rounded-2xl sm:rounded-3xl text-center font-bold text-base sm:text-xl transition-all duration-200 cursor-pointer text-gray-600 hover:text-gray-950 hover:bg-gray-100/70">
+            Compute
+          </button>
+          <button id="cat-tab-shaping" onclick="selectPlatformCategory('shaping')" class="cat-pill py-3.5 sm:py-4 px-4 sm:px-6 rounded-2xl sm:rounded-3xl text-center font-bold text-base sm:text-xl transition-all duration-200 cursor-pointer text-gray-600 hover:text-gray-950 hover:bg-gray-100/70">
+            Model shaping
+          </button>
+        </div>
+
+        <!-- ===================================================================== -->
+        <!-- CATEGORY PANEL 1: INFERENCE -->
+        <!-- ===================================================================== -->
+        <div id="platform-cat-panel-inference" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          <!-- Left Column: Inference Sub-items Accordion -->
+          <div class="lg:col-span-5 flex flex-col space-y-3">
+            
+            <!-- Item 0: Serverless Inference (Active Default) -->
+            <div class="subitem-inference w-full">
+              <div class="subitem-expanded p-6 rounded-2xl bg-white border border-gray-200/90 shadow-sm transition-all">
+                <div class="flex items-center gap-3 mb-3">
+                  <div class="w-9 h-9 rounded-xl bg-cyan-50 border border-cyan-100 flex items-center justify-center text-cyan-600">
+                    <i data-lucide="cloud" class="w-5 h-5"></i>
+                  </div>
+                  <h3 class="text-xl font-bold text-gray-950">Serverless Inference</h3>
+                </div>
+                <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
+                  The fastest way to run open-source models on demand. Powered by cutting-edge inference research. No infrastructure to manage, no long-term commitments.
+                </p>
+                <button onclick="switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
+                  LEARN MORE
+                </button>
+              </div>
+              <div class="subitem-collapsed hidden p-4 rounded-xl hover:bg-gray-50/80 cursor-pointer flex items-center gap-3.5 text-gray-700 font-semibold transition border-b border-gray-100" onclick="selectPlatformSubItem('inference', 0)">
+                <i data-lucide="cloud" class="w-5 h-5 text-gray-400"></i>
+                <span class="text-lg">Serverless Inference</span>
+              </div>
+            </div>
+
+            <!-- Item 1: Batch Inference -->
+            <div class="subitem-inference w-full">
+              <div class="subitem-expanded hidden p-6 rounded-2xl bg-white border border-gray-200/90 shadow-sm transition-all">
+                <div class="flex items-center gap-3 mb-3">
+                  <div class="w-9 h-9 rounded-xl bg-cyan-50 border border-cyan-100 flex items-center justify-center text-cyan-600">
+                    <i data-lucide="layers" class="w-5 h-5"></i>
+                  </div>
+                  <h3 class="text-xl font-bold text-gray-950">Batch Inference</h3>
+                </div>
+                <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
+                  Cost-effectively process massive workloads asynchronously. Scale to 30 billion tokens per model with any serverless model or private deployment.
+                </p>
+                <button onclick="switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
+                  LEARN MORE
+                </button>
+              </div>
+              <div class="subitem-collapsed p-4 rounded-xl hover:bg-gray-50/80 cursor-pointer flex items-center gap-3.5 text-gray-700 font-semibold transition border-b border-gray-100" onclick="selectPlatformSubItem('inference', 1)">
+                <i data-lucide="layers" class="w-5 h-5 text-gray-400"></i>
+                <span class="text-lg">Batch Inference</span>
+              </div>
+            </div>
+
+            <!-- Item 2: Provisioned Throughput -->
+            <div class="subitem-inference w-full">
+              <div class="subitem-expanded hidden p-6 rounded-2xl bg-white border border-gray-200/90 shadow-sm transition-all">
+                <div class="flex items-center gap-3 mb-3">
+                  <div class="w-9 h-9 rounded-xl bg-cyan-50 border border-cyan-100 flex items-center justify-center text-cyan-600">
+                    <i data-lucide="sliders-horizontal" class="w-5 h-5"></i>
+                  </div>
+                  <h3 class="text-xl font-bold text-gray-950">Provisioned Throughput</h3>
+                </div>
+                <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
+                  Guaranteed low-latency capacity for high-volume production applications with dedicated inference endpoints and SLAs.
+                </p>
+                <button onclick="switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
+                  LEARN MORE
+                </button>
+              </div>
+              <div class="subitem-collapsed p-4 rounded-xl hover:bg-gray-50/80 cursor-pointer flex items-center gap-3.5 text-gray-700 font-semibold transition border-b border-gray-100" onclick="selectPlatformSubItem('inference', 2)">
+                <i data-lucide="sliders-horizontal" class="w-5 h-5 text-gray-400"></i>
+                <span class="text-lg">Provisioned Throughput</span>
+              </div>
+            </div>
+
+            <!-- Item 3: Dedicated Model Inference -->
+            <div class="subitem-inference w-full">
+              <div class="subitem-expanded hidden p-6 rounded-2xl bg-white border border-gray-200/90 shadow-sm transition-all">
+                <div class="flex items-center gap-3 mb-3">
+                  <div class="w-9 h-9 rounded-xl bg-cyan-50 border border-cyan-100 flex items-center justify-center text-cyan-600">
+                    <i data-lucide="server" class="w-5 h-5"></i>
+                  </div>
+                  <h3 class="text-xl font-bold text-gray-950">Dedicated Model Inference</h3>
+                </div>
+                <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
+                  Deploy models on dedicated, fully isolated instances for maximum performance, data privacy, and full hardware isolation.
+                </p>
+                <button onclick="switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
+                  LEARN MORE
+                </button>
+              </div>
+              <div class="subitem-collapsed p-4 rounded-xl hover:bg-gray-50/80 cursor-pointer flex items-center gap-3.5 text-gray-700 font-semibold transition border-b border-gray-100" onclick="selectPlatformSubItem('inference', 3)">
+                <i data-lucide="server" class="w-5 h-5 text-gray-400"></i>
+                <span class="text-lg">Dedicated Model Inference</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right Column: Visual Showcases for Inference -->
+          <div class="lg:col-span-7">
+            
+            <!-- Mockup 0: Serverless Inference (Exact Replica of media_1790540329449.png) -->
+            <div class="mockup-inference relative rounded-3xl p-4 sm:p-6 bg-gradient-to-tr from-[#c8f5f6] via-[#f7f2fb] to-[#ffd2df] border border-gray-200/70 shadow-lg min-h-[460px] flex items-center justify-center overflow-hidden">
+              <div class="w-full bg-white/95 backdrop-blur-md rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden font-sans text-xs">
+                
+                <!-- Browser Navbar -->
+                <div class="h-10 border-b border-gray-100 px-4 flex items-center justify-between bg-white">
+                  <div class="flex items-center gap-6">
+                    <div class="flex items-center gap-1.5 font-bold text-gray-900 text-xs">
+                      <div class="w-4 h-4 rounded-full bg-gradient-to-tr from-pink-500 to-indigo-600"></div>
+                      <span>together.ai</span>
+                    </div>
+                    <div class="hidden sm:flex items-center gap-4 text-[11px] text-gray-500 font-medium">
+                      <span class="text-gray-900 font-semibold">Dashboard</span>
+                      <span>Models</span>
+                      <span>Playground</span>
+                      <span class="text-[#f0523d] font-semibold border-b border-[#f0523d] pb-0.5">Inference</span>
+                      <span>Fine-tuning</span>
+                      <span>GPU clusters</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Model Header Info -->
+                <div class="p-5 border-b border-gray-100 bg-[#fafafa]/50">
+                  <div class="text-[10px] text-gray-400 font-medium mb-1">Models &gt; MiniMax AI</div>
+                  <div class="flex items-center justify-between">
+                    <div>
+                      <h4 class="text-lg font-bold text-gray-950 flex items-center gap-2">
+                        MiniMax M2.7 FP4
+                        <span class="text-xs text-gray-400 font-normal">by MiniMax AI</span>
+                      </h4>
+                      <div class="flex items-center gap-1.5 mt-1.5">
+                        <span class="px-2 py-0.5 rounded-full bg-gray-100 text-gray-600 text-[10px] font-medium">Chat</span>
+                        <span class="px-2 py-0.5 rounded-full bg-gray-100 text-gray-600 text-[10px] font-medium">JSON mode</span>
+                        <span class="px-2 py-0.5 rounded-full bg-gray-100 text-gray-600 text-[10px] font-medium">Streaming</span>
+                      </div>
+                    </div>
+                    <button class="px-3 py-1.5 rounded-lg border border-gray-200 text-gray-700 font-medium text-[11px] hover:bg-gray-50 flex items-center gap-1">
+                      <i data-lucide="upload-cloud" class="w-3.5 h-3.5"></i>
+                      <span>Deploy on dedicated</span>
+                    </button>
+                  </div>
+                  <p class="text-[11px] text-gray-500 mt-2.5 max-w-xl line-clamp-2 leading-relaxed">
+                    MiniMax M2.7 is the first model to meaningfully participate in its own development. An internal version autonomously ran 100+ optimization rounds — analyzing failure trajectories, modifying code, and deciding to keep or reset.
+                  </p>
+                </div>
+
+                <!-- Floating Dark Code Runner Card -->
+                <div class="p-4 sm:p-5 bg-gray-50/60">
+                  <div class="bg-[#18181b] rounded-xl shadow-2xl border border-zinc-800 text-zinc-300 font-mono text-[11px] overflow-hidden">
+                    <div class="h-9 px-4 border-b border-zinc-800/80 flex items-center justify-between bg-[#202023]">
+                      <div class="flex items-center gap-2 text-zinc-300 text-xs font-sans font-semibold">
+                        <i data-lucide="terminal" class="w-3.5 h-3.5 text-emerald-400"></i>
+                        <span>Run inference</span>
+                      </div>
+                      <div class="flex items-center gap-2">
+                        <span class="px-2.5 py-0.5 rounded bg-zinc-700/80 text-white font-medium text-[10px] font-sans">Python</span>
+                        <span class="px-2 py-0.5 text-zinc-400 hover:text-white transition text-[10px] font-sans cursor-pointer">TypeScript</span>
+                        <span class="px-2 py-0.5 text-zinc-400 hover:text-white transition text-[10px] font-sans cursor-pointer">Curl</span>
+                        <span class="text-zinc-500 text-xs">···</span>
+                      </div>
+                    </div>
+                    <div class="p-4 text-[11.5px] leading-relaxed selection:bg-cyan-500/30 overflow-x-auto">
+                      <div class="text-zinc-500 select-none inline-block w-6">01</div><span class="text-purple-400">from</span> together <span class="text-purple-400">import</span> Together<br/>
+                      <div class="text-zinc-500 select-none inline-block w-6">02</div><br/>
+                      <div class="text-zinc-500 select-none inline-block w-6">03</div>client = Together() <span class="text-zinc-500"># auth defaults to os.environ.get("TOGETHER_API_KEY")</span><br/>
+                      <div class="text-zinc-500 select-none inline-block w-6">04</div><br/>
+                      <div class="text-zinc-500 select-none inline-block w-6">05</div>response = client.chat.completions.create(<br/>
+                      <div class="text-zinc-500 select-none inline-block w-6">06</div>&nbsp;&nbsp;&nbsp;&nbsp;model=<span class="text-emerald-400">"MiniMaxAI/MiniMax-M2.7"</span>,<br/>
+                      <div class="text-zinc-500 select-none inline-block w-6">07</div>&nbsp;&nbsp;&nbsp;&nbsp;messages=[<br/>
+                      <div class="text-zinc-500 select-none inline-block w-6">08</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br/>
+                      <div class="text-zinc-500 select-none inline-block w-6">09</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-sky-300">"role"</span>: <span class="text-emerald-400">"user"</span>,<br/>
+                      <div class="text-zinc-500 select-none inline-block w-6">10</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-sky-300">"content"</span>: <span class="text-emerald-400">"What are some fun things to do in New York?"</span><br/>
+                      <div class="text-zinc-500 select-none inline-block w-6">11</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+                      <div class="text-zinc-500 select-none inline-block w-6">12</div>&nbsp;&nbsp;&nbsp;&nbsp;]<br/>
+                      <div class="text-zinc-500 select-none inline-block w-6">13</div>)<br/>
+                      <div class="text-zinc-500 select-none inline-block w-6">14</div><span class="text-yellow-300">print</span>(response.choices[<span class="text-orange-400">0</span>].message.content)
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Mockup 1: Batch Inference (Exact Replica of media_1790540346632.png) -->
+            <div class="mockup-inference hidden relative rounded-3xl p-4 sm:p-6 bg-gradient-to-tr from-[#99f6e4] via-[#f0f9ff] to-[#fbcfe8] border border-gray-200/70 shadow-lg min-h-[460px] flex items-center justify-center overflow-hidden">
+              <div class="w-full bg-white/95 backdrop-blur-md rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden font-sans text-xs relative">
+                
+                <!-- Top Breadcrumbs -->
+                <div class="p-5 border-b border-gray-100 bg-[#fafafa]/50">
+                  <div class="text-[10px] text-gray-400 font-medium mb-1">Inference &gt; Batch jobs</div>
+                  <h4 class="text-lg font-bold text-gray-950 flex items-center gap-2">
+                    <i data-lucide="layers" class="w-4 h-4 text-cyan-600"></i>
+                    Batch jobs
+                  </h4>
+                  <p class="text-[11px] text-gray-500 mt-1">
+                    Process large volumes of requests asynchronously, at a discount, compared to real-time API calls.
+                  </p>
+                </div>
+
+                <!-- Table Preview -->
+                <div class="p-4 overflow-x-auto">
+                  <table class="w-full text-left text-[11px] border-collapse">
+                    <thead>
+                      <tr class="text-gray-400 border-b border-gray-100 pb-2">
+                        <th class="font-medium pb-2">Request type</th>
+                        <th class="font-medium pb-2">Created</th>
+                        <th class="font-medium pb-2">Input file</th>
+                        <th class="font-medium pb-2">Model</th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-50 text-gray-600 font-mono text-[10.5px]">
+                      <tr>
+                        <td class="py-2 text-gray-900 font-sans font-medium flex items-center gap-1.5"><i data-lucide="file-text" class="w-3 h-3 text-gray-400"></i> Chat</td>
+                        <td class="py-2 font-sans text-gray-500">2/02/26, 10:12 AM</td>
+                        <td class="py-2 text-sky-600">qwen_job-2.jsonl</td>
+                        <td class="py-2 font-sans font-medium text-gray-800">Qwen3-Coder-480B-Instruct</td>
+                      </tr>
+                      <tr>
+                        <td class="py-2 text-gray-900 font-sans font-medium flex items-center gap-1.5"><i data-lucide="file-text" class="w-3 h-3 text-gray-400"></i> Chat</td>
+                        <td class="py-2 font-sans text-gray-500">2/04/26, 6:47 PM</td>
+                        <td class="py-2 text-sky-600">qwen_job-1.jsonl</td>
+                        <td class="py-2 font-sans font-medium text-gray-800">Qwen3-Coder-480B-Instruct</td>
+                      </tr>
+                      <tr>
+                        <td class="py-2 text-gray-900 font-sans font-medium flex items-center gap-1.5"><i data-lucide="file-text" class="w-3 h-3 text-gray-400"></i> Chat</td>
+                        <td class="py-2 font-sans text-gray-500">2/06/26, 1:05 PM</td>
+                        <td class="py-2 text-sky-600">deepseek_job-2.jsonl</td>
+                        <td class="py-2 font-sans font-medium text-gray-800">DeepSeek-R1-0528</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <!-- Floating Modal Card matching media_1790540346632.png -->
+                <div class="absolute bottom-4 left-6 right-6 sm:right-auto sm:w-[380px] bg-white rounded-2xl border border-gray-200/90 shadow-2xl p-4.5 z-20">
+                  <div class="flex items-center justify-between mb-3">
+                    <button class="px-3.5 py-1.5 rounded-lg bg-[#f0523d] hover:bg-[#e0422d] text-white font-semibold text-xs flex items-center gap-1.5 shadow-sm">
+                      <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+                      <span>New batch job</span>
+                    </button>
+                  </div>
+                  <div class="border-t border-gray-100 pt-3">
+                    <h5 class="font-bold text-gray-900 text-xs flex items-center gap-1.5">
+                      <i data-lucide="sliders" class="w-3.5 h-3.5 text-gray-400"></i>
+                      Job details
+                    </h5>
+                    <p class="text-[10px] text-gray-400 mb-2">Select input file and endpoint destination</p>
+                    <div class="space-y-2">
+                      <div>
+                        <label class="text-[10px] text-gray-500 font-medium">Input file</label>
+                        <div class="flex items-center gap-2 mt-0.5">
+                          <input type="text" readonly value="Select..." class="w-full bg-gray-50 border border-gray-200 text-gray-400 text-[11px] rounded-lg px-2.5 py-1" />
+                          <button class="px-2.5 py-1 rounded-lg border border-gray-200 text-gray-700 text-[10px] font-semibold whitespace-nowrap hover:bg-gray-50 flex items-center gap-1">
+                            <i data-lucide="upload" class="w-3 h-3"></i> Upload new file
+                          </button>
+                        </div>
+                      </div>
+                      <div>
+                        <label class="text-[10px] text-gray-500 font-medium">Endpoint</label>
+                        <input type="text" readonly value="/v1/chat/completions" class="w-full bg-gray-50 border border-gray-200 text-gray-800 font-mono text-[10.5px] rounded-lg px-2.5 py-1 mt-0.5" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Mockup 2 & 3: Provisioned & Dedicated -->
+            <div class="mockup-inference hidden relative rounded-3xl p-6 bg-gradient-to-tr from-cyan-100 via-sky-50 to-blue-100 border border-gray-200 shadow-md min-h-[460px] flex items-center justify-center">
+              <div class="w-full bg-white rounded-2xl border border-gray-200 shadow-xl p-8 text-center">
+                <div class="w-12 h-12 rounded-2xl bg-cyan-50 border border-cyan-100 text-cyan-600 flex items-center justify-center mx-auto mb-4">
+                  <i data-lucide="shield-check" class="w-6 h-6"></i>
+                </div>
+                <h4 class="text-xl font-bold text-gray-900 mb-2">Enterprise Dedicated Capacity</h4>
+                <p class="text-sm text-gray-600 max-w-md mx-auto mb-6">
+                  Zero noisy neighbors, guaranteed megatoken throughput per second, and end-to-end sovereign encryption isolation.
+                </p>
+                <button onclick="switchView('keys')" class="px-5 py-2.5 rounded-full bg-black text-white text-xs font-bold uppercase tracking-wider">
+                  Configure Enterprise Plan
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- ===================================================================== -->
+        <!-- CATEGORY PANEL 2: COMPUTE -->
+        <!-- ===================================================================== -->
+        <div id="platform-cat-panel-compute" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          <!-- Left Column: Compute Sub-items Accordion -->
+          <div class="lg:col-span-5 flex flex-col space-y-3">
+            
+            <!-- Item 0: Accelerated Compute (Active Default) -->
+            <div class="subitem-compute w-full">
+              <div class="subitem-expanded p-6 rounded-2xl bg-white border border-gray-200/90 shadow-sm transition-all">
+                <div class="flex items-center gap-3 mb-3">
+                  <div class="w-9 h-9 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600">
+                    <i data-lucide="cpu" class="w-5 h-5"></i>
+                  </div>
+                  <h3 class="text-xl font-bold text-gray-950">Accelerated Compute</h3>
+                </div>
+                <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
+                  Scale from self-serve instant clusters to thousands of GPUs, all optimized for better performance with Together Kernel Collection.
+                </p>
+                <button onclick="switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
+                  LEARN MORE
+                </button>
+              </div>
+              <div class="subitem-collapsed hidden p-4 rounded-xl hover:bg-gray-50/80 cursor-pointer flex items-center gap-3.5 text-gray-700 font-semibold transition border-b border-gray-100" onclick="selectPlatformSubItem('compute', 0)">
+                <i data-lucide="cpu" class="w-5 h-5 text-gray-400"></i>
+                <span class="text-lg">Accelerated Compute</span>
+              </div>
+            </div>
+
+            <!-- Item 1: Sandbox -->
+            <div class="subitem-compute w-full">
+              <div class="subitem-expanded hidden p-6 rounded-2xl bg-white border border-gray-200/90 shadow-sm transition-all">
+                <div class="flex items-center gap-3 mb-3">
+                  <div class="w-9 h-9 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600">
+                    <i data-lucide="box" class="w-5 h-5"></i>
+                  </div>
+                  <h3 class="text-xl font-bold text-gray-950">Sandbox</h3>
+                </div>
+                <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
+                  Secure, isolated environments for benchmarking inference kernels, validating fine-tuning runs, and stress-testing workloads.
+                </p>
+                <button onclick="switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
+                  LEARN MORE
+                </button>
+              </div>
+              <div class="subitem-collapsed p-4 rounded-xl hover:bg-gray-50/80 cursor-pointer flex items-center gap-3.5 text-gray-700 font-semibold transition border-b border-gray-100" onclick="selectPlatformSubItem('compute', 1)">
+                <i data-lucide="box" class="w-5 h-5 text-gray-400"></i>
+                <span class="text-lg">Sandbox</span>
+              </div>
+            </div>
+
+            <!-- Item 2: Managed Storage -->
+            <div class="subitem-compute w-full">
+              <div class="subitem-expanded hidden p-6 rounded-2xl bg-white border border-gray-200/90 shadow-sm transition-all">
+                <div class="flex items-center gap-3 mb-3">
+                  <div class="w-9 h-9 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600">
+                    <i data-lucide="hard-drive" class="w-5 h-5"></i>
+                  </div>
+                  <h3 class="text-xl font-bold text-gray-950">Managed Storage</h3>
+                </div>
+                <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
+                  High-throughput, low-latency clustered storage engineered for fast model checkpointing and parallel dataset hydration.
+                </p>
+                <button onclick="switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
+                  LEARN MORE
+                </button>
+              </div>
+              <div class="subitem-collapsed p-4 rounded-xl hover:bg-gray-50/80 cursor-pointer flex items-center gap-3.5 text-gray-700 font-semibold transition border-b border-gray-100" onclick="selectPlatformSubItem('compute', 2)">
+                <i data-lucide="hard-drive" class="w-5 h-5 text-gray-400"></i>
+                <span class="text-lg">Managed Storage</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right Column: Visual Showcases for Compute (Exact Replica of media_1790540364464.png) -->
+          <div class="lg:col-span-7">
+            <div class="mockup-compute relative rounded-3xl p-4 sm:p-6 bg-gradient-to-tr from-[#93c5fd] via-[#e0e7ff] to-[#38bdf8] border border-gray-200/70 shadow-lg min-h-[460px] flex items-center justify-center overflow-hidden">
+              <div class="w-full bg-white/95 backdrop-blur-md rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden font-sans text-xs">
+                
+                <!-- Top Navbar -->
+                <div class="h-10 border-b border-gray-100 px-4 flex items-center justify-between bg-white">
+                  <div class="flex items-center gap-6">
+                    <div class="flex items-center gap-1.5 font-bold text-gray-900 text-xs">
+                      <div class="w-4 h-4 rounded-full bg-gradient-to-tr from-blue-500 to-indigo-600"></div>
+                      <span>together.ai</span>
+                    </div>
+                    <div class="hidden sm:flex items-center gap-4 text-[11px] text-gray-500 font-medium">
+                      <span>Dashboard</span>
+                      <span>Models</span>
+                      <span>Playground</span>
+                      <span>Inference</span>
+                      <span>Fine-tuning</span>
+                      <span class="text-blue-600 font-semibold border-b border-blue-600 pb-0.5">GPU clusters</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Cluster Details Banner -->
+                <div class="p-5 border-b border-gray-100 bg-[#fafafa]/50">
+                  <div class="text-[10px] text-gray-400 font-medium mb-1">GPU clusters &gt; ··· &gt; Cluster details</div>
+                  <h4 class="text-base sm:text-lg font-bold text-gray-950 flex items-center gap-2 font-mono">
+                    <i data-lucide="cpu" class="w-4 h-4 text-blue-600 font-sans"></i>
+                    New_project_987d098efs0983
+                  </h4>
+                  <div class="text-[10px] text-gray-400 font-normal">Created by <span class="text-blue-600">inversion</span></div>
+
+                  <!-- 3 Stats Tiles -->
+                  <div class="grid grid-cols-3 gap-3 mt-4 text-center">
+                    <div class="p-2.5 rounded-xl bg-white border border-gray-200/80 shadow-2xs">
+                      <div class="text-[10px] text-gray-500 font-medium">Online nodes</div>
+                      <div class="text-base font-bold text-gray-950">56/56</div>
+                      <div class="text-[9px] text-emerald-600 font-semibold">100% throughput</div>
+                    </div>
+                    <div class="p-2.5 rounded-xl bg-white border border-gray-200/80 shadow-2xs">
+                      <div class="text-[10px] text-gray-500 font-medium">Initiating</div>
+                      <div class="text-base font-bold text-gray-950">5</div>
+                      <div class="text-[9px] text-gray-400 underline cursor-pointer">View nodes</div>
+                    </div>
+                    <div class="p-2.5 rounded-xl bg-white border border-gray-200/80 shadow-2xs">
+                      <div class="text-[10px] text-gray-500 font-medium">Issues</div>
+                      <div class="text-base font-bold text-gray-950">3</div>
+                      <div class="text-[9px] text-rose-500 underline cursor-pointer">View issues</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Worker Nodes Table -->
+                <div class="p-4">
+                  <div class="flex items-center justify-between mb-2">
+                    <div class="font-bold text-gray-900 text-xs flex items-center gap-1.5">
+                      <i data-lucide="network" class="w-3.5 h-3.5 text-blue-500"></i>
+                      Worker nodes (28)
+                    </div>
+                    <span class="text-[10px] text-gray-400">View and manage your clusters worker nodes</span>
+                  </div>
+                  <div class="overflow-x-auto">
+                    <table class="w-full text-left text-[10.5px] border-collapse font-sans">
+                      <thead>
+                        <tr class="text-gray-400 border-b border-gray-100 pb-1.5">
+                          <th class="font-medium pb-1.5">Order</th>
+                          <th class="font-medium pb-1.5">Status</th>
+                          <th class="font-medium pb-1.5">Last updated</th>
+                          <th class="font-medium pb-1.5">CPU cores</th>
+                          <th class="font-medium pb-1.5">Network</th>
+                        </tr>
+                      </thead>
+                      <tbody class="divide-y divide-gray-50 text-gray-600">
+                        <tr>
+                          <td class="py-1.5 font-mono text-gray-800">gpu-dp-42bp7-4jk...</td>
+                          <td class="py-1.5"><span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[9px] font-semibold">Active</span></td>
+                          <td class="py-1.5 text-gray-500">2/22/26, 1:24 PM</td>
+                          <td class="py-1.5 font-medium text-gray-800">12 cores</td>
+                          <td class="py-1.5 text-gray-500">Default Ethernet</td>
+                        </tr>
+                        <tr>
+                          <td class="py-1.5 font-mono text-gray-800">cpu-dp-n5qud-wsf...</td>
+                          <td class="py-1.5"><span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[9px] font-semibold">Active</span></td>
+                          <td class="py-1.5 text-gray-500">2/22/26, 1:22 PM</td>
+                          <td class="py-1.5 font-medium text-gray-800">12 cores</td>
+                          <td class="py-1.5 text-gray-500">Default Ethernet</td>
+                        </tr>
+                        <tr>
+                          <td class="py-1.5 font-mono text-gray-800">gpu-dp-42bp7-4jk...</td>
+                          <td class="py-1.5"><span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[9px] font-semibold">Active</span></td>
+                          <td class="py-1.5 text-gray-500">2/22/26, 1:18 PM</td>
+                          <td class="py-1.5 font-medium text-gray-800">12 cores</td>
+                          <td class="py-1.5 text-gray-500">Default Ethernet</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ===================================================================== -->
+        <!-- CATEGORY PANEL 3: MODEL SHAPING -->
+        <!-- ===================================================================== -->
+        <div id="platform-cat-panel-shaping" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          <!-- Left Column: Model Shaping Sub-items Accordion -->
+          <div class="lg:col-span-5 flex flex-col space-y-3">
+            
+            <!-- Item 0: Fine-Tuning (Active Default) -->
+            <div class="subitem-shaping w-full">
+              <div class="subitem-expanded p-6 rounded-2xl bg-white border border-gray-200/90 shadow-sm transition-all">
+                <div class="flex items-center gap-3 mb-3">
+                  <div class="w-9 h-9 rounded-xl bg-purple-50 border border-purple-100 flex items-center justify-center text-purple-600">
+                    <i data-lucide="sliders" class="w-5 h-5"></i>
+                  </div>
+                  <h3 class="text-xl font-bold text-gray-950">Fine-Tuning</h3>
+                </div>
+                <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
+                  Fine-tune open-source models for production workloads, using the latest research techniques. Improve accuracy, reduce hallucinations, and control behavior — without managing training infrastructure.
+                </p>
+                <button onclick="switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
+                  LEARN MORE
+                </button>
+              </div>
+              <div class="subitem-collapsed hidden p-4 rounded-xl hover:bg-gray-50/80 cursor-pointer flex items-center gap-3.5 text-gray-700 font-semibold transition border-b border-gray-100" onclick="selectPlatformSubItem('shaping', 0)">
+                <i data-lucide="sliders" class="w-5 h-5 text-gray-400"></i>
+                <span class="text-lg">Fine-Tuning</span>
+              </div>
+            </div>
+
+            <!-- Item 1: Model Alignment -->
+            <div class="subitem-shaping w-full">
+              <div class="subitem-expanded hidden p-6 rounded-2xl bg-white border border-gray-200/90 shadow-sm transition-all">
+                <div class="flex items-center gap-3 mb-3">
+                  <div class="w-9 h-9 rounded-xl bg-purple-50 border border-purple-100 flex items-center justify-center text-purple-600">
+                    <i data-lucide="git-merge" class="w-5 h-5"></i>
+                  </div>
+                  <h3 class="text-xl font-bold text-gray-950">Model Alignment</h3>
+                </div>
+                <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
+                  Align base models with Direct Preference Optimization (DPO) and task-specific safety guardrails to enforce strict corporate compliance.
+                </p>
+                <button onclick="switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
+                  LEARN MORE
+                </button>
+              </div>
+              <div class="subitem-collapsed p-4 rounded-xl hover:bg-gray-50/80 cursor-pointer flex items-center gap-3.5 text-gray-700 font-semibold transition border-b border-gray-100" onclick="selectPlatformSubItem('shaping', 1)">
+                <i data-lucide="git-merge" class="w-5 h-5 text-gray-400"></i>
+                <span class="text-lg">Model Alignment</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right Column: Visual Showcases for Model Shaping (Exact Replica of media_1790540377437.png) -->
+          <div class="lg:col-span-7">
+            <div class="mockup-shaping relative rounded-3xl p-4 sm:p-6 bg-gradient-to-tr from-[#e9d5ff] via-[#fdf2f8] to-[#f472b6] border border-gray-200/70 shadow-lg min-h-[460px] flex items-center justify-center overflow-hidden">
+              <div class="w-full bg-white/95 backdrop-blur-md rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden font-sans text-xs relative">
+                
+                <!-- Header Banner -->
+                <div class="p-5 border-b border-gray-100 bg-[#fafafa]/50">
+                  <div class="text-[10px] text-gray-400 font-medium mb-1">Fine-tuning &gt; New fine-tune job</div>
+                  <div class="flex items-center gap-2 mt-2">
+                    <span class="text-xs text-gray-500 font-medium">Source:</span>
+                    <button class="px-3 py-1 rounded-md bg-[#fed7aa] text-orange-950 font-semibold text-[11px] border border-orange-300">From base model</button>
+                    <button class="px-3 py-1 rounded-md bg-gray-100 text-gray-600 font-medium text-[11px] hover:bg-gray-200">From HuggingFace hub</button>
+                  </div>
+                </div>
+
+                <!-- Form Controls Grid -->
+                <div class="p-5 space-y-4">
+                  
+                  <!-- Floating Training Type & Method Card -->
+                  <div class="bg-white border border-gray-200 rounded-xl p-4 shadow-sm">
+                    <div class="grid grid-cols-2 gap-4">
+                      <div>
+                        <label class="text-[11px] text-gray-500 font-medium flex items-center gap-1">Training type <i data-lucide="info" class="w-3 h-3 text-gray-400"></i></label>
+                        <select class="w-full bg-gray-50 border border-gray-200 rounded-lg px-2.5 py-1.5 text-xs text-gray-900 mt-1 font-medium">
+                          <option>LoRA</option>
+                          <option>Full Parameter</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label class="text-[11px] text-gray-500 font-medium flex items-center gap-1">Training method <i data-lucide="info" class="w-3 h-3 text-gray-400"></i></label>
+                        <div class="flex items-center gap-1 mt-1 bg-gray-100 p-0.5 rounded-lg">
+                          <button class="flex-1 py-1 rounded-md bg-[#fed7aa] text-orange-950 font-bold text-xs shadow-2xs">SFT</button>
+                          <button class="flex-1 py-1 rounded-md text-gray-600 font-medium text-xs hover:text-gray-950">DPO</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Model Dropdown (Simulating Open State matching Image 4) -->
+                  <div class="relative bg-white border border-orange-300 rounded-xl p-3 shadow-md ring-2 ring-orange-200/50">
+                    <label class="text-[11px] text-gray-700 font-semibold">Choose model to fine-tune</label>
+                    <div class="flex items-center justify-between bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-xs font-semibold text-gray-950 mt-1">
+                      <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-orange-500"></span>
+                        <span>Kimi K2.5</span>
+                      </div>
+                      <i data-lucide="chevron-down" class="w-4 h-4 text-gray-400"></i>
+                    </div>
+
+                    <!-- Dropdown Options List -->
+                    <div class="mt-2 pt-2 border-t border-gray-100 space-y-1">
+                      <div class="text-[10px] text-gray-400 uppercase font-bold tracking-wider px-2">Recently Used</div>
+                      <div class="px-2.5 py-1.5 rounded-lg text-xs text-gray-700 flex items-center gap-2 hover:bg-gray-50 cursor-pointer">
+                        <span class="text-blue-500 font-mono text-[10px]">oo</span>
+                        <span>Llama Guard 4 12B</span>
+                      </div>
+                      <div class="px-2.5 py-1.5 rounded-lg text-xs text-orange-950 bg-orange-100/70 font-semibold flex items-center justify-between cursor-pointer">
+                        <div class="flex items-center gap-2">
+                          <i data-lucide="flame" class="w-3.5 h-3.5 text-orange-600"></i>
+                          <span>Mistral 7B Instruct</span>
+                        </div>
+                        <i data-lucide="check" class="w-3.5 h-3.5 text-orange-600"></i>
+                      </div>
+                      <div class="px-2.5 py-1.5 rounded-lg text-xs text-gray-700 flex items-center gap-2 hover:bg-gray-50 cursor-pointer">
+                        <span class="w-2 h-2 rounded-full bg-purple-500"></span>
+                        <span>Kimi K2.5</span>
+                      </div>
+                      <div class="px-2.5 py-1.5 rounded-lg text-xs text-gray-700 flex items-center gap-2 hover:bg-gray-50 cursor-pointer">
+                        <span class="text-emerald-500 font-mono text-[10px]">&lt;&gt;</span>
+                        <span>Qwen3 Next 80B</span>
+                      </div>
+                      <div class="px-2.5 py-1.5 rounded-lg text-xs text-gray-700 flex items-center gap-2 hover:bg-gray-50 cursor-pointer">
+                        <i data-lucide="bot" class="w-3.5 h-3.5 text-cyan-600"></i>
+                        <span>DeepSeek R1</span>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
     </div>
 
     <!-- ======================================================================= -->
@@ -1413,6 +2055,65 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
       if (viewName === 'keys') fetchApiKeys();
       if (viewName === 'dashboard') switchDashTab(activeDashTab);
+      if (typeof lucide !== 'undefined') {
+        setTimeout(() => lucide.createIcons(), 10);
+      }
+    }
+
+    function selectPlatformCategory(cat) {
+      const catConfig = {
+        inference: { bg: 'bg-[#d8f5f6]', tab: 'cat-tab-inference' },
+        compute: { bg: 'bg-[#dbeafe]', tab: 'cat-tab-compute' },
+        shaping: { bg: 'bg-[#ede9fe]', tab: 'cat-tab-shaping' }
+      };
+
+      ['inference', 'compute', 'shaping'].forEach(c => {
+        const btn = document.getElementById('cat-tab-' + c);
+        if (btn) {
+          btn.className = 'cat-pill py-3.5 sm:py-4 px-4 sm:px-6 rounded-2xl sm:rounded-3xl text-center font-bold text-base sm:text-xl transition-all duration-200 cursor-pointer text-gray-600 hover:text-gray-950 hover:bg-gray-100/70';
+        }
+        const panel = document.getElementById('platform-cat-panel-' + c);
+        if (panel) panel.classList.add('hidden');
+      });
+
+      if (catConfig[cat]) {
+        const activeBtn = document.getElementById(catConfig[cat].tab);
+        if (activeBtn) {
+          activeBtn.className = 'cat-pill py-3.5 sm:py-4 px-4 sm:px-6 rounded-2xl sm:rounded-3xl text-center font-bold text-base sm:text-xl transition-all duration-200 cursor-pointer text-gray-950 shadow-2xs ' + catConfig[cat].bg;
+        }
+      }
+
+      const activePanel = document.getElementById('platform-cat-panel-' + cat);
+      if (activePanel) activePanel.classList.remove('hidden');
+
+      if (typeof lucide !== 'undefined') {
+        setTimeout(() => lucide.createIcons(), 10);
+      }
+    }
+
+    function selectPlatformSubItem(cat, index) {
+      const subItems = document.querySelectorAll('.subitem-' + cat);
+      subItems.forEach((item, idx) => {
+        const expanded = item.querySelector('.subitem-expanded');
+        const collapsed = item.querySelector('.subitem-collapsed');
+        if (idx === index) {
+          if (expanded) expanded.classList.remove('hidden');
+          if (collapsed) collapsed.classList.add('hidden');
+        } else {
+          if (expanded) expanded.classList.add('hidden');
+          if (collapsed) collapsed.classList.remove('hidden');
+        }
+      });
+
+      const mockups = document.querySelectorAll('.mockup-' + cat);
+      mockups.forEach((mock, idx) => {
+        if (idx === index) {
+          mock.classList.remove('hidden');
+        } else {
+          mock.classList.add('hidden');
+        }
+      });
+
       if (typeof lucide !== 'undefined') {
         setTimeout(() => lucide.createIcons(), 10);
       }
