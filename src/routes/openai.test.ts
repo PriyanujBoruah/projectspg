@@ -650,8 +650,8 @@ describe("OpenAI Drop-In Wire-Compatible Proxy (/v1/chat/completions)", () => {
       }
     }
 
-    // 3. Mistral AI: codestral-2508, ministral-8b-2512, mistral-large-2512
-    for (const model of ["codestral-2508", "ministral-8b-2512", "mistral-large-2512"]) {
+    // 3. Mistral AI: codestral-2508, ministral-8b-2512, ministral-14b-2512, mistral-large-2512
+    for (const model of ["codestral-2508", "ministral-8b-2512", "ministral-14b-2512", "mistral-large-2512"]) {
       await app.request("/v1/chat/completions", {
         method: "POST",
         headers: { "Content-Type": "application/json" },

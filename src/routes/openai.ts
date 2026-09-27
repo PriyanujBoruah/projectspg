@@ -917,6 +917,7 @@ openaiApp.get("/models", async (c) => {
       { id: "gemma-4-31b-it", object: "model", created: 1721235600, owned_by: "google" },
       { id: "codestral-2508", object: "model", created: 1721235600, owned_by: "mistral" },
       { id: "ministral-8b-2512", object: "model", created: 1721235600, owned_by: "mistral" },
+      { id: "ministral-14b-2512", object: "model", created: 1721235600, owned_by: "mistral" },
       { id: "mistral-large-2512", object: "model", created: 1721235600, owned_by: "mistral" },
       { id: "gpt-4o", object: "model", created: 1715368132, owned_by: "system" },
       { id: "gpt-4o-mini", object: "model", created: 1721235600, owned_by: "system" },

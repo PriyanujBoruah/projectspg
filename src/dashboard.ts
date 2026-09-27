@@ -232,7 +232,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               <optgroup label="Mistral AI">
                 <option value="codestral-2508">codestral-2508</option>
                 <option value="ministral-8b-2512">ministral-8b-2512</option>
-                <option value="mistral-large-2512">mistral-large-2512 (BYOK)</option>
+                <option value="ministral-14b-2512">ministral-14b-2512</option>
               </optgroup>
             </select>
             <i data-lucide="chevrons-up-down" class="w-3.5 h-3.5 text-groq-textSubtle absolute right-2.5 top-2 pointer-events-none"></i>
@@ -649,7 +649,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                   <option>gemma-4-31b-it</option>
                   <option>codestral-2508</option>
                   <option>ministral-8b-2512</option>
-                  <option>mistral-large-2512</option>
+                  <option>ministral-14b-2512</option>
                 </select>
                 <i data-lucide="chevrons-up-down" class="w-3.5 h-3.5 text-groq-textSubtle absolute right-2 top-2 pointer-events-none"></i>
               </div>
@@ -1541,7 +1541,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           document.getElementById('rehydrated-text').innerHTML =
             '<div class="p-3.5 bg-red-50 border border-red-200 rounded-xl text-red-900 text-xs leading-relaxed">' +
             '<strong>Provider Error (' + res.status + '):</strong> ' + escapeHtml(errMsg) +
-            (isTierError ? '<br/><span class="text-groq-textSubtle mt-1.5 block">💡 <em>Mistral Large (mistral-large-2512) requires a paid Mistral AI subscription tier. To use this model, click "Parameters", switch to BYOK mode, and enter your paid Mistral API key. For free testing, select <strong>codestral-2508</strong> or <strong>ministral-8b-2512</strong>.</em></span>' : '') +
+            (isTierError ? '<br/><span class="text-groq-textSubtle mt-1.5 block">💡 <em>This model requires a paid Mistral AI subscription tier. To use paid Mistral models, click "Parameters", switch to BYOK mode, and enter your paid Mistral API key. For free testing, select <strong>codestral-2508</strong>, <strong>ministral-8b-2512</strong>, or <strong>ministral-14b-2512</strong>.</em></span>' : '') +
             '</div>';
         }
       } catch (err) {
@@ -1864,7 +1864,7 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
       { id: 'gemma-4-31b-it', name: 'Gemma 4 31B Instruct', provider: 'Google AI Studio', ratePer1MTokens: 0.15, tag: 'on_demand' },
       { id: 'codestral-2508', name: 'Codestral 2508', provider: 'Mistral AI', ratePer1MTokens: 0.30, tag: 'on_demand' },
       { id: 'ministral-8b-2512', name: 'Ministral 8B 2512', provider: 'Mistral AI', ratePer1MTokens: 0.10, tag: 'on_demand' },
-      { id: 'mistral-large-2512', name: 'Mistral Large 2512', provider: 'Mistral AI', ratePer1MTokens: 2.00, tag: 'on_demand' }
+      { id: 'ministral-14b-2512', name: 'Ministral 14B 2512', provider: 'Mistral AI', ratePer1MTokens: 0.20, tag: 'on_demand' }
     ];
 
     function switchUsageSubTab(tab) {
