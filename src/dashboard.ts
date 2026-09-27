@@ -203,14 +203,14 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
   <main class="flex-1 flex overflow-visible">
 
     <!-- ======================================================================= -->
-    <!-- VIEW 0: LANDING PAGE (Hero Section Inspired by Together AI) -->
+    <!-- VIEW 0: LANDING PAGE (ProjectSPG Enterprise Platform) -->
     <!-- ======================================================================= -->
     <div id="view-landing" class="view-panel flex-1 flex flex-col w-full bg-white relative">
       
       <!-- Ambient Glow Behind Hero -->
       <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-b from-sky-200/35 via-blue-100/20 to-transparent blur-3xl pointer-events-none -z-0"></div>
 
-      <!-- Floating Header (Together AI style navbar) -->
+      <!-- Floating Header (ProjectSPG Floating Navbar) -->
       <header class="w-full max-w-7xl mx-auto pt-5 px-4 sm:px-6 relative z-50">
         <div class="bg-white/90 backdrop-blur-md border border-gray-200/80 rounded-full px-5 py-2.5 flex items-center justify-between shadow-xs">
           
@@ -263,7 +263,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               <span>Next-Gen Zero-Trust AI Gateway</span>
             </div>
 
-            <!-- Main Headline matching Together AI -->
+            <!-- Main Headline matching ProjectSPG -->
             <h1 class="text-4xl sm:text-5xl lg:text-[62px] leading-[1.08] font-bold tracking-tight text-gray-950 mb-6 font-sans">
               Build what's next <br/>
               <span class="text-gray-400 font-normal">on the Private Cloud</span>
@@ -305,14 +305,14 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
           </div>
 
-          <!-- Right Column (3D Isometric Architectural Artwork matching Together AI) -->
+          <!-- Right Column (3D Isometric Architectural Artwork matching ProjectSPG) -->
           <div class="lg:col-span-5 flex items-center justify-center relative">
             <div class="relative w-full max-w-[480px] aspect-square flex items-center justify-center">
               
               <!-- Ambient Glow underneath 3D graphic -->
               <div class="absolute inset-0 bg-gradient-to-tr from-cyan-400/20 via-blue-500/15 to-purple-400/20 rounded-full blur-2xl -z-10"></div>
 
-              <!-- High-definition SVG Isometric Composition matching Together AI's right graphic -->
+              <!-- High-definition SVG Isometric Composition matching ProjectSPG's right graphic -->
               <svg viewBox="0 0 540 540" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full drop-shadow-xl select-none">
                 <defs>
                   <!-- Cyan Horizontal Disc Gradient -->
@@ -383,7 +383,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                 <!-- Fine Isometric Grid & Technical Ray Lines -->
                 <line x1="270" y1="120" x2="270" y2="440" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="2 3" opacity="0.5"/>
 
-                <!-- Together AI Callout 1: SUB-MILLISECOND LATENCY (Top Right) -->
+                <!-- ProjectSPG Callout 1: SUB-MILLISECOND LATENCY (Top Right) -->
                 <g id="callout-latency">
                   <polyline points="380,225 430,175 490,175" stroke="#475569" stroke-width="1" fill="none" />
                   <rect x="377" y="222" width="6" height="6" fill="#0f172a" />
@@ -391,7 +391,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                   <text x="430" y="152" font-family="ui-sans-serif, system-ui, -apple-system, sans-serif" font-size="9" font-weight="500" fill="#64748b">0.8ms P99 ENGINE</text>
                 </g>
 
-                <!-- Together AI Callout 2: ZERO-TRUST DE-IDENTIFICATION (Left) -->
+                <!-- ProjectSPG Callout 2: ZERO-TRUST DE-IDENTIFICATION (Left) -->
                 <g id="callout-privacy">
                   <polyline points="200,290 140,290 90,320" stroke="#475569" stroke-width="1" fill="none" />
                   <rect x="197" y="287" width="6" height="6" fill="#0f172a" />
@@ -399,7 +399,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                   <text x="25" y="354" font-family="ui-sans-serif, system-ui, -apple-system, sans-serif" font-size="9" font-weight="500" fill="#64748b">REVERSIBLE BYOK TOKENIZATION</text>
                 </g>
 
-                <!-- Together AI Callout 3: 10 SOVEREIGN PACKS (Bottom Right) -->
+                <!-- ProjectSPG Callout 3: 10 SOVEREIGN PACKS (Bottom Right) -->
                 <g id="callout-sovereignty">
                   <polyline points="330,370 390,410 470,410" stroke="#475569" stroke-width="1" fill="none" />
                   <rect x="327" y="367" width="6" height="6" fill="#0f172a" />
@@ -460,7 +460,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       </section>
 
       <!-- ======================================================================= -->
-      <!-- SECTION 2: THE TOGETHER AI PLATFORM (Interactive 3-Tab Feature Showcase)-->
+      <!-- SECTION 2: THE PROJECTSPG PLATFORM (Interactive 3-Tab Feature Showcase)-->
       <!-- Matches uploaded media: 1790540329449, 1790540346632, 1790540364464, 1790540377437 -->
       <!-- ======================================================================= -->
       <section id="platform-section" class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10 border-t border-gray-100">
@@ -468,7 +468,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         <!-- Section Header -->
         <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-14">
           <h2 class="text-3xl sm:text-4xl lg:text-[46px] font-bold tracking-tight text-gray-950 mb-4 font-sans">
-            The Together AI Platform
+            The ProjectSPG Platform
           </h2>
           <p class="text-base sm:text-lg text-gray-600 font-normal leading-relaxed">
             Powering every step of the AI development journey — from experimentation to massive scale.
@@ -735,7 +735,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                   <h3 class="text-xl font-bold text-gray-950">Accelerated Compute</h3>
                 </div>
                 <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
-                  Scale from self-serve instant clusters to thousands of GPUs, all optimized for better performance with Together Kernel Collection.
+                  Scale from self-serve instant clusters to thousands of GPUs, all optimized for better performance with ProjectSPG Kernel Collection.
                 </p>
                 <button onclick="switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
                   LEARN MORE
@@ -1141,7 +1141,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                 </div>
               </div>
 
-              <!-- Card 3: Together AI at ICML 2026 -->
+              <!-- Card 3: ProjectSPG at ICML 2026 -->
               <div class="group relative rounded-2xl min-h-[420px] w-[290px] sm:w-[320px] lg:w-auto shrink-0 lg:shrink p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-[#262c52] hover:border-amber-300 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_35px_rgba(251,191,36,0.25)] bg-[#0d1224]">
                 <!-- Base Solid Dark Underlay -->
                 <div class="absolute inset-0 bg-[#0d1224] -z-10"></div>
@@ -1165,14 +1165,14 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                 <!-- Middle Headline -->
                 <div class="relative z-10 my-auto py-6 text-center">
                   <h3 class="text-lg sm:text-[19px] font-bold text-white leading-snug group-hover:text-white transition-colors">
-                    Together AI at ICML 2026: frontier research across the full stack
+                    ProjectSPG at ICML 2026: frontier research across the full stack
                   </h3>
                 </div>
 
                 <!-- Bottom Citation & Hover Button -->
                 <div class="relative z-10 w-full h-11 flex items-center justify-center">
                   <p class="text-[10px] font-mono tracking-widest text-gray-400 uppercase text-center transition-all duration-200 group-hover:opacity-0 group-hover:scale-95">
-                    TOGETHER RESEARCH
+                    PROJECTSPG RESEARCH
                   </p>
                   <button class="absolute inset-0 m-auto w-32 h-9 rounded-lg bg-white/25 hover:bg-white/35 text-white text-[11px] font-bold tracking-wider uppercase backdrop-blur-md border border-white/30 transition-all duration-300 shadow-md opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 flex items-center justify-center cursor-pointer">
                     READ MORE
@@ -1279,7 +1279,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       </section>
 
       <!-- ======================================================================= -->
-      <!-- SECTION 4: WHAT'S NEW AT TOGETHER AI (Blog & Updates)                   -->
+      <!-- SECTION 4: WHAT'S NEW AT PROJECTSPG (Blog & Updates)                  -->
       <!-- Matches uploaded media: 1790541881610.png                               -->
       <!-- ======================================================================= -->
       <section id="news-section" class="w-full bg-white text-gray-900 py-20 sm:py-28 border-t border-gray-100">
@@ -1288,7 +1288,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           <!-- Section Header Row -->
           <div class="flex items-center justify-between mb-10 sm:mb-12">
             <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-gray-950 font-sans">
-              What’s new at Together AI
+              What’s new at ProjectSPG
             </h2>
             <a href="#docs" onclick="switchView('docs')" class="px-4 py-2 rounded-lg bg-gray-100/90 hover:bg-gray-200/90 text-gray-800 text-[11px] font-bold tracking-wider uppercase transition shadow-2xs cursor-pointer flex items-center gap-1.5">
               <span>ALL BLOG POSTS</span>
@@ -1337,7 +1337,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                         <span>• SGLang</span>
                         <span>• vLLM</span>
                         <span>• TRT-LLM</span>
-                        <span class="text-[#f0523d] font-bold flex items-center gap-0.5">♥ Together AI</span>
+                        <span class="text-[#f0523d] font-bold flex items-center gap-0.5">♥ ProjectSPG</span>
                       </div>
                     </div>
 
@@ -1390,17 +1390,17 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             <!-- Right Column: 3 Horizontal Post Rows -->
             <div class="lg:col-span-6 flex flex-col gap-6 sm:gap-7">
               
-              <!-- Item 1: Migrating from closed to open source models, Together -->
+              <!-- Item 1: Migrating from closed to open source models with ProjectSPG -->
               <div class="group flex items-start gap-5 cursor-pointer">
                 <!-- Pastel Gradient Thumbnail with subtle title overlay -->
                 <div class="w-44 sm:w-52 aspect-[16/10] shrink-0 rounded-xl overflow-hidden relative shadow-xs border border-gray-200/60 bg-gradient-to-br from-[#ffd5cc] via-[#f7e0ff] to-[#d8e6ff] flex items-center justify-center p-3 text-center transition-all duration-300 group-hover:shadow-md group-hover:scale-[1.02]">
                   <div class="flex flex-col items-center">
                     <div class="flex items-center gap-1 mb-1">
                       <span class="w-2 h-2 rounded-full bg-pink-500"></span>
-                      <span class="text-[9px] font-bold text-gray-800 lowercase tracking-tight">together<span class="text-purple-600">.ai</span></span>
+                      <span class="text-[9px] font-bold text-gray-800 lowercase tracking-tight">project<span class="text-[#f0523d]">spg</span></span>
                     </div>
                     <p class="text-[10px] sm:text-[11px] font-bold text-gray-900 leading-tight">
-                      Migrating from closed to open source models, Together
+                      Migrating from closed to open source models with ProjectSPG
                     </p>
                   </div>
                 </div>
@@ -1411,7 +1411,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                     INFERENCE
                   </span>
                   <h4 class="text-base sm:text-lg font-bold text-gray-950 mt-1.5 group-hover:text-[#f0523d] transition-colors leading-snug">
-                    Migrating from closed to open source models, Together
+                    Migrating from closed to open source models with ProjectSPG
                   </h4>
                   <p class="text-xs sm:text-sm text-gray-500 mt-1 line-clamp-2 leading-relaxed">
                     Moving from closed to open source models can take wee...
@@ -1419,13 +1419,13 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                 </div>
               </div>
 
-              <!-- Item 2: Together AI and Y Combinator partner -->
+              <!-- Item 2: ProjectSPG and Y Combinator partner -->
               <div class="group flex items-start gap-5 cursor-pointer">
                 <div class="w-44 sm:w-52 aspect-[16/10] shrink-0 rounded-xl overflow-hidden relative shadow-xs border border-gray-200/60 bg-gradient-to-br from-[#fed7aa] via-[#fde047]/30 to-[#c7d2fe] flex items-center justify-center p-3 text-center transition-all duration-300 group-hover:shadow-md group-hover:scale-[1.02]">
                   <div class="flex flex-col items-center">
                     <div class="flex items-center gap-1 mb-1">
                       <span class="w-2 h-2 rounded-full bg-orange-500"></span>
-                      <span class="text-[9px] font-bold text-gray-800 lowercase tracking-tight">together<span class="text-orange-600">.ai</span></span>
+                      <span class="text-[9px] font-bold text-gray-800 lowercase tracking-tight">project<span class="text-[#f0523d]">spg</span></span>
                     </div>
                     <p class="text-[10px] sm:text-[11px] font-bold text-gray-900 leading-tight">
                       Introducing the first dedicated GPU cluster for the YC community
@@ -1438,10 +1438,10 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                     GPU CLUSTERS
                   </span>
                   <h4 class="text-base sm:text-lg font-bold text-gray-950 mt-1.5 group-hover:text-[#f0523d] transition-colors leading-snug">
-                    Together AI and Y Combinator partner to launch the first dedicated GPU cluster for the YC community
+                    ProjectSPG and Y Combinator partner to launch the first dedicated GPU cluster for the YC community
                   </h4>
                   <p class="text-xs sm:text-sm text-gray-500 mt-1 line-clamp-2 leading-relaxed">
-                    No more two-year compute contracts. Together AI and Y...
+                    No more two-year compute contracts. ProjectSPG and Y...
                   </p>
                 </div>
               </div>
@@ -1452,7 +1452,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                   <div class="flex flex-col items-center">
                     <div class="flex items-center gap-1 mb-1">
                       <span class="w-2 h-2 rounded-full bg-purple-500"></span>
-                      <span class="text-[9px] font-bold text-gray-800 lowercase tracking-tight">together<span class="text-purple-600">.ai</span></span>
+                      <span class="text-[9px] font-bold text-gray-800 lowercase tracking-tight">project<span class="text-[#f0523d]">spg</span></span>
                     </div>
                     <p class="text-[10px] sm:text-[11px] font-bold text-gray-900 leading-tight">
                       GLM-5.3 vs Claude Fable 5
@@ -1480,7 +1480,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       </section>
 
       <!-- ======================================================================= -->
-      <!-- SECTION 5: PRICING & CAPACITIES (Together AI Inspired)                  -->
+      <!-- SECTION 5: PRICING & CAPACITIES (ProjectSPG Inspired)                 -->
       <!-- ======================================================================= -->
       <section id="pricing-section" class="w-full bg-[#f8fafc] text-gray-900 py-20 sm:py-28 border-t border-gray-200/60 relative overflow-hidden">
         
@@ -1774,7 +1774,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       </section>
 
       <!-- ======================================================================= -->
-      <!-- SECTION 6: CALL TO ACTION ("Start building on Together AI")             -->
+      <!-- SECTION 6: CALL TO ACTION ("Start building on ProjectSPG")            -->
       <!-- Matches uploaded media: 1790542040866.png                               -->
       <!-- ======================================================================= -->
       <section class="w-full relative pt-24 pb-36 sm:pt-32 sm:pb-48 overflow-hidden bg-white text-center">
@@ -1799,7 +1799,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
         <div class="max-w-4xl mx-auto px-4 sm:px-6 relative z-10">
           <h2 class="text-4xl sm:text-5xl lg:text-[54px] font-bold text-gray-950 tracking-tight leading-tight">
-            Start building on Together AI
+            Start building on ProjectSPG
           </h2>
           <p class="text-base sm:text-lg lg:text-xl text-gray-500 font-normal mt-4 max-w-2xl mx-auto leading-relaxed">
             From optimized training and model shaping to large-scale production inference
@@ -1832,14 +1832,14 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               
               <!-- Brand Logo (Left Column) -->
               <div class="lg:col-span-3">
-                <a href="#landing" onclick="switchView('landing')" class="inline-flex items-center gap-2 group cursor-pointer" title="Together AI">
-                  <!-- Together AI Tri-color Petal Brand Emblem -->
+                <a href="#landing" onclick="switchView('landing')" class="inline-flex items-center gap-2 group cursor-pointer" title="ProjectSPG">
+                  <!-- ProjectSPG Brand Emblem -->
                   <div class="relative w-8 h-8 flex items-center justify-center">
                     <span class="absolute top-0 left-1 w-3.5 h-3.5 rounded-full bg-purple-400/90 shadow-2xs"></span>
                     <span class="absolute top-0 right-1 w-3.5 h-3.5 rounded-full bg-pink-500/90 shadow-2xs"></span>
                     <span class="absolute bottom-0 left-2.5 w-3.5 h-3.5 rounded-full bg-[#f0523d] shadow-2xs"></span>
                   </div>
-                  <span class="font-extrabold text-[20px] tracking-tight text-gray-950">together<span class="text-[#f0523d]">.ai</span></span>
+                  <span class="font-extrabold text-[20px] tracking-tight text-gray-950">project<span class="text-[#f0523d]">spg</span></span>
                 </a>
               </div>
 
@@ -1922,16 +1922,16 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
             </div>
 
-            <!-- Giant Watermark Brand Name (Exact Replica of media_1790542042470.png) -->
+            <!-- Giant Watermark Brand Name (ProjectSPG Signature) -->
             <div class="select-none pointer-events-none text-right sm:text-center text-[75px] sm:text-[135px] lg:text-[180px] font-bold tracking-tight text-gray-100/90 leading-none my-6 sm:my-10 overflow-hidden font-sans">
-              together<span class="text-[#f0523d]">.</span>ai
+              project<span class="text-[#f0523d]">spg</span>
             </div>
 
             <!-- Bottom Legal & Social Row -->
             <div class="border-t border-gray-100 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-500 font-sans">
               <!-- Left Copyright -->
               <div class="text-[10px] font-mono text-gray-400 tracking-wider uppercase text-center md:text-left">
-                © 2026 TOGETHER AI. ALL RIGHTS RESERVED.
+                © 2026 PROJECTSPG. ALL RIGHTS RESERVED.
               </div>
 
               <!-- Center Legal Links -->
@@ -2822,7 +2822,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     let currentIdToken = null;
     let authMode = 'signin'; // 'signin' or 'signup'
 
-    let activeView = 'landing'; // Default to Together AI Landing Page for unauthenticated/entry visitors
+    let activeView = 'landing'; // Default to ProjectSPG Landing Page for unauthenticated/entry visitors
     let activeDashTab = 'logs';   // Default sub-tab within Dashboard
     let isCodeVisible = true;
     let activeCodeLang = 'python';
