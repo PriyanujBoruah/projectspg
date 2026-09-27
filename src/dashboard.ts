@@ -1018,6 +1018,257 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
       </section>
 
+      <!-- ======================================================================= -->
+      <!-- SECTION 3: GROUNDED IN CUTTING-EDGE RESEARCH                            -->
+      <!-- Matches uploaded media: 1790540856043.png & 1790540898787.png           -->
+      <!-- ======================================================================= -->
+      <section id="research-section" class="w-full bg-[#060814] text-white py-20 sm:py-24 relative overflow-hidden select-none border-t border-slate-900">
+        
+        <!-- Ambient Subtle Deep Background Glow -->
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-r from-blue-900/15 via-purple-900/15 to-indigo-900/15 blur-3xl pointer-events-none -z-0"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          
+          <!-- Header Row (Title & Navigation Arrows) -->
+          <div class="flex items-end justify-between mb-12 sm:mb-16">
+            <div>
+              <h2 class="text-3xl sm:text-4xl lg:text-[44px] font-bold tracking-tight text-white mb-3 font-sans">
+                Grounded in cutting-edge research
+              </h2>
+              <p class="text-base sm:text-lg text-gray-400 font-normal">
+                Foundational systems research for production AI.
+              </p>
+            </div>
+
+            <!-- Carousel Navigation Arrows -->
+            <div class="flex items-center gap-2.5">
+              <button onclick="scrollResearchCards('left')" class="w-10 h-10 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-gray-300 hover:text-white flex items-center justify-center transition shadow-xs cursor-pointer" aria-label="Previous research">
+                <i data-lucide="chevron-left" class="w-4 h-4"></i>
+              </button>
+              <button onclick="scrollResearchCards('right')" class="w-10 h-10 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-gray-300 hover:text-white flex items-center justify-center transition shadow-xs cursor-pointer" aria-label="Next research">
+                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Cards Carousel Container with Horizontal Connector Line -->
+          <div class="relative">
+            
+            <!-- Horizontal Connecting Line passing behind cards -->
+            <div class="hidden lg:block absolute top-[50%] left-0 right-0 h-[3px] bg-[#c084fc]/50 -translate-y-1/2 z-0 pointer-events-none"></div>
+
+            <!-- Cards Track -->
+            <div id="research-cards-track" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10 overflow-x-auto scrollbar-none pb-4">
+              
+              <!-- Card 1: ThunderKittens on Vera Rubin NVL72 -->
+              <div class="group relative rounded-2xl min-h-[410px] p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-white/10 hover:border-amber-300/80 hover:-translate-y-1.5 hover:shadow-[0_0_35px_rgba(251,191,36,0.22)] bg-[#0d1224]">
+                <!-- Base Dark Background Layer -->
+                <div class="absolute inset-0 bg-[#0e1326] transition-opacity duration-300 -z-20"></div>
+
+                <!-- Hover Animated Iridescent Frosting (Exact Replica of media_1790540898787.png) -->
+                <div class="absolute inset-0 bg-gradient-to-br from-purple-500/25 via-pink-400/20 to-sky-400/25 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 overflow-hidden">
+                  <div class="absolute -top-12 -right-12 w-48 h-48 bg-pink-500/35 rounded-full blur-2xl"></div>
+                  <div class="absolute -bottom-12 -left-12 w-48 h-48 bg-cyan-400/30 rounded-full blur-2xl"></div>
+                  <div class="absolute inset-0 bg-white/[0.04]"></div>
+                </div>
+
+                <!-- Top Badge Pill -->
+                <div class="flex justify-center w-full">
+                  <span class="px-3.5 py-1 rounded-md bg-white/10 group-hover:bg-white/20 border border-white/15 text-white/90 text-[10px] font-bold tracking-widest uppercase transition-colors">
+                    KERNELS
+                  </span>
+                </div>
+
+                <!-- Middle Headline -->
+                <div class="my-auto py-6 text-center">
+                  <h3 class="text-lg sm:text-[19px] font-bold text-white leading-snug group-hover:text-white transition-colors">
+                    To Infinity and Beyond: ThunderKittens Now on NVIDIA Vera Rubin NVL72!
+                  </h3>
+                </div>
+
+                <!-- Bottom Citation & Hover Button -->
+                <div class="relative w-full h-11 flex items-center justify-center">
+                  <!-- Normal Author Text (Fades out on hover) -->
+                  <p class="text-[10px] font-mono tracking-widest text-gray-400 uppercase text-center transition-all duration-200 group-hover:opacity-0 group-hover:scale-95">
+                    DYLAN LIM, XINYI LI <span class="italic font-sans">ET AL.</span>
+                  </p>
+                  <!-- Hover "READ MORE" Glass Pill Button (Revealed on hover) -->
+                  <button class="absolute inset-0 m-auto w-32 h-9 rounded-lg bg-white/25 hover:bg-white/35 text-white text-[11px] font-bold tracking-wider uppercase backdrop-blur-md border border-white/30 transition-all duration-300 shadow-md opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 flex items-center justify-center cursor-pointer">
+                    READ MORE
+                  </button>
+                </div>
+              </div>
+
+              <!-- Card 2: ThunderAgent: 2x Faster Agentic Inference -->
+              <div class="group relative rounded-2xl min-h-[410px] p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-white/10 hover:border-amber-300/80 hover:-translate-y-1.5 hover:shadow-[0_0_35px_rgba(251,191,36,0.22)] bg-[#0d1224]">
+                <!-- Base Dark Background Layer -->
+                <div class="absolute inset-0 bg-[#0e1326] transition-opacity duration-300 -z-20"></div>
+
+                <!-- Hover Animated Iridescent Frosting -->
+                <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/25 via-pink-400/20 to-amber-400/25 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 overflow-hidden">
+                  <div class="absolute -top-12 -right-12 w-48 h-48 bg-purple-500/35 rounded-full blur-2xl"></div>
+                  <div class="absolute -bottom-12 -left-12 w-48 h-48 bg-amber-400/30 rounded-full blur-2xl"></div>
+                  <div class="absolute inset-0 bg-white/[0.04]"></div>
+                </div>
+
+                <!-- Top Badge Pill -->
+                <div class="flex justify-center w-full">
+                  <span class="px-3.5 py-1 rounded-md bg-white/10 group-hover:bg-white/20 border border-white/15 text-white/90 text-[10px] font-bold tracking-widest uppercase transition-colors">
+                    AGENTS
+                  </span>
+                </div>
+
+                <!-- Middle Headline -->
+                <div class="my-auto py-6 text-center">
+                  <h3 class="text-lg sm:text-[19px] font-bold text-white leading-snug group-hover:text-white transition-colors">
+                    ThunderAgent: 2x Faster Agentic Inference for Synthetic Data Generation at Scale
+                  </h3>
+                </div>
+
+                <!-- Bottom Citation & Hover Button -->
+                <div class="relative w-full h-11 flex items-center justify-center">
+                  <p class="text-[10px] font-mono tracking-widest text-gray-400 uppercase text-center transition-all duration-200 group-hover:opacity-0 group-hover:scale-95">
+                    HAO KANG, ZIYANG LI <span class="italic font-sans">ET AL.</span>
+                  </p>
+                  <button class="absolute inset-0 m-auto w-32 h-9 rounded-lg bg-white/25 hover:bg-white/35 text-white text-[11px] font-bold tracking-wider uppercase backdrop-blur-md border border-white/30 transition-all duration-300 shadow-md opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 flex items-center justify-center cursor-pointer">
+                    READ MORE
+                  </button>
+                </div>
+              </div>
+
+              <!-- Card 3: Together AI at ICML 2026 -->
+              <div class="group relative rounded-2xl min-h-[410px] p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-white/10 hover:border-amber-300/80 hover:-translate-y-1.5 hover:shadow-[0_0_35px_rgba(251,191,36,0.22)] bg-[#0d1224]">
+                <!-- Base Dark Background Layer -->
+                <div class="absolute inset-0 bg-[#0e1326] transition-opacity duration-300 -z-20"></div>
+
+                <!-- Hover Animated Iridescent Frosting -->
+                <div class="absolute inset-0 bg-gradient-to-br from-sky-500/25 via-purple-400/20 to-pink-400/25 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 overflow-hidden">
+                  <div class="absolute -top-12 -right-12 w-48 h-48 bg-sky-500/35 rounded-full blur-2xl"></div>
+                  <div class="absolute -bottom-12 -left-12 w-48 h-48 bg-purple-400/30 rounded-full blur-2xl"></div>
+                  <div class="absolute inset-0 bg-white/[0.04]"></div>
+                </div>
+
+                <!-- Top Badge Pill -->
+                <div class="flex justify-center w-full">
+                  <span class="px-3.5 py-1 rounded-md bg-white/10 group-hover:bg-white/20 border border-white/15 text-white/90 text-[10px] font-bold tracking-widest uppercase transition-colors">
+                    KERNELS
+                  </span>
+                </div>
+
+                <!-- Middle Headline -->
+                <div class="my-auto py-6 text-center">
+                  <h3 class="text-lg sm:text-[19px] font-bold text-white leading-snug group-hover:text-white transition-colors">
+                    Together AI at ICML 2026: frontier research across the full stack
+                  </h3>
+                </div>
+
+                <!-- Bottom Citation & Hover Button -->
+                <div class="relative w-full h-11 flex items-center justify-center">
+                  <p class="text-[10px] font-mono tracking-widest text-gray-400 uppercase text-center transition-all duration-200 group-hover:opacity-0 group-hover:scale-95">
+                    TOGETHER RESEARCH
+                  </p>
+                  <button class="absolute inset-0 m-auto w-32 h-9 rounded-lg bg-white/25 hover:bg-white/35 text-white text-[11px] font-bold tracking-wider uppercase backdrop-blur-md border border-white/30 transition-all duration-300 shadow-md opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 flex items-center justify-center cursor-pointer">
+                    READ MORE
+                  </button>
+                </div>
+              </div>
+
+              <!-- Card 4: ParallelKernelBench -->
+              <div class="group relative rounded-2xl min-h-[410px] p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-white/10 hover:border-amber-300/80 hover:-translate-y-1.5 hover:shadow-[0_0_35px_rgba(251,191,36,0.22)] bg-[#0d1224]">
+                <!-- Base Dark Background Layer -->
+                <div class="absolute inset-0 bg-[#0e1326] transition-opacity duration-300 -z-20"></div>
+
+                <!-- Hover Animated Iridescent Frosting -->
+                <div class="absolute inset-0 bg-gradient-to-br from-emerald-500/25 via-cyan-400/20 to-purple-400/25 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 overflow-hidden">
+                  <div class="absolute -top-12 -right-12 w-48 h-48 bg-emerald-500/35 rounded-full blur-2xl"></div>
+                  <div class="absolute -bottom-12 -left-12 w-48 h-48 bg-cyan-400/30 rounded-full blur-2xl"></div>
+                  <div class="absolute inset-0 bg-white/[0.04]"></div>
+                </div>
+
+                <!-- Top Badge Pill -->
+                <div class="flex justify-center w-full">
+                  <span class="px-3.5 py-1 rounded-md bg-white/10 group-hover:bg-white/20 border border-white/15 text-white/90 text-[10px] font-bold tracking-widest uppercase transition-colors">
+                    KERNELS
+                  </span>
+                </div>
+
+                <!-- Middle Headline -->
+                <div class="my-auto py-6 text-center">
+                  <h3 class="text-lg sm:text-[19px] font-bold text-white leading-snug group-hover:text-white transition-colors">
+                    ParallelKernelBench: Frontier LLMs can't write fast multi-GPU kernels (yet)
+                  </h3>
+                </div>
+
+                <!-- Bottom Citation & Hover Button -->
+                <div class="relative w-full h-11 flex items-center justify-center">
+                  <p class="text-[10px] font-mono tracking-widest text-gray-400 uppercase text-center transition-all duration-200 group-hover:opacity-0 group-hover:scale-95">
+                    WILLY CHAN, NATHAN PAEK <span class="italic font-sans">ET AL.</span>
+                  </p>
+                  <button class="absolute inset-0 m-auto w-32 h-9 rounded-lg bg-white/25 hover:bg-white/35 text-white text-[11px] font-bold tracking-wider uppercase backdrop-blur-md border border-white/30 transition-all duration-300 shadow-md opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 flex items-center justify-center cursor-pointer">
+                    READ MORE
+                  </button>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- Bottom Recognition Strip (ICLR, ICML, NeurIPS, MLSys) -->
+          <div class="mt-16 pt-10 border-t border-white/10 flex flex-wrap items-center justify-center gap-8 md:gap-14 opacity-80">
+            <span class="text-[10.5px] font-bold tracking-widest text-gray-400 uppercase font-sans">
+              RECOGNIZED BY
+            </span>
+
+            <!-- ICLR Logo -->
+            <div class="flex items-center gap-2 text-white font-bold text-base tracking-wider font-mono">
+              <svg class="w-5 h-5 text-gray-300" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+              </svg>
+              <span>ICLR</span>
+            </div>
+
+            <div class="h-5 w-px bg-white/15 hidden sm:block"></div>
+
+            <!-- ICML Logo -->
+            <div class="flex items-center gap-2 text-white font-bold text-base tracking-wider font-sans">
+              <div class="grid grid-cols-2 gap-0.5 w-4 h-4">
+                <span class="bg-gray-300 rounded-[1px]"></span>
+                <span class="bg-gray-400 rounded-[1px]"></span>
+                <span class="bg-gray-400 rounded-[1px]"></span>
+                <span class="bg-gray-200 rounded-[1px]"></span>
+              </div>
+              <span>ICML</span>
+            </div>
+
+            <div class="h-5 w-px bg-white/15 hidden sm:block"></div>
+
+            <!-- NeurIPS Logo -->
+            <div class="flex items-center gap-2 text-white font-medium text-xs tracking-wider font-sans">
+              <svg class="w-5 h-5 text-gray-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="12" cy="12" r="9"/>
+                <path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6L5.6 18.4"/>
+              </svg>
+              <div class="leading-tight text-[10px]">
+                <div class="font-bold text-xs uppercase tracking-wide">NeurIPS</div>
+                <div class="text-gray-400 text-[8px] uppercase tracking-widest">Neural Information</div>
+              </div>
+            </div>
+
+            <div class="h-5 w-px bg-white/15 hidden sm:block"></div>
+
+            <!-- MLSys Logo -->
+            <div class="flex items-center gap-1.5 text-white font-bold text-base tracking-wider font-sans">
+              <span class="text-sky-400 font-mono text-sm">[ ]</span>
+              <span>MLSys</span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
     </div>
 
     <!-- ======================================================================= -->
@@ -2034,6 +2285,13 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       if (typeof lucide !== 'undefined') {
         setTimeout(() => lucide.createIcons(), 10);
       }
+    }
+
+    function scrollResearchCards(direction) {
+      const track = document.getElementById('research-cards-track');
+      if (!track) return;
+      const scrollAmount = 350;
+      track.scrollBy({ left: direction === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' });
     }
 
     function switchDashTab(tabName) {
