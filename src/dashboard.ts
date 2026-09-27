@@ -586,191 +586,130 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
           </div>
 
-          <!-- Right Column: Visual Showcases for Inference -->
+          <!-- Right Column: Visual Showcases for Inference (Image Placeholders) -->
           <div class="lg:col-span-7">
             
-            <!-- Mockup 0: Serverless Inference (Exact Replica of media_1790540329449.png) -->
-            <div class="mockup-inference relative rounded-3xl p-4 sm:p-6 bg-gradient-to-tr from-[#c8f5f6] via-[#f7f2fb] to-[#ffd2df] border border-gray-200/70 shadow-lg min-h-[460px] flex items-center justify-center overflow-hidden">
-              <div class="w-full bg-white/95 backdrop-blur-md rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden font-sans text-xs">
-                
-                <!-- Browser Navbar -->
-                <div class="h-10 border-b border-gray-100 px-4 flex items-center justify-between bg-white">
-                  <div class="flex items-center gap-6">
-                    <div class="flex items-center gap-1.5 font-bold text-gray-900 text-xs">
-                      <div class="w-4 h-4 rounded-full bg-gradient-to-tr from-pink-500 to-indigo-600"></div>
-                      <span>together.ai</span>
+            <!-- Mockup 0: Serverless Inference Image Placeholder -->
+            <div class="mockup-inference relative rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#c8f5f6] via-[#f7f2fb] to-[#ffd2df] border border-gray-200/70 shadow-lg min-h-[460px] flex items-center justify-center overflow-hidden">
+              <div class="w-full aspect-[16/10] bg-white/95 backdrop-blur-md rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden flex flex-col relative">
+                <div class="h-9 px-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-red-400"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                    <span class="text-[11px] font-mono text-gray-500 ml-2">serverless-inference.png</span>
+                  </div>
+                  <span class="text-[10px] text-gray-400 font-medium">1200 × 750 (16:10)</span>
+                </div>
+                <div class="flex-1 relative flex items-center justify-center bg-gray-50/50 p-2 overflow-hidden">
+                  <!-- PLACEHOLDER IMG: Replace src with image URL/path -->
+                  <img id="img-platform-inference-0" src="" alt="Serverless Inference" class="w-full h-full object-cover rounded-xl hidden" onload="this.classList.remove('hidden'); const fb=document.getElementById('fb-platform-inference-0'); if(fb) fb.classList.add('hidden');" />
+                  <div id="fb-platform-inference-0" class="w-full h-full min-h-[340px] border-2 border-dashed border-cyan-300/80 rounded-xl bg-cyan-50/40 flex flex-col items-center justify-center p-8 text-center">
+                    <div class="w-16 h-16 rounded-2xl bg-cyan-100 text-cyan-700 flex items-center justify-center shadow-xs mb-3.5">
+                      <i data-lucide="image" class="w-8 h-8"></i>
                     </div>
-                    <div class="hidden sm:flex items-center gap-4 text-[11px] text-gray-500 font-medium">
-                      <span class="text-gray-900 font-semibold">Dashboard</span>
-                      <span>Models</span>
-                      <span>Playground</span>
-                      <span class="text-[#f0523d] font-semibold border-b border-[#f0523d] pb-0.5">Inference</span>
-                      <span>Fine-tuning</span>
-                      <span>GPU clusters</span>
-                    </div>
+                    <h4 class="text-base font-bold text-gray-900 mb-1">Serverless Inference Image</h4>
+                    <p class="text-xs text-gray-500 max-w-sm mb-4">
+                      Drop your screenshot into <code class="text-cyan-800 bg-cyan-100/70 px-1.5 py-0.5 rounded font-mono text-[11px]">#img-platform-inference-0</code>
+                    </p>
+                    <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white border border-gray-200/90 text-gray-700 text-[10px] font-semibold tracking-wide uppercase shadow-2xs">
+                      <i data-lucide="upload-cloud" class="w-3.5 h-3.5 text-cyan-600"></i> Placeholder Image (16:10)
+                    </span>
                   </div>
                 </div>
-
-                <!-- Model Header Info -->
-                <div class="p-5 border-b border-gray-100 bg-[#fafafa]/50">
-                  <div class="text-[10px] text-gray-400 font-medium mb-1">Models &gt; MiniMax AI</div>
-                  <div class="flex items-center justify-between">
-                    <div>
-                      <h4 class="text-lg font-bold text-gray-950 flex items-center gap-2">
-                        MiniMax M2.7 FP4
-                        <span class="text-xs text-gray-400 font-normal">by MiniMax AI</span>
-                      </h4>
-                      <div class="flex items-center gap-1.5 mt-1.5">
-                        <span class="px-2 py-0.5 rounded-full bg-gray-100 text-gray-600 text-[10px] font-medium">Chat</span>
-                        <span class="px-2 py-0.5 rounded-full bg-gray-100 text-gray-600 text-[10px] font-medium">JSON mode</span>
-                        <span class="px-2 py-0.5 rounded-full bg-gray-100 text-gray-600 text-[10px] font-medium">Streaming</span>
-                      </div>
-                    </div>
-                    <button class="px-3 py-1.5 rounded-lg border border-gray-200 text-gray-700 font-medium text-[11px] hover:bg-gray-50 flex items-center gap-1">
-                      <i data-lucide="upload-cloud" class="w-3.5 h-3.5"></i>
-                      <span>Deploy on dedicated</span>
-                    </button>
-                  </div>
-                  <p class="text-[11px] text-gray-500 mt-2.5 max-w-xl line-clamp-2 leading-relaxed">
-                    MiniMax M2.7 is the first model to meaningfully participate in its own development. An internal version autonomously ran 100+ optimization rounds — analyzing failure trajectories, modifying code, and deciding to keep or reset.
-                  </p>
-                </div>
-
-                <!-- Floating Dark Code Runner Card -->
-                <div class="p-4 sm:p-5 bg-gray-50/60">
-                  <div class="bg-[#18181b] rounded-xl shadow-2xl border border-zinc-800 text-zinc-300 font-mono text-[11px] overflow-hidden">
-                    <div class="h-9 px-4 border-b border-zinc-800/80 flex items-center justify-between bg-[#202023]">
-                      <div class="flex items-center gap-2 text-zinc-300 text-xs font-sans font-semibold">
-                        <i data-lucide="terminal" class="w-3.5 h-3.5 text-emerald-400"></i>
-                        <span>Run inference</span>
-                      </div>
-                      <div class="flex items-center gap-2">
-                        <span class="px-2.5 py-0.5 rounded bg-zinc-700/80 text-white font-medium text-[10px] font-sans">Python</span>
-                        <span class="px-2 py-0.5 text-zinc-400 hover:text-white transition text-[10px] font-sans cursor-pointer">TypeScript</span>
-                        <span class="px-2 py-0.5 text-zinc-400 hover:text-white transition text-[10px] font-sans cursor-pointer">Curl</span>
-                        <span class="text-zinc-500 text-xs">···</span>
-                      </div>
-                    </div>
-                    <div class="p-4 text-[11.5px] leading-relaxed selection:bg-cyan-500/30 overflow-x-auto">
-                      <div class="text-zinc-500 select-none inline-block w-6">01</div><span class="text-purple-400">from</span> together <span class="text-purple-400">import</span> Together<br/>
-                      <div class="text-zinc-500 select-none inline-block w-6">02</div><br/>
-                      <div class="text-zinc-500 select-none inline-block w-6">03</div>client = Together() <span class="text-zinc-500"># auth defaults to os.environ.get("TOGETHER_API_KEY")</span><br/>
-                      <div class="text-zinc-500 select-none inline-block w-6">04</div><br/>
-                      <div class="text-zinc-500 select-none inline-block w-6">05</div>response = client.chat.completions.create(<br/>
-                      <div class="text-zinc-500 select-none inline-block w-6">06</div>&nbsp;&nbsp;&nbsp;&nbsp;model=<span class="text-emerald-400">"MiniMaxAI/MiniMax-M2.7"</span>,<br/>
-                      <div class="text-zinc-500 select-none inline-block w-6">07</div>&nbsp;&nbsp;&nbsp;&nbsp;messages=[<br/>
-                      <div class="text-zinc-500 select-none inline-block w-6">08</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br/>
-                      <div class="text-zinc-500 select-none inline-block w-6">09</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-sky-300">"role"</span>: <span class="text-emerald-400">"user"</span>,<br/>
-                      <div class="text-zinc-500 select-none inline-block w-6">10</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-sky-300">"content"</span>: <span class="text-emerald-400">"What are some fun things to do in New York?"</span><br/>
-                      <div class="text-zinc-500 select-none inline-block w-6">11</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
-                      <div class="text-zinc-500 select-none inline-block w-6">12</div>&nbsp;&nbsp;&nbsp;&nbsp;]<br/>
-                      <div class="text-zinc-500 select-none inline-block w-6">13</div>)<br/>
-                      <div class="text-zinc-500 select-none inline-block w-6">14</div><span class="text-yellow-300">print</span>(response.choices[<span class="text-orange-400">0</span>].message.content)
-                    </div>
-                  </div>
-                </div>
-
               </div>
             </div>
 
-            <!-- Mockup 1: Batch Inference (Exact Replica of media_1790540346632.png) -->
-            <div class="mockup-inference hidden relative rounded-3xl p-4 sm:p-6 bg-gradient-to-tr from-[#99f6e4] via-[#f0f9ff] to-[#fbcfe8] border border-gray-200/70 shadow-lg min-h-[460px] flex items-center justify-center overflow-hidden">
-              <div class="w-full bg-white/95 backdrop-blur-md rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden font-sans text-xs relative">
-                
-                <!-- Top Breadcrumbs -->
-                <div class="p-5 border-b border-gray-100 bg-[#fafafa]/50">
-                  <div class="text-[10px] text-gray-400 font-medium mb-1">Inference &gt; Batch jobs</div>
-                  <h4 class="text-lg font-bold text-gray-950 flex items-center gap-2">
-                    <i data-lucide="layers" class="w-4 h-4 text-cyan-600"></i>
-                    Batch jobs
-                  </h4>
-                  <p class="text-[11px] text-gray-500 mt-1">
-                    Process large volumes of requests asynchronously, at a discount, compared to real-time API calls.
-                  </p>
-                </div>
-
-                <!-- Table Preview -->
-                <div class="p-4 overflow-x-auto">
-                  <table class="w-full text-left text-[11px] border-collapse">
-                    <thead>
-                      <tr class="text-gray-400 border-b border-gray-100 pb-2">
-                        <th class="font-medium pb-2">Request type</th>
-                        <th class="font-medium pb-2">Created</th>
-                        <th class="font-medium pb-2">Input file</th>
-                        <th class="font-medium pb-2">Model</th>
-                      </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-50 text-gray-600 font-mono text-[10.5px]">
-                      <tr>
-                        <td class="py-2 text-gray-900 font-sans font-medium flex items-center gap-1.5"><i data-lucide="file-text" class="w-3 h-3 text-gray-400"></i> Chat</td>
-                        <td class="py-2 font-sans text-gray-500">2/02/26, 10:12 AM</td>
-                        <td class="py-2 text-sky-600">qwen_job-2.jsonl</td>
-                        <td class="py-2 font-sans font-medium text-gray-800">Qwen3-Coder-480B-Instruct</td>
-                      </tr>
-                      <tr>
-                        <td class="py-2 text-gray-900 font-sans font-medium flex items-center gap-1.5"><i data-lucide="file-text" class="w-3 h-3 text-gray-400"></i> Chat</td>
-                        <td class="py-2 font-sans text-gray-500">2/04/26, 6:47 PM</td>
-                        <td class="py-2 text-sky-600">qwen_job-1.jsonl</td>
-                        <td class="py-2 font-sans font-medium text-gray-800">Qwen3-Coder-480B-Instruct</td>
-                      </tr>
-                      <tr>
-                        <td class="py-2 text-gray-900 font-sans font-medium flex items-center gap-1.5"><i data-lucide="file-text" class="w-3 h-3 text-gray-400"></i> Chat</td>
-                        <td class="py-2 font-sans text-gray-500">2/06/26, 1:05 PM</td>
-                        <td class="py-2 text-sky-600">deepseek_job-2.jsonl</td>
-                        <td class="py-2 font-sans font-medium text-gray-800">DeepSeek-R1-0528</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-
-                <!-- Floating Modal Card matching media_1790540346632.png -->
-                <div class="absolute bottom-4 left-6 right-6 sm:right-auto sm:w-[380px] bg-white rounded-2xl border border-gray-200/90 shadow-2xl p-4.5 z-20">
-                  <div class="flex items-center justify-between mb-3">
-                    <button class="px-3.5 py-1.5 rounded-lg bg-[#f0523d] hover:bg-[#e0422d] text-white font-semibold text-xs flex items-center gap-1.5 shadow-sm">
-                      <i data-lucide="plus" class="w-3.5 h-3.5"></i>
-                      <span>New batch job</span>
-                    </button>
+            <!-- Mockup 1: Batch Inference Image Placeholder -->
+            <div class="mockup-inference hidden relative rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#99f6e4] via-[#f0f9ff] to-[#fbcfe8] border border-gray-200/70 shadow-lg min-h-[460px] flex items-center justify-center overflow-hidden">
+              <div class="w-full aspect-[16/10] bg-white/95 backdrop-blur-md rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden flex flex-col relative">
+                <div class="h-9 px-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-red-400"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                    <span class="text-[11px] font-mono text-gray-500 ml-2">batch-inference.png</span>
                   </div>
-                  <div class="border-t border-gray-100 pt-3">
-                    <h5 class="font-bold text-gray-900 text-xs flex items-center gap-1.5">
-                      <i data-lucide="sliders" class="w-3.5 h-3.5 text-gray-400"></i>
-                      Job details
-                    </h5>
-                    <p class="text-[10px] text-gray-400 mb-2">Select input file and endpoint destination</p>
-                    <div class="space-y-2">
-                      <div>
-                        <label class="text-[10px] text-gray-500 font-medium">Input file</label>
-                        <div class="flex items-center gap-2 mt-0.5">
-                          <input type="text" readonly value="Select..." class="w-full bg-gray-50 border border-gray-200 text-gray-400 text-[11px] rounded-lg px-2.5 py-1" />
-                          <button class="px-2.5 py-1 rounded-lg border border-gray-200 text-gray-700 text-[10px] font-semibold whitespace-nowrap hover:bg-gray-50 flex items-center gap-1">
-                            <i data-lucide="upload" class="w-3 h-3"></i> Upload new file
-                          </button>
-                        </div>
-                      </div>
-                      <div>
-                        <label class="text-[10px] text-gray-500 font-medium">Endpoint</label>
-                        <input type="text" readonly value="/v1/chat/completions" class="w-full bg-gray-50 border border-gray-200 text-gray-800 font-mono text-[10.5px] rounded-lg px-2.5 py-1 mt-0.5" />
-                      </div>
+                  <span class="text-[10px] text-gray-400 font-medium">1200 × 750 (16:10)</span>
+                </div>
+                <div class="flex-1 relative flex items-center justify-center bg-gray-50/50 p-2 overflow-hidden">
+                  <!-- PLACEHOLDER IMG: Replace src with image URL/path -->
+                  <img id="img-platform-inference-1" src="" alt="Batch Inference" class="w-full h-full object-cover rounded-xl hidden" onload="this.classList.remove('hidden'); const fb=document.getElementById('fb-platform-inference-1'); if(fb) fb.classList.add('hidden');" />
+                  <div id="fb-platform-inference-1" class="w-full h-full min-h-[340px] border-2 border-dashed border-teal-300/80 rounded-xl bg-teal-50/40 flex flex-col items-center justify-center p-8 text-center">
+                    <div class="w-16 h-16 rounded-2xl bg-teal-100 text-teal-700 flex items-center justify-center shadow-xs mb-3.5">
+                      <i data-lucide="layers" class="w-8 h-8"></i>
                     </div>
+                    <h4 class="text-base font-bold text-gray-900 mb-1">Batch Inference Image</h4>
+                    <p class="text-xs text-gray-500 max-w-sm mb-4">
+                      Drop your screenshot into <code class="text-teal-800 bg-teal-100/70 px-1.5 py-0.5 rounded font-mono text-[11px]">#img-platform-inference-1</code>
+                    </p>
+                    <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white border border-gray-200/90 text-gray-700 text-[10px] font-semibold tracking-wide uppercase shadow-2xs">
+                      <i data-lucide="upload-cloud" class="w-3.5 h-3.5 text-teal-600"></i> Placeholder Image (16:10)
+                    </span>
                   </div>
                 </div>
-
               </div>
             </div>
 
-            <!-- Mockup 2 & 3: Provisioned & Dedicated -->
-            <div class="mockup-inference hidden relative rounded-3xl p-6 bg-gradient-to-tr from-cyan-100 via-sky-50 to-blue-100 border border-gray-200 shadow-md min-h-[460px] flex items-center justify-center">
-              <div class="w-full bg-white rounded-2xl border border-gray-200 shadow-xl p-8 text-center">
-                <div class="w-12 h-12 rounded-2xl bg-cyan-50 border border-cyan-100 text-cyan-600 flex items-center justify-center mx-auto mb-4">
-                  <i data-lucide="shield-check" class="w-6 h-6"></i>
+            <!-- Mockup 2: Provisioned Throughput Image Placeholder -->
+            <div class="mockup-inference hidden relative rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#bae6fd] via-[#f0f9ff] to-[#e0e7ff] border border-gray-200/70 shadow-lg min-h-[460px] flex items-center justify-center overflow-hidden">
+              <div class="w-full aspect-[16/10] bg-white/95 backdrop-blur-md rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden flex flex-col relative">
+                <div class="h-9 px-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-red-400"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                    <span class="text-[11px] font-mono text-gray-500 ml-2">provisioned-throughput.png</span>
+                  </div>
+                  <span class="text-[10px] text-gray-400 font-medium">1200 × 750 (16:10)</span>
                 </div>
-                <h4 class="text-xl font-bold text-gray-900 mb-2">Enterprise Dedicated Capacity</h4>
-                <p class="text-sm text-gray-600 max-w-md mx-auto mb-6">
-                  Zero noisy neighbors, guaranteed megatoken throughput per second, and end-to-end sovereign encryption isolation.
-                </p>
-                <button onclick="switchView('keys')" class="px-5 py-2.5 rounded-full bg-black text-white text-xs font-bold uppercase tracking-wider">
-                  Configure Enterprise Plan
-                </button>
+                <div class="flex-1 relative flex items-center justify-center bg-gray-50/50 p-2 overflow-hidden">
+                  <!-- PLACEHOLDER IMG: Replace src with image URL/path -->
+                  <img id="img-platform-inference-2" src="" alt="Provisioned Throughput" class="w-full h-full object-cover rounded-xl hidden" onload="this.classList.remove('hidden'); const fb=document.getElementById('fb-platform-inference-2'); if(fb) fb.classList.add('hidden');" />
+                  <div id="fb-platform-inference-2" class="w-full h-full min-h-[340px] border-2 border-dashed border-sky-300/80 rounded-xl bg-sky-50/40 flex flex-col items-center justify-center p-8 text-center">
+                    <div class="w-16 h-16 rounded-2xl bg-sky-100 text-sky-700 flex items-center justify-center shadow-xs mb-3.5">
+                      <i data-lucide="sliders-horizontal" class="w-8 h-8"></i>
+                    </div>
+                    <h4 class="text-base font-bold text-gray-900 mb-1">Provisioned Throughput Image</h4>
+                    <p class="text-xs text-gray-500 max-w-sm mb-4">
+                      Drop your screenshot into <code class="text-sky-800 bg-sky-100/70 px-1.5 py-0.5 rounded font-mono text-[11px]">#img-platform-inference-2</code>
+                    </p>
+                    <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white border border-gray-200/90 text-gray-700 text-[10px] font-semibold tracking-wide uppercase shadow-2xs">
+                      <i data-lucide="upload-cloud" class="w-3.5 h-3.5 text-sky-600"></i> Placeholder Image (16:10)
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mockup 3: Dedicated Model Inference Image Placeholder -->
+            <div class="mockup-inference hidden relative rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#c7d2fe] via-[#f0fdfa] to-[#bfdbfe] border border-gray-200/70 shadow-lg min-h-[460px] flex items-center justify-center overflow-hidden">
+              <div class="w-full aspect-[16/10] bg-white/95 backdrop-blur-md rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden flex flex-col relative">
+                <div class="h-9 px-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-red-400"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                    <span class="text-[11px] font-mono text-gray-500 ml-2">dedicated-inference.png</span>
+                  </div>
+                  <span class="text-[10px] text-gray-400 font-medium">1200 × 750 (16:10)</span>
+                </div>
+                <div class="flex-1 relative flex items-center justify-center bg-gray-50/50 p-2 overflow-hidden">
+                  <!-- PLACEHOLDER IMG: Replace src with image URL/path -->
+                  <img id="img-platform-inference-3" src="" alt="Dedicated Model Inference" class="w-full h-full object-cover rounded-xl hidden" onload="this.classList.remove('hidden'); const fb=document.getElementById('fb-platform-inference-3'); if(fb) fb.classList.add('hidden');" />
+                  <div id="fb-platform-inference-3" class="w-full h-full min-h-[340px] border-2 border-dashed border-indigo-300/80 rounded-xl bg-indigo-50/40 flex flex-col items-center justify-center p-8 text-center">
+                    <div class="w-16 h-16 rounded-2xl bg-indigo-100 text-indigo-700 flex items-center justify-center shadow-xs mb-3.5">
+                      <i data-lucide="server" class="w-8 h-8"></i>
+                    </div>
+                    <h4 class="text-base font-bold text-gray-900 mb-1">Dedicated Model Inference Image</h4>
+                    <p class="text-xs text-gray-500 max-w-sm mb-4">
+                      Drop your screenshot into <code class="text-indigo-800 bg-indigo-100/70 px-1.5 py-0.5 rounded font-mono text-[11px]">#img-platform-inference-3</code>
+                    </p>
+                    <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white border border-gray-200/90 text-gray-700 text-[10px] font-semibold tracking-wide uppercase shadow-2xs">
+                      <i data-lucide="upload-cloud" class="w-3.5 h-3.5 text-indigo-600"></i> Placeholder Image (16:10)
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -854,107 +793,102 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
           </div>
 
-          <!-- Right Column: Visual Showcases for Compute (Exact Replica of media_1790540364464.png) -->
+          <!-- Right Column: Visual Showcases for Compute (Image Placeholders) -->
           <div class="lg:col-span-7">
-            <div class="mockup-compute relative rounded-3xl p-4 sm:p-6 bg-gradient-to-tr from-[#93c5fd] via-[#e0e7ff] to-[#38bdf8] border border-gray-200/70 shadow-lg min-h-[460px] flex items-center justify-center overflow-hidden">
-              <div class="w-full bg-white/95 backdrop-blur-md rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden font-sans text-xs">
-                
-                <!-- Top Navbar -->
-                <div class="h-10 border-b border-gray-100 px-4 flex items-center justify-between bg-white">
-                  <div class="flex items-center gap-6">
-                    <div class="flex items-center gap-1.5 font-bold text-gray-900 text-xs">
-                      <div class="w-4 h-4 rounded-full bg-gradient-to-tr from-blue-500 to-indigo-600"></div>
-                      <span>together.ai</span>
+            
+            <!-- Mockup 0: Accelerated Compute Image Placeholder -->
+            <div class="mockup-compute relative rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#93c5fd] via-[#e0e7ff] to-[#38bdf8] border border-gray-200/70 shadow-lg min-h-[460px] flex items-center justify-center overflow-hidden">
+              <div class="w-full aspect-[16/10] bg-white/95 backdrop-blur-md rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden flex flex-col relative">
+                <div class="h-9 px-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-red-400"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                    <span class="text-[11px] font-mono text-gray-500 ml-2">accelerated-compute.png</span>
+                  </div>
+                  <span class="text-[10px] text-gray-400 font-medium">1200 × 750 (16:10)</span>
+                </div>
+                <div class="flex-1 relative flex items-center justify-center bg-gray-50/50 p-2 overflow-hidden">
+                  <!-- PLACEHOLDER IMG: Replace src with image URL/path -->
+                  <img id="img-platform-compute-0" src="" alt="Accelerated Compute" class="w-full h-full object-cover rounded-xl hidden" onload="this.classList.remove('hidden'); const fb=document.getElementById('fb-platform-compute-0'); if(fb) fb.classList.add('hidden');" />
+                  <div id="fb-platform-compute-0" class="w-full h-full min-h-[340px] border-2 border-dashed border-blue-300/80 rounded-xl bg-blue-50/40 flex flex-col items-center justify-center p-8 text-center">
+                    <div class="w-16 h-16 rounded-2xl bg-blue-100 text-blue-700 flex items-center justify-center shadow-xs mb-3.5">
+                      <i data-lucide="cpu" class="w-8 h-8"></i>
                     </div>
-                    <div class="hidden sm:flex items-center gap-4 text-[11px] text-gray-500 font-medium">
-                      <span>Dashboard</span>
-                      <span>Models</span>
-                      <span>Playground</span>
-                      <span>Inference</span>
-                      <span>Fine-tuning</span>
-                      <span class="text-blue-600 font-semibold border-b border-blue-600 pb-0.5">GPU clusters</span>
-                    </div>
+                    <h4 class="text-base font-bold text-gray-900 mb-1">Accelerated Compute Image</h4>
+                    <p class="text-xs text-gray-500 max-w-sm mb-4">
+                      Drop your screenshot into <code class="text-blue-800 bg-blue-100/70 px-1.5 py-0.5 rounded font-mono text-[11px]">#img-platform-compute-0</code>
+                    </p>
+                    <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white border border-gray-200/90 text-gray-700 text-[10px] font-semibold tracking-wide uppercase shadow-2xs">
+                      <i data-lucide="upload-cloud" class="w-3.5 h-3.5 text-blue-600"></i> Placeholder Image (16:10)
+                    </span>
                   </div>
                 </div>
-
-                <!-- Cluster Details Banner -->
-                <div class="p-5 border-b border-gray-100 bg-[#fafafa]/50">
-                  <div class="text-[10px] text-gray-400 font-medium mb-1">GPU clusters &gt; ··· &gt; Cluster details</div>
-                  <h4 class="text-base sm:text-lg font-bold text-gray-950 flex items-center gap-2 font-mono">
-                    <i data-lucide="cpu" class="w-4 h-4 text-blue-600 font-sans"></i>
-                    New_project_987d098efs0983
-                  </h4>
-                  <div class="text-[10px] text-gray-400 font-normal">Created by <span class="text-blue-600">inversion</span></div>
-
-                  <!-- 3 Stats Tiles -->
-                  <div class="grid grid-cols-3 gap-3 mt-4 text-center">
-                    <div class="p-2.5 rounded-xl bg-white border border-gray-200/80 shadow-2xs">
-                      <div class="text-[10px] text-gray-500 font-medium">Online nodes</div>
-                      <div class="text-base font-bold text-gray-950">56/56</div>
-                      <div class="text-[9px] text-emerald-600 font-semibold">100% throughput</div>
-                    </div>
-                    <div class="p-2.5 rounded-xl bg-white border border-gray-200/80 shadow-2xs">
-                      <div class="text-[10px] text-gray-500 font-medium">Initiating</div>
-                      <div class="text-base font-bold text-gray-950">5</div>
-                      <div class="text-[9px] text-gray-400 underline cursor-pointer">View nodes</div>
-                    </div>
-                    <div class="p-2.5 rounded-xl bg-white border border-gray-200/80 shadow-2xs">
-                      <div class="text-[10px] text-gray-500 font-medium">Issues</div>
-                      <div class="text-base font-bold text-gray-950">3</div>
-                      <div class="text-[9px] text-rose-500 underline cursor-pointer">View issues</div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Worker Nodes Table -->
-                <div class="p-4">
-                  <div class="flex items-center justify-between mb-2">
-                    <div class="font-bold text-gray-900 text-xs flex items-center gap-1.5">
-                      <i data-lucide="network" class="w-3.5 h-3.5 text-blue-500"></i>
-                      Worker nodes (28)
-                    </div>
-                    <span class="text-[10px] text-gray-400">View and manage your clusters worker nodes</span>
-                  </div>
-                  <div class="overflow-x-auto">
-                    <table class="w-full text-left text-[10.5px] border-collapse font-sans">
-                      <thead>
-                        <tr class="text-gray-400 border-b border-gray-100 pb-1.5">
-                          <th class="font-medium pb-1.5">Order</th>
-                          <th class="font-medium pb-1.5">Status</th>
-                          <th class="font-medium pb-1.5">Last updated</th>
-                          <th class="font-medium pb-1.5">CPU cores</th>
-                          <th class="font-medium pb-1.5">Network</th>
-                        </tr>
-                      </thead>
-                      <tbody class="divide-y divide-gray-50 text-gray-600">
-                        <tr>
-                          <td class="py-1.5 font-mono text-gray-800">gpu-dp-42bp7-4jk...</td>
-                          <td class="py-1.5"><span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[9px] font-semibold">Active</span></td>
-                          <td class="py-1.5 text-gray-500">2/22/26, 1:24 PM</td>
-                          <td class="py-1.5 font-medium text-gray-800">12 cores</td>
-                          <td class="py-1.5 text-gray-500">Default Ethernet</td>
-                        </tr>
-                        <tr>
-                          <td class="py-1.5 font-mono text-gray-800">cpu-dp-n5qud-wsf...</td>
-                          <td class="py-1.5"><span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[9px] font-semibold">Active</span></td>
-                          <td class="py-1.5 text-gray-500">2/22/26, 1:22 PM</td>
-                          <td class="py-1.5 font-medium text-gray-800">12 cores</td>
-                          <td class="py-1.5 text-gray-500">Default Ethernet</td>
-                        </tr>
-                        <tr>
-                          <td class="py-1.5 font-mono text-gray-800">gpu-dp-42bp7-4jk...</td>
-                          <td class="py-1.5"><span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[9px] font-semibold">Active</span></td>
-                          <td class="py-1.5 text-gray-500">2/22/26, 1:18 PM</td>
-                          <td class="py-1.5 font-medium text-gray-800">12 cores</td>
-                          <td class="py-1.5 text-gray-500">Default Ethernet</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-
               </div>
             </div>
+
+            <!-- Mockup 1: Sandbox Image Placeholder -->
+            <div class="mockup-compute hidden relative rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#a5b4fc] via-[#f0f9ff] to-[#67e8f9] border border-gray-200/70 shadow-lg min-h-[460px] flex items-center justify-center overflow-hidden">
+              <div class="w-full aspect-[16/10] bg-white/95 backdrop-blur-md rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden flex flex-col relative">
+                <div class="h-9 px-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-red-400"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                    <span class="text-[11px] font-mono text-gray-500 ml-2">compute-sandbox.png</span>
+                  </div>
+                  <span class="text-[10px] text-gray-400 font-medium">1200 × 750 (16:10)</span>
+                </div>
+                <div class="flex-1 relative flex items-center justify-center bg-gray-50/50 p-2 overflow-hidden">
+                  <!-- PLACEHOLDER IMG: Replace src with image URL/path -->
+                  <img id="img-platform-compute-1" src="" alt="Compute Sandbox" class="w-full h-full object-cover rounded-xl hidden" onload="this.classList.remove('hidden'); const fb=document.getElementById('fb-platform-compute-1'); if(fb) fb.classList.add('hidden');" />
+                  <div id="fb-platform-compute-1" class="w-full h-full min-h-[340px] border-2 border-dashed border-indigo-300/80 rounded-xl bg-indigo-50/40 flex flex-col items-center justify-center p-8 text-center">
+                    <div class="w-16 h-16 rounded-2xl bg-indigo-100 text-indigo-700 flex items-center justify-center shadow-xs mb-3.5">
+                      <i data-lucide="box" class="w-8 h-8"></i>
+                    </div>
+                    <h4 class="text-base font-bold text-gray-900 mb-1">Sandbox Environment Image</h4>
+                    <p class="text-xs text-gray-500 max-w-sm mb-4">
+                      Drop your screenshot into <code class="text-indigo-800 bg-indigo-100/70 px-1.5 py-0.5 rounded font-mono text-[11px]">#img-platform-compute-1</code>
+                    </p>
+                    <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white border border-gray-200/90 text-gray-700 text-[10px] font-semibold tracking-wide uppercase shadow-2xs">
+                      <i data-lucide="upload-cloud" class="w-3.5 h-3.5 text-indigo-600"></i> Placeholder Image (16:10)
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mockup 2: Managed Storage Image Placeholder -->
+            <div class="mockup-compute hidden relative rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#93c5fd] via-[#e2e8f0] to-[#bfdbfe] border border-gray-200/70 shadow-lg min-h-[460px] flex items-center justify-center overflow-hidden">
+              <div class="w-full aspect-[16/10] bg-white/95 backdrop-blur-md rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden flex flex-col relative">
+                <div class="h-9 px-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-red-400"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                    <span class="text-[11px] font-mono text-gray-500 ml-2">managed-storage.png</span>
+                  </div>
+                  <span class="text-[10px] text-gray-400 font-medium">1200 × 750 (16:10)</span>
+                </div>
+                <div class="flex-1 relative flex items-center justify-center bg-gray-50/50 p-2 overflow-hidden">
+                  <!-- PLACEHOLDER IMG: Replace src with image URL/path -->
+                  <img id="img-platform-compute-2" src="" alt="Managed Storage" class="w-full h-full object-cover rounded-xl hidden" onload="this.classList.remove('hidden'); const fb=document.getElementById('fb-platform-compute-2'); if(fb) fb.classList.add('hidden');" />
+                  <div id="fb-platform-compute-2" class="w-full h-full min-h-[340px] border-2 border-dashed border-blue-300/80 rounded-xl bg-blue-50/40 flex flex-col items-center justify-center p-8 text-center">
+                    <div class="w-16 h-16 rounded-2xl bg-blue-100 text-blue-700 flex items-center justify-center shadow-xs mb-3.5">
+                      <i data-lucide="hard-drive" class="w-8 h-8"></i>
+                    </div>
+                    <h4 class="text-base font-bold text-gray-900 mb-1">Managed Storage Image</h4>
+                    <p class="text-xs text-gray-500 max-w-sm mb-4">
+                      Drop your screenshot into <code class="text-blue-800 bg-blue-100/70 px-1.5 py-0.5 rounded font-mono text-[11px]">#img-platform-compute-2</code>
+                    </p>
+                    <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white border border-gray-200/90 text-gray-700 text-[10px] font-semibold tracking-wide uppercase shadow-2xs">
+                      <i data-lucide="upload-cloud" class="w-3.5 h-3.5 text-blue-600"></i> Placeholder Image (16:10)
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
 
         </div>
@@ -1013,88 +947,71 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
           </div>
 
-          <!-- Right Column: Visual Showcases for Model Shaping (Exact Replica of media_1790540377437.png) -->
+          <!-- Right Column: Visual Showcases for Model Shaping (Image Placeholders) -->
           <div class="lg:col-span-7">
-            <div class="mockup-shaping relative rounded-3xl p-4 sm:p-6 bg-gradient-to-tr from-[#e9d5ff] via-[#fdf2f8] to-[#f472b6] border border-gray-200/70 shadow-lg min-h-[460px] flex items-center justify-center overflow-hidden">
-              <div class="w-full bg-white/95 backdrop-blur-md rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden font-sans text-xs relative">
-                
-                <!-- Header Banner -->
-                <div class="p-5 border-b border-gray-100 bg-[#fafafa]/50">
-                  <div class="text-[10px] text-gray-400 font-medium mb-1">Fine-tuning &gt; New fine-tune job</div>
-                  <div class="flex items-center gap-2 mt-2">
-                    <span class="text-xs text-gray-500 font-medium">Source:</span>
-                    <button class="px-3 py-1 rounded-md bg-[#fed7aa] text-orange-950 font-semibold text-[11px] border border-orange-300">From base model</button>
-                    <button class="px-3 py-1 rounded-md bg-gray-100 text-gray-600 font-medium text-[11px] hover:bg-gray-200">From HuggingFace hub</button>
+            
+            <!-- Mockup 0: Fine-Tuning Image Placeholder -->
+            <div class="mockup-shaping relative rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#e9d5ff] via-[#fdf2f8] to-[#f472b6] border border-gray-200/70 shadow-lg min-h-[460px] flex items-center justify-center overflow-hidden">
+              <div class="w-full aspect-[16/10] bg-white/95 backdrop-blur-md rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden flex flex-col relative">
+                <div class="h-9 px-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-red-400"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                    <span class="text-[11px] font-mono text-gray-500 ml-2">model-fine-tuning.png</span>
+                  </div>
+                  <span class="text-[10px] text-gray-400 font-medium">1200 × 750 (16:10)</span>
+                </div>
+                <div class="flex-1 relative flex items-center justify-center bg-gray-50/50 p-2 overflow-hidden">
+                  <!-- PLACEHOLDER IMG: Replace src with image URL/path -->
+                  <img id="img-platform-shaping-0" src="" alt="Model Fine-Tuning" class="w-full h-full object-cover rounded-xl hidden" onload="this.classList.remove('hidden'); const fb=document.getElementById('fb-platform-shaping-0'); if(fb) fb.classList.add('hidden');" />
+                  <div id="fb-platform-shaping-0" class="w-full h-full min-h-[340px] border-2 border-dashed border-purple-300/80 rounded-xl bg-purple-50/40 flex flex-col items-center justify-center p-8 text-center">
+                    <div class="w-16 h-16 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center shadow-xs mb-3.5">
+                      <i data-lucide="sliders" class="w-8 h-8"></i>
+                    </div>
+                    <h4 class="text-base font-bold text-gray-900 mb-1">Model Fine-Tuning Image</h4>
+                    <p class="text-xs text-gray-500 max-w-sm mb-4">
+                      Drop your screenshot into <code class="text-purple-800 bg-purple-100/70 px-1.5 py-0.5 rounded font-mono text-[11px]">#img-platform-shaping-0</code>
+                    </p>
+                    <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white border border-gray-200/90 text-gray-700 text-[10px] font-semibold tracking-wide uppercase shadow-2xs">
+                      <i data-lucide="upload-cloud" class="w-3.5 h-3.5 text-purple-600"></i> Placeholder Image (16:10)
+                    </span>
                   </div>
                 </div>
-
-                <!-- Form Controls Grid -->
-                <div class="p-5 space-y-4">
-                  
-                  <!-- Floating Training Type & Method Card -->
-                  <div class="bg-white border border-gray-200 rounded-xl p-4 shadow-sm">
-                    <div class="grid grid-cols-2 gap-4">
-                      <div>
-                        <label class="text-[11px] text-gray-500 font-medium flex items-center gap-1">Training type <i data-lucide="info" class="w-3 h-3 text-gray-400"></i></label>
-                        <select class="w-full bg-gray-50 border border-gray-200 rounded-lg px-2.5 py-1.5 text-xs text-gray-900 mt-1 font-medium">
-                          <option>LoRA</option>
-                          <option>Full Parameter</option>
-                        </select>
-                      </div>
-                      <div>
-                        <label class="text-[11px] text-gray-500 font-medium flex items-center gap-1">Training method <i data-lucide="info" class="w-3 h-3 text-gray-400"></i></label>
-                        <div class="flex items-center gap-1 mt-1 bg-gray-100 p-0.5 rounded-lg">
-                          <button class="flex-1 py-1 rounded-md bg-[#fed7aa] text-orange-950 font-bold text-xs shadow-2xs">SFT</button>
-                          <button class="flex-1 py-1 rounded-md text-gray-600 font-medium text-xs hover:text-gray-950">DPO</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Model Dropdown (Simulating Open State matching Image 4) -->
-                  <div class="relative bg-white border border-orange-300 rounded-xl p-3 shadow-md ring-2 ring-orange-200/50">
-                    <label class="text-[11px] text-gray-700 font-semibold">Choose model to fine-tune</label>
-                    <div class="flex items-center justify-between bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-xs font-semibold text-gray-950 mt-1">
-                      <div class="flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-orange-500"></span>
-                        <span>Kimi K2.5</span>
-                      </div>
-                      <i data-lucide="chevron-down" class="w-4 h-4 text-gray-400"></i>
-                    </div>
-
-                    <!-- Dropdown Options List -->
-                    <div class="mt-2 pt-2 border-t border-gray-100 space-y-1">
-                      <div class="text-[10px] text-gray-400 uppercase font-bold tracking-wider px-2">Recently Used</div>
-                      <div class="px-2.5 py-1.5 rounded-lg text-xs text-gray-700 flex items-center gap-2 hover:bg-gray-50 cursor-pointer">
-                        <span class="text-blue-500 font-mono text-[10px]">oo</span>
-                        <span>Llama Guard 4 12B</span>
-                      </div>
-                      <div class="px-2.5 py-1.5 rounded-lg text-xs text-orange-950 bg-orange-100/70 font-semibold flex items-center justify-between cursor-pointer">
-                        <div class="flex items-center gap-2">
-                          <i data-lucide="flame" class="w-3.5 h-3.5 text-orange-600"></i>
-                          <span>Mistral 7B Instruct</span>
-                        </div>
-                        <i data-lucide="check" class="w-3.5 h-3.5 text-orange-600"></i>
-                      </div>
-                      <div class="px-2.5 py-1.5 rounded-lg text-xs text-gray-700 flex items-center gap-2 hover:bg-gray-50 cursor-pointer">
-                        <span class="w-2 h-2 rounded-full bg-purple-500"></span>
-                        <span>Kimi K2.5</span>
-                      </div>
-                      <div class="px-2.5 py-1.5 rounded-lg text-xs text-gray-700 flex items-center gap-2 hover:bg-gray-50 cursor-pointer">
-                        <span class="text-emerald-500 font-mono text-[10px]">&lt;&gt;</span>
-                        <span>Qwen3 Next 80B</span>
-                      </div>
-                      <div class="px-2.5 py-1.5 rounded-lg text-xs text-gray-700 flex items-center gap-2 hover:bg-gray-50 cursor-pointer">
-                        <i data-lucide="bot" class="w-3.5 h-3.5 text-cyan-600"></i>
-                        <span>DeepSeek R1</span>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-
               </div>
             </div>
+
+            <!-- Mockup 1: Model Alignment Image Placeholder -->
+            <div class="mockup-shaping hidden relative rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#fbcfe8] via-[#fdf4ff] to-[#ddd6fe] border border-gray-200/70 shadow-lg min-h-[460px] flex items-center justify-center overflow-hidden">
+              <div class="w-full aspect-[16/10] bg-white/95 backdrop-blur-md rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden flex flex-col relative">
+                <div class="h-9 px-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-red-400"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                    <span class="text-[11px] font-mono text-gray-500 ml-2">model-alignment.png</span>
+                  </div>
+                  <span class="text-[10px] text-gray-400 font-medium">1200 × 750 (16:10)</span>
+                </div>
+                <div class="flex-1 relative flex items-center justify-center bg-gray-50/50 p-2 overflow-hidden">
+                  <!-- PLACEHOLDER IMG: Replace src with image URL/path -->
+                  <img id="img-platform-shaping-1" src="" alt="Model Alignment" class="w-full h-full object-cover rounded-xl hidden" onload="this.classList.remove('hidden'); const fb=document.getElementById('fb-platform-shaping-1'); if(fb) fb.classList.add('hidden');" />
+                  <div id="fb-platform-shaping-1" class="w-full h-full min-h-[340px] border-2 border-dashed border-pink-300/80 rounded-xl bg-pink-50/40 flex flex-col items-center justify-center p-8 text-center">
+                    <div class="w-16 h-16 rounded-2xl bg-pink-100 text-pink-700 flex items-center justify-center shadow-xs mb-3.5">
+                      <i data-lucide="git-merge" class="w-8 h-8"></i>
+                    </div>
+                    <h4 class="text-base font-bold text-gray-900 mb-1">Model Alignment Image</h4>
+                    <p class="text-xs text-gray-500 max-w-sm mb-4">
+                      Drop your screenshot into <code class="text-pink-800 bg-pink-100/70 px-1.5 py-0.5 rounded font-mono text-[11px]">#img-platform-shaping-1</code>
+                    </p>
+                    <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white border border-gray-200/90 text-gray-700 text-[10px] font-semibold tracking-wide uppercase shadow-2xs">
+                      <i data-lucide="upload-cloud" class="w-3.5 h-3.5 text-pink-600"></i> Placeholder Image (16:10)
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
 
         </div>
