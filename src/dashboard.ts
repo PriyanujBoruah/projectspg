@@ -1680,12 +1680,6 @@ response = client.chat.completions.create(
       });
     }
 
-    const LANDING_CODE_SNIPPETS = {
-      python: "from openai import OpenAI\\n\\n# Point directly to ProjectSPG zero-trust edge gateway\\nclient = OpenAI(\\n    base_url=\"https://projectspg.boruahpriyanuj2004.workers.dev/v1\",\\n    api_key=\"spg_live_enterprise_vault_key\"\\n)\\n\\n# Prompts are automatically anonymized before hitting upstream LLM\\nresponse = client.chat.completions.create(\\n    model=\"openai/gpt-oss-120b\",\\n    messages=[\\n        {\"role\": \"user\", \"content\": \"Verify credit card CARD_1 for Alice Wong\"}\\n    ],\\n    extra_headers={\\n        \"x-tokenization-mode\": \"mask\",\\n        \"x-detection-categories\": \"all\"\\n    }\\n)\\n\\n# Output arrives seamlessly rehydrated with original safe values\\nprint(response.choices[0].message.content)",
-      typescript: "import OpenAI from 'openai';\\n\\n// Point directly to ProjectSPG zero-trust edge gateway\\nconst client = new OpenAI({\\n  baseURL: 'https://projectspg.boruahpriyanuj2004.workers.dev/v1',\\n  apiKey: 'spg_live_enterprise_vault_key'\\n});\\n\\nconst response = await client.chat.completions.create({\\n  model: 'openai/gpt-oss-120b',\\n  messages: [{ role: 'user', content: 'Verify credit card CARD_1 for Alice Wong' }],\\n  defaultHeaders: {\\n    'x-tokenization-mode': 'mask',\\n    'x-detection-categories': 'all'\\n  }\\n});\\n\\nconsole.log(response.choices[0].message.content);",
-      curl: "curl https://projectspg.boruahpriyanuj2004.workers.dev/v1/chat/completions \\\\\\n  -H \"Content-Type: application/json\" \\\\\\n  -H \"Authorization: Bearer spg_live_enterprise_vault_key\" \\\\\\n  -H \"x-tokenization-mode: mask\" \\\\\\n  -H \"x-detection-categories: all\" \\\\\\n  -d '{\\n    \"model\": \"openai/gpt-oss-120b\",\\n    \"messages\": [\\n      { \"role\": \"user\", \"content\": \"Verify credit card CARD_1 for Alice Wong\" }\\n    ]\\n  }'"
-    };
-
     function switchLandingCodeLang(lang) {
       const langs = ['python', 'typescript', 'curl'];
       langs.forEach(l => {
@@ -1699,15 +1693,69 @@ response = client.chat.completions.create(
         }
       });
       const codeEl = document.getElementById('landing-code-snippet');
-      if (codeEl) {
-        codeEl.textContent = LANDING_CODE_SNIPPETS[lang] || LANDING_CODE_SNIPPETS.python;
+      if (!codeEl) return;
+
+      if (lang === 'python') {
+        codeEl.innerHTML = \`<span class="text-purple-400">from</span> openai <span class="text-purple-400">import</span> OpenAI
+
+<span class="text-gray-500"># Point directly to ProjectSPG zero-trust edge gateway</span>
+client = OpenAI(
+    base_url=<span class="text-emerald-400">"https://projectspg.boruahpriyanuj2004.workers.dev/v1"</span>,
+    api_key=<span class="text-emerald-400">"spg_live_enterprise_vault_key"</span>
+)
+
+<span class="text-gray-500"># Prompts are automatically anonymized before hitting upstream LLM</span>
+response = client.chat.completions.create(
+    model=<span class="text-emerald-400">"openai/gpt-oss-120b"</span>,
+    messages=[
+        {<span class="text-sky-300">"role"</span>: <span class="text-emerald-400">"user"</span>, <span class="text-sky-300">"content"</span>: <span class="text-emerald-400">"Verify credit card CARD_1 for Alice Wong"</span>}
+    ],
+    extra_headers={
+        <span class="text-sky-300">"x-tokenization-mode"</span>: <span class="text-emerald-400">"mask"</span>,
+        <span class="text-sky-300">"x-detection-categories"</span>: <span class="text-emerald-400">"all"</span>
+    }
+)
+
+<span class="text-gray-500"># Output arrives seamlessly rehydrated with original safe values</span>
+<span class="text-purple-400">print</span>(response.choices[<span class="text-amber-300">0</span>].message.content)\`;
+      } else if (lang === 'typescript') {
+        codeEl.innerHTML = \`<span class="text-purple-400">import</span> OpenAI <span class="text-purple-400">from</span> <span class="text-emerald-400">'openai'</span>;
+
+<span class="text-gray-500">// Point directly to ProjectSPG zero-trust edge gateway</span>
+<span class="text-purple-400">const</span> client = <span class="text-purple-400">new</span> OpenAI({
+  baseURL: <span class="text-emerald-400">'https://projectspg.boruahpriyanuj2004.workers.dev/v1'</span>,
+  apiKey: <span class="text-emerald-400">'spg_live_enterprise_vault_key'</span>
+});
+
+<span class="text-purple-400">const</span> response = <span class="text-purple-400">await</span> client.chat.completions.create({
+  model: <span class="text-emerald-400">'openai/gpt-oss-120b'</span>,
+  messages: [{ role: <span class="text-emerald-400">'user'</span>, content: <span class="text-emerald-400">'Verify credit card CARD_1 for Alice Wong'</span> }],
+  defaultHeaders: {
+    <span class="text-sky-300">'x-tokenization-mode'</span>: <span class="text-emerald-400">'mask'</span>,
+    <span class="text-sky-300">'x-detection-categories'</span>: <span class="text-emerald-400">'all'</span>
+  }
+});
+
+console.log(response.choices[<span class="text-amber-300">0</span>].message.content);\`;
+      } else if (lang === 'curl') {
+        codeEl.innerHTML = \`curl https://projectspg.boruahpriyanuj2004.workers.dev/v1/chat/completions \\\\
+  -H <span class="text-emerald-400">"Content-Type: application/json"</span> \\\\
+  -H <span class="text-emerald-400">"Authorization: Bearer spg_live_enterprise_vault_key"</span> \\\\
+  -H <span class="text-emerald-400">"x-tokenization-mode: mask"</span> \\\\
+  -H <span class="text-emerald-400">"x-detection-categories: all"</span> \\\\
+  -d '{
+    <span class="text-sky-300">"model"</span>: <span class="text-emerald-400">"openai/gpt-oss-120b"</span>,
+    <span class="text-sky-300">"messages"</span>: [
+      { <span class="text-sky-300">"role"</span>: <span class="text-emerald-400">"user"</span>, <span class="text-sky-300">"content"</span>: <span class="text-emerald-400">"Verify credit card CARD_1 for Alice Wong"</span> }
+    ]
+  }'\`;
       }
     }
 
     function copyLandingCode() {
       const codeEl = document.getElementById('landing-code-snippet');
       if (codeEl) {
-        navigator.clipboard.writeText(codeEl.textContent);
+        navigator.clipboard.writeText(codeEl.innerText);
         alert('Code snippet copied to clipboard!');
       }
     }
