@@ -24,7 +24,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <script>
     tailwind.config = {
@@ -44,7 +44,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             }
           },
           fontFamily: {
-            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            sans: ['"The Future"', 'Arial', 'sans-serif'],
             mono: ['JetBrains Mono', 'monospace']
           }
         }
@@ -53,10 +53,18 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
   </script>
 
   <style>
+    @font-face {
+      font-family: 'The Future';
+      src: local('The Future'), local('TheFuture'), local('The Future Regular');
+      font-display: swap;
+    }
+    body, button, input, select, textarea {
+      font-family: 'The Future', Arial, sans-serif;
+    }
     body {
       background-color: #ffffff;
       color: #111827;
-      font-family: 'Inter', sans-serif;
+      font-family: 'The Future', Arial, sans-serif;
     }
     .token-badge {
       display: inline-block;
