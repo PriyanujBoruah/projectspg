@@ -1503,6 +1503,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
           localLogs.unshift({
             time: new Date().toLocaleTimeString(),
+            timestamp: new Date().toISOString(),
             model: model,
             key: 'ProjectSPG Test',
             code: 200,
@@ -1512,7 +1513,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             outTokens: tokens,
             audio: '-',
             reqId: 'req_' + Math.random().toString(36).slice(2, 7) + '...',
-            error: '-'
+            error: '-',
+            protectedEntities: interceptedCount || 0
           });
           fetchApiLogs();
         } else if (res.status === 429) {
@@ -1952,7 +1954,108 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
       const container = document.getElementById('models-usage-container');
       if (container) {
         container.innerHTML = modelStatsList.map(m => {
-          const barHeightPct = m.spend > 0 ? Math.min(92, Math.max(12, (m.spend / 0.10) * 100)) : 0;
+          // Dynamic Y-Axis scale based on model spend
+          let yTop = '$0.10', yMid1 = '$0.07', yMid2 = '$0.05', maxScale = 0.10;
+          if (m.spend > 0) {
+            if (m.spend <= 0.001) {
+              maxScale = 0.001;
+              yTop = '$0.0010';
+              yMid1 = '$0.0007';
+              yMid2 = '$0.0004';
+            } else if (m.spend <= 0.005) {
+              maxScale = 0.005;
+              yTop = '$0.0050';
+              yMid1 = '$0.0035';
+              yMid2 = '$0.0020';
+            } else if (m.spend <= 0.02) {
+              maxScale = 0.02;
+              yTop = '$0.020';
+              yMid1 = '$0.014';
+              yMid2 = '$0.007';
+            } else if (m.spend <= 0.05) {
+              maxScale = 0.05;
+              yTop = '$0.050';
+              yMid1 = '$0.035';
+              yMid2 = '$0.020';
+            } else {
+              maxScale = Math.max(0.10, Math.ceil(m.spend * 10) / 10);
+              yTop = '$' + maxScale.toFixed(2);
+              yMid1 = '$' + (maxScale * 0.7).toFixed(2);
+              yMid2 = '$' + (maxScale * 0.4).toFixed(2);
+            }
+          }
+
+          // Build 30-day timeline for September
+          const dailyStats = Array.from({ length: 30 }, (_, i) => ({
+            day: i + 1,
+            spend: 0,
+            tokens: 0,
+            requests: 0,
+            protected: 0
+          }));
+
+          localLogs.forEach(l => {
+            const modelId = l.model || 'openai/gpt-oss-120b';
+            if (modelId === m.id) {
+              let day = 27; // Default anchor day
+              if (l.timestamp) {
+                const d = new Date(l.timestamp);
+                if (!isNaN(d.getDate())) day = d.getDate();
+              } else if (l.time) {
+                const d = new Date(l.time);
+                if (!isNaN(d.getDate())) day = d.getDate();
+              }
+              const idx = Math.min(29, Math.max(0, day - 1));
+              const reqTokens = (Number(l.inTokens) || 0) + (Number(l.outTokens) || 0);
+              dailyStats[idx].requests += 1;
+              dailyStats[idx].tokens += reqTokens;
+              dailyStats[idx].spend += (reqTokens * m.ratePer1MTokens) / 1000000;
+              dailyStats[idx].protected += (Number(l.protectedEntities) || 0);
+            }
+          });
+
+          // Fallback if logs had relative time strings: assign aggregate to day 27
+          if (m.requests > 0 && dailyStats.every(d => d.requests === 0)) {
+            dailyStats[26] = {
+              day: 27,
+              spend: m.spend,
+              tokens: m.totalTokens,
+              requests: m.requests,
+              protected: m.protectedEntities
+            };
+          }
+
+          // Generate 30 daily columns with explicit pixel heights
+          const dayBarsHtml = dailyStats.map(d => {
+            if (d.spend > 0) {
+              const barHeightPx = Math.max(28, Math.min(108, Math.round((d.spend / maxScale) * 105)));
+              return \`
+                <div class="flex-1 h-full flex flex-col justify-end items-center group relative cursor-pointer">
+                  <div class="w-full max-w-[14px] bg-[#f0523d] rounded-t-sm shadow-xs transition-all group-hover:bg-[#e0422d]" style="height: \${barHeightPx}px;"></div>
+                  <!-- Tooltip on hover -->
+                  <div class="hidden group-hover:block absolute bottom-full mb-2 bg-slate-900 text-white text-[10px] font-mono py-2 px-3 rounded-lg shadow-xl whitespace-nowrap z-40 pointer-events-none">
+                    <p class="font-bold text-white border-b border-gray-700 pb-1 mb-1">Sep \${d.day}, 2026</p>
+                    <p class="text-[#f0523d] font-semibold">Spend: $\${d.spend.toFixed(4)}</p>
+                    <p class="text-gray-300">Tokens: \${d.tokens.toLocaleString()}</p>
+                    <p class="text-gray-300">Requests: \${d.requests}</p>
+                    \${d.protected > 0 ? \`<p class="text-sky-400">🛡️ Protected: \${d.protected}</p>\` : ''}
+                  </div>
+                </div>
+              \`;
+            } else {
+              return \`
+                <div class="flex-1 h-full flex flex-col justify-end items-center group relative">
+                  <div class="w-full max-w-[14px] h-[2px] bg-transparent group-hover:bg-gray-200 transition-all rounded-t-sm"></div>
+                  <!-- Subtle Tooltip on hover -->
+                  <div class="hidden group-hover:block absolute bottom-full mb-2 bg-slate-900 text-white text-[10px] font-mono py-1.5 px-2.5 rounded-lg shadow-xl whitespace-nowrap z-40 pointer-events-none">
+                    <p class="font-bold text-gray-300">Sep \${d.day}, 2026</p>
+                    <p class="text-gray-400">No usage</p>
+                  </div>
+                </div>
+              \`;
+            }
+          }).join('');
+
           return \`
             <div class="border border-groq-grayBorder rounded-xl p-6 bg-white shadow-xs">
               <div class="flex items-start justify-between">
@@ -1977,53 +2080,49 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
               </div>
 
               <!-- Groq-exact Chart Area matching media_1790456991949.png -->
-              <div class="h-44 flex items-end pt-6 mt-2">
-                <!-- Y-Axis labels -->
-                <div class="flex flex-col justify-between h-full text-[10px] font-mono text-groq-textSubtle pr-3 border-r border-gray-200 shrink-0">
-                  <span>$0.10</span>
-                  <span>$0.07</span>
-                  <span>$0.05</span>
+              <div class="h-44 flex items-end pt-5 mt-2">
+                <!-- Y-Axis labels (fixed width w-14) -->
+                <div class="w-14 flex flex-col justify-between h-[120px] text-[10px] font-mono text-groq-textSubtle pr-3 border-r border-gray-200 shrink-0 text-right select-none pb-0.5">
+                  <span>\${yTop}</span>
+                  <span>\${yMid1}</span>
+                  <span>\${yMid2}</span>
                   <span>$0.00</span>
                 </div>
 
                 <!-- Chart Canvas with Day Grid -->
-                <div class="flex-1 flex flex-col justify-end h-full ml-3 relative">
-                  <!-- Horizontal guideline grid -->
-                  <div class="absolute inset-0 flex flex-col justify-between pointer-events-none opacity-40">
-                    <div class="border-b border-dashed border-gray-200 w-full"></div>
-                    <div class="border-b border-dashed border-gray-200 w-full"></div>
-                    <div class="border-b border-dashed border-gray-200 w-full"></div>
-                    <div class="border-b border-gray-200 w-full"></div>
-                  </div>
+                <div class="flex-1 flex flex-col h-[145px] ml-3 relative">
+                  <!-- 120px Chart area with guidelines and bars -->
+                  <div class="h-[120px] w-full relative">
+                    <!-- Horizontal guideline grid -->
+                    <div class="absolute inset-0 flex flex-col justify-between pointer-events-none opacity-40">
+                      <div class="border-b border-dashed border-gray-200 w-full"></div>
+                      <div class="border-b border-dashed border-gray-200 w-full"></div>
+                      <div class="border-b border-dashed border-gray-200 w-full"></div>
+                      <div class="border-b border-gray-200 w-full"></div>
+                    </div>
 
-                  <!-- Bar Column for September 27 (Live Data) -->
-                  <div class="flex-1 flex items-end justify-end pr-8 z-10">
-                    \${m.requests > 0 ? \`
-                      <div class="flex flex-col items-center group relative cursor-pointer">
-                        <div class="w-7 bg-[#f0523d] rounded-t-sm shadow-xs transition-all group-hover:bg-[#e0422d]" style="height: \${barHeightPct}%;"></div>
-                        <!-- Tooltip on hover -->
-                        <div class="hidden group-hover:block absolute bottom-full mb-2 bg-slate-900 text-white text-[10px] font-mono py-1.5 px-2.5 rounded-lg shadow-xl whitespace-nowrap z-30">
-                          <p class="font-bold">Sep 27, 2026</p>
-                          <p>Spend: $\${m.spend.toFixed(4)}</p>
-                          <p>Tokens: \${m.totalTokens.toLocaleString()}</p>
-                          <p>Requests: \${m.requests}</p>
-                        </div>
+                    \${m.requests === 0 ? \`
+                      <div class="absolute inset-0 flex items-center justify-center pointer-events-none text-[11px] text-gray-300 font-sans italic">
+                        No usage recorded for this billing cycle
                       </div>
-                    \` : \`
-                      <div class="text-[11px] text-gray-300 font-sans italic self-center pb-8">No usage recorded for this billing cycle</div>
-                    \`}
+                    \` : ''}
+
+                    <!-- 30-Day Bar Track Container -->
+                    <div class="h-[120px] w-full flex items-end justify-between gap-[2px] z-10 px-1">
+                      \${dayBarsHtml}
+                    </div>
                   </div>
 
                   <!-- X-Axis timeline labels across September -->
-                  <div class="border-b border-gray-200 w-full"></div>
-                  <div class="flex items-center justify-between text-[10px] font-mono text-groq-textSubtle pt-1.5 px-1">
+                  <div class="border-b border-gray-200 w-full mt-1"></div>
+                  <div class="flex items-center justify-between text-[10px] font-mono text-groq-textSubtle pt-1 px-1 select-none">
                     <span>Sep 1</span>
                     <span>Sep 5</span>
                     <span>Sep 10</span>
                     <span>Sep 15</span>
                     <span>Sep 20</span>
                     <span>Sep 25</span>
-                    <span class="text-groq-dark font-semibold">Sep 27</span>
+                    <span class="text-groq-dark font-bold">Sep 27</span>
                     <span>Sep 30</span>
                   </div>
                 </div>
