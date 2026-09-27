@@ -1480,7 +1480,301 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       </section>
 
       <!-- ======================================================================= -->
-      <!-- SECTION 5: CALL TO ACTION ("Start building on Together AI")             -->
+      <!-- SECTION 5: PRICING & CAPACITIES (Together AI Inspired)                  -->
+      <!-- ======================================================================= -->
+      <section id="pricing-section" class="w-full bg-[#f8fafc] text-gray-900 py-20 sm:py-28 border-t border-gray-200/60 relative overflow-hidden">
+        
+        <!-- Ambient background glow -->
+        <div class="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-r from-blue-100/40 via-sky-100/30 to-purple-100/30 blur-3xl pointer-events-none -z-0"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          
+          <!-- Section Header -->
+          <div class="text-center max-w-3xl mx-auto mb-14">
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200/80 text-blue-700 text-[10px] font-bold tracking-widest uppercase mb-4 shadow-2xs">
+              <span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
+              <span>Predictable &amp; Transparent</span>
+            </div>
+            <h2 class="text-3xl sm:text-4xl lg:text-[44px] font-bold tracking-tight text-gray-950 font-sans leading-tight">
+              Simple pricing for every scale
+            </h2>
+            <p class="text-base sm:text-lg text-gray-500 font-normal mt-3.5 leading-relaxed">
+              Start for free with sovereign de-identification, scale with ultra-fast serverless inference, or reserve private GPU clusters with enterprise SLAs.
+            </p>
+
+            <!-- Mode Selector Switcher Tabs -->
+            <div class="inline-flex items-center bg-gray-200/70 p-1 rounded-full mt-7 shadow-inner">
+              <button id="pricing-tab-serverless" onclick="switchPricingTab('serverless')" class="px-5 py-2 rounded-full text-xs font-bold transition shadow-xs bg-black text-white cursor-pointer">
+                Serverless Inference
+              </button>
+              <button id="pricing-tab-dedicated" onclick="switchPricingTab('dedicated')" class="px-5 py-2 rounded-full text-xs font-bold transition text-gray-600 hover:text-gray-950 cursor-pointer">
+                Dedicated Compute
+              </button>
+            </div>
+          </div>
+
+          <!-- 3-Column Pricing Cards Grid -->
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch mb-16">
+            
+            <!-- Tier 1: Developer Community -->
+            <div class="bg-white rounded-3xl p-8 border border-gray-200/80 shadow-xs flex flex-col justify-between transition-all duration-300 hover:shadow-md hover:-translate-y-1">
+              <div>
+                <div class="flex items-center justify-between mb-4">
+                  <span class="text-[11px] font-bold tracking-wider uppercase text-gray-500 font-mono">COMMUNITY</span>
+                  <span class="px-2.5 py-0.5 rounded-md bg-gray-100 text-gray-600 text-[10px] font-bold">FREE FOREVER</span>
+                </div>
+                <div class="mb-4">
+                  <div class="flex items-baseline gap-1">
+                    <span class="text-4xl sm:text-5xl font-extrabold text-gray-950 tracking-tight">$0</span>
+                    <span class="text-sm font-medium text-gray-500">/ month</span>
+                  </div>
+                  <p class="text-xs text-gray-500 mt-2 leading-relaxed">
+                    Ideal for developers, privacy auditing, and local prototyping of sovereign AI applications.
+                  </p>
+                </div>
+
+                <div class="h-px w-full bg-gray-100 my-6"></div>
+
+                <!-- Feature list -->
+                <ul class="space-y-3.5 text-xs text-gray-700 font-medium">
+                  <li class="flex items-center gap-2.5">
+                    <svg class="w-4 h-4 text-emerald-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                    <span><strong>100,000</strong> tokens / day free</span>
+                  </li>
+                  <li class="flex items-center gap-2.5">
+                    <svg class="w-4 h-4 text-emerald-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                    <span>Open models: Gemma 4, Mistral, Qwen 3.8</span>
+                  </li>
+                  <li class="flex items-center gap-2.5">
+                    <svg class="w-4 h-4 text-emerald-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                    <span>Automated regex &amp; heuristic de-identification</span>
+                  </li>
+                  <li class="flex items-center gap-2.5">
+                    <svg class="w-4 h-4 text-emerald-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                    <span>Interactive web playground &amp; code exporter</span>
+                  </li>
+                  <li class="flex items-center gap-2.5 text-gray-400">
+                    <svg class="w-4 h-4 text-gray-300 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    <span>Rate limit: 60 requests / minute</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="mt-8 pt-4">
+                <button onclick="switchView('playground')" class="w-full py-3 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-900 font-bold text-xs uppercase tracking-wider transition cursor-pointer">
+                  START BUILDING FREE
+                </button>
+              </div>
+            </div>
+
+            <!-- Tier 2: Serverless Pro (Featured / Most Popular) -->
+            <div id="pricing-card-serverless" class="bg-white rounded-3xl p-8 border-2 border-gray-900 shadow-xl flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 relative ring-2 ring-black">
+              <!-- Top Floating Badge -->
+              <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gray-950 text-white px-3.5 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase shadow-md flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-[#f0523d]"></span>
+                <span>MOST POPULAR</span>
+              </div>
+
+              <div>
+                <div class="flex items-center justify-between mb-4">
+                  <span class="text-[11px] font-bold tracking-wider uppercase text-gray-950 font-mono">SERVERLESS PRO</span>
+                  <span class="px-2.5 py-0.5 rounded-md bg-emerald-50 text-emerald-700 text-[10px] font-bold">PAY-AS-YOU-GO</span>
+                </div>
+                <div class="mb-4">
+                  <div class="flex items-baseline gap-1">
+                    <span class="text-4xl sm:text-5xl font-extrabold text-gray-950 tracking-tight">$0.15</span>
+                    <span class="text-sm font-medium text-gray-500">/ 1M input tokens</span>
+                  </div>
+                  <p class="text-xs text-gray-500 mt-2 leading-relaxed">
+                    $0.60 / 1M output tokens. High-throughput production inference with zero cold starts.
+                  </p>
+                </div>
+
+                <div class="h-px w-full bg-gray-100 my-6"></div>
+
+                <!-- Feature list -->
+                <ul class="space-y-3.5 text-xs text-gray-700 font-medium">
+                  <li class="flex items-center gap-2.5">
+                    <svg class="w-4 h-4 text-emerald-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                    <span><strong>Unlimited requests</strong> with zero daily limits</span>
+                  </li>
+                  <li class="flex items-center gap-2.5">
+                    <svg class="w-4 h-4 text-emerald-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                    <span><strong>10 Global Sovereignty Packs</strong> (GDPR, HIPAA, DPDPA)</span>
+                  </li>
+                  <li class="flex items-center gap-2.5">
+                    <svg class="w-4 h-4 text-emerald-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                    <span><strong>BYOK KMS</strong> hardware envelope encryption</span>
+                  </li>
+                  <li class="flex items-center gap-2.5">
+                    <svg class="w-4 h-4 text-emerald-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                    <span>Sub-millisecond wire-compatible proxy (<code class="text-[11px] font-mono bg-gray-100 px-1 py-0.5 rounded">/v1/chat/completions</code>)</span>
+                  </li>
+                  <li class="flex items-center gap-2.5">
+                    <svg class="w-4 h-4 text-emerald-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                    <span>Ring-buffered SIEM telemetry &amp; audit logging</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="mt-8 pt-4">
+                <button onclick="openAuthModal()" class="w-full py-3.5 rounded-xl bg-black hover:bg-gray-800 text-white font-bold text-xs uppercase tracking-wider transition shadow-md hover:shadow-lg cursor-pointer flex items-center justify-center gap-1.5">
+                  <span>GET STARTED NOW</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Tier 3: Dedicated Enterprise -->
+            <div id="pricing-card-dedicated" class="bg-white rounded-3xl p-8 border border-gray-200/80 shadow-xs flex flex-col justify-between transition-all duration-300 hover:shadow-md hover:-translate-y-1">
+              <div>
+                <div class="flex items-center justify-between mb-4">
+                  <span class="text-[11px] font-bold tracking-wider uppercase text-gray-500 font-mono">ENTERPRISE</span>
+                  <span class="px-2.5 py-0.5 rounded-md bg-purple-50 text-purple-700 text-[10px] font-bold">RESERVED GPU</span>
+                </div>
+                <div class="mb-4">
+                  <div class="flex items-baseline gap-1">
+                    <span class="text-4xl sm:text-5xl font-extrabold text-gray-950 tracking-tight">Custom</span>
+                    <span class="text-sm font-medium text-gray-500">/ dedicated cluster</span>
+                  </div>
+                  <p class="text-xs text-gray-500 mt-2 leading-relaxed">
+                    Reserved NVIDIA clusters, custom model fine-tuning, and strict zero-retention data sovereignty.
+                  </p>
+                </div>
+
+                <div class="h-px w-full bg-gray-100 my-6"></div>
+
+                <!-- Feature list -->
+                <ul class="space-y-3.5 text-xs text-gray-700 font-medium">
+                  <li class="flex items-center gap-2.5">
+                    <svg class="w-4 h-4 text-emerald-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                    <span>Dedicated NVIDIA Vera Rubin NVL72 &amp; H100 clusters</span>
+                  </li>
+                  <li class="flex items-center gap-2.5">
+                    <svg class="w-4 h-4 text-emerald-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                    <span>Zero Data Retention (ZDR) guarantee &amp; signed BAA</span>
+                  </li>
+                  <li class="flex items-center gap-2.5">
+                    <svg class="w-4 h-4 text-emerald-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                    <span>Bring-Your-Own-KMS (AWS KMS, GCP Cloud KMS, Azure)</span>
+                  </li>
+                  <li class="flex items-center gap-2.5">
+                    <svg class="w-4 h-4 text-emerald-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                    <span>Isolated VPC peering &amp; custom weight LoRA deployment</span>
+                  </li>
+                  <li class="flex items-center gap-2.5">
+                    <svg class="w-4 h-4 text-emerald-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                    <span>99.99% uptime SLA with 24/7 dedicated TAM</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="mt-8 pt-4">
+                <a href="#docs" onclick="switchView('docs')" class="w-full py-3 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-900 font-bold text-xs uppercase tracking-wider transition cursor-pointer flex items-center justify-center">
+                  CONTACT SALES
+                </a>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Model Pricing Rate Sheet Table -->
+          <div class="bg-white rounded-3xl p-6 sm:p-8 border border-gray-200/80 shadow-xs mb-14">
+            <div class="flex items-center justify-between mb-6 pb-4 border-b border-gray-100">
+              <div>
+                <h3 class="text-lg sm:text-xl font-bold text-gray-950">Model Rate Sheet</h3>
+                <p class="text-xs text-gray-500 mt-0.5">Transparent token rates across leading open foundation models.</p>
+              </div>
+              <span class="text-[11px] font-mono font-bold text-gray-500 uppercase tracking-widest">USD / 1M TOKENS</span>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs font-sans">
+                <thead>
+                  <tr class="text-gray-400 font-mono uppercase text-[10px] tracking-wider border-b border-gray-100">
+                    <th class="pb-3 font-semibold">Model Name</th>
+                    <th class="pb-3 font-semibold">Context</th>
+                    <th class="pb-3 font-semibold">Input / 1M</th>
+                    <th class="pb-3 font-semibold">Output / 1M</th>
+                    <th class="pb-3 font-semibold">Privacy Security Layer</th>
+                    <th class="pb-3 text-right font-semibold">Action</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100 text-gray-800 font-medium">
+                  <tr class="hover:bg-gray-50/60 transition">
+                    <td class="py-3.5 font-semibold text-gray-950 font-mono text-[11px]">openai/gpt-oss-120b</td>
+                    <td class="py-3.5 text-gray-500">128k</td>
+                    <td class="py-3.5 text-emerald-600 font-bold">$0.15</td>
+                    <td class="py-3.5 text-gray-900 font-bold">$0.60</td>
+                    <td class="py-3.5"><span class="px-2 py-0.5 rounded bg-blue-50 text-blue-700 text-[10px] font-bold">Zero-Retention FPE</span></td>
+                    <td class="py-3.5 text-right"><button onclick="switchView('playground')" class="text-blue-600 hover:text-blue-800 font-bold cursor-pointer">Test →</button></td>
+                  </tr>
+                  <tr class="hover:bg-gray-50/60 transition">
+                    <td class="py-3.5 font-semibold text-gray-950 font-mono text-[11px]">mistralai/ministral-14b-2512</td>
+                    <td class="py-3.5 text-gray-500">128k</td>
+                    <td class="py-3.5 text-emerald-600 font-bold">$0.10</td>
+                    <td class="py-3.5 text-gray-900 font-bold">$0.30</td>
+                    <td class="py-3.5"><span class="px-2 py-0.5 rounded bg-purple-50 text-purple-700 text-[10px] font-bold">Hardware KMS</span></td>
+                    <td class="py-3.5 text-right"><button onclick="switchView('playground')" class="text-blue-600 hover:text-blue-800 font-bold cursor-pointer">Test →</button></td>
+                  </tr>
+                  <tr class="hover:bg-gray-50/60 transition">
+                    <td class="py-3.5 font-semibold text-gray-950 font-mono text-[11px]">google/gemma-4-31b-it</td>
+                    <td class="py-3.5 text-gray-500">64k</td>
+                    <td class="py-3.5 text-emerald-600 font-bold">$0.08</td>
+                    <td class="py-3.5 text-gray-900 font-bold">$0.24</td>
+                    <td class="py-3.5"><span class="px-2 py-0.5 rounded bg-amber-50 text-amber-800 text-[10px] font-bold">SIEM Audited</span></td>
+                    <td class="py-3.5 text-right"><button onclick="switchView('playground')" class="text-blue-600 hover:text-blue-800 font-bold cursor-pointer">Test →</button></td>
+                  </tr>
+                  <tr class="hover:bg-gray-50/60 transition">
+                    <td class="py-3.5 font-semibold text-gray-950 font-mono text-[11px]">qwen/qwen3.8-27b</td>
+                    <td class="py-3.5 text-gray-500">128k</td>
+                    <td class="py-3.5 text-emerald-600 font-bold">$0.12</td>
+                    <td class="py-3.5 text-gray-900 font-bold">$0.36</td>
+                    <td class="py-3.5"><span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 text-[10px] font-bold">Autonomous De-ID</span></td>
+                    <td class="py-3.5 text-right"><button onclick="switchView('playground')" class="text-blue-600 hover:text-blue-800 font-bold cursor-pointer">Test →</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Assurance Pillars / Trust Strip -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4 border-t border-gray-200/60 text-center md:text-left">
+            <div class="flex items-start gap-3.5">
+              <div class="w-9 h-9 rounded-xl bg-white border border-gray-200 shadow-2xs flex items-center justify-center text-gray-800 shrink-0">
+                <i data-lucide="shield-check" class="w-4 h-4 text-emerald-600"></i>
+              </div>
+              <div>
+                <h4 class="text-xs font-bold text-gray-950 uppercase tracking-wide">Zero Data Retention</h4>
+                <p class="text-xs text-gray-500 mt-1 leading-relaxed">Prompts &amp; completions are strictly in-flight; neither model weights nor logs store raw PII.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3.5">
+              <div class="w-9 h-9 rounded-xl bg-white border border-gray-200 shadow-2xs flex items-center justify-center text-gray-800 shrink-0">
+                <i data-lucide="zap" class="w-4 h-4 text-amber-500"></i>
+              </div>
+              <div>
+                <h4 class="text-xs font-bold text-gray-950 uppercase tracking-wide">Wire-Compatible Drop-In</h4>
+                <p class="text-xs text-gray-500 mt-1 leading-relaxed">Switch one baseURL in your OpenAI SDK, LangChain, or Cursor code with zero architecture refactoring.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3.5">
+              <div class="w-9 h-9 rounded-xl bg-white border border-gray-200 shadow-2xs flex items-center justify-center text-gray-800 shrink-0">
+                <i data-lucide="lock" class="w-4 h-4 text-blue-600"></i>
+              </div>
+              <div>
+                <h4 class="text-xs font-bold text-gray-950 uppercase tracking-wide">Bring-Your-Own-KMS</h4>
+                <p class="text-xs text-gray-500 mt-1 leading-relaxed">Never share master keys. Encrypt sensitive payloads using your own KMS key in hardware modules.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ======================================================================= -->
+      <!-- SECTION 6: CALL TO ACTION ("Start building on Together AI")             -->
       <!-- Matches uploaded media: 1790542040866.png                               -->
       <!-- ======================================================================= -->
       <section class="w-full relative pt-24 pb-36 sm:pt-32 sm:pb-48 overflow-hidden bg-white text-center">
@@ -2715,6 +3009,25 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       if (!track) return;
       const scrollAmount = 350;
       track.scrollBy({ left: direction === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' });
+    }
+
+    function switchPricingTab(tab) {
+      const serverlessBtn = document.getElementById('pricing-tab-serverless');
+      const dedicatedBtn = document.getElementById('pricing-tab-dedicated');
+      const serverlessCard = document.getElementById('pricing-card-serverless');
+      const dedicatedCard = document.getElementById('pricing-card-dedicated');
+
+      if (tab === 'serverless') {
+        if (serverlessBtn) serverlessBtn.className = 'px-5 py-2 rounded-full text-xs font-bold transition shadow-xs bg-black text-white cursor-pointer';
+        if (dedicatedBtn) dedicatedBtn.className = 'px-5 py-2 rounded-full text-xs font-bold transition text-gray-600 hover:text-gray-950 cursor-pointer';
+        if (serverlessCard) serverlessCard.classList.add('ring-2', 'ring-black');
+        if (dedicatedCard) dedicatedCard.classList.remove('ring-2', 'ring-black');
+      } else {
+        if (serverlessBtn) serverlessBtn.className = 'px-5 py-2 rounded-full text-xs font-bold transition text-gray-600 hover:text-gray-950 cursor-pointer';
+        if (dedicatedBtn) dedicatedBtn.className = 'px-5 py-2 rounded-full text-xs font-bold transition shadow-xs bg-black text-white cursor-pointer';
+        if (serverlessCard) serverlessCard.classList.remove('ring-2', 'ring-black');
+        if (dedicatedCard) dedicatedCard.classList.add('ring-2', 'ring-black');
+      }
     }
 
     function switchDashTab(tabName) {
