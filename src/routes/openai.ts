@@ -63,7 +63,7 @@ function resolveCategories(c: Context, bodyCategories?: string[]): string[] {
     return bodyCategories;
   }
   const headerVal = c.req.header("x-detection-categories") || c.req.header("x-categories");
-  if (!headerVal) return [];
+  if (!headerVal) return ["all"];
 
   try {
     const trimmed = headerVal.trim();
@@ -72,7 +72,7 @@ function resolveCategories(c: Context, bodyCategories?: string[]): string[] {
     }
     return trimmed.split(",").map((s: string) => s.trim()).filter(Boolean);
   } catch {
-    return [];
+    return ["all"];
   }
 }
 

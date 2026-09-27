@@ -279,7 +279,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                 <i data-lucide="shield-check" class="w-4 h-4 text-sky-600"></i>
                 <span class="text-[11px] font-medium">ProjectSPG Privacy Gateway Active</span>
               </div>
-              <span class="text-[10px] font-mono font-semibold text-sky-700 bg-white border border-sky-300 px-1.5 py-0.5 rounded">Auto De-identify</span>
+              <span class="text-[10px] font-mono font-semibold text-sky-700 bg-white border border-sky-300 px-1.5 py-0.5 rounded" title="All 10 Canonical Regional & Corporate Packs Enabled">All 10 Packs Active</span>
             </div>
           </div>
 
@@ -1417,7 +1417,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       try {
         const headers = {
           'Content-Type': 'application/json',
-          'x-tokenization-mode': mode
+          'x-tokenization-mode': mode,
+          'x-detection-categories': 'all'
         };
         if (kmsKey) headers['x-vault-encryption-key'] = kmsKey;
         if (apiKey) headers['Authorization'] = 'Bearer ' + apiKey;
@@ -1442,6 +1443,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
         const payload = {
           model: model,
+          categories: ['all'],
           messages: [
             { role: 'system', content: document.getElementById('system-prompt').value },
             { role: 'user', content: userPrompt }
