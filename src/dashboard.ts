@@ -22,6 +22,10 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
   <!-- Firebase SDK (v10 compat) -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <link rel="preconnect" href="https://cdn.prod.website-files.com" crossorigin>
+  <link rel="preload" href="https://cdn.prod.website-files.com/69654e88dce9154b5f1206dd/698cad1160936ed8972bccfa_the-future-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="https://cdn.prod.website-files.com/69654e88dce9154b5f1206dd/698cad11f5c01ca7fba516ba_the-future-medium.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="https://cdn.prod.website-files.com/69654e88dce9154b5f1206dd/698cad117b7b7b625bfcb663_the-future-bold.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -45,7 +49,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           },
           fontFamily: {
             sans: ['"The Future"', 'Arial', 'sans-serif'],
-            mono: ['JetBrains Mono', 'monospace']
+            mono: ['"The Future Mono"', 'JetBrains Mono', 'monospace']
           }
         }
       }
@@ -55,16 +59,64 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
   <style>
     @font-face {
       font-family: 'The Future';
-      src: local('The Future'), local('TheFuture'), local('The Future Regular');
+      src: url('https://cdn.prod.website-files.com/69654e88dce9154b5f1206dd/698cad116649a2ce7e9e9c09_the-future-light.woff2') format('woff2');
+      font-weight: 300;
+      font-style: normal;
       font-display: swap;
     }
+    @font-face {
+      font-family: 'The Future';
+      src: url('https://cdn.prod.website-files.com/69654e88dce9154b5f1206dd/698cad1160936ed8972bccfa_the-future-regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'The Future';
+      src: url('https://cdn.prod.website-files.com/69654e88dce9154b5f1206dd/698cad11f5c01ca7fba516ba_the-future-medium.woff2') format('woff2');
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'The Future';
+      src: url('https://cdn.prod.website-files.com/69654e88dce9154b5f1206dd/698cad117b7b7b625bfcb663_the-future-bold.woff2') format('woff2');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'The Future Mono';
+      src: url('https://cdn.prod.website-files.com/69654e88dce9154b5f1206dd/698cad11353cd03c54aee177_the-future-mono-regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'The Future Mono';
+      src: url('https://cdn.prod.website-files.com/69654e88dce9154b5f1206dd/698cad11906310338409a1c3_the-future-mono-medium.woff2') format('woff2');
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'The Future Mono';
+      src: url('https://cdn.prod.website-files.com/69654e88dce9154b5f1206dd/698cad1196b1cde8333da03a_the-future-mono-bold.woff2') format('woff2');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
     body, button, input, select, textarea {
-      font-family: 'The Future', Arial, sans-serif;
+      font-family: "The Future", Arial, sans-serif;
     }
     body {
       background-color: #ffffff;
       color: #111827;
-      font-family: 'The Future', Arial, sans-serif;
+      font-family: "The Future", Arial, sans-serif;
+    }
+    .font-sans {
+      font-family: "The Future", Arial, sans-serif !important;
     }
     .token-badge {
       display: inline-block;
