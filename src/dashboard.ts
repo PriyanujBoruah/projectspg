@@ -123,12 +123,12 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
   </style>
 </head>
 
-<body class="h-screen flex flex-col bg-white text-groq-dark antialiased overflow-hidden selection:bg-[#f0523d]/20 selection:text-[#f0523d]">
+<body class="min-h-screen flex flex-col bg-white text-groq-dark antialiased overflow-y-auto selection:bg-[#f0523d]/20 selection:text-[#f0523d]">
 
   <!-- ========================================================================= -->
   <!-- TOP GLOBAL NAVBAR (Exact 52px height) -->
   <!-- ========================================================================= -->
-  <header id="global-header" class="h-[52px] bg-white px-6 flex items-center justify-between shrink-0 z-40">
+  <header id="global-header" class="h-[52px] bg-white px-6 flex items-center justify-between shrink-0 z-40 hidden">
     
     <!-- Left: Brand Logo + Project Selector -->
     <div class="flex items-center gap-3.5">
@@ -200,12 +200,12 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
   <!-- ========================================================================= -->
   <!-- MAIN WORKSPACE -->
   <!-- ========================================================================= -->
-  <main class="flex-1 flex overflow-hidden">
+  <main class="flex-1 flex overflow-visible">
 
     <!-- ======================================================================= -->
     <!-- VIEW 0: LANDING PAGE (Hero Section Inspired by Together AI) -->
     <!-- ======================================================================= -->
-    <div id="view-landing" class="view-panel flex-1 flex flex-col overflow-y-auto w-full bg-gradient-to-b from-[#f2f7fc] via-[#f9fbfe] to-white relative">
+    <div id="view-landing" class="view-panel flex-1 flex flex-col w-full bg-gradient-to-b from-[#f2f7fc] via-[#f9fbfe] to-[#060814] relative pb-28">
       
       <!-- Ambient Glow Behind Hero -->
       <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-b from-sky-200/35 via-blue-100/20 to-transparent blur-3xl pointer-events-none -z-0"></div>
@@ -1022,7 +1022,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       <!-- SECTION 3: GROUNDED IN CUTTING-EDGE RESEARCH                            -->
       <!-- Matches uploaded media: 1790540856043.png & 1790540898787.png           -->
       <!-- ======================================================================= -->
-      <section id="research-section" class="w-full bg-[#060814] text-white py-20 sm:py-24 relative overflow-hidden select-none border-t border-slate-900">
+      <section id="research-section" class="w-full bg-[#060814] text-white py-20 sm:py-28 relative border-t border-slate-900">
         
         <!-- Ambient Subtle Deep Background Glow -->
         <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-r from-blue-900/15 via-purple-900/15 to-indigo-900/15 blur-3xl pointer-events-none -z-0"></div>
@@ -1052,169 +1052,170 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           </div>
 
           <!-- Cards Carousel Container with Horizontal Connector Line -->
-          <div class="relative py-2">
+          <div class="relative">
             
             <!-- Horizontal Connecting Line passing behind cards -->
-            <div class="hidden lg:block absolute top-1/2 -left-6 -right-6 h-1.5 bg-[#b49df7] -translate-y-1/2 z-0 pointer-events-none rounded-full shadow-[0_0_12px_rgba(180,157,247,0.4)]"></div>
+            <div class="hidden lg:block absolute top-[50%] left-0 right-0 h-1 bg-[#8b7ff5]/60 -translate-y-1/2 z-0 pointer-events-none"></div>
 
-            <!-- Cards Track: Horizontal Flex on Mobile/Tablet, 4-Column Grid on Desktop -->
-            <div id="research-cards-track" class="flex lg:grid lg:grid-cols-4 gap-6 relative z-10 overflow-x-auto lg:overflow-visible scrollbar-none pb-4 lg:pb-0">
+            <!-- Cards Track: Grid on desktop, horizontal carousel on mobile/tablet -->
+            <div id="research-cards-track" class="flex lg:grid lg:grid-cols-4 gap-6 relative z-10 overflow-x-auto lg:overflow-visible scrollbar-none pb-6 lg:pb-0">
               
               <!-- Card 1: ThunderKittens on Vera Rubin NVL72 -->
-              <div class="group relative rounded-2xl min-h-[420px] w-[290px] sm:w-[320px] lg:w-auto shrink-0 lg:shrink p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-[#262c52] hover:border-amber-300 hover:-translate-y-2 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_30px_rgba(251,191,36,0.3)] shadow-[0_8px_30px_rgba(0,0,0,0.5)] bg-[#12162b] bg-gradient-to-b from-[#181d36] to-[#111429]">
-                
+              <div class="group relative rounded-2xl min-h-[420px] w-[290px] sm:w-[320px] lg:w-auto shrink-0 lg:shrink p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-[#262c52] hover:border-amber-300 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_35px_rgba(251,191,36,0.25)] bg-[#0d1224]">
+                <!-- Base Solid Dark Underlay -->
+                <div class="absolute inset-0 bg-[#0d1224] -z-10"></div>
+
                 <!-- Hover Animated Iridescent Frosting (Exact Replica of media_1790540898787.png) -->
-                <div class="absolute inset-0 z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none overflow-hidden">
-                  <div class="absolute -top-10 -right-10 w-56 h-56 bg-[#fcd34d]/45 rounded-full blur-3xl"></div>
-                  <div class="absolute -bottom-10 -left-10 w-56 h-56 bg-[#c084fc]/50 rounded-full blur-3xl"></div>
-                  <div class="absolute top-1/3 left-1/4 w-48 h-48 bg-[#38bdf8]/40 rounded-full blur-3xl"></div>
-                  <div class="absolute inset-0 bg-white/[0.08] backdrop-blur-md"></div>
+                <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0 pointer-events-none overflow-hidden">
+                  <div class="absolute inset-0 bg-[#3b3452]/50 backdrop-blur-md"></div>
+                  <div class="absolute -top-12 -right-12 w-52 h-52 bg-pink-400/40 rounded-full blur-2xl"></div>
+                  <div class="absolute top-1/3 left-0 w-60 h-60 bg-indigo-300/40 rounded-full blur-2xl"></div>
+                  <div class="absolute -bottom-12 -left-12 w-52 h-52 bg-sky-300/40 rounded-full blur-2xl"></div>
+                  <div class="absolute bottom-4 right-4 w-44 h-44 bg-amber-200/35 rounded-full blur-2xl"></div>
+                  <div class="absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-black/25"></div>
                 </div>
 
-                <!-- Card Content Layer (Guaranteed Foreground) -->
-                <div class="relative z-10 flex flex-col justify-between h-full">
-                  <!-- Top Badge Pill -->
-                  <div class="flex justify-center w-full">
-                    <span class="px-3.5 py-1 rounded-md bg-white/10 group-hover:bg-white/20 border border-white/15 group-hover:border-white/30 text-white/90 text-[10px] sm:text-[11px] font-bold tracking-widest uppercase transition-all shadow-xs">
-                      KERNELS
-                    </span>
-                  </div>
+                <!-- Top Badge Pill -->
+                <div class="relative z-10 flex justify-center w-full">
+                  <span class="px-3.5 py-1 rounded-md bg-white/10 group-hover:bg-white/20 border border-white/15 text-white/90 text-[10px] font-bold tracking-widest uppercase transition-colors">
+                    KERNELS
+                  </span>
+                </div>
 
-                  <!-- Middle Headline -->
-                  <div class="my-auto py-6 text-center">
-                    <h3 class="text-lg sm:text-[19px] font-bold text-white leading-snug group-hover:text-white transition-colors">
-                      To Infinity and Beyond: ThunderKittens Now on NVIDIA Vera Rubin NVL72!
-                    </h3>
-                  </div>
+                <!-- Middle Headline -->
+                <div class="relative z-10 my-auto py-6 text-center">
+                  <h3 class="text-lg sm:text-[19px] font-bold text-white leading-snug group-hover:text-white transition-colors">
+                    To Infinity and Beyond: ThunderKittens Now on NVIDIA Vera Rubin NVL72!
+                  </h3>
+                </div>
 
-                  <!-- Bottom Citation & Hover Button -->
-                  <div class="relative w-full h-11 flex items-center justify-center">
-                    <!-- Normal Author Text (Fades out on hover) -->
-                    <p class="text-[10px] sm:text-[11px] font-mono tracking-widest text-gray-400 uppercase text-center transition-all duration-200 group-hover:opacity-0 group-hover:scale-95">
-                      DYLAN LIM, XINYI LI <span class="italic font-sans">ET AL.</span>
-                    </p>
-                    <!-- Hover "READ MORE" Glass Pill Button (Revealed on hover) -->
-                    <button class="absolute inset-0 m-auto w-32 h-9 rounded-lg bg-white/25 hover:bg-white/35 text-white text-[11px] font-bold tracking-wider uppercase backdrop-blur-md border border-white/35 transition-all duration-300 shadow-md opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 flex items-center justify-center cursor-pointer pointer-events-auto">
-                      READ MORE
-                    </button>
-                  </div>
+                <!-- Bottom Citation & Hover Button -->
+                <div class="relative z-10 w-full h-11 flex items-center justify-center">
+                  <!-- Normal Author Text (Fades out on hover) -->
+                  <p class="text-[10px] font-mono tracking-widest text-gray-400 uppercase text-center transition-all duration-200 group-hover:opacity-0 group-hover:scale-95">
+                    DYLAN LIM, XINYI LI <span class="italic font-sans">ET AL.</span>
+                  </p>
+                  <!-- Hover "READ MORE" Glass Pill Button (Revealed on hover) -->
+                  <button class="absolute inset-0 m-auto w-32 h-9 rounded-lg bg-white/25 hover:bg-white/35 text-white text-[11px] font-bold tracking-wider uppercase backdrop-blur-md border border-white/30 transition-all duration-300 shadow-md opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 flex items-center justify-center cursor-pointer">
+                    READ MORE
+                  </button>
                 </div>
               </div>
 
               <!-- Card 2: ThunderAgent: 2x Faster Agentic Inference -->
-              <div class="group relative rounded-2xl min-h-[420px] w-[290px] sm:w-[320px] lg:w-auto shrink-0 lg:shrink p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-[#262c52] hover:border-amber-300 hover:-translate-y-2 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_30px_rgba(251,191,36,0.3)] shadow-[0_8px_30px_rgba(0,0,0,0.5)] bg-[#12162b] bg-gradient-to-b from-[#181d36] to-[#111429]">
-                
+              <div class="group relative rounded-2xl min-h-[420px] w-[290px] sm:w-[320px] lg:w-auto shrink-0 lg:shrink p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-[#262c52] hover:border-amber-300 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_35px_rgba(251,191,36,0.25)] bg-[#0d1224]">
+                <!-- Base Solid Dark Underlay -->
+                <div class="absolute inset-0 bg-[#0d1224] -z-10"></div>
+
                 <!-- Hover Animated Iridescent Frosting -->
-                <div class="absolute inset-0 z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none overflow-hidden">
-                  <div class="absolute -top-10 -right-10 w-56 h-56 bg-[#fb923c]/40 rounded-full blur-3xl"></div>
-                  <div class="absolute -bottom-10 -left-10 w-56 h-56 bg-[#818cf8]/50 rounded-full blur-3xl"></div>
-                  <div class="absolute top-1/3 left-1/4 w-48 h-48 bg-[#f472b6]/40 rounded-full blur-3xl"></div>
-                  <div class="absolute inset-0 bg-white/[0.08] backdrop-blur-md"></div>
+                <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0 pointer-events-none overflow-hidden">
+                  <div class="absolute inset-0 bg-[#35334d]/50 backdrop-blur-md"></div>
+                  <div class="absolute -top-12 -right-12 w-52 h-52 bg-purple-400/40 rounded-full blur-2xl"></div>
+                  <div class="absolute top-1/4 -left-10 w-56 h-56 bg-amber-300/35 rounded-full blur-2xl"></div>
+                  <div class="absolute -bottom-10 right-4 w-52 h-52 bg-pink-400/35 rounded-full blur-2xl"></div>
+                  <div class="absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-black/25"></div>
                 </div>
 
-                <!-- Card Content Layer -->
-                <div class="relative z-10 flex flex-col justify-between h-full">
-                  <!-- Top Badge Pill -->
-                  <div class="flex justify-center w-full">
-                    <span class="px-3.5 py-1 rounded-md bg-white/10 group-hover:bg-white/20 border border-white/15 group-hover:border-white/30 text-white/90 text-[10px] sm:text-[11px] font-bold tracking-widest uppercase transition-all shadow-xs">
-                      AGENTS
-                    </span>
-                  </div>
+                <!-- Top Badge Pill -->
+                <div class="relative z-10 flex justify-center w-full">
+                  <span class="px-3.5 py-1 rounded-md bg-white/10 group-hover:bg-white/20 border border-white/15 text-white/90 text-[10px] font-bold tracking-widest uppercase transition-colors">
+                    AGENTS
+                  </span>
+                </div>
 
-                  <!-- Middle Headline -->
-                  <div class="my-auto py-6 text-center">
-                    <h3 class="text-lg sm:text-[19px] font-bold text-white leading-snug group-hover:text-white transition-colors">
-                      ThunderAgent: 2x Faster Agentic Inference for Synthetic Data Generation at Scale
-                    </h3>
-                  </div>
+                <!-- Middle Headline -->
+                <div class="relative z-10 my-auto py-6 text-center">
+                  <h3 class="text-lg sm:text-[19px] font-bold text-white leading-snug group-hover:text-white transition-colors">
+                    ThunderAgent: 2x Faster Agentic Inference for Synthetic Data Generation at Scale
+                  </h3>
+                </div>
 
-                  <!-- Bottom Citation & Hover Button -->
-                  <div class="relative w-full h-11 flex items-center justify-center">
-                    <p class="text-[10px] sm:text-[11px] font-mono tracking-widest text-gray-400 uppercase text-center transition-all duration-200 group-hover:opacity-0 group-hover:scale-95">
-                      HAO KANG, ZIYANG LI <span class="italic font-sans">ET AL.</span>
-                    </p>
-                    <button class="absolute inset-0 m-auto w-32 h-9 rounded-lg bg-white/25 hover:bg-white/35 text-white text-[11px] font-bold tracking-wider uppercase backdrop-blur-md border border-white/35 transition-all duration-300 shadow-md opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 flex items-center justify-center cursor-pointer pointer-events-auto">
-                      READ MORE
-                    </button>
-                  </div>
+                <!-- Bottom Citation & Hover Button -->
+                <div class="relative z-10 w-full h-11 flex items-center justify-center">
+                  <p class="text-[10px] font-mono tracking-widest text-gray-400 uppercase text-center transition-all duration-200 group-hover:opacity-0 group-hover:scale-95">
+                    HAO KANG, ZIYANG LI <span class="italic font-sans">ET AL.</span>
+                  </p>
+                  <button class="absolute inset-0 m-auto w-32 h-9 rounded-lg bg-white/25 hover:bg-white/35 text-white text-[11px] font-bold tracking-wider uppercase backdrop-blur-md border border-white/30 transition-all duration-300 shadow-md opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 flex items-center justify-center cursor-pointer">
+                    READ MORE
+                  </button>
                 </div>
               </div>
 
               <!-- Card 3: Together AI at ICML 2026 -->
-              <div class="group relative rounded-2xl min-h-[420px] w-[290px] sm:w-[320px] lg:w-auto shrink-0 lg:shrink p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-[#262c52] hover:border-amber-300 hover:-translate-y-2 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_30px_rgba(251,191,36,0.3)] shadow-[0_8px_30px_rgba(0,0,0,0.5)] bg-[#12162b] bg-gradient-to-b from-[#181d36] to-[#111429]">
-                
+              <div class="group relative rounded-2xl min-h-[420px] w-[290px] sm:w-[320px] lg:w-auto shrink-0 lg:shrink p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-[#262c52] hover:border-amber-300 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_35px_rgba(251,191,36,0.25)] bg-[#0d1224]">
+                <!-- Base Solid Dark Underlay -->
+                <div class="absolute inset-0 bg-[#0d1224] -z-10"></div>
+
                 <!-- Hover Animated Iridescent Frosting -->
-                <div class="absolute inset-0 z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none overflow-hidden">
-                  <div class="absolute -top-10 -right-10 w-56 h-56 bg-[#38bdf8]/45 rounded-full blur-3xl"></div>
-                  <div class="absolute -bottom-10 -left-10 w-56 h-56 bg-[#a855f7]/50 rounded-full blur-3xl"></div>
-                  <div class="absolute top-1/3 left-1/4 w-48 h-48 bg-[#ec4899]/35 rounded-full blur-3xl"></div>
-                  <div class="absolute inset-0 bg-white/[0.08] backdrop-blur-md"></div>
+                <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0 pointer-events-none overflow-hidden">
+                  <div class="absolute inset-0 bg-[#30394f]/50 backdrop-blur-md"></div>
+                  <div class="absolute -top-12 -right-12 w-52 h-52 bg-sky-400/40 rounded-full blur-2xl"></div>
+                  <div class="absolute top-1/3 left-0 w-60 h-60 bg-purple-400/40 rounded-full blur-2xl"></div>
+                  <div class="absolute -bottom-10 left-10 w-52 h-52 bg-pink-400/35 rounded-full blur-2xl"></div>
+                  <div class="absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-black/25"></div>
                 </div>
 
-                <!-- Card Content Layer -->
-                <div class="relative z-10 flex flex-col justify-between h-full">
-                  <!-- Top Badge Pill -->
-                  <div class="flex justify-center w-full">
-                    <span class="px-3.5 py-1 rounded-md bg-white/10 group-hover:bg-white/20 border border-white/15 group-hover:border-white/30 text-white/90 text-[10px] sm:text-[11px] font-bold tracking-widest uppercase transition-all shadow-xs">
-                      KERNELS
-                    </span>
-                  </div>
+                <!-- Top Badge Pill -->
+                <div class="relative z-10 flex justify-center w-full">
+                  <span class="px-3.5 py-1 rounded-md bg-white/10 group-hover:bg-white/20 border border-white/15 text-white/90 text-[10px] font-bold tracking-widest uppercase transition-colors">
+                    KERNELS
+                  </span>
+                </div>
 
-                  <!-- Middle Headline -->
-                  <div class="my-auto py-6 text-center">
-                    <h3 class="text-lg sm:text-[19px] font-bold text-white leading-snug group-hover:text-white transition-colors">
-                      Together AI at ICML 2026: frontier research across the full stack
-                    </h3>
-                  </div>
+                <!-- Middle Headline -->
+                <div class="relative z-10 my-auto py-6 text-center">
+                  <h3 class="text-lg sm:text-[19px] font-bold text-white leading-snug group-hover:text-white transition-colors">
+                    Together AI at ICML 2026: frontier research across the full stack
+                  </h3>
+                </div>
 
-                  <!-- Bottom Citation & Hover Button -->
-                  <div class="relative w-full h-11 flex items-center justify-center">
-                    <p class="text-[10px] sm:text-[11px] font-mono tracking-widest text-gray-400 uppercase text-center transition-all duration-200 group-hover:opacity-0 group-hover:scale-95">
-                      TOGETHER RESEARCH
-                    </p>
-                    <button class="absolute inset-0 m-auto w-32 h-9 rounded-lg bg-white/25 hover:bg-white/35 text-white text-[11px] font-bold tracking-wider uppercase backdrop-blur-md border border-white/35 transition-all duration-300 shadow-md opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 flex items-center justify-center cursor-pointer pointer-events-auto">
-                      READ MORE
-                    </button>
-                  </div>
+                <!-- Bottom Citation & Hover Button -->
+                <div class="relative z-10 w-full h-11 flex items-center justify-center">
+                  <p class="text-[10px] font-mono tracking-widest text-gray-400 uppercase text-center transition-all duration-200 group-hover:opacity-0 group-hover:scale-95">
+                    TOGETHER RESEARCH
+                  </p>
+                  <button class="absolute inset-0 m-auto w-32 h-9 rounded-lg bg-white/25 hover:bg-white/35 text-white text-[11px] font-bold tracking-wider uppercase backdrop-blur-md border border-white/30 transition-all duration-300 shadow-md opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 flex items-center justify-center cursor-pointer">
+                    READ MORE
+                  </button>
                 </div>
               </div>
 
               <!-- Card 4: ParallelKernelBench -->
-              <div class="group relative rounded-2xl min-h-[420px] w-[290px] sm:w-[320px] lg:w-auto shrink-0 lg:shrink p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-[#262c52] hover:border-amber-300 hover:-translate-y-2 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_30px_rgba(251,191,36,0.3)] shadow-[0_8px_30px_rgba(0,0,0,0.5)] bg-[#12162b] bg-gradient-to-b from-[#181d36] to-[#111429]">
-                
+              <div class="group relative rounded-2xl min-h-[420px] w-[290px] sm:w-[320px] lg:w-auto shrink-0 lg:shrink p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-[#262c52] hover:border-amber-300 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_35px_rgba(251,191,36,0.25)] bg-[#0d1224]">
+                <!-- Base Solid Dark Underlay -->
+                <div class="absolute inset-0 bg-[#0d1224] -z-10"></div>
+
                 <!-- Hover Animated Iridescent Frosting -->
-                <div class="absolute inset-0 z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none overflow-hidden">
-                  <div class="absolute -top-10 -right-10 w-56 h-56 bg-[#34d399]/40 rounded-full blur-3xl"></div>
-                  <div class="absolute -bottom-10 -left-10 w-56 h-56 bg-[#818cf8]/50 rounded-full blur-3xl"></div>
-                  <div class="absolute top-1/3 left-1/4 w-48 h-48 bg-[#38bdf8]/40 rounded-full blur-3xl"></div>
-                  <div class="absolute inset-0 bg-white/[0.08] backdrop-blur-md"></div>
+                <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0 pointer-events-none overflow-hidden">
+                  <div class="absolute inset-0 bg-[#2d3a4d]/50 backdrop-blur-md"></div>
+                  <div class="absolute -top-12 -right-12 w-52 h-52 bg-emerald-400/35 rounded-full blur-2xl"></div>
+                  <div class="absolute top-1/4 -left-10 w-56 h-56 bg-cyan-300/35 rounded-full blur-2xl"></div>
+                  <div class="absolute -bottom-10 right-4 w-52 h-52 bg-indigo-400/35 rounded-full blur-2xl"></div>
+                  <div class="absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-black/25"></div>
                 </div>
 
-                <!-- Card Content Layer -->
-                <div class="relative z-10 flex flex-col justify-between h-full">
-                  <!-- Top Badge Pill -->
-                  <div class="flex justify-center w-full">
-                    <span class="px-3.5 py-1 rounded-md bg-white/10 group-hover:bg-white/20 border border-white/15 group-hover:border-white/30 text-white/90 text-[10px] sm:text-[11px] font-bold tracking-widest uppercase transition-all shadow-xs">
-                      KERNELS
-                    </span>
-                  </div>
+                <!-- Top Badge Pill -->
+                <div class="relative z-10 flex justify-center w-full">
+                  <span class="px-3.5 py-1 rounded-md bg-white/10 group-hover:bg-white/20 border border-white/15 text-white/90 text-[10px] font-bold tracking-widest uppercase transition-colors">
+                    KERNELS
+                  </span>
+                </div>
 
-                  <!-- Middle Headline -->
-                  <div class="my-auto py-6 text-center">
-                    <h3 class="text-lg sm:text-[19px] font-bold text-white leading-snug group-hover:text-white transition-colors">
-                      ParallelKernelBench: Frontier LLMs can't write fast multi-GPU kernels (yet)
-                    </h3>
-                  </div>
+                <!-- Middle Headline -->
+                <div class="relative z-10 my-auto py-6 text-center">
+                  <h3 class="text-lg sm:text-[19px] font-bold text-white leading-snug group-hover:text-white transition-colors">
+                    ParallelKernelBench: Frontier LLMs can't write fast multi-GPU kernels (yet)
+                  </h3>
+                </div>
 
-                  <!-- Bottom Citation & Hover Button -->
-                  <div class="relative w-full h-11 flex items-center justify-center">
-                    <p class="text-[10px] sm:text-[11px] font-mono tracking-widest text-gray-400 uppercase text-center transition-all duration-200 group-hover:opacity-0 group-hover:scale-95">
-                      WILLY CHAN, NATHAN PAEK <span class="italic font-sans">ET AL.</span>
-                    </p>
-                    <button class="absolute inset-0 m-auto w-32 h-9 rounded-lg bg-white/25 hover:bg-white/35 text-white text-[11px] font-bold tracking-wider uppercase backdrop-blur-md border border-white/35 transition-all duration-300 shadow-md opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 flex items-center justify-center cursor-pointer pointer-events-auto">
-                      READ MORE
-                    </button>
-                  </div>
+                <!-- Bottom Citation & Hover Button -->
+                <div class="relative z-10 w-full h-11 flex items-center justify-center">
+                  <p class="text-[10px] font-mono tracking-widest text-gray-400 uppercase text-center transition-all duration-200 group-hover:opacity-0 group-hover:scale-95">
+                    WILLY CHAN, NATHAN PAEK <span class="italic font-sans">ET AL.</span>
+                  </p>
+                  <button class="absolute inset-0 m-auto w-32 h-9 rounded-lg bg-white/25 hover:bg-white/35 text-white text-[11px] font-bold tracking-wider uppercase backdrop-blur-md border border-white/30 transition-all duration-300 shadow-md opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 flex items-center justify-center cursor-pointer">
+                    READ MORE
+                  </button>
                 </div>
               </div>
 
@@ -2206,11 +2207,23 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       window.location.hash = viewName;
 
       const globalHeader = document.getElementById('global-header');
-      if (globalHeader) {
-        if (viewName === 'landing') {
-          globalHeader.classList.add('hidden');
-        } else {
-          globalHeader.classList.remove('hidden');
+      const mainEl = document.querySelector('main');
+
+      if (viewName === 'landing') {
+        if (globalHeader) globalHeader.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden', 'h-screen');
+        document.body.classList.add('overflow-y-auto', 'min-h-screen');
+        if (mainEl) {
+          mainEl.classList.remove('overflow-hidden');
+          mainEl.classList.add('overflow-visible');
+        }
+      } else {
+        if (globalHeader) globalHeader.classList.remove('hidden');
+        document.body.classList.add('overflow-hidden', 'h-screen');
+        document.body.classList.remove('overflow-y-auto', 'min-h-screen');
+        if (mainEl) {
+          mainEl.classList.add('overflow-hidden');
+          mainEl.classList.remove('overflow-visible');
         }
       }
 
