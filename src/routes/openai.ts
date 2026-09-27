@@ -600,12 +600,21 @@ openaiApp.post("/chat/completions", async (c) => {
     return c.json(err, 502);
   }
 
-  // If upstream returns an error status (e.g. 401, 429, 500), forward raw response faithfully
+  // If upstream returns an error status (e.g. 401, 403, 429, 500), forward normalized OpenAI response
   if (!upstreamRes.ok) {
     const errorBody = await upstreamRes.text();
-    let errorJson;
+    let errorJson: any;
     try {
       errorJson = JSON.parse(errorBody);
+      if (!errorJson.error) {
+        errorJson = {
+          error: {
+            message: errorJson.message || errorBody,
+            type: errorJson.type || "upstream_error",
+            code: errorJson.code || upstreamRes.status,
+          },
+        };
+      }
     } catch {
       errorJson = { error: { message: errorBody, type: "upstream_error", code: upstreamRes.status } };
     }

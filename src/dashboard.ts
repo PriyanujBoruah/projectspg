@@ -232,7 +232,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               <optgroup label="Mistral AI">
                 <option value="codestral-2508">codestral-2508</option>
                 <option value="ministral-8b-2512">ministral-8b-2512</option>
-                <option value="mistral-large-2512">mistral-large-2512</option>
+                <option value="mistral-large-2512">mistral-large-2512 (BYOK)</option>
               </optgroup>
             </select>
             <i data-lucide="chevrons-up-down" class="w-3.5 h-3.5 text-groq-textSubtle absolute right-2.5 top-2 pointer-events-none"></i>
@@ -1529,12 +1529,20 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             'Please retry in <strong class="text-[#f0523d]">' + retrySec + 's</strong>, or switch to BYOK mode for unlimited requests.' +
             '</div>';
           startCooldown(retrySec);
-        } else if (data.error) {
+        } else if (!res.ok || data.error) {
+          document.getElementById('welcome-message').classList.add('hidden');
           const protBox = document.getElementById('output-protected-container');
           if (protBox) protBox.classList.add('hidden');
           const rehydBox = document.getElementById('output-rehydrated-container');
           if (rehydBox) rehydBox.classList.remove('hidden');
-          document.getElementById('rehydrated-text').innerHTML = '<span class="text-red-500 font-bold">Error:</span> ' + escapeHtml(JSON.stringify(data.error));
+          const errObj = data.error || data;
+          const errMsg = typeof errObj === 'string' ? errObj : (errObj.message || JSON.stringify(errObj));
+          const isTierError = res.status === 403 || errMsg.includes('subscription tier') || errMsg.includes('tier_not_allowed');
+          document.getElementById('rehydrated-text').innerHTML =
+            '<div class="p-3.5 bg-red-50 border border-red-200 rounded-xl text-red-900 text-xs leading-relaxed">' +
+            '<strong>Provider Error (' + res.status + '):</strong> ' + escapeHtml(errMsg) +
+            (isTierError ? '<br/><span class="text-groq-textSubtle mt-1.5 block">💡 <em>Mistral Large (mistral-large-2512) requires a paid Mistral AI subscription tier. To use this model, click "Parameters", switch to BYOK mode, and enter your paid Mistral API key. For free testing, select <strong>codestral-2508</strong> or <strong>ministral-8b-2512</strong>.</em></span>' : '') +
+            '</div>';
         }
       } catch (err) {
         document.getElementById('rehydrated-text').textContent = 'Execution error: ' + err.message;
