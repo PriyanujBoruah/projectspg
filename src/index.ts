@@ -53,7 +53,8 @@ app.use(
 
 app.options("*", (c) => c.body(null, 204));
 
-// Serve Single-File Enterprise Dashboard
+// Serve Single-File Enterprise Landing Page & Console
+app.get("/", (c) => c.html(DASHBOARD_HTML));
 app.get("/dashboard", (c) => c.html(DASHBOARD_HTML));
 
 // Mount API Key Authentication Middleware on /v1 routes
