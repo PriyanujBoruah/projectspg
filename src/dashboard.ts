@@ -205,7 +205,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     <!-- ======================================================================= -->
     <!-- VIEW 0: LANDING PAGE (Hero Section Inspired by Together AI) -->
     <!-- ======================================================================= -->
-    <div id="view-landing" class="view-panel flex-1 flex flex-col w-full bg-white relative pb-32">
+    <div id="view-landing" class="view-panel flex-1 flex flex-col w-full bg-white relative">
       
       <!-- Ambient Glow Behind Hero -->
       <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-b from-sky-200/35 via-blue-100/20 to-transparent blur-3xl pointer-events-none -z-0"></div>
@@ -1477,8 +1477,208 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
           </div>
 
+      </section>
+
+      <!-- ======================================================================= -->
+      <!-- SECTION 5: CALL TO ACTION ("Start building on Together AI")             -->
+      <!-- Matches uploaded media: 1790542040866.png                               -->
+      <!-- ======================================================================= -->
+      <section class="w-full relative pt-24 pb-36 sm:pt-32 sm:pb-48 overflow-hidden bg-white text-center">
+        
+        <!-- 3D Geometric Atmospheric Backdrop -->
+        <div class="absolute inset-0 pointer-events-none overflow-hidden flex items-end justify-center">
+          <!-- Left Warm Coral Glow -->
+          <div class="absolute -left-24 bottom-0 w-[420px] h-[340px] bg-gradient-to-tr from-rose-500/25 via-red-400/20 to-transparent blur-3xl rounded-full"></div>
+          
+          <!-- Center Frosted Glass 3D Arc / Semi-Circle -->
+          <div class="absolute bottom-[-140px] left-1/2 -translate-x-1/2 w-[700px] sm:w-[900px] h-[380px] rounded-t-full bg-gradient-to-b from-sky-100/40 via-blue-50/20 to-transparent border-t-2 border-l border-r border-white/80 backdrop-blur-xl shadow-2xl">
+            <!-- Inner Glass Highlights -->
+            <div class="absolute top-4 left-1/4 right-1/4 h-0.5 bg-gradient-to-r from-transparent via-white/80 to-transparent"></div>
+          </div>
+
+          <!-- Right Deep Royal Blue 3D Disc -->
+          <div class="absolute -right-16 bottom-[-60px] w-72 sm:w-96 h-72 sm:h-96 rounded-[50px] sm:rounded-[64px] bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-900 shadow-[0_25px_60px_rgba(29,78,216,0.45)] transform rotate-[18deg] -skew-x-6 border-t-2 border-l-2 border-sky-300/40"></div>
+
+          <!-- Far Right Blue/Purple Atmosphere -->
+          <div class="absolute -right-20 bottom-0 w-[480px] h-[400px] bg-gradient-to-tl from-indigo-600/25 via-blue-500/15 to-transparent blur-3xl rounded-full"></div>
+        </div>
+
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 relative z-10">
+          <h2 class="text-4xl sm:text-5xl lg:text-[54px] font-bold text-gray-950 tracking-tight leading-tight">
+            Start building on Together AI
+          </h2>
+          <p class="text-base sm:text-lg lg:text-xl text-gray-500 font-normal mt-4 max-w-2xl mx-auto leading-relaxed">
+            From optimized training and model shaping to large-scale production inference
+          </p>
+          <div class="mt-8 flex justify-center">
+            <button onclick="openAuthModal()" class="px-7 py-3.5 rounded-xl bg-black hover:bg-gray-800 text-white text-xs font-bold tracking-wider uppercase transition shadow-md hover:shadow-lg cursor-pointer transform hover:-translate-y-0.5">
+              GET STARTED NOW
+            </button>
+          </div>
         </div>
       </section>
+
+      <!-- ======================================================================= -->
+      <!-- SECTION 6: FOOTER                                                       -->
+      <!-- Matches uploaded media: 1790542042470.png                               -->
+      <!-- ======================================================================= -->
+      <footer class="w-full relative overflow-hidden bg-gradient-to-b from-[#eaf2fc]/60 via-[#f1f6fc] to-[#e8edf7] pt-12">
+        
+        <!-- Ambient Edge Colors behind the white card -->
+        <div class="absolute -left-20 top-0 w-80 h-96 bg-rose-400/25 blur-3xl pointer-events-none"></div>
+        <div class="absolute -right-20 top-0 w-96 h-96 bg-blue-500/25 blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          
+          <!-- Main White Footer Card with Curved Top -->
+          <div class="w-full bg-white rounded-t-[32px] sm:rounded-t-[44px] border-t border-l border-r border-gray-100 shadow-[0_-10px_35px_rgba(0,0,0,0.02)] pt-12 sm:pt-16 pb-10 px-6 sm:px-12 lg:px-16 relative overflow-hidden">
+            
+            <!-- Top Grid: Brand Logo + 4 Category Columns -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-start">
+              
+              <!-- Brand Logo (Left Column) -->
+              <div class="lg:col-span-3">
+                <a href="#landing" onclick="switchView('landing')" class="inline-flex items-center gap-2 group cursor-pointer" title="Together AI">
+                  <!-- Together AI Tri-color Petal Brand Emblem -->
+                  <div class="relative w-8 h-8 flex items-center justify-center">
+                    <span class="absolute top-0 left-1 w-3.5 h-3.5 rounded-full bg-purple-400/90 shadow-2xs"></span>
+                    <span class="absolute top-0 right-1 w-3.5 h-3.5 rounded-full bg-pink-500/90 shadow-2xs"></span>
+                    <span class="absolute bottom-0 left-2.5 w-3.5 h-3.5 rounded-full bg-[#f0523d] shadow-2xs"></span>
+                  </div>
+                  <span class="font-extrabold text-[20px] tracking-tight text-gray-950">together<span class="text-[#f0523d]">.ai</span></span>
+                </a>
+              </div>
+
+              <!-- 4 Columns of Links -->
+              <div class="lg:col-span-9 grid grid-cols-2 sm:grid-cols-4 gap-8 sm:gap-6 text-xs">
+                
+                <!-- Col 1: PRODUCTS -->
+                <div>
+                  <div class="border-t border-gray-200/90 pt-3 mb-3.5">
+                    <span class="text-[10px] font-bold tracking-widest uppercase text-gray-900 font-mono">PRODUCTS</span>
+                  </div>
+                  <ul class="space-y-2.5 font-medium text-gray-600">
+                    <li><a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">Accelerated Compute</a></li>
+                    <li><a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">Serverless Inference</a></li>
+                    <li><a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">Provisioned Throughput</a></li>
+                    <li><a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">Dedicated Inference</a></li>
+                    <li><a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">Fine-Tuning</a></li>
+                    <li><a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">Sandbox</a></li>
+                    <li><a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">Evaluations</a></li>
+                  </ul>
+                </div>
+
+                <!-- Col 2: MODELS -->
+                <div>
+                  <div class="border-t border-gray-200/90 pt-3 mb-3.5">
+                    <span class="text-[10px] font-bold tracking-widest uppercase text-gray-900 font-mono">MODELS</span>
+                  </div>
+                  <ul class="space-y-2.5 font-medium text-gray-600">
+                    <li><a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">See all models</a></li>
+                    <li><a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">DeepSeek</a></li>
+                    <li><a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">Meta</a></li>
+                    <li><a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">Qwen</a></li>
+                    <li><a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">Google</a></li>
+                    <li><a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">OpenAI</a></li>
+                    <li><a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">Mistral AI</a></li>
+                    <li><a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">Custom models</a></li>
+                  </ul>
+                </div>
+
+                <!-- Col 3: DEVELOPERS & PRICING -->
+                <div>
+                  <!-- Subgroup 1: DEVELOPERS -->
+                  <div class="border-t border-gray-200/90 pt-3 mb-3.5">
+                    <span class="text-[10px] font-bold tracking-widest uppercase text-gray-900 font-mono">DEVELOPERS</span>
+                  </div>
+                  <ul class="space-y-2.5 font-medium text-gray-600 mb-6">
+                    <li><a href="#docs" onclick="switchView('docs')" class="hover:text-gray-950 transition">Research</a></li>
+                    <li><a href="#docs" onclick="switchView('docs')" class="hover:text-gray-950 transition">Docs</a></li>
+                    <li><a href="#docs" onclick="switchView('docs')" class="hover:text-gray-950 transition">Open-source AI</a></li>
+                    <li><a href="#docs" onclick="switchView('docs')" class="hover:text-gray-950 transition">OSS ROI calculator</a></li>
+                  </ul>
+
+                  <!-- Subgroup 2: PRICING -->
+                  <div class="border-t border-gray-200/90 pt-3 mb-3.5">
+                    <span class="text-[10px] font-bold tracking-widest uppercase text-gray-900 font-mono">PRICING</span>
+                  </div>
+                  <ul class="space-y-2.5 font-medium text-gray-600">
+                    <li><a href="#keys" onclick="switchView('keys')" class="hover:text-gray-950 transition">Pricing overview</a></li>
+                    <li><a href="#keys" onclick="switchView('keys')" class="hover:text-gray-950 transition">Inference</a></li>
+                    <li><a href="#keys" onclick="switchView('keys')" class="hover:text-gray-950 transition">Fine-Tuning</a></li>
+                    <li><a href="#keys" onclick="switchView('keys')" class="hover:text-gray-950 transition">GPU Clusters</a></li>
+                  </ul>
+                </div>
+
+                <!-- Col 4: RESOURCES -->
+                <div>
+                  <div class="border-t border-gray-200/90 pt-3 mb-3.5">
+                    <span class="text-[10px] font-bold tracking-widest uppercase text-gray-900 font-mono">RESOURCES</span>
+                  </div>
+                  <ul class="space-y-2.5 font-medium text-gray-600">
+                    <li><a href="#docs" onclick="switchView('docs')" class="hover:text-gray-950 transition">Blog</a></li>
+                    <li><a href="#docs" onclick="switchView('docs')" class="hover:text-gray-950 transition">About us</a></li>
+                    <li><a href="#docs" onclick="switchView('docs')" class="hover:text-gray-950 transition">Careers</a></li>
+                    <li><a href="#docs" onclick="switchView('docs')" class="hover:text-gray-950 transition">Customer Stories</a></li>
+                    <li><a href="#docs" onclick="switchView('docs')" class="hover:text-gray-950 transition">Support</a></li>
+                  </ul>
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- Giant Watermark Brand Name (Exact Replica of media_1790542042470.png) -->
+            <div class="select-none pointer-events-none text-right sm:text-center text-[75px] sm:text-[135px] lg:text-[180px] font-bold tracking-tight text-gray-100/90 leading-none my-6 sm:my-10 overflow-hidden font-sans">
+              together<span class="text-[#f0523d]">.</span>ai
+            </div>
+
+            <!-- Bottom Legal & Social Row -->
+            <div class="border-t border-gray-100 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-500 font-sans">
+              <!-- Left Copyright -->
+              <div class="text-[10px] font-mono text-gray-400 tracking-wider uppercase text-center md:text-left">
+                © 2026 TOGETHER AI. ALL RIGHTS RESERVED.
+              </div>
+
+              <!-- Center Legal Links -->
+              <div class="flex flex-wrap items-center justify-center gap-5 sm:gap-7 text-xs text-gray-600">
+                <a href="#docs" onclick="switchView('docs')" class="hover:text-gray-950 transition">Privacy Policy</a>
+                <a href="#docs" onclick="switchView('docs')" class="hover:text-gray-950 transition">Terms of service</a>
+                <a href="#docs" onclick="switchView('docs')" class="hover:text-gray-950 transition">Cookie Policy</a>
+                <a href="#docs" onclick="switchView('docs')" class="hover:text-gray-950 transition">Consent Preferences</a>
+              </div>
+
+              <!-- Right Social Icons -->
+              <div class="flex items-center gap-4 text-gray-700">
+                <!-- Discord -->
+                <a href="https://discord.gg" target="_blank" rel="noopener noreferrer" class="hover:text-gray-950 transition p-1" title="Discord">
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                  </svg>
+                </a>
+
+                <!-- X (Twitter) -->
+                <a href="https://x.com" target="_blank" rel="noopener noreferrer" class="hover:text-gray-950 transition p-1" title="X (Twitter)">
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                  </svg>
+                </a>
+
+                <!-- LinkedIn -->
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="hover:text-gray-950 transition p-1" title="LinkedIn">
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                  </svg>
+                </a>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </footer>
 
     </div>
 
