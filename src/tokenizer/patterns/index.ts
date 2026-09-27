@@ -54,8 +54,6 @@ for (const rule of ENTERPRISE_RULESET) {
   CATEGORY_REGISTRY.get(rule.category)!.push(rule);
 }
 
-export const MAX_ALLOWED_CATEGORIES = 2;
-
 /**
  * Resolves requested Canonical Pack IDs into a deduplicated Rule list.
  * Always includes 'global' baseline rules.

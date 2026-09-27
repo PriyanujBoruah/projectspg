@@ -68,7 +68,7 @@ export function tokenize(
     };
   }
 
-  // Resolve active rules scoped to requested categories (Max 2 Canonical Packs)
+  // Resolve active rules scoped to requested categories (Supports arbitrary packs or 'all')
   const { rules: activeRules, resolvedPacks, error } = resolveActiveRules(categories);
   if (error) {
     throw new Error(error);
