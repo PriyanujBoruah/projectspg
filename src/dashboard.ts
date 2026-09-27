@@ -211,9 +211,9 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       <div class="h-[54px] border-b border-groq-grayBorder bg-white px-6 flex items-center justify-between shrink-0">
         <div class="flex items-center gap-4">
           <h2 class="text-[15px] font-semibold text-groq-dark tracking-tight">Playground</h2>
-          <div class="bg-[#f3f4f6] p-0.5 rounded-lg flex items-center text-xs">
-            <button class="px-3 py-1 rounded-md bg-white text-groq-dark font-medium shadow-xs text-xs">Chat</button>
-            <button class="px-3 py-1 rounded-md text-groq-textMuted hover:text-groq-dark text-xs">Studio</button>
+          <div class="bg-[#f3f4f6] p-0.5 rounded-lg flex items-center text-xs select-none">
+            <button id="btn-tier-free" onclick="switchPlaygroundTier('free')" class="px-3 py-1 rounded-md bg-white text-groq-dark font-medium shadow-xs text-xs transition cursor-pointer">Free</button>
+            <button id="btn-tier-byok" onclick="switchPlaygroundTier('byok')" class="px-3 py-1 rounded-md text-groq-textMuted hover:text-groq-dark text-xs transition cursor-pointer">BYOK</button>
           </div>
         </div>
 
@@ -1167,14 +1167,42 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       alert('Model name copied: ' + model);
     }
 
+    let playgroundTierMode = 'free'; // 'free' or 'byok'
+
+    function switchPlaygroundTier(mode) {
+      playgroundTierMode = mode;
+      const freeBtn = document.getElementById('btn-tier-free');
+      const byokBtn = document.getElementById('btn-tier-byok');
+
+      if (mode === 'free') {
+        if (freeBtn) {
+          freeBtn.className = 'px-3 py-1 rounded-md bg-white text-groq-dark font-medium shadow-xs text-xs transition cursor-pointer';
+        }
+        if (byokBtn) {
+          byokBtn.className = 'px-3 py-1 rounded-md text-groq-textMuted hover:text-groq-dark text-xs transition cursor-pointer';
+        }
+      } else {
+        if (byokBtn) {
+          byokBtn.className = 'px-3 py-1 rounded-md bg-white text-groq-dark font-medium shadow-xs text-xs transition cursor-pointer';
+        }
+        if (freeBtn) {
+          freeBtn.className = 'px-3 py-1 rounded-md text-groq-textMuted hover:text-groq-dark text-xs transition cursor-pointer';
+        }
+        const apiKey = document.getElementById('cfg-apikey') ? document.getElementById('cfg-apikey').value.trim() : '';
+        if (!apiKey) {
+          openConfigModal();
+        }
+      }
+    }
+
     async function submitPrompt() {
       const userPrompt = document.getElementById('user-prompt').value.trim();
       if (!userPrompt) return;
 
       const model = document.getElementById('playground-model').value;
       const kmsKey = document.getElementById('cfg-kms').value.trim();
-      const apiKey = document.getElementById('cfg-apikey').value.trim();
-      const mode = document.getElementById('cfg-mode').value;
+      const apiKey = playgroundTierMode === 'byok' ? (document.getElementById('cfg-apikey') ? document.getElementById('cfg-apikey').value.trim() : '') : '';
+      const mode = document.getElementById('cfg-mode') ? document.getElementById('cfg-mode').value : 'mask';
 
       const btn = document.getElementById('btn-submit');
       btn.innerHTML = '<span>Running...</span>';
