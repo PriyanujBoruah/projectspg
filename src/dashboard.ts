@@ -128,16 +128,16 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
   <!-- ========================================================================= -->
   <!-- TOP GLOBAL NAVBAR (Exact 52px height) -->
   <!-- ========================================================================= -->
-  <header id="global-header" class="h-[52px] bg-white px-6 flex items-center justify-between shrink-0 z-40 hidden">
+  <header id="global-header" class="h-[52px] bg-white px-3 sm:px-6 flex items-center justify-between shrink-0 z-40 hidden border-b border-gray-100">
     
     <!-- Left: Brand Logo + Project Selector -->
-    <div class="flex items-center gap-3.5">
+    <div class="flex items-center gap-2 sm:gap-3.5">
       <a href="#landing" onclick="switchView('landing')" class="flex items-center gap-1 group" title="Return to Landing Page">
-        <span class="font-extrabold text-[22px] tracking-tight text-groq-dark">project<span class="text-[#f0523d]">spg</span></span>
+        <span class="font-extrabold text-[20px] sm:text-[22px] tracking-tight text-groq-dark">project<span class="text-[#f0523d]">spg</span></span>
       </a>
 
       <!-- Project Selector Pill Dropdown -->
-      <div class="flex items-center gap-1.5 text-xs text-groq-textMuted cursor-pointer hover:text-groq-dark transition ml-2">
+      <div class="hidden md:flex items-center gap-1.5 text-xs text-groq-textMuted cursor-pointer hover:text-groq-dark transition ml-2">
         <span class="font-normal text-groq-textMuted">Personal</span>
         <i data-lucide="chevrons-up-down" class="w-3 h-3 text-groq-textSubtle"></i>
         <span class="mx-1 text-gray-300 font-light">/</span>
@@ -147,15 +147,15 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     </div>
 
     <!-- Right: Navigation Tabs + Settings + Avatar -->
-    <div class="flex items-center gap-6 text-xs">
-      <nav class="flex items-center gap-6 font-medium">
-        <button onclick="switchView('playground')" id="nav-playground" class="nav-item text-groq-textMuted hover:text-groq-dark transition">Playground</button>
-        <button onclick="switchView('keys')" id="nav-keys" class="nav-item text-groq-textMuted hover:text-groq-dark transition">API Keys</button>
-        <button onclick="switchView('dashboard')" id="nav-dashboard" class="nav-item text-[#f0523d] font-semibold transition">Dashboard</button>
-        <button onclick="switchView('docs')" id="nav-docs" class="nav-item text-groq-textMuted hover:text-groq-dark transition">Docs</button>
+    <div class="flex items-center gap-2 sm:gap-6 text-xs">
+      <nav class="flex items-center gap-3 sm:gap-6 font-medium text-[11px] sm:text-xs overflow-x-auto">
+        <button onclick="switchView('playground')" id="nav-playground" class="nav-item text-groq-textMuted hover:text-groq-dark transition whitespace-nowrap">Playground</button>
+        <button onclick="switchView('keys')" id="nav-keys" class="nav-item text-groq-textMuted hover:text-groq-dark transition whitespace-nowrap">API Keys</button>
+        <button onclick="switchView('dashboard')" id="nav-dashboard" class="nav-item text-[#f0523d] font-semibold transition whitespace-nowrap">Dashboard</button>
+        <button onclick="switchView('docs')" id="nav-docs" class="nav-item text-groq-textMuted hover:text-groq-dark transition whitespace-nowrap">Docs</button>
       </nav>
 
-      <div class="flex items-center gap-3.5 ml-2">
+      <div class="flex items-center gap-2 sm:gap-3.5 ml-1 sm:ml-2">
         <!-- Settings Gear Icon -->
         <button onclick="openConfigModal()" class="text-groq-textMuted hover:text-groq-dark transition p-1" title="Settings">
           <i data-lucide="settings" class="w-4 h-4"></i>
@@ -211,11 +211,11 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-b from-sky-200/35 via-blue-100/20 to-transparent blur-3xl pointer-events-none -z-0"></div>
 
       <!-- Floating Header (ProjectSPG Floating Navbar) -->
-      <header class="w-full max-w-7xl mx-auto pt-5 px-4 sm:px-6 relative z-50">
-        <div class="bg-white/90 backdrop-blur-md border border-gray-200/80 rounded-full px-5 py-2.5 flex items-center justify-between shadow-xs">
+      <header class="w-full max-w-7xl mx-auto pt-4 sm:pt-5 px-3 sm:px-6 relative z-50">
+        <div class="bg-white/90 backdrop-blur-md border border-gray-200/80 rounded-full px-4 sm:px-5 py-2 sm:py-2.5 flex items-center justify-between shadow-xs">
           
           <!-- Left: Brand Emblem + Name -->
-          <div class="flex items-center gap-2.5 cursor-pointer" onclick="switchView('landing')">
+          <div class="flex items-center gap-2 sm:gap-2.5 cursor-pointer" onclick="switchView('landing')">
             <div class="w-7 h-7 rounded-lg bg-black flex items-center justify-center text-white shadow-xs">
               <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
@@ -225,57 +225,101 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           </div>
 
           <!-- Middle: Navigation Links -->
-          <nav class="hidden md:flex items-center gap-7 text-[13px] font-medium text-gray-600">
-            <div class="relative group cursor-pointer hover:text-gray-950 transition flex items-center gap-1">
-              <span>Sovereign Packs</span>
-              <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-400 group-hover:text-gray-900 transition"></i>
-            </div>
-            <div class="relative group cursor-pointer hover:text-gray-950 transition flex items-center gap-1">
-              <span>BYOK KMS</span>
-              <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-400 group-hover:text-gray-900 transition"></i>
-            </div>
+          <nav class="hidden md:flex items-center gap-6 lg:gap-7 text-[13px] font-medium text-gray-600">
+            <a href="#platform-section" class="hover:text-gray-950 transition">Platform</a>
+            <a href="#research-section" class="hover:text-gray-950 transition">Research</a>
+            <a href="#news-section" class="hover:text-gray-950 transition">What's New</a>
+            <a href="#pricing-section" class="hover:text-gray-950 transition">Pricing</a>
             <a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">Playground</a>
             <a href="#docs" onclick="switchView('docs')" class="hover:text-gray-950 transition">Docs</a>
-            <a href="#keys" onclick="switchView('keys')" class="hover:text-gray-950 transition">Pricing &amp; Keys</a>
+            <a href="#keys" onclick="switchView('keys')" class="hover:text-gray-950 transition">API Keys</a>
           </nav>
 
           <!-- Right: Actions -->
-          <div class="flex items-center gap-4 text-xs font-semibold">
+          <div class="flex items-center gap-2.5 sm:gap-4 text-xs font-semibold">
             <a href="#docs" onclick="switchView('docs')" class="hidden sm:inline-block text-gray-700 hover:text-gray-950 tracking-wider text-[11px] font-bold uppercase transition">Contact Sales</a>
             <div class="h-4 w-px bg-gray-200 hidden sm:block"></div>
-            <button onclick="openAuthModal()" class="px-4 py-2 rounded-full bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase transition shadow-xs cursor-pointer flex items-center gap-1.5">
+            <button onclick="openAuthModal()" class="px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase transition shadow-xs cursor-pointer flex items-center gap-1.5">
               <span>Sign In</span>
             </button>
+            <!-- Mobile Menu Hamburger Button -->
+            <button onclick="toggleLandingMobileMenu()" id="btn-landing-mobile-menu" class="md:hidden p-1.5 rounded-full hover:bg-gray-100 text-gray-700 hover:text-gray-950 transition cursor-pointer flex items-center justify-center" aria-label="Toggle navigation menu">
+              <i data-lucide="menu" id="landing-mobile-icon-menu" class="w-5 h-5"></i>
+              <i data-lucide="x" id="landing-mobile-icon-close" class="w-5 h-5 hidden"></i>
+            </button>
           </div>
+        </div>
+
+        <!-- Mobile Dropdown Navigation Menu Sheet -->
+        <div id="landing-mobile-menu" class="hidden md:hidden mt-2 bg-white/95 backdrop-blur-xl border border-gray-200/90 rounded-2xl p-4 sm:p-5 shadow-xl transition-all duration-300">
+          <nav class="flex flex-col gap-1 text-sm font-medium text-gray-800">
+            <a href="#platform-section" onclick="closeLandingMobileMenu()" class="flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-gray-50 hover:text-[#f0523d] transition">
+              <span class="flex items-center gap-2.5"><i data-lucide="layers" class="w-4 h-4 text-gray-400"></i> Platform</span>
+              <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400"></i>
+            </a>
+            <a href="#research-section" onclick="closeLandingMobileMenu()" class="flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-gray-50 hover:text-[#f0523d] transition">
+              <span class="flex items-center gap-2.5"><i data-lucide="sparkles" class="w-4 h-4 text-gray-400"></i> Research</span>
+              <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400"></i>
+            </a>
+            <a href="#news-section" onclick="closeLandingMobileMenu()" class="flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-gray-50 hover:text-[#f0523d] transition">
+              <span class="flex items-center gap-2.5"><i data-lucide="newspaper" class="w-4 h-4 text-gray-400"></i> What's New</span>
+              <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400"></i>
+            </a>
+            <a href="#pricing-section" onclick="closeLandingMobileMenu()" class="flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-gray-50 hover:text-[#f0523d] transition">
+              <span class="flex items-center gap-2.5"><i data-lucide="tag" class="w-4 h-4 text-gray-400"></i> Pricing &amp; Capacities</span>
+              <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400"></i>
+            </a>
+            <div class="h-px bg-gray-100 my-1"></div>
+            <a href="#playground" onclick="closeLandingMobileMenu(); switchView('playground')" class="flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-gray-50 hover:text-[#f0523d] transition">
+              <span class="flex items-center gap-2.5"><i data-lucide="terminal" class="w-4 h-4 text-cyan-600"></i> Try Playground</span>
+              <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400"></i>
+            </a>
+            <a href="#keys" onclick="closeLandingMobileMenu(); switchView('keys')" class="flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-gray-50 hover:text-[#f0523d] transition">
+              <span class="flex items-center gap-2.5"><i data-lucide="key" class="w-4 h-4 text-amber-500"></i> API Keys &amp; Vault</span>
+              <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400"></i>
+            </a>
+            <a href="#docs" onclick="closeLandingMobileMenu(); switchView('docs')" class="flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-gray-50 hover:text-[#f0523d] transition">
+              <span class="flex items-center gap-2.5"><i data-lucide="book-open" class="w-4 h-4 text-blue-600"></i> Documentation</span>
+              <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400"></i>
+            </a>
+            <div class="pt-2 flex flex-col gap-2">
+              <a href="#docs" onclick="closeLandingMobileMenu(); switchView('docs')" class="w-full text-center py-2.5 rounded-xl border border-gray-200 text-gray-800 text-xs font-bold uppercase tracking-wider hover:bg-gray-50 transition">
+                Contact Sales
+              </a>
+              <button onclick="closeLandingMobileMenu(); openAuthModal()" class="w-full py-2.5 rounded-xl bg-black hover:bg-gray-800 text-white text-xs font-bold uppercase tracking-wider transition shadow-sm">
+                Sign In
+              </button>
+            </div>
+          </nav>
         </div>
       </header>
 
       <!-- HERO SECTION -->
-      <section class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 lg:pt-16 pb-20 relative z-10 flex-1 flex flex-col justify-center">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+      <section class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12 lg:pt-16 pb-14 sm:pb-20 relative z-10 flex-1 flex flex-col justify-center">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
           
           <!-- Left Column (Text & CTAs) -->
           <div class="lg:col-span-7 flex flex-col items-start text-left pr-0 lg:pr-6">
             
             <!-- Tech Badge Pill -->
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50/80 border border-blue-200/60 text-blue-700 text-[11px] font-semibold tracking-wide uppercase mb-6 shadow-2xs">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50/80 border border-blue-200/60 text-blue-700 text-[10.5px] sm:text-[11px] font-semibold tracking-wide uppercase mb-5 sm:mb-6 shadow-2xs">
               <span class="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse"></span>
               <span>Next-Gen Zero-Trust AI Gateway</span>
             </div>
 
             <!-- Main Headline matching ProjectSPG -->
-            <h1 class="text-4xl sm:text-5xl lg:text-[62px] leading-[1.08] font-bold tracking-tight text-gray-950 mb-6 font-sans">
+            <h1 class="text-3xl sm:text-5xl lg:text-[62px] leading-[1.12] sm:leading-[1.08] font-bold tracking-tight text-gray-950 mb-5 sm:mb-6 font-sans">
               Build what's next <br/>
               <span class="text-gray-400 font-normal">on the Private Cloud</span>
             </h1>
 
             <!-- Subtitle -->
-            <p class="text-base sm:text-lg text-gray-600 font-normal leading-relaxed max-w-2xl mb-8">
+            <p class="text-sm sm:text-base lg:text-lg text-gray-600 font-normal leading-relaxed max-w-2xl mb-7 sm:mb-8">
               The high-performance AI privacy and routing layer. Real-time zero-knowledge de-identification, 10 sovereign regulatory compliance packs, and instant multi-provider LLM orchestration with sub-millisecond overhead.
             </p>
 
             <!-- CTA Button Group -->
-            <div class="flex flex-wrap items-center gap-3.5 w-full sm:w-auto mb-10">
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto mb-8 sm:mb-10">
               <button onclick="openAuthModal()" class="w-full sm:w-auto px-6 py-3.5 rounded-full bg-black hover:bg-gray-800 text-white text-xs font-bold tracking-wider uppercase transition shadow-md hover:shadow-lg flex items-center justify-center gap-2 group cursor-pointer">
                 <span>Start Building</span>
                 <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-0.5 transition-transform"></i>
@@ -288,7 +332,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             </div>
 
             <!-- Mini Spec Highlight -->
-            <div class="flex flex-wrap items-center gap-6 pt-6 border-t border-gray-200/70 text-xs text-gray-500 font-medium">
+            <div class="flex flex-wrap items-center gap-4 sm:gap-6 pt-5 sm:pt-6 border-t border-gray-200/70 text-xs text-gray-500 font-medium">
               <div class="flex items-center gap-1.5">
                 <i data-lucide="check" class="w-4 h-4 text-emerald-600"></i>
                 <span>&lt;1ms PII Scrubbing</span>
@@ -307,13 +351,13 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
           <!-- Right Column (3D Isometric Architectural Artwork matching ProjectSPG) -->
           <div class="lg:col-span-5 flex items-center justify-center relative">
-            <div class="relative w-full max-w-[480px] aspect-square flex items-center justify-center">
+            <div class="relative w-full max-w-[340px] sm:max-w-[440px] lg:max-w-[480px] aspect-square flex items-center justify-center mx-auto">
               
               <!-- Ambient Glow underneath 3D graphic -->
               <div class="absolute inset-0 bg-gradient-to-tr from-cyan-400/20 via-blue-500/15 to-purple-400/20 rounded-full blur-2xl -z-10"></div>
 
               <!-- High-definition SVG Isometric Composition matching ProjectSPG's right graphic -->
-              <svg viewBox="0 0 540 540" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full drop-shadow-xl select-none">
+              <svg viewBox="0 0 580 540" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full drop-shadow-xl select-none">
                 <defs>
                   <!-- Cyan Horizontal Disc Gradient -->
                   <linearGradient id="discCyanGrad" x1="120" y1="280" x2="380" y2="440" gradientUnits="userSpaceOnUse">
@@ -413,11 +457,11 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         </div>
 
         <!-- Social Proof Strip (Bottom of Hero) -->
-        <div class="mt-20 pt-10 border-t border-gray-200/80 w-full">
-          <p class="text-center text-[11px] font-bold uppercase tracking-widest text-gray-500 mb-8">
+        <div class="mt-12 sm:mt-20 pt-8 sm:pt-10 border-t border-gray-200/80 w-full">
+          <p class="text-center text-[10px] sm:text-[11px] font-bold uppercase tracking-widest text-gray-500 mb-6 sm:mb-8 px-2">
             TRUSTED BY DEVELOPERS &amp; ENTERPRISES ACROSS HIGH-REGULATION INDUSTRIES
           </p>
-          <div class="flex flex-wrap items-center justify-center gap-10 md:gap-16 opacity-75 grayscale hover:grayscale-0 transition-all duration-300">
+          <div class="flex flex-wrap items-center justify-center gap-6 sm:gap-10 md:gap-16 opacity-75 grayscale hover:grayscale-0 transition-all duration-300">
             <!-- Brand Badge 1: Cloudflare -->
             <div class="flex items-center gap-2 text-gray-700 font-bold text-sm tracking-tight">
               <svg class="w-6 h-6 text-[#f6821f]" viewBox="0 0 24 24" fill="currentColor">
@@ -463,27 +507,27 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       <!-- SECTION 2: THE PROJECTSPG PLATFORM (Interactive 3-Tab Feature Showcase)-->
       <!-- Matches uploaded media: 1790540329449, 1790540346632, 1790540364464, 1790540377437 -->
       <!-- ======================================================================= -->
-      <section id="platform-section" class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10 border-t border-gray-100">
+      <section id="platform-section" class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 relative z-10 border-t border-gray-100">
         
         <!-- Section Header -->
-        <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-14">
-          <h2 class="text-3xl sm:text-4xl lg:text-[46px] font-bold tracking-tight text-gray-950 mb-4 font-sans">
+        <div class="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          <h2 class="text-2xl sm:text-4xl lg:text-[46px] font-bold tracking-tight text-gray-950 mb-3 sm:mb-4 font-sans">
             The ProjectSPG Platform
           </h2>
-          <p class="text-base sm:text-lg text-gray-600 font-normal leading-relaxed">
+          <p class="text-sm sm:text-base lg:text-lg text-gray-600 font-normal leading-relaxed px-2">
             Powering every step of the AI development journey — from experimentation to massive scale.
           </p>
         </div>
 
         <!-- 3 Large Category Pills (Inference, Compute, Model shaping) -->
-        <div class="grid grid-cols-3 gap-3 sm:gap-6 max-w-4xl mx-auto mb-12 sm:mb-14">
-          <button id="cat-tab-inference" onclick="selectPlatformCategory('inference')" class="cat-pill py-3.5 sm:py-4 px-4 sm:px-6 rounded-2xl sm:rounded-3xl text-center font-bold text-base sm:text-xl transition-all duration-200 cursor-pointer bg-[#d8f5f6] text-gray-950 shadow-2xs">
+        <div class="grid grid-cols-3 gap-2 sm:gap-6 max-w-4xl mx-auto mb-10 sm:mb-14 px-1">
+          <button id="cat-tab-inference" onclick="selectPlatformCategory('inference')" class="cat-pill py-2.5 sm:py-4 px-1.5 sm:px-6 rounded-xl sm:rounded-3xl text-center font-bold text-xs sm:text-base md:text-xl transition-all duration-200 cursor-pointer bg-[#d8f5f6] text-gray-950 shadow-2xs">
             Inference
           </button>
-          <button id="cat-tab-compute" onclick="selectPlatformCategory('compute')" class="cat-pill py-3.5 sm:py-4 px-4 sm:px-6 rounded-2xl sm:rounded-3xl text-center font-bold text-base sm:text-xl transition-all duration-200 cursor-pointer text-gray-600 hover:text-gray-950 hover:bg-gray-100/70">
+          <button id="cat-tab-compute" onclick="selectPlatformCategory('compute')" class="cat-pill py-2.5 sm:py-4 px-1.5 sm:px-6 rounded-xl sm:rounded-3xl text-center font-bold text-xs sm:text-base md:text-xl transition-all duration-200 cursor-pointer text-gray-600 hover:text-gray-950 hover:bg-gray-100/70">
             Compute
           </button>
-          <button id="cat-tab-shaping" onclick="selectPlatformCategory('shaping')" class="cat-pill py-3.5 sm:py-4 px-4 sm:px-6 rounded-2xl sm:rounded-3xl text-center font-bold text-base sm:text-xl transition-all duration-200 cursor-pointer text-gray-600 hover:text-gray-950 hover:bg-gray-100/70">
+          <button id="cat-tab-shaping" onclick="selectPlatformCategory('shaping')" class="cat-pill py-2.5 sm:py-4 px-1.5 sm:px-6 rounded-xl sm:rounded-3xl text-center font-bold text-xs sm:text-base md:text-xl transition-all duration-200 cursor-pointer text-gray-600 hover:text-gray-950 hover:bg-gray-100/70">
             Model shaping
           </button>
         </div>
@@ -590,29 +634,29 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           <div class="lg:col-span-7">
             
             <!-- Mockup 0: Serverless Inference Image Placeholder -->
-            <div class="mockup-inference relative rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#c8f5f6] via-[#f7f2fb] to-[#ffd2df] border border-gray-200/70 shadow-lg min-h-[460px] flex items-center justify-center overflow-hidden">
-              <div class="w-full aspect-[16/10] bg-white/95 backdrop-blur-md rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden flex flex-col relative">
-                <div class="h-9 px-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0">
-                  <div class="flex items-center gap-2">
-                    <span class="w-2.5 h-2.5 rounded-full bg-red-400"></span>
-                    <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
-                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
-                    <span class="text-[11px] font-mono text-gray-500 ml-2">serverless-inference.png</span>
+            <div class="mockup-inference relative rounded-2xl sm:rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#c8f5f6] via-[#f7f2fb] to-[#ffd2df] border border-gray-200/70 shadow-lg min-h-[260px] sm:min-h-[380px] lg:min-h-[460px] flex items-center justify-center overflow-hidden">
+              <div class="w-full aspect-[16/10] bg-white/95 backdrop-blur-md rounded-xl sm:rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden flex flex-col relative">
+                <div class="h-8 sm:h-9 px-3 sm:px-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0">
+                  <div class="flex items-center gap-1.5 sm:gap-2">
+                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-red-400"></span>
+                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-amber-400"></span>
+                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-emerald-400"></span>
+                    <span class="text-[10px] sm:text-[11px] font-mono text-gray-500 ml-1.5 sm:ml-2">serverless-inference.png</span>
                   </div>
-                  <span class="text-[10px] text-gray-400 font-medium">1200 × 750 (16:10)</span>
+                  <span class="text-[9px] sm:text-[10px] text-gray-400 font-medium">16:10</span>
                 </div>
                 <div class="flex-1 relative flex items-center justify-center bg-gray-50/50 p-2 overflow-hidden">
                   <!-- PLACEHOLDER IMG: Replace src with image URL/path -->
                   <img id="img-platform-inference-0" src="" alt="Serverless Inference" class="w-full h-full object-cover rounded-xl hidden" onload="this.classList.remove('hidden'); const fb=document.getElementById('fb-platform-inference-0'); if(fb) fb.classList.add('hidden');" />
-                  <div id="fb-platform-inference-0" class="w-full h-full min-h-[340px] border-2 border-dashed border-cyan-300/80 rounded-xl bg-cyan-50/40 flex flex-col items-center justify-center p-8 text-center">
-                    <div class="w-16 h-16 rounded-2xl bg-cyan-100 text-cyan-700 flex items-center justify-center shadow-xs mb-3.5">
-                      <i data-lucide="image" class="w-8 h-8"></i>
+                  <div id="fb-platform-inference-0" class="w-full h-full min-h-[200px] sm:min-h-[320px] border-2 border-dashed border-cyan-300/80 rounded-xl bg-cyan-50/40 flex flex-col items-center justify-center p-4 sm:p-8 text-center">
+                    <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-cyan-100 text-cyan-700 flex items-center justify-center shadow-xs mb-2 sm:mb-3.5">
+                      <i data-lucide="image" class="w-6 h-6 sm:w-8 sm:h-8"></i>
                     </div>
-                    <h4 class="text-base font-bold text-gray-900 mb-1">Serverless Inference Image</h4>
-                    <p class="text-xs text-gray-500 max-w-sm mb-4">
-                      Drop your screenshot into <code class="text-cyan-800 bg-cyan-100/70 px-1.5 py-0.5 rounded font-mono text-[11px]">#img-platform-inference-0</code>
+                    <h4 class="text-sm sm:text-base font-bold text-gray-900 mb-1">Serverless Inference Image</h4>
+                    <p class="text-[11px] sm:text-xs text-gray-500 max-w-sm mb-3 sm:mb-4">
+                      Drop your screenshot into <code class="text-cyan-800 bg-cyan-100/70 px-1 py-0.5 rounded font-mono text-[10px] sm:text-[11px]">#img-platform-inference-0</code>
                     </p>
-                    <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white border border-gray-200/90 text-gray-700 text-[10px] font-semibold tracking-wide uppercase shadow-2xs">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-gray-200/90 text-gray-700 text-[9px] sm:text-[10px] font-semibold tracking-wide uppercase shadow-2xs">
                       <i data-lucide="upload-cloud" class="w-3.5 h-3.5 text-cyan-600"></i> Placeholder Image (16:10)
                     </span>
                   </div>
@@ -621,29 +665,29 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             </div>
 
             <!-- Mockup 1: Batch Inference Image Placeholder -->
-            <div class="mockup-inference hidden relative rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#99f6e4] via-[#f0f9ff] to-[#fbcfe8] border border-gray-200/70 shadow-lg min-h-[460px] flex items-center justify-center overflow-hidden">
-              <div class="w-full aspect-[16/10] bg-white/95 backdrop-blur-md rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden flex flex-col relative">
-                <div class="h-9 px-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0">
-                  <div class="flex items-center gap-2">
-                    <span class="w-2.5 h-2.5 rounded-full bg-red-400"></span>
-                    <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
-                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
-                    <span class="text-[11px] font-mono text-gray-500 ml-2">batch-inference.png</span>
+            <div class="mockup-inference hidden relative rounded-2xl sm:rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#99f6e4] via-[#f0f9ff] to-[#fbcfe8] border border-gray-200/70 shadow-lg min-h-[260px] sm:min-h-[380px] lg:min-h-[460px] flex items-center justify-center overflow-hidden">
+              <div class="w-full aspect-[16/10] bg-white/95 backdrop-blur-md rounded-xl sm:rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden flex flex-col relative">
+                <div class="h-8 sm:h-9 px-3 sm:px-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0">
+                  <div class="flex items-center gap-1.5 sm:gap-2">
+                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-red-400"></span>
+                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-amber-400"></span>
+                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-emerald-400"></span>
+                    <span class="text-[10px] sm:text-[11px] font-mono text-gray-500 ml-1.5 sm:ml-2">batch-inference.png</span>
                   </div>
-                  <span class="text-[10px] text-gray-400 font-medium">1200 × 750 (16:10)</span>
+                  <span class="text-[9px] sm:text-[10px] text-gray-400 font-medium">16:10</span>
                 </div>
                 <div class="flex-1 relative flex items-center justify-center bg-gray-50/50 p-2 overflow-hidden">
                   <!-- PLACEHOLDER IMG: Replace src with image URL/path -->
                   <img id="img-platform-inference-1" src="" alt="Batch Inference" class="w-full h-full object-cover rounded-xl hidden" onload="this.classList.remove('hidden'); const fb=document.getElementById('fb-platform-inference-1'); if(fb) fb.classList.add('hidden');" />
-                  <div id="fb-platform-inference-1" class="w-full h-full min-h-[340px] border-2 border-dashed border-teal-300/80 rounded-xl bg-teal-50/40 flex flex-col items-center justify-center p-8 text-center">
-                    <div class="w-16 h-16 rounded-2xl bg-teal-100 text-teal-700 flex items-center justify-center shadow-xs mb-3.5">
-                      <i data-lucide="layers" class="w-8 h-8"></i>
+                  <div id="fb-platform-inference-1" class="w-full h-full min-h-[200px] sm:min-h-[320px] border-2 border-dashed border-teal-300/80 rounded-xl bg-teal-50/40 flex flex-col items-center justify-center p-4 sm:p-8 text-center">
+                    <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-teal-100 text-teal-700 flex items-center justify-center shadow-xs mb-2 sm:mb-3.5">
+                      <i data-lucide="layers" class="w-6 h-6 sm:w-8 sm:h-8"></i>
                     </div>
-                    <h4 class="text-base font-bold text-gray-900 mb-1">Batch Inference Image</h4>
-                    <p class="text-xs text-gray-500 max-w-sm mb-4">
-                      Drop your screenshot into <code class="text-teal-800 bg-teal-100/70 px-1.5 py-0.5 rounded font-mono text-[11px]">#img-platform-inference-1</code>
+                    <h4 class="text-sm sm:text-base font-bold text-gray-900 mb-1">Batch Inference Image</h4>
+                    <p class="text-[11px] sm:text-xs text-gray-500 max-w-sm mb-3 sm:mb-4">
+                      Drop your screenshot into <code class="text-teal-800 bg-teal-100/70 px-1 py-0.5 rounded font-mono text-[10px] sm:text-[11px]">#img-platform-inference-1</code>
                     </p>
-                    <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white border border-gray-200/90 text-gray-700 text-[10px] font-semibold tracking-wide uppercase shadow-2xs">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-gray-200/90 text-gray-700 text-[9px] sm:text-[10px] font-semibold tracking-wide uppercase shadow-2xs">
                       <i data-lucide="upload-cloud" class="w-3.5 h-3.5 text-teal-600"></i> Placeholder Image (16:10)
                     </span>
                   </div>
@@ -652,29 +696,29 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             </div>
 
             <!-- Mockup 2: Provisioned Throughput Image Placeholder -->
-            <div class="mockup-inference hidden relative rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#bae6fd] via-[#f0f9ff] to-[#e0e7ff] border border-gray-200/70 shadow-lg min-h-[460px] flex items-center justify-center overflow-hidden">
-              <div class="w-full aspect-[16/10] bg-white/95 backdrop-blur-md rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden flex flex-col relative">
-                <div class="h-9 px-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0">
-                  <div class="flex items-center gap-2">
-                    <span class="w-2.5 h-2.5 rounded-full bg-red-400"></span>
-                    <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
-                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
-                    <span class="text-[11px] font-mono text-gray-500 ml-2">provisioned-throughput.png</span>
+            <div class="mockup-inference hidden relative rounded-2xl sm:rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#bae6fd] via-[#f0f9ff] to-[#e0e7ff] border border-gray-200/70 shadow-lg min-h-[260px] sm:min-h-[380px] lg:min-h-[460px] flex items-center justify-center overflow-hidden">
+              <div class="w-full aspect-[16/10] bg-white/95 backdrop-blur-md rounded-xl sm:rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden flex flex-col relative">
+                <div class="h-8 sm:h-9 px-3 sm:px-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0">
+                  <div class="flex items-center gap-1.5 sm:gap-2">
+                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-red-400"></span>
+                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-amber-400"></span>
+                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-emerald-400"></span>
+                    <span class="text-[10px] sm:text-[11px] font-mono text-gray-500 ml-1.5 sm:ml-2">provisioned-throughput.png</span>
                   </div>
-                  <span class="text-[10px] text-gray-400 font-medium">1200 × 750 (16:10)</span>
+                  <span class="text-[9px] sm:text-[10px] text-gray-400 font-medium">16:10</span>
                 </div>
                 <div class="flex-1 relative flex items-center justify-center bg-gray-50/50 p-2 overflow-hidden">
                   <!-- PLACEHOLDER IMG: Replace src with image URL/path -->
                   <img id="img-platform-inference-2" src="" alt="Provisioned Throughput" class="w-full h-full object-cover rounded-xl hidden" onload="this.classList.remove('hidden'); const fb=document.getElementById('fb-platform-inference-2'); if(fb) fb.classList.add('hidden');" />
-                  <div id="fb-platform-inference-2" class="w-full h-full min-h-[340px] border-2 border-dashed border-sky-300/80 rounded-xl bg-sky-50/40 flex flex-col items-center justify-center p-8 text-center">
-                    <div class="w-16 h-16 rounded-2xl bg-sky-100 text-sky-700 flex items-center justify-center shadow-xs mb-3.5">
-                      <i data-lucide="sliders-horizontal" class="w-8 h-8"></i>
+                  <div id="fb-platform-inference-2" class="w-full h-full min-h-[200px] sm:min-h-[320px] border-2 border-dashed border-sky-300/80 rounded-xl bg-sky-50/40 flex flex-col items-center justify-center p-4 sm:p-8 text-center">
+                    <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-sky-100 text-sky-700 flex items-center justify-center shadow-xs mb-2 sm:mb-3.5">
+                      <i data-lucide="sliders-horizontal" class="w-6 h-6 sm:w-8 sm:h-8"></i>
                     </div>
-                    <h4 class="text-base font-bold text-gray-900 mb-1">Provisioned Throughput Image</h4>
-                    <p class="text-xs text-gray-500 max-w-sm mb-4">
-                      Drop your screenshot into <code class="text-sky-800 bg-sky-100/70 px-1.5 py-0.5 rounded font-mono text-[11px]">#img-platform-inference-2</code>
+                    <h4 class="text-sm sm:text-base font-bold text-gray-900 mb-1">Provisioned Throughput Image</h4>
+                    <p class="text-[11px] sm:text-xs text-gray-500 max-w-sm mb-3 sm:mb-4">
+                      Drop your screenshot into <code class="text-sky-800 bg-sky-100/70 px-1 py-0.5 rounded font-mono text-[10px] sm:text-[11px]">#img-platform-inference-2</code>
                     </p>
-                    <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white border border-gray-200/90 text-gray-700 text-[10px] font-semibold tracking-wide uppercase shadow-2xs">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-gray-200/90 text-gray-700 text-[9px] sm:text-[10px] font-semibold tracking-wide uppercase shadow-2xs">
                       <i data-lucide="upload-cloud" class="w-3.5 h-3.5 text-sky-600"></i> Placeholder Image (16:10)
                     </span>
                   </div>
@@ -683,11 +727,11 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             </div>
 
             <!-- Mockup 3: Dedicated Model Inference Image Placeholder -->
-            <div class="mockup-inference hidden relative rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#c7d2fe] via-[#f0fdfa] to-[#bfdbfe] border border-gray-200/70 shadow-lg min-h-[460px] flex items-center justify-center overflow-hidden">
-              <div class="w-full aspect-[16/10] bg-white/95 backdrop-blur-md rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden flex flex-col relative">
-                <div class="h-9 px-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0">
-                  <div class="flex items-center gap-2">
-                    <span class="w-2.5 h-2.5 rounded-full bg-red-400"></span>
+            <div class="mockup-inference hidden relative rounded-2xl sm:rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#c7d2fe] via-[#f0fdfa] to-[#bfdbfe] border border-gray-200/70 shadow-lg min-h-[260px] sm:min-h-[380px] lg:min-h-[460px] flex items-center justify-center overflow-hidden">
+              <div class="w-full aspect-[16/10] bg-white/95 backdrop-blur-md rounded-xl sm:rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden flex flex-col relative">
+                <div class="h-8 sm:h-9 px-3 sm:px-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0">
+                  <div class="flex items-center gap-1.5 sm:gap-2">
+                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-red-400"></span>
                     <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
                     <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
                     <span class="text-[11px] font-mono text-gray-500 ml-2">dedicated-inference.png</span>
@@ -797,29 +841,29 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           <div class="lg:col-span-7">
             
             <!-- Mockup 0: Accelerated Compute Image Placeholder -->
-            <div class="mockup-compute relative rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#93c5fd] via-[#e0e7ff] to-[#38bdf8] border border-gray-200/70 shadow-lg min-h-[460px] flex items-center justify-center overflow-hidden">
-              <div class="w-full aspect-[16/10] bg-white/95 backdrop-blur-md rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden flex flex-col relative">
-                <div class="h-9 px-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0">
-                  <div class="flex items-center gap-2">
-                    <span class="w-2.5 h-2.5 rounded-full bg-red-400"></span>
-                    <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
-                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
-                    <span class="text-[11px] font-mono text-gray-500 ml-2">accelerated-compute.png</span>
+            <div class="mockup-compute relative rounded-2xl sm:rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#93c5fd] via-[#e0e7ff] to-[#38bdf8] border border-gray-200/70 shadow-lg min-h-[260px] sm:min-h-[380px] lg:min-h-[460px] flex items-center justify-center overflow-hidden">
+              <div class="w-full aspect-[16/10] bg-white/95 backdrop-blur-md rounded-xl sm:rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden flex flex-col relative">
+                <div class="h-8 sm:h-9 px-3 sm:px-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0">
+                  <div class="flex items-center gap-1.5 sm:gap-2">
+                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-red-400"></span>
+                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-amber-400"></span>
+                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-emerald-400"></span>
+                    <span class="text-[10px] sm:text-[11px] font-mono text-gray-500 ml-1.5 sm:ml-2">accelerated-compute.png</span>
                   </div>
-                  <span class="text-[10px] text-gray-400 font-medium">1200 × 750 (16:10)</span>
+                  <span class="text-[9px] sm:text-[10px] text-gray-400 font-medium">16:10</span>
                 </div>
                 <div class="flex-1 relative flex items-center justify-center bg-gray-50/50 p-2 overflow-hidden">
                   <!-- PLACEHOLDER IMG: Replace src with image URL/path -->
                   <img id="img-platform-compute-0" src="" alt="Accelerated Compute" class="w-full h-full object-cover rounded-xl hidden" onload="this.classList.remove('hidden'); const fb=document.getElementById('fb-platform-compute-0'); if(fb) fb.classList.add('hidden');" />
-                  <div id="fb-platform-compute-0" class="w-full h-full min-h-[340px] border-2 border-dashed border-blue-300/80 rounded-xl bg-blue-50/40 flex flex-col items-center justify-center p-8 text-center">
-                    <div class="w-16 h-16 rounded-2xl bg-blue-100 text-blue-700 flex items-center justify-center shadow-xs mb-3.5">
-                      <i data-lucide="cpu" class="w-8 h-8"></i>
+                  <div id="fb-platform-compute-0" class="w-full h-full min-h-[200px] sm:min-h-[320px] border-2 border-dashed border-blue-300/80 rounded-xl bg-blue-50/40 flex flex-col items-center justify-center p-4 sm:p-8 text-center">
+                    <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-blue-100 text-blue-700 flex items-center justify-center shadow-xs mb-2 sm:mb-3.5">
+                      <i data-lucide="cpu" class="w-6 h-6 sm:w-8 sm:h-8"></i>
                     </div>
-                    <h4 class="text-base font-bold text-gray-900 mb-1">Accelerated Compute Image</h4>
-                    <p class="text-xs text-gray-500 max-w-sm mb-4">
-                      Drop your screenshot into <code class="text-blue-800 bg-blue-100/70 px-1.5 py-0.5 rounded font-mono text-[11px]">#img-platform-compute-0</code>
+                    <h4 class="text-sm sm:text-base font-bold text-gray-900 mb-1">Accelerated Compute Image</h4>
+                    <p class="text-[11px] sm:text-xs text-gray-500 max-w-sm mb-3 sm:mb-4">
+                      Drop your screenshot into <code class="text-blue-800 bg-blue-100/70 px-1 py-0.5 rounded font-mono text-[10px] sm:text-[11px]">#img-platform-compute-0</code>
                     </p>
-                    <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white border border-gray-200/90 text-gray-700 text-[10px] font-semibold tracking-wide uppercase shadow-2xs">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-gray-200/90 text-gray-700 text-[9px] sm:text-[10px] font-semibold tracking-wide uppercase shadow-2xs">
                       <i data-lucide="upload-cloud" class="w-3.5 h-3.5 text-blue-600"></i> Placeholder Image (16:10)
                     </span>
                   </div>
@@ -828,29 +872,29 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             </div>
 
             <!-- Mockup 1: Sandbox Image Placeholder -->
-            <div class="mockup-compute hidden relative rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#a5b4fc] via-[#f0f9ff] to-[#67e8f9] border border-gray-200/70 shadow-lg min-h-[460px] flex items-center justify-center overflow-hidden">
-              <div class="w-full aspect-[16/10] bg-white/95 backdrop-blur-md rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden flex flex-col relative">
-                <div class="h-9 px-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0">
-                  <div class="flex items-center gap-2">
-                    <span class="w-2.5 h-2.5 rounded-full bg-red-400"></span>
-                    <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
-                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
-                    <span class="text-[11px] font-mono text-gray-500 ml-2">compute-sandbox.png</span>
+            <div class="mockup-compute hidden relative rounded-2xl sm:rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#a5b4fc] via-[#f0f9ff] to-[#67e8f9] border border-gray-200/70 shadow-lg min-h-[260px] sm:min-h-[380px] lg:min-h-[460px] flex items-center justify-center overflow-hidden">
+              <div class="w-full aspect-[16/10] bg-white/95 backdrop-blur-md rounded-xl sm:rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden flex flex-col relative">
+                <div class="h-8 sm:h-9 px-3 sm:px-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0">
+                  <div class="flex items-center gap-1.5 sm:gap-2">
+                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-red-400"></span>
+                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-amber-400"></span>
+                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-emerald-400"></span>
+                    <span class="text-[10px] sm:text-[11px] font-mono text-gray-500 ml-1.5 sm:ml-2">compute-sandbox.png</span>
                   </div>
-                  <span class="text-[10px] text-gray-400 font-medium">1200 × 750 (16:10)</span>
+                  <span class="text-[9px] sm:text-[10px] text-gray-400 font-medium">16:10</span>
                 </div>
                 <div class="flex-1 relative flex items-center justify-center bg-gray-50/50 p-2 overflow-hidden">
                   <!-- PLACEHOLDER IMG: Replace src with image URL/path -->
                   <img id="img-platform-compute-1" src="" alt="Compute Sandbox" class="w-full h-full object-cover rounded-xl hidden" onload="this.classList.remove('hidden'); const fb=document.getElementById('fb-platform-compute-1'); if(fb) fb.classList.add('hidden');" />
-                  <div id="fb-platform-compute-1" class="w-full h-full min-h-[340px] border-2 border-dashed border-indigo-300/80 rounded-xl bg-indigo-50/40 flex flex-col items-center justify-center p-8 text-center">
-                    <div class="w-16 h-16 rounded-2xl bg-indigo-100 text-indigo-700 flex items-center justify-center shadow-xs mb-3.5">
-                      <i data-lucide="box" class="w-8 h-8"></i>
+                  <div id="fb-platform-compute-1" class="w-full h-full min-h-[200px] sm:min-h-[320px] border-2 border-dashed border-indigo-300/80 rounded-xl bg-indigo-50/40 flex flex-col items-center justify-center p-4 sm:p-8 text-center">
+                    <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-indigo-100 text-indigo-700 flex items-center justify-center shadow-xs mb-2 sm:mb-3.5">
+                      <i data-lucide="box" class="w-6 h-6 sm:w-8 sm:h-8"></i>
                     </div>
-                    <h4 class="text-base font-bold text-gray-900 mb-1">Sandbox Environment Image</h4>
-                    <p class="text-xs text-gray-500 max-w-sm mb-4">
-                      Drop your screenshot into <code class="text-indigo-800 bg-indigo-100/70 px-1.5 py-0.5 rounded font-mono text-[11px]">#img-platform-compute-1</code>
+                    <h4 class="text-sm sm:text-base font-bold text-gray-900 mb-1">Sandbox Environment Image</h4>
+                    <p class="text-[11px] sm:text-xs text-gray-500 max-w-sm mb-3 sm:mb-4">
+                      Drop your screenshot into <code class="text-indigo-800 bg-indigo-100/70 px-1 py-0.5 rounded font-mono text-[10px] sm:text-[11px]">#img-platform-compute-1</code>
                     </p>
-                    <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white border border-gray-200/90 text-gray-700 text-[10px] font-semibold tracking-wide uppercase shadow-2xs">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-gray-200/90 text-gray-700 text-[9px] sm:text-[10px] font-semibold tracking-wide uppercase shadow-2xs">
                       <i data-lucide="upload-cloud" class="w-3.5 h-3.5 text-indigo-600"></i> Placeholder Image (16:10)
                     </span>
                   </div>
@@ -859,29 +903,29 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             </div>
 
             <!-- Mockup 2: Managed Storage Image Placeholder -->
-            <div class="mockup-compute hidden relative rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#93c5fd] via-[#e2e8f0] to-[#bfdbfe] border border-gray-200/70 shadow-lg min-h-[460px] flex items-center justify-center overflow-hidden">
-              <div class="w-full aspect-[16/10] bg-white/95 backdrop-blur-md rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden flex flex-col relative">
-                <div class="h-9 px-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0">
-                  <div class="flex items-center gap-2">
-                    <span class="w-2.5 h-2.5 rounded-full bg-red-400"></span>
-                    <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
-                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
-                    <span class="text-[11px] font-mono text-gray-500 ml-2">managed-storage.png</span>
+            <div class="mockup-compute hidden relative rounded-2xl sm:rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#93c5fd] via-[#e2e8f0] to-[#bfdbfe] border border-gray-200/70 shadow-lg min-h-[260px] sm:min-h-[380px] lg:min-h-[460px] flex items-center justify-center overflow-hidden">
+              <div class="w-full aspect-[16/10] bg-white/95 backdrop-blur-md rounded-xl sm:rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden flex flex-col relative">
+                <div class="h-8 sm:h-9 px-3 sm:px-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0">
+                  <div class="flex items-center gap-1.5 sm:gap-2">
+                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-red-400"></span>
+                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-amber-400"></span>
+                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-emerald-400"></span>
+                    <span class="text-[10px] sm:text-[11px] font-mono text-gray-500 ml-1.5 sm:ml-2">managed-storage.png</span>
                   </div>
-                  <span class="text-[10px] text-gray-400 font-medium">1200 × 750 (16:10)</span>
+                  <span class="text-[9px] sm:text-[10px] text-gray-400 font-medium">16:10</span>
                 </div>
                 <div class="flex-1 relative flex items-center justify-center bg-gray-50/50 p-2 overflow-hidden">
                   <!-- PLACEHOLDER IMG: Replace src with image URL/path -->
                   <img id="img-platform-compute-2" src="" alt="Managed Storage" class="w-full h-full object-cover rounded-xl hidden" onload="this.classList.remove('hidden'); const fb=document.getElementById('fb-platform-compute-2'); if(fb) fb.classList.add('hidden');" />
-                  <div id="fb-platform-compute-2" class="w-full h-full min-h-[340px] border-2 border-dashed border-blue-300/80 rounded-xl bg-blue-50/40 flex flex-col items-center justify-center p-8 text-center">
-                    <div class="w-16 h-16 rounded-2xl bg-blue-100 text-blue-700 flex items-center justify-center shadow-xs mb-3.5">
-                      <i data-lucide="hard-drive" class="w-8 h-8"></i>
+                  <div id="fb-platform-compute-2" class="w-full h-full min-h-[200px] sm:min-h-[320px] border-2 border-dashed border-blue-300/80 rounded-xl bg-blue-50/40 flex flex-col items-center justify-center p-4 sm:p-8 text-center">
+                    <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-blue-100 text-blue-700 flex items-center justify-center shadow-xs mb-2 sm:mb-3.5">
+                      <i data-lucide="hard-drive" class="w-6 h-6 sm:w-8 sm:h-8"></i>
                     </div>
-                    <h4 class="text-base font-bold text-gray-900 mb-1">Managed Storage Image</h4>
-                    <p class="text-xs text-gray-500 max-w-sm mb-4">
-                      Drop your screenshot into <code class="text-blue-800 bg-blue-100/70 px-1.5 py-0.5 rounded font-mono text-[11px]">#img-platform-compute-2</code>
+                    <h4 class="text-sm sm:text-base font-bold text-gray-900 mb-1">Managed Storage Image</h4>
+                    <p class="text-[11px] sm:text-xs text-gray-500 max-w-sm mb-3 sm:mb-4">
+                      Drop your screenshot into <code class="text-blue-800 bg-blue-100/70 px-1 py-0.5 rounded font-mono text-[10px] sm:text-[11px]">#img-platform-compute-2</code>
                     </p>
-                    <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white border border-gray-200/90 text-gray-700 text-[10px] font-semibold tracking-wide uppercase shadow-2xs">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-gray-200/90 text-gray-700 text-[9px] sm:text-[10px] font-semibold tracking-wide uppercase shadow-2xs">
                       <i data-lucide="upload-cloud" class="w-3.5 h-3.5 text-blue-600"></i> Placeholder Image (16:10)
                     </span>
                   </div>
@@ -951,29 +995,29 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           <div class="lg:col-span-7">
             
             <!-- Mockup 0: Fine-Tuning Image Placeholder -->
-            <div class="mockup-shaping relative rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#e9d5ff] via-[#fdf2f8] to-[#f472b6] border border-gray-200/70 shadow-lg min-h-[460px] flex items-center justify-center overflow-hidden">
-              <div class="w-full aspect-[16/10] bg-white/95 backdrop-blur-md rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden flex flex-col relative">
-                <div class="h-9 px-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0">
-                  <div class="flex items-center gap-2">
-                    <span class="w-2.5 h-2.5 rounded-full bg-red-400"></span>
-                    <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
-                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
-                    <span class="text-[11px] font-mono text-gray-500 ml-2">model-fine-tuning.png</span>
+            <div class="mockup-shaping relative rounded-2xl sm:rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#e9d5ff] via-[#fdf2f8] to-[#f472b6] border border-gray-200/70 shadow-lg min-h-[260px] sm:min-h-[380px] lg:min-h-[460px] flex items-center justify-center overflow-hidden">
+              <div class="w-full aspect-[16/10] bg-white/95 backdrop-blur-md rounded-xl sm:rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden flex flex-col relative">
+                <div class="h-8 sm:h-9 px-3 sm:px-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0">
+                  <div class="flex items-center gap-1.5 sm:gap-2">
+                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-red-400"></span>
+                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-amber-400"></span>
+                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-emerald-400"></span>
+                    <span class="text-[10px] sm:text-[11px] font-mono text-gray-500 ml-1.5 sm:ml-2">model-fine-tuning.png</span>
                   </div>
-                  <span class="text-[10px] text-gray-400 font-medium">1200 × 750 (16:10)</span>
+                  <span class="text-[9px] sm:text-[10px] text-gray-400 font-medium">16:10</span>
                 </div>
                 <div class="flex-1 relative flex items-center justify-center bg-gray-50/50 p-2 overflow-hidden">
                   <!-- PLACEHOLDER IMG: Replace src with image URL/path -->
                   <img id="img-platform-shaping-0" src="" alt="Model Fine-Tuning" class="w-full h-full object-cover rounded-xl hidden" onload="this.classList.remove('hidden'); const fb=document.getElementById('fb-platform-shaping-0'); if(fb) fb.classList.add('hidden');" />
-                  <div id="fb-platform-shaping-0" class="w-full h-full min-h-[340px] border-2 border-dashed border-purple-300/80 rounded-xl bg-purple-50/40 flex flex-col items-center justify-center p-8 text-center">
-                    <div class="w-16 h-16 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center shadow-xs mb-3.5">
-                      <i data-lucide="sliders" class="w-8 h-8"></i>
+                  <div id="fb-platform-shaping-0" class="w-full h-full min-h-[200px] sm:min-h-[320px] border-2 border-dashed border-purple-300/80 rounded-xl bg-purple-50/40 flex flex-col items-center justify-center p-4 sm:p-8 text-center">
+                    <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center shadow-xs mb-2 sm:mb-3.5">
+                      <i data-lucide="sliders" class="w-6 h-6 sm:w-8 sm:h-8"></i>
                     </div>
-                    <h4 class="text-base font-bold text-gray-900 mb-1">Model Fine-Tuning Image</h4>
-                    <p class="text-xs text-gray-500 max-w-sm mb-4">
-                      Drop your screenshot into <code class="text-purple-800 bg-purple-100/70 px-1.5 py-0.5 rounded font-mono text-[11px]">#img-platform-shaping-0</code>
+                    <h4 class="text-sm sm:text-base font-bold text-gray-900 mb-1">Model Fine-Tuning Image</h4>
+                    <p class="text-[11px] sm:text-xs text-gray-500 max-w-sm mb-3 sm:mb-4">
+                      Drop your screenshot into <code class="text-purple-800 bg-purple-100/70 px-1 py-0.5 rounded font-mono text-[10px] sm:text-[11px]">#img-platform-shaping-0</code>
                     </p>
-                    <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white border border-gray-200/90 text-gray-700 text-[10px] font-semibold tracking-wide uppercase shadow-2xs">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-gray-200/90 text-gray-700 text-[9px] sm:text-[10px] font-semibold tracking-wide uppercase shadow-2xs">
                       <i data-lucide="upload-cloud" class="w-3.5 h-3.5 text-purple-600"></i> Placeholder Image (16:10)
                     </span>
                   </div>
@@ -982,29 +1026,29 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             </div>
 
             <!-- Mockup 1: Model Alignment Image Placeholder -->
-            <div class="mockup-shaping hidden relative rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#fbcfe8] via-[#fdf4ff] to-[#ddd6fe] border border-gray-200/70 shadow-lg min-h-[460px] flex items-center justify-center overflow-hidden">
-              <div class="w-full aspect-[16/10] bg-white/95 backdrop-blur-md rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden flex flex-col relative">
-                <div class="h-9 px-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0">
-                  <div class="flex items-center gap-2">
-                    <span class="w-2.5 h-2.5 rounded-full bg-red-400"></span>
-                    <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
-                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
-                    <span class="text-[11px] font-mono text-gray-500 ml-2">model-alignment.png</span>
+            <div class="mockup-shaping hidden relative rounded-2xl sm:rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#fbcfe8] via-[#fdf4ff] to-[#ddd6fe] border border-gray-200/70 shadow-lg min-h-[260px] sm:min-h-[380px] lg:min-h-[460px] flex items-center justify-center overflow-hidden">
+              <div class="w-full aspect-[16/10] bg-white/95 backdrop-blur-md rounded-xl sm:rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden flex flex-col relative">
+                <div class="h-8 sm:h-9 px-3 sm:px-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0">
+                  <div class="flex items-center gap-1.5 sm:gap-2">
+                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-red-400"></span>
+                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-amber-400"></span>
+                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-emerald-400"></span>
+                    <span class="text-[10px] sm:text-[11px] font-mono text-gray-500 ml-1.5 sm:ml-2">model-alignment.png</span>
                   </div>
-                  <span class="text-[10px] text-gray-400 font-medium">1200 × 750 (16:10)</span>
+                  <span class="text-[9px] sm:text-[10px] text-gray-400 font-medium">16:10</span>
                 </div>
                 <div class="flex-1 relative flex items-center justify-center bg-gray-50/50 p-2 overflow-hidden">
                   <!-- PLACEHOLDER IMG: Replace src with image URL/path -->
                   <img id="img-platform-shaping-1" src="" alt="Model Alignment" class="w-full h-full object-cover rounded-xl hidden" onload="this.classList.remove('hidden'); const fb=document.getElementById('fb-platform-shaping-1'); if(fb) fb.classList.add('hidden');" />
-                  <div id="fb-platform-shaping-1" class="w-full h-full min-h-[340px] border-2 border-dashed border-pink-300/80 rounded-xl bg-pink-50/40 flex flex-col items-center justify-center p-8 text-center">
-                    <div class="w-16 h-16 rounded-2xl bg-pink-100 text-pink-700 flex items-center justify-center shadow-xs mb-3.5">
-                      <i data-lucide="git-merge" class="w-8 h-8"></i>
+                  <div id="fb-platform-shaping-1" class="w-full h-full min-h-[200px] sm:min-h-[320px] border-2 border-dashed border-pink-300/80 rounded-xl bg-pink-50/40 flex flex-col items-center justify-center p-4 sm:p-8 text-center">
+                    <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-pink-100 text-pink-700 flex items-center justify-center shadow-xs mb-2 sm:mb-3.5">
+                      <i data-lucide="git-merge" class="w-6 h-6 sm:w-8 sm:h-8"></i>
                     </div>
-                    <h4 class="text-base font-bold text-gray-900 mb-1">Model Alignment Image</h4>
-                    <p class="text-xs text-gray-500 max-w-sm mb-4">
-                      Drop your screenshot into <code class="text-pink-800 bg-pink-100/70 px-1.5 py-0.5 rounded font-mono text-[11px]">#img-platform-shaping-1</code>
+                    <h4 class="text-sm sm:text-base font-bold text-gray-900 mb-1">Model Alignment Image</h4>
+                    <p class="text-[11px] sm:text-xs text-gray-500 max-w-sm mb-3 sm:mb-4">
+                      Drop your screenshot into <code class="text-pink-800 bg-pink-100/70 px-1 py-0.5 rounded font-mono text-[10px] sm:text-[11px]">#img-platform-shaping-1</code>
                     </p>
-                    <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white border border-gray-200/90 text-gray-700 text-[10px] font-semibold tracking-wide uppercase shadow-2xs">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-gray-200/90 text-gray-700 text-[9px] sm:text-[10px] font-semibold tracking-wide uppercase shadow-2xs">
                       <i data-lucide="upload-cloud" class="w-3.5 h-3.5 text-pink-600"></i> Placeholder Image (16:10)
                     </span>
                   </div>
@@ -1022,7 +1066,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       <!-- SECTION 3: GROUNDED IN CUTTING-EDGE RESEARCH                            -->
       <!-- Matches uploaded media: 1790540856043.png & 1790540898787.png           -->
       <!-- ======================================================================= -->
-      <section id="research-section" class="w-full bg-[#060814] text-white py-20 sm:py-28 relative border-t border-slate-900">
+      <section id="research-section" class="w-full bg-[#060814] text-white py-14 sm:py-24 relative border-t border-slate-900">
         
         <!-- Ambient Subtle Deep Background Glow -->
         <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-r from-blue-900/15 via-purple-900/15 to-indigo-900/15 blur-3xl pointer-events-none -z-0"></div>
@@ -1030,22 +1074,22 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           
           <!-- Header Row (Title & Navigation Arrows) -->
-          <div class="flex items-end justify-between mb-12 sm:mb-16">
+          <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 sm:mb-14">
             <div>
-              <h2 class="text-3xl sm:text-4xl lg:text-[44px] font-bold tracking-tight text-white mb-3 font-sans">
+              <h2 class="text-2xl sm:text-4xl lg:text-[44px] font-bold tracking-tight text-white mb-2 sm:mb-3 font-sans">
                 Grounded in cutting-edge research
               </h2>
-              <p class="text-base sm:text-lg text-gray-400 font-normal">
+              <p class="text-sm sm:text-base lg:text-lg text-gray-400 font-normal">
                 Foundational systems research for production AI.
               </p>
             </div>
 
             <!-- Carousel Navigation Arrows -->
-            <div class="flex items-center gap-2.5">
-              <button onclick="scrollResearchCards('left')" class="w-10 h-10 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-gray-300 hover:text-white flex items-center justify-center transition shadow-xs cursor-pointer" aria-label="Previous research">
+            <div class="flex items-center gap-2 self-end sm:self-auto">
+              <button onclick="scrollResearchCards('left')" class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-gray-300 hover:text-white flex items-center justify-center transition shadow-xs cursor-pointer" aria-label="Previous research">
                 <i data-lucide="chevron-left" class="w-4 h-4"></i>
               </button>
-              <button onclick="scrollResearchCards('right')" class="w-10 h-10 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-gray-300 hover:text-white flex items-center justify-center transition shadow-xs cursor-pointer" aria-label="Next research">
+              <button onclick="scrollResearchCards('right')" class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-gray-300 hover:text-white flex items-center justify-center transition shadow-xs cursor-pointer" aria-label="Next research">
                 <i data-lucide="chevron-right" class="w-4 h-4"></i>
               </button>
             </div>
@@ -1058,10 +1102,10 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             <div class="hidden lg:block absolute top-[50%] left-0 right-0 h-1 bg-[#8b7ff5]/60 -translate-y-1/2 z-0 pointer-events-none"></div>
 
             <!-- Cards Track: Grid on desktop, horizontal carousel on mobile/tablet -->
-            <div id="research-cards-track" class="flex lg:grid lg:grid-cols-4 gap-6 relative z-10 overflow-x-auto lg:overflow-visible scrollbar-none pb-6 lg:pb-0">
+            <div id="research-cards-track" class="flex lg:grid lg:grid-cols-4 gap-4 sm:gap-6 relative z-10 overflow-x-auto lg:overflow-visible scrollbar-none pb-6 lg:pb-0 snap-x snap-mandatory -mx-4 sm:mx-0 px-4 sm:px-0">
               
               <!-- Card 1: ThunderKittens on Vera Rubin NVL72 -->
-              <div class="group relative rounded-2xl min-h-[420px] w-[290px] sm:w-[320px] lg:w-auto shrink-0 lg:shrink p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-[#262c52] hover:border-amber-300 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_35px_rgba(251,191,36,0.25)] bg-[#0d1224]">
+              <div class="group relative rounded-2xl min-h-[380px] sm:min-h-[420px] w-[270px] sm:w-[320px] lg:w-auto shrink-0 lg:shrink p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-[#262c52] hover:border-amber-300 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_35px_rgba(251,191,36,0.25)] bg-[#0d1224] snap-start">
                 <!-- Base Solid Dark Underlay -->
                 <div class="absolute inset-0 bg-[#0d1224] -z-10"></div>
 
@@ -1103,7 +1147,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               </div>
 
               <!-- Card 2: ThunderAgent: 2x Faster Agentic Inference -->
-              <div class="group relative rounded-2xl min-h-[420px] w-[290px] sm:w-[320px] lg:w-auto shrink-0 lg:shrink p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-[#262c52] hover:border-amber-300 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_35px_rgba(251,191,36,0.25)] bg-[#0d1224]">
+              <div class="group relative rounded-2xl min-h-[380px] sm:min-h-[420px] w-[270px] sm:w-[320px] lg:w-auto shrink-0 lg:shrink p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-[#262c52] hover:border-amber-300 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_35px_rgba(251,191,36,0.25)] bg-[#0d1224] snap-start">
                 <!-- Base Solid Dark Underlay -->
                 <div class="absolute inset-0 bg-[#0d1224] -z-10"></div>
 
@@ -1125,7 +1169,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
                 <!-- Middle Headline -->
                 <div class="relative z-10 my-auto py-6 text-center">
-                  <h3 class="text-lg sm:text-[19px] font-bold text-white leading-snug group-hover:text-white transition-colors">
+                  <h3 class="text-base sm:text-lg lg:text-[19px] font-bold text-white leading-snug group-hover:text-white transition-colors">
                     ThunderAgent: 2x Faster Agentic Inference for Synthetic Data Generation at Scale
                   </h3>
                 </div>
@@ -1142,7 +1186,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               </div>
 
               <!-- Card 3: ProjectSPG at ICML 2026 -->
-              <div class="group relative rounded-2xl min-h-[420px] w-[290px] sm:w-[320px] lg:w-auto shrink-0 lg:shrink p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-[#262c52] hover:border-amber-300 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_35px_rgba(251,191,36,0.25)] bg-[#0d1224]">
+              <div class="group relative rounded-2xl min-h-[380px] sm:min-h-[420px] w-[270px] sm:w-[320px] lg:w-auto shrink-0 lg:shrink p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-[#262c52] hover:border-amber-300 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_35px_rgba(251,191,36,0.25)] bg-[#0d1224] snap-start">
                 <!-- Base Solid Dark Underlay -->
                 <div class="absolute inset-0 bg-[#0d1224] -z-10"></div>
 
@@ -1164,7 +1208,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
                 <!-- Middle Headline -->
                 <div class="relative z-10 my-auto py-6 text-center">
-                  <h3 class="text-lg sm:text-[19px] font-bold text-white leading-snug group-hover:text-white transition-colors">
+                  <h3 class="text-base sm:text-lg lg:text-[19px] font-bold text-white leading-snug group-hover:text-white transition-colors">
                     ProjectSPG at ICML 2026: frontier research across the full stack
                   </h3>
                 </div>
@@ -1181,7 +1225,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               </div>
 
               <!-- Card 4: ParallelKernelBench -->
-              <div class="group relative rounded-2xl min-h-[420px] w-[290px] sm:w-[320px] lg:w-auto shrink-0 lg:shrink p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-[#262c52] hover:border-amber-300 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_35px_rgba(251,191,36,0.25)] bg-[#0d1224]">
+              <div class="group relative rounded-2xl min-h-[380px] sm:min-h-[420px] w-[270px] sm:w-[320px] lg:w-auto shrink-0 lg:shrink p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-[#262c52] hover:border-amber-300 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_35px_rgba(251,191,36,0.25)] bg-[#0d1224] snap-start">
                 <!-- Base Solid Dark Underlay -->
                 <div class="absolute inset-0 bg-[#0d1224] -z-10"></div>
 
@@ -1203,7 +1247,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
                 <!-- Middle Headline -->
                 <div class="relative z-10 my-auto py-6 text-center">
-                  <h3 class="text-lg sm:text-[19px] font-bold text-white leading-snug group-hover:text-white transition-colors">
+                  <h3 class="text-base sm:text-lg lg:text-[19px] font-bold text-white leading-snug group-hover:text-white transition-colors">
                     ParallelKernelBench: Frontier LLMs can't write fast multi-GPU kernels (yet)
                   </h3>
                 </div>
@@ -1282,15 +1326,15 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       <!-- SECTION 4: WHAT'S NEW AT PROJECTSPG (Blog & Updates)                  -->
       <!-- Matches uploaded media: 1790541881610.png                               -->
       <!-- ======================================================================= -->
-      <section id="news-section" class="w-full bg-white text-gray-900 py-20 sm:py-28 border-t border-gray-100">
+      <section id="news-section" class="w-full bg-white text-gray-900 py-14 sm:py-28 border-t border-gray-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <!-- Section Header Row -->
-          <div class="flex items-center justify-between mb-10 sm:mb-12">
-            <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-gray-950 font-sans">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-8 sm:mb-12">
+            <h2 class="text-2xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-gray-950 font-sans">
               What’s new at ProjectSPG
             </h2>
-            <a href="#docs" onclick="switchView('docs')" class="px-4 py-2 rounded-lg bg-gray-100/90 hover:bg-gray-200/90 text-gray-800 text-[11px] font-bold tracking-wider uppercase transition shadow-2xs cursor-pointer flex items-center gap-1.5">
+            <a href="#docs" onclick="switchView('docs')" class="self-start sm:self-auto px-4 py-2 rounded-lg bg-gray-100/90 hover:bg-gray-200/90 text-gray-800 text-[11px] font-bold tracking-wider uppercase transition shadow-2xs cursor-pointer flex items-center gap-1.5">
               <span>ALL BLOG POSTS</span>
             </a>
           </div>
@@ -1301,23 +1345,23 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             <!-- Left Column: Featured Post (The Open Source AI Stack) -->
             <div class="lg:col-span-6 group cursor-pointer">
               <!-- Stack Illustration Card -->
-              <div class="w-full aspect-[16/10] bg-[#0f121d] rounded-2xl p-6 sm:p-8 flex flex-col justify-between border border-gray-800/80 shadow-md relative overflow-hidden transition-all duration-300 group-hover:shadow-xl group-hover:border-gray-700">
+              <div class="w-full min-h-[380px] sm:aspect-[16/10] bg-[#0f121d] rounded-2xl p-5 sm:p-8 flex flex-col sm:flex-row justify-between border border-gray-800/80 shadow-md relative overflow-hidden transition-all duration-300 group-hover:shadow-xl group-hover:border-gray-700">
                 <!-- Background Ambient Glow -->
                 <div class="absolute -right-20 -top-20 w-80 h-80 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
 
-                <div class="flex h-full w-full">
+                <div class="flex flex-col sm:flex-row h-full w-full gap-5 sm:gap-0">
                   <!-- Left Side: Title Typography -->
-                  <div class="w-[42%] flex flex-col justify-center pr-3">
+                  <div class="w-full sm:w-[42%] flex flex-col justify-center pr-0 sm:pr-3">
                     <h3 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-tight">
-                      The<br><span class="text-gray-100">Open</span><br><span class="text-gray-200">Model</span><br><span class="text-gray-300">AI Stack</span>
+                      The<br class="hidden sm:block"><span class="text-gray-100"> Open</span><br class="hidden sm:block"><span class="text-gray-200"> Model</span><br class="hidden sm:block"><span class="text-gray-300"> AI Stack</span>
                     </h3>
-                    <p class="text-[10px] font-mono tracking-wider text-gray-400 mt-4 uppercase">
+                    <p class="text-[10px] font-mono tracking-wider text-gray-400 mt-2 sm:mt-4 uppercase">
                       the <span class="text-white font-bold">MIGHT</span> stack
                     </p>
                   </div>
 
                   <!-- Right Side: Layered Stack Pills -->
-                  <div class="w-[58%] flex flex-col justify-center gap-2 text-[10px] font-sans">
+                  <div class="w-full sm:w-[58%] flex flex-col justify-center gap-2 text-[10px] font-sans">
                     <!-- Layer 1: models -->
                     <div class="bg-[#171c2b] border border-gray-800/90 rounded-lg p-2.5 flex items-center justify-between shadow-2xs">
                       <span class="text-gray-400 font-mono text-[9.5px] uppercase">models</span>
@@ -1333,7 +1377,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                     <!-- Layer 2: inference -->
                     <div class="bg-[#171c2b] border border-gray-800/90 rounded-lg p-2.5 flex items-center justify-between shadow-2xs">
                       <span class="text-gray-400 font-mono text-[9.5px] uppercase">inference</span>
-                      <div class="flex items-center gap-2 text-[9.5px] font-semibold text-gray-200">
+                      <div class="flex items-center gap-1.5 sm:gap-2 text-[9.5px] font-semibold text-gray-200 flex-wrap">
                         <span>• SGLang</span>
                         <span>• vLLM</span>
                         <span>• TRT-LLM</span>
@@ -1378,10 +1422,10 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                 <span class="px-2.5 py-0.5 rounded bg-gray-100 text-gray-700 font-bold text-[10px] tracking-wider uppercase">
                   INFERENCE
                 </span>
-                <h3 class="text-xl sm:text-2xl font-bold text-gray-950 mt-2 group-hover:text-[#f0523d] transition-colors leading-snug">
+                <h3 class="text-lg sm:text-2xl font-bold text-gray-950 mt-2 group-hover:text-[#f0523d] transition-colors leading-snug">
                   The Open Source AI Stack
                 </h3>
-                <p class="text-sm text-gray-500 mt-1.5 line-clamp-2 leading-relaxed">
+                <p class="text-xs sm:text-sm text-gray-500 mt-1.5 line-clamp-2 leading-relaxed">
                   A deep dive into the open model AI stack — model, inference, gateways and routers, harness, and tools ...
                 </p>
               </div>
@@ -1391,9 +1435,9 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             <div class="lg:col-span-6 flex flex-col gap-6 sm:gap-7">
               
               <!-- Item 1: Migrating from closed to open source models with ProjectSPG -->
-              <div class="group flex items-start gap-5 cursor-pointer">
+              <div class="group flex flex-col sm:flex-row items-start gap-3.5 sm:gap-5 cursor-pointer">
                 <!-- Pastel Gradient Thumbnail with subtle title overlay -->
-                <div class="w-44 sm:w-52 aspect-[16/10] shrink-0 rounded-xl overflow-hidden relative shadow-xs border border-gray-200/60 bg-gradient-to-br from-[#ffd5cc] via-[#f7e0ff] to-[#d8e6ff] flex items-center justify-center p-3 text-center transition-all duration-300 group-hover:shadow-md group-hover:scale-[1.02]">
+                <div class="w-full sm:w-44 md:w-52 aspect-[16/10] shrink-0 rounded-xl overflow-hidden relative shadow-xs border border-gray-200/60 bg-gradient-to-br from-[#ffd5cc] via-[#f7e0ff] to-[#d8e6ff] flex items-center justify-center p-3 text-center transition-all duration-300 group-hover:shadow-md group-hover:scale-[1.02]">
                   <div class="flex flex-col items-center">
                     <div class="flex items-center gap-1 mb-1">
                       <span class="w-2 h-2 rounded-full bg-pink-500"></span>
@@ -1420,8 +1464,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               </div>
 
               <!-- Item 2: ProjectSPG and Y Combinator partner -->
-              <div class="group flex items-start gap-5 cursor-pointer">
-                <div class="w-44 sm:w-52 aspect-[16/10] shrink-0 rounded-xl overflow-hidden relative shadow-xs border border-gray-200/60 bg-gradient-to-br from-[#fed7aa] via-[#fde047]/30 to-[#c7d2fe] flex items-center justify-center p-3 text-center transition-all duration-300 group-hover:shadow-md group-hover:scale-[1.02]">
+              <div class="group flex flex-col sm:flex-row items-start gap-3.5 sm:gap-5 cursor-pointer">
+                <div class="w-full sm:w-44 md:w-52 aspect-[16/10] shrink-0 rounded-xl overflow-hidden relative shadow-xs border border-gray-200/60 bg-gradient-to-br from-[#fed7aa] via-[#fde047]/30 to-[#c7d2fe] flex items-center justify-center p-3 text-center transition-all duration-300 group-hover:shadow-md group-hover:scale-[1.02]">
                   <div class="flex flex-col items-center">
                     <div class="flex items-center gap-1 mb-1">
                       <span class="w-2 h-2 rounded-full bg-orange-500"></span>
@@ -1447,8 +1491,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               </div>
 
               <!-- Item 3: GLM-5.3 vs. Claude Fable 5 on DeepSWE -->
-              <div class="group flex items-start gap-5 cursor-pointer">
-                <div class="w-44 sm:w-52 aspect-[16/10] shrink-0 rounded-xl overflow-hidden relative shadow-xs border border-gray-200/60 bg-gradient-to-br from-[#fecdd3] via-[#e9d5ff] to-[#bfdbfe] flex items-center justify-center p-3 text-center transition-all duration-300 group-hover:shadow-md group-hover:scale-[1.02]">
+              <div class="group flex flex-col sm:flex-row items-start gap-3.5 sm:gap-5 cursor-pointer">
+                <div class="w-full sm:w-44 md:w-52 aspect-[16/10] shrink-0 rounded-xl overflow-hidden relative shadow-xs border border-gray-200/60 bg-gradient-to-br from-[#fecdd3] via-[#e9d5ff] to-[#bfdbfe] flex items-center justify-center p-3 text-center transition-all duration-300 group-hover:shadow-md group-hover:scale-[1.02]">
                   <div class="flex flex-col items-center">
                     <div class="flex items-center gap-1 mb-1">
                       <span class="w-2 h-2 rounded-full bg-purple-500"></span>
@@ -1503,21 +1547,21 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             </p>
 
             <!-- Mode Selector Switcher Tabs -->
-            <div class="inline-flex items-center bg-gray-200/70 p-1 rounded-full mt-7 shadow-inner">
-              <button id="pricing-tab-serverless" onclick="switchPricingTab('serverless')" class="px-5 py-2 rounded-full text-xs font-bold transition shadow-xs bg-black text-white cursor-pointer">
+            <div class="inline-flex items-center bg-gray-200/70 p-1 rounded-full mt-7 shadow-inner max-w-full">
+              <button id="pricing-tab-serverless" onclick="switchPricingTab('serverless')" class="px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-xs font-bold transition shadow-xs bg-black text-white cursor-pointer whitespace-nowrap">
                 Serverless Inference
               </button>
-              <button id="pricing-tab-dedicated" onclick="switchPricingTab('dedicated')" class="px-5 py-2 rounded-full text-xs font-bold transition text-gray-600 hover:text-gray-950 cursor-pointer">
+              <button id="pricing-tab-dedicated" onclick="switchPricingTab('dedicated')" class="px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-xs font-bold transition text-gray-600 hover:text-gray-950 cursor-pointer whitespace-nowrap">
                 Dedicated Compute
               </button>
             </div>
           </div>
 
           <!-- 3-Column Pricing Cards Grid -->
-          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch mb-16">
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 items-stretch mb-16">
             
             <!-- Tier 1: Developer Community -->
-            <div class="bg-white rounded-3xl p-8 border border-gray-200/80 shadow-xs flex flex-col justify-between transition-all duration-300 hover:shadow-md hover:-translate-y-1">
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-gray-200/80 shadow-xs flex flex-col justify-between transition-all duration-300 hover:shadow-md hover:-translate-y-1">
               <div>
                 <div class="flex items-center justify-between mb-4">
                   <span class="text-[11px] font-bold tracking-wider uppercase text-gray-500 font-mono">COMMUNITY</span>
@@ -1568,9 +1612,9 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             </div>
 
             <!-- Tier 2: Serverless Pro (Featured / Most Popular) -->
-            <div id="pricing-card-serverless" class="bg-white rounded-3xl p-8 border-2 border-gray-900 shadow-xl flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 relative ring-2 ring-black">
+            <div id="pricing-card-serverless" class="bg-white rounded-3xl p-6 sm:p-8 border-2 border-gray-900 shadow-xl flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 relative ring-2 ring-black">
               <!-- Top Floating Badge -->
-              <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gray-950 text-white px-3.5 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase shadow-md flex items-center gap-1.5">
+              <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gray-950 text-white px-3.5 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase shadow-md flex items-center gap-1.5 whitespace-nowrap">
                 <span class="w-1.5 h-1.5 rounded-full bg-[#f0523d]"></span>
                 <span>MOST POPULAR</span>
               </div>
@@ -1625,7 +1669,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             </div>
 
             <!-- Tier 3: Dedicated Enterprise -->
-            <div id="pricing-card-dedicated" class="bg-white rounded-3xl p-8 border border-gray-200/80 shadow-xs flex flex-col justify-between transition-all duration-300 hover:shadow-md hover:-translate-y-1">
+            <div id="pricing-card-dedicated" class="bg-white rounded-3xl p-6 sm:p-8 border border-gray-200/80 shadow-xs flex flex-col justify-between transition-all duration-300 hover:shadow-md hover:-translate-y-1">
               <div>
                 <div class="flex items-center justify-between mb-4">
                   <span class="text-[11px] font-bold tracking-wider uppercase text-gray-500 font-mono">ENTERPRISE</span>
@@ -1678,8 +1722,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           </div>
 
           <!-- Model Pricing Rate Sheet Table -->
-          <div class="bg-white rounded-3xl p-6 sm:p-8 border border-gray-200/80 shadow-xs mb-14">
-            <div class="flex items-center justify-between mb-6 pb-4 border-b border-gray-100">
+          <div class="bg-white rounded-3xl p-5 sm:p-8 border border-gray-200/80 shadow-xs mb-14">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6 pb-4 border-b border-gray-100">
               <div>
                 <h3 class="text-lg sm:text-xl font-bold text-gray-950">Model Rate Sheet</h3>
                 <p class="text-xs text-gray-500 mt-0.5">Transparent token rates across leading open foundation models.</p>
@@ -1687,8 +1731,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               <span class="text-[11px] font-mono font-bold text-gray-500 uppercase tracking-widest">USD / 1M TOKENS</span>
             </div>
 
-            <div class="overflow-x-auto">
-              <table class="w-full text-left text-xs font-sans">
+            <div class="overflow-x-auto -mx-2 sm:mx-0 px-2 sm:px-0">
+              <table class="w-full min-w-[560px] text-left text-xs font-sans">
                 <thead>
                   <tr class="text-gray-400 font-mono uppercase text-[10px] tracking-wider border-b border-gray-100">
                     <th class="pb-3 font-semibold">Model Name</th>
@@ -1777,7 +1821,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       <!-- SECTION 6: CALL TO ACTION ("Start building on ProjectSPG")            -->
       <!-- Matches uploaded media: 1790542040866.png                               -->
       <!-- ======================================================================= -->
-      <section class="w-full relative pt-24 pb-36 sm:pt-32 sm:pb-48 overflow-hidden bg-white text-center">
+      <section class="w-full relative pt-20 pb-28 sm:pt-32 sm:pb-48 overflow-hidden bg-white text-center">
         
         <!-- 3D Geometric Atmospheric Backdrop -->
         <div class="absolute inset-0 pointer-events-none overflow-hidden flex items-end justify-center">
@@ -1798,10 +1842,10 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         </div>
 
         <div class="max-w-4xl mx-auto px-4 sm:px-6 relative z-10">
-          <h2 class="text-4xl sm:text-5xl lg:text-[54px] font-bold text-gray-950 tracking-tight leading-tight">
+          <h2 class="text-3xl sm:text-5xl lg:text-[54px] font-bold text-gray-950 tracking-tight leading-tight">
             Start building on ProjectSPG
           </h2>
-          <p class="text-base sm:text-lg lg:text-xl text-gray-500 font-normal mt-4 max-w-2xl mx-auto leading-relaxed">
+          <p class="text-sm sm:text-lg lg:text-xl text-gray-500 font-normal mt-4 max-w-2xl mx-auto leading-relaxed">
             From optimized training and model shaping to large-scale production inference
           </p>
           <div class="mt-8 flex justify-center">
@@ -1816,7 +1860,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       <!-- SECTION 6: FOOTER                                                       -->
       <!-- Matches uploaded media: 1790542042470.png                               -->
       <!-- ======================================================================= -->
-      <footer class="w-full relative overflow-hidden bg-gradient-to-b from-[#eaf2fc]/60 via-[#f1f6fc] to-[#e8edf7] pt-12">
+      <footer class="w-full relative overflow-hidden bg-gradient-to-b from-[#eaf2fc]/60 via-[#f1f6fc] to-[#e8edf7] pt-8 sm:pt-12">
         
         <!-- Ambient Edge Colors behind the white card -->
         <div class="absolute -left-20 top-0 w-80 h-96 bg-rose-400/25 blur-3xl pointer-events-none"></div>
@@ -1825,7 +1869,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           
           <!-- Main White Footer Card with Curved Top -->
-          <div class="w-full bg-white rounded-t-[32px] sm:rounded-t-[44px] border-t border-l border-r border-gray-100 shadow-[0_-10px_35px_rgba(0,0,0,0.02)] pt-12 sm:pt-16 pb-10 px-6 sm:px-12 lg:px-16 relative overflow-hidden">
+          <div class="w-full bg-white rounded-t-[28px] sm:rounded-t-[44px] border-t border-l border-r border-gray-100 shadow-[0_-10px_35px_rgba(0,0,0,0.02)] pt-10 sm:pt-16 pb-10 px-5 sm:px-12 lg:px-16 relative overflow-hidden">
             
             <!-- Top Grid: Brand Logo + 4 Category Columns -->
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-start">
@@ -1844,7 +1888,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               </div>
 
               <!-- 4 Columns of Links -->
-              <div class="lg:col-span-9 grid grid-cols-2 sm:grid-cols-4 gap-8 sm:gap-6 text-xs">
+              <div class="lg:col-span-9 grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-6 text-xs">
                 
                 <!-- Col 1: PRODUCTS -->
                 <div>
@@ -1923,7 +1967,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             </div>
 
             <!-- Giant Watermark Brand Name (ProjectSPG Signature) -->
-            <div class="select-none pointer-events-none text-right sm:text-center text-[75px] sm:text-[135px] lg:text-[180px] font-bold tracking-tight text-gray-100/90 leading-none my-6 sm:my-10 overflow-hidden font-sans">
+            <div class="select-none pointer-events-none text-center text-[44px] sm:text-[90px] md:text-[135px] lg:text-[180px] font-bold tracking-tight text-gray-100/90 leading-none my-6 sm:my-10 overflow-hidden font-sans truncate">
               project<span class="text-[#f0523d]">spg</span>
             </div>
 
@@ -1979,21 +2023,21 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     <!-- ======================================================================= -->
     <!-- VIEW 1: PLAYGROUND (Exact 3-Column Groq Layout) -->
     <!-- ======================================================================= -->
-    <div id="view-playground" class="view-panel hidden border-t border-l border-r border-groq-grayBorder rounded-t-2xl bg-white mx-3 sm:mx-4 flex-1 flex flex-col overflow-hidden shadow-xs">
+    <div id="view-playground" class="view-panel hidden border-t border-l border-r border-groq-grayBorder rounded-t-2xl bg-white mx-2 sm:mx-4 flex-1 flex flex-col overflow-hidden shadow-xs">
       
       <!-- Sub-Toolbar (54px height) -->
-      <div class="h-[54px] border-b border-groq-grayBorder bg-white px-6 flex items-center justify-between shrink-0">
-        <div class="flex items-center gap-4">
+      <div class="h-auto min-h-[54px] py-2 sm:py-0 border-b border-groq-grayBorder bg-white px-3 sm:px-6 flex flex-wrap items-center justify-between gap-2 shrink-0">
+        <div class="flex items-center gap-3 sm:gap-4">
           <h2 class="text-[15px] font-semibold text-groq-dark tracking-tight">Playground</h2>
           <div class="bg-[#f3f4f6] p-0.5 rounded-lg flex items-center text-xs select-none">
-            <button id="btn-tier-free" onclick="switchPlaygroundTier('free')" class="px-3 py-1 rounded-md bg-white text-groq-dark font-medium shadow-xs text-xs transition cursor-pointer">Free</button>
-            <button id="btn-tier-byok" onclick="switchPlaygroundTier('byok')" class="px-3 py-1 rounded-md text-groq-textMuted hover:text-groq-dark text-xs transition cursor-pointer">BYOK</button>
+            <button id="btn-tier-free" onclick="switchPlaygroundTier('free')" class="px-2.5 sm:px-3 py-1 rounded-md bg-white text-groq-dark font-medium shadow-xs text-xs transition cursor-pointer">Free</button>
+            <button id="btn-tier-byok" onclick="switchPlaygroundTier('byok')" class="px-2.5 sm:px-3 py-1 rounded-md text-groq-textMuted hover:text-groq-dark text-xs transition cursor-pointer">BYOK</button>
           </div>
         </div>
 
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-1.5 sm:gap-2 flex-wrap">
           <div class="relative">
-            <select id="playground-model" onchange="onModelChange()" class="appearance-none bg-white border border-groq-grayBorder text-groq-dark text-xs font-sans font-medium rounded-lg pl-3 pr-8 py-1.5 focus:border-gray-400 focus:outline-none cursor-pointer">
+            <select id="playground-model" onchange="onModelChange()" class="appearance-none bg-white border border-groq-grayBorder text-groq-dark text-xs font-sans font-medium rounded-lg pl-2.5 sm:pl-3 pr-7 sm:pr-8 py-1.5 focus:border-gray-400 focus:outline-none cursor-pointer max-w-[170px] sm:max-w-none truncate">
               <optgroup label="Groq Cloud">
                 <option value="openai/gpt-oss-120b" selected>openai/gpt-oss-120b</option>
                 <option value="openai/gpt-oss-20b">openai/gpt-oss-20b</option>
@@ -2009,14 +2053,14 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                 <option value="ministral-14b-2512">ministral-14b-2512</option>
               </optgroup>
             </select>
-            <i data-lucide="chevrons-up-down" class="w-3.5 h-3.5 text-groq-textSubtle absolute right-2.5 top-2 pointer-events-none"></i>
+            <i data-lucide="chevrons-up-down" class="w-3.5 h-3.5 text-groq-textSubtle absolute right-2 top-2 pointer-events-none"></i>
           </div>
 
           <button onclick="copyModelName()" class="p-1.5 rounded-lg bg-white border border-groq-grayBorder text-groq-textMuted hover:text-groq-dark" title="Copy model name">
             <i data-lucide="copy" class="w-3.5 h-3.5"></i>
           </button>
 
-          <button onclick="toggleCodePanel()" id="btn-toggle-code" class="px-3 py-1.5 rounded-lg bg-white border border-groq-grayBorder text-xs font-medium text-groq-dark hover:bg-gray-50 flex items-center gap-1.5">
+          <button onclick="toggleCodePanel()" id="btn-toggle-code" class="px-2.5 sm:px-3 py-1.5 rounded-lg bg-white border border-groq-grayBorder text-xs font-medium text-groq-dark hover:bg-gray-50 flex items-center gap-1.5">
             <i data-lucide="code" class="w-3.5 h-3.5 text-groq-textMuted"></i>
             <span id="code-btn-text">Hide code</span>
           </button>
@@ -2028,9 +2072,9 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       </div>
 
       <!-- Playground 3-Column Split -->
-      <div class="flex-1 flex overflow-hidden">
+      <div class="flex-1 flex flex-col lg:flex-row overflow-y-auto lg:overflow-hidden relative">
         <!-- Col 1: Prompts -->
-        <div class="w-[33%] min-w-[320px] max-w-[420px] border-r border-groq-grayBorder p-6 flex flex-col justify-between overflow-y-auto bg-white">
+        <div class="w-full lg:w-[33%] lg:min-w-[320px] lg:max-w-[420px] border-b lg:border-b-0 lg:border-r border-groq-grayBorder p-4 sm:p-6 flex flex-col justify-between overflow-y-visible lg:overflow-y-auto bg-white shrink-0">
           <div class="space-y-4">
             <div class="flex items-center gap-3">
               <span class="text-[11px] font-semibold text-groq-textMuted uppercase tracking-wider shrink-0">SYSTEM</span>
@@ -2069,7 +2113,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         </div>
 
         <!-- Col 2: Response -->
-        <div id="col-response" class="flex-1 flex flex-col justify-between p-6 border-r border-groq-grayBorder overflow-y-auto bg-white">
+        <div id="col-response" class="w-full lg:flex-1 flex flex-col justify-between p-4 sm:p-6 border-b lg:border-b-0 lg:border-r border-groq-grayBorder overflow-y-visible lg:overflow-y-auto bg-white min-h-[340px]">
           <div>
             <div class="flex items-center justify-between mb-4">
               <span class="text-[11px] font-semibold text-groq-textMuted uppercase tracking-wider">RESPONSE</span>
@@ -2161,7 +2205,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         </div>
 
         <!-- Col 3: Code -->
-        <div id="col-code" class="w-[33%] min-w-[320px] max-w-[440px] p-6 flex flex-col justify-between overflow-y-auto bg-white">
+        <div id="col-code" class="w-full lg:w-[33%] lg:min-w-[320px] lg:max-w-[440px] p-4 sm:p-6 flex flex-col justify-between overflow-y-visible lg:overflow-y-auto bg-white shrink-0">
           <div>
             <div class="flex items-center justify-between mb-4">
               <div class="relative">
@@ -2188,7 +2232,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         </div>
 
         <!-- Col 4: Parameters Panel (Exact 1:1 Match to media_1790517999090.png & media_1790518000351.png) -->
-        <div id="col-parameters" class="hidden w-[280px] min-w-[280px] max-w-[320px] border-l border-groq-grayBorder bg-white flex flex-col h-full overflow-hidden shrink-0 z-20 shadow-xs">
+        <div id="col-parameters" class="hidden fixed lg:relative inset-y-0 right-0 z-50 lg:z-20 w-full sm:w-[300px] lg:w-[280px] lg:min-w-[280px] lg:max-w-[320px] border-l border-groq-grayBorder bg-white flex flex-col h-full overflow-hidden shrink-0 shadow-2xl lg:shadow-xs">
           <!-- Panel Header -->
           <div class="h-[50px] px-5 border-b border-gray-100 flex items-center justify-between shrink-0">
             <span class="text-[11px] font-semibold text-gray-500 uppercase tracking-wider">PARAMETERS</span>
@@ -2331,21 +2375,21 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     <!-- ======================================================================= -->
     <!-- VIEW 2: API KEYS VIEW (Exact Groq API Keys Layout) -->
     <!-- ======================================================================= -->
-    <div id="view-keys" class="view-panel hidden border-t border-l border-r border-groq-grayBorder rounded-t-2xl bg-white mx-3 sm:mx-4 flex-1 p-8 sm:p-10 max-w-[1280px] w-full overflow-y-auto shadow-xs">
-      <div class="flex items-start justify-between mb-8">
+    <div id="view-keys" class="view-panel hidden border-t border-l border-r border-groq-grayBorder rounded-t-2xl bg-white mx-2 sm:mx-4 flex-1 p-4 sm:p-8 md:p-10 max-w-[1280px] w-full overflow-y-auto shadow-xs">
+      <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-8">
         <div>
           <h1 class="text-[17px] font-bold text-groq-dark tracking-tight mb-2">API Keys</h1>
           <p class="text-xs text-groq-textMuted">Manage your project API keys. Remember to keep your API keys safe to prevent unauthorized access.</p>
         </div>
 
-        <button onclick="openCreateKeyModal()" class="px-4 py-2 rounded-lg border border-[#f0523d] bg-white hover:bg-[#fff5f3] text-groq-dark text-xs font-semibold flex items-center gap-1.5 transition shadow-xs">
+        <button onclick="openCreateKeyModal()" class="px-4 py-2 rounded-lg border border-[#f0523d] bg-white hover:bg-[#fff5f3] text-groq-dark text-xs font-semibold flex items-center gap-1.5 transition shadow-xs self-start shrink-0">
           <i data-lucide="plus" class="w-3.5 h-3.5 text-groq-dark"></i>
           <span>Create API Key</span>
         </button>
       </div>
 
-      <div class="w-full">
-        <table class="w-full text-left text-xs font-sans border-collapse">
+      <div class="w-full overflow-x-auto -mx-2 sm:mx-0 px-2 sm:px-0">
+        <table class="w-full min-w-[620px] text-left text-xs font-sans border-collapse">
           <thead>
             <tr class="text-groq-textSubtle text-[11px] uppercase tracking-wider font-semibold">
               <th class="pb-5 font-semibold text-groq-textSubtle pr-6">NAME</th>
@@ -2365,28 +2409,28 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     <!-- ======================================================================= -->
     <!-- VIEW 3: DASHBOARD (Exact Replica of Metrics, Usage, Logs Screenshots) -->
     <!-- ======================================================================= -->
-    <div id="view-dashboard" class="view-panel flex-1 flex overflow-hidden">
+    <div id="view-dashboard" class="view-panel flex-1 flex flex-col md:flex-row overflow-y-auto md:overflow-hidden">
       
       <!-- STANDALONE LEFT PANEL (Exact matching Groq Dashboard Left Sidebar) -->
-      <aside class="w-44 shrink-0 pl-8 pt-8 space-y-7 text-xs font-medium">
-        <button onclick="switchDashTab('metrics')" id="dash-tab-btn-metrics" class="dash-tab-btn block text-left text-groq-textMuted hover:text-groq-dark transition">Metrics</button>
-        <button onclick="switchDashTab('usage')" id="dash-tab-btn-usage" class="dash-tab-btn block text-left text-groq-textMuted hover:text-groq-dark transition">Usage</button>
-        <button onclick="switchDashTab('logs')" id="dash-tab-btn-logs" class="dash-tab-btn block text-left text-[#f0523d] font-semibold transition">Logs</button>
-        <button onclick="switchDashTab('batch')" id="dash-tab-btn-batch" class="dash-tab-btn block text-left text-groq-textMuted hover:text-groq-dark transition">Batch</button>
+      <aside class="w-full md:w-44 shrink-0 px-4 md:pl-8 pt-4 md:pt-8 flex flex-row md:flex-col gap-5 md:gap-0 md:space-y-7 text-xs font-medium border-b md:border-b-0 border-groq-grayBorder overflow-x-auto bg-white">
+        <button onclick="switchDashTab('metrics')" id="dash-tab-btn-metrics" class="dash-tab-btn whitespace-nowrap block text-left text-groq-textMuted hover:text-groq-dark transition">Metrics</button>
+        <button onclick="switchDashTab('usage')" id="dash-tab-btn-usage" class="dash-tab-btn whitespace-nowrap block text-left text-groq-textMuted hover:text-groq-dark transition">Usage</button>
+        <button onclick="switchDashTab('logs')" id="dash-tab-btn-logs" class="dash-tab-btn whitespace-nowrap block text-left text-[#f0523d] font-semibold transition">Logs</button>
+        <button onclick="switchDashTab('batch')" id="dash-tab-btn-batch" class="dash-tab-btn whitespace-nowrap block text-left text-groq-textMuted hover:text-groq-dark transition">Batch</button>
       </aside>
 
       <!-- MAIN CARD CONTAINER (Rounded top-left & top-right border matching images) -->
-      <div class="border-t border-l border-r border-groq-grayBorder rounded-tl-2xl rounded-tr-2xl bg-white p-8 sm:p-10 mr-4 flex-1 flex flex-col overflow-y-auto shadow-xs">
+      <div class="border-t border-l border-r border-groq-grayBorder rounded-t-2xl md:rounded-tr-2xl md:rounded-br-none bg-white p-4 sm:p-8 md:p-10 mx-2 md:mx-0 mr-2 md:mr-4 flex-1 flex flex-col overflow-y-visible md:overflow-y-auto shadow-xs">
         
         <!-- =================================================================== -->
         <!-- SUBVIEW A: METRICS (Exact 1:1 Match to media_1790456964674.png) -->
         <!-- =================================================================== -->
         <section id="dash-content-metrics" class="dash-subview hidden space-y-6">
-          <div class="flex items-center justify-between">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <h1 class="text-[17px] font-bold text-groq-dark tracking-tight">Metrics</h1>
             
             <!-- Controls on Right -->
-            <div class="flex items-center gap-3">
+            <div class="flex flex-wrap items-center gap-2 sm:gap-3">
               <!-- Show Limits Switch -->
               <div class="flex items-center gap-2 text-xs font-medium text-groq-dark">
                 <span>Show Limits</span>
@@ -2569,8 +2613,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           </div>
 
           <!-- Logs Table (Exact Columns as Screenshot 3) -->
-          <div class="w-full">
-            <table class="w-full text-left text-xs font-mono border-collapse">
+          <div class="w-full overflow-x-auto -mx-2 sm:mx-0 px-2 sm:px-0">
+            <table class="w-full min-w-[760px] text-left text-xs font-mono border-collapse">
               <thead>
                 <tr class="text-groq-textSubtle text-[10px] uppercase tracking-wider font-semibold border-b border-gray-100 pb-3">
                   <th class="pb-4 font-semibold text-groq-textSubtle pr-3">REQUEST TIME</th>
@@ -2627,8 +2671,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     <!-- ======================================================================= -->
     <!-- VIEW 4: DOCS VIEW -->
     <!-- ======================================================================= -->
-    <div id="view-docs" class="view-panel hidden border-t border-l border-r border-groq-grayBorder rounded-t-2xl bg-white mx-3 sm:mx-4 flex-1 flex overflow-hidden shadow-xs">
-      <aside class="w-64 shrink-0 border-r border-groq-grayBorder bg-white p-5 text-xs overflow-y-auto space-y-4">
+    <div id="view-docs" class="view-panel hidden border-t border-l border-r border-groq-grayBorder rounded-t-2xl bg-white mx-2 sm:mx-4 flex-1 flex flex-col md:flex-row overflow-y-auto md:overflow-hidden shadow-xs">
+      <aside class="w-full md:w-64 shrink-0 border-b md:border-b-0 md:border-r border-groq-grayBorder bg-white p-4 sm:p-5 text-xs overflow-y-auto space-y-4">
         <div class="relative">
           <input type="text" placeholder="Search" class="w-full bg-[#f9fafb] border border-groq-grayBorder rounded-lg pl-8 pr-12 py-1.5 text-xs text-groq-dark placeholder-groq-textSubtle focus:outline-none">
           <i data-lucide="search" class="w-3.5 h-3.5 text-groq-textSubtle absolute left-2.5 top-2.5"></i>
@@ -2652,15 +2696,15 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         </div>
       </aside>
 
-      <div class="flex-1 p-8 overflow-y-auto flex gap-8 bg-white">
+      <div class="flex-1 p-4 sm:p-8 overflow-y-auto flex flex-col lg:flex-row gap-6 lg:gap-8 bg-white">
         <div class="flex-1 max-w-xl space-y-6">
           <h1 class="text-2xl font-bold text-groq-dark mb-1">ProjectSPG API Reference</h1>
           <h2 class="text-lg font-semibold text-groq-dark">Chat</h2>
           <div class="space-y-2">
             <h3 class="text-sm font-semibold text-groq-dark">Create chat completion</h3>
-            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gray-50 border border-groq-grayBorder font-mono text-xs">
-              <span class="px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold text-[10px]">POST</span>
-              <span class="text-groq-dark">https://projectspg.boruahpriyanuj2004.workers.dev/v1/chat/completions</span>
+            <div class="flex flex-wrap items-center gap-2 p-2.5 sm:px-3 sm:py-1.5 rounded-lg bg-gray-50 border border-groq-grayBorder font-mono text-xs break-all">
+              <span class="px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold text-[10px] shrink-0">POST</span>
+              <span class="text-groq-dark break-all">https://projectspg.boruahpriyanuj2004.workers.dev/v1/chat/completions</span>
             </div>
             <p class="text-xs text-groq-textMuted pt-1">Creates a model response with automated edge privacy neutralization and reversible tokenization.</p>
           </div>
@@ -2915,11 +2959,20 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         }
       } else {
         if (globalHeader) globalHeader.classList.remove('hidden');
-        document.body.classList.add('overflow-hidden', 'h-screen');
-        document.body.classList.remove('overflow-y-auto', 'min-h-screen');
-        if (mainEl) {
-          mainEl.classList.add('overflow-hidden');
-          mainEl.classList.remove('overflow-visible');
+        if (window.innerWidth < 1024) {
+          document.body.classList.remove('overflow-hidden', 'h-screen');
+          document.body.classList.add('overflow-y-auto', 'min-h-screen');
+          if (mainEl) {
+            mainEl.classList.remove('overflow-hidden');
+            mainEl.classList.add('overflow-visible');
+          }
+        } else {
+          document.body.classList.add('overflow-hidden', 'h-screen');
+          document.body.classList.remove('overflow-y-auto', 'min-h-screen');
+          if (mainEl) {
+            mainEl.classList.add('overflow-hidden');
+            mainEl.classList.remove('overflow-visible');
+          }
         }
       }
 
@@ -2955,7 +3008,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       ['inference', 'compute', 'shaping'].forEach(c => {
         const btn = document.getElementById('cat-tab-' + c);
         if (btn) {
-          btn.className = 'cat-pill py-3.5 sm:py-4 px-4 sm:px-6 rounded-2xl sm:rounded-3xl text-center font-bold text-base sm:text-xl transition-all duration-200 cursor-pointer text-gray-600 hover:text-gray-950 hover:bg-gray-100/70';
+          btn.className = 'cat-pill py-2.5 sm:py-4 px-1.5 sm:px-6 rounded-xl sm:rounded-3xl text-center font-bold text-xs sm:text-base md:text-xl transition-all duration-200 cursor-pointer text-gray-600 hover:text-gray-950 hover:bg-gray-100/70';
         }
         const panel = document.getElementById('platform-cat-panel-' + c);
         if (panel) panel.classList.add('hidden');
@@ -2964,7 +3017,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       if (catConfig[cat]) {
         const activeBtn = document.getElementById(catConfig[cat].tab);
         if (activeBtn) {
-          activeBtn.className = 'cat-pill py-3.5 sm:py-4 px-4 sm:px-6 rounded-2xl sm:rounded-3xl text-center font-bold text-base sm:text-xl transition-all duration-200 cursor-pointer text-gray-950 shadow-2xs ' + catConfig[cat].bg;
+          activeBtn.className = 'cat-pill py-2.5 sm:py-4 px-1.5 sm:px-6 rounded-xl sm:rounded-3xl text-center font-bold text-xs sm:text-base md:text-xl transition-all duration-200 cursor-pointer text-gray-950 shadow-2xs ' + catConfig[cat].bg;
         }
       }
 
@@ -2974,6 +3027,34 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       if (typeof lucide !== 'undefined') {
         setTimeout(() => lucide.createIcons(), 10);
       }
+    }
+
+    function toggleLandingMobileMenu() {
+      const menu = document.getElementById('landing-mobile-menu');
+      const iconMenu = document.getElementById('landing-mobile-icon-menu');
+      const iconClose = document.getElementById('landing-mobile-icon-close');
+      if (!menu) return;
+      const isHidden = menu.classList.contains('hidden');
+      if (isHidden) {
+        menu.classList.remove('hidden');
+        if (iconMenu) iconMenu.classList.add('hidden');
+        if (iconClose) iconClose.classList.remove('hidden');
+      } else {
+        menu.classList.add('hidden');
+        if (iconMenu) iconMenu.classList.remove('hidden');
+        if (iconClose) iconClose.classList.add('hidden');
+      }
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+    }
+
+    function closeLandingMobileMenu() {
+      const menu = document.getElementById('landing-mobile-menu');
+      const iconMenu = document.getElementById('landing-mobile-icon-menu');
+      const iconClose = document.getElementById('landing-mobile-icon-close');
+      if (menu) menu.classList.add('hidden');
+      if (iconMenu) iconMenu.classList.remove('hidden');
+      if (iconClose) iconClose.classList.add('hidden');
+      if (typeof lucide !== 'undefined') lucide.createIcons();
     }
 
     function selectPlatformSubItem(cat, index) {
@@ -3018,13 +3099,13 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       const dedicatedCard = document.getElementById('pricing-card-dedicated');
 
       if (tab === 'serverless') {
-        if (serverlessBtn) serverlessBtn.className = 'px-5 py-2 rounded-full text-xs font-bold transition shadow-xs bg-black text-white cursor-pointer';
-        if (dedicatedBtn) dedicatedBtn.className = 'px-5 py-2 rounded-full text-xs font-bold transition text-gray-600 hover:text-gray-950 cursor-pointer';
+        if (serverlessBtn) serverlessBtn.className = 'px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-xs font-bold transition shadow-xs bg-black text-white cursor-pointer whitespace-nowrap';
+        if (dedicatedBtn) dedicatedBtn.className = 'px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-xs font-bold transition text-gray-600 hover:text-gray-950 cursor-pointer whitespace-nowrap';
         if (serverlessCard) serverlessCard.classList.add('ring-2', 'ring-black');
         if (dedicatedCard) dedicatedCard.classList.remove('ring-2', 'ring-black');
       } else {
-        if (serverlessBtn) serverlessBtn.className = 'px-5 py-2 rounded-full text-xs font-bold transition text-gray-600 hover:text-gray-950 cursor-pointer';
-        if (dedicatedBtn) dedicatedBtn.className = 'px-5 py-2 rounded-full text-xs font-bold transition shadow-xs bg-black text-white cursor-pointer';
+        if (serverlessBtn) serverlessBtn.className = 'px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-xs font-bold transition text-gray-600 hover:text-gray-950 cursor-pointer whitespace-nowrap';
+        if (dedicatedBtn) dedicatedBtn.className = 'px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-xs font-bold transition shadow-xs bg-black text-white cursor-pointer whitespace-nowrap';
         if (serverlessCard) serverlessCard.classList.remove('ring-2', 'ring-black');
         if (dedicatedCard) dedicatedCard.classList.add('ring-2', 'ring-black');
       }
