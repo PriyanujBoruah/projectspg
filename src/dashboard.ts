@@ -220,11 +220,20 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         <div class="flex items-center gap-2">
           <div class="relative">
             <select id="playground-model" onchange="onModelChange()" class="appearance-none bg-white border border-groq-grayBorder text-groq-dark text-xs font-sans font-medium rounded-lg pl-3 pr-8 py-1.5 focus:border-gray-400 focus:outline-none cursor-pointer">
-              <option value="openai/gpt-oss-120b">openai/gpt-oss-120b</option>
-              <option value="llama-3.3-70b-versatile">llama-3.3-70b-versatile</option>
-              <option value="gemini-2.5-flash-lite">gemini-2.5-flash-lite</option>
-              <option value="open-mistral-7b">open-mistral-7b</option>
-              <option value="gpt-4o">gpt-4o</option>
+              <optgroup label="Groq Cloud">
+                <option value="openai/gpt-oss-120b" selected>openai/gpt-oss-120b</option>
+                <option value="openai/gpt-oss-20b">openai/gpt-oss-20b</option>
+                <option value="qwen/qwen3.8-27b">qwen/qwen3.8-27b</option>
+              </optgroup>
+              <optgroup label="Google AI Studio">
+                <option value="gemma-4-26b-it">gemma-4-26b-it</option>
+                <option value="gemma-4-31b-it">gemma-4-31b-it</option>
+              </optgroup>
+              <optgroup label="Mistral AI">
+                <option value="codestral-2508">codestral-2508</option>
+                <option value="ministral-8b-2512">ministral-8b-2512</option>
+                <option value="mistral-large-2512">mistral-large-2512</option>
+              </optgroup>
             </select>
             <i data-lucide="chevrons-up-down" class="w-3.5 h-3.5 text-groq-textSubtle absolute right-2.5 top-2 pointer-events-none"></i>
           </div>
@@ -602,7 +611,13 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                 <select class="appearance-none bg-groq-grayBg border border-groq-grayBorder text-groq-dark text-xs font-medium rounded-lg pl-3 pr-7 py-1.5 focus:outline-none cursor-pointer">
                   <option>Show all Models</option>
                   <option>openai/gpt-oss-120b</option>
-                  <option>llama-3.3-70b-versatile</option>
+                  <option>openai/gpt-oss-20b</option>
+                  <option>qwen/qwen3.8-27b</option>
+                  <option>gemma-4-26b-it</option>
+                  <option>gemma-4-31b-it</option>
+                  <option>codestral-2508</option>
+                  <option>ministral-8b-2512</option>
+                  <option>mistral-large-2512</option>
                 </select>
                 <i data-lucide="chevrons-up-down" class="w-3.5 h-3.5 text-groq-textSubtle absolute right-2 top-2 pointer-events-none"></i>
               </div>
@@ -1218,11 +1233,12 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         if (kmsKey) headers['x-vault-encryption-key'] = kmsKey;
         if (apiKey) headers['Authorization'] = 'Bearer ' + apiKey;
 
-        if (model.includes('gemini')) {
+        if (model.includes('gemini') || model.startsWith('gemma')) {
+          headers['x-upstream-base-url'] = 'https://generativelanguage.googleapis.com/v1beta/openai';
           if (apiKey) headers['x-goog-api-key'] = apiKey;
-        } else if (model.includes('groq') || model.includes('oss')) {
+        } else if (model.includes('groq') || model.includes('oss') || model.startsWith('qwen') || model.startsWith('llama')) {
           headers['x-upstream-base-url'] = 'https://api.groq.com/openai/v1';
-        } else if (model.includes('mistral')) {
+        } else if (model.includes('mistral') || model.startsWith('codestral') || model.startsWith('ministral')) {
           headers['x-upstream-base-url'] = 'https://api.mistral.ai/v1';
         } else if (model.includes('openrouter')) {
           headers['x-upstream-base-url'] = 'https://openrouter.ai/api/v1';
@@ -1615,12 +1631,14 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
     }
 
     const SUPPORTED_MODELS_CATALOG = [
-      { id: 'openai/gpt-oss-120b', name: 'OpenAI GPT-OSS 120B', provider: 'OpenRouter', ratePer1MTokens: 0.15, tag: 'on_demand' },
-      { id: 'llama-3.3-70b-versatile', name: 'Llama 3.3 70B Versatile', provider: 'Groq Cloud', ratePer1MTokens: 0.59, tag: 'on_demand' },
-      { id: 'gemini-2.5-flash-lite', name: 'Gemini 2.5 Flash Lite', provider: 'Google AI Studio', ratePer1MTokens: 0.075, tag: 'on_demand' },
-      { id: 'open-mistral-7b', name: 'Mistral 7B Instruct', provider: 'Mistral AI', ratePer1MTokens: 0.20, tag: 'on_demand' },
-      { id: 'gpt-4o', name: 'GPT-4o (Omni)', provider: 'OpenAI', ratePer1MTokens: 2.50, tag: 'on_demand' },
-      { id: 'claude-3-5-sonnet', name: 'Claude 3.5 Sonnet', provider: 'Anthropic', ratePer1MTokens: 3.00, tag: 'on_demand' }
+      { id: 'openai/gpt-oss-120b', name: 'OpenAI GPT-OSS 120B', provider: 'Groq Cloud', ratePer1MTokens: 0.15, tag: 'on_demand' },
+      { id: 'openai/gpt-oss-20b', name: 'OpenAI GPT-OSS 20B', provider: 'Groq Cloud', ratePer1MTokens: 0.08, tag: 'on_demand' },
+      { id: 'qwen/qwen3.8-27b', name: 'Qwen 3.8 27B', provider: 'Groq Cloud', ratePer1MTokens: 0.20, tag: 'on_demand' },
+      { id: 'gemma-4-26b-it', name: 'Gemma 4 26B Instruct', provider: 'Google AI Studio', ratePer1MTokens: 0.10, tag: 'on_demand' },
+      { id: 'gemma-4-31b-it', name: 'Gemma 4 31B Instruct', provider: 'Google AI Studio', ratePer1MTokens: 0.15, tag: 'on_demand' },
+      { id: 'codestral-2508', name: 'Codestral 2508', provider: 'Mistral AI', ratePer1MTokens: 0.30, tag: 'on_demand' },
+      { id: 'ministral-8b-2512', name: 'Ministral 8B 2512', provider: 'Mistral AI', ratePer1MTokens: 0.10, tag: 'on_demand' },
+      { id: 'mistral-large-2512', name: 'Mistral Large 2512', provider: 'Mistral AI', ratePer1MTokens: 2.00, tag: 'on_demand' }
     ];
 
     function switchUsageSubTab(tab) {

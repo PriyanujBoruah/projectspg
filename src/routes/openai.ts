@@ -114,39 +114,41 @@ export function resolveUpstreamBaseUrl(c: Context, model?: string): string {
   const googHeader = c.req.header("x-goog-api-key") || "";
   const modelLower = (model || "").toLowerCase();
 
-  // 1. Google AI Studio
+  // 1. Google AI Studio (Gemini & Gemma models)
   if (
     modelLower.startsWith("gemini") ||
+    modelLower.startsWith("gemma") ||
     authHeader.includes("AIza") ||
     googHeader.startsWith("AIza")
   ) {
     return "https://generativelanguage.googleapis.com/v1beta/openai";
   }
 
-  // 2. Mistral AI
+  // 2. Mistral AI (mistral, codestral, ministral)
   if (
     modelLower.startsWith("mistral") ||
     modelLower.startsWith("codestral") ||
+    modelLower.startsWith("ministral") ||
     modelLower.startsWith("open-mistral")
   ) {
     return "https://api.mistral.ai/v1";
   }
 
-  // 3. OpenRouter (models containing slash or oss)
-  if (modelLower.includes("/") || modelLower.includes("oss")) {
-    return "https://openrouter.ai/api/v1";
-  }
-
-  // 4. Groq Cloud (llama, mixtral, gemma, qwen, whisper, or groq explicit)
+  // 3. Groq Cloud (openai/gpt-oss-*, qwen/*, llama*, mixtral*, whisper*, groq)
   if (
+    modelLower.startsWith("openai/gpt-oss") ||
+    modelLower.startsWith("qwen") ||
     modelLower.startsWith("llama") ||
     modelLower.startsWith("mixtral") ||
-    modelLower.startsWith("gemma") ||
-    modelLower.startsWith("qwen") ||
     modelLower.startsWith("whisper") ||
     modelLower.includes("groq")
   ) {
     return "https://api.groq.com/openai/v1";
+  }
+
+  // 4. OpenRouter (other models containing slash or oss)
+  if (modelLower.includes("/") || modelLower.includes("oss")) {
+    return "https://openrouter.ai/api/v1";
   }
 
   return "https://api.openai.com/v1";
@@ -183,8 +185,8 @@ export function resolveUpstreamAuth(
   const url = targetUrl || resolveUpstreamBaseUrl(c, model);
   const modelLower = (model || "").toLowerCase();
 
-  // Google AI Studio
-  if (url.includes("generativelanguage.googleapis.com") || modelLower.startsWith("gemini")) {
+  // Google AI Studio (Gemini & Gemma)
+  if (url.includes("generativelanguage.googleapis.com") || modelLower.startsWith("gemini") || modelLower.startsWith("gemma")) {
     const key =
       (c.env as any)?.GEMINI_API_KEY ||
       (globalThis as any).process?.env?.GEMINI_API_KEY ||
@@ -194,12 +196,35 @@ export function resolveUpstreamAuth(
     }
   }
 
-  // Mistral AI
-  if (url.includes("mistral.ai") || modelLower.startsWith("mistral") || modelLower.startsWith("codestral")) {
+  // Mistral AI (mistral, codestral, ministral)
+  if (
+    url.includes("mistral.ai") ||
+    modelLower.startsWith("mistral") ||
+    modelLower.startsWith("codestral") ||
+    modelLower.startsWith("ministral") ||
+    modelLower.startsWith("open-mistral")
+  ) {
     const key =
       (c.env as any)?.MISTRAL_API_KEY ||
       (globalThis as any).process?.env?.MISTRAL_API_KEY ||
       DEFAULT_PLATFORM_KEYS.mistral;
+    if (key) {
+      return { headerName: "Authorization", headerValue: `Bearer ${key}`, isUserKey: false };
+    }
+  }
+
+  // Groq Cloud (openai/gpt-oss, qwen, llama, mixtral)
+  if (
+    url.includes("groq.com") ||
+    modelLower.startsWith("openai/gpt-oss") ||
+    modelLower.startsWith("qwen") ||
+    modelLower.startsWith("llama") ||
+    modelLower.startsWith("mixtral")
+  ) {
+    const key =
+      (c.env as any)?.GROQ_API_KEY ||
+      (globalThis as any).process?.env?.GROQ_API_KEY ||
+      DEFAULT_PLATFORM_KEYS.groq;
     if (key) {
       return { headerName: "Authorization", headerValue: `Bearer ${key}`, isUserKey: false };
     }
@@ -211,23 +236,6 @@ export function resolveUpstreamAuth(
       (c.env as any)?.OPENROUTER_API_KEY ||
       (globalThis as any).process?.env?.OPENROUTER_API_KEY ||
       DEFAULT_PLATFORM_KEYS.openrouter;
-    if (key) {
-      return { headerName: "Authorization", headerValue: `Bearer ${key}`, isUserKey: false };
-    }
-  }
-
-  // Groq Cloud
-  if (
-    url.includes("groq.com") ||
-    modelLower.startsWith("llama") ||
-    modelLower.startsWith("mixtral") ||
-    modelLower.startsWith("gemma") ||
-    modelLower.startsWith("qwen")
-  ) {
-    const key =
-      (c.env as any)?.GROQ_API_KEY ||
-      (globalThis as any).process?.env?.GROQ_API_KEY ||
-      DEFAULT_PLATFORM_KEYS.groq;
     if (key) {
       return { headerName: "Authorization", headerValue: `Bearer ${key}`, isUserKey: false };
     }
@@ -868,16 +876,17 @@ openaiApp.get("/models", async (c) => {
   return c.json({
     object: "list",
     data: [
+      { id: "openai/gpt-oss-120b", object: "model", created: 1721235600, owned_by: "groq" },
+      { id: "openai/gpt-oss-20b", object: "model", created: 1721235600, owned_by: "groq" },
+      { id: "qwen/qwen3.8-27b", object: "model", created: 1721235600, owned_by: "groq" },
+      { id: "gemma-4-26b-it", object: "model", created: 1721235600, owned_by: "google" },
+      { id: "gemma-4-31b-it", object: "model", created: 1721235600, owned_by: "google" },
+      { id: "codestral-2508", object: "model", created: 1721235600, owned_by: "mistral" },
+      { id: "ministral-8b-2512", object: "model", created: 1721235600, owned_by: "mistral" },
+      { id: "mistral-large-2512", object: "model", created: 1721235600, owned_by: "mistral" },
       { id: "gpt-4o", object: "model", created: 1715368132, owned_by: "system" },
       { id: "gpt-4o-mini", object: "model", created: 1721235600, owned_by: "system" },
-      { id: "gpt-4-turbo", object: "model", created: 1712361441, owned_by: "system" },
-      { id: "claude-3-5-sonnet", object: "model", created: 1718841600, owned_by: "system" },
-      { id: "gemini-2.5-flash", object: "model", created: 1721235600, owned_by: "google" },
-      { id: "gemini-2.5-pro", object: "model", created: 1721235600, owned_by: "google" },
-      { id: "gemini-1.5-flash", object: "model", created: 1715368132, owned_by: "google" },
-      { id: "gemini-1.5-pro", object: "model", created: 1715368132, owned_by: "google" },
       { id: "text-embedding-3-small", object: "model", created: 1705948997, owned_by: "system" },
-      { id: "text-embedding-3-large", object: "model", created: 1705948997, owned_by: "system" },
     ],
   });
 });

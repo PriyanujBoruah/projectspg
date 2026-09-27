@@ -614,4 +614,45 @@ describe("OpenAI Drop-In Wire-Compatible Proxy (/v1/chat/completions)", () => {
     expect(errData.error.code).toBe("rate_limit_exceeded");
     expect(errData.error.message).toContain("1 protected request per 15 seconds");
   });
+
+  it("should correctly route specific playground models to Groq, Google AI Studio, and Mistral AI", async () => {
+    let capturedUrl = "";
+    globalThis.fetch = vi.fn().mockImplementation(async (url: string) => {
+      capturedUrl = url;
+      return new Response(JSON.stringify({ choices: [{ message: { content: "OK" } }] }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      });
+    });
+
+    // 1. Groq Cloud: openai/gpt-oss-120b, openai/gpt-oss-20b, qwen/qwen3.8-27b
+    for (const model of ["openai/gpt-oss-120b", "openai/gpt-oss-20b", "qwen/qwen3.8-27b"]) {
+      await app.request("/v1/chat/completions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ model, messages: [{ role: "user", content: "hi" }] }),
+      });
+      expect(capturedUrl).toBe("https://api.groq.com/openai/v1/chat/completions");
+    }
+
+    // 2. Google AI Studio: gemma-4-26b-it, gemma-4-31b-it
+    for (const model of ["gemma-4-26b-it", "gemma-4-31b-it"]) {
+      await app.request("/v1/chat/completions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ model, messages: [{ role: "user", content: "hi" }] }),
+      });
+      expect(capturedUrl).toBe("https://generativelanguage.googleapis.com/v1beta/openai/chat/completions");
+    }
+
+    // 3. Mistral AI: codestral-2508, ministral-8b-2512, mistral-large-2512
+    for (const model of ["codestral-2508", "ministral-8b-2512", "mistral-large-2512"]) {
+      await app.request("/v1/chat/completions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ model, messages: [{ role: "user", content: "hi" }] }),
+      });
+      expect(capturedUrl).toBe("https://api.mistral.ai/v1/chat/completions");
+    }
+  });
 });
