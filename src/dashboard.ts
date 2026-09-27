@@ -128,16 +128,22 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
   <!-- ========================================================================= -->
   <!-- TOP GLOBAL NAVBAR (Exact 52px height) -->
   <!-- ========================================================================= -->
-  <header class="h-[52px] bg-white px-6 flex items-center justify-between shrink-0 z-40">
+  <header class="h-[52px] bg-white px-6 flex items-center justify-between shrink-0 z-40 border-b border-gray-100">
     
-    <!-- Left: Brand Logo + Project Selector -->
+    <!-- Left: Brand Logo + Badge / Project Selector -->
     <div class="flex items-center gap-3.5">
-      <a href="#playground" onclick="switchView('playground')" class="flex items-center gap-1 group">
+      <a href="#landing" onclick="onLogoClick(event)" class="flex items-center gap-1 group cursor-pointer" title="ProjectSPG">
         <span class="font-extrabold text-[22px] tracking-tight text-groq-dark">project<span class="text-[#f0523d]">spg</span></span>
       </a>
 
-      <!-- Project Selector Pill Dropdown -->
-      <div class="flex items-center gap-1.5 text-xs text-groq-textMuted cursor-pointer hover:text-groq-dark transition ml-2">
+      <!-- Logged-out Sovereign Gateway Pill Badge -->
+      <span id="header-landing-badge" class="ml-2 px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-red-50 text-[#f0523d] border border-red-100 flex items-center gap-1.5 shadow-2xs">
+        <span class="w-1.5 h-1.5 rounded-full bg-[#f0523d] animate-pulse"></span>
+        <span>Sovereign Privacy Gateway</span>
+      </span>
+
+      <!-- Project Selector Pill Dropdown (Logged-in Console only) -->
+      <div id="project-selector-pill" class="hidden items-center gap-1.5 text-xs text-groq-textMuted cursor-pointer hover:text-groq-dark transition ml-2">
         <span class="font-normal text-groq-textMuted">Personal</span>
         <i data-lucide="chevrons-up-down" class="w-3 h-3 text-groq-textSubtle"></i>
         <span class="mx-1 text-gray-300 font-light">/</span>
@@ -146,25 +152,46 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       </div>
     </div>
 
-    <!-- Right: Navigation Tabs + Settings + Avatar -->
+    <!-- Right: Navigation Tabs + Action Buttons + Avatar -->
     <div class="flex items-center gap-6 text-xs">
-      <nav class="flex items-center gap-6 font-medium">
-        <button onclick="switchView('playground')" id="nav-playground" class="nav-item text-groq-textMuted hover:text-groq-dark transition">Playground</button>
-        <button onclick="switchView('keys')" id="nav-keys" class="nav-item text-groq-textMuted hover:text-groq-dark transition">API Keys</button>
-        <button onclick="switchView('dashboard')" id="nav-dashboard" class="nav-item text-[#f0523d] font-semibold transition">Dashboard</button>
-        <button onclick="switchView('docs')" id="nav-docs" class="nav-item text-groq-textMuted hover:text-groq-dark transition">Docs</button>
+      
+      <!-- Logged-out Nav Links (Together AI style) -->
+      <nav id="header-nav-landing" class="hidden md:flex items-center gap-6 font-medium text-xs text-groq-textMuted">
+        <button onclick="switchView('landing'); scrollToLandingSection('landing-features');" class="hover:text-groq-dark transition cursor-pointer">Features</button>
+        <button onclick="switchView('landing'); scrollToLandingSection('landing-architecture');" class="hover:text-groq-dark transition cursor-pointer">Architecture</button>
+        <button onclick="switchView('landing'); scrollToLandingSection('landing-code');" class="hover:text-groq-dark transition cursor-pointer">Integrations</button>
+        <button onclick="switchView('landing'); scrollToLandingSection('landing-models');" class="hover:text-groq-dark transition cursor-pointer">Models</button>
+        <button onclick="switchView('playground')" class="hover:text-[#f0523d] transition cursor-pointer font-semibold flex items-center gap-1">
+          <i data-lucide="play" class="w-3 h-3 text-[#f0523d] fill-[#f0523d]"></i>
+          <span>Playground</span>
+        </button>
+        <button onclick="switchView('docs')" class="hover:text-groq-dark transition cursor-pointer">Docs</button>
       </nav>
 
-      <div class="flex items-center gap-3.5 ml-2">
-        <!-- Settings Gear Icon -->
-        <button onclick="openConfigModal()" class="text-groq-textMuted hover:text-groq-dark transition p-1" title="Settings">
+      <!-- Logged-in Console Nav Tabs -->
+      <nav id="header-nav-console" class="hidden items-center gap-6 font-medium">
+        <button onclick="switchView('playground')" id="nav-playground" class="nav-item text-groq-textMuted hover:text-groq-dark transition cursor-pointer">Playground</button>
+        <button onclick="switchView('keys')" id="nav-keys" class="nav-item text-groq-textMuted hover:text-groq-dark transition cursor-pointer">API Keys</button>
+        <button onclick="switchView('dashboard')" id="nav-dashboard" class="nav-item text-groq-textMuted hover:text-groq-dark transition cursor-pointer">Dashboard</button>
+        <button onclick="switchView('docs')" id="nav-docs" class="nav-item text-groq-textMuted hover:text-groq-dark transition cursor-pointer">Docs</button>
+      </nav>
+
+      <div class="flex items-center gap-3 ml-1">
+        <!-- Settings Gear Icon (Shown when logged in) -->
+        <button id="btn-settings-gear" onclick="openConfigModal()" class="hidden text-groq-textMuted hover:text-groq-dark transition p-1 cursor-pointer" title="Settings">
           <i data-lucide="settings" class="w-4 h-4"></i>
         </button>
 
         <!-- Sign In Button (Shown when logged out) -->
-        <button id="btn-login-trigger" onclick="openAuthModal()" class="px-3 py-1.5 rounded-lg bg-[#f0523d] hover:bg-[#e0422d] text-white font-medium text-xs shadow-xs transition flex items-center gap-1.5 cursor-pointer">
-          <i data-lucide="log-in" class="w-3.5 h-3.5"></i>
+        <button id="btn-login-trigger" onclick="openAuthModal()" class="px-3.5 py-1.5 rounded-lg border border-groq-grayBorder hover:bg-gray-50 text-groq-dark font-medium text-xs shadow-2xs transition flex items-center gap-1.5 cursor-pointer">
+          <i data-lucide="log-in" class="w-3.5 h-3.5 text-groq-textMuted"></i>
           <span>Sign In</span>
+        </button>
+
+        <!-- Get Started Free Button (Shown when logged out) -->
+        <button id="btn-landing-getstarted" onclick="openAuthModal()" class="px-3.5 py-1.5 rounded-lg bg-[#f0523d] hover:bg-[#e0422d] text-white font-medium text-xs shadow-xs transition flex items-center gap-1.5 cursor-pointer">
+          <span>Get Started</span>
+          <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
         </button>
 
         <!-- User Profile Dropdown (Shown when logged in) -->
@@ -201,6 +228,612 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
   <!-- MAIN WORKSPACE -->
   <!-- ========================================================================= -->
   <main class="flex-1 flex overflow-hidden">
+
+    <!-- ======================================================================= -->
+    <!-- VIEW 0: TOGETHER AI-INSPIRED LANDING PAGE (Default for Visitors) -->
+    <!-- ======================================================================= -->
+    <div id="view-landing" class="view-panel hidden flex-1 h-full overflow-y-auto bg-white flex flex-col selection:bg-[#f0523d]/20 selection:text-[#f0523d]">
+      
+      <!-- HERO SECTION -->
+      <section class="relative pt-16 pb-20 px-6 sm:px-8 border-b border-gray-100 overflow-hidden bg-gradient-to-b from-red-50/20 via-white to-white">
+        <!-- Subtle Background Glow -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-red-100/40 via-transparent to-transparent pointer-events-none"></div>
+
+        <div class="max-w-5xl mx-auto text-center flex flex-col items-center relative z-10">
+          
+          <!-- Announcement Pill -->
+          <div onclick="scrollToLandingSection('landing-sandbox')" class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-medium bg-red-50 text-[#f0523d] border border-red-200 hover:border-red-300 transition cursor-pointer mb-7 shadow-2xs group">
+            <span class="w-2 h-2 rounded-full bg-[#f0523d] group-hover:scale-125 transition-transform animate-pulse"></span>
+            <span class="font-bold">⚡ Sovereign Privacy Gateway 1.2:</span>
+            <span class="text-groq-dark group-hover:text-[#f0523d] transition-colors">Sub-millisecond PII de-identification at the edge</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-[#f0523d] group-hover:translate-x-0.5 transition-transform"></i>
+          </div>
+
+          <!-- Headline -->
+          <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-groq-dark tracking-tight leading-[1.12] max-w-4xl">
+            The Privacy-Native Cloud for <span class="bg-gradient-to-r from-[#f0523d] via-[#f0523d] to-[#e0422d] bg-clip-text text-transparent">Enterprise AI</span>
+          </h1>
+
+          <!-- Subtitle -->
+          <p class="mt-6 text-base sm:text-lg text-groq-textMuted max-w-2xl mx-auto leading-relaxed">
+            Intercept, tokenize, and rehydrate PII before prompts touch upstream LLMs. 
+            Sub-millisecond edge latency, 10 sovereign regulatory packs, and zero-knowledge client-side encryption.
+          </p>
+
+          <!-- CTAs -->
+          <div class="mt-8 flex flex-wrap items-center justify-center gap-3.5">
+            <button onclick="openAuthModal()" class="px-6 py-3 rounded-xl bg-[#f0523d] hover:bg-[#e0422d] text-white font-semibold text-sm shadow-md hover:shadow-lg transition-all flex items-center gap-2 cursor-pointer group">
+              <span>Start Building Free</span>
+              <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-0.5 transition-transform"></i>
+            </button>
+            <button onclick="switchView('playground')" class="px-6 py-3 rounded-xl bg-white border border-gray-300 hover:border-groq-dark text-groq-dark font-semibold text-sm hover:bg-gray-50 transition shadow-2xs flex items-center gap-2 cursor-pointer">
+              <i data-lucide="play" class="w-4 h-4 text-[#f0523d] fill-[#f0523d]"></i>
+              <span>Launch Interactive Playground</span>
+            </button>
+          </div>
+
+          <!-- Trust Sub-copy -->
+          <div class="mt-5 flex flex-wrap items-center justify-center gap-4 text-[11px] text-groq-textSubtle">
+            <span class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600"></i> No credit card required</span>
+            <span class="text-gray-300 hidden sm:inline">•</span>
+            <span class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600"></i> Drop-in OpenAI wire-compatible</span>
+            <span class="text-gray-300 hidden sm:inline">•</span>
+            <span class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600"></i> Zero LLM training retention</span>
+          </div>
+
+          <!-- Together AI Style Key Metrics Row -->
+          <div class="mt-14 w-full grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl border border-groq-grayBorder rounded-2xl p-6 bg-white shadow-xs">
+            <div class="text-center px-4 py-2 border-r border-gray-100 last:border-r-0">
+              <div class="text-2xl sm:text-3xl font-extrabold text-groq-dark font-mono">&lt; 1.2ms</div>
+              <div class="text-xs text-groq-textMuted mt-1 font-medium">Edge Interception Latency</div>
+            </div>
+            <div class="text-center px-4 py-2 border-r border-gray-100 last:border-r-0">
+              <div class="text-2xl sm:text-3xl font-extrabold text-[#f0523d] font-mono">10 Packs</div>
+              <div class="text-xs text-groq-textMuted mt-1 font-medium">Sovereign Regional Rulebases</div>
+            </div>
+            <div class="text-center px-4 py-2 border-r border-gray-100 last:border-r-0">
+              <div class="text-2xl sm:text-3xl font-extrabold text-groq-dark font-mono">100%</div>
+              <div class="text-xs text-groq-textMuted mt-1 font-medium">Zero-Knowledge BYOK Vault</div>
+            </div>
+            <div class="text-center px-4 py-2">
+              <div class="text-2xl sm:text-3xl font-extrabold text-emerald-600 font-mono">0 Bytes</div>
+              <div class="text-xs text-groq-textMuted mt-1 font-medium">Upstream Data Retention</div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ===================================================================== -->
+      <!-- SECTION 2: LIVE INTERACTIVE TRANSFORMATION SANDBOX -->
+      <!-- ===================================================================== -->
+      <section id="landing-sandbox" class="py-20 px-6 sm:px-8 border-b border-gray-100 bg-white">
+        <div class="max-w-5xl mx-auto">
+          
+          <div class="text-center max-w-2xl mx-auto mb-10">
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold bg-gray-100 text-groq-dark mb-3">
+              <i data-lucide="cpu" class="w-3.5 h-3.5 text-[#f0523d]"></i>
+              <span>INTERACTIVE DEMO</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-bold text-groq-dark tracking-tight">
+              See PII Neutralization in Action
+            </h2>
+            <p class="text-sm text-groq-textMuted mt-2">
+              Select enterprise scenarios below to observe how ProjectSPG dynamically strips PII and applies reversible token masks before prompts reach upstream AI models.
+            </p>
+          </div>
+
+          <!-- Scenario Pills -->
+          <div class="flex flex-wrap items-center justify-center gap-2 mb-8">
+            <button onclick="selectLandingScenario('banking')" id="pill-scen-banking" class="landing-scen-btn px-4 py-2 rounded-xl text-xs font-semibold bg-groq-dark text-white shadow-2xs transition cursor-pointer">Banking Wire</button>
+            <button onclick="selectLandingScenario('healthcare')" id="pill-scen-healthcare" class="landing-scen-btn px-4 py-2 rounded-xl text-xs font-semibold bg-gray-100 hover:bg-gray-200 text-groq-dark transition cursor-pointer">Healthcare EHR</button>
+            <button onclick="selectLandingScenario('support')" id="pill-scen-support" class="landing-scen-btn px-4 py-2 rounded-xl text-xs font-semibold bg-gray-100 hover:bg-gray-200 text-groq-dark transition cursor-pointer">Customer Support</button>
+            <button onclick="selectLandingScenario('identity')" id="pill-scen-identity" class="landing-scen-btn px-4 py-2 rounded-xl text-xs font-semibold bg-gray-100 hover:bg-gray-200 text-groq-dark transition cursor-pointer">Identity & KYC</button>
+          </div>
+
+          <!-- Sandbox Visualizer Grid -->
+          <div class="grid grid-cols-1 lg:grid-cols-11 gap-4 items-stretch">
+            
+            <!-- Left: Raw Application Prompt -->
+            <div class="lg:col-span-5 border border-groq-grayBorder rounded-2xl p-5 bg-[#fafafa] flex flex-col justify-between shadow-2xs">
+              <div>
+                <div class="flex items-center justify-between pb-3 border-b border-gray-200 mb-3">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+                    <span class="text-xs font-bold text-groq-dark">Raw Input Prompt</span>
+                  </div>
+                  <span class="text-[10px] font-mono text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200 font-medium">Sensitive Data Detected</span>
+                </div>
+                <div id="landing-sandbox-raw" class="text-xs font-sans text-gray-800 leading-relaxed font-normal p-3 rounded-xl bg-white border border-gray-200/80 min-h-[120px]">
+                  <!-- Populated by JS -->
+                </div>
+              </div>
+
+              <div class="mt-4 pt-3 border-t border-gray-200/70 flex items-center justify-between text-[11px] text-groq-textMuted">
+                <span>Origin: Client Application</span>
+                <span class="font-mono text-red-600 font-medium">Contains PII / Financial Data</span>
+              </div>
+            </div>
+
+            <!-- Middle: Sovereign Edge Core Status -->
+            <div class="lg:col-span-1 flex flex-col items-center justify-center py-2 lg:py-0">
+              <div class="w-10 h-10 rounded-full bg-red-50 border border-red-200 flex items-center justify-center text-[#f0523d] shadow-sm">
+                <i data-lucide="shield" class="w-5 h-5"></i>
+              </div>
+              <div class="hidden lg:block w-px h-8 bg-gradient-to-b from-red-200 to-sky-200 my-1"></div>
+              <span id="landing-sandbox-latency" class="text-[10px] font-mono font-bold text-groq-dark mt-1">0.38ms</span>
+            </div>
+
+            <!-- Right: Sanitized Prompt Sent to LLM -->
+            <div class="lg:col-span-5 border border-sky-200 rounded-2xl p-5 bg-[#f0f9ff]/40 flex flex-col justify-between shadow-2xs">
+              <div>
+                <div class="flex items-center justify-between pb-3 border-b border-sky-100 mb-3">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+                    <span class="text-xs font-bold text-groq-dark">Neutralized Prompt Sent to AI</span>
+                  </div>
+                  <span id="landing-sandbox-entities-badge" class="text-[10px] font-mono text-sky-800 bg-sky-100 px-2 py-0.5 rounded border border-sky-200 font-semibold">4 Tokens Masked</span>
+                </div>
+                <div id="landing-sandbox-protected" class="text-xs font-sans text-gray-800 leading-relaxed font-normal p-3 rounded-xl bg-white border border-sky-100 min-h-[120px]">
+                  <!-- Populated by JS -->
+                </div>
+              </div>
+
+              <div class="mt-4 pt-3 border-t border-sky-100 flex items-center justify-between text-[11px] text-groq-textMuted">
+                <span id="landing-sandbox-rules" class="truncate max-w-[280px]">Luhn Checksum • US SSN • Email</span>
+                <span class="font-mono text-emerald-600 font-semibold flex items-center gap-1"><i data-lucide="check-circle-2" class="w-3 h-3"></i> 0 PII Exposure</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Bottom Sandbox Action -->
+          <div class="mt-8 flex flex-col sm:flex-row items-center justify-between p-4 rounded-2xl bg-gray-50 border border-groq-grayBorder gap-4">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-lg bg-white border border-gray-200 flex items-center justify-center text-groq-dark shrink-0">
+                <i data-lucide="sparkles" class="w-4 h-4 text-[#f0523d]"></i>
+              </div>
+              <div class="text-xs">
+                <span class="font-semibold text-groq-dark block">Test this live with actual AI models</span>
+                <span class="text-groq-textMuted">Load this exact prompt into the Playground to see live edge tokenization and reversible rehydration.</span>
+              </div>
+            </div>
+            <button onclick="loadLandingScenarioIntoPlayground()" class="shrink-0 px-4 py-2 rounded-xl bg-[#f0523d] hover:bg-[#e0422d] text-white text-xs font-semibold shadow-xs transition flex items-center gap-2 cursor-pointer">
+              <span>Open in Playground</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ===================================================================== -->
+      <!-- SECTION 3: PLATFORM PILLARS & ARCHITECTURE -->
+      <!-- ===================================================================== -->
+      <section id="landing-features" class="py-20 px-6 sm:px-8 border-b border-gray-100 bg-[#fafafa]">
+        <div class="max-w-6xl mx-auto">
+          
+          <div class="text-center max-w-2xl mx-auto mb-14" id="landing-architecture">
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold bg-gray-200 text-groq-dark mb-3">
+              <i data-lucide="layers" class="w-3.5 h-3.5 text-[#f0523d]"></i>
+              <span>SOVEREIGN ARCHITECTURE</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-bold text-groq-dark tracking-tight">
+              Engineered for Zero Data Leakage & Ultra-Low Latency
+            </h2>
+            <p class="text-sm text-groq-textMuted mt-2">
+              A distributed edge layer that decouples your proprietary enterprise data from public LLM providers without altering developer experience.
+            </p>
+          </div>
+
+          <!-- 6-Pillar Card Grid (Together AI Style) -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <!-- Pillar 1 -->
+            <div class="border border-groq-grayBorder rounded-2xl p-6 bg-white hover:border-gray-300 transition-all shadow-xs flex flex-col justify-between group">
+              <div>
+                <div class="w-10 h-10 rounded-xl bg-red-50 text-[#f0523d] flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
+                  <i data-lucide="terminal" class="w-5 h-5"></i>
+                </div>
+                <h3 class="text-base font-bold text-groq-dark tracking-tight">1-Line OpenAI Wire Drop-In</h3>
+                <p class="text-xs text-groq-textMuted mt-2 leading-relaxed">
+                  Switch your <code class="bg-gray-100 px-1 py-0.5 rounded text-[11px] font-mono text-groq-dark">base_url</code> to ProjectSPG. Zero SDK rewrites, full support for streaming completions, function calling, tool use, LangChain, and LlamaIndex.
+                </p>
+              </div>
+              <div class="mt-6 pt-4 border-t border-gray-100 flex items-center gap-1.5 text-[11px] font-semibold text-[#f0523d]">
+                <span>100% Wire Compatible</span>
+                <i data-lucide="arrow-right" class="w-3 h-3"></i>
+              </div>
+            </div>
+
+            <!-- Pillar 2 -->
+            <div class="border border-groq-grayBorder rounded-2xl p-6 bg-white hover:border-gray-300 transition-all shadow-xs flex flex-col justify-between group">
+              <div>
+                <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
+                  <i data-lucide="globe-2" class="w-5 h-5"></i>
+                </div>
+                <h3 class="text-base font-bold text-groq-dark tracking-tight">10 Sovereign Regulatory Packs</h3>
+                <p class="text-xs text-groq-textMuted mt-2 leading-relaxed">
+                  Global compliance out of the box: GDPR (EU), HIPAA (US), PDPA (Singapore), POPIA (South Africa), and LGPD (Brazil). Algorithmic checksums (Luhn, modulus) prevent false positives.
+                </p>
+              </div>
+              <div class="mt-6 pt-4 border-t border-gray-100 flex items-center gap-1.5 text-[11px] font-semibold text-blue-600">
+                <span>Mathematical Validation</span>
+                <i data-lucide="arrow-right" class="w-3 h-3"></i>
+              </div>
+            </div>
+
+            <!-- Pillar 3 -->
+            <div class="border border-groq-grayBorder rounded-2xl p-6 bg-white hover:border-gray-300 transition-all shadow-xs flex flex-col justify-between group">
+              <div>
+                <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
+                  <i data-lucide="key" class="w-5 h-5"></i>
+                </div>
+                <h3 class="text-base font-bold text-groq-dark tracking-tight">Zero-Knowledge BYOK Encryption</h3>
+                <p class="text-xs text-groq-textMuted mt-2 leading-relaxed">
+                  Client-supplied AES-256-GCM encryption keys ensure token vault mappings are completely opaque to the edge infrastructure. Even proxy operators cannot decipher stored tokens.
+                </p>
+              </div>
+              <div class="mt-6 pt-4 border-t border-gray-100 flex items-center gap-1.5 text-[11px] font-semibold text-amber-600">
+                <span>End-to-End Cryptography</span>
+                <i data-lucide="arrow-right" class="w-3 h-3"></i>
+              </div>
+            </div>
+
+            <!-- Pillar 4 -->
+            <div class="border border-groq-grayBorder rounded-2xl p-6 bg-white hover:border-gray-300 transition-all shadow-xs flex flex-col justify-between group">
+              <div>
+                <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
+                  <i data-lucide="zap" class="w-5 h-5"></i>
+                </div>
+                <h3 class="text-base font-bold text-groq-dark tracking-tight">Sub-Millisecond V8 Edge Latency</h3>
+                <p class="text-xs text-groq-textMuted mt-2 leading-relaxed">
+                  Compiled tokenizers executed inside Cloudflare V8 worker isolates across 330+ points of presence worldwide. Interception adds less than 1.2ms to upstream inference latency.
+                </p>
+              </div>
+              <div class="mt-6 pt-4 border-t border-gray-100 flex items-center gap-1.5 text-[11px] font-semibold text-purple-600">
+                <span>Global Edge Network</span>
+                <i data-lucide="arrow-right" class="w-3 h-3"></i>
+              </div>
+            </div>
+
+            <!-- Pillar 5 -->
+            <div class="border border-groq-grayBorder rounded-2xl p-6 bg-white hover:border-gray-300 transition-all shadow-xs flex flex-col justify-between group">
+              <div>
+                <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
+                  <i data-lucide="refresh-cw" class="w-5 h-5"></i>
+                </div>
+                <h3 class="text-base font-bold text-groq-dark tracking-tight">Bidirectional Rehydration</h3>
+                <p class="text-xs text-groq-textMuted mt-2 leading-relaxed">
+                  When LLMs output responses containing protected surrogate tokens, ProjectSPG automatically rehydrates original values in real time before returning them to your application.
+                </p>
+              </div>
+              <div class="mt-6 pt-4 border-t border-gray-100 flex items-center gap-1.5 text-[11px] font-semibold text-emerald-600">
+                <span>Lossless Reconstruction</span>
+                <i data-lucide="arrow-right" class="w-3 h-3"></i>
+              </div>
+            </div>
+
+            <!-- Pillar 6 -->
+            <div class="border border-groq-grayBorder rounded-2xl p-6 bg-white hover:border-gray-300 transition-all shadow-xs flex flex-col justify-between group">
+              <div>
+                <div class="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
+                  <i data-lucide="shield-check" class="w-5 h-5"></i>
+                </div>
+                <h3 class="text-base font-bold text-groq-dark tracking-tight">Auditing & Spend Telemetry</h3>
+                <p class="text-xs text-groq-textMuted mt-2 leading-relaxed">
+                  Real-time visibility into latency percentiles, masked entity counts, token throughput, and estimated model costs with pixel-accurate 30-day timeline charts.
+                </p>
+              </div>
+              <div class="mt-6 pt-4 border-t border-gray-100 flex items-center gap-1.5 text-[11px] font-semibold text-rose-600">
+                <span>SOC2 & Audit Ready</span>
+                <i data-lucide="arrow-right" class="w-3 h-3"></i>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ===================================================================== -->
+      <!-- SECTION 4: 1-LINE CODE SHOWCASE (Together AI Style) -->
+      <!-- ===================================================================== -->
+      <section id="landing-code" class="py-20 px-6 sm:px-8 border-b border-gray-100 bg-white">
+        <div class="max-w-5xl mx-auto">
+          
+          <div class="text-center max-w-2xl mx-auto mb-12">
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold bg-gray-100 text-groq-dark mb-3">
+              <i data-lucide="code" class="w-3.5 h-3.5 text-[#f0523d]"></i>
+              <span>DEVELOPER FIRST</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-bold text-groq-dark tracking-tight">
+              Integrate in Under 60 Seconds
+            </h2>
+            <p class="text-sm text-groq-textMuted mt-2">
+              Works seamlessly with official OpenAI SDKs, LangChain, LlamaIndex, or any standard HTTP client.
+            </p>
+          </div>
+
+          <!-- Code Card (Together AI Dark Card Layout) -->
+          <div class="border border-gray-800 rounded-2xl bg-[#0d1117] overflow-hidden shadow-xl text-white">
+            
+            <!-- Code Header / Tabs -->
+            <div class="h-12 bg-[#161b22] px-4 flex items-center justify-between border-b border-gray-800">
+              <div class="flex items-center gap-1">
+                <button onclick="selectLandingCodeTab('python')" id="landing-code-tab-python" class="landing-tab-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-[#21262d] text-white transition cursor-pointer">Python (OpenAI SDK)</button>
+                <button onclick="selectLandingCodeTab('ts')" id="landing-code-tab-ts" class="landing-tab-btn px-3 py-1.5 rounded-lg text-xs font-medium text-gray-400 hover:text-white transition cursor-pointer">TypeScript</button>
+                <button onclick="selectLandingCodeTab('curl')" id="landing-code-tab-curl" class="landing-tab-btn px-3 py-1.5 rounded-lg text-xs font-medium text-gray-400 hover:text-white transition cursor-pointer">cURL</button>
+                <button onclick="selectLandingCodeTab('langchain')" id="landing-code-tab-langchain" class="landing-tab-btn px-3 py-1.5 rounded-lg text-xs font-medium text-gray-400 hover:text-white transition cursor-pointer">LangChain</button>
+              </div>
+
+              <button onclick="copyLandingCode()" class="p-1.5 rounded-lg bg-[#21262d] hover:bg-[#30363d] text-gray-300 hover:text-white transition flex items-center gap-1.5 text-xs font-medium cursor-pointer" title="Copy code">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                <span id="landing-copy-text">Copy</span>
+              </button>
+            </div>
+
+            <!-- Code Content Box -->
+            <div class="p-6 font-mono text-xs overflow-x-auto leading-relaxed text-gray-300">
+              <pre id="landing-code-content" class="whitespace-pre"><code><span class="syn-keyword">from</span> openai <span class="syn-keyword">import</span> OpenAI
+
+<span class="syn-comment"># Point your client to ProjectSPG's edge gateway base_url</span>
+client = OpenAI(
+    base_url=<span class="syn-string">"https://projectspg.boruahpriyanuj2004.workers.dev/v1"</span>,
+    api_key=<span class="syn-string">"spg_live_your_key"</span>
+)
+
+<span class="syn-comment"># Prompts are intercepted, de-identified, and rehydrated at sub-millisecond speeds</span>
+completion = client.chat.completions.create(
+    model=<span class="syn-string">"openai/gpt-oss-120b"</span>,
+    messages=[
+        {<span class="syn-string">"role"</span>: <span class="syn-string">"user"</span>, <span class="syn-string">"content"</span>: <span class="syn-string">"Verify payment for Alice Wong (SSN: 987-65-4321)..."</span>}
+    ]
+)
+
+<span class="syn-keyword">print</span>(completion.choices[<span class="syn-number">0</span>].message.content)</code></pre>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ===================================================================== -->
+      <!-- SECTION 5: SUPPORTED MODELS SHOWCASE (Together AI Style) -->
+      <!-- ===================================================================== -->
+      <section id="landing-models" class="py-20 px-6 sm:px-8 border-b border-gray-100 bg-[#fafafa]">
+        <div class="max-w-6xl mx-auto">
+          
+          <div class="text-center max-w-2xl mx-auto mb-14">
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold bg-gray-200 text-groq-dark mb-3">
+              <i data-lucide="box" class="w-3.5 h-3.5 text-[#f0523d]"></i>
+              <span>MODEL ECOSYSTEM</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-bold text-groq-dark tracking-tight">
+              Connect to Frontier AI Models with Zero Risk
+            </h2>
+            <p class="text-sm text-groq-textMuted mt-2">
+              ProjectSPG operates as an intelligent privacy shield in front of industry-leading inference providers.
+            </p>
+          </div>
+
+          <!-- 3 Provider Columns -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            <!-- Provider 1: Groq Cloud -->
+            <div class="border border-groq-grayBorder rounded-2xl p-6 bg-white shadow-xs flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between pb-4 border-b border-gray-100 mb-4">
+                  <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-lg bg-orange-50 text-orange-600 flex items-center justify-center font-bold text-xs">G</div>
+                    <div>
+                      <h4 class="font-bold text-xs text-groq-dark">Groq Cloud LPU™</h4>
+                      <p class="text-[11px] text-groq-textMuted">Ultra-Fast LPUs</p>
+                    </div>
+                  </div>
+                  <span class="text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Active</span>
+                </div>
+
+                <div class="space-y-3 text-xs">
+                  <div class="p-2.5 rounded-xl bg-gray-50 border border-gray-100">
+                    <span class="font-mono font-semibold text-groq-dark block">openai/gpt-oss-120b</span>
+                    <span class="text-[11px] text-groq-textMuted">Frontier reasoning • Free Tier</span>
+                  </div>
+                  <div class="p-2.5 rounded-xl bg-gray-50 border border-gray-100">
+                    <span class="font-mono font-semibold text-groq-dark block">openai/gpt-oss-20b</span>
+                    <span class="text-[11px] text-groq-textMuted">Sub-second generation • Free Tier</span>
+                  </div>
+                  <div class="p-2.5 rounded-xl bg-gray-50 border border-gray-100">
+                    <span class="font-mono font-semibold text-groq-dark block">qwen/qwen3.8-27b</span>
+                    <span class="text-[11px] text-groq-textMuted">Multilingual throughput • Free Tier</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-6 pt-4 border-t border-gray-100">
+                <button onclick="switchView('playground')" class="w-full py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-xs font-semibold text-groq-dark transition flex items-center justify-center gap-1 cursor-pointer">
+                  <span>Test in Playground</span>
+                  <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Provider 2: Google AI Studio -->
+            <div class="border border-groq-grayBorder rounded-2xl p-6 bg-white shadow-xs flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between pb-4 border-b border-gray-100 mb-4">
+                  <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-xs">G</div>
+                    <div>
+                      <h4 class="font-bold text-xs text-groq-dark">Google AI Studio</h4>
+                      <p class="text-[11px] text-groq-textMuted">Gemma 4 Architecture</p>
+                    </div>
+                  </div>
+                  <span class="text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Active</span>
+                </div>
+
+                <div class="space-y-3 text-xs">
+                  <div class="p-2.5 rounded-xl bg-gray-50 border border-gray-100">
+                    <span class="font-mono font-semibold text-groq-dark block">gemma-4-26b-a4b-it</span>
+                    <span class="text-[11px] text-groq-textMuted">Instruction tuned • Free Tier</span>
+                  </div>
+                  <div class="p-2.5 rounded-xl bg-gray-50 border border-gray-100">
+                    <span class="font-mono font-semibold text-groq-dark block">gemma-4-31b-it</span>
+                    <span class="text-[11px] text-groq-textMuted">31B Advanced reasoning • Free Tier</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-6 pt-4 border-t border-gray-100">
+                <button onclick="switchView('playground')" class="w-full py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-xs font-semibold text-groq-dark transition flex items-center justify-center gap-1 cursor-pointer">
+                  <span>Test in Playground</span>
+                  <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Provider 3: Mistral AI -->
+            <div class="border border-groq-grayBorder rounded-2xl p-6 bg-white shadow-xs flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between pb-4 border-b border-gray-100 mb-4">
+                  <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-lg bg-red-50 text-[#f0523d] flex items-center justify-center font-bold text-xs">M</div>
+                    <div>
+                      <h4 class="font-bold text-xs text-groq-dark">Mistral AI</h4>
+                      <p class="text-[11px] text-groq-textMuted">Code & Reasoning</p>
+                    </div>
+                  </div>
+                  <span class="text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Active</span>
+                </div>
+
+                <div class="space-y-3 text-xs">
+                  <div class="p-2.5 rounded-xl bg-gray-50 border border-gray-100">
+                    <span class="font-mono font-semibold text-groq-dark block">codestral-2508</span>
+                    <span class="text-[11px] text-groq-textMuted">Specialized code intelligence</span>
+                  </div>
+                  <div class="p-2.5 rounded-xl bg-gray-50 border border-gray-100">
+                    <span class="font-mono font-semibold text-groq-dark block">ministral-8b-2512</span>
+                    <span class="text-[11px] text-groq-textMuted">Ultra-compact latency optimized</span>
+                  </div>
+                  <div class="p-2.5 rounded-xl bg-gray-50 border border-gray-100">
+                    <span class="font-mono font-semibold text-groq-dark block">ministral-14b-2512</span>
+                    <span class="text-[11px] text-groq-textMuted">Advanced multilingual reasoning</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-6 pt-4 border-t border-gray-100">
+                <button onclick="switchView('playground')" class="w-full py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-xs font-semibold text-groq-dark transition flex items-center justify-center gap-1 cursor-pointer">
+                  <span>Test in Playground</span>
+                  <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ===================================================================== -->
+      <!-- SECTION 6: HIGH-CONVERTING BOTTOM CTA (Together AI Dark Card) -->
+      <!-- ===================================================================== -->
+      <section class="py-20 px-6 sm:px-8 bg-white">
+        <div class="max-w-5xl mx-auto rounded-3xl bg-groq-dark text-white p-10 sm:p-14 relative overflow-hidden shadow-2xl">
+          <!-- Background Glow -->
+          <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-[#f0523d]/20 rounded-full blur-3xl pointer-events-none"></div>
+
+          <div class="relative z-10 max-w-2xl">
+            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-white/10 text-white border border-white/20 inline-block mb-4">
+              READY FOR PRODUCTION
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight leading-tight">
+              Start Protecting Your Enterprise Prompts Today
+            </h2>
+            <p class="text-sm text-gray-300 mt-4 leading-relaxed">
+              Deploy in minutes with one line of code. Eliminate data leakage, comply with global regulations, and unlock the power of frontier AI with complete peace of mind.
+            </p>
+
+            <div class="mt-8 flex flex-wrap items-center gap-4">
+              <button onclick="openAuthModal()" class="px-6 py-3 rounded-xl bg-[#f0523d] hover:bg-[#e0422d] text-white font-semibold text-xs shadow-md transition flex items-center gap-2 cursor-pointer">
+                <span>Create Free Account</span>
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </button>
+              <button onclick="switchView('playground')" class="px-6 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-xs border border-white/20 transition flex items-center gap-2 cursor-pointer">
+                <i data-lucide="play" class="w-3.5 h-3.5 text-[#f0523d] fill-[#f0523d]"></i>
+                <span>Open Playground</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================== -->
+      <!-- SECTION 7: MULTI-COLUMN FOOTER (Together AI Style) -->
+      <!-- ===================================================================== -->
+      <footer class="mt-auto border-t border-gray-100 bg-[#fafafa] py-14 px-6 sm:px-8 text-xs text-groq-textMuted">
+        <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-5 gap-8">
+          
+          <div class="col-span-2">
+            <a href="#landing" onclick="onLogoClick(event)" class="flex items-center gap-1 mb-3">
+              <span class="font-extrabold text-xl tracking-tight text-groq-dark">project<span class="text-[#f0523d]">spg</span></span>
+            </a>
+            <p class="text-xs text-groq-textMuted leading-relaxed max-w-sm">
+              The Sovereign Privacy Gateway for Enterprise AI. Intercepting and neutralizing sensitive entities at sub-millisecond speeds across 330+ Cloudflare edge locations.
+            </p>
+            <div class="mt-4 flex items-center gap-3 text-groq-textSubtle">
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white border border-gray-200 text-[11px] text-gray-700 font-medium">
+                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                <span>All Systems Operational</span>
+              </span>
+            </div>
+          </div>
+
+          <div>
+            <h5 class="font-semibold text-groq-dark mb-3">Platform</h5>
+            <ul class="space-y-2">
+              <li><button onclick="switchView('playground')" class="hover:text-groq-dark transition">Playground</button></li>
+              <li><button onclick="switchView('docs')" class="hover:text-groq-dark transition">API Reference</button></li>
+              <li><button onclick="scrollToLandingSection('landing-models')" class="hover:text-groq-dark transition">Supported Models</button></li>
+              <li><button onclick="scrollToLandingSection('landing-architecture')" class="hover:text-groq-dark transition">Edge Engine</button></li>
+            </ul>
+          </div>
+
+          <div>
+            <h5 class="font-semibold text-groq-dark mb-3">Compliance Packs</h5>
+            <ul class="space-y-2">
+              <li><span class="hover:text-groq-dark transition cursor-default">EU GDPR Art. 9</span></li>
+              <li><span class="hover:text-groq-dark transition cursor-default">US HIPAA Safe Harbor</span></li>
+              <li><span class="hover:text-groq-dark transition cursor-default">Singapore PDPA</span></li>
+              <li><span class="hover:text-groq-dark transition cursor-default">South Africa POPIA</span></li>
+              <li><span class="hover:text-groq-dark transition cursor-default">Brazil LGPD</span></li>
+            </ul>
+          </div>
+
+          <div>
+            <h5 class="font-semibold text-groq-dark mb-3">Developer</h5>
+            <ul class="space-y-2">
+              <li><button onclick="selectLandingCodeTab('python'); scrollToLandingSection('landing-code')" class="hover:text-groq-dark transition">Python SDK</button></li>
+              <li><button onclick="selectLandingCodeTab('ts'); scrollToLandingSection('landing-code')" class="hover:text-groq-dark transition">TypeScript SDK</button></li>
+              <li><button onclick="selectLandingCodeTab('curl'); scrollToLandingSection('landing-code')" class="hover:text-groq-dark transition">cURL Examples</button></li>
+              <li><button onclick="selectLandingCodeTab('langchain'); scrollToLandingSection('landing-code')" class="hover:text-groq-dark transition">LangChain Plugin</button></li>
+            </ul>
+          </div>
+
+        </div>
+
+        <div class="max-w-6xl mx-auto mt-12 pt-6 border-t border-gray-200/60 flex flex-col sm:flex-row items-center justify-between text-[11px] text-groq-textSubtle gap-3">
+          <p>© 2026 ProjectSPG. All rights reserved. Sovereign Cloud Architecture.</p>
+          <div class="flex items-center gap-6">
+            <a href="javascript:void(0)" class="hover:text-groq-dark transition">Privacy Policy</a>
+            <a href="javascript:void(0)" class="hover:text-groq-dark transition">Terms of Service</a>
+            <a href="javascript:void(0)" class="hover:text-groq-dark transition">Security Disclosure</a>
+          </div>
+        </div>
+      </footer>
+
+    </div> <!-- End View Landing -->
 
     <!-- ======================================================================= -->
     <!-- VIEW 1: PLAYGROUND (Exact 3-Column Groq Layout) -->
@@ -1048,10 +1681,193 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     let currentIdToken = null;
     let authMode = 'signin'; // 'signin' or 'signup'
 
-    let activeView = 'dashboard'; // Default to Dashboard with Left Panel matching images!
+    let activeView = 'landing'; // Default to Together AI-inspired landing page for visitors!
     let activeDashTab = 'logs';   // Default sub-tab within Dashboard
     let isCodeVisible = true;
     let activeCodeLang = 'python';
+
+    // =========================================================================
+    // Together AI Inspired Landing Page Scenarios & Interactive Handlers
+    // =========================================================================
+    const LANDING_SCENARIOS = {
+      banking: {
+        raw: "Wire $25,000 from account 4829-1029-4820-1938 to Alice Wong (SSN: 987-65-4321, email: alice.wong@meridian.com) for international invoice INV-9042.",
+        rawFormatted: 'Wire $25,000 from account <span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-300 font-mono text-[11px] font-semibold">4829-1029-4820-1938</span> to <span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-300 font-mono text-[11px] font-semibold">Alice Wong</span> (SSN: <span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-300 font-mono text-[11px] font-semibold">987-65-4321</span>, email: <span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-300 font-mono text-[11px] font-semibold">alice.wong@meridian.com</span>) for international invoice INV-9042.',
+        protected: "Wire $25,000 from account <IBAN_1> to <PERSON_1> (SSN: <SSN_1>, email: <EMAIL_1>) for international invoice INV-9042.",
+        protectedFormatted: 'Wire $25,000 from account <span class="px-1.5 py-0.5 rounded bg-sky-100 text-sky-800 border border-sky-300 font-mono text-[11px] font-bold">&lt;IBAN_1&gt;</span> to <span class="px-1.5 py-0.5 rounded bg-sky-100 text-sky-800 border border-sky-300 font-mono text-[11px] font-bold">&lt;PERSON_1&gt;</span> (SSN: <span class="px-1.5 py-0.5 rounded bg-sky-100 text-sky-800 border border-sky-300 font-mono text-[11px] font-bold">&lt;SSN_1&gt;</span>, email: <span class="px-1.5 py-0.5 rounded bg-sky-100 text-sky-800 border border-sky-300 font-mono text-[11px] font-bold">&lt;EMAIL_1&gt;</span>) for international invoice INV-9042.',
+        latency: "0.38ms",
+        entitiesCount: 4,
+        rules: "Luhn Checksum • US SSN • RFC 5322 Email • Person Entity"
+      },
+      healthcare: {
+        raw: "Patient Robert Chen (MRN: 784-920-112, DOB: 1982-04-12) reports acute hypertension. Direct lab results to robert.c@healthvault.org or call +1-415-555-0199.",
+        rawFormatted: 'Patient <span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-300 font-mono text-[11px] font-semibold">Robert Chen</span> (MRN: <span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-300 font-mono text-[11px] font-semibold">784-920-112</span>, DOB: <span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-300 font-mono text-[11px] font-semibold">1982-04-12</span>) reports acute hypertension. Direct lab results to <span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-300 font-mono text-[11px] font-semibold">robert.c@healthvault.org</span> or call <span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-300 font-mono text-[11px] font-semibold">+1-415-555-0199</span>.',
+        protected: "Patient <PERSON_1> (MRN: <MEDICAL_ID_1>, DOB: <DATE_1>) reports acute hypertension. Direct lab results to <EMAIL_1> or call <PHONE_1>.",
+        protectedFormatted: 'Patient <span class="px-1.5 py-0.5 rounded bg-sky-100 text-sky-800 border border-sky-300 font-mono text-[11px] font-bold">&lt;PERSON_1&gt;</span> (MRN: <span class="px-1.5 py-0.5 rounded bg-sky-100 text-sky-800 border border-sky-300 font-mono text-[11px] font-bold">&lt;MEDICAL_ID_1&gt;</span>, DOB: <span class="px-1.5 py-0.5 rounded bg-sky-100 text-sky-800 border border-sky-300 font-mono text-[11px] font-bold">&lt;DATE_1&gt;</span>) reports acute hypertension. Direct lab results to <span class="px-1.5 py-0.5 rounded bg-sky-100 text-sky-800 border border-sky-300 font-mono text-[11px] font-bold">&lt;EMAIL_1&gt;</span> or call <span class="px-1.5 py-0.5 rounded bg-sky-100 text-sky-800 border border-sky-300 font-mono text-[11px] font-bold">&lt;PHONE_1&gt;</span>.',
+        latency: "0.45ms",
+        entitiesCount: 5,
+        rules: "HIPAA Safe Harbor • Medical ID • E.164 Phone • Person Entity"
+      },
+      support: {
+        raw: "Please process refund for Marcus Vance. Chargeback requested on Visa 4532-8921-9034-1182. Send notification to marcus.vance@techcorp.io.",
+        rawFormatted: 'Please process refund for <span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-300 font-mono text-[11px] font-semibold">Marcus Vance</span>. Chargeback requested on Visa <span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-300 font-mono text-[11px] font-semibold">4532-8921-9034-1182</span>. Send notification to <span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-300 font-mono text-[11px] font-semibold">marcus.vance@techcorp.io</span>.',
+        protected: "Please process refund for <PERSON_1>. Chargeback requested on Visa <CARD_1>. Send notification to <EMAIL_1>.",
+        protectedFormatted: 'Please process refund for <span class="px-1.5 py-0.5 rounded bg-sky-100 text-sky-800 border border-sky-300 font-mono text-[11px] font-bold">&lt;PERSON_1&gt;</span>. Chargeback requested on Visa <span class="px-1.5 py-0.5 rounded bg-sky-100 text-sky-800 border border-sky-300 font-mono text-[11px] font-bold">&lt;CARD_1&gt;</span>. Send notification to <span class="px-1.5 py-0.5 rounded bg-sky-100 text-sky-800 border border-sky-300 font-mono text-[11px] font-bold">&lt;EMAIL_1&gt;</span>.',
+        latency: "0.32ms",
+        entitiesCount: 3,
+        rules: "PCI-DSS Luhn • RFC 5322 Email • Person Entity"
+      },
+      identity: {
+        raw: "KYC verification for Elena Rostova. Passport 992819203, Tax ID DE123456789. Verified residential address: Friedrichstraße 42, Berlin, Germany.",
+        rawFormatted: 'KYC verification for <span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-300 font-mono text-[11px] font-semibold">Elena Rostova</span>. Passport <span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-300 font-mono text-[11px] font-semibold">992819203</span>, Tax ID <span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-300 font-mono text-[11px] font-semibold">DE123456789</span>. Verified residential address: <span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-300 font-mono text-[11px] font-semibold">Friedrichstraße 42, Berlin, Germany</span>.',
+        protected: "KYC verification for <PERSON_1>. Passport <PASSPORT_1>, Tax ID <TAX_ID_1>. Verified residential address: <ADDRESS_1>.",
+        protectedFormatted: 'KYC verification for <span class="px-1.5 py-0.5 rounded bg-sky-100 text-sky-800 border border-sky-300 font-mono text-[11px] font-bold">&lt;PERSON_1&gt;</span>. Passport <span class="px-1.5 py-0.5 rounded bg-sky-100 text-sky-800 border border-sky-300 font-mono text-[11px] font-bold">&lt;PASSPORT_1&gt;</span>, Tax ID <span class="px-1.5 py-0.5 rounded bg-sky-100 text-sky-800 border border-sky-300 font-mono text-[11px] font-bold">&lt;TAX_ID_1&gt;</span>. Verified residential address: <span class="px-1.5 py-0.5 rounded bg-sky-100 text-sky-800 border border-sky-300 font-mono text-[11px] font-bold">&lt;ADDRESS_1&gt;</span>.',
+        latency: "0.41ms",
+        entitiesCount: 4,
+        rules: "EU GDPR Article 9 • German Tax ID • Person Entity"
+      }
+    };
+
+    let currentLandingScenario = 'banking';
+
+    function selectLandingScenario(key) {
+      if (!LANDING_SCENARIOS[key]) return;
+      currentLandingScenario = key;
+      const s = LANDING_SCENARIOS[key];
+
+      document.querySelectorAll('.landing-scen-btn').forEach(btn => {
+        btn.className = 'landing-scen-btn px-4 py-2 rounded-xl text-xs font-semibold bg-gray-100 hover:bg-gray-200 text-groq-dark transition cursor-pointer';
+      });
+      const activeBtn = document.getElementById('pill-scen-' + key);
+      if (activeBtn) {
+        activeBtn.className = 'landing-scen-btn px-4 py-2 rounded-xl text-xs font-semibold bg-groq-dark text-white shadow-2xs transition cursor-pointer';
+      }
+
+      const rawEl = document.getElementById('landing-sandbox-raw');
+      if (rawEl) rawEl.innerHTML = s.rawFormatted;
+
+      const protEl = document.getElementById('landing-sandbox-protected');
+      if (protEl) protEl.innerHTML = s.protectedFormatted;
+
+      const latEl = document.getElementById('landing-sandbox-latency');
+      if (latEl) latEl.textContent = s.latency;
+
+      const badgeEl = document.getElementById('landing-sandbox-entities-badge');
+      if (badgeEl) badgeEl.textContent = s.entitiesCount + ' Tokens Masked';
+
+      const rulesEl = document.getElementById('landing-sandbox-rules');
+      if (rulesEl) rulesEl.textContent = s.rules;
+    }
+
+    function loadLandingScenarioIntoPlayground() {
+      const s = LANDING_SCENARIOS[currentLandingScenario] || LANDING_SCENARIOS.banking;
+      const userPromptEl = document.getElementById('user-prompt');
+      if (userPromptEl) {
+        userPromptEl.value = s.raw;
+      }
+      updateCodeViewer();
+      switchView('playground');
+    }
+
+    function scrollToLandingSection(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    function onLogoClick(e) {
+      if (e) e.preventDefault();
+      if (currentFirebaseUser) {
+        switchView('dashboard');
+      } else {
+        switchView('landing');
+      }
+    }
+
+    let activeLandingCodeLang = 'python';
+
+    function selectLandingCodeTab(lang) {
+      activeLandingCodeLang = lang;
+      document.querySelectorAll('.landing-tab-btn').forEach(b => {
+        b.className = 'landing-tab-btn px-3 py-1.5 rounded-lg text-xs font-medium text-gray-400 hover:text-white transition cursor-pointer';
+      });
+      const activeTab = document.getElementById('landing-code-tab-' + lang);
+      if (activeTab) {
+        activeTab.className = 'landing-tab-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-[#21262d] text-white transition cursor-pointer';
+      }
+
+      const box = document.getElementById('landing-code-content');
+      if (!box) return;
+
+      if (lang === 'python') {
+        box.innerHTML = \`<code><span class="syn-keyword">from</span> openai <span class="syn-keyword">import</span> OpenAI
+
+<span class="syn-comment"># Point your client to ProjectSPG's edge gateway base_url</span>
+client = OpenAI(
+    base_url=<span class="syn-string">"https://projectspg.boruahpriyanuj2004.workers.dev/v1"</span>,
+    api_key=<span class="syn-string">"spg_live_your_key"</span>
+)
+
+<span class="syn-comment"># Prompts are intercepted, de-identified, and rehydrated at sub-millisecond speeds</span>
+completion = client.chat.completions.create(
+    model=<span class="syn-string">"openai/gpt-oss-120b"</span>,
+    messages=[
+        {<span class="syn-string">"role"</span>: <span class="syn-string">"user"</span>, <span class="syn-string">"content"</span>: <span class="syn-string">"Verify payment for Alice Wong (SSN: 987-65-4321)..."</span>}
+    ]
+)
+
+<span class="syn-keyword">print</span>(completion.choices[<span class="syn-number">0</span>].message.content)</code>\`;
+      } else if (lang === 'ts') {
+        box.innerHTML = \`<code><span class="syn-keyword">import</span> OpenAI <span class="syn-keyword">from</span> <span class="syn-string">"openai"</span>;
+
+<span class="syn-keyword">const</span> openai = <span class="syn-keyword">new</span> OpenAI({
+  baseURL: <span class="syn-string">"https://projectspg.boruahpriyanuj2004.workers.dev/v1"</span>,
+  apiKey: <span class="syn-string">"spg_live_your_key"</span>
+});
+
+<span class="syn-keyword">const</span> completion = <span class="syn-keyword">await</span> openai.chat.completions.create({
+  model: <span class="syn-string">"openai/gpt-oss-120b"</span>,
+  messages: [{ role: <span class="syn-string">"user"</span>, content: <span class="syn-string">"Verify payment for Alice Wong..."</span> }]
+});
+
+console.log(completion.choices[<span class="syn-number">0</span>].message.content);</code>\`;
+      } else if (lang === 'curl') {
+        box.innerHTML = \`<code>curl https://projectspg.boruahpriyanuj2004.workers.dev/v1/chat/completions \\\\
+  -H <span class="syn-string">"Content-Type: application/json"</span> \\\\
+  -H <span class="syn-string">"Authorization: Bearer spg_live_your_key"</span> \\\\
+  -d '{
+    <span class="syn-string">"model"</span>: <span class="syn-string">"openai/gpt-oss-120b"</span>,
+    <span class="syn-string">"messages"</span>: [
+      { <span class="syn-string">"role"</span>: <span class="syn-string">"user"</span>, <span class="syn-string">"content"</span>: <span class="syn-string">"Verify payment for Alice Wong (SSN: 987-65-4321)..."</span> }
+    ]
+  }'</code>\`;
+      } else if (lang === 'langchain') {
+        box.innerHTML = \`<code><span class="syn-keyword">from</span> langchain_openai <span class="syn-keyword">import</span> ChatOpenAI
+
+llm = ChatOpenAI(
+    base_url=<span class="syn-string">"https://projectspg.boruahpriyanuj2004.workers.dev/v1"</span>,
+    api_key=<span class="syn-string">"spg_live_your_key"</span>,
+    model=<span class="syn-string">"openai/gpt-oss-120b"</span>
+)
+
+<span class="syn-comment"># Zero changes needed to chains or prompts</span>
+result = llm.invoke(<span class="syn-string">"Verify order for Alice Wong..."</span>)
+<span class="syn-keyword">print</span>(result.content)</code>\`;
+      }
+      lucide.createIcons();
+    }
+
+    function copyLandingCode() {
+      const box = document.getElementById('landing-code-content');
+      if (!box) return;
+      navigator.clipboard.writeText(box.innerText);
+      const textEl = document.getElementById('landing-copy-text');
+      if (textEl) {
+        textEl.textContent = 'Copied!';
+        setTimeout(() => { textEl.textContent = 'Copy'; }, 2000);
+      }
+    }
 
     let sampleApiKeys = [
       { id: 'key_1', name: 'Datums Space', key_prefix: 'gsk_...IZS1', created_at: '2026-09-09T00:00:00Z', last_used: '9/9/2026', expires: 'Never', requests_used: 0 },
@@ -1067,10 +1883,13 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
     window.addEventListener('DOMContentLoaded', () => {
       const hash = window.location.hash.replace('#', '');
-      if (['playground', 'keys', 'dashboard', 'docs'].includes(hash)) {
+      if (['playground', 'keys', 'dashboard', 'docs', 'landing'].includes(hash)) {
         activeView = hash;
+      } else {
+        activeView = 'landing';
       }
       switchView(activeView);
+      selectLandingScenario('banking');
       updateCodeViewer();
       fetchApiLogs();
       fetchApiKeys();
@@ -1094,6 +1913,9 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                 currentIdToken = null;
               }
               updateUserUI(user);
+              if (activeView === 'landing') {
+                switchView('dashboard');
+              }
             } else {
               currentIdToken = null;
               updateUserUI(null);
@@ -1141,6 +1963,9 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         activeBtn.classList.remove('text-groq-textMuted');
       }
 
+      if (viewName === 'landing') {
+        selectLandingScenario(currentLandingScenario);
+      }
       if (viewName === 'keys') fetchApiKeys();
       if (viewName === 'dashboard') switchDashTab(activeDashTab);
       lucide.createIcons();
@@ -2312,6 +3137,7 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
       }
       const menu = document.getElementById('user-dropdown-menu');
       if (menu) menu.classList.add('hidden');
+      switchView('landing');
     }
 
     function toggleUserDropdown(e) {
@@ -2329,6 +3155,12 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
 
     function updateUserUI(user) {
       const loginBtn = document.getElementById('btn-login-trigger');
+      const getStartedBtn = document.getElementById('btn-landing-getstarted');
+      const landingBadge = document.getElementById('header-landing-badge');
+      const projectPill = document.getElementById('project-selector-pill');
+      const navLanding = document.getElementById('header-nav-landing');
+      const navConsole = document.getElementById('header-nav-console');
+      const settingsGear = document.getElementById('btn-settings-gear');
       const userMenu = document.getElementById('user-profile-menu-container');
       const nameEl = document.getElementById('user-menu-name');
       const emailEl = document.getElementById('user-menu-email');
@@ -2337,6 +3169,12 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
 
       if (user) {
         if (loginBtn) loginBtn.classList.add('hidden');
+        if (getStartedBtn) getStartedBtn.classList.add('hidden');
+        if (landingBadge) landingBadge.classList.add('hidden');
+        if (projectPill) { projectPill.classList.remove('hidden'); projectPill.classList.add('flex'); }
+        if (navLanding) { navLanding.classList.add('hidden'); navLanding.classList.remove('flex'); }
+        if (navConsole) { navConsole.classList.remove('hidden'); navConsole.classList.add('flex'); }
+        if (settingsGear) settingsGear.classList.remove('hidden');
         if (userMenu) userMenu.classList.remove('hidden');
 
         const displayName = user.displayName || (user.email ? user.email.split('@')[0] : 'User');
@@ -2359,6 +3197,12 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
         }
       } else {
         if (loginBtn) loginBtn.classList.remove('hidden');
+        if (getStartedBtn) getStartedBtn.classList.remove('hidden');
+        if (landingBadge) landingBadge.classList.remove('hidden');
+        if (projectPill) { projectPill.classList.add('hidden'); projectPill.classList.remove('flex'); }
+        if (navLanding) { navLanding.classList.remove('hidden'); navLanding.classList.add('flex'); }
+        if (navConsole) { navConsole.classList.add('hidden'); navConsole.classList.remove('flex'); }
+        if (settingsGear) settingsGear.classList.add('hidden');
         if (userMenu) userMenu.classList.add('hidden');
       }
       lucide.createIcons();
