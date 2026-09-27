@@ -327,14 +327,46 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               </p>
             </div>
 
-            <div id="upstream-tokens-box" class="hidden p-3.5 rounded-xl bg-sky-50 border border-sky-200 font-mono text-xs mb-3">
-              <div class="text-[10px] uppercase font-bold text-sky-800 mb-1 flex items-center gap-1.5">
-                <i data-lucide="eye-off" class="w-3.5 h-3.5 text-sky-600"></i> Upstream Prompt Received By Model (Zero Raw PII):
+            <!-- OUTPUT 1: What is sent to the AI (The Protected Prompt) -->
+            <div id="output-protected-container" class="hidden space-y-1.5 mb-4">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="text-[11px] font-semibold text-groq-dark uppercase tracking-wider flex items-center gap-1.5">
+                    <i data-lucide="shield-check" class="w-3.5 h-3.5 text-sky-600"></i>
+                    Protected Prompt (Sent to AI)
+                  </span>
+                  <span id="protected-entities-badge" class="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full bg-sky-100 text-sky-800 border border-sky-200">
+                    Zero Raw PII
+                  </span>
+                </div>
+                <button onclick="copyProtectedPrompt()" class="text-[11px] text-groq-textMuted hover:text-groq-dark flex items-center gap-1 transition cursor-pointer" title="Copy Protected Prompt">
+                  <i data-lucide="copy" class="w-3 h-3"></i>
+                  <span>Copy</span>
+                </button>
               </div>
-              <div id="upstream-tokens-text" class="text-sky-950 font-medium"></div>
+              <div id="protected-prompt-text" class="whitespace-pre-wrap text-slate-800 bg-[#f8fafc] p-4 rounded-xl border border-slate-200 text-xs font-mono leading-relaxed max-h-52 overflow-y-auto shadow-2xs"></div>
             </div>
 
-            <div id="rehydrated-text" class="hidden whitespace-pre-wrap text-groq-dark bg-groq-grayBg p-4 rounded-xl border border-groq-grayBorder text-xs font-mono leading-relaxed"></div>
+            <!-- OUTPUT 2: AI Output (Rehydrated with Highlighted Parts) -->
+            <div id="output-rehydrated-container" class="hidden space-y-1.5">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="text-[11px] font-semibold text-groq-dark uppercase tracking-wider flex items-center gap-1.5">
+                    <i data-lucide="sparkles" class="w-3.5 h-3.5 text-[#f0523d]"></i>
+                    AI Output (Rehydrated)
+                  </span>
+                  <span class="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full bg-orange-50 text-orange-800 border border-orange-200 flex items-center gap-1">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#f0523d]"></span>
+                    Hover highlighted parts to inspect
+                  </span>
+                </div>
+                <button onclick="copyRehydratedText()" class="text-[11px] text-groq-textMuted hover:text-groq-dark flex items-center gap-1 transition cursor-pointer" title="Copy AI Output">
+                  <i data-lucide="copy" class="w-3 h-3"></i>
+                  <span>Copy</span>
+                </button>
+              </div>
+              <div id="rehydrated-text" class="whitespace-pre-wrap text-groq-dark bg-groq-grayBg p-4 rounded-xl border border-groq-grayBorder text-xs font-mono leading-relaxed max-h-72 overflow-y-auto"></div>
+            </div>
           </div>
 
           <div class="pt-4 flex items-center justify-between">
@@ -1158,15 +1190,172 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       updateCodeViewer();
     }
 
+    let currentProtectedPrompt = '';
+    let currentRehydratedText = '';
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function renderProtectedPrompt(text, tokenMap) {
+      if (!text) return '';
+      if (!tokenMap || Object.keys(tokenMap).length === 0) {
+        return escapeHtml(text);
+      }
+
+      const matches = [];
+      const tokens = Object.keys(tokenMap).sort((a, b) => b.length - a.length);
+
+      for (const token of tokens) {
+        if (!token) continue;
+        let idx = text.indexOf(token);
+        while (idx !== -1) {
+          matches.push({
+            start: idx,
+            end: idx + token.length,
+            token: token,
+            origVal: tokenMap[token] || ''
+          });
+          idx = text.indexOf(token, idx + token.length);
+        }
+      }
+
+      for (const token of tokens) {
+        const bracketed = '<' + token + '>';
+        let idx = text.indexOf(bracketed);
+        while (idx !== -1) {
+          matches.push({
+            start: idx,
+            end: idx + bracketed.length,
+            token: bracketed,
+            origVal: tokenMap[token] || ''
+          });
+          idx = text.indexOf(bracketed, idx + bracketed.length);
+        }
+      }
+
+      matches.sort((a, b) => a.start - b.start || (b.end - b.start) - (a.end - a.start));
+      const nonOverlapping = [];
+      let lastEnd = 0;
+      for (const m of matches) {
+        if (m.start >= lastEnd) {
+          nonOverlapping.push(m);
+          lastEnd = m.end;
+        }
+      }
+
+      let result = '';
+      let cursor = 0;
+      for (const m of nonOverlapping) {
+        result += escapeHtml(text.slice(cursor, m.start));
+        result += '<span class="inline-flex items-center px-1.5 py-0.5 rounded font-mono font-bold text-xs bg-sky-100 text-sky-800 border border-sky-300" title="Original: ' + escapeHtml(m.origVal) + '">' +
+          '🔒 ' + escapeHtml(m.token) +
+        '</span>';
+        cursor = m.end;
+      }
+      result += escapeHtml(text.slice(cursor));
+      return result;
+    }
+
+    function renderHighlightedRehydration(text, tokenMap) {
+      if (!text) return '';
+      if (!tokenMap || Object.keys(tokenMap).length === 0) {
+        return escapeHtml(text);
+      }
+
+      const matches = [];
+      const entries = Object.entries(tokenMap).sort((a, b) => b[1].length - a[1].length);
+
+      for (const [token, origVal] of entries) {
+        if (!origVal || origVal.length === 0) continue;
+        let idx = text.indexOf(origVal);
+        while (idx !== -1) {
+          matches.push({
+            start: idx,
+            end: idx + origVal.length,
+            token: token,
+            displayVal: origVal
+          });
+          idx = text.indexOf(origVal, idx + origVal.length);
+        }
+      }
+
+      for (const [token] of entries) {
+        if (!token || token.length === 0) continue;
+        let idx = text.indexOf(token);
+        while (idx !== -1) {
+          matches.push({
+            start: idx,
+            end: idx + token.length,
+            token: token,
+            displayVal: token
+          });
+          idx = text.indexOf(token, idx + token.length);
+        }
+      }
+
+      matches.sort((a, b) => a.start - b.start || (b.end - b.start) - (a.end - a.start));
+      const nonOverlapping = [];
+      let lastEnd = 0;
+      for (const m of matches) {
+        if (m.start >= lastEnd) {
+          nonOverlapping.push(m);
+          lastEnd = m.end;
+        }
+      }
+
+      let result = '';
+      let cursor = 0;
+      for (const m of nonOverlapping) {
+        result += escapeHtml(text.slice(cursor, m.start));
+        const tokenDisplay = m.token.startsWith('<') ? m.token : ('<' + m.token + '>');
+        result += '<span class="rehydrated-badge group relative inline-flex items-center px-1.5 py-0.5 rounded font-mono font-semibold bg-[#fff4f2] text-[#f0523d] border border-[#ffcdca] hover:bg-[#ffece8] cursor-help transition-all shadow-2xs" title="Protected text: ' + escapeHtml(tokenDisplay) + '">' +
+          '<span class="underline decoration-dotted decoration-[#f0523d]/70 underline-offset-2">' + escapeHtml(m.displayVal) + '</span>' +
+          '<span class="pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-150 absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 z-30 flex flex-col items-center">' +
+            '<span class="bg-gray-900 text-white text-[11px] font-mono px-2 py-1 rounded shadow-lg whitespace-nowrap flex items-center gap-1.5 border border-gray-700">' +
+              '<span class="text-gray-300 font-normal">Protected:</span>' +
+              '<span class="text-amber-300 font-bold font-mono">' + escapeHtml(tokenDisplay) + '</span>' +
+            '</span>' +
+            '<span class="w-1.5 h-1.5 -mt-0.5 rotate-45 bg-gray-900 border-r border-b border-gray-700"></span>' +
+          '</span>' +
+        '</span>';
+        cursor = m.end;
+      }
+      result += escapeHtml(text.slice(cursor));
+      return result;
+    }
+
+    function copyProtectedPrompt() {
+      if (!currentProtectedPrompt) return;
+      navigator.clipboard.writeText(currentProtectedPrompt);
+      alert('Protected prompt copied to clipboard!');
+    }
+
+    function copyRehydratedText() {
+      if (!currentRehydratedText) return;
+      navigator.clipboard.writeText(currentRehydratedText);
+      alert('AI Output copied to clipboard!');
+    }
+
     function clearResponse() {
       document.getElementById('welcome-message').classList.remove('hidden');
-      document.getElementById('upstream-tokens-box').classList.add('hidden');
-      document.getElementById('rehydrated-text').classList.add('hidden');
+      const protBox = document.getElementById('output-protected-container');
+      if (protBox) protBox.classList.add('hidden');
+      const rehydBox = document.getElementById('output-rehydrated-container');
+      if (rehydBox) rehydBox.classList.add('hidden');
+      currentProtectedPrompt = '';
+      currentRehydratedText = '';
       document.getElementById('response-stats').textContent = '0 tokens • 0.00s';
     }
 
     function addConversationTurn() {
-      const resp = document.getElementById('rehydrated-text').textContent;
+      const resp = currentRehydratedText || (document.getElementById('rehydrated-text') ? document.getElementById('rehydrated-text').textContent : '');
       if (resp) {
         document.getElementById('system-prompt').value = "System: Assistant replied previous turn.\\n\\nAssistant: " + resp;
       }
@@ -1275,15 +1464,38 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         const data = await res.json();
 
         document.getElementById('welcome-message').classList.add('hidden');
-        document.getElementById('upstream-tokens-box').classList.remove('hidden');
-        document.getElementById('rehydrated-text').classList.remove('hidden');
-
-        const interceptedCount = res.headers.get('x-privacy-entities-intercepted') || '3';
-        document.getElementById('upstream-tokens-text').innerHTML = 'Prompt was automatically de-identified at Cloudflare Edge. Intercepted <strong class="text-sky-600">' + interceptedCount + ' entities</strong> with KMS: ' + (res.headers.get('X-Kms-Status') || (kmsKey ? 'BYOK-AES-256' : 'OFF'));
 
         if (data.choices && data.choices[0]) {
-          const content = data.choices[0].message.content;
-          document.getElementById('rehydrated-text').textContent = content;
+          const content = data.choices[0].message.content || '';
+          currentRehydratedText = content;
+
+          const tokenMap = (data.privacy && data.privacy.token_map) ? data.privacy.token_map : {};
+          const protectedPrompt = (data.privacy && data.privacy.protected_prompt)
+            ? data.privacy.protected_prompt
+            : (decodeURIComponent(res.headers.get('x-privacy-protected-prompt') || '') || userPrompt);
+          currentProtectedPrompt = protectedPrompt;
+
+          const interceptedCount = (data.privacy && data.privacy.entities_count !== undefined)
+            ? data.privacy.entities_count
+            : (res.headers.get('x-privacy-entities-intercepted') || Object.keys(tokenMap).length);
+
+          const badge = document.getElementById('protected-entities-badge');
+          if (badge) {
+            badge.textContent = interceptedCount + (interceptedCount === 1 ? ' Entity Masked' : ' Entities Masked');
+          }
+
+          // Render Output 1: Protected prompt sent to AI
+          const protBox = document.getElementById('output-protected-container');
+          if (protBox) protBox.classList.remove('hidden');
+          const protText = document.getElementById('protected-prompt-text');
+          if (protText) protText.innerHTML = renderProtectedPrompt(protectedPrompt, tokenMap);
+
+          // Render Output 2: AI Output with highlighted rehydration and hover tooltips
+          const rehydBox = document.getElementById('output-rehydrated-container');
+          if (rehydBox) rehydBox.classList.remove('hidden');
+          const rehydText = document.getElementById('rehydrated-text');
+          if (rehydText) rehydText.innerHTML = renderHighlightedRehydration(content, tokenMap);
+
           const tokens = data.usage ? data.usage.completion_tokens : 45;
           document.getElementById('response-stats').textContent = tokens + ' tokens • ' + elapsedSec + 's';
 
@@ -1304,19 +1516,23 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         } else if (res.status === 429) {
           const retrySec = (data.error && data.error.retry_after) || 15;
           document.getElementById('welcome-message').classList.add('hidden');
-          document.getElementById('upstream-tokens-box').classList.remove('hidden');
-          document.getElementById('upstream-tokens-text').innerHTML =
-            '<span class="text-[#f0523d] font-semibold">⚠️ Free Tier Limit:</span> 1 protected request per 15 seconds. Cooldown: <span id="cooldown-timer" class="font-bold text-[#f0523d]">' + retrySec + 's</span>.';
-          document.getElementById('rehydrated-text').classList.remove('hidden');
+          const protBox = document.getElementById('output-protected-container');
+          if (protBox) protBox.classList.add('hidden');
+          const rehydBox = document.getElementById('output-rehydrated-container');
+          if (rehydBox) rehydBox.classList.remove('hidden');
           document.getElementById('rehydrated-text').innerHTML =
             '<div class="p-3.5 bg-amber-50 border border-amber-200 rounded-xl text-amber-900 text-xs leading-relaxed">' +
             '<strong>Free Tier Rate Limit (1 request / 15s)</strong><br/>' +
             'To keep free inference available for everyone, free tier requests are rate limited to 1 protected request per 15 seconds.<br/>' +
-            'Please retry in <strong class="text-[#f0523d]">' + retrySec + 's</strong>, or enter your API key in Settings (gear icon) for unlimited requests.' +
+            'Please retry in <strong class="text-[#f0523d]">' + retrySec + 's</strong>, or switch to BYOK mode for unlimited requests.' +
             '</div>';
           startCooldown(retrySec);
         } else if (data.error) {
-          document.getElementById('rehydrated-text').innerHTML = '<span class="text-red-500 font-bold">Error:</span> ' + JSON.stringify(data.error);
+          const protBox = document.getElementById('output-protected-container');
+          if (protBox) protBox.classList.add('hidden');
+          const rehydBox = document.getElementById('output-rehydrated-container');
+          if (rehydBox) rehydBox.classList.remove('hidden');
+          document.getElementById('rehydrated-text').innerHTML = '<span class="text-red-500 font-bold">Error:</span> ' + escapeHtml(JSON.stringify(data.error));
         }
       } catch (err) {
         document.getElementById('rehydrated-text').textContent = 'Execution error: ' + err.message;

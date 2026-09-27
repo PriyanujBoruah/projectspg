@@ -474,6 +474,14 @@ openaiApp.post("/chat/completions", async (c) => {
   const engineLatencyUs = Math.round((performance.now() - startTime) * 1000);
   const sessionId = `sess_proxy_${Math.random().toString(36).substring(2, 12)}`;
 
+  const lastUserMsg = [...sanitizedMessages].reverse().find((m: any) => m?.role === "user");
+  const protectedUserPrompt =
+    typeof lastUserMsg?.content === "string"
+      ? lastUserMsg.content
+      : typeof sanitizedMessages[0]?.content === "string"
+      ? sanitizedMessages[0].content
+      : "";
+
   // Save session into vault for potential auditing or manual detokenization
   const encryptionKey = c.req.header("x-vault-encryption-key");
   const ttlSeconds = body.ttlSeconds || 600;
@@ -607,6 +615,7 @@ openaiApp.post("/chat/completions", async (c) => {
     "x-privacy-latency-us": String(engineLatencyUs),
     "x-privacy-mode": mode,
     "X-Kms-Status": isKmsEncrypted ? "encrypted" : "active",
+    "x-privacy-protected-prompt": encodeURIComponent(protectedUserPrompt.slice(0, 1000)),
   };
 
   // Step 3A: Streaming Response Handling (SSE)
@@ -721,6 +730,16 @@ openaiApp.post("/chat/completions", async (c) => {
     c.env,
     executionCtx
   );
+
+  if (responseData && typeof responseData === "object") {
+    responseData.privacy = {
+      protected_prompt: protectedUserPrompt,
+      sanitized_messages: sanitizedMessages,
+      token_map: combinedTokenMap,
+      entities_count: totalEntities,
+      mode,
+    };
+  }
 
   return c.json(responseData, 200, privacyHeaders);
 });
