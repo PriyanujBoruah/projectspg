@@ -128,7 +128,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
   <!-- ========================================================================= -->
   <!-- TOP GLOBAL NAVBAR (Exact 52px height) -->
   <!-- ========================================================================= -->
-  <header id="console-top-header" class="h-[52px] bg-white px-6 flex items-center justify-between shrink-0 z-40">
+  <header id="global-header" class="h-[52px] bg-white px-6 flex items-center justify-between shrink-0 z-40">
     
     <!-- Left: Brand Logo + Project Selector -->
     <div class="flex items-center gap-3.5">
@@ -203,578 +203,261 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
   <main class="flex-1 flex overflow-hidden">
 
     <!-- ======================================================================= -->
-    <!-- VIEW 0: TOGETHER AI INSPIRED LANDING PAGE (Non-Logged In / Showcase)     -->
+    <!-- VIEW 0: LANDING PAGE (Hero Section Inspired by Together AI) -->
     <!-- ======================================================================= -->
-    <div id="view-landing" class="view-panel flex-1 flex flex-col overflow-y-auto bg-white min-h-0 w-full selection:bg-[#0e7490]/20 selection:text-[#0e7490]">
+    <div id="view-landing" class="view-panel flex-1 flex flex-col overflow-y-auto w-full bg-gradient-to-b from-[#f2f7fc] via-[#f9fbfe] to-white relative">
       
-      <!-- Sticky Floating Pill Navbar (Matching Image 1) -->
-      <div class="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-gray-100/60 transition-all">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between">
-          <!-- Left: Brand Logo -->
-          <div class="flex items-center gap-8">
-            <a href="#landing" onclick="switchView('landing')" class="flex items-center gap-1.5 group cursor-pointer">
-              <span class="font-extrabold text-2xl tracking-tight text-gray-900">project<span class="text-[#f0523d]">spg</span></span>
-            </a>
+      <!-- Ambient Glow Behind Hero -->
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-b from-sky-200/35 via-blue-100/20 to-transparent blur-3xl pointer-events-none -z-0"></div>
 
-            <!-- Center Nav Links (Desktop) -->
-            <nav class="hidden md:flex items-center gap-7 text-xs font-semibold text-gray-700 tracking-wide">
-              <a href="#platform-section" class="flex items-center gap-1 hover:text-black transition">
-                Platform <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-400"></i>
-              </a>
-              <a href="#sovereignty-section" class="flex items-center gap-1 hover:text-black transition">
-                Sovereignty <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-400"></i>
-              </a>
-              <a href="#kms-section" class="flex items-center gap-1 hover:text-black transition">
-                KMS Vault <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-400"></i>
-              </a>
-              <a href="#research-section" class="flex items-center gap-1 hover:text-black transition">
-                Research <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-400"></i>
-              </a>
-              <a href="#docs" onclick="switchView('docs')" class="hover:text-black transition">
-                Docs
-              </a>
-            </nav>
+      <!-- Floating Header (Together AI style navbar) -->
+      <header class="w-full max-w-7xl mx-auto pt-5 px-4 sm:px-6 relative z-50">
+        <div class="bg-white/90 backdrop-blur-md border border-gray-200/80 rounded-full px-5 py-2.5 flex items-center justify-between shadow-xs">
+          
+          <!-- Left: Brand Emblem + Name -->
+          <div class="flex items-center gap-2.5 cursor-pointer" onclick="switchView('landing')">
+            <div class="w-7 h-7 rounded-lg bg-black flex items-center justify-center text-white shadow-xs">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </div>
+            <span class="font-bold text-[17px] tracking-tight text-gray-900">project<span class="text-[#f0523d]">spg</span></span>
           </div>
 
-          <!-- Right: CTAs -->
-          <div class="flex items-center gap-3">
-            <button onclick="switchView('playground')" class="text-xs font-bold uppercase tracking-wider text-gray-700 hover:text-black px-3.5 py-2 transition cursor-pointer">
-              Playground
-            </button>
-            <button onclick="openAuthModal()" class="text-xs font-bold uppercase tracking-wider bg-black hover:bg-neutral-800 text-white px-5 py-2.5 rounded-full transition shadow-xs cursor-pointer">
-              Sign In
+          <!-- Middle: Navigation Links -->
+          <nav class="hidden md:flex items-center gap-7 text-[13px] font-medium text-gray-600">
+            <div class="relative group cursor-pointer hover:text-gray-950 transition flex items-center gap-1">
+              <span>Sovereign Packs</span>
+              <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-400 group-hover:text-gray-900 transition"></i>
+            </div>
+            <div class="relative group cursor-pointer hover:text-gray-950 transition flex items-center gap-1">
+              <span>BYOK KMS</span>
+              <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-gray-400 group-hover:text-gray-900 transition"></i>
+            </div>
+            <a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">Playground</a>
+            <a href="#docs" onclick="switchView('docs')" class="hover:text-gray-950 transition">Docs</a>
+            <a href="#keys" onclick="switchView('keys')" class="hover:text-gray-950 transition">Pricing &amp; Keys</a>
+          </nav>
+
+          <!-- Right: Actions -->
+          <div class="flex items-center gap-4 text-xs font-semibold">
+            <a href="#docs" onclick="switchView('docs')" class="hidden sm:inline-block text-gray-700 hover:text-gray-950 tracking-wider text-[11px] font-bold uppercase transition">Contact Sales</a>
+            <div class="h-4 w-px bg-gray-200 hidden sm:block"></div>
+            <button onclick="openAuthModal()" class="px-4 py-2 rounded-full bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase transition shadow-xs cursor-pointer flex items-center gap-1.5">
+              <span>Sign In</span>
             </button>
           </div>
         </div>
-      </div>
+      </header>
 
-      <!-- Section 1: Hero Section (Matching media_1790538776085.png) -->
-      <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-20 pb-16 sm:pb-24 w-full">
+      <!-- HERO SECTION -->
+      <section class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 lg:pt-16 pb-20 relative z-10 flex-1 flex flex-col justify-center">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           
-          <!-- Hero Left Column: Big Bold Typography & CTAs -->
-          <div class="lg:col-span-7 flex flex-col items-start pr-0 lg:pr-6">
-            <h1 class="text-5xl sm:text-6xl lg:text-[72px] font-extrabold tracking-tight text-gray-900 leading-[1.04]">
-              Build what's next
-              <span class="block text-gray-400 font-extrabold mt-1 sm:mt-2">with Sovereign AI Privacy</span>
+          <!-- Left Column (Text & CTAs) -->
+          <div class="lg:col-span-7 flex flex-col items-start text-left pr-0 lg:pr-6">
+            
+            <!-- Tech Badge Pill -->
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50/80 border border-blue-200/60 text-blue-700 text-[11px] font-semibold tracking-wide uppercase mb-6 shadow-2xs">
+              <span class="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse"></span>
+              <span>Next-Gen Zero-Trust AI Gateway</span>
+            </div>
+
+            <!-- Main Headline matching Together AI -->
+            <h1 class="text-4xl sm:text-5xl lg:text-[62px] leading-[1.08] font-bold tracking-tight text-gray-950 mb-6 font-sans">
+              Build what's next <br/>
+              <span class="text-gray-400 font-normal">on the Private Cloud</span>
             </h1>
 
-            <p class="text-lg sm:text-xl text-gray-600 font-normal leading-relaxed mt-6 max-w-xl">
-              Full-stack zero-trust privacy gateway. Intercept, anonymize, and rehydrate PII with sub-millisecond edge latency before it touches LLMs.
+            <!-- Subtitle -->
+            <p class="text-base sm:text-lg text-gray-600 font-normal leading-relaxed max-w-2xl mb-8">
+              The high-performance AI privacy and routing layer. Real-time zero-knowledge de-identification, 10 sovereign regulatory compliance packs, and instant multi-provider LLM orchestration with sub-millisecond overhead.
             </p>
 
-            <div class="flex flex-wrap items-center gap-4 mt-8 sm:mt-10">
-              <button onclick="openAuthModal()" class="bg-black hover:bg-neutral-800 text-white font-bold text-xs uppercase tracking-widest px-7 py-4 rounded-sm transition shadow-sm cursor-pointer flex items-center gap-2">
+            <!-- CTA Button Group -->
+            <div class="flex flex-wrap items-center gap-3.5 w-full sm:w-auto mb-10">
+              <button onclick="openAuthModal()" class="w-full sm:w-auto px-6 py-3.5 rounded-full bg-black hover:bg-gray-800 text-white text-xs font-bold tracking-wider uppercase transition shadow-md hover:shadow-lg flex items-center justify-center gap-2 group cursor-pointer">
                 <span>Start Building</span>
-                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-0.5 transition-transform"></i>
               </button>
-              <button onclick="switchView('playground')" class="bg-gray-100 hover:bg-gray-200 text-gray-900 font-bold text-xs uppercase tracking-widest px-7 py-4 rounded-sm transition cursor-pointer flex items-center gap-2 border border-gray-200/70">
-                <i data-lucide="terminal" class="w-3.5 h-3.5 text-gray-600"></i>
-                <span>Test in Playground</span>
+              
+              <button onclick="switchView('playground')" class="w-full sm:w-auto px-6 py-3.5 rounded-full bg-[#f4f4f5] hover:bg-[#eaeaea] text-gray-800 text-xs font-bold tracking-wider uppercase transition border border-gray-200/80 flex items-center justify-center gap-2 cursor-pointer">
+                <span>Try Playground</span>
+                <i data-lucide="terminal" class="w-3.5 h-3.5 text-gray-500"></i>
               </button>
             </div>
+
+            <!-- Mini Spec Highlight -->
+            <div class="flex flex-wrap items-center gap-6 pt-6 border-t border-gray-200/70 text-xs text-gray-500 font-medium">
+              <div class="flex items-center gap-1.5">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-600"></i>
+                <span>&lt;1ms PII Scrubbing</span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-600"></i>
+                <span>BYOK KMS AES-256</span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-600"></i>
+                <span>SOC-2 &amp; GDPR Ready</span>
+              </div>
+            </div>
+
           </div>
 
-          <!-- Hero Right Column: Together AI Signature 3D Geometric Isometric Graphic with Callout Pins -->
-          <div class="lg:col-span-5 relative flex items-center justify-center min-h-[380px] sm:min-h-[440px]">
-            <!-- Decorative isometric ambient backdrops -->
-            <div class="absolute inset-0 bg-gradient-to-tr from-cyan-100/40 via-purple-100/30 to-pink-100/30 rounded-3xl blur-2xl -z-10 transform -rotate-2"></div>
-            
-            <!-- Isometric Composition Container -->
-            <div class="relative w-full max-w-[420px] aspect-square flex items-center justify-center">
+          <!-- Right Column (3D Isometric Architectural Artwork matching Together AI) -->
+          <div class="lg:col-span-5 flex items-center justify-center relative">
+            <div class="relative w-full max-w-[480px] aspect-square flex items-center justify-center">
               
-              <!-- 3D Geometric SVG Artwork mimicking Together AI reference -->
-              <svg viewBox="0 0 500 500" class="w-full h-full drop-shadow-2xl overflow-visible" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Ambient Glow underneath 3D graphic -->
+              <div class="absolute inset-0 bg-gradient-to-tr from-cyan-400/20 via-blue-500/15 to-purple-400/20 rounded-full blur-2xl -z-10"></div>
+
+              <!-- High-definition SVG Isometric Composition matching Together AI's right graphic -->
+              <svg viewBox="0 0 540 540" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full drop-shadow-xl select-none">
                 <defs>
-                  <linearGradient id="heroCyanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.85"/>
-                    <stop offset="100%" stop-color="#0891b2" stop-opacity="0.95"/>
+                  <!-- Cyan Horizontal Disc Gradient -->
+                  <linearGradient id="discCyanGrad" x1="120" y1="280" x2="380" y2="440" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.85"/>
+                    <stop offset="60%" stop-color="#0284c7" stop-opacity="0.95"/>
+                    <stop offset="100%" stop-color="#0369a1"/>
                   </linearGradient>
-                  <linearGradient id="heroPurpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#a855f7" stop-opacity="0.9"/>
-                    <stop offset="100%" stop-color="#6366f1" stop-opacity="0.95"/>
+                  
+                  <!-- Cobalt Vertical Disc Gradient -->
+                  <linearGradient id="discCobaltGrad" x1="220" y1="120" x2="380" y2="340" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#6366f1"/>
+                    <stop offset="50%" stop-color="#4338ca"/>
+                    <stop offset="100%" stop-color="#312e81"/>
                   </linearGradient>
-                  <linearGradient id="heroCoralGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#fb7185" stop-opacity="0.9"/>
-                    <stop offset="100%" stop-color="#f43f5e" stop-opacity="0.95"/>
+
+                  <!-- Orange/Coral Facet Gradient -->
+                  <linearGradient id="facetOrangeGrad" x1="300" y1="200" x2="440" y2="360" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#fb923c"/>
+                    <stop offset="50%" stop-color="#f0523d"/>
+                    <stop offset="100%" stop-color="#c2410c"/>
                   </linearGradient>
-                  <linearGradient id="heroGlassGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.45"/>
-                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0.08"/>
+
+                  <!-- Purple Prismatic Plane Gradient -->
+                  <linearGradient id="prismPurpleGrad" x1="160" y1="180" x2="300" y2="320" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#c084fc" stop-opacity="0.85"/>
+                    <stop offset="100%" stop-color="#7e22ce" stop-opacity="0.95"/>
                   </linearGradient>
-                  <filter id="heroGlowBlur" x="-20%" y="-20%" width="140%" height="140%">
-                    <feGaussianBlur stdDeviation="8" result="blur"/>
-                    <feComposite in="SourceGraphic" in2="blur" operator="over"/>
-                  </filter>
                 </defs>
 
-                <!-- Base 3D isometric discs -->
-                <!-- Bottom Teal Ellipse Disc -->
-                <ellipse cx="250" cy="310" rx="170" ry="85" fill="url(#heroCyanGrad)" fill-opacity="0.25" stroke="#06b6d4" stroke-width="2" />
-                <ellipse cx="250" cy="300" rx="150" ry="75" fill="url(#heroGlassGrad)" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" />
-                
-                <!-- Central 3D Isometric Cross / Blocks (Purple) -->
-                <g transform="translate(190, 160)">
-                  <!-- 3D Cross top faces -->
-                  <path d="M 60,10 L 90,26 L 60,42 L 30,26 Z" fill="#c084fc"/>
-                  <path d="M 30,26 L 60,42 L 60,74 L 30,58 Z" fill="#9333ea"/>
-                  <path d="M 60,42 L 90,26 L 90,58 L 60,74 Z" fill="#7e22ce"/>
+                <!-- Base Grid / Horizon ring -->
+                <ellipse cx="270" cy="380" rx="220" ry="75" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 4" fill="none" opacity="0.6"/>
+                <ellipse cx="270" cy="380" rx="160" ry="55" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2 4" fill="none" opacity="0.4"/>
 
-                  <path d="M 10,38 L 40,54 L 10,70 L -20,54 Z" fill="#a855f7"/>
-                  <path d="M -20,54 L 10,70 L 10,102 L -20,86 Z" fill="#7e22ce"/>
-                  <path d="M 10,70 L 40,54 L 40,86 L 10,102 Z" fill="#6b21a8"/>
-
-                  <path d="M 110,38 L 140,54 L 110,70 L 80,54 Z" fill="#a855f7"/>
-                  <path d="M 80,54 L 110,70 L 110,102 L 80,86 Z" fill="#7e22ce"/>
-                  <path d="M 110,70 L 140,54 L 140,86 L 110,102 Z" fill="#6b21a8"/>
-
-                  <path d="M 60,66 L 90,82 L 60,98 L 30,82 Z" fill="#c084fc"/>
-                  <path d="M 30,82 L 60,98 L 60,130 L 30,114 Z" fill="#9333ea"/>
-                  <path d="M 60,98 L 90,82 L 90,114 L 60,130 Z" fill="#7e22ce"/>
+                <!-- Layer 1: Horizontal Cyan Sovereign Privacy Platform Disc -->
+                <g id="horizontal-platform">
+                  <!-- Thickness Rim -->
+                  <path d="M 90,360 C 90,410 450,410 450,360 L 450,378 C 450,428 90,428 90,378 Z" fill="#0284c7" opacity="0.75" />
+                  <!-- Top Surface -->
+                  <ellipse cx="270" cy="360" rx="180" ry="60" fill="url(#discCyanGrad)" />
+                  <ellipse cx="270" cy="360" rx="160" ry="52" stroke="#bae6fd" stroke-width="1.5" opacity="0.6" fill="none" />
                 </g>
 
-                <!-- Coral Hexagonal Prism (Upper Right) -->
-                <g transform="translate(310, 110)">
-                  <polygon points="40,10 75,30 75,70 40,90 5,70 5,30" fill="url(#heroCoralGrad)"/>
-                  <polygon points="40,10 75,30 40,50 5,30" fill="#fda4af" fill-opacity="0.8"/>
-                  <polygon points="5,30 40,50 40,90 5,70" fill="#e11d48"/>
-                  <polygon points="40,50 75,30 75,70 40,90" fill="#be123c"/>
+                <!-- Layer 2: Cobalt Vertical Sovereign Ring Disc (intersecting) -->
+                <g id="vertical-cobalt-disc">
+                  <path d="M 230,150 C 290,150 340,240 340,350 C 340,420 300,450 250,450 C 190,450 140,360 140,250 C 140,180 180,150 230,150 Z" 
+                        fill="url(#discCobaltGrad)" opacity="0.9" />
+                  <ellipse cx="240" cy="300" rx="75" ry="120" stroke="#a5b4fc" stroke-width="1.5" opacity="0.5" fill="none" transform="rotate(-15 240 300)" />
                 </g>
 
-                <!-- Translucent Cyan Glass Disc (Floating Left) -->
-                <ellipse cx="140" cy="220" rx="65" ry="32" fill="url(#heroCyanGrad)" fill-opacity="0.5" stroke="#22d3ee" stroke-width="2" filter="url(#heroGlowBlur)"/>
-                <ellipse cx="140" cy="216" rx="55" ry="26" fill="url(#heroGlassGrad)" stroke="rgba(255,255,255,0.8)" stroke-width="1.5"/>
+                <!-- Layer 3: Purple Prismatic Diamond Plane -->
+                <g id="purple-plane">
+                  <polygon points="180,240 290,170 330,280 220,350" fill="url(#prismPurpleGrad)" opacity="0.85" />
+                  <polygon points="180,240 290,170 330,280 220,350" stroke="#f3e8ff" stroke-width="1.5" fill="none" opacity="0.8" />
+                </g>
 
-                <!-- Connecting callout lines -->
-                <line x1="140" y1="180" x2="140" y2="90" stroke="#0891b2" stroke-width="1.5" stroke-dasharray="3 3"/>
-                <circle cx="140" cy="180" r="3.5" fill="#0891b2"/>
+                <!-- Layer 4: Coral / Orange Prismatic Polyhedron (Focus Core) -->
+                <g id="coral-cube-facet">
+                  <!-- Left side facet -->
+                  <polygon points="310,220 380,180 380,270 310,310" fill="#f97316" />
+                  <!-- Right side facet -->
+                  <polygon points="380,180 440,220 440,310 380,270" fill="url(#facetOrangeGrad)" />
+                  <!-- Top facet -->
+                  <polygon points="310,220 370,180 440,220 380,260" fill="#fdba74" />
+                  <polygon points="310,220 370,180 440,220 380,260" stroke="#ffedd5" stroke-width="1" fill="none" />
+                </g>
 
-                <line x1="345" y1="150" x2="420" y2="190" stroke="#a855f7" stroke-width="1.5" stroke-dasharray="3 3"/>
-                <circle cx="345" cy="150" r="3.5" fill="#a855f7"/>
+                <!-- Fine Isometric Grid & Technical Ray Lines -->
+                <line x1="270" y1="120" x2="270" y2="440" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="2 3" opacity="0.5"/>
 
-                <line x1="250" y1="350" x2="250" y2="430" stroke="#0e7490" stroke-width="1.5" stroke-dasharray="3 3"/>
-                <circle cx="250" cy="350" r="3.5" fill="#0e7490"/>
+                <!-- Together AI Callout 1: SUB-MILLISECOND LATENCY (Top Right) -->
+                <g id="callout-latency">
+                  <polyline points="380,225 430,175 490,175" stroke="#475569" stroke-width="1" fill="none" />
+                  <rect x="377" y="222" width="6" height="6" fill="#0f172a" />
+                  <text x="430" y="165" font-family="ui-sans-serif, system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" fill="#0f172a" letter-spacing="0.06em">SUB-MILLISECOND LATENCY</text>
+                  <text x="430" y="152" font-family="ui-sans-serif, system-ui, -apple-system, sans-serif" font-size="9" font-weight="500" fill="#64748b">0.8ms P99 ENGINE</text>
+                </g>
+
+                <!-- Together AI Callout 2: ZERO-TRUST DE-IDENTIFICATION (Left) -->
+                <g id="callout-privacy">
+                  <polyline points="200,290 140,290 90,320" stroke="#475569" stroke-width="1" fill="none" />
+                  <rect x="197" y="287" width="6" height="6" fill="#0f172a" />
+                  <text x="25" y="340" font-family="ui-sans-serif, system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" fill="#0f172a" letter-spacing="0.06em">ZERO-TRUST DE-IDENTIFICATION</text>
+                  <text x="25" y="354" font-family="ui-sans-serif, system-ui, -apple-system, sans-serif" font-size="9" font-weight="500" fill="#64748b">REVERSIBLE BYOK TOKENIZATION</text>
+                </g>
+
+                <!-- Together AI Callout 3: 10 SOVEREIGN PACKS (Bottom Right) -->
+                <g id="callout-sovereignty">
+                  <polyline points="330,370 390,410 470,410" stroke="#475569" stroke-width="1" fill="none" />
+                  <rect x="327" y="367" width="6" height="6" fill="#0f172a" />
+                  <text x="390" y="430" font-family="ui-sans-serif, system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" fill="#0f172a" letter-spacing="0.06em">10 SOVEREIGN PACKS</text>
+                  <text x="390" y="444" font-family="ui-sans-serif, system-ui, -apple-system, sans-serif" font-size="9" font-weight="500" fill="#64748b">HIPAA • GDPR • DORA • APPI</text>
+                </g>
               </svg>
-
-              <!-- Callout Pin 1: Top Left -->
-              <div class="absolute top-8 left-0 sm:-left-4 bg-white/95 border border-cyan-200/90 rounded-full px-3.5 py-1.5 shadow-md flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-cyan-500 animate-pulse"></span>
-                <span class="text-[11px] font-bold font-mono tracking-wider text-cyan-900 uppercase">▪ OPTIMIZED TOKENIZATION</span>
-              </div>
-
-              <!-- Callout Pin 2: Center Right -->
-              <div class="absolute top-44 -right-2 sm:-right-8 bg-white/95 border border-purple-200/90 rounded-full px-3.5 py-1.5 shadow-md flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-purple-500"></span>
-                <span class="text-[11px] font-bold font-mono tracking-wider text-purple-900 uppercase">▪ 10 SOVEREIGN PACKS</span>
-              </div>
-
-              <!-- Callout Pin 3: Bottom Center -->
-              <div class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white/95 border border-teal-200/90 rounded-full px-3.5 py-1.5 shadow-md flex items-center gap-2 whitespace-nowrap">
-                <span class="w-2 h-2 rounded-full bg-teal-500"></span>
-                <span class="text-[11px] font-bold font-mono tracking-wider text-teal-900 uppercase">▪ SUB-MILLISECOND LATENCY</span>
-              </div>
             </div>
           </div>
 
         </div>
 
-        <!-- Logo Bar (Matching Bottom of Image 1) -->
-        <div class="mt-20 pt-10 border-t border-gray-100 flex flex-col items-center">
-          <p class="text-[11px] font-bold tracking-widest text-gray-400 uppercase text-center mb-8">
-            Trusted for Enterprise AI Compliance & Global Sovereignty
+        <!-- Social Proof Strip (Bottom of Hero) -->
+        <div class="mt-20 pt-10 border-t border-gray-200/80 w-full">
+          <p class="text-center text-[11px] font-bold uppercase tracking-widest text-gray-500 mb-8">
+            TRUSTED BY DEVELOPERS &amp; ENTERPRISES ACROSS HIGH-REGULATION INDUSTRIES
           </p>
-          <div class="w-full flex flex-wrap items-center justify-center gap-8 sm:gap-14 opacity-75 grayscale hover:grayscale-0 transition-all duration-300">
-            <span class="font-extrabold text-lg text-gray-800 tracking-tight flex items-center gap-1.5"><i data-lucide="shield-check" class="w-5 h-5 text-gray-700"></i> Mozilla</span>
-            <span class="font-bold text-lg text-gray-800 tracking-tight flex items-center gap-1.5"><i data-lucide="cloud" class="w-5 h-5 text-gray-700"></i> Salesforce</span>
-            <span class="font-bold text-lg text-gray-800 tracking-tight flex items-center gap-1.5"><i data-lucide="cpu" class="w-5 h-5 text-gray-700"></i> DeepMind</span>
-            <span class="font-bold text-lg text-gray-800 tracking-tight flex items-center gap-1.5"><i data-lucide="waveform" class="w-5 h-5 text-gray-700"></i> ElevenLabs</span>
-            <span class="font-bold text-lg text-gray-800 tracking-tight flex items-center gap-1.5"><i data-lucide="radio" class="w-5 h-5 text-gray-700"></i> SK telecom</span>
-            <span class="font-bold text-lg text-gray-800 tracking-tight flex items-center gap-1.5"><i data-lucide="help-circle" class="w-5 h-5 text-gray-700"></i> Quora</span>
-            <span class="font-bold text-lg text-gray-800 tracking-tight flex items-center gap-1.5"><i data-lucide="sparkles" class="w-5 h-5 text-gray-700"></i> Nous Research</span>
+          <div class="flex flex-wrap items-center justify-center gap-10 md:gap-16 opacity-75 grayscale hover:grayscale-0 transition-all duration-300">
+            <!-- Brand Badge 1: Cloudflare -->
+            <div class="flex items-center gap-2 text-gray-700 font-bold text-sm tracking-tight">
+              <svg class="w-6 h-6 text-[#f6821f]" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.3 10.7c-.4-.4-.9-.6-1.5-.7-.4-2.7-2.7-4.8-5.5-4.8-2.5 0-4.6 1.7-5.3 4-1.7.3-3 1.8-3 3.6 0 2 1.6 3.7 3.7 3.7h11.4c1.8 0 3.3-1.5 3.3-3.3 0-1.1-.5-2-1.3-2.6z"/>
+              </svg>
+              <span>Cloudflare Workers</span>
+            </div>
+            <!-- Brand Badge 2: Groq -->
+            <div class="flex items-center gap-2 text-gray-700 font-bold text-sm tracking-tight">
+              <span class="w-2.5 h-2.5 rounded-full bg-[#f0523d]"></span>
+              <span>Groq LPU</span>
+            </div>
+            <!-- Brand Badge 3: Mistral AI -->
+            <div class="flex items-center gap-2 text-gray-700 font-bold text-sm tracking-tight">
+              <svg class="w-5 h-5 text-amber-500" viewBox="0 0 24 24" fill="currentColor">
+                <rect x="3" y="3" width="5" height="18" rx="1"/>
+                <rect x="10" y="8" width="5" height="13" rx="1"/>
+                <rect x="17" y="13" width="5" height="8" rx="1"/>
+              </svg>
+              <span>Mistral AI</span>
+            </div>
+            <!-- Brand Badge 4: Google Gemma -->
+            <div class="flex items-center gap-2 text-gray-700 font-bold text-sm tracking-tight">
+              <svg class="w-5 h-5 text-blue-500" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+              </svg>
+              <span>Google DeepMind</span>
+            </div>
+            <!-- Brand Badge 5: OpenAI -->
+            <div class="flex items-center gap-2 text-gray-700 font-bold text-sm tracking-tight">
+              <svg class="w-5 h-5 text-emerald-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9"/>
+                <path d="M12 8v8M8 12h8"/>
+              </svg>
+              <span>OpenAI API</span>
+            </div>
           </div>
         </div>
+
       </section>
-
-      <!-- Section 2: The Sovereign Privacy Platform (Matching media_1790538840364.png, media_1790538843420.png, media_1790538846502.png) -->
-      <section id="platform-section" class="py-20 sm:py-28 bg-[#fafafa] border-t border-b border-gray-100 w-full">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          <!-- Section Title & Subtitle -->
-          <div class="text-center max-w-3xl mx-auto mb-10">
-            <h2 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-gray-900">
-              The Sovereign Privacy Platform
-            </h2>
-            <p class="text-base sm:text-lg text-gray-500 mt-3 leading-relaxed">
-              Powering every step of the enterprise AI journey with guaranteed data sovereignty, cryptographic privacy, and multi-model flexibility.
-            </p>
-
-            <!-- 3 Segmented Pill Tabs (Exact Together AI pill tabs from Images 2-4) -->
-            <div class="inline-flex p-1.5 bg-gray-200/70 rounded-full border border-gray-300/50 mt-8 shadow-2xs">
-              <button id="btn-landing-tab-gateway" onclick="switchLandingTab('gateway')" class="landing-platform-tab active px-6 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition bg-[#dff5f8] text-[#0e7490] shadow-xs cursor-pointer">
-                Zero-Trust Gateway
-              </button>
-              <button id="btn-landing-tab-sovereign" onclick="switchLandingTab('sovereign')" class="landing-platform-tab px-6 py-2.5 rounded-full text-xs sm:text-sm font-medium transition text-gray-600 hover:text-gray-900 cursor-pointer">
-                Sovereign Packs
-              </button>
-              <button id="btn-landing-tab-kms" onclick="switchLandingTab('kms')" class="landing-platform-tab px-6 py-2.5 rounded-full text-xs sm:text-sm font-medium transition text-gray-600 hover:text-gray-900 cursor-pointer">
-                Cryptographic KMS
-              </button>
-            </div>
-          </div>
-
-          <!-- TAB 1 CONTENT: Zero-Trust Gateway -->
-          <div id="landing-tab-content-gateway" class="landing-tab-panel grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            
-            <!-- Left Column: Feature Selection Cards (Matching Image 2 left side) -->
-            <div class="lg:col-span-5 flex flex-col gap-3">
-              <!-- Feature 1 (Active) -->
-              <div onclick="switchLandingPlatformItem('proxy')" id="landing-item-proxy" class="landing-platform-card active p-6 rounded-2xl bg-white border-2 border-cyan-500 shadow-sm cursor-pointer transition">
-                <div class="flex items-center justify-between mb-2">
-                  <h3 class="font-bold text-gray-900 text-base">Serverless Zero-Trust Proxy</h3>
-                  <i data-lucide="check-circle-2" class="w-4 h-4 text-cyan-600"></i>
-                </div>
-                <p class="text-xs sm:text-sm text-gray-500 leading-relaxed">
-                  Cloudflare Workers V8 isolates execute in 300+ edge locations worldwide. Intercept prompt streams, strip sensitive PII/PHI, and replace with format-preserving surrogate tokens with &lt;1ms latency.
-                </p>
-                <div class="mt-4 flex items-center gap-1.5 text-xs font-bold text-cyan-700">
-                  <span>LEARN MORE</span>
-                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-                </div>
-              </div>
-
-              <!-- Feature 2 -->
-              <div onclick="switchLandingPlatformItem('streaming')" id="landing-item-streaming" class="landing-platform-card p-6 rounded-2xl bg-white/80 hover:bg-white border border-gray-200 cursor-pointer transition">
-                <h3 class="font-bold text-gray-900 text-base mb-1.5">Streaming Split-Token Rehydration</h3>
-                <p class="text-xs sm:text-sm text-gray-500 leading-relaxed">
-                  Reconstructs tokens on-the-fly over Server-Sent Events (SSE) before delivering output to the end-user, maintaining 120+ tokens/sec throughput.
-                </p>
-              </div>
-
-              <!-- Feature 3 -->
-              <div onclick="switchLandingPlatformItem('throughput')" id="landing-item-throughput" class="landing-platform-card p-6 rounded-2xl bg-white/80 hover:bg-white border border-gray-200 cursor-pointer transition">
-                <h3 class="font-bold text-gray-900 text-base mb-1.5">Provisioned Privacy Throughput</h3>
-                <p class="text-xs sm:text-sm text-gray-500 leading-relaxed">
-                  Guaranteed sub-millisecond encryption SLAs, zero multi-tenant noisy neighbors, and dedicated cryptographic hardware enclaves.
-                </p>
-              </div>
-
-              <!-- Feature 4 -->
-              <div onclick="switchLandingPlatformItem('wire')" id="landing-item-wire" class="landing-platform-card p-6 rounded-2xl bg-white/80 hover:bg-white border border-gray-200 cursor-pointer transition">
-                <h3 class="font-bold text-gray-900 text-base mb-1.5">Multi-Model Wire Proxy</h3>
-                <p class="text-xs sm:text-sm text-gray-500 leading-relaxed">
-                  Drop-in OpenAI SDK wire compatibility across Groq Cloud, Mistral AI, Google AI Studio, and Cerebras.
-                </p>
-              </div>
-            </div>
-
-            <!-- Right Column: Interactive Drop-in Code Preview (Matching Image 2 right side) -->
-            <div class="lg:col-span-7 bg-[#12161f] rounded-2xl border border-gray-800 shadow-xl overflow-hidden flex flex-col">
-              <!-- Top bar with language selector tabs -->
-              <div class="h-12 bg-[#0c0f16] px-5 flex items-center justify-between border-b border-gray-800 select-none">
-                <div class="flex items-center gap-2">
-                  <span class="w-3 h-3 rounded-full bg-rose-500/70"></span>
-                  <span class="w-3 h-3 rounded-full bg-amber-500/70"></span>
-                  <span class="w-3 h-3 rounded-full bg-emerald-500/70"></span>
-                  
-                  <div class="ml-4 flex items-center gap-1 bg-[#1a202c] p-0.5 rounded-lg text-xs">
-                    <button onclick="switchLandingCodeLang('python')" id="landing-lang-python" class="landing-code-lang-btn px-3 py-1 rounded bg-[#2d3748] text-white font-medium transition cursor-pointer">Python</button>
-                    <button onclick="switchLandingCodeLang('typescript')" id="landing-lang-typescript" class="landing-code-lang-btn px-3 py-1 rounded text-gray-400 hover:text-white font-medium transition cursor-pointer">TypeScript</button>
-                    <button onclick="switchLandingCodeLang('curl')" id="landing-lang-curl" class="landing-code-lang-btn px-3 py-1 rounded text-gray-400 hover:text-white font-medium transition cursor-pointer">cURL</button>
-                  </div>
-                </div>
-
-                <button onclick="copyLandingCode()" class="flex items-center gap-1.5 text-xs text-gray-400 hover:text-white transition px-2.5 py-1 rounded bg-gray-800/60 hover:bg-gray-800 cursor-pointer">
-                  <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-                  <span>Copy</span>
-                </button>
-              </div>
-
-              <!-- Code Content Container -->
-              <div class="p-6 font-mono text-xs sm:text-[13px] leading-relaxed overflow-x-auto text-gray-200">
-                <pre id="landing-code-snippet"><code><span class="text-purple-400">from</span> openai <span class="text-purple-400">import</span> OpenAI
-
-<span class="text-gray-500"># Point directly to ProjectSPG zero-trust edge gateway</span>
-client = OpenAI(
-    base_url=<span class="text-emerald-400">"https://projectspg.boruahpriyanuj2004.workers.dev/v1"</span>,
-    api_key=<span class="text-emerald-400">"spg_live_enterprise_vault_key"</span>
-)
-
-<span class="text-gray-500"># Prompts are automatically anonymized before hitting upstream LLM</span>
-response = client.chat.completions.create(
-    model=<span class="text-emerald-400">"openai/gpt-oss-120b"</span>,
-    messages=[
-        {<span class="text-sky-300">"role"</span>: <span class="text-emerald-400">"user"</span>, <span class="text-sky-300">"content"</span>: <span class="text-emerald-400">"Verify credit card CARD_1 for Alice Wong"</span>}
-    ],
-    extra_headers={
-        <span class="text-sky-300">"x-tokenization-mode"</span>: <span class="text-emerald-400">"mask"</span>,
-        <span class="text-sky-300">"x-detection-categories"</span>: <span class="text-emerald-400">"all"</span>
-    }
-)
-
-<span class="text-gray-500"># Output arrives seamlessly rehydrated with original safe values</span>
-<span class="text-purple-400">print</span>(response.choices[<span class="text-amber-300">0</span>].message.content)</code></pre>
-              </div>
-
-              <!-- Bottom telemetry stats pill bar -->
-              <div class="bg-[#0c0f16]/90 border-t border-gray-800 px-6 py-3 flex items-center justify-between text-[11px] font-mono text-gray-400">
-                <div class="flex items-center gap-4">
-                  <span class="flex items-center gap-1.5 text-emerald-400"><i data-lucide="shield-check" class="w-3.5 h-3.5"></i> Zero PII Leaked</span>
-                  <span class="hidden sm:inline text-gray-600">|</span>
-                  <span class="hidden sm:inline text-cyan-400">Edge Latency: 0.72ms</span>
-                </div>
-                <div class="text-gray-500">
-                  AES-256-GCM Session Vault
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- TAB 2 CONTENT: Sovereign Packs (Interactive Regional Matrix) -->
-          <div id="landing-tab-content-sovereign" class="landing-tab-panel hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            <div class="lg:col-span-5 flex flex-col gap-4">
-              <div class="p-6 rounded-2xl bg-white border border-gray-200">
-                <h3 class="font-bold text-gray-900 text-lg mb-2">10 Canonical Sovereign Jurisdictions</h3>
-                <p class="text-xs sm:text-sm text-gray-500 leading-relaxed mb-4">
-                  Enforce strict territorial data privacy laws with one header. Automatically flags and tokenizes national identifiers, tax IDs, health records, and bank codes without custom code.
-                </p>
-                <div class="flex flex-wrap gap-2 text-xs font-mono">
-                  <span class="px-2.5 py-1 bg-blue-50 text-blue-700 rounded-md border border-blue-200">GDPR (EU)</span>
-                  <span class="px-2.5 py-1 bg-red-50 text-red-700 rounded-md border border-red-200">HIPAA (US)</span>
-                  <span class="px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-md border border-emerald-200">PDPA (SG)</span>
-                  <span class="px-2.5 py-1 bg-amber-50 text-amber-700 rounded-md border border-amber-200">POPIA (ZA)</span>
-                  <span class="px-2.5 py-1 bg-purple-50 text-purple-700 rounded-md border border-purple-200">LGPD (BR)</span>
-                  <span class="px-2.5 py-1 bg-teal-50 text-teal-700 rounded-md border border-teal-200">APPI (JP)</span>
-                  <span class="px-2.5 py-1 bg-indigo-50 text-indigo-700 rounded-md border border-indigo-200">DPDPA (IN)</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="lg:col-span-7 bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
-              <h4 class="font-bold text-gray-900 text-sm mb-4">Real-time Entity Detection & Anonymization Engine</h4>
-              <div class="space-y-3 font-mono text-xs">
-                <div class="p-3 bg-gray-50 rounded-lg flex items-center justify-between border border-gray-200">
-                  <span class="text-gray-700">US Social Security Number (SSN)</span>
-                  <span class="text-emerald-700 font-bold bg-emerald-100 px-2 py-0.5 rounded">Token: SSN_1</span>
-                </div>
-                <div class="p-3 bg-gray-50 rounded-lg flex items-center justify-between border border-gray-200">
-                  <span class="text-gray-700">Singapore National ID (NRIC / FIN)</span>
-                  <span class="text-emerald-700 font-bold bg-emerald-100 px-2 py-0.5 rounded">Token: NRIC_1</span>
-                </div>
-                <div class="p-3 bg-gray-50 rounded-lg flex items-center justify-between border border-gray-200">
-                  <span class="text-gray-700">International Bank Account Number (IBAN)</span>
-                  <span class="text-emerald-700 font-bold bg-emerald-100 px-2 py-0.5 rounded">Token: IBAN_1</span>
-                </div>
-                <div class="p-3 bg-gray-50 rounded-lg flex items-center justify-between border border-gray-200">
-                  <span class="text-gray-700">UK National Health Service (NHS) Number</span>
-                  <span class="text-emerald-700 font-bold bg-emerald-100 px-2 py-0.5 rounded">Token: NHS_1</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- TAB 3 CONTENT: Cryptographic KMS (Dedicated HSM / BYOK Vault) -->
-          <div id="landing-tab-content-kms" class="landing-tab-panel hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            <div class="lg:col-span-5 flex flex-col gap-4">
-              <div class="p-6 rounded-2xl bg-white border border-gray-200">
-                <h3 class="font-bold text-gray-900 text-lg mb-2">Customer-Managed Key (BYOK) Enclave</h3>
-                <p class="text-xs sm:text-sm text-gray-500 leading-relaxed mb-4">
-                  Bring your own master encryption key. Ephemeral session mapping tables are encrypted via AES-256-GCM before write, and automatically destroyed when completion streams terminate.
-                </p>
-                <div class="p-3 bg-gray-50 rounded-lg border border-gray-200 text-xs font-mono text-gray-600">
-                  Header: <span class="text-[#f0523d] font-semibold">x-vault-encryption-key: byok_sec_...</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="lg:col-span-7 bg-[#12161f] rounded-2xl border border-gray-800 p-6 text-white font-mono text-xs shadow-xl">
-              <div class="flex items-center justify-between mb-4 border-b border-gray-800 pb-3">
-                <span class="text-cyan-400 font-bold flex items-center gap-1.5"><i data-lucide="lock" class="w-4 h-4"></i> Hardware-Isolated Memory Enclave</span>
-                <span class="text-[10px] bg-cyan-950 text-cyan-300 border border-cyan-800 px-2 py-0.5 rounded">Zero-Retention</span>
-              </div>
-              <div class="space-y-2 text-gray-300">
-                <p><span class="text-purple-400">CIPHER:</span> AES-256-GCM authenticated with 96-bit unique IV per stream</p>
-                <p><span class="text-purple-400">STORAGE:</span> Cloudflare KV Ephemeral TTL (auto-expires in 60s)</p>
-                <p><span class="text-purple-400">AUDIT:</span> Cryptographic hash verification on every rehydration pass</p>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- Section 3: Grounded in cutting-edge research (Matching media_1790538847659.png) -->
-      <section id="research-section" class="bg-[#070a14] text-white py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden w-full">
-        <!-- Subtle background glow -->
-        <div class="absolute top-0 right-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl pointer-events-none"></div>
-
-        <div class="max-w-7xl mx-auto">
-          <!-- Top Row: Title, Subtitle, and Carousel Controls (Matching Image 5) -->
-          <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-            <div>
-              <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white mb-3">
-                Grounded in cutting-edge research
-              </h2>
-              <p class="text-gray-400 text-sm sm:text-base max-w-2xl leading-relaxed">
-                We continuously advance privacy-preserving ML, confidential enclaves, and streaming tokenization.
-              </p>
-            </div>
-
-            <!-- Carousel Controls (Together AI style arrow buttons) -->
-            <div class="flex items-center gap-2">
-              <button onclick="scrollResearchCarousel(-1)" class="w-10 h-10 rounded-full border border-gray-700 bg-gray-900/60 hover:bg-gray-800 flex items-center justify-center text-gray-300 hover:text-white transition cursor-pointer" title="Previous">
-                <i data-lucide="chevron-left" class="w-4 h-4"></i>
-              </button>
-              <button onclick="scrollResearchCarousel(1)" class="w-10 h-10 rounded-full border border-gray-700 bg-gray-900/60 hover:bg-gray-800 flex items-center justify-center text-gray-300 hover:text-white transition cursor-pointer" title="Next">
-                <i data-lucide="chevron-right" class="w-4 h-4"></i>
-              </button>
-            </div>
-          </div>
-
-          <!-- Horizontal Glowing Purple Connector Line (Matching Image 5) -->
-          <div class="relative w-full h-[2px] bg-gradient-to-r from-purple-500 via-indigo-400 to-purple-600 shadow-[0_0_14px_rgba(168,85,247,0.7)] my-8">
-            <!-- Node dots on the timeline -->
-            <div class="absolute left-[12%] -top-[3px] w-2 h-2 rounded-full bg-white shadow-[0_0_8px_#ffffff]"></div>
-            <div class="absolute left-[37%] -top-[3px] w-2 h-2 rounded-full bg-white shadow-[0_0_8px_#ffffff]"></div>
-            <div class="absolute left-[62%] -top-[3px] w-2 h-2 rounded-full bg-white shadow-[0_0_8px_#ffffff]"></div>
-            <div class="absolute left-[87%] -top-[3px] w-2 h-2 rounded-full bg-white shadow-[0_0_8px_#ffffff]"></div>
-          </div>
-
-          <!-- 4 Connected Cards (Matching Image 5) -->
-          <div id="research-cards-track" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pt-4">
-            
-            <!-- Card 1: Performance -->
-            <div class="p-6 rounded-2xl bg-[#0c101d] border border-gray-800/80 hover:border-purple-500/50 transition-all flex flex-col justify-between group">
-              <div>
-                <span class="inline-block text-[10px] font-mono font-bold tracking-wider text-purple-400 bg-purple-950/70 border border-purple-800/60 px-2.5 py-1 rounded mb-4">
-                  PERFORMANCE
-                </span>
-                <h3 class="font-bold text-white text-lg tracking-tight mb-2.5 group-hover:text-purple-300 transition">
-                  Sub-Millisecond Edge Interception
-                </h3>
-                <p class="text-xs sm:text-sm text-gray-400 leading-relaxed mb-6">
-                  Cloudflare Workers V8 isolate execution ensures prompt parsing, regex entity extraction, and mask tokenization complete in under 0.8ms.
-                </p>
-              </div>
-              <a href="#playground" onclick="switchView('playground')" class="text-xs font-bold text-purple-400 hover:text-purple-300 flex items-center gap-1.5 transition">
-                <span>Test in Playground</span>
-                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-              </a>
-            </div>
-
-            <!-- Card 2: Sovereignty -->
-            <div class="p-6 rounded-2xl bg-[#0c101d] border border-gray-800/80 hover:border-indigo-500/50 transition-all flex flex-col justify-between group">
-              <div>
-                <span class="inline-block text-[10px] font-mono font-bold tracking-wider text-indigo-400 bg-indigo-950/70 border border-indigo-800/60 px-2.5 py-1 rounded mb-4">
-                  SOVEREIGNTY
-                </span>
-                <h3 class="font-bold text-white text-lg tracking-tight mb-2.5 group-hover:text-indigo-300 transition">
-                  10 Canonical Regional Regulatory Engines
-                </h3>
-                <p class="text-xs sm:text-sm text-gray-400 leading-relaxed mb-6">
-                  Pre-configured compliance engines for GDPR (EU), HIPAA (US), PDPA (Singapore), POPIA (South Africa), and APPI (Japan).
-                </p>
-              </div>
-              <a href="#docs" onclick="switchView('docs')" class="text-xs font-bold text-indigo-400 hover:text-indigo-300 flex items-center gap-1.5 transition">
-                <span>Explore Packs</span>
-                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-              </a>
-            </div>
-
-            <!-- Card 3: Cryptography -->
-            <div class="p-6 rounded-2xl bg-[#0c101d] border border-gray-800/80 hover:border-cyan-500/50 transition-all flex flex-col justify-between group">
-              <div>
-                <span class="inline-block text-[10px] font-mono font-bold tracking-wider text-cyan-400 bg-cyan-950/70 border border-cyan-800/60 px-2.5 py-1 rounded mb-4">
-                  CRYPTOGRAPHY
-                </span>
-                <h3 class="font-bold text-white text-lg tracking-tight mb-2.5 group-hover:text-cyan-300 transition">
-                  Ephemeral AES-256-GCM Session Vault
-                </h3>
-                <p class="text-xs sm:text-sm text-gray-400 leading-relaxed mb-6">
-                  Entity maps are encrypted in-flight with customer-managed keys (BYOK) and automatically scrubbed post-stream.
-                </p>
-              </div>
-              <a href="#docs" onclick="switchView('docs')" class="text-xs font-bold text-cyan-400 hover:text-cyan-300 flex items-center gap-1.5 transition">
-                <span>View Security Spec</span>
-                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-              </a>
-            </div>
-
-            <!-- Card 4: Agentic Privacy -->
-            <div class="p-6 rounded-2xl bg-[#0c101d] border border-gray-800/80 hover:border-pink-500/50 transition-all flex flex-col justify-between group">
-              <div>
-                <span class="inline-block text-[10px] font-mono font-bold tracking-wider text-pink-400 bg-pink-950/70 border border-pink-800/60 px-2.5 py-1 rounded mb-4">
-                  AGENTIC PRIVACY
-                </span>
-                <h3 class="font-bold text-white text-lg tracking-tight mb-2.5 group-hover:text-pink-300 transition">
-                  Streaming Split-Token Rehydration
-                </h3>
-                <p class="text-xs sm:text-sm text-gray-400 leading-relaxed mb-6">
-                  Reconstructs PII tokens across Server-Sent Events (SSE) chunks without buffering delays at up to 120 tokens/sec.
-                </p>
-              </div>
-              <a href="#docs" onclick="switchView('docs')" class="text-xs font-bold text-pink-400 hover:text-pink-300 flex items-center gap-1.5 transition">
-                <span>Read Architecture</span>
-                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-              </a>
-            </div>
-
-          </div>
-
-          <!-- Bottom Standards & Recognition Bar (Matching Image 5 bottom) -->
-          <div class="mt-20 pt-10 border-t border-gray-800/70 flex flex-col items-center">
-            <p class="text-[11px] font-bold tracking-widest text-gray-500 uppercase text-center mb-6">
-              Recognized for Compliance With
-            </p>
-            <div class="flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs sm:text-sm font-semibold text-gray-400">
-              <span class="flex items-center gap-1.5"><i data-lucide="shield" class="w-4 h-4 text-purple-400"></i> GDPR (EU)</span>
-              <span class="flex items-center gap-1.5"><i data-lucide="check-circle" class="w-4 h-4 text-cyan-400"></i> HIPAA (US)</span>
-              <span class="flex items-center gap-1.5"><i data-lucide="lock" class="w-4 h-4 text-indigo-400"></i> PDPA (SG)</span>
-              <span class="flex items-center gap-1.5"><i data-lucide="award" class="w-4 h-4 text-pink-400"></i> POPIA (ZA)</span>
-              <span class="flex items-center gap-1.5"><i data-lucide="credit-card" class="w-4 h-4 text-amber-400"></i> PCI-DSS Level 1</span>
-              <span class="flex items-center gap-1.5"><i data-lucide="file-check" class="w-4 h-4 text-emerald-400"></i> SOC 2 Type II</span>
-              <span class="flex items-center gap-1.5"><i data-lucide="globe" class="w-4 h-4 text-blue-400"></i> ISO 27001</span>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- Section 4: Pre-Footer CTA -->
-      <section class="py-20 sm:py-24 bg-white border-t border-gray-100 text-center w-full">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-gray-900 mb-4">
-            Ready to deploy zero-trust AI privacy?
-          </h2>
-          <p class="text-lg text-gray-500 max-w-xl mx-auto mb-8">
-            Join enterprises securing production LLM workflows in minutes with zero code rewrite.
-          </p>
-          <div class="flex flex-wrap items-center justify-center gap-4">
-            <button onclick="openAuthModal()" class="bg-black hover:bg-neutral-800 text-white font-bold text-xs uppercase tracking-widest px-8 py-4 rounded-sm transition shadow-sm cursor-pointer">
-              Start Building Now
-            </button>
-            <button onclick="switchView('playground')" class="bg-gray-100 hover:bg-gray-200 text-gray-900 font-bold text-xs uppercase tracking-widest px-8 py-4 rounded-sm transition cursor-pointer border border-gray-200">
-              Explore Playground
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <!-- Section 5: Minimalist Landing Footer -->
-      <footer class="bg-gray-50 border-t border-gray-200 py-10 px-4 sm:px-6 lg:px-8 text-xs text-gray-500 w-full">
-        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div class="flex items-center gap-2">
-            <span class="font-extrabold text-base tracking-tight text-gray-900">project<span class="text-[#f0523d]">spg</span></span>
-            <span class="text-gray-400">© 2026 ProjectSPG. Zero-Trust Privacy Core.</span>
-          </div>
-          <div class="flex items-center gap-6 font-medium">
-            <button onclick="switchView('playground')" class="hover:text-gray-900 transition">Playground</button>
-            <button onclick="switchView('keys')" class="hover:text-gray-900 transition">API Keys</button>
-            <button onclick="switchView('dashboard')" class="hover:text-gray-900 transition">Dashboard</button>
-            <button onclick="switchView('docs')" class="hover:text-gray-900 transition">Docs</button>
-          </div>
-        </div>
-      </footer>
 
     </div>
 
@@ -1624,7 +1307,7 @@ response = client.chat.completions.create(
     let currentIdToken = null;
     let authMode = 'signin'; // 'signin' or 'signup'
 
-    let activeView = 'landing'; // Default to Together AI style Landing Page for non-logged in users
+    let activeView = 'landing'; // Default to Together AI Landing Page for unauthenticated/entry visitors
     let activeDashTab = 'logs';   // Default sub-tab within Dashboard
     let isCodeVisible = true;
     let activeCodeLang = 'python';
@@ -1641,135 +1324,9 @@ response = client.chat.completions.create(
       { time: '9/27/2026, 1:10:14 AM', model: 'llama-3.3-70b-versatile', key: 'ProjectSPG Test', code: 404, ttft: '0', latency: '0.002', inTokens: 0, outTokens: 0, audio: '-', reqId: 'req_0...0d96', error: 'model_not_found' }
     ];
 
-    // =========================================================================
-    // Together AI Inspired Landing Page Interactivity
-    // =========================================================================
-    function switchLandingTab(tab) {
-      const tabs = ['gateway', 'sovereign', 'kms'];
-      tabs.forEach(t => {
-        const btn = document.getElementById('btn-landing-tab-' + t);
-        const content = document.getElementById('landing-tab-content-' + t);
-        if (btn) {
-          if (t === tab) {
-            btn.className = 'landing-platform-tab active px-6 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition bg-[#dff5f8] text-[#0e7490] shadow-xs cursor-pointer';
-          } else {
-            btn.className = 'landing-platform-tab px-6 py-2.5 rounded-full text-xs sm:text-sm font-medium transition text-gray-600 hover:text-gray-900 cursor-pointer';
-          }
-        }
-        if (content) {
-          if (t === tab) {
-            content.classList.remove('hidden');
-          } else {
-            content.classList.add('hidden');
-          }
-        }
-      });
-      lucide.createIcons();
-    }
-
-    function switchLandingPlatformItem(itemId) {
-      const items = ['proxy', 'streaming', 'throughput', 'wire'];
-      items.forEach(id => {
-        const card = document.getElementById('landing-item-' + id);
-        if (!card) return;
-        if (id === itemId) {
-          card.className = 'landing-platform-card active p-6 rounded-2xl bg-white border-2 border-cyan-500 shadow-sm cursor-pointer transition';
-        } else {
-          card.className = 'landing-platform-card p-6 rounded-2xl bg-white/80 hover:bg-white border border-gray-200 cursor-pointer transition';
-        }
-      });
-    }
-
-    function switchLandingCodeLang(lang) {
-      const langs = ['python', 'typescript', 'curl'];
-      langs.forEach(l => {
-        const btn = document.getElementById('landing-lang-' + l);
-        if (btn) {
-          if (l === lang) {
-            btn.className = 'landing-code-lang-btn px-3 py-1 rounded bg-[#2d3748] text-white font-medium transition cursor-pointer';
-          } else {
-            btn.className = 'landing-code-lang-btn px-3 py-1 rounded text-gray-400 hover:text-white font-medium transition cursor-pointer';
-          }
-        }
-      });
-      const codeEl = document.getElementById('landing-code-snippet');
-      if (!codeEl) return;
-
-      if (lang === 'python') {
-        codeEl.innerHTML = \`<span class="text-purple-400">from</span> openai <span class="text-purple-400">import</span> OpenAI
-
-<span class="text-gray-500"># Point directly to ProjectSPG zero-trust edge gateway</span>
-client = OpenAI(
-    base_url=<span class="text-emerald-400">"https://projectspg.boruahpriyanuj2004.workers.dev/v1"</span>,
-    api_key=<span class="text-emerald-400">"spg_live_enterprise_vault_key"</span>
-)
-
-<span class="text-gray-500"># Prompts are automatically anonymized before hitting upstream LLM</span>
-response = client.chat.completions.create(
-    model=<span class="text-emerald-400">"openai/gpt-oss-120b"</span>,
-    messages=[
-        {<span class="text-sky-300">"role"</span>: <span class="text-emerald-400">"user"</span>, <span class="text-sky-300">"content"</span>: <span class="text-emerald-400">"Verify credit card CARD_1 for Alice Wong"</span>}
-    ],
-    extra_headers={
-        <span class="text-sky-300">"x-tokenization-mode"</span>: <span class="text-emerald-400">"mask"</span>,
-        <span class="text-sky-300">"x-detection-categories"</span>: <span class="text-emerald-400">"all"</span>
-    }
-)
-
-<span class="text-gray-500"># Output arrives seamlessly rehydrated with original safe values</span>
-<span class="text-purple-400">print</span>(response.choices[<span class="text-amber-300">0</span>].message.content)\`;
-      } else if (lang === 'typescript') {
-        codeEl.innerHTML = \`<span class="text-purple-400">import</span> OpenAI <span class="text-purple-400">from</span> <span class="text-emerald-400">'openai'</span>;
-
-<span class="text-gray-500">// Point directly to ProjectSPG zero-trust edge gateway</span>
-<span class="text-purple-400">const</span> client = <span class="text-purple-400">new</span> OpenAI({
-  baseURL: <span class="text-emerald-400">'https://projectspg.boruahpriyanuj2004.workers.dev/v1'</span>,
-  apiKey: <span class="text-emerald-400">'spg_live_enterprise_vault_key'</span>
-});
-
-<span class="text-purple-400">const</span> response = <span class="text-purple-400">await</span> client.chat.completions.create({
-  model: <span class="text-emerald-400">'openai/gpt-oss-120b'</span>,
-  messages: [{ role: <span class="text-emerald-400">'user'</span>, content: <span class="text-emerald-400">'Verify credit card CARD_1 for Alice Wong'</span> }],
-  defaultHeaders: {
-    <span class="text-sky-300">'x-tokenization-mode'</span>: <span class="text-emerald-400">'mask'</span>,
-    <span class="text-sky-300">'x-detection-categories'</span>: <span class="text-emerald-400">'all'</span>
-  }
-});
-
-console.log(response.choices[<span class="text-amber-300">0</span>].message.content);\`;
-      } else if (lang === 'curl') {
-        codeEl.innerHTML = \`curl https://projectspg.boruahpriyanuj2004.workers.dev/v1/chat/completions \\\\
-  -H <span class="text-emerald-400">"Content-Type: application/json"</span> \\\\
-  -H <span class="text-emerald-400">"Authorization: Bearer spg_live_enterprise_vault_key"</span> \\\\
-  -H <span class="text-emerald-400">"x-tokenization-mode: mask"</span> \\\\
-  -H <span class="text-emerald-400">"x-detection-categories: all"</span> \\\\
-  -d '{
-    <span class="text-sky-300">"model"</span>: <span class="text-emerald-400">"openai/gpt-oss-120b"</span>,
-    <span class="text-sky-300">"messages"</span>: [
-      { <span class="text-sky-300">"role"</span>: <span class="text-emerald-400">"user"</span>, <span class="text-sky-300">"content"</span>: <span class="text-emerald-400">"Verify credit card CARD_1 for Alice Wong"</span> }
-    ]
-  }'\`;
-      }
-    }
-
-    function copyLandingCode() {
-      const codeEl = document.getElementById('landing-code-snippet');
-      if (codeEl) {
-        navigator.clipboard.writeText(codeEl.innerText);
-        alert('Code snippet copied to clipboard!');
-      }
-    }
-
-    function scrollResearchCarousel(dir) {
-      const track = document.getElementById('research-cards-track');
-      if (track) {
-        track.scrollBy({ left: dir * 320, behavior: 'smooth' });
-      }
-    }
-
     window.addEventListener('DOMContentLoaded', () => {
       const hash = window.location.hash.replace('#', '');
-      if (['playground', 'keys', 'dashboard', 'docs', 'landing'].includes(hash)) {
+      if (['landing', 'playground', 'keys', 'dashboard', 'docs'].includes(hash)) {
         activeView = hash;
       } else {
         activeView = 'landing';
@@ -1830,13 +1387,12 @@ console.log(response.choices[<span class="text-amber-300">0</span>].message.cont
       activeView = viewName;
       window.location.hash = viewName;
 
-      // When on landing page, hide the console top header so Together AI floating header takes center stage
-      const consoleHeader = document.getElementById('console-top-header');
-      if (consoleHeader) {
+      const globalHeader = document.getElementById('global-header');
+      if (globalHeader) {
         if (viewName === 'landing') {
-          consoleHeader.classList.add('hidden');
+          globalHeader.classList.add('hidden');
         } else {
-          consoleHeader.classList.remove('hidden');
+          globalHeader.classList.remove('hidden');
         }
       }
 
@@ -1857,7 +1413,9 @@ console.log(response.choices[<span class="text-amber-300">0</span>].message.cont
 
       if (viewName === 'keys') fetchApiKeys();
       if (viewName === 'dashboard') switchDashTab(activeDashTab);
-      lucide.createIcons();
+      if (typeof lucide !== 'undefined') {
+        setTimeout(() => lucide.createIcons(), 10);
+      }
     }
 
     function switchDashTab(tabName) {
@@ -2987,7 +2545,7 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
         await firebaseAuth.signInWithPopup(provider);
         closeAuthModal();
         if (activeView === 'landing') {
-          switchView('dashboard');
+          switchView('playground');
         }
       } catch (err) {
         showAuthError(err.message || 'Google sign-in failed');
@@ -3016,7 +2574,7 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
         }
         closeAuthModal();
         if (activeView === 'landing') {
-          switchView('dashboard');
+          switchView('playground');
         }
       } catch (err) {
         showAuthError(err.message || 'Authentication failed');
