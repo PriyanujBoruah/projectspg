@@ -228,94 +228,68 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       animation-play-state: paused;
     }
 
-    /* Sub-feature Accordion & Mockup Switching Animations */
-    @keyframes subitemExpand {
-      0% {
-        opacity: 0;
-        transform: translateY(-8px) scale(0.985);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
+    /* Platform Interactive Accordion Slide Animation */
+    .platform-subitem {
+      transition: background-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                  border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    @keyframes subitemContentFade {
-      0% {
-        opacity: 0;
-        transform: translateY(5px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .platform-subitem:not(.is-active) {
+      background-color: transparent;
+      border-color: transparent;
+      border-bottom-color: #f3f4f6; /* gray-100 */
+      box-shadow: none;
     }
 
-    @keyframes subitemCollapsedFade {
-      0% {
-        opacity: 0;
-        transform: translateY(-4px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .platform-subitem:not(.is-active):hover {
+      background-color: rgba(249, 250, 251, 0.85);
     }
 
-    .subitem-expanded:not(.hidden) {
-      animation: subitemExpand 320ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    .platform-subitem.is-active {
+      background-color: #ffffff;
+      border-color: rgba(229, 231, 235, 0.9); /* border-gray-200/90 */
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.06), 0 1px 2px -1px rgba(0, 0, 0, 0.06);
     }
 
-    .subitem-expanded:not(.hidden) > * {
-      animation: subitemContentFade 360ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    .platform-subitem:not(.is-active) .subitem-icon-box {
+      background-color: transparent !important;
+      border-color: transparent !important;
+      color: #9ca3af !important; /* gray-400 */
     }
 
-    .subitem-collapsed:not(.hidden) {
-      animation: subitemCollapsedFade 220ms ease both;
+    .platform-subitem:not(.is-active) .subitem-title {
+      color: #374151 !important; /* gray-700 */
+      font-weight: 600 !important;
+      font-size: 1.125rem !important; /* text-lg */
     }
 
-    .subitem-collapsed {
-      transition: background-color 0.2s ease, transform 0.2s ease, color 0.2s ease;
+    .platform-accordion-drawer {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.38s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .subitem-collapsed:hover {
-      transform: translateX(4px);
+    .platform-subitem.is-active .platform-accordion-drawer {
+      grid-template-rows: 1fr;
     }
 
-    /* Right column visual mockup switching animation */
-    @keyframes mockupFadeSlide {
-      0% {
-        opacity: 0;
-        transform: translateY(14px) scale(0.98);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
+    .platform-accordion-drawer-inner {
+      overflow: hidden;
+      min-height: 0;
+      transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .mockup-inference:not(.hidden),
-    .mockup-compute:not(.hidden),
-    .mockup-shaping:not(.hidden) {
-      animation: mockupFadeSlide 360ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    .platform-subitem:not(.is-active) .platform-accordion-drawer-inner {
+      opacity: 0;
+      transform: translateY(-8px);
+      pointer-events: none;
     }
 
-    /* Category panel switching animation */
-    @keyframes catPanelFade {
-      0% {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    #platform-cat-panel-inference:not(.hidden),
-    #platform-cat-panel-compute:not(.hidden),
-    #platform-cat-panel-shaping:not(.hidden) {
-      animation: catPanelFade 320ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    .platform-subitem.is-active .platform-accordion-drawer-inner {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
     }
   </style>
 </head>
@@ -767,90 +741,98 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           <div class="lg:col-span-5 flex flex-col space-y-3">
             
             <!-- Item 0: Serverless Inference (Active Default) -->
-            <div class="subitem-inference w-full">
-              <div class="subitem-expanded p-6 rounded-2xl bg-white border border-gray-200/90 shadow-sm transition-all">
-                <div class="flex items-center gap-3 mb-3">
-                  <div class="w-9 h-9 rounded-xl bg-cyan-50 border border-cyan-100 flex items-center justify-center text-cyan-600">
+            <div class="platform-subitem subitem-inference is-active w-full rounded-2xl border transition-all duration-300 cursor-pointer overflow-hidden" onclick="selectPlatformSubItem('inference', 0)">
+              <div class="p-4 sm:p-5 flex items-center justify-between">
+                <div class="flex items-center gap-3.5">
+                  <div class="subitem-icon-box w-9 h-9 rounded-xl bg-cyan-50 border border-cyan-100 flex items-center justify-center text-cyan-600 transition-all duration-300">
                     <i data-lucide="cloud" class="w-5 h-5"></i>
                   </div>
-                  <h3 class="text-xl font-bold text-gray-950">Serverless Inference</h3>
+                  <h3 class="subitem-title text-lg sm:text-xl font-bold tracking-tight text-gray-950 transition-colors">Serverless Inference</h3>
                 </div>
-                <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
-                  The fastest way to run open-source models on demand. Powered by cutting-edge inference research. No infrastructure to manage, no long-term commitments.
-                </p>
-                <button onclick="switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
-                  LEARN MORE
-                </button>
               </div>
-              <div class="subitem-collapsed hidden p-4 rounded-xl hover:bg-gray-50/80 cursor-pointer flex items-center gap-3.5 text-gray-700 font-semibold transition border-b border-gray-100" onclick="selectPlatformSubItem('inference', 0)">
-                <i data-lucide="cloud" class="w-5 h-5 text-gray-400"></i>
-                <span class="text-lg">Serverless Inference</span>
+              <div class="platform-accordion-drawer grid transition-[grid-template-rows] duration-350 ease-out">
+                <div class="platform-accordion-drawer-inner overflow-hidden min-h-0">
+                  <div class="px-4 sm:px-5 pb-5 sm:pb-6 pt-0">
+                    <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
+                      The fastest way to run open-source models on demand. Powered by cutting-edge inference research. No infrastructure to manage, no long-term commitments.
+                    </p>
+                    <button onclick="event.stopPropagation(); switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
+                      LEARN MORE
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
 
             <!-- Item 1: Batch Inference -->
-            <div class="subitem-inference w-full">
-              <div class="subitem-expanded hidden p-6 rounded-2xl bg-white border border-gray-200/90 shadow-sm transition-all">
-                <div class="flex items-center gap-3 mb-3">
-                  <div class="w-9 h-9 rounded-xl bg-cyan-50 border border-cyan-100 flex items-center justify-center text-cyan-600">
+            <div class="platform-subitem subitem-inference w-full rounded-2xl border transition-all duration-300 cursor-pointer overflow-hidden" onclick="selectPlatformSubItem('inference', 1)">
+              <div class="p-4 sm:p-5 flex items-center justify-between">
+                <div class="flex items-center gap-3.5">
+                  <div class="subitem-icon-box w-9 h-9 rounded-xl bg-cyan-50 border border-cyan-100 flex items-center justify-center text-cyan-600 transition-all duration-300">
                     <i data-lucide="layers" class="w-5 h-5"></i>
                   </div>
-                  <h3 class="text-xl font-bold text-gray-950">Batch Inference</h3>
+                  <h3 class="subitem-title text-lg sm:text-xl font-bold tracking-tight text-gray-950 transition-colors">Batch Inference</h3>
                 </div>
-                <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
-                  Cost-effectively process massive workloads asynchronously. Scale to 30 billion tokens per model with any serverless model or private deployment.
-                </p>
-                <button onclick="switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
-                  LEARN MORE
-                </button>
               </div>
-              <div class="subitem-collapsed p-4 rounded-xl hover:bg-gray-50/80 cursor-pointer flex items-center gap-3.5 text-gray-700 font-semibold transition border-b border-gray-100" onclick="selectPlatformSubItem('inference', 1)">
-                <i data-lucide="layers" class="w-5 h-5 text-gray-400"></i>
-                <span class="text-lg">Batch Inference</span>
+              <div class="platform-accordion-drawer grid transition-[grid-template-rows] duration-350 ease-out">
+                <div class="platform-accordion-drawer-inner overflow-hidden min-h-0">
+                  <div class="px-4 sm:px-5 pb-5 sm:pb-6 pt-0">
+                    <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
+                      Cost-effectively process massive workloads asynchronously. Scale to 30 billion tokens per model with any serverless model or private deployment.
+                    </p>
+                    <button onclick="event.stopPropagation(); switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
+                      LEARN MORE
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
 
             <!-- Item 2: Provisioned Throughput -->
-            <div class="subitem-inference w-full">
-              <div class="subitem-expanded hidden p-6 rounded-2xl bg-white border border-gray-200/90 shadow-sm transition-all">
-                <div class="flex items-center gap-3 mb-3">
-                  <div class="w-9 h-9 rounded-xl bg-cyan-50 border border-cyan-100 flex items-center justify-center text-cyan-600">
+            <div class="platform-subitem subitem-inference w-full rounded-2xl border transition-all duration-300 cursor-pointer overflow-hidden" onclick="selectPlatformSubItem('inference', 2)">
+              <div class="p-4 sm:p-5 flex items-center justify-between">
+                <div class="flex items-center gap-3.5">
+                  <div class="subitem-icon-box w-9 h-9 rounded-xl bg-cyan-50 border border-cyan-100 flex items-center justify-center text-cyan-600 transition-all duration-300">
                     <i data-lucide="sliders-horizontal" class="w-5 h-5"></i>
                   </div>
-                  <h3 class="text-xl font-bold text-gray-950">Provisioned Throughput</h3>
+                  <h3 class="subitem-title text-lg sm:text-xl font-bold tracking-tight text-gray-950 transition-colors">Provisioned Throughput</h3>
                 </div>
-                <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
-                  Guaranteed low-latency capacity for high-volume production applications with dedicated inference endpoints and SLAs.
-                </p>
-                <button onclick="switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
-                  LEARN MORE
-                </button>
               </div>
-              <div class="subitem-collapsed p-4 rounded-xl hover:bg-gray-50/80 cursor-pointer flex items-center gap-3.5 text-gray-700 font-semibold transition border-b border-gray-100" onclick="selectPlatformSubItem('inference', 2)">
-                <i data-lucide="sliders-horizontal" class="w-5 h-5 text-gray-400"></i>
-                <span class="text-lg">Provisioned Throughput</span>
+              <div class="platform-accordion-drawer grid transition-[grid-template-rows] duration-350 ease-out">
+                <div class="platform-accordion-drawer-inner overflow-hidden min-h-0">
+                  <div class="px-4 sm:px-5 pb-5 sm:pb-6 pt-0">
+                    <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
+                      Guaranteed low-latency capacity for high-volume production applications with dedicated inference endpoints and SLAs.
+                    </p>
+                    <button onclick="event.stopPropagation(); switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
+                      LEARN MORE
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
 
             <!-- Item 3: Dedicated Model Inference -->
-            <div class="subitem-inference w-full">
-              <div class="subitem-expanded hidden p-6 rounded-2xl bg-white border border-gray-200/90 shadow-sm transition-all">
-                <div class="flex items-center gap-3 mb-3">
-                  <div class="w-9 h-9 rounded-xl bg-cyan-50 border border-cyan-100 flex items-center justify-center text-cyan-600">
+            <div class="platform-subitem subitem-inference w-full rounded-2xl border transition-all duration-300 cursor-pointer overflow-hidden" onclick="selectPlatformSubItem('inference', 3)">
+              <div class="p-4 sm:p-5 flex items-center justify-between">
+                <div class="flex items-center gap-3.5">
+                  <div class="subitem-icon-box w-9 h-9 rounded-xl bg-cyan-50 border border-cyan-100 flex items-center justify-center text-cyan-600 transition-all duration-300">
                     <i data-lucide="server" class="w-5 h-5"></i>
                   </div>
-                  <h3 class="text-xl font-bold text-gray-950">Dedicated Model Inference</h3>
+                  <h3 class="subitem-title text-lg sm:text-xl font-bold tracking-tight text-gray-950 transition-colors">Dedicated Model Inference</h3>
                 </div>
-                <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
-                  Deploy models on dedicated, fully isolated instances for maximum performance, data privacy, and full hardware isolation.
-                </p>
-                <button onclick="switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
-                  LEARN MORE
-                </button>
               </div>
-              <div class="subitem-collapsed p-4 rounded-xl hover:bg-gray-50/80 cursor-pointer flex items-center gap-3.5 text-gray-700 font-semibold transition border-b border-gray-100" onclick="selectPlatformSubItem('inference', 3)">
-                <i data-lucide="server" class="w-5 h-5 text-gray-400"></i>
-                <span class="text-lg">Dedicated Model Inference</span>
+              <div class="platform-accordion-drawer grid transition-[grid-template-rows] duration-350 ease-out">
+                <div class="platform-accordion-drawer-inner overflow-hidden min-h-0">
+                  <div class="px-4 sm:px-5 pb-5 sm:pb-6 pt-0">
+                    <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
+                      Deploy models on dedicated, fully isolated instances for maximum performance, data privacy, and full hardware isolation.
+                    </p>
+                    <button onclick="event.stopPropagation(); switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
+                      LEARN MORE
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -996,68 +978,74 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           <div class="lg:col-span-5 flex flex-col space-y-3">
             
             <!-- Item 0: Accelerated Compute (Active Default) -->
-            <div class="subitem-compute w-full">
-              <div class="subitem-expanded p-6 rounded-2xl bg-white border border-gray-200/90 shadow-sm transition-all">
-                <div class="flex items-center gap-3 mb-3">
-                  <div class="w-9 h-9 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600">
+            <div class="platform-subitem subitem-compute is-active w-full rounded-2xl border transition-all duration-300 cursor-pointer overflow-hidden" onclick="selectPlatformSubItem('compute', 0)">
+              <div class="p-4 sm:p-5 flex items-center justify-between">
+                <div class="flex items-center gap-3.5">
+                  <div class="subitem-icon-box w-9 h-9 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 transition-all duration-300">
                     <i data-lucide="cpu" class="w-5 h-5"></i>
                   </div>
-                  <h3 class="text-xl font-bold text-gray-950">Accelerated Compute</h3>
+                  <h3 class="subitem-title text-lg sm:text-xl font-bold tracking-tight text-gray-950 transition-colors">Accelerated Compute</h3>
                 </div>
-                <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
-                  Scale from self-serve instant clusters to thousands of GPUs, all optimized for better performance with ProjectSPG Kernel Collection.
-                </p>
-                <button onclick="switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
-                  LEARN MORE
-                </button>
               </div>
-              <div class="subitem-collapsed hidden p-4 rounded-xl hover:bg-gray-50/80 cursor-pointer flex items-center gap-3.5 text-gray-700 font-semibold transition border-b border-gray-100" onclick="selectPlatformSubItem('compute', 0)">
-                <i data-lucide="cpu" class="w-5 h-5 text-gray-400"></i>
-                <span class="text-lg">Accelerated Compute</span>
+              <div class="platform-accordion-drawer grid transition-[grid-template-rows] duration-350 ease-out">
+                <div class="platform-accordion-drawer-inner overflow-hidden min-h-0">
+                  <div class="px-4 sm:px-5 pb-5 sm:pb-6 pt-0">
+                    <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
+                      Scale from self-serve instant clusters to thousands of GPUs, all optimized for better performance with ProjectSPG Kernel Collection.
+                    </p>
+                    <button onclick="event.stopPropagation(); switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
+                      LEARN MORE
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
 
             <!-- Item 1: Sandbox -->
-            <div class="subitem-compute w-full">
-              <div class="subitem-expanded hidden p-6 rounded-2xl bg-white border border-gray-200/90 shadow-sm transition-all">
-                <div class="flex items-center gap-3 mb-3">
-                  <div class="w-9 h-9 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600">
+            <div class="platform-subitem subitem-compute w-full rounded-2xl border transition-all duration-300 cursor-pointer overflow-hidden" onclick="selectPlatformSubItem('compute', 1)">
+              <div class="p-4 sm:p-5 flex items-center justify-between">
+                <div class="flex items-center gap-3.5">
+                  <div class="subitem-icon-box w-9 h-9 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 transition-all duration-300">
                     <i data-lucide="box" class="w-5 h-5"></i>
                   </div>
-                  <h3 class="text-xl font-bold text-gray-950">Sandbox</h3>
+                  <h3 class="subitem-title text-lg sm:text-xl font-bold tracking-tight text-gray-950 transition-colors">Sandbox</h3>
                 </div>
-                <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
-                  Secure, isolated environments for benchmarking inference kernels, validating fine-tuning runs, and stress-testing workloads.
-                </p>
-                <button onclick="switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
-                  LEARN MORE
-                </button>
               </div>
-              <div class="subitem-collapsed p-4 rounded-xl hover:bg-gray-50/80 cursor-pointer flex items-center gap-3.5 text-gray-700 font-semibold transition border-b border-gray-100" onclick="selectPlatformSubItem('compute', 1)">
-                <i data-lucide="box" class="w-5 h-5 text-gray-400"></i>
-                <span class="text-lg">Sandbox</span>
+              <div class="platform-accordion-drawer grid transition-[grid-template-rows] duration-350 ease-out">
+                <div class="platform-accordion-drawer-inner overflow-hidden min-h-0">
+                  <div class="px-4 sm:px-5 pb-5 sm:pb-6 pt-0">
+                    <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
+                      Secure, isolated environments for benchmarking inference kernels, validating fine-tuning runs, and stress-testing workloads.
+                    </p>
+                    <button onclick="event.stopPropagation(); switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
+                      LEARN MORE
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
 
             <!-- Item 2: Managed Storage -->
-            <div class="subitem-compute w-full">
-              <div class="subitem-expanded hidden p-6 rounded-2xl bg-white border border-gray-200/90 shadow-sm transition-all">
-                <div class="flex items-center gap-3 mb-3">
-                  <div class="w-9 h-9 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600">
+            <div class="platform-subitem subitem-compute w-full rounded-2xl border transition-all duration-300 cursor-pointer overflow-hidden" onclick="selectPlatformSubItem('compute', 2)">
+              <div class="p-4 sm:p-5 flex items-center justify-between">
+                <div class="flex items-center gap-3.5">
+                  <div class="subitem-icon-box w-9 h-9 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 transition-all duration-300">
                     <i data-lucide="hard-drive" class="w-5 h-5"></i>
                   </div>
-                  <h3 class="text-xl font-bold text-gray-950">Managed Storage</h3>
+                  <h3 class="subitem-title text-lg sm:text-xl font-bold tracking-tight text-gray-950 transition-colors">Managed Storage</h3>
                 </div>
-                <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
-                  High-throughput, low-latency clustered storage engineered for fast model checkpointing and parallel dataset hydration.
-                </p>
-                <button onclick="switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
-                  LEARN MORE
-                </button>
               </div>
-              <div class="subitem-collapsed p-4 rounded-xl hover:bg-gray-50/80 cursor-pointer flex items-center gap-3.5 text-gray-700 font-semibold transition border-b border-gray-100" onclick="selectPlatformSubItem('compute', 2)">
-                <i data-lucide="hard-drive" class="w-5 h-5 text-gray-400"></i>
-                <span class="text-lg">Managed Storage</span>
+              <div class="platform-accordion-drawer grid transition-[grid-template-rows] duration-350 ease-out">
+                <div class="platform-accordion-drawer-inner overflow-hidden min-h-0">
+                  <div class="px-4 sm:px-5 pb-5 sm:pb-6 pt-0">
+                    <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
+                      High-throughput, low-latency clustered storage engineered for fast model checkpointing and parallel dataset hydration.
+                    </p>
+                    <button onclick="event.stopPropagation(); switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
+                      LEARN MORE
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -1172,46 +1160,50 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           <div class="lg:col-span-5 flex flex-col space-y-3">
             
             <!-- Item 0: Fine-Tuning (Active Default) -->
-            <div class="subitem-shaping w-full">
-              <div class="subitem-expanded p-6 rounded-2xl bg-white border border-gray-200/90 shadow-sm transition-all">
-                <div class="flex items-center gap-3 mb-3">
-                  <div class="w-9 h-9 rounded-xl bg-purple-50 border border-purple-100 flex items-center justify-center text-purple-600">
+            <div class="platform-subitem subitem-shaping is-active w-full rounded-2xl border transition-all duration-300 cursor-pointer overflow-hidden" onclick="selectPlatformSubItem('shaping', 0)">
+              <div class="p-4 sm:p-5 flex items-center justify-between">
+                <div class="flex items-center gap-3.5">
+                  <div class="subitem-icon-box w-9 h-9 rounded-xl bg-purple-50 border border-purple-100 flex items-center justify-center text-purple-600 transition-all duration-300">
                     <i data-lucide="sliders" class="w-5 h-5"></i>
                   </div>
-                  <h3 class="text-xl font-bold text-gray-950">Fine-Tuning</h3>
+                  <h3 class="subitem-title text-lg sm:text-xl font-bold tracking-tight text-gray-950 transition-colors">Fine-Tuning</h3>
                 </div>
-                <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
-                  Fine-tune open-source models for production workloads, using the latest research techniques. Improve accuracy, reduce hallucinations, and control behavior — without managing training infrastructure.
-                </p>
-                <button onclick="switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
-                  LEARN MORE
-                </button>
               </div>
-              <div class="subitem-collapsed hidden p-4 rounded-xl hover:bg-gray-50/80 cursor-pointer flex items-center gap-3.5 text-gray-700 font-semibold transition border-b border-gray-100" onclick="selectPlatformSubItem('shaping', 0)">
-                <i data-lucide="sliders" class="w-5 h-5 text-gray-400"></i>
-                <span class="text-lg">Fine-Tuning</span>
+              <div class="platform-accordion-drawer grid transition-[grid-template-rows] duration-350 ease-out">
+                <div class="platform-accordion-drawer-inner overflow-hidden min-h-0">
+                  <div class="px-4 sm:px-5 pb-5 sm:pb-6 pt-0">
+                    <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
+                      Fine-tune open-source models for production workloads, using the latest research techniques. Improve accuracy, reduce hallucinations, and control behavior — without managing training infrastructure.
+                    </p>
+                    <button onclick="event.stopPropagation(); switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
+                      LEARN MORE
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
 
             <!-- Item 1: Model Alignment -->
-            <div class="subitem-shaping w-full">
-              <div class="subitem-expanded hidden p-6 rounded-2xl bg-white border border-gray-200/90 shadow-sm transition-all">
-                <div class="flex items-center gap-3 mb-3">
-                  <div class="w-9 h-9 rounded-xl bg-purple-50 border border-purple-100 flex items-center justify-center text-purple-600">
+            <div class="platform-subitem subitem-shaping w-full rounded-2xl border transition-all duration-300 cursor-pointer overflow-hidden" onclick="selectPlatformSubItem('shaping', 1)">
+              <div class="p-4 sm:p-5 flex items-center justify-between">
+                <div class="flex items-center gap-3.5">
+                  <div class="subitem-icon-box w-9 h-9 rounded-xl bg-purple-50 border border-purple-100 flex items-center justify-center text-purple-600 transition-all duration-300">
                     <i data-lucide="git-merge" class="w-5 h-5"></i>
                   </div>
-                  <h3 class="text-xl font-bold text-gray-950">Model Alignment</h3>
+                  <h3 class="subitem-title text-lg sm:text-xl font-bold tracking-tight text-gray-950 transition-colors">Model Alignment</h3>
                 </div>
-                <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
-                  Align base models with Direct Preference Optimization (DPO) and task-specific safety guardrails to enforce strict corporate compliance.
-                </p>
-                <button onclick="switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
-                  LEARN MORE
-                </button>
               </div>
-              <div class="subitem-collapsed p-4 rounded-xl hover:bg-gray-50/80 cursor-pointer flex items-center gap-3.5 text-gray-700 font-semibold transition border-b border-gray-100" onclick="selectPlatformSubItem('shaping', 1)">
-                <i data-lucide="git-merge" class="w-5 h-5 text-gray-400"></i>
-                <span class="text-lg">Model Alignment</span>
+              <div class="platform-accordion-drawer grid transition-[grid-template-rows] duration-350 ease-out">
+                <div class="platform-accordion-drawer-inner overflow-hidden min-h-0">
+                  <div class="px-4 sm:px-5 pb-5 sm:pb-6 pt-0">
+                    <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
+                      Align base models with Direct Preference Optimization (DPO) and task-specific safety guardrails to enforce strict corporate compliance.
+                    </p>
+                    <button onclick="event.stopPropagation(); switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
+                      LEARN MORE
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -3254,6 +3246,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       const activePanel = document.getElementById('platform-cat-panel-' + cat);
       if (activePanel) activePanel.classList.remove('hidden');
 
+      selectPlatformSubItem(cat, 0);
+
       if (typeof lucide !== 'undefined') {
         setTimeout(() => lucide.createIcons(), 10);
       }
@@ -3290,14 +3284,10 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     function selectPlatformSubItem(cat, index) {
       const subItems = document.querySelectorAll('.subitem-' + cat);
       subItems.forEach((item, idx) => {
-        const expanded = item.querySelector('.subitem-expanded');
-        const collapsed = item.querySelector('.subitem-collapsed');
         if (idx === index) {
-          if (expanded) expanded.classList.remove('hidden');
-          if (collapsed) collapsed.classList.add('hidden');
+          item.classList.add('is-active');
         } else {
-          if (expanded) expanded.classList.add('hidden');
-          if (collapsed) collapsed.classList.remove('hidden');
+          item.classList.remove('is-active');
         }
       });
 
