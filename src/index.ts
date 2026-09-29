@@ -154,7 +154,7 @@ app.get("/logos/:filename", (c) => {
     return new Response(binary, {
       headers: {
         "Content-Type": "image/png",
-        "Cache-Control": "public, max-age=31536000, immutable",
+        "Cache-Control": "no-cache, no-store, must-revalidate",
       },
     });
   }

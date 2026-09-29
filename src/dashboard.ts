@@ -235,6 +235,12 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       animation-play-state: paused;
     }
 
+    .brand-logo-dyed {
+      filter: url(#logo-tint-949698);
+      -webkit-filter: url(#logo-tint-949698);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
     /* Platform Interactive Accordion Slide Animation */
     .platform-subitem {
       transition: background-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
@@ -618,9 +624,18 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
         </div>
 
-        <!-- Animated Infrastructure & Engine Badges Strip -->
-        <div class="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-gray-100/90 w-full overflow-hidden relative marquee-container">
-          <!-- Ambient Side Fade Masks -->
+        <!-- Brand Marquee Section with SVG Color Tint Filter -->
+        <svg class="sr-only absolute pointer-events-none" width="0" height="0" aria-hidden="true">
+          <filter id="logo-tint-949698" color-interpolation-filters="sRGB">
+            <feColorMatrix type="matrix" values="
+              0 0 0 0.5804 0
+              0 0 0 0.5882 0
+              0 0 0 0.5961 0
+              0 0 0 1 0" />
+          </filter>
+        </svg>
+
+        <div class="marquee-container w-full pt-4 pb-2 overflow-hidden border-t border-b border-gray-100/80 my-4 sm:my-6 relative">
           <div class="absolute left-0 top-0 bottom-0 w-12 sm:w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
           <div class="absolute right-0 top-0 bottom-0 w-12 sm:w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
 
@@ -630,31 +645,31 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             <div class="animate-marquee">
               <!-- Groq -->
               <div class="flex items-center shrink-0">
-                <img src="/logos/Groq-Logo.png" alt="Groq" title="Groq LPU" class="h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
+                <img src="/logos/Groq-Logo.png?v=949698" alt="Groq" title="Groq LPU" class="brand-logo-dyed h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100" />
               </div>
               <!-- Mistral AI -->
               <div class="flex items-center shrink-0">
-                <img src="/logos/Mistral-AI-Logo.png" alt="Mistral AI" title="Mistral AI" class="h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
+                <img src="/logos/Mistral-AI-Logo.png?v=949698" alt="Mistral AI" title="Mistral AI" class="brand-logo-dyed h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100" />
               </div>
               <!-- Google DeepMind -->
               <div class="flex items-center shrink-0">
-                <img src="/logos/Google-DeepMind-Logo.png" alt="Google DeepMind" title="Google DeepMind" class="h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
+                <img src="/logos/Google-DeepMind-Logo.png?v=949698" alt="Google DeepMind" title="Google DeepMind" class="brand-logo-dyed h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100" />
               </div>
               <!-- OpenAI -->
               <div class="flex items-center shrink-0">
-                <img src="/logos/OpenAI-Logo.png" alt="OpenAI" title="OpenAI API" class="h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
+                <img src="/logos/OpenAI-Logo.png?v=949698" alt="OpenAI" title="OpenAI API" class="brand-logo-dyed h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100" />
               </div>
               <!-- Anthropic -->
               <div class="flex items-center shrink-0">
-                <img src="/logos/Anthropic-Logo.png" alt="Anthropic" title="Anthropic" class="h-3.5 sm:h-4 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
+                <img src="/logos/Anthropic-Logo.png?v=949698" alt="Anthropic" title="Anthropic" class="brand-logo-dyed h-3.5 sm:h-4 w-auto object-contain opacity-85 hover:opacity-100" />
               </div>
               <!-- Google Gemini -->
               <div class="flex items-center shrink-0">
-                <img src="/logos/Google-Gemini-Logo.png" alt="Google Gemini" title="Google Gemini" class="h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
+                <img src="/logos/Google-Gemini-Logo.png?v=949698" alt="Google Gemini" title="Google Gemini" class="brand-logo-dyed h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100" />
               </div>
               <!-- OpenRouter -->
               <div class="flex items-center shrink-0">
-                <img src="/logos/OpenRouter-Logo.png" alt="OpenRouter" title="OpenRouter" class="h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
+                <img src="/logos/OpenRouter-Logo.png?v=949698" alt="OpenRouter" title="OpenRouter" class="brand-logo-dyed h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100" />
               </div>
             </div>
 
@@ -662,31 +677,31 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             <div class="animate-marquee" aria-hidden="true">
               <!-- Groq -->
               <div class="flex items-center shrink-0">
-                <img src="/logos/Groq-Logo.png" alt="Groq" title="Groq LPU" class="h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
+                <img src="/logos/Groq-Logo.png?v=949698" alt="Groq" title="Groq LPU" class="brand-logo-dyed h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100" />
               </div>
               <!-- Mistral AI -->
               <div class="flex items-center shrink-0">
-                <img src="/logos/Mistral-AI-Logo.png" alt="Mistral AI" title="Mistral AI" class="h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
+                <img src="/logos/Mistral-AI-Logo.png?v=949698" alt="Mistral AI" title="Mistral AI" class="brand-logo-dyed h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100" />
               </div>
               <!-- Google DeepMind -->
               <div class="flex items-center shrink-0">
-                <img src="/logos/Google-DeepMind-Logo.png" alt="Google DeepMind" title="Google DeepMind" class="h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
+                <img src="/logos/Google-DeepMind-Logo.png?v=949698" alt="Google DeepMind" title="Google DeepMind" class="brand-logo-dyed h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100" />
               </div>
               <!-- OpenAI -->
               <div class="flex items-center shrink-0">
-                <img src="/logos/OpenAI-Logo.png" alt="OpenAI" title="OpenAI API" class="h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
+                <img src="/logos/OpenAI-Logo.png?v=949698" alt="OpenAI" title="OpenAI API" class="brand-logo-dyed h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100" />
               </div>
               <!-- Anthropic -->
               <div class="flex items-center shrink-0">
-                <img src="/logos/Anthropic-Logo.png" alt="Anthropic" title="Anthropic" class="h-3.5 sm:h-4 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
+                <img src="/logos/Anthropic-Logo.png?v=949698" alt="Anthropic" title="Anthropic" class="brand-logo-dyed h-3.5 sm:h-4 w-auto object-contain opacity-85 hover:opacity-100" />
               </div>
               <!-- Google Gemini -->
               <div class="flex items-center shrink-0">
-                <img src="/logos/Google-Gemini-Logo.png" alt="Google Gemini" title="Google Gemini" class="h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
+                <img src="/logos/Google-Gemini-Logo.png?v=949698" alt="Google Gemini" title="Google Gemini" class="brand-logo-dyed h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100" />
               </div>
               <!-- OpenRouter -->
               <div class="flex items-center shrink-0">
-                <img src="/logos/OpenRouter-Logo.png" alt="OpenRouter" title="OpenRouter" class="h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
+                <img src="/logos/OpenRouter-Logo.png?v=949698" alt="OpenRouter" title="OpenRouter" class="brand-logo-dyed h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100" />
               </div>
             </div>
 
@@ -694,31 +709,31 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             <div class="animate-marquee" aria-hidden="true">
               <!-- Groq -->
               <div class="flex items-center shrink-0">
-                <img src="/logos/Groq-Logo.png" alt="Groq" title="Groq LPU" class="h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
+                <img src="/logos/Groq-Logo.png?v=949698" alt="Groq" title="Groq LPU" class="brand-logo-dyed h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100" />
               </div>
               <!-- Mistral AI -->
               <div class="flex items-center shrink-0">
-                <img src="/logos/Mistral-AI-Logo.png" alt="Mistral AI" title="Mistral AI" class="h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
+                <img src="/logos/Mistral-AI-Logo.png?v=949698" alt="Mistral AI" title="Mistral AI" class="brand-logo-dyed h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100" />
               </div>
               <!-- Google DeepMind -->
               <div class="flex items-center shrink-0">
-                <img src="/logos/Google-DeepMind-Logo.png" alt="Google DeepMind" title="Google DeepMind" class="h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
+                <img src="/logos/Google-DeepMind-Logo.png?v=949698" alt="Google DeepMind" title="Google DeepMind" class="brand-logo-dyed h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100" />
               </div>
               <!-- OpenAI -->
               <div class="flex items-center shrink-0">
-                <img src="/logos/OpenAI-Logo.png" alt="OpenAI" title="OpenAI API" class="h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
+                <img src="/logos/OpenAI-Logo.png?v=949698" alt="OpenAI" title="OpenAI API" class="brand-logo-dyed h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100" />
               </div>
               <!-- Anthropic -->
               <div class="flex items-center shrink-0">
-                <img src="/logos/Anthropic-Logo.png" alt="Anthropic" title="Anthropic" class="h-3.5 sm:h-4 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
+                <img src="/logos/Anthropic-Logo.png?v=949698" alt="Anthropic" title="Anthropic" class="brand-logo-dyed h-3.5 sm:h-4 w-auto object-contain opacity-85 hover:opacity-100" />
               </div>
               <!-- Google Gemini -->
               <div class="flex items-center shrink-0">
-                <img src="/logos/Google-Gemini-Logo.png" alt="Google Gemini" title="Google Gemini" class="h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
+                <img src="/logos/Google-Gemini-Logo.png?v=949698" alt="Google Gemini" title="Google Gemini" class="brand-logo-dyed h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100" />
               </div>
               <!-- OpenRouter -->
               <div class="flex items-center shrink-0">
-                <img src="/logos/OpenRouter-Logo.png" alt="OpenRouter" title="OpenRouter" class="h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
+                <img src="/logos/OpenRouter-Logo.png?v=949698" alt="OpenRouter" title="OpenRouter" class="brand-logo-dyed h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100" />
               </div>
             </div>
           </div>
