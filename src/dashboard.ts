@@ -621,10 +621,6 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           <div class="flex overflow-hidden relative w-full select-none py-2 items-center">
             <!-- Group 1 -->
             <div class="animate-marquee flex shrink-0 items-center justify-around gap-10 sm:gap-16 min-w-full">
-              <!-- Cloudflare -->
-              <div class="flex items-center shrink-0">
-                <img src="/logos/Cloudflare-Logo.png" alt="Cloudflare" title="Cloudflare Workers" class="h-4 sm:h-[18px] w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
-              </div>
               <!-- Groq -->
               <div class="flex items-center shrink-0">
                 <img src="/logos/Groq-Logo.png" alt="Groq" title="Groq LPU" class="h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
@@ -657,10 +653,6 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
             <!-- Group 2 (Duplicate for Seamless Infinite Loop) -->
             <div class="animate-marquee flex shrink-0 items-center justify-around gap-10 sm:gap-16 min-w-full" aria-hidden="true">
-              <!-- Cloudflare -->
-              <div class="flex items-center shrink-0">
-                <img src="/logos/Cloudflare-Logo.png" alt="Cloudflare" title="Cloudflare Workers" class="h-4 sm:h-[18px] w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
-              </div>
               <!-- Groq -->
               <div class="flex items-center shrink-0">
                 <img src="/logos/Groq-Logo.png" alt="Groq" title="Groq LPU" class="h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
