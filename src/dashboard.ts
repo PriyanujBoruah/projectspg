@@ -231,10 +231,6 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       }
     }
 
-    .marquee-container:hover .animate-marquee {
-      animation-play-state: paused;
-    }
-
     .brand-logo-dyed {
       filter: url(#logo-tint-949698);
       -webkit-filter: url(#logo-tint-949698);
