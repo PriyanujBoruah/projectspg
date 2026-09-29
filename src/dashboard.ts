@@ -741,7 +741,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       <!-- SECTION 2: THE PROJECTSPG PLATFORM (Interactive 3-Tab Feature Showcase)-->
       <!-- Matches uploaded media: 1790540329449, 1790540346632, 1790540364464, 1790540377437 -->
       <!-- ======================================================================= -->
-      <section id="platform-section" class="w-full max-w-[1440px] mx-auto px-2.5 sm:px-4 lg:px-6 py-10 sm:py-16 relative z-10 border-t border-gray-100">
+      <section id="platform-section" class="w-full py-12 sm:py-20 lg:py-24 relative z-10 bg-gradient-to-b from-[#e8f7f8]/55 via-[#f1f4fb]/60 to-[#f8fafc] border-t border-gray-100">
+        <div class="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8">
         
         <!-- Section Header -->
         <div class="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
@@ -753,18 +754,21 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           </p>
         </div>
 
-        <!-- 3 Large Category Pills (Inference, Compute, Model shaping) -->
-        <div class="grid grid-cols-3 gap-2 sm:gap-6 max-w-4xl mx-auto mb-10 sm:mb-14 px-1">
-          <button id="cat-tab-inference" onclick="selectPlatformCategory('inference')" class="cat-pill py-2.5 sm:py-4 px-1.5 sm:px-6 rounded-xl sm:rounded-3xl text-center font-bold text-xs sm:text-base md:text-xl transition-all duration-200 cursor-pointer bg-[#d8f5f6] text-gray-950 shadow-2xs">
+        <!-- 3 Squarish Category Buttons with Rounded Corners (Inference, Compute, Model shaping) -->
+        <div class="grid grid-cols-3 gap-3 sm:gap-6 max-w-4xl mx-auto mb-8 sm:mb-12 px-1">
+          <button id="cat-tab-inference" onclick="selectPlatformCategory('inference')" class="cat-pill py-3.5 sm:py-4.5 px-2 sm:px-6 rounded-xl sm:rounded-2xl text-center font-bold text-xs sm:text-base md:text-xl transition-all duration-200 cursor-pointer text-gray-950 border border-transparent shadow-2xs bg-[#d5f5f6]">
             Inference
           </button>
-          <button id="cat-tab-compute" onclick="selectPlatformCategory('compute')" class="cat-pill py-2.5 sm:py-4 px-1.5 sm:px-6 rounded-xl sm:rounded-3xl text-center font-bold text-xs sm:text-base md:text-xl transition-all duration-200 cursor-pointer text-gray-600 hover:text-gray-950 hover:bg-gray-100/70">
+          <button id="cat-tab-compute" onclick="selectPlatformCategory('compute')" class="cat-pill py-3.5 sm:py-4.5 px-2 sm:px-6 rounded-xl sm:rounded-2xl text-center font-bold text-xs sm:text-base md:text-xl transition-all duration-200 cursor-pointer bg-white text-gray-900 border border-gray-200/70 shadow-2xs hover:bg-gray-50/90 hover:text-black">
             Compute
           </button>
-          <button id="cat-tab-shaping" onclick="selectPlatformCategory('shaping')" class="cat-pill py-2.5 sm:py-4 px-1.5 sm:px-6 rounded-xl sm:rounded-3xl text-center font-bold text-xs sm:text-base md:text-xl transition-all duration-200 cursor-pointer text-gray-600 hover:text-gray-950 hover:bg-gray-100/70">
+          <button id="cat-tab-shaping" onclick="selectPlatformCategory('shaping')" class="cat-pill py-3.5 sm:py-4.5 px-2 sm:px-6 rounded-xl sm:rounded-2xl text-center font-bold text-xs sm:text-base md:text-xl transition-all duration-200 cursor-pointer bg-white text-gray-900 border border-gray-200/70 shadow-2xs hover:bg-gray-50/90 hover:text-black">
             Model shaping
           </button>
         </div>
+
+        <!-- Unified White Category Panel Wrapper -->
+        <div class="w-full bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 lg:p-10 border border-gray-200/80 shadow-xs">
 
         <!-- ===================================================================== -->
         <!-- CATEGORY PANEL 1: INFERENCE -->
@@ -1311,6 +1315,9 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           </div>
 
         </div>
+
+        </div> <!-- /Unified White Category Panel Wrapper -->
+        </div> <!-- /max-w-[1440px] -->
 
       </section>
 
@@ -3256,7 +3263,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
     function selectPlatformCategory(cat) {
       const catConfig = {
-        inference: { bg: 'bg-[#d8f5f6]', tab: 'cat-tab-inference' },
+        inference: { bg: 'bg-[#d5f5f6]', tab: 'cat-tab-inference' },
         compute: { bg: 'bg-[#dbeafe]', tab: 'cat-tab-compute' },
         shaping: { bg: 'bg-[#ede9fe]', tab: 'cat-tab-shaping' }
       };
@@ -3264,7 +3271,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       ['inference', 'compute', 'shaping'].forEach(c => {
         const btn = document.getElementById('cat-tab-' + c);
         if (btn) {
-          btn.className = 'cat-pill py-2.5 sm:py-4 px-1.5 sm:px-6 rounded-xl sm:rounded-3xl text-center font-bold text-xs sm:text-base md:text-xl transition-all duration-200 cursor-pointer text-gray-600 hover:text-gray-950 hover:bg-gray-100/70';
+          btn.className = 'cat-pill py-3.5 sm:py-4.5 px-2 sm:px-6 rounded-xl sm:rounded-2xl text-center font-bold text-xs sm:text-base md:text-xl transition-all duration-200 cursor-pointer bg-white text-gray-900 border border-gray-200/70 shadow-2xs hover:bg-gray-50/90 hover:text-black';
         }
         const panel = document.getElementById('platform-cat-panel-' + c);
         if (panel) panel.classList.add('hidden');
@@ -3273,7 +3280,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       if (catConfig[cat]) {
         const activeBtn = document.getElementById(catConfig[cat].tab);
         if (activeBtn) {
-          activeBtn.className = 'cat-pill py-2.5 sm:py-4 px-1.5 sm:px-6 rounded-xl sm:rounded-3xl text-center font-bold text-xs sm:text-base md:text-xl transition-all duration-200 cursor-pointer text-gray-950 shadow-2xs ' + catConfig[cat].bg;
+          activeBtn.className = 'cat-pill py-3.5 sm:py-4.5 px-2 sm:px-6 rounded-xl sm:rounded-2xl text-center font-bold text-xs sm:text-base md:text-xl transition-all duration-200 cursor-pointer text-gray-950 border border-transparent shadow-2xs ' + catConfig[cat].bg;
         }
       }
 
