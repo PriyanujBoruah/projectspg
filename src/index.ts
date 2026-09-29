@@ -4,6 +4,7 @@ import tokenizationApp from "./routes/tokenization";
 import openaiApp from "./routes/openai";
 import { DASHBOARD_HTML } from "./dashboard";
 import { BENCHMARK_BLOG_HTML } from "./blog_benchmark";
+import { COUNTRIES_BLOG_HTML } from "./blog_countries";
 import {
   createApiKey,
   listApiKeys,
@@ -63,6 +64,11 @@ app.get("/dashboard", (c) => c.html(DASHBOARD_HTML));
 app.get("/blog/benchmark", (c) => c.html(BENCHMARK_BLOG_HTML));
 app.get("/test-results", (c) => c.html(BENCHMARK_BLOG_HTML));
 app.get("/test-results.html", (c) => c.html(BENCHMARK_BLOG_HTML));
+
+// Serve Global Sovereign AI Privacy & Supported Countries Blog
+app.get("/blog/countries", (c) => c.html(COUNTRIES_BLOG_HTML));
+app.get("/countries", (c) => c.html(COUNTRIES_BLOG_HTML));
+app.get("/supported-countries", (c) => c.html(COUNTRIES_BLOG_HTML));
 
 // Mount API Key Authentication Middleware on /v1 routes
 app.use("/v1/*", createAuthMiddleware());

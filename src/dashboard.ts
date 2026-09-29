@@ -1720,8 +1720,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                 </div>
               </div>
 
-              <!-- Item 2: ProjectSPG and Y Combinator partner -->
-              <div class="group flex flex-col sm:flex-row items-start gap-3.5 sm:gap-5 cursor-pointer">
+              <!-- Item 2: Global Sovereign AI Privacy: 109 Jurisdictions Supported -->
+              <div onclick="window.location.href='/blog/countries'" class="group flex flex-col sm:flex-row items-start gap-3.5 sm:gap-5 cursor-pointer">
                 <div class="w-full sm:w-44 md:w-52 aspect-[16/10] shrink-0 rounded-xl overflow-hidden relative shadow-xs border border-gray-200/60 bg-gradient-to-br from-[#fed7aa] via-[#fde047]/30 to-[#c7d2fe] flex items-center justify-center p-3 text-center transition-all duration-300 group-hover:shadow-md group-hover:scale-[1.02]">
                   <div class="flex flex-col items-center">
                     <div class="flex items-center gap-1 mb-1">
@@ -1729,20 +1729,20 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                       <span class="text-[9px] font-bold text-gray-800 lowercase tracking-tight">project<span class="text-[#f0523d]">spg</span></span>
                     </div>
                     <p class="text-[10px] sm:text-[11px] font-bold text-gray-900 leading-tight">
-                      Introducing the first dedicated GPU cluster for the YC community
+                      Global Sovereign AI Privacy: 109 Jurisdictions Supported
                     </p>
                   </div>
                 </div>
 
                 <div class="flex-1 min-w-0">
                   <span class="px-2.5 py-0.5 rounded bg-gray-100 text-gray-700 font-bold text-[10px] tracking-wider uppercase">
-                    GPU CLUSTERS
+                    COMPLIANCE
                   </span>
                   <h4 class="text-base sm:text-lg font-bold text-gray-950 mt-1.5 group-hover:text-[#f0523d] transition-colors leading-snug">
-                    ProjectSPG and Y Combinator partner to launch the first dedicated GPU cluster for the YC community
+                    Global Sovereign AI Privacy: 109 Jurisdictions Supported by ProjectSPG
                   </h4>
                   <p class="text-xs sm:text-sm text-gray-500 mt-1 line-clamp-2 leading-relaxed">
-                    No more two-year compute contracts. ProjectSPG and Y...
+                    Protecting sensitive enterprise data across GDPR, India DPDP, Singapore PDPA, HIPAA, and 109 sovereign national jurisdictions without code changes...
                   </p>
                 </div>
               </div>
@@ -2187,10 +2187,10 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                     <span class="text-[10px] font-bold tracking-widest uppercase text-gray-900 font-mono">DEVELOPERS</span>
                   </div>
                   <ul class="space-y-2.5 font-medium text-gray-600 mb-6">
-                    <li><a href="#docs" onclick="switchView('docs')" class="hover:text-gray-950 transition">Research</a></li>
-                    <li><a href="#docs" onclick="switchView('docs')" class="hover:text-gray-950 transition">Docs</a></li>
-                    <li><a href="#docs" onclick="switchView('docs')" class="hover:text-gray-950 transition">Open-source AI</a></li>
-                    <li><a href="#docs" onclick="switchView('docs')" class="hover:text-gray-950 transition">OSS ROI calculator</a></li>
+                    <li><a href="/blog/benchmark" class="hover:text-gray-950 transition">Research &amp; Benchmark</a></li>
+                    <li><a href="/blog/countries" class="hover:text-gray-950 transition">Supported Countries</a></li>
+                    <li><a href="https://github.com/PriyanujBoruah/AI-Privacy-Core" target="_blank" class="hover:text-gray-950 transition">Open-Source Core</a></li>
+                    <li><a href="#docs" onclick="switchView('docs')" class="hover:text-gray-950 transition">API Documentation</a></li>
                   </ul>
 
                   <!-- Subgroup 2: PRICING -->
@@ -2211,11 +2211,10 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                     <span class="text-[10px] font-bold tracking-widest uppercase text-gray-900 font-mono">RESOURCES</span>
                   </div>
                   <ul class="space-y-2.5 font-medium text-gray-600">
-                    <li><a href="#docs" onclick="switchView('docs')" class="hover:text-gray-950 transition">Blog</a></li>
-                    <li><a href="#docs" onclick="switchView('docs')" class="hover:text-gray-950 transition">About us</a></li>
-                    <li><a href="#docs" onclick="switchView('docs')" class="hover:text-gray-950 transition">Careers</a></li>
-                    <li><a href="#docs" onclick="switchView('docs')" class="hover:text-gray-950 transition">Customer Stories</a></li>
-                    <li><a href="#docs" onclick="switchView('docs')" class="hover:text-gray-950 transition">Support</a></li>
+                    <li><a href="/blog/benchmark" class="hover:text-gray-950 transition">Blog &amp; Benchmarks</a></li>
+                    <li><a href="/blog/countries" class="hover:text-gray-950 transition">109 Countries Matrix</a></li>
+                    <li><a href="/" class="hover:text-gray-950 transition">About ProjectSPG</a></li>
+                    <li><a href="mailto:support@projectspg.info" class="hover:text-gray-950 transition">Support</a></li>
                   </ul>
                 </div>
 

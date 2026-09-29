@@ -1178,7 +1178,7 @@ node scripts/multicore_benchmark.mjs --workers 8</pre>
         </a>
 
         <!-- Related 2: Supported Countries & Regional Data Protections -->
-        <a href="/#features" style="text-decoration: none; color: inherit; display: block;" class="group">
+        <a href="/blog/countries" style="text-decoration: none; color: inherit; display: block;" class="group">
           <div style="aspect-ratio: 16/9; width: 100%; border-radius: 12px; overflow: hidden; background: linear-gradient(135deg, #fed7aa, #fef08a, #c7d2fe); border: 1px solid rgba(229,231,235,0.8); display: flex; align-items: center; justify-content: center; padding: 22px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.03); transition: all 0.25s;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 10px 25px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 1px 3px rgba(0,0,0,0.03)';">
             <div>
               <div style="display: flex; align-items: center; justify-content: center; gap: 4px; margin-bottom: 6px;">
@@ -1336,6 +1336,7 @@ node scripts/multicore_benchmark.mjs --workers 8</pre>
               </div>
               <ul class="space-y-2.5 font-medium text-gray-600 mb-6">
                 <li><a href="/blog/benchmark" class="hover:text-gray-950 transition">Research &amp; Benchmark</a></li>
+                <li><a href="/blog/countries" class="hover:text-gray-950 transition">Supported Countries</a></li>
                 <li><a href="/dashboard" class="hover:text-gray-950 transition">API Documentation</a></li>
                 <li><a href="https://github.com/PriyanujBoruah/AI-Privacy-Core" target="_blank" class="hover:text-gray-950 transition">Open-Source Core</a></li>
                 <li><a href="/dashboard" class="hover:text-gray-950 transition">Live Playground</a></li>
