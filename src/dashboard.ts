@@ -359,7 +359,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
           
           <!-- Left Column (Text & CTAs) -->
-          <div class="lg:col-span-7 flex flex-col items-start text-left pr-0 lg:pr-6">
+          <div class="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left pr-0 lg:pr-6">
             
             <!-- Tech Badge Pill -->
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50/80 border border-blue-200/60 text-blue-700 text-[10.5px] sm:text-[11px] font-semibold tracking-wide uppercase mb-5 sm:mb-6 shadow-2xs">
@@ -374,12 +374,12 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             </h1>
 
             <!-- Subtitle -->
-            <p class="text-sm sm:text-base lg:text-lg text-gray-600 font-normal leading-relaxed max-w-2xl mb-7 sm:mb-8">
+            <p class="text-sm sm:text-base lg:text-lg text-gray-600 font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0 mb-7 sm:mb-8">
               The high-performance AI privacy and routing layer. Real-time zero-knowledge de-identification, 10 sovereign regulatory compliance packs, and instant multi-provider LLM orchestration with sub-millisecond overhead.
             </p>
 
             <!-- CTA Button Group -->
-            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto mb-8 sm:mb-10">
+            <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 w-full sm:w-auto max-w-sm sm:max-w-none mx-auto lg:mx-0 mb-8 sm:mb-10">
               <button onclick="openAuthModal()" class="w-full sm:w-auto px-6 py-3.5 rounded-full bg-black hover:bg-gray-800 text-white text-xs font-bold tracking-wider uppercase transition shadow-md hover:shadow-lg flex items-center justify-center gap-2 group cursor-pointer">
                 <span>Start Building</span>
                 <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-0.5 transition-transform"></i>
@@ -392,7 +392,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             </div>
 
             <!-- Mini Spec Highlight -->
-            <div class="flex flex-wrap items-center gap-4 sm:gap-6 pt-5 sm:pt-6 border-t border-gray-200/70 text-xs text-gray-500 font-medium">
+            <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 sm:gap-6 pt-5 sm:pt-6 border-t border-gray-200/70 text-xs text-gray-500 font-medium w-full">
               <div class="flex items-center gap-1.5">
                 <i data-lucide="check" class="w-4 h-4 text-emerald-600"></i>
                 <span>&lt;1ms PII Scrubbing</span>
