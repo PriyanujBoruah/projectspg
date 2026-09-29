@@ -227,6 +227,96 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     .marquee-container:hover .animate-marquee {
       animation-play-state: paused;
     }
+
+    /* Sub-feature Accordion & Mockup Switching Animations */
+    @keyframes subitemExpand {
+      0% {
+        opacity: 0;
+        transform: translateY(-8px) scale(0.985);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes subitemContentFade {
+      0% {
+        opacity: 0;
+        transform: translateY(5px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes subitemCollapsedFade {
+      0% {
+        opacity: 0;
+        transform: translateY(-4px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .subitem-expanded:not(.hidden) {
+      animation: subitemExpand 320ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .subitem-expanded:not(.hidden) > * {
+      animation: subitemContentFade 360ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .subitem-collapsed:not(.hidden) {
+      animation: subitemCollapsedFade 220ms ease both;
+    }
+
+    .subitem-collapsed {
+      transition: background-color 0.2s ease, transform 0.2s ease, color 0.2s ease;
+    }
+
+    .subitem-collapsed:hover {
+      transform: translateX(4px);
+    }
+
+    /* Right column visual mockup switching animation */
+    @keyframes mockupFadeSlide {
+      0% {
+        opacity: 0;
+        transform: translateY(14px) scale(0.98);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .mockup-inference:not(.hidden),
+    .mockup-compute:not(.hidden),
+    .mockup-shaping:not(.hidden) {
+      animation: mockupFadeSlide 360ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    /* Category panel switching animation */
+    @keyframes catPanelFade {
+      0% {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    #platform-cat-panel-inference:not(.hidden),
+    #platform-cat-panel-compute:not(.hidden),
+    #platform-cat-panel-shaping:not(.hidden) {
+      animation: catPanelFade 320ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
   </style>
 </head>
 
