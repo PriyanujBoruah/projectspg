@@ -221,7 +221,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       align-items: center;
       justify-content: space-around;
       min-width: 100%;
-      animation: marqueeScroll 22s linear infinite;
+      animation: marqueeScroll 28s linear infinite;
     }
 
     .marquee-container:hover .animate-marquee {
@@ -618,84 +618,76 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           <div class="absolute right-0 top-0 bottom-0 w-12 sm:w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
 
           <!-- Infinite Sliding Marquee Track -->
-          <div class="flex overflow-hidden relative w-full select-none py-1">
+          <div class="flex overflow-hidden relative w-full select-none py-2 items-center">
             <!-- Group 1 -->
-            <div class="animate-marquee flex shrink-0 items-center justify-around gap-8 sm:gap-14 min-w-full">
-              <!-- Brand 1: Cloudflare -->
-              <div class="flex items-center gap-2 text-gray-700 hover:text-gray-950 font-bold text-xs sm:text-sm tracking-tight transition-colors">
-                <svg class="w-5 h-5 sm:w-6 sm:h-6 text-[#f6821f] shrink-0" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M18.3 10.7c-.4-.4-.9-.6-1.5-.7-.4-2.7-2.7-4.8-5.5-4.8-2.5 0-4.6 1.7-5.3 4-1.7.3-3 1.8-3 3.6 0 2 1.6 3.7 3.7h11.4c1.8 0 3.3-1.5 3.3-3.3 0-1.1-.5-2-1.3-2.6z"/>
-                </svg>
-                <span class="whitespace-nowrap">Cloudflare Workers</span>
+            <div class="animate-marquee flex shrink-0 items-center justify-around gap-10 sm:gap-16 min-w-full">
+              <!-- Cloudflare -->
+              <div class="flex items-center shrink-0">
+                <img src="/logos/Cloudflare-Logo.png" alt="Cloudflare" title="Cloudflare Workers" class="h-7 sm:h-8 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
               </div>
-              <!-- Brand 2: Groq -->
-              <div class="flex items-center gap-2 text-gray-700 hover:text-gray-950 font-bold text-xs sm:text-sm tracking-tight transition-colors">
-                <span class="w-2.5 h-2.5 rounded-full bg-[#f0523d] shrink-0 animate-pulse"></span>
-                <span class="whitespace-nowrap">Groq LPU</span>
+              <!-- Groq -->
+              <div class="flex items-center shrink-0">
+                <img src="/logos/Groq-Logo.png" alt="Groq" title="Groq LPU" class="h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
               </div>
-              <!-- Brand 3: Mistral AI -->
-              <div class="flex items-center gap-2 text-gray-700 hover:text-gray-950 font-bold text-xs sm:text-sm tracking-tight transition-colors">
-                <svg class="w-4 h-4 sm:w-5 sm:h-5 text-amber-500 shrink-0" viewBox="0 0 24 24" fill="currentColor">
-                  <rect x="3" y="3" width="5" height="18" rx="1"/>
-                  <rect x="10" y="8" width="5" height="13" rx="1"/>
-                  <rect x="17" y="13" width="5" height="8" rx="1"/>
-                </svg>
-                <span class="whitespace-nowrap">Mistral AI</span>
+              <!-- Mistral AI -->
+              <div class="flex items-center shrink-0">
+                <img src="/logos/Mistral-AI-Logo.png" alt="Mistral AI" title="Mistral AI" class="h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
               </div>
-              <!-- Brand 4: Google DeepMind -->
-              <div class="flex items-center gap-2 text-gray-700 hover:text-gray-950 font-bold text-xs sm:text-sm tracking-tight transition-colors">
-                <svg class="w-4 h-4 sm:w-5 sm:h-5 text-blue-500 shrink-0" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-                </svg>
-                <span class="whitespace-nowrap">Google DeepMind</span>
+              <!-- Google DeepMind -->
+              <div class="flex items-center shrink-0">
+                <img src="/logos/Google-DeepMind-Logo.png" alt="Google DeepMind" title="Google DeepMind" class="h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
               </div>
-              <!-- Brand 5: OpenAI -->
-              <div class="flex items-center gap-2 text-gray-700 hover:text-gray-950 font-bold text-xs sm:text-sm tracking-tight transition-colors">
-                <svg class="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="12" cy="12" r="9"/>
-                  <path d="M12 8v8M8 12h8"/>
-                </svg>
-                <span class="whitespace-nowrap">OpenAI API</span>
+              <!-- OpenAI -->
+              <div class="flex items-center shrink-0">
+                <img src="/logos/OpenAI-Logo.png" alt="OpenAI" title="OpenAI API" class="h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
+              </div>
+              <!-- Anthropic -->
+              <div class="flex items-center shrink-0">
+                <img src="/logos/Anthropic-Logo.png" alt="Anthropic" title="Anthropic" class="h-3.5 sm:h-4 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
+              </div>
+              <!-- Google Gemini -->
+              <div class="flex items-center shrink-0">
+                <img src="/logos/Google-Gemini-Logo.png" alt="Google Gemini" title="Google Gemini" class="h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
+              </div>
+              <!-- OpenRouter -->
+              <div class="flex items-center shrink-0">
+                <img src="/logos/OpenRouter-Logo.png" alt="OpenRouter" title="OpenRouter" class="h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
               </div>
             </div>
 
             <!-- Group 2 (Duplicate for Seamless Infinite Loop) -->
-            <div class="animate-marquee flex shrink-0 items-center justify-around gap-8 sm:gap-14 min-w-full" aria-hidden="true">
-              <!-- Brand 1: Cloudflare -->
-              <div class="flex items-center gap-2 text-gray-700 hover:text-gray-950 font-bold text-xs sm:text-sm tracking-tight transition-colors">
-                <svg class="w-5 h-5 sm:w-6 sm:h-6 text-[#f6821f] shrink-0" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M18.3 10.7c-.4-.4-.9-.6-1.5-.7-.4-2.7-2.7-4.8-5.5-4.8-2.5 0-4.6 1.7-5.3 4-1.7.3-3 1.8-3 3.6 0 2 1.6 3.7 3.7h11.4c1.8 0 3.3-1.5 3.3-3.3 0-1.1-.5-2-1.3-2.6z"/>
-                </svg>
-                <span class="whitespace-nowrap">Cloudflare Workers</span>
+            <div class="animate-marquee flex shrink-0 items-center justify-around gap-10 sm:gap-16 min-w-full" aria-hidden="true">
+              <!-- Cloudflare -->
+              <div class="flex items-center shrink-0">
+                <img src="/logos/Cloudflare-Logo.png" alt="Cloudflare" title="Cloudflare Workers" class="h-7 sm:h-8 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
               </div>
-              <!-- Brand 2: Groq -->
-              <div class="flex items-center gap-2 text-gray-700 hover:text-gray-950 font-bold text-xs sm:text-sm tracking-tight transition-colors">
-                <span class="w-2.5 h-2.5 rounded-full bg-[#f0523d] shrink-0 animate-pulse"></span>
-                <span class="whitespace-nowrap">Groq LPU</span>
+              <!-- Groq -->
+              <div class="flex items-center shrink-0">
+                <img src="/logos/Groq-Logo.png" alt="Groq" title="Groq LPU" class="h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
               </div>
-              <!-- Brand 3: Mistral AI -->
-              <div class="flex items-center gap-2 text-gray-700 hover:text-gray-950 font-bold text-xs sm:text-sm tracking-tight transition-colors">
-                <svg class="w-4 h-4 sm:w-5 sm:h-5 text-amber-500 shrink-0" viewBox="0 0 24 24" fill="currentColor">
-                  <rect x="3" y="3" width="5" height="18" rx="1"/>
-                  <rect x="10" y="8" width="5" height="13" rx="1"/>
-                  <rect x="17" y="13" width="5" height="8" rx="1"/>
-                </svg>
-                <span class="whitespace-nowrap">Mistral AI</span>
+              <!-- Mistral AI -->
+              <div class="flex items-center shrink-0">
+                <img src="/logos/Mistral-AI-Logo.png" alt="Mistral AI" title="Mistral AI" class="h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
               </div>
-              <!-- Brand 4: Google DeepMind -->
-              <div class="flex items-center gap-2 text-gray-700 hover:text-gray-950 font-bold text-xs sm:text-sm tracking-tight transition-colors">
-                <svg class="w-4 h-4 sm:w-5 sm:h-5 text-blue-500 shrink-0" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-                </svg>
-                <span class="whitespace-nowrap">Google DeepMind</span>
+              <!-- Google DeepMind -->
+              <div class="flex items-center shrink-0">
+                <img src="/logos/Google-DeepMind-Logo.png" alt="Google DeepMind" title="Google DeepMind" class="h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
               </div>
-              <!-- Brand 5: OpenAI -->
-              <div class="flex items-center gap-2 text-gray-700 hover:text-gray-950 font-bold text-xs sm:text-sm tracking-tight transition-colors">
-                <svg class="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="12" cy="12" r="9"/>
-                  <path d="M12 8v8M8 12h8"/>
-                </svg>
-                <span class="whitespace-nowrap">OpenAI API</span>
+              <!-- OpenAI -->
+              <div class="flex items-center shrink-0">
+                <img src="/logos/OpenAI-Logo.png" alt="OpenAI" title="OpenAI API" class="h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
+              </div>
+              <!-- Anthropic -->
+              <div class="flex items-center shrink-0">
+                <img src="/logos/Anthropic-Logo.png" alt="Anthropic" title="Anthropic" class="h-3.5 sm:h-4 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
+              </div>
+              <!-- Google Gemini -->
+              <div class="flex items-center shrink-0">
+                <img src="/logos/Google-Gemini-Logo.png" alt="Google Gemini" title="Google Gemini" class="h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
+              </div>
+              <!-- OpenRouter -->
+              <div class="flex items-center shrink-0">
+                <img src="/logos/OpenRouter-Logo.png" alt="OpenRouter" title="OpenRouter" class="h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
               </div>
             </div>
           </div>
