@@ -184,9 +184,9 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     /* Mobile scroll auto-highlight for research cards (replaces hover effect on touch devices) */
     @media (max-width: 1023px) {
       .research-card.mobile-highlight {
-        border-color: #fcd34d !important;
+        border-color: rgba(255, 255, 255, 0.2) !important;
         transform: translateY(-4px) !important;
-        box-shadow: 0 12px 40px rgba(0,0,0,0.6), 0 0 35px rgba(251,191,36,0.25) !important;
+        box-shadow: 0 12px 40px rgba(0,0,0,0.6), 0 0 30px rgba(139,127,245,0.2) !important;
       }
       .research-card.mobile-highlight .research-frosting {
         opacity: 1 !important;
@@ -1325,7 +1325,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       <!-- SECTION 3: GROUNDED IN CUTTING-EDGE RESEARCH                            -->
       <!-- Matches uploaded media: 1790540856043.png & 1790540898787.png           -->
       <!-- ======================================================================= -->
-      <section id="research-section" class="w-full bg-[#060814] text-white py-14 sm:py-24 relative border-t border-slate-900">
+      <section id="research-section" class="w-full bg-[#010120] text-white py-14 sm:py-24 relative border-t border-[#121235]">
         
         <!-- Ambient Subtle Deep Background Glow -->
         <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-r from-blue-900/15 via-purple-900/15 to-indigo-900/15 blur-3xl pointer-events-none -z-0"></div>
@@ -1364,9 +1364,9 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             <div id="research-cards-track" class="grid grid-cols-1 lg:grid-cols-4 gap-6 relative z-10">
               
               <!-- Card 1: Step 01 - Prompt Ingestion & Interception -->
-              <div onclick="handleResearchCardClick(this)" class="research-card group relative rounded-xl min-h-[320px] sm:min-h-[380px] lg:min-h-[420px] w-full p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-[#262c52] hover:border-amber-300 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_35px_rgba(251,191,36,0.25)] bg-[#0d1224]">
+              <div onclick="handleResearchCardClick(this)" class="research-card group relative rounded-md min-h-[320px] sm:min-h-[380px] lg:min-h-[420px] w-full p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-white/[0.05] hover:border-white/20 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_25px_rgba(139,127,245,0.18)] bg-[#151531]">
                 <!-- Base Solid Dark Underlay -->
-                <div class="absolute inset-0 bg-[#0d1224] -z-10"></div>
+                <div class="absolute inset-0 bg-[#151531] -z-10"></div>
 
                 <!-- Hover Animated Iridescent Frosting -->
                 <div class="research-frosting absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0 pointer-events-none overflow-hidden">
@@ -1380,7 +1380,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
                 <!-- Top Badge Pill -->
                 <div class="relative z-10 flex justify-center w-full">
-                  <span class="research-badge px-3.5 py-1 rounded-md bg-white/10 group-hover:bg-white/20 border border-white/15 text-white/90 text-[10px] font-bold tracking-widest uppercase transition-colors">
+                  <span class="research-badge px-3.5 py-1 rounded bg-white/10 group-hover:bg-white/20 border border-white/15 text-white/90 text-[10px] font-bold tracking-widest uppercase transition-colors">
                     STEP 01 • PROMPT
                   </span>
                 </div>
@@ -1397,16 +1397,16 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                   <p class="research-author text-[10px] font-mono tracking-widest text-gray-400 uppercase text-center transition-all duration-200 group-hover:opacity-0 group-hover:scale-95">
                     &lt;1MS SUB-MILLISECOND P99
                   </p>
-                  <button onclick="switchView('playground')" class="research-btn absolute inset-0 m-auto w-32 h-9 rounded-lg bg-white/25 hover:bg-white/35 text-white text-[11px] font-bold tracking-wider uppercase backdrop-blur-md border border-white/30 transition-all duration-300 shadow-md opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 flex items-center justify-center cursor-pointer">
+                  <button onclick="switchView('playground')" class="research-btn absolute inset-0 m-auto w-32 h-9 rounded bg-white/25 hover:bg-white/35 text-white text-[11px] font-bold tracking-wider uppercase backdrop-blur-md border border-white/30 transition-all duration-300 shadow-md opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 flex items-center justify-center cursor-pointer">
                     READ MORE
                   </button>
                 </div>
               </div>
 
               <!-- Card 2: Step 02 - Sovereign De-Identification -->
-              <div onclick="handleResearchCardClick(this)" class="research-card group relative rounded-xl min-h-[320px] sm:min-h-[380px] lg:min-h-[420px] w-full p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-[#262c52] hover:border-amber-300 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_35px_rgba(251,191,36,0.25)] bg-[#0d1224]">
+              <div onclick="handleResearchCardClick(this)" class="research-card group relative rounded-md min-h-[320px] sm:min-h-[380px] lg:min-h-[420px] w-full p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-white/[0.05] hover:border-white/20 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_25px_rgba(139,127,245,0.18)] bg-[#151531]">
                 <!-- Base Solid Dark Underlay -->
-                <div class="absolute inset-0 bg-[#0d1224] -z-10"></div>
+                <div class="absolute inset-0 bg-[#151531] -z-10"></div>
 
                 <!-- Hover Animated Iridescent Frosting -->
                 <div class="research-frosting absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0 pointer-events-none overflow-hidden">
@@ -1419,7 +1419,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
                 <!-- Top Badge Pill -->
                 <div class="relative z-10 flex justify-center w-full">
-                  <span class="research-badge px-3.5 py-1 rounded-md bg-white/10 group-hover:bg-white/20 border border-white/15 text-white/90 text-[10px] font-bold tracking-widest uppercase transition-colors">
+                  <span class="research-badge px-3.5 py-1 rounded bg-white/10 group-hover:bg-white/20 border border-white/15 text-white/90 text-[10px] font-bold tracking-widest uppercase transition-colors">
                     STEP 02 • DE-IDENTIFY
                   </span>
                 </div>
@@ -1436,16 +1436,16 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                   <p class="research-author text-[10px] font-mono tracking-widest text-gray-400 uppercase text-center transition-all duration-200 group-hover:opacity-0 group-hover:scale-95">
                     BYOK KMS AES-256
                   </p>
-                  <button onclick="switchView('playground')" class="research-btn absolute inset-0 m-auto w-32 h-9 rounded-lg bg-white/25 hover:bg-white/35 text-white text-[11px] font-bold tracking-wider uppercase backdrop-blur-md border border-white/30 transition-all duration-300 shadow-md opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 flex items-center justify-center cursor-pointer">
+                  <button onclick="switchView('playground')" class="research-btn absolute inset-0 m-auto w-32 h-9 rounded bg-white/25 hover:bg-white/35 text-white text-[11px] font-bold tracking-wider uppercase backdrop-blur-md border border-white/30 transition-all duration-300 shadow-md opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 flex items-center justify-center cursor-pointer">
                     READ MORE
                   </button>
                 </div>
               </div>
 
               <!-- Card 3: Step 03 - Zero-Trust AI Inference -->
-              <div onclick="handleResearchCardClick(this)" class="research-card group relative rounded-xl min-h-[320px] sm:min-h-[380px] lg:min-h-[420px] w-full p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-[#262c52] hover:border-amber-300 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_35px_rgba(251,191,36,0.25)] bg-[#0d1224]">
+              <div onclick="handleResearchCardClick(this)" class="research-card group relative rounded-md min-h-[320px] sm:min-h-[380px] lg:min-h-[420px] w-full p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-white/[0.05] hover:border-white/20 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_25px_rgba(139,127,245,0.18)] bg-[#151531]">
                 <!-- Base Solid Dark Underlay -->
-                <div class="absolute inset-0 bg-[#0d1224] -z-10"></div>
+                <div class="absolute inset-0 bg-[#151531] -z-10"></div>
 
                 <!-- Hover Animated Iridescent Frosting -->
                 <div class="research-frosting absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0 pointer-events-none overflow-hidden">
@@ -1458,7 +1458,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
                 <!-- Top Badge Pill -->
                 <div class="relative z-10 flex justify-center w-full">
-                  <span class="research-badge px-3.5 py-1 rounded-md bg-white/10 group-hover:bg-white/20 border border-white/15 text-white/90 text-[10px] font-bold tracking-widest uppercase transition-colors">
+                  <span class="research-badge px-3.5 py-1 rounded bg-white/10 group-hover:bg-white/20 border border-white/15 text-white/90 text-[10px] font-bold tracking-widest uppercase transition-colors">
                     STEP 03 • INFERENCE
                   </span>
                 </div>
@@ -1475,16 +1475,16 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                   <p class="research-author text-[10px] font-mono tracking-widest text-gray-400 uppercase text-center transition-all duration-200 group-hover:opacity-0 group-hover:scale-95">
                     GROQ • MISTRAL • OPENAI
                   </p>
-                  <button onclick="switchView('playground')" class="research-btn absolute inset-0 m-auto w-32 h-9 rounded-lg bg-white/25 hover:bg-white/35 text-white text-[11px] font-bold tracking-wider uppercase backdrop-blur-md border border-white/30 transition-all duration-300 shadow-md opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 flex items-center justify-center cursor-pointer">
+                  <button onclick="switchView('playground')" class="research-btn absolute inset-0 m-auto w-32 h-9 rounded bg-white/25 hover:bg-white/35 text-white text-[11px] font-bold tracking-wider uppercase backdrop-blur-md border border-white/30 transition-all duration-300 shadow-md opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 flex items-center justify-center cursor-pointer">
                     READ MORE
                   </button>
                 </div>
               </div>
 
               <!-- Card 4: Step 04 - Real-Time Rehydration -->
-              <div onclick="handleResearchCardClick(this)" class="research-card group relative rounded-xl min-h-[320px] sm:min-h-[380px] lg:min-h-[420px] w-full p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-[#262c52] hover:border-amber-300 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_35px_rgba(251,191,36,0.25)] bg-[#0d1224]">
+              <div onclick="handleResearchCardClick(this)" class="research-card group relative rounded-md min-h-[320px] sm:min-h-[380px] lg:min-h-[420px] w-full p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-white/[0.05] hover:border-white/20 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_25px_rgba(139,127,245,0.18)] bg-[#151531]">
                 <!-- Base Solid Dark Underlay -->
-                <div class="absolute inset-0 bg-[#0d1224] -z-10"></div>
+                <div class="absolute inset-0 bg-[#151531] -z-10"></div>
 
                 <!-- Hover Animated Iridescent Frosting -->
                 <div class="research-frosting absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0 pointer-events-none overflow-hidden">
@@ -1497,7 +1497,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
                 <!-- Top Badge Pill -->
                 <div class="relative z-10 flex justify-center w-full">
-                  <span class="research-badge px-3.5 py-1 rounded-md bg-white/10 group-hover:bg-white/20 border border-white/15 text-white/90 text-[10px] font-bold tracking-widest uppercase transition-colors">
+                  <span class="research-badge px-3.5 py-1 rounded bg-white/10 group-hover:bg-white/20 border border-white/15 text-white/90 text-[10px] font-bold tracking-widest uppercase transition-colors">
                     STEP 04 • REHYDRATE
                   </span>
                 </div>
@@ -1514,7 +1514,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                   <p class="research-author text-[10px] font-mono tracking-widest text-gray-400 uppercase text-center transition-all duration-200 group-hover:opacity-0 group-hover:scale-95">
                     STREAMING SSE DETOKENIZATION
                   </p>
-                  <button onclick="switchView('playground')" class="research-btn absolute inset-0 m-auto w-32 h-9 rounded-lg bg-white/25 hover:bg-white/35 text-white text-[11px] font-bold tracking-wider uppercase backdrop-blur-md border border-white/30 transition-all duration-300 shadow-md opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 flex items-center justify-center cursor-pointer">
+                  <button onclick="switchView('playground')" class="research-btn absolute inset-0 m-auto w-32 h-9 rounded bg-white/25 hover:bg-white/35 text-white text-[11px] font-bold tracking-wider uppercase backdrop-blur-md border border-white/30 transition-all duration-300 shadow-md opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 flex items-center justify-center cursor-pointer">
                     READ MORE
                   </button>
                 </div>
