@@ -3902,13 +3902,13 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       // Fast deterministic client fallback
       const sanitized = text
         .replace(/1Z[0-9A-Z]{16}/g, 'TRACKING_1')
-        .replace(/john\.smith@company\.com/g, 'EMAIL_1')
-        .replace(/ORD-150/g, 'INVOICE_1')
-        .replace(/2345 6789 0124/g, 'AADHAAR_1')
-        .replace(/\+1-555-019-2834/g, 'PHONE_1')
-        .replace(/CC992140300/g, 'NATIONAL_ID_1')
-        .replace(/mailer-daemon@relay\.corp\.internal/g, 'EMAIL_1')
-        .replace(/98471-AX/g, 'ACCOUNT_1');
+        .replaceAll('john.smith@company.com', 'EMAIL_1')
+        .replaceAll('ORD-150', 'INVOICE_1')
+        .replaceAll('2345 6789 0124', 'AADHAAR_1')
+        .replaceAll('+1-555-019-2834', 'PHONE_1')
+        .replaceAll('CC992140300', 'NATIONAL_ID_1')
+        .replaceAll('mailer-daemon@relay.corp.internal', 'EMAIL_1')
+        .replaceAll('98471-AX', 'ACCOUNT_1');
       tokenizedOut.textContent = sanitized;
       rehydratedOut.textContent = text;
       if (statsOut) {
@@ -3917,7 +3917,13 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     }
 
     function copyBlogCode(btn) {
-      const code = "git clone https://github.com/PriyanujBoruah/AI-Privacy-Core.git\ncd AI-Privacy-Core && npm install\nnpm test\nnode scripts/http_latency_benchmark.mjs --samples 50000 --concurrency 30\nnode scripts/multicore_benchmark.mjs --workers 8";
+      const code = [
+        "git clone https://github.com/PriyanujBoruah/AI-Privacy-Core.git",
+        "cd AI-Privacy-Core && npm install",
+        "npm test",
+        "node scripts/http_latency_benchmark.mjs --samples 50000 --concurrency 30",
+        "node scripts/multicore_benchmark.mjs --workers 8"
+      ].join('\n');
       navigator.clipboard.writeText(code).then(() => {
         const orig = btn.textContent;
         btn.textContent = 'COPIED!';
