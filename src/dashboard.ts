@@ -219,9 +219,16 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       display: flex;
       flex-shrink: 0;
       align-items: center;
-      justify-content: space-around;
-      min-width: 100%;
+      gap: 3.5rem;
+      padding-right: 3.5rem;
       animation: marqueeScroll 28s linear infinite;
+    }
+
+    @media (min-width: 640px) {
+      .animate-marquee {
+        gap: 4.5rem;
+        padding-right: 4.5rem;
+      }
     }
 
     .marquee-container:hover .animate-marquee {
@@ -620,7 +627,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           <!-- Infinite Sliding Marquee Track -->
           <div class="flex overflow-hidden relative w-full select-none py-2 items-center">
             <!-- Group 1 -->
-            <div class="animate-marquee flex shrink-0 items-center justify-around gap-10 sm:gap-16 min-w-full">
+            <div class="animate-marquee">
               <!-- Groq -->
               <div class="flex items-center shrink-0">
                 <img src="/logos/Groq-Logo.png" alt="Groq" title="Groq LPU" class="h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
@@ -652,7 +659,39 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             </div>
 
             <!-- Group 2 (Duplicate for Seamless Infinite Loop) -->
-            <div class="animate-marquee flex shrink-0 items-center justify-around gap-10 sm:gap-16 min-w-full" aria-hidden="true">
+            <div class="animate-marquee" aria-hidden="true">
+              <!-- Groq -->
+              <div class="flex items-center shrink-0">
+                <img src="/logos/Groq-Logo.png" alt="Groq" title="Groq LPU" class="h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
+              </div>
+              <!-- Mistral AI -->
+              <div class="flex items-center shrink-0">
+                <img src="/logos/Mistral-AI-Logo.png" alt="Mistral AI" title="Mistral AI" class="h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
+              </div>
+              <!-- Google DeepMind -->
+              <div class="flex items-center shrink-0">
+                <img src="/logos/Google-DeepMind-Logo.png" alt="Google DeepMind" title="Google DeepMind" class="h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
+              </div>
+              <!-- OpenAI -->
+              <div class="flex items-center shrink-0">
+                <img src="/logos/OpenAI-Logo.png" alt="OpenAI" title="OpenAI API" class="h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
+              </div>
+              <!-- Anthropic -->
+              <div class="flex items-center shrink-0">
+                <img src="/logos/Anthropic-Logo.png" alt="Anthropic" title="Anthropic" class="h-3.5 sm:h-4 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
+              </div>
+              <!-- Google Gemini -->
+              <div class="flex items-center shrink-0">
+                <img src="/logos/Google-Gemini-Logo.png" alt="Google Gemini" title="Google Gemini" class="h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
+              </div>
+              <!-- OpenRouter -->
+              <div class="flex items-center shrink-0">
+                <img src="/logos/OpenRouter-Logo.png" alt="OpenRouter" title="OpenRouter" class="h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
+              </div>
+            </div>
+
+            <!-- Group 3 (Extended Buffer for Ultrawide Screens) -->
+            <div class="animate-marquee" aria-hidden="true">
               <!-- Groq -->
               <div class="flex items-center shrink-0">
                 <img src="/logos/Groq-Logo.png" alt="Groq" title="Groq LPU" class="h-5 sm:h-6 w-auto object-contain opacity-85 hover:opacity-100 transition-opacity" />
