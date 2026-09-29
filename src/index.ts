@@ -3,6 +3,7 @@ import { cors } from "hono/cors";
 import tokenizationApp from "./routes/tokenization";
 import openaiApp from "./routes/openai";
 import { DASHBOARD_HTML } from "./dashboard";
+import { BENCHMARK_BLOG_HTML } from "./blog_benchmark";
 import {
   createApiKey,
   listApiKeys,
@@ -57,9 +58,11 @@ app.options("*", (c) => c.body(null, 204));
 // Serve Single-File Enterprise Landing Page & Console
 app.get("/", (c) => c.html(DASHBOARD_HTML));
 app.get("/dashboard", (c) => c.html(DASHBOARD_HTML));
-app.get("/blog/benchmark", (c) => c.redirect("/#blog-benchmark"));
-app.get("/test-results", (c) => c.redirect("/#blog-benchmark"));
-app.get("/test-results.html", (c) => c.redirect("/#blog-benchmark"));
+
+// Serve Technical Benchmark & Empirical Reliability Blog
+app.get("/blog/benchmark", (c) => c.html(BENCHMARK_BLOG_HTML));
+app.get("/test-results", (c) => c.html(BENCHMARK_BLOG_HTML));
+app.get("/test-results.html", (c) => c.html(BENCHMARK_BLOG_HTML));
 
 // Mount API Key Authentication Middleware on /v1 routes
 app.use("/v1/*", createAuthMiddleware());
