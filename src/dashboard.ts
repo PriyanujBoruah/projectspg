@@ -204,6 +204,29 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         pointer-events: auto !important;
       }
     }
+
+    /* Infinite Marquee Animation for Infrastructure Badges */
+    @keyframes marqueeScroll {
+      0% {
+        transform: translateX(0%);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+
+    .animate-marquee {
+      display: flex;
+      flex-shrink: 0;
+      align-items: center;
+      justify-content: space-around;
+      min-width: 100%;
+      animation: marqueeScroll 22s linear infinite;
+    }
+
+    .marquee-container:hover .animate-marquee {
+      animation-play-state: paused;
+    }
   </style>
 </head>
 
@@ -403,7 +426,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             </p>
 
             <!-- CTA Button Group -->
-            <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 w-full sm:w-auto max-w-sm sm:max-w-none mx-auto lg:mx-0 mb-8 sm:mb-10">
+            <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 w-full sm:w-auto max-w-sm sm:max-w-none mx-auto lg:mx-0 mb-4 sm:mb-0">
               <button onclick="openAuthModal()" class="w-full sm:w-auto px-6 py-3.5 rounded-full bg-black hover:bg-gray-800 text-white text-xs font-bold tracking-wider uppercase transition shadow-md hover:shadow-lg flex items-center justify-center gap-2 group cursor-pointer">
                 <span>Start Building</span>
                 <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-0.5 transition-transform"></i>
@@ -413,22 +436,6 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                 <span>Try Playground</span>
                 <i data-lucide="terminal" class="w-3.5 h-3.5 text-gray-500"></i>
               </button>
-            </div>
-
-            <!-- Mini Spec Highlight -->
-            <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 sm:gap-6 pt-5 sm:pt-6 border-t border-gray-200/70 text-xs text-gray-500 font-medium w-full">
-              <div class="flex items-center gap-1.5">
-                <i data-lucide="check" class="w-4 h-4 text-emerald-600"></i>
-                <span>&lt;1ms PII Scrubbing</span>
-              </div>
-              <div class="flex items-center gap-1.5">
-                <i data-lucide="check" class="w-4 h-4 text-emerald-600"></i>
-                <span>BYOK KMS AES-256</span>
-              </div>
-              <div class="flex items-center gap-1.5">
-                <i data-lucide="check" class="w-4 h-4 text-emerald-600"></i>
-                <span>SOC-2 &amp; GDPR Ready</span>
-              </div>
             </div>
 
           </div>
@@ -540,47 +547,92 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
         </div>
 
-        <!-- Social Proof Strip (Bottom of Hero) -->
-        <div class="mt-12 sm:mt-20 pt-8 sm:pt-10 border-t border-gray-200/80 w-full">
-          <p class="text-center text-[10px] sm:text-[11px] font-bold uppercase tracking-widest text-gray-500 mb-6 sm:mb-8 px-2">
-            TRUSTED BY DEVELOPERS &amp; ENTERPRISES ACROSS HIGH-REGULATION INDUSTRIES
-          </p>
-          <div class="flex flex-wrap items-center justify-center gap-6 sm:gap-10 md:gap-16 opacity-75 grayscale hover:grayscale-0 transition-all duration-300">
-            <!-- Brand Badge 1: Cloudflare -->
-            <div class="flex items-center gap-2 text-gray-700 font-bold text-sm tracking-tight">
-              <svg class="w-6 h-6 text-[#f6821f]" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M18.3 10.7c-.4-.4-.9-.6-1.5-.7-.4-2.7-2.7-4.8-5.5-4.8-2.5 0-4.6 1.7-5.3 4-1.7.3-3 1.8-3 3.6 0 2 1.6 3.7 3.7 3.7h11.4c1.8 0 3.3-1.5 3.3-3.3 0-1.1-.5-2-1.3-2.6z"/>
-              </svg>
-              <span>Cloudflare Workers</span>
+        <!-- Animated Infrastructure & Engine Badges Strip -->
+        <div class="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-gray-100/90 w-full overflow-hidden relative marquee-container">
+          <!-- Ambient Side Fade Masks -->
+          <div class="absolute left-0 top-0 bottom-0 w-12 sm:w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
+          <div class="absolute right-0 top-0 bottom-0 w-12 sm:w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
+
+          <!-- Infinite Sliding Marquee Track -->
+          <div class="flex overflow-hidden relative w-full select-none py-1">
+            <!-- Group 1 -->
+            <div class="animate-marquee flex shrink-0 items-center justify-around gap-8 sm:gap-14 min-w-full">
+              <!-- Brand 1: Cloudflare -->
+              <div class="flex items-center gap-2 text-gray-700 hover:text-gray-950 font-bold text-xs sm:text-sm tracking-tight transition-colors">
+                <svg class="w-5 h-5 sm:w-6 sm:h-6 text-[#f6821f] shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18.3 10.7c-.4-.4-.9-.6-1.5-.7-.4-2.7-2.7-4.8-5.5-4.8-2.5 0-4.6 1.7-5.3 4-1.7.3-3 1.8-3 3.6 0 2 1.6 3.7 3.7h11.4c1.8 0 3.3-1.5 3.3-3.3 0-1.1-.5-2-1.3-2.6z"/>
+                </svg>
+                <span class="whitespace-nowrap">Cloudflare Workers</span>
+              </div>
+              <!-- Brand 2: Groq -->
+              <div class="flex items-center gap-2 text-gray-700 hover:text-gray-950 font-bold text-xs sm:text-sm tracking-tight transition-colors">
+                <span class="w-2.5 h-2.5 rounded-full bg-[#f0523d] shrink-0 animate-pulse"></span>
+                <span class="whitespace-nowrap">Groq LPU</span>
+              </div>
+              <!-- Brand 3: Mistral AI -->
+              <div class="flex items-center gap-2 text-gray-700 hover:text-gray-950 font-bold text-xs sm:text-sm tracking-tight transition-colors">
+                <svg class="w-4 h-4 sm:w-5 sm:h-5 text-amber-500 shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                  <rect x="3" y="3" width="5" height="18" rx="1"/>
+                  <rect x="10" y="8" width="5" height="13" rx="1"/>
+                  <rect x="17" y="13" width="5" height="8" rx="1"/>
+                </svg>
+                <span class="whitespace-nowrap">Mistral AI</span>
+              </div>
+              <!-- Brand 4: Google DeepMind -->
+              <div class="flex items-center gap-2 text-gray-700 hover:text-gray-950 font-bold text-xs sm:text-sm tracking-tight transition-colors">
+                <svg class="w-4 h-4 sm:w-5 sm:h-5 text-blue-500 shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                </svg>
+                <span class="whitespace-nowrap">Google DeepMind</span>
+              </div>
+              <!-- Brand 5: OpenAI -->
+              <div class="flex items-center gap-2 text-gray-700 hover:text-gray-950 font-bold text-xs sm:text-sm tracking-tight transition-colors">
+                <svg class="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="9"/>
+                  <path d="M12 8v8M8 12h8"/>
+                </svg>
+                <span class="whitespace-nowrap">OpenAI API</span>
+              </div>
             </div>
-            <!-- Brand Badge 2: Groq -->
-            <div class="flex items-center gap-2 text-gray-700 font-bold text-sm tracking-tight">
-              <span class="w-2.5 h-2.5 rounded-full bg-[#f0523d]"></span>
-              <span>Groq LPU</span>
-            </div>
-            <!-- Brand Badge 3: Mistral AI -->
-            <div class="flex items-center gap-2 text-gray-700 font-bold text-sm tracking-tight">
-              <svg class="w-5 h-5 text-amber-500" viewBox="0 0 24 24" fill="currentColor">
-                <rect x="3" y="3" width="5" height="18" rx="1"/>
-                <rect x="10" y="8" width="5" height="13" rx="1"/>
-                <rect x="17" y="13" width="5" height="8" rx="1"/>
-              </svg>
-              <span>Mistral AI</span>
-            </div>
-            <!-- Brand Badge 4: Google Gemma -->
-            <div class="flex items-center gap-2 text-gray-700 font-bold text-sm tracking-tight">
-              <svg class="w-5 h-5 text-blue-500" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-              </svg>
-              <span>Google DeepMind</span>
-            </div>
-            <!-- Brand Badge 5: OpenAI -->
-            <div class="flex items-center gap-2 text-gray-700 font-bold text-sm tracking-tight">
-              <svg class="w-5 h-5 text-emerald-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="9"/>
-                <path d="M12 8v8M8 12h8"/>
-              </svg>
-              <span>OpenAI API</span>
+
+            <!-- Group 2 (Duplicate for Seamless Infinite Loop) -->
+            <div class="animate-marquee flex shrink-0 items-center justify-around gap-8 sm:gap-14 min-w-full" aria-hidden="true">
+              <!-- Brand 1: Cloudflare -->
+              <div class="flex items-center gap-2 text-gray-700 hover:text-gray-950 font-bold text-xs sm:text-sm tracking-tight transition-colors">
+                <svg class="w-5 h-5 sm:w-6 sm:h-6 text-[#f6821f] shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18.3 10.7c-.4-.4-.9-.6-1.5-.7-.4-2.7-2.7-4.8-5.5-4.8-2.5 0-4.6 1.7-5.3 4-1.7.3-3 1.8-3 3.6 0 2 1.6 3.7 3.7h11.4c1.8 0 3.3-1.5 3.3-3.3 0-1.1-.5-2-1.3-2.6z"/>
+                </svg>
+                <span class="whitespace-nowrap">Cloudflare Workers</span>
+              </div>
+              <!-- Brand 2: Groq -->
+              <div class="flex items-center gap-2 text-gray-700 hover:text-gray-950 font-bold text-xs sm:text-sm tracking-tight transition-colors">
+                <span class="w-2.5 h-2.5 rounded-full bg-[#f0523d] shrink-0 animate-pulse"></span>
+                <span class="whitespace-nowrap">Groq LPU</span>
+              </div>
+              <!-- Brand 3: Mistral AI -->
+              <div class="flex items-center gap-2 text-gray-700 hover:text-gray-950 font-bold text-xs sm:text-sm tracking-tight transition-colors">
+                <svg class="w-4 h-4 sm:w-5 sm:h-5 text-amber-500 shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                  <rect x="3" y="3" width="5" height="18" rx="1"/>
+                  <rect x="10" y="8" width="5" height="13" rx="1"/>
+                  <rect x="17" y="13" width="5" height="8" rx="1"/>
+                </svg>
+                <span class="whitespace-nowrap">Mistral AI</span>
+              </div>
+              <!-- Brand 4: Google DeepMind -->
+              <div class="flex items-center gap-2 text-gray-700 hover:text-gray-950 font-bold text-xs sm:text-sm tracking-tight transition-colors">
+                <svg class="w-4 h-4 sm:w-5 sm:h-5 text-blue-500 shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                </svg>
+                <span class="whitespace-nowrap">Google DeepMind</span>
+              </div>
+              <!-- Brand 5: OpenAI -->
+              <div class="flex items-center gap-2 text-gray-700 hover:text-gray-950 font-bold text-xs sm:text-sm tracking-tight transition-colors">
+                <svg class="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="9"/>
+                  <path d="M12 8v8M8 12h8"/>
+                </svg>
+                <span class="whitespace-nowrap">OpenAI API</span>
+              </div>
             </div>
           </div>
         </div>
