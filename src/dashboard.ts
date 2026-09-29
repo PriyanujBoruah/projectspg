@@ -756,19 +756,19 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
         <!-- 3 Squarish Category Buttons with Rounded Corners (Inference, Compute, Model shaping) -->
         <div class="grid grid-cols-3 gap-3 sm:gap-6 max-w-4xl mx-auto mb-8 sm:mb-12 px-1">
-          <button id="cat-tab-inference" onclick="selectPlatformCategory('inference')" class="cat-pill py-3.5 sm:py-4.5 px-2 sm:px-6 rounded-xl sm:rounded-2xl text-center font-bold text-xs sm:text-base md:text-xl transition-all duration-200 cursor-pointer text-gray-950 border border-transparent shadow-2xs bg-[#d5f5f6]">
+          <button id="cat-tab-inference" onclick="selectPlatformCategory('inference')" class="cat-pill py-3.5 sm:py-4.5 px-2 sm:px-6 rounded-md text-center font-bold text-xs sm:text-base md:text-xl transition-all duration-200 cursor-pointer text-gray-950 border border-transparent shadow-2xs bg-[#d5f5f6]">
             Inference
           </button>
-          <button id="cat-tab-compute" onclick="selectPlatformCategory('compute')" class="cat-pill py-3.5 sm:py-4.5 px-2 sm:px-6 rounded-xl sm:rounded-2xl text-center font-bold text-xs sm:text-base md:text-xl transition-all duration-200 cursor-pointer bg-white text-gray-900 border border-gray-200/70 shadow-2xs hover:bg-gray-50/90 hover:text-black">
+          <button id="cat-tab-compute" onclick="selectPlatformCategory('compute')" class="cat-pill py-3.5 sm:py-4.5 px-2 sm:px-6 rounded-md text-center font-bold text-xs sm:text-base md:text-xl transition-all duration-200 cursor-pointer bg-white text-gray-900 border border-gray-200/70 shadow-2xs hover:bg-gray-50/90 hover:text-black">
             Compute
           </button>
-          <button id="cat-tab-shaping" onclick="selectPlatformCategory('shaping')" class="cat-pill py-3.5 sm:py-4.5 px-2 sm:px-6 rounded-xl sm:rounded-2xl text-center font-bold text-xs sm:text-base md:text-xl transition-all duration-200 cursor-pointer bg-white text-gray-900 border border-gray-200/70 shadow-2xs hover:bg-gray-50/90 hover:text-black">
+          <button id="cat-tab-shaping" onclick="selectPlatformCategory('shaping')" class="cat-pill py-3.5 sm:py-4.5 px-2 sm:px-6 rounded-md text-center font-bold text-xs sm:text-base md:text-xl transition-all duration-200 cursor-pointer bg-white text-gray-900 border border-gray-200/70 shadow-2xs hover:bg-gray-50/90 hover:text-black">
             Model shaping
           </button>
         </div>
 
         <!-- Unified White Category Panel Wrapper -->
-        <div class="w-full bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 lg:p-10 border border-gray-200/80 shadow-xs">
+        <div class="w-full bg-white rounded-xl p-5 sm:p-8 lg:p-10 border border-gray-200/80 shadow-xs">
 
         <!-- ===================================================================== -->
         <!-- CATEGORY PANEL 1: INFERENCE -->
@@ -779,7 +779,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           <div class="lg:col-span-5 flex flex-col space-y-3">
             
             <!-- Item 0: Serverless Inference (Active Default) -->
-            <div class="platform-subitem subitem-inference is-active w-full rounded-2xl border transition-all duration-300 cursor-pointer overflow-hidden" onclick="selectPlatformSubItem('inference', 0)">
+            <div class="platform-subitem subitem-inference is-active w-full rounded-xl border transition-all duration-300 cursor-pointer overflow-hidden" onclick="selectPlatformSubItem('inference', 0)">
               <div class="p-4 sm:p-5 flex items-center justify-between">
                 <div class="flex items-center gap-3.5">
                   <div class="subitem-icon-box w-9 h-9 rounded-xl bg-cyan-50 border border-cyan-100 flex items-center justify-center text-cyan-600 transition-all duration-300">
@@ -803,7 +803,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             </div>
 
             <!-- Item 1: Batch Inference -->
-            <div class="platform-subitem subitem-inference w-full rounded-2xl border transition-all duration-300 cursor-pointer overflow-hidden" onclick="selectPlatformSubItem('inference', 1)">
+            <div class="platform-subitem subitem-inference w-full rounded-xl border transition-all duration-300 cursor-pointer overflow-hidden" onclick="selectPlatformSubItem('inference', 1)">
               <div class="p-4 sm:p-5 flex items-center justify-between">
                 <div class="flex items-center gap-3.5">
                   <div class="subitem-icon-box w-9 h-9 rounded-xl bg-cyan-50 border border-cyan-100 flex items-center justify-center text-cyan-600 transition-all duration-300">
@@ -827,7 +827,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             </div>
 
             <!-- Item 2: Provisioned Throughput -->
-            <div class="platform-subitem subitem-inference w-full rounded-2xl border transition-all duration-300 cursor-pointer overflow-hidden" onclick="selectPlatformSubItem('inference', 2)">
+            <div class="platform-subitem subitem-inference w-full rounded-xl border transition-all duration-300 cursor-pointer overflow-hidden" onclick="selectPlatformSubItem('inference', 2)">
               <div class="p-4 sm:p-5 flex items-center justify-between">
                 <div class="flex items-center gap-3.5">
                   <div class="subitem-icon-box w-9 h-9 rounded-xl bg-cyan-50 border border-cyan-100 flex items-center justify-center text-cyan-600 transition-all duration-300">
@@ -851,7 +851,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             </div>
 
             <!-- Item 3: Dedicated Model Inference -->
-            <div class="platform-subitem subitem-inference w-full rounded-2xl border transition-all duration-300 cursor-pointer overflow-hidden" onclick="selectPlatformSubItem('inference', 3)">
+            <div class="platform-subitem subitem-inference w-full rounded-xl border transition-all duration-300 cursor-pointer overflow-hidden" onclick="selectPlatformSubItem('inference', 3)">
               <div class="p-4 sm:p-5 flex items-center justify-between">
                 <div class="flex items-center gap-3.5">
                   <div class="subitem-icon-box w-9 h-9 rounded-xl bg-cyan-50 border border-cyan-100 flex items-center justify-center text-cyan-600 transition-all duration-300">
@@ -1016,7 +1016,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           <div class="lg:col-span-5 flex flex-col space-y-3">
             
             <!-- Item 0: Accelerated Compute (Active Default) -->
-            <div class="platform-subitem subitem-compute is-active w-full rounded-2xl border transition-all duration-300 cursor-pointer overflow-hidden" onclick="selectPlatformSubItem('compute', 0)">
+            <div class="platform-subitem subitem-compute is-active w-full rounded-xl border transition-all duration-300 cursor-pointer overflow-hidden" onclick="selectPlatformSubItem('compute', 0)">
               <div class="p-4 sm:p-5 flex items-center justify-between">
                 <div class="flex items-center gap-3.5">
                   <div class="subitem-icon-box w-9 h-9 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 transition-all duration-300">
@@ -1040,7 +1040,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             </div>
 
             <!-- Item 1: Sandbox -->
-            <div class="platform-subitem subitem-compute w-full rounded-2xl border transition-all duration-300 cursor-pointer overflow-hidden" onclick="selectPlatformSubItem('compute', 1)">
+            <div class="platform-subitem subitem-compute w-full rounded-xl border transition-all duration-300 cursor-pointer overflow-hidden" onclick="selectPlatformSubItem('compute', 1)">
               <div class="p-4 sm:p-5 flex items-center justify-between">
                 <div class="flex items-center gap-3.5">
                   <div class="subitem-icon-box w-9 h-9 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 transition-all duration-300">
@@ -1064,7 +1064,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             </div>
 
             <!-- Item 2: Managed Storage -->
-            <div class="platform-subitem subitem-compute w-full rounded-2xl border transition-all duration-300 cursor-pointer overflow-hidden" onclick="selectPlatformSubItem('compute', 2)">
+            <div class="platform-subitem subitem-compute w-full rounded-xl border transition-all duration-300 cursor-pointer overflow-hidden" onclick="selectPlatformSubItem('compute', 2)">
               <div class="p-4 sm:p-5 flex items-center justify-between">
                 <div class="flex items-center gap-3.5">
                   <div class="subitem-icon-box w-9 h-9 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 transition-all duration-300">
@@ -1198,7 +1198,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           <div class="lg:col-span-5 flex flex-col space-y-3">
             
             <!-- Item 0: Fine-Tuning (Active Default) -->
-            <div class="platform-subitem subitem-shaping is-active w-full rounded-2xl border transition-all duration-300 cursor-pointer overflow-hidden" onclick="selectPlatformSubItem('shaping', 0)">
+            <div class="platform-subitem subitem-shaping is-active w-full rounded-xl border transition-all duration-300 cursor-pointer overflow-hidden" onclick="selectPlatformSubItem('shaping', 0)">
               <div class="p-4 sm:p-5 flex items-center justify-between">
                 <div class="flex items-center gap-3.5">
                   <div class="subitem-icon-box w-9 h-9 rounded-xl bg-purple-50 border border-purple-100 flex items-center justify-center text-purple-600 transition-all duration-300">
@@ -1222,7 +1222,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             </div>
 
             <!-- Item 1: Model Alignment -->
-            <div class="platform-subitem subitem-shaping w-full rounded-2xl border transition-all duration-300 cursor-pointer overflow-hidden" onclick="selectPlatformSubItem('shaping', 1)">
+            <div class="platform-subitem subitem-shaping w-full rounded-xl border transition-all duration-300 cursor-pointer overflow-hidden" onclick="selectPlatformSubItem('shaping', 1)">
               <div class="p-4 sm:p-5 flex items-center justify-between">
                 <div class="flex items-center gap-3.5">
                   <div class="subitem-icon-box w-9 h-9 rounded-xl bg-purple-50 border border-purple-100 flex items-center justify-center text-purple-600 transition-all duration-300">
@@ -3271,7 +3271,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       ['inference', 'compute', 'shaping'].forEach(c => {
         const btn = document.getElementById('cat-tab-' + c);
         if (btn) {
-          btn.className = 'cat-pill py-3.5 sm:py-4.5 px-2 sm:px-6 rounded-xl sm:rounded-2xl text-center font-bold text-xs sm:text-base md:text-xl transition-all duration-200 cursor-pointer bg-white text-gray-900 border border-gray-200/70 shadow-2xs hover:bg-gray-50/90 hover:text-black';
+          btn.className = 'cat-pill py-3.5 sm:py-4.5 px-2 sm:px-6 rounded-md text-center font-bold text-xs sm:text-base md:text-xl transition-all duration-200 cursor-pointer bg-white text-gray-900 border border-gray-200/70 shadow-2xs hover:bg-gray-50/90 hover:text-black';
         }
         const panel = document.getElementById('platform-cat-panel-' + c);
         if (panel) panel.classList.add('hidden');
@@ -3280,7 +3280,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       if (catConfig[cat]) {
         const activeBtn = document.getElementById(catConfig[cat].tab);
         if (activeBtn) {
-          activeBtn.className = 'cat-pill py-3.5 sm:py-4.5 px-2 sm:px-6 rounded-xl sm:rounded-2xl text-center font-bold text-xs sm:text-base md:text-xl transition-all duration-200 cursor-pointer text-gray-950 border border-transparent shadow-2xs ' + catConfig[cat].bg;
+          activeBtn.className = 'cat-pill py-3.5 sm:py-4.5 px-2 sm:px-6 rounded-md text-center font-bold text-xs sm:text-base md:text-xl transition-all duration-200 cursor-pointer text-gray-950 border border-transparent shadow-2xs ' + catConfig[cat].bg;
         }
       }
 
