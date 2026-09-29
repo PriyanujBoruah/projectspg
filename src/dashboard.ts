@@ -1336,19 +1336,19 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 sm:mb-14">
             <div>
               <h2 class="text-2xl sm:text-4xl lg:text-[44px] font-bold tracking-tight text-white mb-2 sm:mb-3 font-sans">
-                Grounded in cutting-edge research
+                How ProjectSPG Works
               </h2>
               <p class="text-sm sm:text-base lg:text-lg text-gray-400 font-normal">
-                Foundational systems research for production AI.
+                The 4-step sovereign privacy pipeline — from prompt interception to real-time rehydration.
               </p>
             </div>
 
             <!-- Carousel Navigation Arrows (shown on desktop, hidden on mobile) -->
             <div class="hidden lg:flex items-center gap-2">
-              <button onclick="scrollResearchCards('left')" class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-gray-300 hover:text-white flex items-center justify-center transition shadow-xs cursor-pointer" aria-label="Previous research">
+              <button onclick="scrollResearchCards('left')" class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-gray-300 hover:text-white flex items-center justify-center transition shadow-xs cursor-pointer" aria-label="Previous step">
                 <i data-lucide="chevron-left" class="w-4 h-4"></i>
               </button>
-              <button onclick="scrollResearchCards('right')" class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-gray-300 hover:text-white flex items-center justify-center transition shadow-xs cursor-pointer" aria-label="Next research">
+              <button onclick="scrollResearchCards('right')" class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-gray-300 hover:text-white flex items-center justify-center transition shadow-xs cursor-pointer" aria-label="Next step">
                 <i data-lucide="chevron-right" class="w-4 h-4"></i>
               </button>
             </div>
@@ -1358,166 +1358,178 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           <div class="relative">
             
             <!-- Horizontal Connecting Line passing behind cards -->
-            <div class="hidden lg:block absolute top-[50%] left-0 right-0 h-1 bg-[#8b7ff5]/60 -translate-y-1/2 z-0 pointer-events-none"></div>
+            <div class="hidden lg:block absolute top-[50%] left-0 right-0 h-1 bg-gradient-to-r from-cyan-500/60 via-purple-500/60 to-emerald-500/60 -translate-y-1/2 z-0 pointer-events-none"></div>
 
             <!-- Cards Track: Grid on desktop, stacked on top of each other on mobile -->
             <div id="research-cards-track" class="grid grid-cols-1 lg:grid-cols-4 gap-6 relative z-10">
               
-              <!-- Card 1: ThunderKittens on Vera Rubin NVL72 -->
-              <div onclick="handleResearchCardClick(this)" class="research-card group relative rounded-2xl min-h-[320px] sm:min-h-[380px] lg:min-h-[420px] w-full p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-[#262c52] hover:border-amber-300 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_35px_rgba(251,191,36,0.25)] bg-[#0d1224]">
-                <!-- Base Solid Dark Underlay -->
-                <div class="absolute inset-0 bg-[#0d1224] -z-10"></div>
-
-                <!-- Hover Animated Iridescent Frosting (Exact Replica of media_1790540898787.png) -->
-                <div class="research-frosting absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0 pointer-events-none overflow-hidden">
-                  <div class="absolute inset-0 bg-[#3b3452]/50 backdrop-blur-md"></div>
-                  <div class="absolute -top-12 -right-12 w-52 h-52 bg-pink-400/40 rounded-full blur-2xl"></div>
-                  <div class="absolute top-1/3 left-0 w-60 h-60 bg-indigo-300/40 rounded-full blur-2xl"></div>
-                  <div class="absolute -bottom-12 -left-12 w-52 h-52 bg-sky-300/40 rounded-full blur-2xl"></div>
-                  <div class="absolute bottom-4 right-4 w-44 h-44 bg-amber-200/35 rounded-full blur-2xl"></div>
-                  <div class="absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-black/25"></div>
-                </div>
-
-                <!-- Top Badge Pill -->
-                <div class="relative z-10 flex justify-center w-full">
-                  <span class="research-badge px-3.5 py-1 rounded-md bg-white/10 group-hover:bg-white/20 border border-white/15 text-white/90 text-[10px] font-bold tracking-widest uppercase transition-colors">
-                    KERNELS
-                  </span>
-                </div>
-
-                <!-- Middle Headline -->
-                <div class="relative z-10 my-auto py-6 text-center">
-                  <h3 class="text-lg sm:text-[19px] font-bold text-white leading-snug group-hover:text-white transition-colors">
-                    To Infinity and Beyond: ThunderKittens Now on NVIDIA Vera Rubin NVL72!
-                  </h3>
-                </div>
-
-                <!-- Bottom Citation & Hover Button -->
-                <div class="relative z-10 w-full h-11 flex items-center justify-center">
-                  <!-- Normal Author Text (Fades out on hover) -->
-                  <p class="research-author text-[10px] font-mono tracking-widest text-gray-400 uppercase text-center transition-all duration-200 group-hover:opacity-0 group-hover:scale-95">
-                    DYLAN LIM, XINYI LI <span class="italic font-sans">ET AL.</span>
-                  </p>
-                  <!-- Hover "READ MORE" Glass Pill Button (Revealed on hover) -->
-                  <button onclick="switchView('docs')" class="research-btn absolute inset-0 m-auto w-32 h-9 rounded-lg bg-white/25 hover:bg-white/35 text-white text-[11px] font-bold tracking-wider uppercase backdrop-blur-md border border-white/30 transition-all duration-300 shadow-md opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 flex items-center justify-center cursor-pointer">
-                    READ MORE
-                  </button>
-                </div>
-              </div>
-
-              <!-- Card 2: ThunderAgent: 2x Faster Agentic Inference -->
-              <div onclick="handleResearchCardClick(this)" class="research-card group relative rounded-2xl min-h-[320px] sm:min-h-[380px] lg:min-h-[420px] w-full p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-[#262c52] hover:border-amber-300 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_35px_rgba(251,191,36,0.25)] bg-[#0d1224]">
+              <!-- Card 1: Step 01 - Prompt Ingestion & Interception -->
+              <div onclick="handleResearchCardClick(this)" class="research-card group relative rounded-xl min-h-[340px] sm:min-h-[380px] lg:min-h-[420px] w-full p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-[#262c52] hover:border-cyan-400 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_35px_rgba(6,182,212,0.25)] bg-[#0d1224]">
                 <!-- Base Solid Dark Underlay -->
                 <div class="absolute inset-0 bg-[#0d1224] -z-10"></div>
 
                 <!-- Hover Animated Iridescent Frosting -->
                 <div class="research-frosting absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0 pointer-events-none overflow-hidden">
-                  <div class="absolute inset-0 bg-[#35334d]/50 backdrop-blur-md"></div>
+                  <div class="absolute inset-0 bg-[#162740]/60 backdrop-blur-md"></div>
+                  <div class="absolute -top-12 -right-12 w-52 h-52 bg-cyan-400/40 rounded-full blur-2xl"></div>
+                  <div class="absolute top-1/3 left-0 w-60 h-60 bg-sky-300/40 rounded-full blur-2xl"></div>
+                  <div class="absolute -bottom-12 -left-12 w-52 h-52 bg-indigo-400/35 rounded-full blur-2xl"></div>
+                  <div class="absolute bottom-4 right-4 w-44 h-44 bg-teal-300/35 rounded-full blur-2xl"></div>
+                  <div class="absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-black/25"></div>
+                </div>
+
+                <!-- Top Badge Pill -->
+                <div class="relative z-10 flex justify-center w-full">
+                  <span class="research-badge px-3.5 py-1 rounded-md bg-cyan-500/15 group-hover:bg-cyan-500/25 border border-cyan-400/30 text-cyan-300 group-hover:text-white text-[10px] font-bold tracking-widest uppercase transition-colors">
+                    STEP 01 • PROMPT
+                  </span>
+                </div>
+
+                <!-- Middle Details -->
+                <div class="relative z-10 my-auto py-5 text-center">
+                  <h3 class="text-lg sm:text-[19px] font-bold text-white leading-snug mb-3 group-hover:text-white transition-colors">
+                    Prompt Ingestion &amp; Interception
+                  </h3>
+                  <p class="text-xs sm:text-[13px] text-gray-300 leading-relaxed font-normal group-hover:text-white/95 transition-colors">
+                    Client applications dispatch standard OpenAI-format API requests. ProjectSPG edge proxy captures raw prompts containing sensitive PII, PHI, or secrets in under 1ms.
+                  </p>
+                </div>
+
+                <!-- Bottom Citation & Hover Button -->
+                <div class="relative z-10 w-full h-11 flex items-center justify-center">
+                  <!-- Normal Tag Text (Fades out on hover) -->
+                  <p class="research-author text-[10px] font-mono tracking-widest text-cyan-400 uppercase text-center transition-all duration-200 group-hover:opacity-0 group-hover:scale-95">
+                    &lt;1MS SUB-MILLISECOND P99
+                  </p>
+                  <!-- Hover Button (Revealed on hover) -->
+                  <button onclick="switchView('playground')" class="research-btn absolute inset-0 m-auto w-36 h-9 rounded-lg bg-cyan-500/30 hover:bg-cyan-500/45 text-white text-[11px] font-bold tracking-wider uppercase backdrop-blur-md border border-cyan-300/40 transition-all duration-300 shadow-md opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 flex items-center justify-center cursor-pointer">
+                    TRY PLAYGROUND
+                  </button>
+                </div>
+              </div>
+
+              <!-- Card 2: Step 02 - Sovereign De-Identification -->
+              <div onclick="handleResearchCardClick(this)" class="research-card group relative rounded-xl min-h-[340px] sm:min-h-[380px] lg:min-h-[420px] w-full p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-[#262c52] hover:border-purple-400 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_35px_rgba(168,85,247,0.25)] bg-[#0d1224]">
+                <!-- Base Solid Dark Underlay -->
+                <div class="absolute inset-0 bg-[#0d1224] -z-10"></div>
+
+                <!-- Hover Animated Iridescent Frosting -->
+                <div class="research-frosting absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0 pointer-events-none overflow-hidden">
+                  <div class="absolute inset-0 bg-[#2d1b4d]/60 backdrop-blur-md"></div>
                   <div class="absolute -top-12 -right-12 w-52 h-52 bg-purple-400/40 rounded-full blur-2xl"></div>
-                  <div class="absolute top-1/4 -left-10 w-56 h-56 bg-amber-300/35 rounded-full blur-2xl"></div>
+                  <div class="absolute top-1/4 -left-10 w-56 h-56 bg-fuchsia-300/35 rounded-full blur-2xl"></div>
                   <div class="absolute -bottom-10 right-4 w-52 h-52 bg-pink-400/35 rounded-full blur-2xl"></div>
                   <div class="absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-black/25"></div>
                 </div>
 
                 <!-- Top Badge Pill -->
                 <div class="relative z-10 flex justify-center w-full">
-                  <span class="research-badge px-3.5 py-1 rounded-md bg-white/10 group-hover:bg-white/20 border border-white/15 text-white/90 text-[10px] font-bold tracking-widest uppercase transition-colors">
-                    AGENTS
+                  <span class="research-badge px-3.5 py-1 rounded-md bg-purple-500/15 group-hover:bg-purple-500/25 border border-purple-400/30 text-purple-300 group-hover:text-white text-[10px] font-bold tracking-widest uppercase transition-colors">
+                    STEP 02 • DE-IDENTIFY
                   </span>
                 </div>
 
-                <!-- Middle Headline -->
-                <div class="relative z-10 my-auto py-6 text-center">
-                  <h3 class="text-base sm:text-lg lg:text-[19px] font-bold text-white leading-snug group-hover:text-white transition-colors">
-                    ThunderAgent: 2x Faster Agentic Inference for Synthetic Data Generation at Scale
+                <!-- Middle Details -->
+                <div class="relative z-10 my-auto py-5 text-center">
+                  <h3 class="text-lg sm:text-[19px] font-bold text-white leading-snug mb-3 group-hover:text-white transition-colors">
+                    Sovereign De-Identification
                   </h3>
+                  <p class="text-xs sm:text-[13px] text-gray-300 leading-relaxed font-normal group-hover:text-white/95 transition-colors">
+                    Scans against 10 sovereign regulatory packs (HIPAA, GDPR, DORA). Reversibly tokenizes detected entities into cryptographic surrogates with BYOK KMS AES-256.
+                  </p>
                 </div>
 
                 <!-- Bottom Citation & Hover Button -->
                 <div class="relative z-10 w-full h-11 flex items-center justify-center">
-                  <p class="research-author text-[10px] font-mono tracking-widest text-gray-400 uppercase text-center transition-all duration-200 group-hover:opacity-0 group-hover:scale-95">
-                    HAO KANG, ZIYANG LI <span class="italic font-sans">ET AL.</span>
+                  <p class="research-author text-[10px] font-mono tracking-widest text-purple-400 uppercase text-center transition-all duration-200 group-hover:opacity-0 group-hover:scale-95">
+                    BYOK KMS AES-256 ENCRYPTED
                   </p>
-                  <button onclick="switchView('docs')" class="research-btn absolute inset-0 m-auto w-32 h-9 rounded-lg bg-white/25 hover:bg-white/35 text-white text-[11px] font-bold tracking-wider uppercase backdrop-blur-md border border-white/30 transition-all duration-300 shadow-md opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 flex items-center justify-center cursor-pointer">
-                    READ MORE
+                  <button onclick="switchView('playground')" class="research-btn absolute inset-0 m-auto w-36 h-9 rounded-lg bg-purple-500/30 hover:bg-purple-500/45 text-white text-[11px] font-bold tracking-wider uppercase backdrop-blur-md border border-purple-300/40 transition-all duration-300 shadow-md opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 flex items-center justify-center cursor-pointer">
+                    TEST TOKENIZER
                   </button>
                 </div>
               </div>
 
-              <!-- Card 3: ProjectSPG at ICML 2026 -->
-              <div onclick="handleResearchCardClick(this)" class="research-card group relative rounded-2xl min-h-[320px] sm:min-h-[380px] lg:min-h-[420px] w-full p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-[#262c52] hover:border-amber-300 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_35px_rgba(251,191,36,0.25)] bg-[#0d1224]">
+              <!-- Card 3: Step 03 - Zero-Trust AI Inference -->
+              <div onclick="handleResearchCardClick(this)" class="research-card group relative rounded-xl min-h-[340px] sm:min-h-[380px] lg:min-h-[420px] w-full p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-[#262c52] hover:border-indigo-400 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_35px_rgba(99,102,241,0.25)] bg-[#0d1224]">
                 <!-- Base Solid Dark Underlay -->
                 <div class="absolute inset-0 bg-[#0d1224] -z-10"></div>
 
                 <!-- Hover Animated Iridescent Frosting -->
                 <div class="research-frosting absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0 pointer-events-none overflow-hidden">
-                  <div class="absolute inset-0 bg-[#30394f]/50 backdrop-blur-md"></div>
-                  <div class="absolute -top-12 -right-12 w-52 h-52 bg-sky-400/40 rounded-full blur-2xl"></div>
-                  <div class="absolute top-1/3 left-0 w-60 h-60 bg-purple-400/40 rounded-full blur-2xl"></div>
-                  <div class="absolute -bottom-10 left-10 w-52 h-52 bg-pink-400/35 rounded-full blur-2xl"></div>
+                  <div class="absolute inset-0 bg-[#1e2246]/60 backdrop-blur-md"></div>
+                  <div class="absolute -top-12 -right-12 w-52 h-52 bg-indigo-400/40 rounded-full blur-2xl"></div>
+                  <div class="absolute top-1/3 left-0 w-60 h-60 bg-blue-400/40 rounded-full blur-2xl"></div>
+                  <div class="absolute -bottom-10 left-10 w-52 h-52 bg-violet-400/35 rounded-full blur-2xl"></div>
                   <div class="absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-black/25"></div>
                 </div>
 
                 <!-- Top Badge Pill -->
                 <div class="relative z-10 flex justify-center w-full">
-                  <span class="research-badge px-3.5 py-1 rounded-md bg-white/10 group-hover:bg-white/20 border border-white/15 text-white/90 text-[10px] font-bold tracking-widest uppercase transition-colors">
-                    KERNELS
+                  <span class="research-badge px-3.5 py-1 rounded-md bg-indigo-500/15 group-hover:bg-indigo-500/25 border border-indigo-400/30 text-indigo-300 group-hover:text-white text-[10px] font-bold tracking-widest uppercase transition-colors">
+                    STEP 03 • INFERENCE
                   </span>
                 </div>
 
-                <!-- Middle Headline -->
-                <div class="relative z-10 my-auto py-6 text-center">
-                  <h3 class="text-base sm:text-lg lg:text-[19px] font-bold text-white leading-snug group-hover:text-white transition-colors">
-                    ProjectSPG at ICML 2026: frontier research across the full stack
+                <!-- Middle Details -->
+                <div class="relative z-10 my-auto py-5 text-center">
+                  <h3 class="text-lg sm:text-[19px] font-bold text-white leading-snug mb-3 group-hover:text-white transition-colors">
+                    Zero-Trust AI Inference
                   </h3>
+                  <p class="text-xs sm:text-[13px] text-gray-300 leading-relaxed font-normal group-hover:text-white/95 transition-colors">
+                    Sanitized surrogate prompts are dispatched to upstream LLMs (Groq, Mistral, Google Gemini, OpenAI). Frontier models compute completions without touching raw private data.
+                  </p>
                 </div>
 
                 <!-- Bottom Citation & Hover Button -->
                 <div class="relative z-10 w-full h-11 flex items-center justify-center">
-                  <p class="research-author text-[10px] font-mono tracking-widest text-gray-400 uppercase text-center transition-all duration-200 group-hover:opacity-0 group-hover:scale-95">
-                    PROJECTSPG RESEARCH
+                  <p class="research-author text-[10px] font-mono tracking-widest text-indigo-400 uppercase text-center transition-all duration-200 group-hover:opacity-0 group-hover:scale-95">
+                    GROQ • MISTRAL • GEMINI
                   </p>
-                  <button onclick="switchView('docs')" class="research-btn absolute inset-0 m-auto w-32 h-9 rounded-lg bg-white/25 hover:bg-white/35 text-white text-[11px] font-bold tracking-wider uppercase backdrop-blur-md border border-white/30 transition-all duration-300 shadow-md opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 flex items-center justify-center cursor-pointer">
-                    READ MORE
+                  <button onclick="switchView('playground')" class="research-btn absolute inset-0 m-auto w-36 h-9 rounded-lg bg-indigo-500/30 hover:bg-indigo-500/45 text-white text-[11px] font-bold tracking-wider uppercase backdrop-blur-md border border-indigo-300/40 transition-all duration-300 shadow-md opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 flex items-center justify-center cursor-pointer">
+                    TEST INFERENCE
                   </button>
                 </div>
               </div>
 
-              <!-- Card 4: ParallelKernelBench -->
-              <div onclick="handleResearchCardClick(this)" class="research-card group relative rounded-2xl min-h-[320px] sm:min-h-[380px] lg:min-h-[420px] w-full p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-[#262c52] hover:border-amber-300 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_35px_rgba(251,191,36,0.25)] bg-[#0d1224]">
+              <!-- Card 4: Step 04 - Real-Time Rehydration -->
+              <div onclick="handleResearchCardClick(this)" class="research-card group relative rounded-xl min-h-[340px] sm:min-h-[380px] lg:min-h-[420px] w-full p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-[#262c52] hover:border-emerald-400 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_35px_rgba(16,185,129,0.25)] bg-[#0d1224]">
                 <!-- Base Solid Dark Underlay -->
                 <div class="absolute inset-0 bg-[#0d1224] -z-10"></div>
 
                 <!-- Hover Animated Iridescent Frosting -->
                 <div class="research-frosting absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0 pointer-events-none overflow-hidden">
-                  <div class="absolute inset-0 bg-[#2d3a4d]/50 backdrop-blur-md"></div>
-                  <div class="absolute -top-12 -right-12 w-52 h-52 bg-emerald-400/35 rounded-full blur-2xl"></div>
-                  <div class="absolute top-1/4 -left-10 w-56 h-56 bg-cyan-300/35 rounded-full blur-2xl"></div>
-                  <div class="absolute -bottom-10 right-4 w-52 h-52 bg-indigo-400/35 rounded-full blur-2xl"></div>
+                  <div class="absolute inset-0 bg-[#163532]/60 backdrop-blur-md"></div>
+                  <div class="absolute -top-12 -right-12 w-52 h-52 bg-emerald-400/40 rounded-full blur-2xl"></div>
+                  <div class="absolute top-1/4 -left-10 w-56 h-56 bg-teal-300/35 rounded-full blur-2xl"></div>
+                  <div class="absolute -bottom-10 right-4 w-52 h-52 bg-cyan-400/35 rounded-full blur-2xl"></div>
                   <div class="absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-black/25"></div>
                 </div>
 
                 <!-- Top Badge Pill -->
                 <div class="relative z-10 flex justify-center w-full">
-                  <span class="research-badge px-3.5 py-1 rounded-md bg-white/10 group-hover:bg-white/20 border border-white/15 text-white/90 text-[10px] font-bold tracking-widest uppercase transition-colors">
-                    KERNELS
+                  <span class="research-badge px-3.5 py-1 rounded-md bg-emerald-500/15 group-hover:bg-emerald-500/25 border border-emerald-400/30 text-emerald-300 group-hover:text-white text-[10px] font-bold tracking-widest uppercase transition-colors">
+                    STEP 04 • REHYDRATE
                   </span>
                 </div>
 
-                <!-- Middle Headline -->
-                <div class="relative z-10 my-auto py-6 text-center">
-                  <h3 class="text-base sm:text-lg lg:text-[19px] font-bold text-white leading-snug group-hover:text-white transition-colors">
-                    ParallelKernelBench: Frontier LLMs can't write fast multi-GPU kernels (yet)
+                <!-- Middle Details -->
+                <div class="relative z-10 my-auto py-5 text-center">
+                  <h3 class="text-lg sm:text-[19px] font-bold text-white leading-snug mb-3 group-hover:text-white transition-colors">
+                    Real-Time Rehydration
                   </h3>
+                  <p class="text-xs sm:text-[13px] text-gray-300 leading-relaxed font-normal group-hover:text-white/95 transition-colors">
+                    Upstream streaming SSE token chunks and JSON completions are captured at the edge. Cryptographic surrogates are seamlessly restored back to authentic values before delivery.
+                  </p>
                 </div>
 
                 <!-- Bottom Citation & Hover Button -->
                 <div class="relative z-10 w-full h-11 flex items-center justify-center">
-                  <p class="research-author text-[10px] font-mono tracking-widest text-gray-400 uppercase text-center transition-all duration-200 group-hover:opacity-0 group-hover:scale-95">
-                    WILLY CHAN, NATHAN PAEK <span class="italic font-sans">ET AL.</span>
+                  <p class="research-author text-[10px] font-mono tracking-widest text-emerald-400 uppercase text-center transition-all duration-200 group-hover:opacity-0 group-hover:scale-95">
+                    STREAMING SSE DETOKENIZATION
                   </p>
-                  <button onclick="switchView('docs')" class="research-btn absolute inset-0 m-auto w-32 h-9 rounded-lg bg-white/25 hover:bg-white/35 text-white text-[11px] font-bold tracking-wider uppercase backdrop-blur-md border border-white/30 transition-all duration-300 shadow-md opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 flex items-center justify-center cursor-pointer">
-                    READ MORE
+                  <button onclick="switchView('playground')" class="research-btn absolute inset-0 m-auto w-36 h-9 rounded-lg bg-emerald-500/30 hover:bg-emerald-500/45 text-white text-[11px] font-bold tracking-wider uppercase backdrop-blur-md border border-emerald-300/40 transition-all duration-300 shadow-md opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 flex items-center justify-center cursor-pointer">
+                    SEE REHYDRATION
                   </button>
                 </div>
               </div>
