@@ -180,6 +180,30 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     .param-slider::-moz-range-thumb:hover {
       transform: scale(1.1);
     }
+
+    /* Mobile scroll auto-highlight for research cards (replaces hover effect on touch devices) */
+    @media (max-width: 1023px) {
+      .research-card.mobile-highlight {
+        border-color: #fcd34d !important;
+        transform: translateY(-4px) !important;
+        box-shadow: 0 12px 40px rgba(0,0,0,0.6), 0 0 35px rgba(251,191,36,0.25) !important;
+      }
+      .research-card.mobile-highlight .research-frosting {
+        opacity: 1 !important;
+      }
+      .research-card.mobile-highlight .research-badge {
+        background-color: rgba(255, 255, 255, 0.2) !important;
+      }
+      .research-card.mobile-highlight .research-author {
+        opacity: 0 !important;
+        transform: scale(0.95) !important;
+      }
+      .research-card.mobile-highlight .research-btn {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+        pointer-events: auto !important;
+      }
+    }
   </style>
 </head>
 
@@ -1165,12 +1189,12 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             <div id="research-cards-track" class="grid grid-cols-1 lg:grid-cols-4 gap-6 relative z-10">
               
               <!-- Card 1: ThunderKittens on Vera Rubin NVL72 -->
-              <div class="group relative rounded-2xl min-h-[320px] sm:min-h-[380px] lg:min-h-[420px] w-full p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-[#262c52] hover:border-amber-300 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_35px_rgba(251,191,36,0.25)] bg-[#0d1224]">
+              <div onclick="handleResearchCardClick(this)" class="research-card group relative rounded-2xl min-h-[320px] sm:min-h-[380px] lg:min-h-[420px] w-full p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-[#262c52] hover:border-amber-300 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_35px_rgba(251,191,36,0.25)] bg-[#0d1224]">
                 <!-- Base Solid Dark Underlay -->
                 <div class="absolute inset-0 bg-[#0d1224] -z-10"></div>
 
                 <!-- Hover Animated Iridescent Frosting (Exact Replica of media_1790540898787.png) -->
-                <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0 pointer-events-none overflow-hidden">
+                <div class="research-frosting absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0 pointer-events-none overflow-hidden">
                   <div class="absolute inset-0 bg-[#3b3452]/50 backdrop-blur-md"></div>
                   <div class="absolute -top-12 -right-12 w-52 h-52 bg-pink-400/40 rounded-full blur-2xl"></div>
                   <div class="absolute top-1/3 left-0 w-60 h-60 bg-indigo-300/40 rounded-full blur-2xl"></div>
@@ -1181,7 +1205,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
                 <!-- Top Badge Pill -->
                 <div class="relative z-10 flex justify-center w-full">
-                  <span class="px-3.5 py-1 rounded-md bg-white/10 group-hover:bg-white/20 border border-white/15 text-white/90 text-[10px] font-bold tracking-widest uppercase transition-colors">
+                  <span class="research-badge px-3.5 py-1 rounded-md bg-white/10 group-hover:bg-white/20 border border-white/15 text-white/90 text-[10px] font-bold tracking-widest uppercase transition-colors">
                     KERNELS
                   </span>
                 </div>
@@ -1196,23 +1220,23 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                 <!-- Bottom Citation & Hover Button -->
                 <div class="relative z-10 w-full h-11 flex items-center justify-center">
                   <!-- Normal Author Text (Fades out on hover) -->
-                  <p class="text-[10px] font-mono tracking-widest text-gray-400 uppercase text-center transition-all duration-200 group-hover:opacity-0 group-hover:scale-95">
+                  <p class="research-author text-[10px] font-mono tracking-widest text-gray-400 uppercase text-center transition-all duration-200 group-hover:opacity-0 group-hover:scale-95">
                     DYLAN LIM, XINYI LI <span class="italic font-sans">ET AL.</span>
                   </p>
                   <!-- Hover "READ MORE" Glass Pill Button (Revealed on hover) -->
-                  <button class="absolute inset-0 m-auto w-32 h-9 rounded-lg bg-white/25 hover:bg-white/35 text-white text-[11px] font-bold tracking-wider uppercase backdrop-blur-md border border-white/30 transition-all duration-300 shadow-md opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 flex items-center justify-center cursor-pointer">
+                  <button onclick="switchView('docs')" class="research-btn absolute inset-0 m-auto w-32 h-9 rounded-lg bg-white/25 hover:bg-white/35 text-white text-[11px] font-bold tracking-wider uppercase backdrop-blur-md border border-white/30 transition-all duration-300 shadow-md opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 flex items-center justify-center cursor-pointer">
                     READ MORE
                   </button>
                 </div>
               </div>
 
               <!-- Card 2: ThunderAgent: 2x Faster Agentic Inference -->
-              <div class="group relative rounded-2xl min-h-[320px] sm:min-h-[380px] lg:min-h-[420px] w-full p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-[#262c52] hover:border-amber-300 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_35px_rgba(251,191,36,0.25)] bg-[#0d1224]">
+              <div onclick="handleResearchCardClick(this)" class="research-card group relative rounded-2xl min-h-[320px] sm:min-h-[380px] lg:min-h-[420px] w-full p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-[#262c52] hover:border-amber-300 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_35px_rgba(251,191,36,0.25)] bg-[#0d1224]">
                 <!-- Base Solid Dark Underlay -->
                 <div class="absolute inset-0 bg-[#0d1224] -z-10"></div>
 
                 <!-- Hover Animated Iridescent Frosting -->
-                <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0 pointer-events-none overflow-hidden">
+                <div class="research-frosting absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0 pointer-events-none overflow-hidden">
                   <div class="absolute inset-0 bg-[#35334d]/50 backdrop-blur-md"></div>
                   <div class="absolute -top-12 -right-12 w-52 h-52 bg-purple-400/40 rounded-full blur-2xl"></div>
                   <div class="absolute top-1/4 -left-10 w-56 h-56 bg-amber-300/35 rounded-full blur-2xl"></div>
@@ -1222,7 +1246,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
                 <!-- Top Badge Pill -->
                 <div class="relative z-10 flex justify-center w-full">
-                  <span class="px-3.5 py-1 rounded-md bg-white/10 group-hover:bg-white/20 border border-white/15 text-white/90 text-[10px] font-bold tracking-widest uppercase transition-colors">
+                  <span class="research-badge px-3.5 py-1 rounded-md bg-white/10 group-hover:bg-white/20 border border-white/15 text-white/90 text-[10px] font-bold tracking-widest uppercase transition-colors">
                     AGENTS
                   </span>
                 </div>
@@ -1236,22 +1260,22 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
                 <!-- Bottom Citation & Hover Button -->
                 <div class="relative z-10 w-full h-11 flex items-center justify-center">
-                  <p class="text-[10px] font-mono tracking-widest text-gray-400 uppercase text-center transition-all duration-200 group-hover:opacity-0 group-hover:scale-95">
+                  <p class="research-author text-[10px] font-mono tracking-widest text-gray-400 uppercase text-center transition-all duration-200 group-hover:opacity-0 group-hover:scale-95">
                     HAO KANG, ZIYANG LI <span class="italic font-sans">ET AL.</span>
                   </p>
-                  <button class="absolute inset-0 m-auto w-32 h-9 rounded-lg bg-white/25 hover:bg-white/35 text-white text-[11px] font-bold tracking-wider uppercase backdrop-blur-md border border-white/30 transition-all duration-300 shadow-md opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 flex items-center justify-center cursor-pointer">
+                  <button onclick="switchView('docs')" class="research-btn absolute inset-0 m-auto w-32 h-9 rounded-lg bg-white/25 hover:bg-white/35 text-white text-[11px] font-bold tracking-wider uppercase backdrop-blur-md border border-white/30 transition-all duration-300 shadow-md opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 flex items-center justify-center cursor-pointer">
                     READ MORE
                   </button>
                 </div>
               </div>
 
               <!-- Card 3: ProjectSPG at ICML 2026 -->
-              <div class="group relative rounded-2xl min-h-[320px] sm:min-h-[380px] lg:min-h-[420px] w-full p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-[#262c52] hover:border-amber-300 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_35px_rgba(251,191,36,0.25)] bg-[#0d1224]">
+              <div onclick="handleResearchCardClick(this)" class="research-card group relative rounded-2xl min-h-[320px] sm:min-h-[380px] lg:min-h-[420px] w-full p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-[#262c52] hover:border-amber-300 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_35px_rgba(251,191,36,0.25)] bg-[#0d1224]">
                 <!-- Base Solid Dark Underlay -->
                 <div class="absolute inset-0 bg-[#0d1224] -z-10"></div>
 
                 <!-- Hover Animated Iridescent Frosting -->
-                <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0 pointer-events-none overflow-hidden">
+                <div class="research-frosting absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0 pointer-events-none overflow-hidden">
                   <div class="absolute inset-0 bg-[#30394f]/50 backdrop-blur-md"></div>
                   <div class="absolute -top-12 -right-12 w-52 h-52 bg-sky-400/40 rounded-full blur-2xl"></div>
                   <div class="absolute top-1/3 left-0 w-60 h-60 bg-purple-400/40 rounded-full blur-2xl"></div>
@@ -1261,7 +1285,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
                 <!-- Top Badge Pill -->
                 <div class="relative z-10 flex justify-center w-full">
-                  <span class="px-3.5 py-1 rounded-md bg-white/10 group-hover:bg-white/20 border border-white/15 text-white/90 text-[10px] font-bold tracking-widest uppercase transition-colors">
+                  <span class="research-badge px-3.5 py-1 rounded-md bg-white/10 group-hover:bg-white/20 border border-white/15 text-white/90 text-[10px] font-bold tracking-widest uppercase transition-colors">
                     KERNELS
                   </span>
                 </div>
@@ -1275,22 +1299,22 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
                 <!-- Bottom Citation & Hover Button -->
                 <div class="relative z-10 w-full h-11 flex items-center justify-center">
-                  <p class="text-[10px] font-mono tracking-widest text-gray-400 uppercase text-center transition-all duration-200 group-hover:opacity-0 group-hover:scale-95">
+                  <p class="research-author text-[10px] font-mono tracking-widest text-gray-400 uppercase text-center transition-all duration-200 group-hover:opacity-0 group-hover:scale-95">
                     PROJECTSPG RESEARCH
                   </p>
-                  <button class="absolute inset-0 m-auto w-32 h-9 rounded-lg bg-white/25 hover:bg-white/35 text-white text-[11px] font-bold tracking-wider uppercase backdrop-blur-md border border-white/30 transition-all duration-300 shadow-md opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 flex items-center justify-center cursor-pointer">
+                  <button onclick="switchView('docs')" class="research-btn absolute inset-0 m-auto w-32 h-9 rounded-lg bg-white/25 hover:bg-white/35 text-white text-[11px] font-bold tracking-wider uppercase backdrop-blur-md border border-white/30 transition-all duration-300 shadow-md opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 flex items-center justify-center cursor-pointer">
                     READ MORE
                   </button>
                 </div>
               </div>
 
               <!-- Card 4: ParallelKernelBench -->
-              <div class="group relative rounded-2xl min-h-[320px] sm:min-h-[380px] lg:min-h-[420px] w-full p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-[#262c52] hover:border-amber-300 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_35px_rgba(251,191,36,0.25)] bg-[#0d1224]">
+              <div onclick="handleResearchCardClick(this)" class="research-card group relative rounded-2xl min-h-[320px] sm:min-h-[380px] lg:min-h-[420px] w-full p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer overflow-hidden border border-[#262c52] hover:border-amber-300 hover:-translate-y-1.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_35px_rgba(251,191,36,0.25)] bg-[#0d1224]">
                 <!-- Base Solid Dark Underlay -->
                 <div class="absolute inset-0 bg-[#0d1224] -z-10"></div>
 
                 <!-- Hover Animated Iridescent Frosting -->
-                <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0 pointer-events-none overflow-hidden">
+                <div class="research-frosting absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0 pointer-events-none overflow-hidden">
                   <div class="absolute inset-0 bg-[#2d3a4d]/50 backdrop-blur-md"></div>
                   <div class="absolute -top-12 -right-12 w-52 h-52 bg-emerald-400/35 rounded-full blur-2xl"></div>
                   <div class="absolute top-1/4 -left-10 w-56 h-56 bg-cyan-300/35 rounded-full blur-2xl"></div>
@@ -1300,7 +1324,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
                 <!-- Top Badge Pill -->
                 <div class="relative z-10 flex justify-center w-full">
-                  <span class="px-3.5 py-1 rounded-md bg-white/10 group-hover:bg-white/20 border border-white/15 text-white/90 text-[10px] font-bold tracking-widest uppercase transition-colors">
+                  <span class="research-badge px-3.5 py-1 rounded-md bg-white/10 group-hover:bg-white/20 border border-white/15 text-white/90 text-[10px] font-bold tracking-widest uppercase transition-colors">
                     KERNELS
                   </span>
                 </div>
@@ -1314,10 +1338,10 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
                 <!-- Bottom Citation & Hover Button -->
                 <div class="relative z-10 w-full h-11 flex items-center justify-center">
-                  <p class="text-[10px] font-mono tracking-widest text-gray-400 uppercase text-center transition-all duration-200 group-hover:opacity-0 group-hover:scale-95">
+                  <p class="research-author text-[10px] font-mono tracking-widest text-gray-400 uppercase text-center transition-all duration-200 group-hover:opacity-0 group-hover:scale-95">
                     WILLY CHAN, NATHAN PAEK <span class="italic font-sans">ET AL.</span>
                   </p>
-                  <button class="absolute inset-0 m-auto w-32 h-9 rounded-lg bg-white/25 hover:bg-white/35 text-white text-[11px] font-bold tracking-wider uppercase backdrop-blur-md border border-white/30 transition-all duration-300 shadow-md opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 flex items-center justify-center cursor-pointer">
+                  <button onclick="switchView('docs')" class="research-btn absolute inset-0 m-auto w-32 h-9 rounded-lg bg-white/25 hover:bg-white/35 text-white text-[11px] font-bold tracking-wider uppercase backdrop-blur-md border border-white/30 transition-all duration-300 shadow-md opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 flex items-center justify-center cursor-pointer">
                     READ MORE
                   </button>
                 </div>
@@ -2951,6 +2975,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         activeView = 'landing';
       }
       switchView(activeView);
+      updateMobileResearchHighlight();
       updateCodeViewer();
       fetchApiLogs();
       fetchApiKeys();
@@ -3056,6 +3081,9 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       if (typeof lucide !== 'undefined') {
         setTimeout(() => lucide.createIcons(), 10);
       }
+      if (viewName === 'landing') {
+        setTimeout(updateMobileResearchHighlight, 100);
+      }
     }
 
     function selectPlatformCategory(cat) {
@@ -3151,6 +3179,66 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       const scrollAmount = 350;
       track.scrollBy({ left: direction === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' });
     }
+
+    // Auto-highlight research cards on mobile scroll (replaces hover effect for mobile users)
+    let isResearchScrollTicking = false;
+    function updateMobileResearchHighlight() {
+      if (window.innerWidth >= 1024) {
+        document.querySelectorAll('.research-card.mobile-highlight').forEach(el => el.classList.remove('mobile-highlight'));
+        return;
+      }
+
+      const cards = document.querySelectorAll('#research-cards-track .research-card');
+      if (!cards.length) return;
+
+      const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+      const viewportCenter = viewportHeight / 2;
+
+      let closestCard = null;
+      let minDistance = Infinity;
+
+      cards.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        // Trigger highlight when card is comfortably inside visible viewport area
+        if (rect.bottom > 80 && rect.top < viewportHeight - 80) {
+          const cardCenter = rect.top + rect.height / 2;
+          const distance = Math.abs(cardCenter - viewportCenter);
+          if (distance < minDistance) {
+            minDistance = distance;
+            closestCard = card;
+          }
+        }
+      });
+
+      cards.forEach(card => {
+        if (closestCard && card === closestCard) {
+          card.classList.add('mobile-highlight');
+        } else {
+          card.classList.remove('mobile-highlight');
+        }
+      });
+    }
+
+    function onMobileResearchScroll() {
+      if (!isResearchScrollTicking) {
+        window.requestAnimationFrame(() => {
+          updateMobileResearchHighlight();
+          isResearchScrollTicking = false;
+        });
+        isResearchScrollTicking = true;
+      }
+    }
+
+    function handleResearchCardClick(cardEl) {
+      if (window.innerWidth < 1024 && cardEl) {
+        document.querySelectorAll('.research-card.mobile-highlight').forEach(el => el.classList.remove('mobile-highlight'));
+        cardEl.classList.add('mobile-highlight');
+      }
+    }
+
+    window.addEventListener('scroll', onMobileResearchScroll, { passive: true });
+    window.addEventListener('resize', onMobileResearchScroll, { passive: true });
+    document.addEventListener('scroll', onMobileResearchScroll, { passive: true });
 
     function switchPricingTab(tab) {
       const serverlessBtn = document.getElementById('pricing-tab-serverless');
