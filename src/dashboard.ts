@@ -188,7 +188,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
   <!-- ========================================================================= -->
   <!-- TOP GLOBAL NAVBAR (Exact 52px height) -->
   <!-- ========================================================================= -->
-  <header id="global-header" class="h-[52px] bg-white px-3 sm:px-6 flex items-center justify-between shrink-0 z-40 hidden border-b border-gray-100">
+  <header id="global-header" class="h-[52px] bg-white px-2.5 sm:px-4 lg:px-6 flex items-center justify-between shrink-0 z-40 hidden border-b border-gray-100">
     
     <!-- Left: Brand Logo + Project Selector -->
     <div class="flex items-center gap-2 sm:gap-3.5">
@@ -268,10 +268,10 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     <div id="view-landing" class="view-panel flex-1 flex flex-col w-full bg-white relative">
       
       <!-- Ambient Glow Behind Hero -->
-      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-b from-sky-200/35 via-blue-100/20 to-transparent blur-3xl pointer-events-none -z-0"></div>
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[1440px] h-96 bg-gradient-to-b from-sky-200/35 via-blue-100/20 to-transparent blur-3xl pointer-events-none -z-0"></div>
 
       <!-- Floating Header (ProjectSPG Floating Navbar) -->
-      <header class="w-full max-w-7xl mx-auto pt-4 sm:pt-5 px-3 sm:px-6 relative z-50">
+      <header class="w-full max-w-[1440px] mx-auto pt-3 sm:pt-4 px-2 sm:px-4 lg:px-6 relative z-50">
         <div class="bg-white/90 backdrop-blur-md border border-gray-200/80 rounded-full px-4 sm:px-5 py-2 sm:py-2.5 flex items-center justify-between shadow-xs">
           
           <!-- Left: Brand Emblem + Name -->
@@ -355,7 +355,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       </header>
 
       <!-- HERO SECTION -->
-      <section class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12 lg:pt-16 pb-14 sm:pb-20 relative z-10 flex-1 flex flex-col justify-center">
+      <section class="w-full max-w-[1440px] mx-auto px-2.5 sm:px-4 lg:px-6 pt-6 sm:pt-10 lg:pt-14 pb-12 sm:pb-16 relative z-10 flex-1 flex flex-col justify-center">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
           
           <!-- Left Column (Text & CTAs) -->
@@ -567,7 +567,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       <!-- SECTION 2: THE PROJECTSPG PLATFORM (Interactive 3-Tab Feature Showcase)-->
       <!-- Matches uploaded media: 1790540329449, 1790540346632, 1790540364464, 1790540377437 -->
       <!-- ======================================================================= -->
-      <section id="platform-section" class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 relative z-10 border-t border-gray-100">
+      <section id="platform-section" class="w-full max-w-[1440px] mx-auto px-2.5 sm:px-4 lg:px-6 py-10 sm:py-16 relative z-10 border-t border-gray-100">
         
         <!-- Section Header -->
         <div class="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
@@ -1131,7 +1131,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         <!-- Ambient Subtle Deep Background Glow -->
         <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-r from-blue-900/15 via-purple-900/15 to-indigo-900/15 blur-3xl pointer-events-none -z-0"></div>
 
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="max-w-[1440px] mx-auto px-2.5 sm:px-4 lg:px-6 relative z-10">
           
           <!-- Header Row (Title & Navigation Arrows) -->
           <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 sm:mb-14">
@@ -1386,8 +1386,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       <!-- SECTION 4: WHAT'S NEW AT PROJECTSPG (Blog & Updates)                  -->
       <!-- Matches uploaded media: 1790541881610.png                               -->
       <!-- ======================================================================= -->
-      <section id="news-section" class="w-full bg-white text-gray-900 py-14 sm:py-28 border-t border-gray-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="news-section" class="w-full bg-white text-gray-900 py-12 sm:py-20 border-t border-gray-100">
+        <div class="max-w-[1440px] mx-auto px-2.5 sm:px-4 lg:px-6">
           
           <!-- Section Header Row -->
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-8 sm:mb-12">
@@ -1591,7 +1591,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         <!-- Ambient background glow -->
         <div class="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-r from-blue-100/40 via-sky-100/30 to-purple-100/30 blur-3xl pointer-events-none -z-0"></div>
 
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="max-w-[1440px] mx-auto px-2.5 sm:px-4 lg:px-6 relative z-10">
           
           <!-- Section Header -->
           <div class="text-center max-w-3xl mx-auto mb-14">
@@ -1901,7 +1901,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           <div class="absolute -right-20 bottom-0 w-[480px] h-[400px] bg-gradient-to-tl from-indigo-600/25 via-blue-500/15 to-transparent blur-3xl rounded-full"></div>
         </div>
 
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 relative z-10">
+        <div class="max-w-5xl mx-auto px-2.5 sm:px-4 lg:px-6 relative z-10">
           <h2 class="text-3xl sm:text-5xl lg:text-[54px] font-bold text-gray-950 tracking-tight leading-tight">
             Start building on ProjectSPG
           </h2>
@@ -1926,10 +1926,10 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         <div class="absolute -left-20 top-0 w-80 h-96 bg-rose-400/25 blur-3xl pointer-events-none"></div>
         <div class="absolute -right-20 top-0 w-96 h-96 bg-blue-500/25 blur-3xl pointer-events-none"></div>
 
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="max-w-[1440px] mx-auto px-2 sm:px-4 lg:px-6 relative z-10">
           
           <!-- Main White Footer Card with Curved Top -->
-          <div class="w-full bg-white rounded-t-[28px] sm:rounded-t-[44px] border-t border-l border-r border-gray-100 shadow-[0_-10px_35px_rgba(0,0,0,0.02)] pt-10 sm:pt-16 pb-10 px-5 sm:px-12 lg:px-16 relative overflow-hidden">
+          <div class="w-full bg-white rounded-t-[28px] sm:rounded-t-[44px] border-t border-l border-r border-gray-100 shadow-[0_-10px_35px_rgba(0,0,0,0.02)] pt-10 sm:pt-16 pb-10 px-4 sm:px-8 lg:px-10 relative overflow-hidden">
             
             <!-- Top Grid: Brand Logo + 4 Category Columns -->
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-start">
@@ -2083,10 +2083,10 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     <!-- ======================================================================= -->
     <!-- VIEW 1: PLAYGROUND (Exact 3-Column Groq Layout) -->
     <!-- ======================================================================= -->
-    <div id="view-playground" class="view-panel hidden border-t border-l border-r border-groq-grayBorder rounded-t-2xl bg-white mx-2 sm:mx-4 flex-1 flex flex-col overflow-hidden shadow-xs">
+    <div id="view-playground" class="view-panel hidden border-t border-l border-r border-groq-grayBorder rounded-t-2xl bg-white mx-1 sm:mx-2 lg:mx-3 flex-1 flex flex-col overflow-hidden shadow-xs">
       
       <!-- Sub-Toolbar (54px height) -->
-      <div class="h-auto min-h-[54px] py-2 sm:py-0 border-b border-groq-grayBorder bg-white px-3 sm:px-6 flex flex-wrap items-center justify-between gap-2 shrink-0">
+      <div class="h-auto min-h-[54px] py-2 sm:py-0 border-b border-groq-grayBorder bg-white px-2 sm:px-4 flex flex-wrap items-center justify-between gap-2 shrink-0">
         <div class="flex items-center gap-3 sm:gap-4">
           <h2 class="text-[15px] font-semibold text-groq-dark tracking-tight">Playground</h2>
           <div class="bg-[#f3f4f6] p-0.5 rounded-lg flex items-center text-xs select-none">
@@ -2435,7 +2435,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     <!-- ======================================================================= -->
     <!-- VIEW 2: API KEYS VIEW (Exact Groq API Keys Layout) -->
     <!-- ======================================================================= -->
-    <div id="view-keys" class="view-panel hidden border-t border-l border-r border-groq-grayBorder rounded-t-2xl bg-white mx-2 sm:mx-4 flex-1 p-4 sm:p-8 md:p-10 max-w-[1280px] w-full overflow-y-auto shadow-xs">
+    <div id="view-keys" class="view-panel hidden border-t border-l border-r border-groq-grayBorder rounded-t-2xl bg-white mx-1 sm:mx-2 lg:mx-3 flex-1 p-3 sm:p-6 md:p-8 max-w-[1440px] w-full overflow-y-auto shadow-xs">
       <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-8">
         <div>
           <h1 class="text-[17px] font-bold text-groq-dark tracking-tight mb-2">API Keys</h1>
@@ -2480,7 +2480,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       </aside>
 
       <!-- MAIN CARD CONTAINER (Rounded top-left & top-right border matching images) -->
-      <div class="border-t border-l border-r border-groq-grayBorder rounded-t-2xl md:rounded-tr-2xl md:rounded-br-none bg-white p-4 sm:p-8 md:p-10 mx-2 md:mx-0 mr-2 md:mr-4 flex-1 flex flex-col overflow-y-visible md:overflow-y-auto shadow-xs">
+      <div class="border-t border-l border-r border-groq-grayBorder rounded-t-2xl md:rounded-tr-2xl md:rounded-br-none bg-white p-3 sm:p-6 md:p-8 mx-1 md:mx-0 mr-1 md:mr-2 flex-1 flex flex-col overflow-y-visible md:overflow-y-auto shadow-xs">
         
         <!-- =================================================================== -->
         <!-- SUBVIEW A: METRICS (Exact 1:1 Match to media_1790456964674.png) -->
@@ -2731,7 +2731,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     <!-- ======================================================================= -->
     <!-- VIEW 4: DOCS VIEW -->
     <!-- ======================================================================= -->
-    <div id="view-docs" class="view-panel hidden border-t border-l border-r border-groq-grayBorder rounded-t-2xl bg-white mx-2 sm:mx-4 flex-1 flex flex-col md:flex-row overflow-y-auto md:overflow-hidden shadow-xs">
+    <div id="view-docs" class="view-panel hidden border-t border-l border-r border-groq-grayBorder rounded-t-2xl bg-white mx-1 sm:mx-2 lg:mx-3 flex-1 flex flex-col md:flex-row overflow-y-auto md:overflow-hidden shadow-xs">
       <aside class="w-full md:w-64 shrink-0 border-b md:border-b-0 md:border-r border-groq-grayBorder bg-white p-4 sm:p-5 text-xs overflow-y-auto space-y-4">
         <div class="relative">
           <input type="text" placeholder="Search" class="w-full bg-[#f9fafb] border border-groq-grayBorder rounded-lg pl-8 pr-12 py-1.5 text-xs text-groq-dark placeholder-groq-textSubtle focus:outline-none">
