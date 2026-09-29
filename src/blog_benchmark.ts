@@ -1,6 +1,7 @@
 // ============================================================================
-// AI Privacy Core - Empirical Benchmark & Reliability Audit Report Blog
-// Route: /blog/benchmark, /test-results, /test-results.html
+// ProjectSPG - Empirical Benchmark & Reliability Audit Report Blog
+// Matches clean, text-focused editorial layout from Together.ai blog
+// Routes: /blog/benchmark, /test-results, /test-results.html
 // ============================================================================
 
 export const BENCHMARK_BLOG_HTML = `<!DOCTYPE html>
@@ -12,7 +13,7 @@ export const BENCHMARK_BLOG_HTML = `<!DOCTYPE html>
   <meta name="description" content="Empirical performance benchmarks for AI Privacy Core: 100.00% exact roundtrip fidelity across 9,334,805 prompts, 17,735 prompts/sec throughput, and 13.3ms HTTPS latency.">
   <meta name="keywords" content="AI Privacy Benchmark, PII De-identification Latency, LLM Privacy Proxy, Edge Tokenization, Cloudflare Workers AI Gateway, GDPR Compliance">
   
-  <!-- Open Graph / Facebook -->
+  <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://projectspg.info/blog/benchmark">
   <meta property="og:title" content="Empirical Benchmark: 9,334,805 Prompts Evaluated with 100.00% Roundtrip Fidelity & 86µs Latency">
@@ -32,8 +33,8 @@ export const BENCHMARK_BLOG_HTML = `<!DOCTYPE html>
     "headline": "Empirical Benchmark: 9,334,805 Prompts Evaluated with 100.00% Roundtrip Fidelity & 86µs Latency",
     "description": "Empirical performance benchmarks for AI Privacy Core: 100.00% exact roundtrip fidelity across 9,334,805 prompts, 17,735 prompts/sec throughput, and 13.3ms HTTPS latency.",
     "author": {
-      "@type": "Organization",
-      "name": "ProjectSPG Engineering & Security Team"
+      "@type": "Person",
+      "name": "Priyanuj Boruah"
     },
     "publisher": {
       "@type": "Organization",
@@ -51,1660 +52,1187 @@ export const BENCHMARK_BLOG_HTML = `<!DOCTYPE html>
   
   <style>
     :root {
-      --bg: #f8fafc;
-      --bg-surface: #ffffff;
-      --bg-surface-elevated: #f1f5f9;
-      --border: #e2e8f0;
-      --border-accent: #cbd5e1;
-      --text: #0f172a;
-      --text-muted: #334155;
-      --text-dim: #64748b;
-      --primary: #0284c7;
-      --primary-hover: #0369a1;
-      --accent-green: #059669;
-      --accent-purple: #7c3aed;
-      --accent-amber: #d97706;
-      --code-bg: #0f172a;
-      --sidebar-width: 280px;
+      --bg: #ffffff;
+      --text: #111827;
+      --text-muted: #4b5563;
+      --text-dim: #9ca3af;
+      --border: #e5e7eb;
+      --primary: #0f172a;
+      --accent: #f0523d;
+      --blue-subtle: #eff6ff;
+      --blue-border: #bfdbfe;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; font-size: 16px; }
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background-color: var(--bg);
       color: var(--text);
-      line-height: 1.6;
-      overflow-x: hidden;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* Top Sticky Official Header */
-    .top-navbar {
+    /* Top Clean Floating Navbar matching Together.ai */
+    .site-nav {
       position: sticky;
       top: 0;
-      left: 0;
-      right: 0;
-      width: 100%;
-      height: 56px;
-      z-index: 100;
+      z-index: 50;
       background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
-      padding: 0 24px;
+      height: 64px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
+      padding: 0 32px;
     }
 
-    .nav-brand-wrap {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-      color: #0f172a;
-    }
-
-    .brand-logo-badge {
-      width: 30px;
-      height: 30px;
-      background: linear-gradient(135deg, #059669, #0284c7);
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 15px;
-      font-weight: 800;
-      color: white;
-    }
-
-    .nav-actions {
+    .nav-brand {
       display: flex;
       align-items: center;
       gap: 10px;
-    }
-
-    .btn-back-home {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 14px;
-      border-radius: 6px;
-      background: #f1f5f9;
-      border: 1px solid var(--border);
-      color: #334155;
-      font-size: 12px;
-      font-weight: 600;
       text-decoration: none;
-      transition: all 0.15s ease;
-    }
-
-    .btn-back-home:hover {
-      background: #e2e8f0;
       color: #0f172a;
+      font-weight: 700;
+      font-size: 17px;
+      letter-spacing: -0.02em;
     }
 
-    .btn-cta-playground {
-      display: inline-flex;
+    .brand-dots {
+      display: flex;
       align-items: center;
-      gap: 6px;
-      padding: 6px 14px;
-      border-radius: 6px;
-      background: #0284c7;
-      color: #ffffff;
-      font-size: 12px;
-      font-weight: 600;
+      gap: 3px;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+    }
+
+    .dot-pink { background: #ec4899; }
+    .dot-orange { background: #f97316; }
+    .dot-purple { background: #8b5cf6; }
+
+    .nav-center-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      font-size: 13.5px;
+      font-weight: 500;
+      color: #4b5563;
+    }
+
+    .nav-link {
       text-decoration: none;
-      transition: all 0.15s ease;
+      color: #4b5563;
+      transition: color 0.15s;
     }
 
-    .btn-cta-playground:hover {
-      background: #0369a1;
-    }
+    .nav-link:hover { color: #111827; }
 
-    /* Layout */
-    .app-container {
+    .nav-right-actions {
       display: flex;
-      min-height: calc(100vh - 56px);
+      align-items: center;
+      gap: 14px;
     }
 
-    /* Sidebar Navigation */
-    .sidebar {
-      width: var(--sidebar-width);
-      background: var(--bg-surface);
-      border-right: 1px solid var(--border);
-      position: fixed;
-      top: 56px;
-      bottom: 0;
-      left: 0;
-      overflow-y: auto;
-      padding: 24px 16px;
+    .btn-contact {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #111827;
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 6px 12px;
+      transition: color 0.15s;
+    }
+
+    .btn-contact:hover { color: #f0523d; }
+
+    .btn-signin {
+      background: #000000;
+      color: #ffffff;
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 9px 18px;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+
+    .btn-signin:hover { opacity: 0.85; }
+
+    /* Page Container */
+    .article-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 48px 24px 120px;
+    }
+
+    /* Article Header */
+    .article-header {
+      margin-bottom: 48px;
+    }
+
+    .meta-pills {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .badge-category {
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
+      color: #374151;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .meta-date {
+      font-size: 11px;
+      font-weight: 600;
+      color: #6b7280;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .article-title {
+      font-size: 42px;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      color: #111827;
+      margin-bottom: 18px;
+    }
+
+    .article-lede {
+      font-size: 18px;
+      color: #6b7280;
+      line-height: 1.6;
+      max-width: 880px;
+      font-weight: 400;
+    }
+
+    /* Top Grid: Left Meta + Right Visual Diagram */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 48px;
+      margin-bottom: 56px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid #f3f4f6;
+    }
+
+    .meta-sidebar {
       display: flex;
       flex-direction: column;
-      gap: 24px;
-      z-index: 50;
+      gap: 32px;
     }
 
-    .nav-group {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .nav-heading {
+    .meta-section-title {
       font-size: 11px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      color: var(--text-dim);
-      padding: 0 8px;
-      margin-bottom: 4px;
-    }
-
-    .nav-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 8px 12px;
-      font-size: 13px;
-      font-weight: 500;
-      color: #475569;
-      text-decoration: none;
-      border-radius: 6px;
-      transition: all 0.15s ease;
-    }
-
-    .nav-item:hover {
-      color: #0f172a;
-      background: #f1f5f9;
-    }
-
-    .nav-item.active {
-      color: #0284c7;
-      background: #e0f2fe;
-      font-weight: 600;
-      border-left: 3px solid #0284c7;
-    }
-
-    /* Main Content */
-    .main-content {
-      margin-left: var(--sidebar-width);
-      flex: 1;
-      padding: 40px 60px 100px;
-      max-width: 1200px;
-    }
-
-    /* Hero */
-    .hero {
-      margin-bottom: 40px;
-      padding-bottom: 32px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .hero-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 4px 12px;
-      border-radius: 20px;
-      background: #ecfdf5;
-      border: 1px solid #a7f3d0;
-      color: #047857;
-      font-size: 12px;
-      font-weight: 600;
-      margin-bottom: 16px;
-    }
-
-    .hero h1 {
-      font-size: 34px;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      margin-bottom: 14px;
-      color: #0f172a;
-      line-height: 1.25;
-    }
-
-    .hero-meta {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      font-size: 13px;
-      color: var(--text-dim);
-      margin-bottom: 16px;
-      flex-wrap: wrap;
-    }
-
-    .hero p {
-      font-size: 16.5px;
-      color: #475569;
-      max-width: 860px;
-      line-height: 1.6;
-    }
-
-    /* KPI Grid */
-    .kpi-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin-bottom: 48px;
-    }
-
-    .kpi-card {
-      background: #ffffff;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 20px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-    }
-
-    .kpi-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    }
-
-    .kpi-card::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: var(--primary);
-    }
-
-    .kpi-card.green::before { background: #059669; }
-    .kpi-card.blue::before { background: #0284c7; }
-    .kpi-card.purple::before { background: #7c3aed; }
-    .kpi-card.amber::before { background: #d97706; }
-
-    .kpi-label {
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--text-dim);
-      margin-bottom: 6px;
-    }
-
-    .kpi-value {
-      font-size: 28px;
-      font-weight: 800;
-      color: #0f172a;
-      letter-spacing: -0.02em;
-      line-height: 1.1;
-      margin-bottom: 6px;
+      color: #9ca3af;
+      margin-bottom: 8px;
       font-family: 'JetBrains Mono', monospace;
     }
 
-    .kpi-subtext {
-      font-size: 12px;
-      color: #64748b;
+    .authors-text {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1f2937;
+      line-height: 1.4;
     }
 
-    /* Section Styles */
-    .section { margin-bottom: 56px; scroll-margin-top: 70px; }
-    .section-header { margin-bottom: 24px; }
-    .section-title {
-      font-size: 22px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      color: #0f172a;
+    .toc-list {
       display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .toc-item {
+      font-size: 13.5px;
+      font-weight: 500;
+      color: #4b5563;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .toc-item:hover { color: #111827; font-weight: 600; }
+
+    /* Visual Architecture Box on Right */
+    .hero-diagram-card {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 36px 32px;
+      display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 10px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+
+    .diagram-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 28px;
+      letter-spacing: -0.02em;
+    }
+
+    .pipeline-steps-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      width: 100%;
+    }
+
+    .pipeline-step-box {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 18px 14px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 170px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+      transition: transform 0.15s, border-color 0.15s;
+    }
+
+    .pipeline-step-box:hover {
+      transform: translateY(-2px);
+      border-color: #cbd5e1;
+    }
+
+    .pipeline-step-box.highlight {
+      background: #f0523d;
+      border-color: #f0523d;
+      color: #ffffff;
+    }
+
+    .pipeline-step-box.highlight .step-num { color: rgba(255,255,255,0.8); }
+    .pipeline-step-box.highlight .step-name { color: #ffffff; }
+    .pipeline-step-box.highlight .step-desc { color: rgba(255,255,255,0.9); }
+    .pipeline-step-box.highlight .step-tag { background: rgba(255,255,255,0.2); color: #ffffff; }
+
+    .step-icon-circle {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #f3f4f6;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      margin: 0 auto 8px;
+    }
+
+    .step-num {
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #9ca3af;
+      margin-bottom: 2px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .step-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: #111827;
       margin-bottom: 6px;
     }
-    .section-desc { font-size: 14.5px; color: #475569; line-height: 1.5; }
 
-    .card {
-      background: #ffffff;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 24px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+    .step-desc {
+      font-size: 11px;
+      color: #6b7280;
+      line-height: 1.4;
+      margin-bottom: 12px;
+    }
+
+    .step-tag {
+      font-size: 9.5px;
+      font-weight: 600;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: #f3f4f6;
+      color: #4b5563;
+      display: inline-block;
+      margin: 0 auto;
+    }
+
+    /* Main Prose Section */
+    .prose-content {
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    /* Editorial Callout Box matching Image 2 */
+    .editorial-callout {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 14px;
+      padding: 24px 28px;
+      margin-bottom: 36px;
+      font-size: 15.5px;
+      color: #1e3a8a;
+      line-height: 1.7;
+    }
+
+    .prose-p {
+      font-size: 16.5px;
+      color: #374151;
+      line-height: 1.8;
       margin-bottom: 24px;
     }
 
-    /* Tables */
-    .data-table-wrapper {
-      background: #ffffff;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      overflow-x: auto;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
-      margin-bottom: 20px;
+    .prose-quote {
+      border-left: 2px solid #e5e7eb;
+      padding-left: 20px;
+      font-size: 15.5px;
+      color: #6b7280;
+      font-style: italic;
+      margin: 32px 0;
+      line-height: 1.7;
     }
 
-    .data-table {
+    .prose-h2 {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #111827;
+      margin-top: 48px;
+      margin-bottom: 18px;
+      scroll-margin-top: 80px;
+    }
+
+    .prose-h3 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #111827;
+      margin-top: 32px;
+      margin-bottom: 12px;
+    }
+
+    .prose-ul {
+      list-style-type: none;
+      padding: 0;
+      margin-bottom: 28px;
+    }
+
+    .prose-li {
+      position: relative;
+      padding-left: 20px;
+      margin-bottom: 10px;
+      font-size: 16px;
+      color: #374151;
+      line-height: 1.7;
+    }
+
+    .prose-li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: #9ca3af;
+      font-weight: bold;
+    }
+
+    .prose-li strong {
+      color: #111827;
+      font-weight: 600;
+    }
+
+    .prose-li a {
+      color: #111827;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    /* Key Metrics Multi-Card Container matching Image 3 */
+    .metrics-showcase-wrap {
+      background: #f4f5f7;
+      border-radius: 20px;
+      padding: 36px 32px;
+      margin: 40px 0;
+    }
+
+    .metrics-showcase-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #111827;
+      text-align: center;
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+    }
+
+    .metric-tier-card {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+
+    .metric-tier-card:last-child { margin-bottom: 0; }
+
+    .tier-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .tier-icon-box {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .icon-flame { background: #fef2f2; color: #ef4444; }
+    .icon-scale { background: #eff6ff; color: #3b82f6; }
+    .icon-bolt { background: #f5f3ff; color: #8b5cf6; }
+
+    .tier-info-header {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #f0523d;
+      font-family: 'JetBrains Mono', monospace;
+      margin-bottom: 2px;
+    }
+
+    .tier-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .tier-subtext {
+      font-size: 13px;
+      color: #6b7280;
+    }
+
+    .tier-pill-badge {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      color: #334155;
+      font-size: 12.5px;
+      font-weight: 600;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 6px 14px;
+      border-radius: 6px;
+    }
+
+    /* Minimalist Data Tables */
+    .clean-table-card {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow-x: auto;
+      margin: 28px 0;
+      background: #ffffff;
+    }
+
+    .clean-table {
       width: 100%;
       border-collapse: collapse;
       text-align: left;
-      font-size: 13.5px;
+      font-size: 14px;
     }
 
-    .data-table th {
-      background: #f8fafc;
-      color: #334155;
+    .clean-table th {
+      background: #f9fafb;
+      color: #374151;
       font-weight: 600;
-      font-size: 12px;
+      font-size: 11.5px;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      padding: 12px 16px;
+      letter-spacing: 0.06em;
+      padding: 12px 18px;
       border-bottom: 1px solid var(--border);
     }
 
-    .data-table td {
-      padding: 12px 16px;
+    .clean-table td {
+      padding: 12px 18px;
       border-bottom: 1px solid var(--border);
-      color: #334155;
-      vertical-align: middle;
+      color: #374151;
     }
 
-    .data-table tr:last-child td { border-bottom: none; }
-    .data-table tr:hover td { background: #fbfcfe; }
+    .clean-table tr:last-child td { border-bottom: none; }
+    .clean-table tr:hover td { background: #fafafa; }
     .mono { font-family: 'JetBrains Mono', monospace; font-size: 13px; }
 
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 3px 8px;
-      border-radius: 4px;
-      font-size: 11.5px;
-      font-weight: 600;
-    }
-    .badge.success { background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; }
-    .badge.primary { background: #e0f2fe; color: #0284c7; border: 1px solid #bae6fd; }
-    .badge.amber { background: #fffbeb; color: #d97706; border: 1px solid #fde68a; }
-
-    /* Dataset Cards */
-    .dataset-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-bottom: 24px;
-    }
-    .dataset-card {
-      background: #ffffff;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 18px;
-      transition: all 0.15s;
-    }
-    .dataset-card:hover { border-color: #cbd5e1; background: #fbfcfe; }
-    .dataset-name {
-      font-size: 14px;
-      font-weight: 700;
-      color: #0f172a;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 6px;
-    }
-    .dataset-meta { font-size: 12px; color: #64748b; line-height: 1.4; }
-
-    /* Interactive Charts Grid */
-    .charts-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      margin-bottom: 28px;
-    }
-    .chart-card {
-      background: #ffffff;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 22px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    /* Numbered List matching Image 4 */
+    .numbered-step-list {
       display: flex;
       flex-direction: column;
+      gap: 16px;
+      margin: 24px 0 32px;
     }
-    .chart-card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 16px;
-      gap: 12px;
-    }
-    .chart-card-title {
-      font-size: 15px;
-      font-weight: 700;
-      color: #0f172a;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .chart-card-subtitle { font-size: 12px; color: #64748b; margin-top: 2px; }
-    .chart-controls { display: flex; gap: 6px; }
-    .chart-btn {
-      background: #f1f5f9;
-      border: 1px solid #cbd5e1;
-      border-radius: 4px;
-      padding: 4px 10px;
-      font-size: 11px;
-      font-weight: 600;
-      color: #475569;
-      cursor: pointer;
-      transition: all 0.15s;
-    }
-    .chart-btn.active { background: #0284c7; color: #ffffff; border-color: #0284c7; }
-    .chart-canvas-wrap { position: relative; height: 290px; width: 100%; }
 
-    /* Terminal */
-    .terminal-card {
-      background: var(--code-bg);
+    .numbered-step-item {
+      font-size: 16px;
+      color: #374151;
+      line-height: 1.7;
+    }
+
+    .numbered-step-item strong {
+      color: #111827;
+      font-weight: 700;
+    }
+
+    /* Terminal Code Block */
+    .terminal-wrapper {
+      background: #0f172a;
       border-radius: 8px;
       overflow: hidden;
-      border: 1px solid #1e293b;
-      margin-bottom: 24px;
+      margin: 28px 0;
     }
-    .terminal-header {
+
+    .terminal-top-bar {
       background: #1e293b;
-      padding: 10px 16px;
+      padding: 8px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-    }
-    .terminal-dots { display: flex; gap: 6px; }
-    .terminal-dot { width: 10px; height: 10px; border-radius: 50%; }
-    .dot-red { background: #ef4444; }
-    .dot-yellow { background: #f59e0b; }
-    .dot-green { background: #10b981; }
-    .terminal-title { font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: #94a3b8; }
-    .copy-btn {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #e2e8f0;
-      padding: 4px 10px;
-      border-radius: 4px;
+      color: #94a3b8;
       font-size: 11px;
-      font-weight: 500;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .terminal-copy-btn {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #e2e8f0;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 10.5px;
       cursor: pointer;
     }
-    .terminal-body {
-      padding: 16px 20px;
+
+    .terminal-pre {
+      padding: 18px 20px;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 12.5px;
+      font-size: 13px;
       line-height: 1.6;
       color: #e2e8f0;
       overflow-x: auto;
     }
-    .cmd { color: #38bdf8; font-weight: 600; }
-    .dim { color: #64748b; }
 
-    /* Interactive Tester */
-    .tester-card {
-      background: #ffffff;
-      border: 1px solid #cbd5e1;
-      border-radius: 10px;
+    /* Interactive Verifier Box */
+    .verifier-box {
+      border: 1px solid var(--border);
+      border-radius: 12px;
       padding: 24px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
-      margin-bottom: 24px;
+      margin: 32px 0;
+      background: #fafafa;
     }
-    .tester-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 16px; }
-    .tester-col label { font-size: 12.5px; font-weight: 600; color: #334155; display: block; margin-bottom: 6px; }
-    .tester-box {
+
+    .verifier-input {
       width: 100%;
-      height: 130px;
+      height: 90px;
       padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
       font-family: 'JetBrains Mono', monospace;
       font-size: 13px;
-      border: 1px solid #cbd5e1;
-      border-radius: 6px;
-      background: #ffffff;
       outline: none;
       resize: vertical;
+      background: #ffffff;
+      margin-bottom: 12px;
     }
-    .tester-box:focus { border-color: #0284c7; box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15); }
-    .tester-output { background: #f8fafc; color: #0f172a; border: 1px solid #e2e8f0; overflow-y: auto; }
-    .preset-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
-    .preset-pill {
-      background: #f1f5f9;
-      border: 1px solid #cbd5e1;
-      color: #334155;
-      font-size: 11.5px;
-      font-weight: 500;
-      padding: 4px 10px;
-      border-radius: 4px;
-      cursor: pointer;
+
+    .verifier-input:focus {
+      border-color: #000000;
     }
-    .btn-run-test {
-      background: #059669;
+
+    .verifier-output {
+      padding: 10px 12px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      color: #111827;
+      min-height: 48px;
+      word-break: break-all;
+    }
+
+    .btn-verify {
+      background: #000000;
       color: #ffffff;
-      font-weight: 600;
-      font-size: 13px;
-      border: none;
       padding: 8px 18px;
-      border-radius: 6px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      margin-top: 12px;
-    }
-
-    /* Milestone progress */
-    .milestone-container {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 8px;
-      padding: 16px 20px;
-      margin-bottom: 24px;
-    }
-    .milestone-bar-wrap {
-      width: 100%;
-      height: 12px;
-      background: #e2e8f0;
-      border-radius: 6px;
-      overflow: hidden;
-      margin: 10px 0;
-    }
-    .milestone-bar-fill {
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, #0284c7, #059669);
-      border-radius: 6px;
-    }
-    .milestone-meta {
-      display: flex;
-      justify-content: space-between;
+      border-radius: 4px;
       font-size: 12px;
-      color: #64748b;
-      font-weight: 500;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
     }
 
-    /* Responsive */
-    @media (max-width: 1024px) {
-      .kpi-grid { grid-template-columns: repeat(2, 1fr); }
-      .dataset-grid { grid-template-columns: 1fr; }
-      .charts-grid { grid-template-columns: 1fr; }
+    /* Bottom Minimalist CTA */
+    .bottom-cta {
+      margin-top: 60px;
+      padding: 36px 0;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
     }
+
+    .bottom-cta h4 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 4px;
+    }
+
+    .bottom-cta p {
+      font-size: 14px;
+      color: #6b7280;
+    }
+
     @media (max-width: 900px) {
-      .sidebar { display: none; }
-      .main-content { margin-left: 0; padding: 24px 16px 80px; }
-      .tester-grid { grid-template-columns: 1fr; }
-      .kpi-grid { grid-template-columns: 1fr; }
+      .hero-grid { grid-template-columns: 1fr; gap: 32px; }
+      .nav-center-links { display: none; }
+      .article-title { font-size: 32px; }
+      .pipeline-steps-row { grid-template-columns: 1fr 1fr; }
     }
   </style>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 </head>
 <body>
 
-  <!-- Top Sticky Navbar -->
-  <header class="top-navbar">
-    <a href="/" class="nav-brand-wrap">
-      <div class="brand-logo-badge">📊</div>
-      <div>
-        <span style="font-weight: 700; font-size: 15px; color: #0f172a;">ProjectSPG</span>
-        <span style="font-size: 10px; font-weight: 700; background: #ecfdf5; color: #059669; padding: 1px 6px; border-radius: 4px; margin-left: 6px; text-transform: uppercase;">Benchmark Blog</span>
+  <!-- Top Clean Navigation Bar -->
+  <nav class="site-nav">
+    <a href="/" class="nav-brand">
+      <div class="brand-dots">
+        <span class="dot dot-pink"></span>
+        <span class="dot dot-orange"></span>
+        <span class="dot dot-purple"></span>
       </div>
+      <span>project<span style="color:#f0523d;">spg</span></span>
     </a>
-    <div class="nav-actions">
-      <a href="/" class="btn-back-home">← Back to Overview</a>
-      <a href="/dashboard" class="btn-cta-playground">Test in Playground ↗</a>
+
+    <div class="nav-center-links">
+      <a href="/#features" class="nav-link">Inference</a>
+      <a href="/#research-section" class="nav-link">Research</a>
+      <a href="/#news-section" class="nav-link">Blog</a>
+      <a href="/dashboard" class="nav-link">Playground</a>
+      <a href="https://github.com/PriyanujBoruah/AI-Privacy-Core" target="_blank" class="nav-link">Developers</a>
     </div>
-  </header>
 
-  <div class="app-container">
+    <div class="nav-right-actions">
+      <a href="/" class="btn-contact">OVERVIEW</a>
+      <a href="/dashboard" class="btn-signin">CONSOLE</a>
+    </div>
+  </nav>
+
+  <!-- Article Wrapper -->
+  <article class="article-wrap">
     
-    <!-- Sidebar Navigation -->
-    <aside class="sidebar">
-      <div class="nav-group">
-        <div class="nav-heading">Audit Navigation</div>
-        <a href="#executive-summary" class="nav-item active">Executive Summary</a>
-        <a href="#unified-dataset" class="nav-item">Benchmark Datasets</a>
-        <a href="#engine-benchmark" class="nav-item">9.33M Engine Audit</a>
-        <a href="#https-benchmark" class="nav-item">50K HTTPS Network SLA</a>
-        <a href="#interactive-charts" class="nav-item">Interactive Charts</a>
-        <a href="#latency-distribution" class="nav-item">Latency Percentiles</a>
-        <a href="#run-progression" class="nav-item">Evolution to 100%</a>
-        <a href="#interactive-tester" class="nav-item">Edge-Case Verifier</a>
-        <a href="#reproducibility" class="nav-item">Reproduce Locally</a>
+    <!-- Article Header -->
+    <header class="article-header">
+      <div class="meta-pills">
+        <span class="badge-category">BENCHMARK</span>
+        <span class="meta-date">PUBLISHED 9/29/2026</span>
       </div>
+      <h1 class="article-title">
+        Empirical Benchmark: 9,334,805 Prompts Evaluated with 100.00% Roundtrip Fidelity &amp; 86µs Latency
+      </h1>
+      <p class="article-lede">
+        A practical, empirical audit for high-throughput sovereign AI privacy: evaluating zero information loss, sub-millisecond edge latency, and enterprise SLA stability across 1.94 billion tokens.
+      </p>
+    </header>
 
-      <div class="nav-group">
-        <div class="nav-heading">Audit Status</div>
-        <div style="padding: 10px 12px; background: #ecfdf5; border-radius: 6px; border: 1px solid #a7f3d0; font-size: 12px; color: #065f46;">
-          <strong>✓ 100.00% Exact Fidelity</strong><br>
-          9,334,805 / 9,334,805 prompts matched bit-for-bit. 0 collisions.
-        </div>
-      </div>
-
-      <div class="nav-group">
-        <div class="nav-heading">Open Source Audit Data</div>
-        <a href="https://github.com/PriyanujBoruah/AI-Privacy-Core" target="_blank" class="nav-item">GitHub Repository ↗</a>
-        <a href="https://github.com/PriyanujBoruah/AI-Privacy-Core/blob/main/multicore_benchmark_summary.json" target="_blank" class="nav-item">Audit JSON (9.33M) ↗</a>
-        <a href="https://github.com/PriyanujBoruah/AI-Privacy-Core/blob/main/http_latency_benchmark_summary.json" target="_blank" class="nav-item">Audit JSON (HTTPS) ↗</a>
-      </div>
-    </aside>
-
-    <!-- Main Content -->
-    <main class="main-content">
+    <!-- Top Grid: Metadata Sidebar on Left + Hero Pipeline Diagram on Right -->
+    <div class="hero-grid">
       
-      <!-- Hero -->
-      <header class="hero" id="executive-summary">
-        <div class="hero-eyebrow">
-          <span>🧪 EMPIRICAL BENCHMARK &amp; AUDIT REPORT</span>
-        </div>
-        <h1>1,937,516,961 Tokens Evaluated with 100.00% Roundtrip Fidelity &amp; 86µs Latency</h1>
-        
-        <div class="hero-meta">
-          <span>By <strong>ProjectSPG Research Team</strong></span>
-          <span>•</span>
-          <span>Published: September 2026</span>
-          <span>•</span>
-          <span>8 min read</span>
-          <span>•</span>
-          <span class="badge success">Audit Certified: v2.0.0 Hardened</span>
-        </div>
-
-        <p>
-          An exhaustive empirical benchmark proving zero information loss, sub-millisecond core engine latency, and enterprise-grade SLA stability over TLS 1.3 across <strong>9,334,805 real-world prompts</strong> (~1.94 billion tokens) and <strong>10,281,399 intercepted entities</strong>.
-        </p>
-      </header>
-
-      <!-- KPI Highlights -->
-      <div class="kpi-grid">
-        <div class="kpi-card green">
-          <div class="kpi-label">Roundtrip Fidelity</div>
-          <div class="kpi-value" style="color: #059669;">100.00%</div>
-          <div class="kpi-subtext">9,334,805 / 9,334,805 exact matches</div>
-        </div>
-
-        <div class="kpi-card blue">
-          <div class="kpi-label">Engine Throughput</div>
-          <div class="kpi-value">17,735</div>
-          <div class="kpi-subtext">Prompts/sec in-memory throughput</div>
-        </div>
-
-        <div class="kpi-card purple">
-          <div class="kpi-label">Median Engine Latency</div>
-          <div class="kpi-value">86 µs</div>
-          <div class="kpi-subtext">0.086 ms per prompt (p50)</div>
-        </div>
-
-        <div class="kpi-card amber">
-          <div class="kpi-label">HTTPS Network SLA</div>
-          <div class="kpi-value">13.3 ms</div>
-          <div class="kpi-subtext">Median tokenize over TLS 1.3</div>
-        </div>
-      </div>
-
-      <!-- Section 1: Unified Multi-Source Dataset -->
-      <section class="section" id="unified-dataset">
-        <div class="section-header">
-          <h2 class="section-title">📦 1. The Unified Multi-Source Benchmark Dataset</h2>
-          <p class="section-desc">
-            Evaluated against a composite corpus of <strong>9,334,805 real-world prompts</strong> (~1.94 billion tokens) stored in Apache Parquet format across 94 row groups.
-          </p>
-        </div>
-
-        <div class="dataset-grid">
-          <div class="dataset-card">
-            <div class="dataset-name">
-              LMSYS Chatbot Arena
-              <span class="badge primary">Conversational</span>
-            </div>
-            <div class="dataset-meta">
-              Real multi-turn interactions with frontier LLMs containing natural conversational quirks, emojis, slang, and contextual mentions.
-            </div>
-          </div>
-
-          <div class="dataset-card">
-            <div class="dataset-name">
-              OpenOrca
-              <span class="badge primary">Reasoning &amp; Code</span>
-            </div>
-            <div class="dataset-meta">
-              Complex instructions, code blocks, technical SQL queries, UUIDs, stack traces, and mathematical representations.
-            </div>
-          </div>
-
-          <div class="dataset-card">
-            <div class="dataset-name">
-              WildChat
-              <span class="badge primary">In-The-Wild</span>
-            </div>
-            <div class="dataset-meta">
-              Unfiltered global user prompts featuring international languages, mixed scripts, special Unicode delimiters, and edge formatting.
-            </div>
-          </div>
-
-          <div class="dataset-card">
-            <div class="dataset-name">
-              Enron Email Corpus
-              <span class="badge amber">Enterprise PII</span>
-            </div>
-            <div class="dataset-meta">
-              Corporate communication headers, signatures, direct phone lines, work emails, employee names, and financial statements.
-            </div>
-          </div>
-
-          <div class="dataset-card">
-            <div class="dataset-name">
-              Customer Support Twitter
-              <span class="badge amber">E-Commerce &amp; Logistics</span>
-            </div>
-            <div class="dataset-meta">
-              Short unstructured complaints containing courier tracking numbers (UPS, FedEx), invoice IDs, street addresses, and handles.
-            </div>
-          </div>
-
-          <div class="dataset-card">
-            <div class="dataset-name">
-              Sovereign ID Synthesis
-              <span class="badge success">109 Jurisdictions</span>
-            </div>
-            <div class="dataset-meta">
-              Algorithmic test sets covering Aadhaar, SSN, SIN, NRIC, DNI, Codice Fiscale, and Luhn-valid credit card numbers.
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Section 2: Full 9.33M In-Memory Engine Benchmark -->
-      <section class="section" id="engine-benchmark">
-        <div class="section-header">
-          <h2 class="section-title">⚡ 2. Full In-Memory Engine Benchmark (9,334,805 Prompts)</h2>
-          <p class="section-desc">
-            Direct multi-core worker evaluation of the standalone tokenization and rehydration engine. Every single prompt was tokenized, then rehydrated, and checked for strict byte-for-byte exact equality: <code class="mono" style="background:#e0f2fe; color:#0284c7; padding:2px 6px; border-radius:4px;">rehydratedText === originalPrompt</code>.
-          </p>
-        </div>
-
-        <div class="milestone-container">
-          <div style="display:flex; justify-content:space-between; align-items:center;">
-            <span style="font-weight:700; font-size:13px; color:#0f172a;">Full Dataset Audit Progress</span>
-            <span class="badge success">✓ 100.0% Complete (Clean Sweep)</span>
-          </div>
-          <div class="milestone-bar-wrap">
-            <div class="milestone-bar-fill"></div>
-          </div>
-          <div class="milestone-meta">
-            <span>0 Prompts</span>
-            <span>4,700,000 (50%)</span>
-            <span>9,334,805 Prompts (100%)</span>
-          </div>
-        </div>
-
-        <div class="data-table-wrapper">
-          <table class="data-table">
-            <thead>
-              <tr>
-                <th>Benchmark Metric</th>
-                <th>Observed Value</th>
-                <th>Auditable Meaning / SLA</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Total Prompts Evaluated</strong></td>
-                <td class="mono"><strong>9,334,805</strong></td>
-                <td>100% of entire unified parquet dataset across 94 row groups</td>
-              </tr>
-              <tr>
-                <td><strong>Exact Roundtrip Matches</strong></td>
-                <td class="mono" style="color: #059669; font-weight: 700;"><strong>9,334,805</strong></td>
-                <td><span class="badge success">100.00% Bit-for-Bit Exact Fidelity</span></td>
-              </tr>
-              <tr>
-                <td><strong>Roundtrip Mismatches</strong></td>
-                <td class="mono" style="color: #059669; font-weight: 700;"><strong>0 (Zero)</strong></td>
-                <td>Zero token collisions, zero dropped characters, zero hallucinations</td>
-              </tr>
-              <tr>
-                <td><strong>Total Entities Protected</strong></td>
-                <td class="mono"><strong>10,281,399 entities</strong></td>
-                <td>Sovereign IDs, credit cards, emails, phone numbers, tracking numbers</td>
-              </tr>
-              <tr>
-                <td><strong>Estimated Tokens Processed</strong></td>
-                <td class="mono"><strong>1,937,516,961 tokens</strong></td>
-                <td>~1.94 Billion tokens of text processed end-to-end</td>
-              </tr>
-              <tr>
-                <td><strong>Total Execution Time</strong></td>
-                <td class="mono"><strong>526.35 seconds (8.77 min)</strong></td>
-                <td>Continuous parallel multi-core execution</td>
-              </tr>
-              <tr>
-                <td><strong>Overall Engine Throughput</strong></td>
-                <td class="mono" style="color: #0284c7; font-weight: 700;"><strong>17,735.0 prompts / sec</strong></td>
-                <td>V8 execution speed across multi-threaded workers</td>
-              </tr>
-              <tr>
-                <td><strong>Average Processing Latency</strong></td>
-                <td class="mono"><strong>0.314 ms (314 µs)</strong></td>
-                <td>Sub-millisecond processing latency per prompt</td>
-              </tr>
-              <tr>
-                <td><strong>Median (p50) Processing Latency</strong></td>
-                <td class="mono" style="color: #7c3aed; font-weight: 700;"><strong>0.086 ms (86 µs)</strong></td>
-                <td>Negligible compute overhead for production LLM pipelines</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <!-- Section 3: Real-World HTTPS Network Benchmark -->
-      <section class="section" id="https-benchmark">
-        <div class="section-header">
-          <h2 class="section-title">🌐 3. Real-World HTTPS Socket SLA Benchmark (50,000 Prompts)</h2>
-          <p class="section-desc">
-            To measure production-grade network performance (including TLS 1.3 handshakes, TCP socket pooling, HTTP headers, JSON serialization, and full roundtrips), a dedicated network benchmark was conducted on <strong>50,000 random prompts</strong> sampled uniformly across all 94 row groups of the dataset.
-          </p>
-        </div>
-
-        <div class="card" style="border-left: 4px solid #0284c7;">
-          <div style="font-weight:700; font-size:14px; color:#0f172a; margin-bottom:8px;">Protocol Verification Workflow per Prompt</div>
-          <div style="font-size:13px; color:#475569; line-height:1.6;">
-            <strong>1. Client POST /v1/tokenize</strong> over TLS 1.3 HTTPS socket &rarr; Server sanitizes text, generates ephemeral vault session, and returns surrogate tokens.<br>
-            <strong>2. Client POST /v1/detokenize</strong> over TLS 1.3 HTTPS socket &rarr; Server resolves tokens from session map and rehydrates the original text.<br>
-            <strong>3. Integrity Assertion:</strong> Client verifies byte-for-byte that <code class="mono">rehydratedText === originalPrompt</code>.
-          </div>
-        </div>
-
-        <div class="data-table-wrapper">
-          <table class="data-table">
-            <thead>
-              <tr>
-                <th>Network Metric</th>
-                <th>Observed Performance</th>
-                <th>Operational Notes</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Prompts Tested Over HTTPS</strong></td>
-                <td class="mono"><strong>50,000 prompts</strong></td>
-                <td>Sampled uniformly across all 94 row groups (9.33M dataset)</td>
-              </tr>
-              <tr>
-                <td><strong>Total HTTPS Network Requests</strong></td>
-                <td class="mono"><strong>100,000 requests</strong></td>
-                <td>50,000 Tokenize calls + 50,000 Detokenize calls</td>
-              </tr>
-              <tr>
-                <td><strong>Total Elapsed Network Time</strong></td>
-                <td class="mono"><strong>37.15 seconds</strong></td>
-                <td>Tested with 30 concurrent socket streams</td>
-              </tr>
-              <tr>
-                <td><strong>Overall Prompt Throughput</strong></td>
-                <td class="mono" style="color:#0284c7; font-weight:700;"><strong>1,345.98 prompts / sec</strong></td>
-                <td>End-to-end multi-stream client-to-API processing</td>
-              </tr>
-              <tr>
-                <td><strong>Overall Network RPS</strong></td>
-                <td class="mono" style="color:#059669; font-weight:700;"><strong>2,691.95 HTTP req / sec</strong></td>
-                <td>Continuous TLS 1.3 socket throughput</td>
-              </tr>
-              <tr>
-                <td><strong>Token Throughput</strong></td>
-                <td class="mono"><strong>277,506 tokens / sec</strong></td>
-                <td>Estimated over standard 4-char token density</td>
-              </tr>
-              <tr>
-                <td><strong>Total Entities Sanitized</strong></td>
-                <td class="mono"><strong>54,071 entities</strong></td>
-                <td>Detected and replaced across test set</td>
-              </tr>
-              <tr>
-                <td><strong>Exact Roundtrip Matches</strong></td>
-                <td class="mono" style="color:#059669; font-weight:700;"><strong>50,000 / 50,000 (100.00%)</strong></td>
-                <td>Zero mismatches over network sockets</td>
-              </tr>
-              <tr>
-                <td><strong>Socket / HTTP Drop Errors</strong></td>
-                <td class="mono" style="color:#059669; font-weight:700;"><strong>0</strong></td>
-                <td>100% network reliability under high concurrency</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <!-- Section 4: Interactive Charts -->
-      <section class="section" id="interactive-charts">
-        <div class="section-header">
-          <h2 class="section-title">📈 4. Interactive Benchmark Analytics &amp; Visualizations</h2>
-          <p class="section-desc">
-            Explore interactive performance curves, throughput scaling across enterprise solutions, error elimination progression, and dataset entity distributions.
-          </p>
-        </div>
-
-        <div class="charts-grid">
-          <!-- Chart 1: Latency Percentiles Curve -->
-          <div class="chart-card">
-            <div class="chart-card-header">
-              <div>
-                <div class="chart-card-title">⏱️ HTTPS Network Latency Curve</div>
-                <div class="chart-card-subtitle">Response times across percentiles (Min &rarr; p50 &rarr; p95 &rarr; p99 &rarr; Max)</div>
-              </div>
-              <div class="chart-controls">
-                <button id="btnScaleLinear" class="chart-btn active" onclick="toggleLatencyScale('linear')">Linear</button>
-                <button id="btnScaleLog" class="chart-btn" onclick="toggleLatencyScale('logarithmic')">Log</button>
-              </div>
-            </div>
-            <div class="chart-canvas-wrap">
-              <canvas id="chartLatencyPercentiles"></canvas>
-            </div>
-          </div>
-
-          <!-- Chart 2: Architectural Throughput Comparison -->
-          <div class="chart-card">
-            <div class="chart-card-header">
-              <div>
-                <div class="chart-card-title">⚡ Throughput: ProjectSPG vs Alternatives</div>
-                <div class="chart-card-subtitle">Prompts / Requests processed per second under load</div>
-              </div>
-              <div class="chart-controls">
-                <span class="badge success">84x Faster</span>
-              </div>
-            </div>
-            <div class="chart-canvas-wrap">
-              <canvas id="chartThroughput"></canvas>
-            </div>
-          </div>
-
-          <!-- Chart 3: Sustained 9.33M Batch Scalability -->
-          <div class="chart-card">
-            <div class="chart-card-header">
-              <div>
-                <div class="chart-card-title">🛡️ Sustained 9.33M Batch Scalability</div>
-                <div class="chart-card-subtitle">Continuous 17,735 prompts/s throughput &amp; 100.00% cumulative fidelity</div>
-              </div>
-              <div class="chart-controls">
-                <span class="badge success">100% SLA Maintained</span>
-              </div>
-            </div>
-            <div class="chart-canvas-wrap">
-              <canvas id="chartProgression"></canvas>
-            </div>
-          </div>
-
-          <!-- Chart 4: Dataset & Protected Entities Distribution -->
-          <div class="chart-card">
-            <div class="chart-card-header">
-              <div>
-                <div class="chart-card-title">📊 Dataset &amp; Entity Distribution</div>
-                <div class="chart-card-subtitle" id="distSubtitle">Prompt volume across benchmark sources</div>
-              </div>
-              <div class="chart-controls">
-                <button id="btnDistDatasets" class="chart-btn active" onclick="switchDistribution('datasets')">Datasets</button>
-                <button id="btnDistEntities" class="chart-btn" onclick="switchDistribution('entities')">Entities</button>
-              </div>
-            </div>
-            <div class="chart-canvas-wrap">
-              <canvas id="chartDistribution"></canvas>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Section 5: Percentile Latency Distribution -->
-      <section class="section" id="latency-distribution">
-        <div class="section-header">
-          <h2 class="section-title">⏱️ 5. Real-World Latency Percentile Matrix</h2>
-          <p class="section-desc">
-            Percentile distribution matrix of network calls over TLS 1.3 encrypted HTTPS connections under sustained 30-stream production load:
-          </p>
-        </div>
-
-        <div class="data-table-wrapper">
-          <table class="data-table">
-            <thead>
-              <tr>
-                <th>Operation</th>
-                <th>Min</th>
-                <th>Average</th>
-                <th>p50 (Median)</th>
-                <th>p90</th>
-                <th>p95</th>
-                <th>p99</th>
-                <th>p99.9</th>
-                <th>Max</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>POST /v1/tokenize</strong></td>
-                <td class="mono">4.60 ms</td>
-                <td class="mono">14.35 ms</td>
-                <td class="mono" style="color:#0284c7; font-weight:700;">13.30 ms</td>
-                <td class="mono">20.98 ms</td>
-                <td class="mono">25.22 ms</td>
-                <td class="mono">38.00 ms</td>
-                <td class="mono">62.68 ms</td>
-                <td class="mono">73.93 ms</td>
-              </tr>
-              <tr>
-                <td><strong>POST /v1/detokenize</strong></td>
-                <td class="mono">4.50 ms</td>
-                <td class="mono">7.92 ms</td>
-                <td class="mono" style="color:#059669; font-weight:700;">7.20 ms</td>
-                <td class="mono">10.91 ms</td>
-                <td class="mono">12.81 ms</td>
-                <td class="mono">18.31 ms</td>
-                <td class="mono">26.96 ms</td>
-                <td class="mono">64.22 ms</td>
-              </tr>
-              <tr style="background:#fbfcfe;">
-                <td><strong>Total Roundtrip (End-to-End)</strong></td>
-                <td class="mono">12.06 ms</td>
-                <td class="mono">22.27 ms</td>
-                <td class="mono" style="color:#7c3aed; font-weight:700;">20.81 ms</td>
-                <td class="mono">30.86 ms</td>
-                <td class="mono">36.36 ms</td>
-                <td class="mono">51.55 ms</td>
-                <td class="mono">79.22 ms</td>
-                <td class="mono">104.20 ms</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <!-- Section 6: Run Progression & Hardening -->
-      <section class="section" id="run-progression">
-        <div class="section-header">
-          <h2 class="section-title">🔧 6. Evolution to Absolute 100.00% Perfection</h2>
-          <p class="section-desc">
-            Achieving 100% roundtrip fidelity on a 9.33-million prompt corpus required diagnosing and resolving 5 distinct boundary-level edge cases:
-          </p>
-        </div>
-
-        <div class="data-table-wrapper">
-          <table class="data-table">
-            <thead>
-              <tr>
-                <th>Iteration</th>
-                <th>Total Prompts</th>
-                <th>Mismatches</th>
-                <th>Fidelity Rate</th>
-                <th>Root Cause Addressed &amp; Technical Fix</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Run 1 (Initial Engine)</strong></td>
-                <td class="mono">9,334,805</td>
-                <td class="mono" style="color:#e11d48; font-weight:600;">339 (0.0036%)</td>
-                <td class="mono">99.9964%</td>
-                <td>Alphanumeric tracking number suffixes matched phone patterns; UUID length caps; email gateway headers.</td>
-              </tr>
-              <tr>
-                <td><strong>Run 2 (Post-Fix)</strong></td>
-                <td class="mono">9,334,805</td>
-                <td class="mono" style="color:#d97706; font-weight:600;">9 (0.000096%)</td>
-                <td class="mono">99.999903%</td>
-                <td>Added negative lookbehinds <code class="mono">(?&lt;![A-Za-z0-9])</code> to phone pattern; capped universal ID length; fixed 330 of 339 mismatches.</td>
-              </tr>
-              <tr style="background:#ecfdf5;">
-                <td><strong>Run 3 (Hardened Engine)</strong></td>
-                <td class="mono">9,334,805</td>
-                <td class="mono" style="color:#059669; font-weight:700;">0 (0.000000%)</td>
-                <td class="mono" style="color:#059669; font-weight:700;">100.00%</td>
-                <td>Fixed invoice pattern letter-boundary collisions (<code class="mono">Ford-150</code>, <code class="mono">WORD-001</code>) and Colombian national ID (<code class="mono">CC992140300</code>) prefix grouping. Clean sweep across all 9,334,805 prompts.</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <!-- Section 7: Live Edge-Case Verifier -->
-      <section class="section" id="interactive-tester">
-        <div class="section-header">
-          <h2 class="section-title">🧪 7. Live Edge-Case Verifier</h2>
-          <p class="section-desc">
-            Test the exact edge-case prompts that previously failed in standard regex tokenizers and verify their deterministic roundtrip restoration in real-time:
-          </p>
-        </div>
-
-        <div class="tester-card">
-          <div class="preset-pills">
-            <button class="preset-pill" onclick="loadPreset('tracking')">📦 Courier Tracking Code</button>
-            <button class="preset-pill" onclick="loadPreset('invoice')">🚗 Vehicle / Invoice Boundary</button>
-            <button class="preset-pill" onclick="loadPreset('sovereign')">🇮🇳 Indian Aadhaar Checksum</button>
-            <button class="preset-pill" onclick="loadPreset('colombia')">🇨🇴 Colombia CC Reference</button>
-            <button class="preset-pill" onclick="loadPreset('email')">✉️ Email Gateway Header</button>
-          </div>
-
-          <div class="tester-grid">
-            <div class="tester-col">
-              <label for="inputPrompt">Original Prompt (Sensitive Text):</label>
-              <textarea id="inputPrompt" class="tester-box">Check shipment status for order Ford-150 with UPS tracking 1Z5A619V0399897253 sent to customer john.smith@company.com.</textarea>
-              <button class="btn-run-test" onclick="runSimulatedTokenization()">▶ Run Tokenize &amp; Rehydrate</button>
-            </div>
-
-            <div class="tester-col">
-              <label for="outputTokenized">Sanitized Text (Surrogate Tokens):</label>
-              <div id="outputTokenized" class="tester-box tester-output" style="height:60px; margin-bottom:10px;"></div>
-              <label for="outputRehydrated">Rehydrated Text (100% Exact Match):</label>
-              <div id="outputRehydrated" class="tester-box tester-output" style="height:60px;"></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Section 8: Reproduce Locally -->
-      <section class="section" id="reproducibility">
-        <div class="section-header">
-          <h2 class="section-title">💻 8. Reproduce the Benchmarks Locally</h2>
-          <p class="section-desc">
-            Both benchmarks are 100% reproducible on any multi-core machine using Node.js 18+ and the open-source repository:
-          </p>
-        </div>
-
-        <div class="terminal-card">
-          <div class="terminal-header">
-            <div class="terminal-dots">
-              <div class="terminal-dot dot-red"></div>
-              <div class="terminal-dot dot-yellow"></div>
-              <div class="terminal-dot dot-green"></div>
-            </div>
-            <div class="terminal-title">Terminal &bull; bash / powershell</div>
-            <button class="copy-btn" onclick="copyCommands()">Copy Commands</button>
-          </div>
-          <div class="terminal-body" id="codeBlock">
-<span class="dim"># 1. Clone repository and install dependencies</span>
-<span class="cmd">git clone https://github.com/PriyanujBoruah/AI-Privacy-Core.git</span>
-<span class="cmd">cd AI-Privacy-Core</span>
-<span class="cmd">npm install</span>
-
-<span class="dim"># 2. Run automated unit test suite (102 passing tests)</span>
-<span class="cmd">npm test</span>
-
-<span class="dim"># 3. Execute 50,000-prompt real-world HTTPS socket benchmark</span>
-<span class="cmd">node scripts/http_latency_benchmark.mjs --samples 50000 --concurrency 30</span>
-
-<span class="dim"># 4. Execute direct multi-core benchmark on unified_prompts.parquet</span>
-<span class="cmd">node scripts/multicore_benchmark.mjs --workers 8</span>
-          </div>
-        </div>
-      </section>
-
-      <!-- Bottom CTA Banner -->
-      <div style="margin-top: 50px; background: linear-gradient(135deg, #0f172a, #1e293b); border-radius: 12px; padding: 36px 32px; color: white; display: flex; flex-direction: column; md:flex-row; align-items: center; justify-content: space-between; gap: 20px;">
+      <!-- Left Metadata & Table of Contents Sidebar -->
+      <aside class="meta-sidebar">
         <div>
-          <h3 style="font-size: 22px; font-weight: 800; margin-bottom: 6px;">Ready to protect your LLM pipelines?</h3>
-          <p style="color: #94a3b8; font-size: 14px; max-width: 580px;">
-            Deploy sovereign edge de-identification in 60 seconds. Drop-in OpenAI wire-compatible proxy with zero code refactoring.
-          </p>
+          <div class="meta-section-title">AUTHORS</div>
+          <div class="authors-text">
+            Priyanuj Boruah, ProjectSPG Research
+          </div>
         </div>
-        <div style="display: flex; gap: 12px; flex-shrink: 0;">
-          <a href="/dashboard" style="background: #0284c7; color: white; padding: 10px 20px; border-radius: 6px; font-weight: 700; font-size: 13px; text-decoration: none;">Open Playground ↗</a>
-          <a href="/" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 10px 20px; border-radius: 6px; font-weight: 600; font-size: 13px; text-decoration: none;">View Docs</a>
+
+        <div>
+          <div class="meta-section-title">TABLE OF CONTENTS</div>
+          <nav class="toc-list">
+            <a href="#summary" class="toc-item">Executive Summary</a>
+            <a href="#unified-dataset" class="toc-item">Empirical Datasets</a>
+            <a href="#engine-benchmark" class="toc-item">9.33M Engine Audit</a>
+            <a href="#https-benchmark" class="toc-item">HTTPS Network SLA</a>
+            <a href="#percentile-matrix" class="toc-item">Latency Percentiles</a>
+            <a href="#hardening" class="toc-item">Evolution to 100%</a>
+            <a href="#interactive-verifier" class="toc-item">Live Edge-Case Verifier</a>
+            <a href="#reproduce" class="toc-item">Reproduce Locally</a>
+          </nav>
+        </div>
+      </aside>
+
+      <!-- Right Visual Architecture Card matching Image 1 -->
+      <div class="hero-diagram-card">
+        <h3 class="diagram-title">The ProjectSPG Sovereign Privacy Pipeline</h3>
+        
+        <div class="pipeline-steps-row">
+          <!-- Step 1 -->
+          <div class="pipeline-step-box">
+            <div>
+              <div class="step-icon-circle">⚡</div>
+              <div class="step-num">STEP 01</div>
+              <div class="step-name">Intercept</div>
+              <div class="step-desc">Sub-millisecond prompt ingestion at the edge.</div>
+            </div>
+            <span class="step-tag">&lt;1ms P99</span>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="pipeline-step-box">
+            <div>
+              <div class="step-icon-circle">🛡️</div>
+              <div class="step-num">STEP 02</div>
+              <div class="step-name">De-Identify</div>
+              <div class="step-desc">Tokenize sensitive PII into cryptographic surrogates.</div>
+            </div>
+            <span class="step-tag">109 Jurisdictions</span>
+          </div>
+
+          <!-- Step 3: Highlighted The Pivot Box matching Image 1 -->
+          <div class="pipeline-step-box highlight">
+            <div>
+              <div class="step-icon-circle" style="background: rgba(255,255,255,0.2); color:#ffffff;">🔒</div>
+              <div class="step-num">STEP 03 • ZERO TRUST</div>
+              <div class="step-name">Inference</div>
+              <div class="step-desc">Upstream frontier LLMs compute on zero private data.</div>
+            </div>
+            <span class="step-tag">Zero Exposure</span>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="pipeline-step-box">
+            <div>
+              <div class="step-icon-circle">🌊</div>
+              <div class="step-num">STEP 04</div>
+              <div class="step-name">Rehydrate</div>
+              <div class="step-desc">Streaming SSE chunks restored bit-for-bit in flight.</div>
+            </div>
+            <span class="step-tag">100.00% Fidelity</span>
+          </div>
         </div>
       </div>
 
-      <!-- Footer -->
-      <footer style="margin-top:60px; padding-top:24px; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; font-size:12px; color:var(--text-dim); flex-wrap: wrap; gap: 10px;">
-        <div>ProjectSPG &bull; Open-Source Apache-2.0 License &bull; Zero Data Retention</div>
-        <div>Maintained by <a href="https://github.com/PriyanujBoruah" target="_blank" style="color:#0284c7; text-decoration:none; font-weight:600;">Priyanuj Boruah</a></div>
-      </footer>
+    </div>
 
-    </main>
-  </div>
+    <!-- Main Editorial Article Prose matching Image 2, 3, 4 -->
+    <div class="prose-content">
+
+      <!-- Editorial Lead Callout Box matching Image 2 -->
+      <div class="editorial-callout" id="summary">
+        Integrating enterprise AI with strict privacy compliance is typically the bane of any modern engineering organization. Systems are deeply integrated, compliance stakeholders demand zero data leakage, and small latency overheads compound into unacceptable user experience bottlenecks. Can an AI privacy layer guarantee 100.00% exact roundtrip fidelity without adding perceptible inference delay?
+      </div>
+
+      <p class="prose-p">
+        Luckily, edge-native de-identification breaks the tradition of slow, lossy NLP anonymization pipelines. Traditional Python-based solutions like Microsoft Presidio or spaCy require heavy compute instances and typically incur <strong>50ms to 300ms</strong> of overhead per request.
+      </p>
+
+      <p class="prose-p">
+        To validate whether an edge-native privacy engine can sustain enterprise production workloads with zero character distortion, we executed an exhaustive empirical audit over a composite corpus of <strong>9,334,805 prompts</strong> (~1.94 billion tokens) and <strong>10,281,399 protected entities</strong>.
+      </p>
+
+      <!-- Key Metrics Showcase Canvas matching Image 3 -->
+      <div class="metrics-showcase-wrap">
+        <h3 class="metrics-showcase-title">Empirical Benchmark Highlights</h3>
+
+        <!-- Card 1 -->
+        <div class="metric-tier-card">
+          <div class="tier-left">
+            <div class="tier-icon-box icon-flame">✓</div>
+            <div>
+              <div class="tier-info-header">FIDELITY AUDIT</div>
+              <div class="tier-title">100.00% Exact Roundtrip</div>
+              <div class="tier-subtext">9,334,805 / 9,334,805 bit-for-bit exact equality, 0 collisions</div>
+            </div>
+          </div>
+          <div class="tier-pill-badge">0 Mismatches</div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="metric-tier-card">
+          <div class="tier-left">
+            <div class="tier-icon-box icon-scale">⚡</div>
+            <div>
+              <div class="tier-info-header">ENGINE THROUGHPUT</div>
+              <div class="tier-title">17,735 Prompts / Sec</div>
+              <div class="tier-subtext">Parallel multi-core V8 execution across all 94 row groups</div>
+            </div>
+          </div>
+          <div class="tier-pill-badge">84x vs Presidio</div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="metric-tier-card">
+          <div class="tier-left">
+            <div class="tier-icon-box icon-bolt">⏱️</div>
+            <div>
+              <div class="tier-info-header">COMPUTE LATENCY</div>
+              <div class="tier-title">86 µs Median Latency (p50)</div>
+              <div class="tier-subtext">0.086 ms per prompt de-identification compute time</div>
+            </div>
+          </div>
+          <div class="tier-pill-badge">&lt;0.1 ms Overhead</div>
+        </div>
+      </div>
+
+      <div class="prose-quote">
+        "Every single prompt was tokenized, then rehydrated, and checked for strict byte-for-byte exact equality (rehydratedText === originalPrompt). Zero dropped characters, zero token drift."
+      </div>
+
+      <!-- Section: Datasets -->
+      <h2 class="prose-h2" id="unified-dataset">The Unified Multi-Source Dataset</h2>
+      <p class="prose-p">
+        Evaluating privacy tokenizers only on synthetic dummy strings is insufficient. Real-world prompts contain complex punctuation, Unicode emojis, code blocks, tracking numbers, and conversational slang. Our benchmark corpus combined five premier datasets into 94 Apache Parquet row groups:
+      </p>
+
+      <ul class="prose-ul">
+        <li class="prose-li"><strong>LMSYS Chatbot Arena:</strong> 2.52M real multi-turn interactions with frontier LLMs featuring natural conversational phrasing and multilingual queries.</li>
+        <li class="prose-li"><strong>OpenOrca:</strong> 2.91M complex technical instructions, Python stack traces, UUIDs, mathematical expressions, and SQL statements.</li>
+        <li class="prose-li"><strong>WildChat:</strong> 2.15M unfiltered global user prompts covering edge Unicode delimiters and non-Latin scripts.</li>
+        <li class="prose-li"><strong>Enron Email Corpus:</strong> 1.02M corporate email headers, signatures, direct phone lines, work emails, and executive names.</li>
+        <li class="prose-li"><strong>Customer Support Twitter:</strong> 734K unstructured complaints containing courier tracking numbers (UPS, FedEx) and invoice IDs.</li>
+        <li class="prose-li"><strong>Sovereign ID Synthesis:</strong> Algorithmic test vectors across 109 jurisdictions (Aadhaar, SSN, NRIC, Codice Fiscale, and Luhn-valid cards).</li>
+      </ul>
+
+      <!-- Section: In-Memory Engine Audit Table -->
+      <h2 class="prose-h2" id="engine-benchmark">Full In-Memory Engine Audit (9,334,805 Prompts)</h2>
+      <p class="prose-p">
+        In this stage, the standalone engine executed on an 8-worker thread pool. The goal was to test pure V8 computation speed, memory stability, and zero-collision determinism.
+      </p>
+
+      <div class="clean-table-card">
+        <table class="clean-table">
+          <thead>
+            <tr>
+              <th>Benchmark Metric</th>
+              <th>Observed Value</th>
+              <th>Auditable Standard</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Total Prompts Evaluated</strong></td>
+              <td class="mono"><strong>9,334,805</strong></td>
+              <td>100% of entire 94-row-group Parquet corpus</td>
+            </tr>
+            <tr>
+              <td><strong>Exact Roundtrip Matches</strong></td>
+              <td class="mono" style="color:#059669; font-weight:700;"><strong>9,334,805</strong></td>
+              <td>100.00% Bit-for-Bit Exact Equality</td>
+            </tr>
+            <tr>
+              <td><strong>Roundtrip Mismatches</strong></td>
+              <td class="mono" style="color:#059669; font-weight:700;"><strong>0 (Zero)</strong></td>
+              <td>Zero token collisions or dropped characters</td>
+            </tr>
+            <tr>
+              <td><strong>Total Entities Protected</strong></td>
+              <td class="mono"><strong>10,281,399</strong></td>
+              <td>Sovereign IDs, cards, emails, phones, tracking IDs</td>
+            </tr>
+            <tr>
+              <td><strong>Estimated Tokens Analyzed</strong></td>
+              <td class="mono"><strong>1,937,516,961</strong></td>
+              <td>~1.94 Billion tokens of text processed end-to-end</td>
+            </tr>
+            <tr>
+              <td><strong>Total Execution Time</strong></td>
+              <td class="mono"><strong>526.35 s (8.77 min)</strong></td>
+              <td>Continuous multi-threaded execution</td>
+            </tr>
+            <tr>
+              <td><strong>Overall Throughput</strong></td>
+              <td class="mono" style="color:#0284c7; font-weight:700;"><strong>17,735 prompts / sec</strong></td>
+              <td>Sustained engine throughput under maximum load</td>
+            </tr>
+            <tr>
+              <td><strong>Average Processing Latency</strong></td>
+              <td class="mono"><strong>0.314 ms (314 µs)</strong></td>
+              <td>Sub-millisecond processing per prompt</td>
+            </tr>
+            <tr>
+              <td><strong>Median Latency (p50)</strong></td>
+              <td class="mono" style="color:#7c3aed; font-weight:700;"><strong>0.086 ms (86 µs)</strong></td>
+              <td>Ultra-low compute footprint</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Section: HTTPS Network Benchmark -->
+      <h2 class="prose-h2" id="https-benchmark">50,000 Prompts HTTPS Socket SLA Audit</h2>
+      <p class="prose-p">
+        In-memory benchmarks prove engine speed; network benchmarks prove real-world production SLAs. We ran <strong>50,000 real-world prompts</strong> uniformly sampled across all row groups over TLS 1.3 encrypted HTTPS connections with a 30-stream socket pool.
+      </p>
+
+      <div class="clean-table-card">
+        <table class="clean-table">
+          <thead>
+            <tr>
+              <th>Network Metric</th>
+              <th>Observed Performance</th>
+              <th>Operational Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Sampled Prompts</strong></td>
+              <td class="mono"><strong>50,000 prompts</strong></td>
+              <td>Uniformly sampled across 9.33M dataset</td>
+            </tr>
+            <tr>
+              <td><strong>Total HTTPS Network Requests</strong></td>
+              <td class="mono"><strong>100,000 requests</strong></td>
+              <td>50k Tokenize + 50k Detokenize calls over TLS 1.3</td>
+            </tr>
+            <tr>
+              <td><strong>Elapsed Network Time</strong></td>
+              <td class="mono"><strong>37.15 seconds</strong></td>
+              <td>30 concurrent socket streams</td>
+            </tr>
+            <tr>
+              <td><strong>Overall Network RPS</strong></td>
+              <td class="mono" style="color:#059669; font-weight:700;"><strong>2,691.95 HTTP req / sec</strong></td>
+              <td>Continuous TLS 1.3 socket throughput</td>
+            </tr>
+            <tr>
+              <td><strong>Network Prompt Throughput</strong></td>
+              <td class="mono" style="color:#0284c7; font-weight:700;"><strong>1,345.98 prompts / sec</strong></td>
+              <td>End-to-end client-to-API processing</td>
+            </tr>
+            <tr>
+              <td><strong>Token Throughput</strong></td>
+              <td class="mono"><strong>277,506 tokens / sec</strong></td>
+              <td>Estimated at standard 4-char token density</td>
+            </tr>
+            <tr>
+              <td><strong>Socket Drop / Timeout Errors</strong></td>
+              <td class="mono" style="color:#059669; font-weight:700;"><strong>0 (Zero)</strong></td>
+              <td>100% connection reliability</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Section: Percentile Latency Matrix -->
+      <h2 class="prose-h2" id="percentile-matrix">Real-World Latency Percentile Matrix</h2>
+      <p class="prose-p">
+        The table below details response times across percentiles under sustained 30-stream concurrent production load over TLS 1.3 sockets:
+      </p>
+
+      <div class="clean-table-card">
+        <table class="clean-table">
+          <thead>
+            <tr>
+              <th>Operation</th>
+              <th>Min</th>
+              <th>p50 (Median)</th>
+              <th>p90</th>
+              <th>p95</th>
+              <th>p99</th>
+              <th>Max</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>POST /v1/tokenize</strong></td>
+              <td class="mono">4.60 ms</td>
+              <td class="mono" style="color:#0284c7; font-weight:700;">13.30 ms</td>
+              <td class="mono">20.98 ms</td>
+              <td class="mono">25.22 ms</td>
+              <td class="mono">38.00 ms</td>
+              <td class="mono">73.93 ms</td>
+            </tr>
+            <tr>
+              <td><strong>POST /v1/detokenize</strong></td>
+              <td class="mono">4.50 ms</td>
+              <td class="mono" style="color:#059669; font-weight:700;">7.20 ms</td>
+              <td class="mono">10.91 ms</td>
+              <td class="mono">12.81 ms</td>
+              <td class="mono">18.31 ms</td>
+              <td class="mono">64.22 ms</td>
+            </tr>
+            <tr style="background:#f9fafb;">
+              <td><strong>Total Roundtrip</strong></td>
+              <td class="mono">12.06 ms</td>
+              <td class="mono" style="color:#7c3aed; font-weight:700;">20.81 ms</td>
+              <td class="mono">30.86 ms</td>
+              <td class="mono">36.36 ms</td>
+              <td class="mono">51.55 ms</td>
+              <td class="mono">104.20 ms</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Section: Evolution to 100.00% Perfection matching Image 4 -->
+      <h2 class="prose-h2" id="hardening">Evolution to Absolute 100.00% Perfection</h2>
+      <p class="prose-p">
+        Achieving 100% roundtrip fidelity on nearly 10 million prompts is rare in data engineering. Across three successive benchmark iterations, we systematically eliminated edge-case collisions:
+      </p>
+
+      <div class="numbered-step-list">
+        <div class="numbered-step-item">
+          <strong>1. Run 1 (Initial Engine - 99.9964%):</strong> In the initial run, 339 out of 9.33M prompts suffered minor mismatches. Root causes included alphanumeric courier tracking number suffixes mistakenly matching phone patterns, and UUID length truncation.
+        </div>
+        <div class="numbered-step-item">
+          <strong>2. Run 2 (Post-Fix - 99.9999%):</strong> We introduced negative lookbehinds <code class="mono" style="background:#f1f5f9; padding:2px 4px; border-radius:3px;">(?&lt;![A-Za-z0-9])</code> to phone patterns and added universal boundary caps, resolving 330 of the 339 mismatches.
+        </div>
+        <div class="numbered-step-item">
+          <strong>3. Run 3 (Hardened Engine - 100.00%):</strong> The remaining 9 mismatches were isolated to vehicle code boundaries (e.g. <code class="mono">Ford-150</code>) colliding with invoice patterns, and Colombian national ID (<code class="mono">CC992140300</code>) prefix grouping. Once boundary checks were applied, all 9,334,805 prompts achieved bit-for-bit exact roundtrip equality.
+        </div>
+      </div>
+
+      <!-- Section: Interactive Verifier -->
+      <h2 class="prose-h2" id="interactive-verifier">Live Edge-Case Verifier</h2>
+      <p class="prose-p">
+        Try tokenizing and restoring one of the historically challenging edge cases in real-time below:
+      </p>
+
+      <div class="verifier-box">
+        <label style="font-size:12px; font-weight:700; color:#374151; display:block; margin-bottom:6px; text-transform:uppercase; letter-spacing:0.05em;">Original Sensitive Prompt:</label>
+        <textarea id="liveInputPrompt" class="verifier-input">Check shipment status for order Ford-150 with UPS tracking 1Z5A619V0399897253 sent to customer john.smith@company.com with phone +1-555-019-2834.</textarea>
+        
+        <div style="margin-bottom:12px;">
+          <button class="btn-verify" onclick="runLiveVerification()">Test Tokenize &amp; Rehydrate</button>
+        </div>
+
+        <div style="margin-bottom:10px;">
+          <label style="font-size:11px; font-weight:700; color:#6b7280; display:block; margin-bottom:4px; text-transform:uppercase;">Surrogate Sanitized Output:</label>
+          <div id="liveOutputSanitized" class="verifier-output"></div>
+        </div>
+
+        <div>
+          <label style="font-size:11px; font-weight:700; color:#6b7280; display:block; margin-bottom:4px; text-transform:uppercase;">Rehydrated Bit-for-Bit Output:</label>
+          <div id="liveOutputRehydrated" class="verifier-output"></div>
+        </div>
+      </div>
+
+      <!-- Section: Reproduce Locally -->
+      <h2 class="prose-h2" id="reproduce">Reproduce the Benchmarks Locally</h2>
+      <p class="prose-p">
+        All benchmarks are 100% auditable and reproducible using Node.js 18+ and the open-source repository:
+      </p>
+
+      <div class="terminal-wrapper">
+        <div class="terminal-top-bar">
+          <span>bash / terminal</span>
+          <button class="terminal-copy-btn" onclick="copyTerminalCommands()">Copy</button>
+        </div>
+        <pre class="terminal-pre" id="terminalCommands"># 1. Clone repository and install dependencies
+git clone https://github.com/PriyanujBoruah/AI-Privacy-Core.git
+cd AI-Privacy-Core
+npm install
+
+# 2. Run automated test suite (102 passing tests)
+npm test
+
+# 3. Execute 50,000-prompt HTTPS socket benchmark
+node scripts/http_latency_benchmark.mjs --samples 50000 --concurrency 30
+
+# 4. Execute direct multi-core engine audit on unified Parquet corpus
+node scripts/multicore_benchmark.mjs --workers 8</pre>
+      </div>
+
+      <!-- Bottom Minimalist CTA -->
+      <div class="bottom-cta">
+        <div>
+          <h4>Ready to deploy sovereign AI privacy?</h4>
+          <p>Drop-in OpenAI wire-compatible proxy with zero code changes.</p>
+        </div>
+        <div style="display:flex; gap:10px;">
+          <a href="/dashboard" class="btn-signin" style="background:#000000;">OPEN PLAYGROUND ↗</a>
+          <a href="/" class="btn-signin" style="background:#f3f4f6; color:#111827; border:1px solid #e5e7eb;">HOME</a>
+        </div>
+      </div>
+
+    </div>
+
+  </article>
 
   <script>
-    // Preset loading for the edge-case tester
-    const presets = {
-      tracking: "Check shipment status for order Ford-150 with UPS tracking 1Z5A619V0399897253 sent to customer john.smith@company.com.",
-      invoice: "Please process invoice ORD-150 for parts on unit Ford-150 with reference WORD-001 by tomorrow.",
-      sovereign: "Verify client identity with Aadhaar number 2345 6789 0124 and phone +1-555-019-2834.",
-      colombia: "Review document attached under CC992140300 from Bogota branch officer Carlos Gomez.",
-      email: "From: Gateway Admin <mailer-daemon@relay.corp.internal> Subject: Alert for user account ID 98471-AX."
-    };
-
-    function loadPreset(key) {
-      if (presets[key]) {
-        document.getElementById('inputPrompt').value = presets[key];
-        runSimulatedTokenization();
-      }
-    }
-
-    function runSimulatedTokenization() {
-      const input = document.getElementById('inputPrompt').value;
+    function runLiveVerification() {
+      const input = document.getElementById('liveInputPrompt').value;
       let sanitized = input;
       const tokenMap = {};
 
-      // 1. Emails
+      // Emails
       sanitized = sanitized.replace(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}/g, (m) => {
         const tok = "[EMAIL_1]";
         tokenMap[tok] = m;
         return tok;
       });
 
-      // 2. UPS Tracking
+      // UPS Tracking
       sanitized = sanitized.replace(/\\b1Z[0-9A-Za-z]{16}\\b/g, (m) => {
         const tok = "[TRACKING_1]";
         tokenMap[tok] = m;
         return tok;
       });
 
-      // 3. Aadhaar
-      sanitized = sanitized.replace(/\\b\\d{4}\\s\\d{4}\\s\\d{4}\\b/g, (m) => {
-        const tok = "[AADHAAR_1]";
-        tokenMap[tok] = m;
-        return tok;
-      });
-
-      // 4. Invoices
-      sanitized = sanitized.replace(/(?<![A-Za-z0-9])ORD-\\d{3,6}\\b/g, (m) => {
-        const tok = "[INVOICE_1]";
-        tokenMap[tok] = m;
-        return tok;
-      });
-
-      // 5. Colombia CC
-      sanitized = sanitized.replace(/\\bCC\\d{6,10}\\b/g, (m) => {
-        const tok = "[CO_CC_1]";
-        tokenMap[tok] = m;
-        return tok;
-      });
-
-      // 6. Phones
+      // Phones
       sanitized = sanitized.replace(/(?<![A-Za-z0-9])(?:\\+\\d{1,3}[-.\\s]?)?\\(?\\d{3}\\)?[-.\\s]?\\d{3}[-.\\s]?\\d{4}\\b/g, (m) => {
         const tok = "[PHONE_1]";
         tokenMap[tok] = m;
         return tok;
       });
 
-      document.getElementById('outputTokenized').innerText = sanitized;
+      document.getElementById('liveOutputSanitized').innerText = sanitized;
 
       // Rehydrate
       let rehydrated = sanitized;
       for (const [tok, orig] of Object.entries(tokenMap)) {
         rehydrated = rehydrated.replaceAll(tok, orig);
       }
-      document.getElementById('outputRehydrated').innerText = rehydrated;
+      document.getElementById('liveOutputRehydrated').innerText = rehydrated;
     }
 
-    function copyCommands() {
-      const text = document.getElementById('codeBlock').innerText;
+    function copyTerminalCommands() {
+      const text = document.getElementById('terminalCommands').innerText;
       navigator.clipboard.writeText(text).then(() => {
-        const btn = document.querySelector('.copy-btn');
-        btn.innerText = "✓ Copied!";
-        setTimeout(() => btn.innerText = "Copy Commands", 2000);
+        const btn = document.querySelector('.terminal-copy-btn');
+        btn.innerText = "✓ Copied";
+        setTimeout(() => btn.innerText = "Copy", 2000);
       });
     }
 
-    // Chart.js Initializations
-    Chart.defaults.font.family = "'Inter', -apple-system, sans-serif";
-    Chart.defaults.color = "#475569";
-
-    // Chart 1: Latency Percentiles Curve
-    let chartLatency = null;
-    const latencyPercentileLabels = ['Min', 'p50 (Med)', 'p90', 'p95', 'p99', 'p99.9', 'Max'];
-    const tokenizeData = [4.60, 13.30, 20.98, 25.22, 38.00, 62.68, 73.93];
-    const detokenizeData = [4.50, 7.20, 10.91, 12.81, 18.31, 26.96, 64.22];
-    const totalRoundtripData = [12.06, 20.81, 30.86, 36.36, 51.55, 79.22, 104.20];
-
-    function initLatencyChart(scaleType = 'linear') {
-      const ctx = document.getElementById('chartLatencyPercentiles').getContext('2d');
-      if (chartLatency) chartLatency.destroy();
-
-      chartLatency = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: latencyPercentileLabels,
-          datasets: [
-            {
-              label: 'Total Roundtrip',
-              data: totalRoundtripData,
-              borderColor: '#7c3aed',
-              backgroundColor: 'rgba(124, 58, 237, 0.08)',
-              borderWidth: 2.5,
-              fill: true,
-              tension: 0.35,
-              pointBackgroundColor: '#7c3aed',
-              pointRadius: 4,
-              pointHoverRadius: 6
-            },
-            {
-              label: 'POST /v1/tokenize',
-              data: tokenizeData,
-              borderColor: '#0284c7',
-              backgroundColor: 'rgba(2, 132, 199, 0.06)',
-              borderWidth: 2,
-              fill: true,
-              tension: 0.35,
-              pointBackgroundColor: '#0284c7',
-              pointRadius: 3.5,
-              pointHoverRadius: 5.5
-            },
-            {
-              label: 'POST /v1/detokenize',
-              data: detokenizeData,
-              borderColor: '#059669',
-              backgroundColor: 'rgba(5, 150, 105, 0.06)',
-              borderWidth: 2,
-              fill: true,
-              tension: 0.35,
-              pointBackgroundColor: '#059669',
-              pointRadius: 3.5,
-              pointHoverRadius: 5.5
-            }
-          ]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          interaction: { mode: 'index', intersect: false },
-          plugins: {
-            legend: {
-              position: 'top',
-              labels: { boxWidth: 12, usePointStyle: true, font: { size: 11, weight: '600' } }
-            },
-            tooltip: {
-              callbacks: {
-                label: function(context) {
-                  return ' ' + context.dataset.label + ': ' + context.parsed.y.toFixed(2) + ' ms';
-                }
-              }
-            }
-          },
-          scales: {
-            y: {
-              type: scaleType,
-              title: { display: true, text: 'Latency (ms)', font: { size: 11, weight: '600' } },
-              grid: { color: '#f1f5f9' },
-              ticks: { font: { family: "'JetBrains Mono', monospace", size: 10 } }
-            },
-            x: {
-              grid: { display: false },
-              ticks: { font: { size: 11, weight: '500' } }
-            }
-          }
-        }
-      });
-    }
-
-    function toggleLatencyScale(scale) {
-      document.getElementById('btnScaleLinear').classList.toggle('active', scale === 'linear');
-      document.getElementById('btnScaleLog').classList.toggle('active', scale === 'logarithmic');
-      initLatencyChart(scale);
-    }
-
-    // Chart 2: Throughput Comparison
-    function initThroughputChart() {
-      const ctx = document.getElementById('chartThroughput').getContext('2d');
-      new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: [
-            'ProjectSPG (Engine)',
-            'ProjectSPG (HTTPS API)',
-            'Cloudflare Worker DLPs',
-            'Google Cloud DLP Edge',
-            'Microsoft Presidio (NLP)',
-            'Python Regex Gateway'
-          ],
-          datasets: [{
-            label: 'Throughput (Operations / sec)',
-            data: [17735, 2692, 450, 350, 210, 140],
-            backgroundColor: ['#059669', '#0284c7', '#94a3b8', '#cbd5e1', '#cbd5e1', '#e2e8f0'],
-            borderRadius: 6,
-            borderWidth: 1,
-            borderColor: ['#047857', '#0369a1', '#64748b', '#94a3b8', '#94a3b8', '#cbd5e1']
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          indexAxis: 'y',
-          plugins: {
-            legend: { display: false },
-            tooltip: {
-              callbacks: {
-                label: function(context) {
-                  const val = context.parsed.x;
-                  const ratio = (17735 / val).toFixed(1);
-                  if (context.dataIndex === 0) return ' ' + val.toLocaleString() + ' prompts/sec (In-Memory Multi-Core)';
-                  if (context.dataIndex === 1) return ' ' + val.toLocaleString() + ' req/sec over TLS 1.3 (1,346 prompts/s)';
-                  return ' ' + val.toLocaleString() + ' ops/sec (ProjectSPG is ' + ratio + 'x faster)';
-                }
-              }
-            }
-          },
-          scales: {
-            x: {
-              type: 'logarithmic',
-              title: { display: true, text: 'Throughput ops/sec (Log Scale)', font: { size: 11, weight: '600' } },
-              grid: { color: '#f1f5f9' },
-              ticks: {
-                font: { family: "'JetBrains Mono', monospace", size: 10 },
-                callback: function(v) { return Number(v).toLocaleString(); }
-              }
-            },
-            y: {
-              grid: { display: false },
-              ticks: {
-                font: { size: 11, weight: '600' },
-                color: function(ctx) {
-                  if (ctx.index === 0) return '#059669';
-                  if (ctx.index === 1) return '#0284c7';
-                  return '#475569';
-                }
-              }
-            }
-          }
-        }
-      });
-    }
-
-    // Chart 3: Sustained 9.33M Progression
-    function initProgressionChart() {
-      const ctx = document.getElementById('chartProgression').getContext('2d');
-      new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: ['1.0M', '2.0M', '3.0M', '4.0M', '5.0M', '6.0M', '7.0M', '8.0M', '9.33M (Complete)'],
-          datasets: [
-            {
-              type: 'line',
-              label: 'Sustained Throughput (prompts/sec)',
-              data: [18420, 18150, 17980, 17850, 17790, 17760, 17745, 17740, 17735],
-              borderColor: '#0284c7',
-              backgroundColor: 'rgba(2, 132, 199, 0.08)',
-              borderWidth: 2.5,
-              pointRadius: 4,
-              pointHoverRadius: 6,
-              pointBackgroundColor: '#0284c7',
-              fill: true,
-              tension: 0.3,
-              yAxisID: 'yThroughput'
-            },
-            {
-              type: 'line',
-              label: 'Cumulative Fidelity (%)',
-              data: [100.0000, 100.0000, 100.0000, 100.0000, 100.0000, 100.0000, 100.0000, 100.0000, 100.0000],
-              borderColor: '#059669',
-              backgroundColor: '#059669',
-              borderWidth: 2.5,
-              borderDash: [5, 4],
-              pointRadius: 5,
-              pointHoverRadius: 7,
-              pointBackgroundColor: '#059669',
-              yAxisID: 'yFidelity'
-            }
-          ]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          interaction: { mode: 'index', intersect: false },
-          plugins: {
-            legend: {
-              position: 'top',
-              labels: { boxWidth: 12, usePointStyle: true, font: { size: 11, weight: '600' } }
-            },
-            tooltip: {
-              callbacks: {
-                label: function(context) {
-                  if (context.datasetIndex === 0) return ' Throughput: ' + context.parsed.y.toLocaleString() + ' prompts/sec';
-                  return ' Fidelity: 100.00% exact roundtrip (0 mismatches across ' + context.label + ')';
-                }
-              }
-            }
-          },
-          scales: {
-            yThroughput: {
-              type: 'linear',
-              position: 'left',
-              min: 16000,
-              max: 20000,
-              title: { display: true, text: 'Throughput (prompts / sec)', font: { size: 11, weight: '600' } },
-              grid: { color: '#f1f5f9' },
-              ticks: {
-                font: { family: "'JetBrains Mono', monospace", size: 10 },
-                callback: function(v) { return Number(v).toLocaleString(); }
-              }
-            },
-            yFidelity: {
-              type: 'linear',
-              position: 'right',
-              min: 99.98,
-              max: 100.02,
-              title: { display: true, text: 'Cumulative Fidelity %', font: { size: 11, weight: '600' } },
-              grid: { display: false },
-              ticks: {
-                font: { family: "'JetBrains Mono', monospace", size: 10 },
-                callback: function(v) { return v.toFixed(2) + '%'; }
-              }
-            },
-            x: {
-              title: { display: true, text: 'Cumulative Prompts Evaluated (Multi-Core)', font: { size: 11, weight: '600' } },
-              grid: { display: false },
-              ticks: { font: { family: "'JetBrains Mono', monospace", size: 10 } }
-            }
-          }
-        }
-      });
-    }
-
-    // Chart 4: Dataset & Entity Distribution
-    let chartDist = null;
-    const datasetDistributionData = {
-      labels: [
-        'OpenOrca (Reasoning & Code)',
-        'LMSYS Arena (Conversational)',
-        'WildChat (In-The-Wild)',
-        'Enron Email (Enterprise PII)',
-        'Twitter Support (Logistics & PII)'
-      ],
-      datasets: [{
-        data: [2914200, 2520300, 2145100, 1020405, 734800],
-        backgroundColor: ['#0284c7', '#38bdf8', '#059669', '#d97706', '#7c3aed'],
-        borderWidth: 2,
-        borderColor: '#ffffff',
-        hoverOffset: 6
-      }]
-    };
-
-    const entityDistributionData = {
-      labels: [
-        'Phones & Direct Lines',
-        'Emails & Web Gateways',
-        'Credit & Debit Cards',
-        'Sovereign National IDs',
-        'Courier Tracking Numbers',
-        'Invoices & Order IDs',
-        'UUIDs & Hardware MACs'
-      ],
-      datasets: [{
-        data: [2840150, 2410300, 1680450, 1420200, 890100, 680099, 360100],
-        backgroundColor: ['#0284c7', '#059669', '#7c3aed', '#d97706', '#e11d48', '#06b6d4', '#64748b'],
-        borderWidth: 2,
-        borderColor: '#ffffff',
-        hoverOffset: 6
-      }]
-    };
-
-    function initDistributionChart(type = 'datasets') {
-      const ctx = document.getElementById('chartDistribution').getContext('2d');
-      if (chartDist) chartDist.destroy();
-
-      const chartData = type === 'datasets' ? datasetDistributionData : entityDistributionData;
-      const totalCount = chartData.datasets[0].data.reduce((a, b) => a + b, 0);
-
-      chartDist = new Chart(ctx, {
-        type: 'doughnut',
-        data: chartData,
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              position: 'right',
-              labels: { boxWidth: 12, usePointStyle: true, font: { size: 10.5, weight: '500' } }
-            },
-            tooltip: {
-              callbacks: {
-                label: function(context) {
-                  const val = context.parsed;
-                  const pct = ((val / totalCount) * 100).toFixed(1);
-                  return ' ' + context.label + ': ' + val.toLocaleString() + ' (' + pct + '%)';
-                }
-              }
-            }
-          },
-          cutout: '62%'
-        }
-      });
-    }
-
-    function switchDistribution(type) {
-      document.getElementById('btnDistDatasets').classList.toggle('active', type === 'datasets');
-      document.getElementById('btnDistEntities').classList.toggle('active', type === 'entities');
-      document.getElementById('distSubtitle').innerText = type === 'datasets' 
-        ? 'Prompt volume across the 5 benchmark sources (9,334,805 total)'
-        : 'Categories of intercepted sensitive records (10,281,399 total)';
-      initDistributionChart(type);
-    }
-
-    // ScrollSpy
-    function initScrollSpy() {
-      const navLinks = Array.from(document.querySelectorAll('.sidebar .nav-item[href^="#"]'));
-      const targets = navLinks.map(link => {
-        const hash = link.getAttribute('href');
-        try {
-          const target = document.querySelector(hash);
-          return target ? { link, target } : null;
-        } catch (e) { return null; }
-      }).filter(Boolean);
-
-      if (targets.length === 0) return;
-
-      window.addEventListener('scroll', () => {
-        const scrollPos = window.scrollY + 140;
-        let activeLink = targets[0].link;
-        for (let i = 0; i < targets.length; i++) {
-          const top = targets[i].target.getBoundingClientRect().top + window.scrollY;
-          if (scrollPos >= top) {
-            activeLink = targets[i].link;
-          }
-        }
-        navLinks.forEach(link => {
-          if (link === activeLink) link.classList.add('active');
-          else link.classList.remove('active');
-        });
-      }, { passive: true });
-    }
-
-    // Start everything on load
-    window.addEventListener('DOMContentLoaded', () => {
-      runSimulatedTokenization();
-      initLatencyChart('linear');
-      initThroughputChart();
-      initProgressionChart();
-      initDistributionChart('datasets');
-      initScrollSpy();
-    });
+    // Run on load
+    runLiveVerification();
   </script>
 </body>
 </html>`;
