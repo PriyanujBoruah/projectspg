@@ -11,6 +11,7 @@ import {
 } from "./auth/keys";
 import { getApiCallLogs } from "./audit/logger";
 import { verifyFirebaseIdToken, FIREBASE_CONFIG } from "./auth/firebase";
+import { LOGO_DATA_URIS, LOGO_FILES } from "./assets/logos";
 
 const app = new Hono();
 
@@ -138,6 +139,26 @@ app.get("/v1/logs", async (c) => {
   const limit = Number(c.req.query("limit")) || 50;
   const logs = await getApiCallLogs({ apiKeyId: apiKeyRecord?.id, limit }, c.env);
   return c.json({ object: "list", data: logs });
+});
+
+// Serve static logo images for easy referencing across the app
+app.get("/logos/:filename", (c) => {
+  const filename = c.req.param("filename");
+  const entry = Object.entries(LOGO_FILES).find(
+    ([_, file]) => file.toLowerCase() === filename.toLowerCase()
+  );
+  if (entry) {
+    const dataUri = LOGO_DATA_URIS[entry[0] as keyof typeof LOGO_DATA_URIS];
+    const base64Data = dataUri.split(",")[1];
+    const binary = Uint8Array.from(atob(base64Data), (char) => char.charCodeAt(0));
+    return new Response(binary, {
+      headers: {
+        "Content-Type": "image/png",
+        "Cache-Control": "public, max-age=31536000, immutable",
+      },
+    });
+  }
+  return c.text("Logo not found", 404);
 });
 
 // Health check endpoint
