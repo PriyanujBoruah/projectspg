@@ -49,6 +49,7 @@ export const BENCHMARK_BLOG_HTML = `<!DOCTYPE html>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
   
   <style>
     :root {
@@ -63,7 +64,7 @@ export const BENCHMARK_BLOG_HTML = `<!DOCTYPE html>
       --blue-border: #bfdbfe;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * { box-sizing: border-box; }
     html { scroll-behavior: smooth; font-size: 16px; }
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -170,7 +171,7 @@ export const BENCHMARK_BLOG_HTML = `<!DOCTYPE html>
     .article-wrap {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 48px 24px 120px;
+      padding: 48px 24px 80px;
     }
 
     /* Article Header */
@@ -423,14 +424,6 @@ export const BENCHMARK_BLOG_HTML = `<!DOCTYPE html>
       scroll-margin-top: 80px;
     }
 
-    .prose-h3 {
-      font-size: 20px;
-      font-weight: 700;
-      color: #111827;
-      margin-top: 32px;
-      margin-bottom: 12px;
-    }
-
     .prose-ul {
       list-style-type: none;
       padding: 0;
@@ -457,12 +450,6 @@ export const BENCHMARK_BLOG_HTML = `<!DOCTYPE html>
     .prose-li strong {
       color: #111827;
       font-weight: 600;
-    }
-
-    .prose-li a {
-      color: #111827;
-      text-decoration: underline;
-      text-underline-offset: 3px;
     }
 
     /* Key Metrics Multi-Card Container matching Image 3 */
@@ -665,9 +652,7 @@ export const BENCHMARK_BLOG_HTML = `<!DOCTYPE html>
       margin-bottom: 12px;
     }
 
-    .verifier-input:focus {
-      border-color: #000000;
-    }
+    .verifier-input:focus { border-color: #000000; }
 
     .verifier-output {
       padding: 10px 12px;
@@ -692,30 +677,6 @@ export const BENCHMARK_BLOG_HTML = `<!DOCTYPE html>
       text-transform: uppercase;
       border: none;
       cursor: pointer;
-    }
-
-    /* Bottom Minimalist CTA */
-    .bottom-cta {
-      margin-top: 60px;
-      padding: 36px 0;
-      border-top: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .bottom-cta h4 {
-      font-size: 18px;
-      font-weight: 700;
-      color: #111827;
-      margin-bottom: 4px;
-    }
-
-    .bottom-cta p {
-      font-size: 14px;
-      color: #6b7280;
     }
 
     @media (max-width: 900px) {
@@ -824,7 +785,7 @@ export const BENCHMARK_BLOG_HTML = `<!DOCTYPE html>
             <span class="step-tag">109 Jurisdictions</span>
           </div>
 
-          <!-- Step 3: Highlighted The Pivot Box matching Image 1 -->
+          <!-- Step 3: Highlighted Box matching Image 1 -->
           <div class="pipeline-step-box highlight">
             <div>
               <div class="step-icon-circle" style="background: rgba(255,255,255,0.2); color:#ffffff;">🔒</div>
@@ -850,10 +811,10 @@ export const BENCHMARK_BLOG_HTML = `<!DOCTYPE html>
 
     </div>
 
-    <!-- Main Editorial Article Prose matching Image 2, 3, 4 -->
+    <!-- Main Editorial Article Prose -->
     <div class="prose-content">
 
-      <!-- Editorial Lead Callout Box matching Image 2 -->
+      <!-- Editorial Lead Callout Box -->
       <div class="editorial-callout" id="summary">
         Integrating enterprise AI with strict privacy compliance is typically the bane of any modern engineering organization. Systems are deeply integrated, compliance stakeholders demand zero data leakage, and small latency overheads compound into unacceptable user experience bottlenecks. Can an AI privacy layer guarantee 100.00% exact roundtrip fidelity without adding perceptible inference delay?
       </div>
@@ -866,7 +827,7 @@ export const BENCHMARK_BLOG_HTML = `<!DOCTYPE html>
         To validate whether an edge-native privacy engine can sustain enterprise production workloads with zero character distortion, we executed an exhaustive empirical audit over a composite corpus of <strong>9,334,805 prompts</strong> (~1.94 billion tokens) and <strong>10,281,399 protected entities</strong>.
       </p>
 
-      <!-- Key Metrics Showcase Canvas matching Image 3 -->
+      <!-- Key Metrics Showcase Canvas -->
       <div class="metrics-showcase-wrap">
         <h3 class="metrics-showcase-title">Empirical Benchmark Highlights</h3>
 
@@ -1100,7 +1061,7 @@ export const BENCHMARK_BLOG_HTML = `<!DOCTYPE html>
         </table>
       </div>
 
-      <!-- Section: Evolution to 100.00% Perfection matching Image 4 -->
+      <!-- Section: Evolution to 100.00% Perfection -->
       <h2 class="prose-h2" id="hardening">Evolution to Absolute 100.00% Perfection</h2>
       <p class="prose-p">
         Achieving 100% roundtrip fidelity on nearly 10 million prompts is rare in data engineering. Across three successive benchmark iterations, we systematically eliminated edge-case collisions:
@@ -1169,21 +1130,294 @@ node scripts/http_latency_benchmark.mjs --samples 50000 --concurrency 30
 node scripts/multicore_benchmark.mjs --workers 8</pre>
       </div>
 
-      <!-- Bottom Minimalist CTA -->
-      <div class="bottom-cta">
-        <div>
-          <h4>Ready to deploy sovereign AI privacy?</h4>
-          <p>Drop-in OpenAI wire-compatible proxy with zero code changes.</p>
+      <!-- Outro Prose matching Together.ai Screenshot -->
+      <p class="prose-p" style="margin-top: 40px;">
+        We understand that this is an empirical overview, but at its core we've seen this architecture unlock production LLM deployments without compromising privacy or incurring perceptible latency penalties.
+      </p>
+      <p class="prose-p">
+        If you're evaluating a sovereign privacy layer for your enterprise or building multi-tenant AI pipelines, we encourage you to follow future benchmark blogs, test the playground, or reach out to <a href="mailto:support@projectspg.info" style="color:#111827; text-decoration:underline; font-weight:600;">support@projectspg.info</a>. And we'd love any feedback on what may be missing here. Happy building!
+      </p>
+
+    </div>
+
+    <!-- Related Articles Section matching Together.ai Screenshot -->
+    <div style="margin-top: 72px; padding-top: 48px; border-top: 1px solid #e5e7eb;">
+      
+      <!-- Heading & Navigation Row -->
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; flex-wrap: wrap; gap: 12px;">
+        <h2 style="font-size: 32px; font-weight: 800; color: #111827; letter-spacing: -0.02em;">Related articles</h2>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <button onclick="scrollRelated('left')" style="width: 32px; height: 32px; border-radius: 4px; border: 1px solid #e5e7eb; background: #ffffff; color: #4b5563; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.15s;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='#ffffff'">‹</button>
+          <button onclick="scrollRelated('right')" style="width: 32px; height: 32px; border-radius: 4px; border: 1px solid #e5e7eb; background: #ffffff; color: #4b5563; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.15s;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='#ffffff'">›</button>
+          <a href="/#news-section" style="padding: 6px 14px; background: #f3f4f6; border-radius: 4px; font-size: 11px; font-weight: 700; color: #374151; text-decoration: none; text-transform: uppercase; letter-spacing: 0.06em; transition: background 0.15s;" onmouseover="this.style.background='#e5e7eb'" onmouseout="this.style.background='#f3f4f6'">VIEW ALL</a>
         </div>
-        <div style="display:flex; gap:10px;">
-          <a href="/dashboard" class="btn-signin" style="background:#000000;">OPEN PLAYGROUND ↗</a>
-          <a href="/" class="btn-signin" style="background:#f3f4f6; color:#111827; border:1px solid #e5e7eb;">HOME</a>
+      </div>
+
+      <!-- 3 Blog Cards Row -->
+      <div id="related-cards-track" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 24px;">
+        
+        <!-- Related 1: One-Line Swappable Proxy -->
+        <a href="/#features" style="text-decoration: none; color: inherit; display: block;" class="group">
+          <div style="aspect-ratio: 16/9; width: 100%; border-radius: 12px; overflow: hidden; background: linear-gradient(135deg, #ffd5cc, #f7e0ff, #d8e6ff); border: 1px solid rgba(229,231,235,0.8); display: flex; align-items: center; justify-content: center; padding: 22px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.03); transition: all 0.25s;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 10px 25px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 1px 3px rgba(0,0,0,0.03)';">
+            <div>
+              <div style="display: flex; align-items: center; justify-content: center; gap: 4px; margin-bottom: 6px;">
+                <span style="width: 8px; height: 8px; border-radius: 50%; background: #ec4899;"></span>
+                <span style="font-size: 10px; font-weight: 700; color: #1f2937;">project<span style="color:#f0523d;">spg</span></span>
+              </div>
+              <h4 style="font-size: 14.5px; font-weight: 800; color: #111827; line-height: 1.35;">
+                One-Line Swappable Proxy: Instant PII Protection Without Code Refactoring
+              </h4>
+            </div>
+          </div>
+          <div style="margin-top: 14px;">
+            <span style="background: #f3f4f6; color: #374151; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; font-family: monospace;">INTEGRATION</span>
+            <h3 style="font-size: 16.5px; font-weight: 700; color: #111827; margin-top: 8px; line-height: 1.35;">
+              One-Line Swappable Proxy: Instant PII Protection Without Code Refactoring
+            </h3>
+          </div>
+        </a>
+
+        <!-- Related 2: Supported Countries & Regional Data Protections -->
+        <a href="/#features" style="text-decoration: none; color: inherit; display: block;" class="group">
+          <div style="aspect-ratio: 16/9; width: 100%; border-radius: 12px; overflow: hidden; background: linear-gradient(135deg, #fed7aa, #fef08a, #c7d2fe); border: 1px solid rgba(229,231,235,0.8); display: flex; align-items: center; justify-content: center; padding: 22px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.03); transition: all 0.25s;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 10px 25px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 1px 3px rgba(0,0,0,0.03)';">
+            <div>
+              <div style="display: flex; align-items: center; justify-content: center; gap: 4px; margin-bottom: 6px;">
+                <span style="width: 8px; height: 8px; border-radius: 50%; background: #f97316;"></span>
+                <span style="font-size: 10px; font-weight: 700; color: #1f2937;">project<span style="color:#f0523d;">spg</span></span>
+              </div>
+              <h4 style="font-size: 14.5px; font-weight: 800; color: #111827; line-height: 1.35;">
+                Supported Jurisdictions &amp; Regional Data Protections: GDPR, DPDP &amp; PDPA
+              </h4>
+            </div>
+          </div>
+          <div style="margin-top: 14px;">
+            <span style="background: #f3f4f6; color: #374151; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; font-family: monospace;">COMPLIANCE</span>
+            <h3 style="font-size: 16.5px; font-weight: 700; color: #111827; margin-top: 8px; line-height: 1.35;">
+              Supported Jurisdictions &amp; Regional Data Protections: GDPR, DPDP &amp; PDPA
+            </h3>
+          </div>
+        </a>
+
+        <!-- Related 3: Supported Industries & Threat Models -->
+        <a href="/#features" style="text-decoration: none; color: inherit; display: block;" class="group">
+          <div style="aspect-ratio: 16/9; width: 100%; border-radius: 12px; overflow: hidden; background: #0f121d; border: 1px solid rgba(229,231,235,0.2); display: flex; align-items: center; justify-content: center; padding: 22px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.03); transition: all 0.25s;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 10px 25px rgba(0,0,0,0.2)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 1px 3px rgba(0,0,0,0.03)';">
+            <div>
+              <div style="display: flex; align-items: center; justify-content: center; gap: 4px; margin-bottom: 6px;">
+                <span style="width: 8px; height: 8px; border-radius: 50%; background: #8b5cf6;"></span>
+                <span style="font-size: 10px; font-weight: 700; color: #94a3b8;">project<span style="color:#f0523d;">spg</span></span>
+              </div>
+              <h4 style="font-size: 14.5px; font-weight: 800; color: #ffffff; line-height: 1.35;">
+                Enterprise Guardrails for Regulated Industries: Healthcare, FinTech &amp; Legal
+              </h4>
+            </div>
+          </div>
+          <div style="margin-top: 14px;">
+            <span style="background: #f3f4f6; color: #374151; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; font-family: monospace;">ENTERPRISE</span>
+            <h3 style="font-size: 16.5px; font-weight: 700; color: #111827; margin-top: 8px; line-height: 1.35;">
+              Enterprise Guardrails for Regulated Industries: Healthcare, FinTech &amp; Legal
+            </h3>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+  </article>
+
+  <!-- ======================================================================= -->
+  <!-- START BUILDING ON PROJECTSPG (Call To Action Section)                   -->
+  <!-- ======================================================================= -->
+  <section class="w-full relative pt-20 pb-28 sm:pt-32 sm:pb-48 overflow-hidden bg-white text-center border-t border-gray-100">
+    
+    <!-- 3D Geometric Atmospheric Backdrop -->
+    <div class="absolute inset-0 pointer-events-none overflow-hidden flex items-end justify-center">
+      <!-- Left Warm Coral Glow -->
+      <div class="absolute -left-24 bottom-0 w-[420px] h-[340px] bg-gradient-to-tr from-rose-500/25 via-red-400/20 to-transparent blur-3xl rounded-full"></div>
+      
+      <!-- Center Frosted Glass 3D Arc / Semi-Circle -->
+      <div class="absolute bottom-[-140px] left-1/2 -translate-x-1/2 w-[700px] sm:w-[900px] h-[380px] rounded-t-full bg-gradient-to-b from-sky-100/40 via-blue-50/20 to-transparent border-t-2 border-l border-r border-white/80 backdrop-blur-xl shadow-2xl">
+        <!-- Inner Glass Highlights -->
+        <div class="absolute top-4 left-1/4 right-1/4 h-0.5 bg-gradient-to-r from-transparent via-white/80 to-transparent"></div>
+      </div>
+
+      <!-- Right Deep Royal Blue 3D Disc -->
+      <div class="absolute -right-16 bottom-[-60px] w-72 sm:w-96 h-72 sm:h-96 rounded-[50px] sm:rounded-[64px] bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-900 shadow-[0_25px_60px_rgba(29,78,216,0.45)] transform rotate-[18deg] -skew-x-6 border-t-2 border-l-2 border-sky-300/40"></div>
+
+      <!-- Far Right Blue/Purple Atmosphere -->
+      <div class="absolute -right-20 bottom-0 w-[480px] h-[400px] bg-gradient-to-tl from-indigo-600/25 via-blue-500/15 to-transparent blur-3xl rounded-full"></div>
+    </div>
+
+    <div class="max-w-5xl mx-auto px-2.5 sm:px-4 lg:px-6 relative z-10">
+      <h2 class="text-3xl sm:text-5xl lg:text-[54px] font-bold text-gray-950 tracking-tight leading-tight">
+        Start building on ProjectSPG
+      </h2>
+      <p class="text-sm sm:text-lg lg:text-xl text-gray-500 font-normal mt-4 max-w-2xl mx-auto leading-relaxed">
+        From sovereign edge de-identification to large-scale zero-trust AI model inference
+      </p>
+      <div class="mt-8 flex justify-center">
+        <a href="/dashboard" class="px-7 py-3.5 rounded-xl bg-black hover:bg-gray-800 text-white text-xs font-bold tracking-wider uppercase transition shadow-md hover:shadow-lg cursor-pointer transform hover:-translate-y-0.5 inline-block">
+          GET STARTED NOW
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================= -->
+  <!-- MAIN ENTERPRISE FOOTER                                                  -->
+  <!-- ======================================================================= -->
+  <footer class="w-full relative overflow-hidden bg-gradient-to-b from-[#eaf2fc]/60 via-[#f1f6fc] to-[#e8edf7] pt-8 sm:pt-12">
+    
+    <!-- Ambient Edge Colors behind the white card -->
+    <div class="absolute -left-20 top-0 w-80 h-96 bg-rose-400/25 blur-3xl pointer-events-none"></div>
+    <div class="absolute -right-20 top-0 w-96 h-96 bg-blue-500/25 blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-[1440px] mx-auto px-2 sm:px-4 lg:px-6 relative z-10">
+      
+      <!-- Main White Footer Card with Curved Top -->
+      <div class="w-full bg-white rounded-t-[28px] sm:rounded-t-[44px] border-t border-l border-r border-gray-100 shadow-[0_-10px_35px_rgba(0,0,0,0.02)] pt-10 sm:pt-16 pb-10 px-4 sm:px-8 lg:px-10 relative overflow-hidden">
+        
+        <!-- Top Grid: Brand Logo + 4 Category Columns -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-start">
+          
+          <!-- Brand Logo (Left Column) -->
+          <div class="lg:col-span-3">
+            <a href="/" class="inline-flex items-center gap-2 group cursor-pointer" title="ProjectSPG">
+              <!-- ProjectSPG Brand Emblem -->
+              <div class="relative w-8 h-8 flex items-center justify-center">
+                <span class="absolute top-0 left-1 w-3.5 h-3.5 rounded-full bg-purple-400/90 shadow-2xs"></span>
+                <span class="absolute top-0 right-1 w-3.5 h-3.5 rounded-full bg-pink-500/90 shadow-2xs"></span>
+                <span class="absolute bottom-0 left-2.5 w-3.5 h-3.5 rounded-full bg-[#f0523d] shadow-2xs"></span>
+              </div>
+              <span class="font-extrabold text-[20px] tracking-tight text-gray-950">project<span class="text-[#f0523d]">spg</span></span>
+            </a>
+          </div>
+
+          <!-- 4 Columns of Links -->
+          <div class="lg:col-span-9 grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-6 text-xs">
+            
+            <!-- Col 1: PRODUCTS -->
+            <div>
+              <div class="border-t border-gray-200/90 pt-3 mb-3.5">
+                <span class="text-[10px] font-bold tracking-widest uppercase text-gray-900 font-mono">PRODUCTS</span>
+              </div>
+              <ul class="space-y-2.5 font-medium text-gray-600">
+                <li><a href="/dashboard" class="hover:text-gray-950 transition">Accelerated Compute</a></li>
+                <li><a href="/dashboard" class="hover:text-gray-950 transition">Serverless Inference</a></li>
+                <li><a href="/dashboard" class="hover:text-gray-950 transition">Provisioned Throughput</a></li>
+                <li><a href="/dashboard" class="hover:text-gray-950 transition">Dedicated Inference</a></li>
+                <li><a href="/dashboard" class="hover:text-gray-950 transition">Fine-Tuning</a></li>
+                <li><a href="/dashboard" class="hover:text-gray-950 transition">Sandbox</a></li>
+                <li><a href="/dashboard" class="hover:text-gray-950 transition">Evaluations</a></li>
+              </ul>
+            </div>
+
+            <!-- Col 2: MODELS -->
+            <div>
+              <div class="border-t border-gray-200/90 pt-3 mb-3.5">
+                <span class="text-[10px] font-bold tracking-widest uppercase text-gray-900 font-mono">MODELS</span>
+              </div>
+              <ul class="space-y-2.5 font-medium text-gray-600">
+                <li><a href="/dashboard" class="hover:text-gray-950 transition">See all models</a></li>
+                <li><a href="/dashboard" class="hover:text-gray-950 transition">DeepSeek</a></li>
+                <li><a href="/dashboard" class="hover:text-gray-950 transition">Meta</a></li>
+                <li><a href="/dashboard" class="hover:text-gray-950 transition">Qwen</a></li>
+                <li><a href="/dashboard" class="hover:text-gray-950 transition">Google</a></li>
+                <li><a href="/dashboard" class="hover:text-gray-950 transition">OpenAI</a></li>
+                <li><a href="/dashboard" class="hover:text-gray-950 transition">Mistral AI</a></li>
+                <li><a href="/dashboard" class="hover:text-gray-950 transition">Custom models</a></li>
+              </ul>
+            </div>
+
+            <!-- Col 3: DEVELOPERS & PRICING -->
+            <div>
+              <!-- Subgroup 1: DEVELOPERS -->
+              <div class="border-t border-gray-200/90 pt-3 mb-3.5">
+                <span class="text-[10px] font-bold tracking-widest uppercase text-gray-900 font-mono">DEVELOPERS</span>
+              </div>
+              <ul class="space-y-2.5 font-medium text-gray-600 mb-6">
+                <li><a href="/blog/benchmark" class="hover:text-gray-950 transition">Research &amp; Benchmark</a></li>
+                <li><a href="/dashboard" class="hover:text-gray-950 transition">API Documentation</a></li>
+                <li><a href="https://github.com/PriyanujBoruah/AI-Privacy-Core" target="_blank" class="hover:text-gray-950 transition">Open-Source Core</a></li>
+                <li><a href="/dashboard" class="hover:text-gray-950 transition">Live Playground</a></li>
+              </ul>
+
+              <!-- Subgroup 2: PRICING -->
+              <div class="border-t border-gray-200/90 pt-3 mb-3.5">
+                <span class="text-[10px] font-bold tracking-widest uppercase text-gray-900 font-mono">PRICING</span>
+              </div>
+              <ul class="space-y-2.5 font-medium text-gray-600">
+                <li><a href="/dashboard" class="hover:text-gray-950 transition">Pricing overview</a></li>
+                <li><a href="/dashboard" class="hover:text-gray-950 transition">Serverless Free Tier</a></li>
+                <li><a href="/dashboard" class="hover:text-gray-950 transition">Enterprise BYOK</a></li>
+              </ul>
+            </div>
+
+            <!-- Col 4: RESOURCES -->
+            <div>
+              <div class="border-t border-gray-200/90 pt-3 mb-3.5">
+                <span class="text-[10px] font-bold tracking-widest uppercase text-gray-900 font-mono">RESOURCES</span>
+              </div>
+              <ul class="space-y-2.5 font-medium text-gray-600">
+                <li><a href="/blog/benchmark" class="hover:text-gray-950 transition">Blog &amp; Benchmarks</a></li>
+                <li><a href="/" class="hover:text-gray-950 transition">About ProjectSPG</a></li>
+                <li><a href="mailto:support@projectspg.info" class="hover:text-gray-950 transition">Support</a></li>
+              </ul>
+            </div>
+
+          </div>
+
         </div>
+
+        <!-- Giant Watermark Brand Name (ProjectSPG Signature) -->
+        <div class="select-none pointer-events-none text-center text-[44px] sm:text-[90px] md:text-[135px] lg:text-[180px] font-bold tracking-tight text-gray-100/90 leading-none my-6 sm:my-10 overflow-hidden font-sans truncate">
+          project<span class="text-[#f0523d]">spg</span>
+        </div>
+
+        <!-- Bottom Legal & Social Row -->
+        <div class="border-t border-gray-100 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-500 font-sans">
+          <!-- Left Copyright -->
+          <div class="text-[10px] font-mono text-gray-400 tracking-wider uppercase text-center md:text-left">
+            © 2026 PROJECTSPG. ALL RIGHTS RESERVED.
+          </div>
+
+          <!-- Center Legal Links -->
+          <div class="flex flex-wrap items-center justify-center gap-5 sm:gap-7 text-xs text-gray-600">
+            <a href="/" class="hover:text-gray-950 transition">Privacy Policy</a>
+            <a href="/" class="hover:text-gray-950 transition">Terms of Service</a>
+            <a href="/" class="hover:text-gray-950 transition">Security Disclosure</a>
+          </div>
+
+          <!-- Right Social Icons -->
+          <div class="flex items-center gap-4 text-gray-700">
+            <!-- Discord -->
+            <a href="https://discord.gg" target="_blank" rel="noopener noreferrer" class="hover:text-gray-950 transition p-1" title="Discord">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+              </svg>
+            </a>
+
+            <!-- X (Twitter) -->
+            <a href="https://x.com" target="_blank" rel="noopener noreferrer" class="hover:text-gray-950 transition p-1" title="X (Twitter)">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+            </a>
+
+            <!-- LinkedIn -->
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="hover:text-gray-950 transition p-1" title="LinkedIn">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+              </svg>
+            </a>
+          </div>
+
+        </div>
+
       </div>
 
     </div>
 
-  </article>
+  </footer>
 
   <script>
     function runLiveVerification() {
@@ -1229,6 +1463,14 @@ node scripts/multicore_benchmark.mjs --workers 8</pre>
         btn.innerText = "✓ Copied";
         setTimeout(() => btn.innerText = "Copy", 2000);
       });
+    }
+
+    function scrollRelated(direction) {
+      const track = document.getElementById('related-cards-track');
+      if (track) {
+        const scrollAmount = 320;
+        track.scrollBy({ left: direction === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' });
+      }
     }
 
     // Run on load
