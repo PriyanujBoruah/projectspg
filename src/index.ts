@@ -6,6 +6,7 @@ import { DASHBOARD_HTML } from "./dashboard";
 import { BENCHMARK_BLOG_HTML } from "./blog_benchmark";
 import { COUNTRIES_BLOG_HTML } from "./blog_countries";
 import { INDUSTRIES_BLOG_HTML } from "./blog_industries";
+import { STACK_BLOG_HTML } from "./blog_stack";
 import {
   createApiKey,
   listApiKeys,
@@ -75,6 +76,13 @@ app.get("/supported-countries", (c) => c.html(COUNTRIES_BLOG_HTML));
 app.get("/blog/industries", (c) => c.html(INDUSTRIES_BLOG_HTML));
 app.get("/industries", (c) => c.html(INDUSTRIES_BLOG_HTML));
 app.get("/supported-industries", (c) => c.html(INDUSTRIES_BLOG_HTML));
+
+// Serve Open Model AI Stack & Ranked Market Leader Blog
+app.get("/blog/stack", (c) => c.html(STACK_BLOG_HTML));
+app.get("/blog/comparison", (c) => c.html(STACK_BLOG_HTML));
+app.get("/blog/best-ai-privacy", (c) => c.html(STACK_BLOG_HTML));
+app.get("/stack", (c) => c.html(STACK_BLOG_HTML));
+app.get("/comparison", (c) => c.html(STACK_BLOG_HTML));
 
 // Mount API Key Authentication Middleware on /v1 routes
 app.use("/v1/*", createAuthMiddleware());

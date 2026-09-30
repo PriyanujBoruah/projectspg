@@ -1570,7 +1570,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
             
             <!-- Left Column: Featured Post (The Open Source AI Stack) -->
-            <div class="lg:col-span-6 group cursor-pointer">
+            <div onclick="window.location.href='/blog/stack'" class="lg:col-span-6 group cursor-pointer">
               <!-- Stack Illustration Card -->
               <div class="w-full min-h-[380px] sm:aspect-[16/10] bg-[#0f121d] rounded-2xl p-5 sm:p-8 flex flex-col sm:flex-row justify-between border border-gray-800/80 shadow-md relative overflow-hidden transition-all duration-300 group-hover:shadow-xl group-hover:border-gray-700">
                 <!-- Background Ambient Glow -->
@@ -1647,13 +1647,13 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               <!-- Post Meta & Details -->
               <div class="mt-4">
                 <span class="px-2.5 py-0.5 rounded bg-gray-100 text-gray-700 font-bold text-[10px] tracking-wider uppercase">
-                  INFERENCE
+                  INFERENCE &amp; SECURITY
                 </span>
                 <h3 class="text-lg sm:text-2xl font-bold text-gray-950 mt-2 group-hover:text-[#f0523d] transition-colors leading-snug">
-                  The Open Source AI Stack
+                  The Open Source AI Stack: Why ProjectSPG Ranks #1
                 </h3>
                 <p class="text-xs sm:text-sm text-gray-500 mt-1.5 line-clamp-2 leading-relaxed">
-                  A deep dive into the open model AI stack — model, inference, gateways and routers, harness, and tools ...
+                  A deep dive into the open model AI stack and a ranked comparison of the leading AI security proxies across latency, reversibility, and sovereign compliance...
                 </p>
               </div>
             </div>

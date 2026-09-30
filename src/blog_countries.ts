@@ -1105,8 +1105,8 @@ response = client.chat.completions.create(
           </div>
         </a>
 
-        <!-- Related 2: Supported Countries (Current article) -->
-        <a href="/blog/countries" style="text-decoration: none; color: inherit; display: block;" class="group">
+        <!-- Related 2: Open Model AI Stack & Market Ranking -->
+        <a href="/blog/stack" style="text-decoration: none; color: inherit; display: block;" class="group">
           <div style="aspect-ratio: 16/9; width: 100%; border-radius: 12px; overflow: hidden; background: linear-gradient(135deg, #fed7aa, #fef08a, #c7d2fe); border: 1px solid rgba(229,231,235,0.8); display: flex; align-items: center; justify-content: center; padding: 22px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.03); transition: all 0.25s;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 10px 25px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 1px 3px rgba(0,0,0,0.03)';">
             <div>
               <div style="display: flex; align-items: center; justify-content: center; gap: 4px; margin-bottom: 6px;">
@@ -1114,14 +1114,14 @@ response = client.chat.completions.create(
                 <span style="font-size: 10px; font-weight: 700; color: #1f2937;">project<span style="color:#f0523d;">spg</span></span>
               </div>
               <h4 style="font-size: 14.5px; font-weight: 800; color: #111827; line-height: 1.35;">
-                Global Sovereign AI Privacy: 109 Jurisdictions Supported by ProjectSPG
+                The Open Model AI Stack: Why ProjectSPG is Ranked #1
               </h4>
             </div>
           </div>
           <div style="margin-top: 14px;">
-            <span style="background: #f3f4f6; color: #374151; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; font-family: monospace;">COMPLIANCE</span>
+            <span style="background: #f3f4f6; color: #374151; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; font-family: monospace;">ARCHITECTURE</span>
             <h3 style="font-size: 16.5px; font-weight: 700; color: #111827; margin-top: 8px; line-height: 1.35;">
-              Supported Jurisdictions &amp; Regional Data Protections: GDPR, DPDP &amp; PDPA
+              The Open Model AI Stack: Why ProjectSPG Ranks #1 for Enterprise Privacy
             </h3>
           </div>
         </a>
