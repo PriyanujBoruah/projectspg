@@ -417,7 +417,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
           <!-- Right: Actions -->
           <div class="flex items-center gap-2.5 sm:gap-4 text-xs font-semibold">
-            <a href="#docs" onclick="switchView('docs')" class="hidden sm:inline-block text-gray-700 hover:text-gray-950 tracking-wider text-[11px] font-bold uppercase transition">Contact Sales</a>
+            <a href="#access-section" onclick="switchAccessView('request')" class="hidden sm:inline-block text-gray-700 hover:text-gray-950 tracking-wider text-[11px] font-bold uppercase transition">Request Access</a>
             <div class="h-4 w-px bg-gray-200 hidden sm:block"></div>
             <button onclick="openAuthModal()" class="px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase transition shadow-xs cursor-pointer flex items-center gap-1.5">
               <span>Sign In</span>
@@ -463,8 +463,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400"></i>
             </a>
             <div class="pt-2 flex flex-col gap-2">
-              <a href="#docs" onclick="closeLandingMobileMenu(); switchView('docs')" class="w-full text-center py-2.5 rounded-xl border border-gray-200 text-gray-800 text-xs font-bold uppercase tracking-wider hover:bg-gray-50 transition">
-                Contact Sales
+              <a href="#access-section" onclick="closeLandingMobileMenu(); switchAccessView('request')" class="w-full text-center py-2.5 rounded-xl border border-gray-200 text-gray-800 text-xs font-bold uppercase tracking-wider hover:bg-gray-50 transition">
+                Request Access
               </a>
               <button onclick="closeLandingMobileMenu(); openAuthModal()" class="w-full py-2.5 rounded-xl bg-black hover:bg-gray-800 text-white text-xs font-bold uppercase tracking-wider transition shadow-sm">
                 Sign In

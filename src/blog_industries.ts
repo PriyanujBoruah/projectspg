@@ -552,7 +552,7 @@ export const INDUSTRIES_BLOG_HTML = `<!DOCTYPE html>
     </nav>
 
     <div class="nav-right-actions">
-      <a href="/dashboard#docs" style="color:#4b5563; font-size:13.5px; font-weight:500; text-decoration:none; margin-right:6px;" class="hidden sm:inline-block">Contact Sales</a>
+      <a href="/#access-section" style="color:#4b5563; font-size:13.5px; font-weight:500; text-decoration:none; margin-right:6px;" class="hidden sm:inline-block">Request Access</a>
       <a href="/dashboard" class="btn-nav-primary">Get Started</a>
     </div>
   </header>
