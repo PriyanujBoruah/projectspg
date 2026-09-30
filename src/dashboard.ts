@@ -1879,38 +1879,6 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
           </div>
 
-          <!-- Assurance Pillars / Trust Strip -->
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4 border-t border-gray-200/60 text-center md:text-left">
-            <div class="flex items-start gap-3.5">
-              <div class="w-9 h-9 rounded-xl bg-white border border-gray-200 shadow-2xs flex items-center justify-center text-gray-800 shrink-0">
-                <i data-lucide="shield-check" class="w-4 h-4 text-emerald-600"></i>
-              </div>
-              <div>
-                <h4 class="text-xs font-bold text-gray-950 uppercase tracking-wide">Zero Data Retention (ZDR)</h4>
-                <p class="text-xs text-gray-500 mt-1 leading-relaxed">Prompts and completions are strictly in-flight; neither model weights nor logs ever store raw plaintext PII.</p>
-              </div>
-            </div>
-
-            <div class="flex items-start gap-3.5">
-              <div class="w-9 h-9 rounded-xl bg-white border border-gray-200 shadow-2xs flex items-center justify-center text-gray-800 shrink-0">
-                <i data-lucide="lock" class="w-4 h-4 text-blue-600"></i>
-              </div>
-              <div>
-                <h4 class="text-xs font-bold text-gray-950 uppercase tracking-wide">Bring-Your-Own-KMS</h4>
-                <p class="text-xs text-gray-500 mt-1 leading-relaxed">Hardware envelope encryption via AWS KMS, GCP Cloud KMS, or Azure Vault. Master keys never leave your custody.</p>
-              </div>
-            </div>
-
-            <div class="flex items-start gap-3.5">
-              <div class="w-9 h-9 rounded-xl bg-white border border-gray-200 shadow-2xs flex items-center justify-center text-gray-800 shrink-0">
-                <i data-lucide="globe" class="w-4 h-4 text-indigo-600"></i>
-              </div>
-              <div>
-                <h4 class="text-xs font-bold text-gray-950 uppercase tracking-wide">109 Sovereign Jurisdictions</h4>
-                <p class="text-xs text-gray-500 mt-1 leading-relaxed">Deterministic mathematical checksum verification (Verhoeff, Luhn, Mod-97) guaranteeing 0% false positives.</p>
-              </div>
-            </div>
-          </div>
 
         </div>
       </section>
