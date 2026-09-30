@@ -308,7 +308,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
   <!-- ========================================================================= -->
   <!-- TOP GLOBAL NAVBAR (Exact 52px height) -->
   <!-- ========================================================================= -->
-  <header id="global-header" class="h-[52px] bg-white px-2.5 sm:px-4 lg:px-6 flex items-center justify-between shrink-0 z-40 hidden border-b border-gray-100">
+  <header id="global-header" class="sticky top-0 h-[52px] bg-white px-2.5 sm:px-4 lg:px-6 flex items-center justify-between shrink-0 z-40 hidden border-b border-gray-100 shadow-2xs">
     
     <!-- Left: Brand Logo + Project Selector -->
     <div class="flex items-center gap-2 sm:gap-3.5">
@@ -391,8 +391,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[1440px] h-96 bg-gradient-to-b from-sky-200/35 via-blue-100/20 to-transparent blur-3xl pointer-events-none -z-0"></div>
 
       <!-- Floating Header (ProjectSPG Floating Navbar) -->
-      <header class="w-full max-w-[1440px] mx-auto pt-3 sm:pt-4 px-2 sm:px-4 lg:px-6 relative z-50">
-        <div class="bg-white/90 backdrop-blur-md border border-gray-200/80 rounded-full px-4 sm:px-5 py-2 sm:py-2.5 flex items-center justify-between shadow-xs">
+      <header class="sticky top-0 w-full max-w-[1440px] mx-auto pt-3 sm:pt-4 px-2 sm:px-4 lg:px-6 z-50">
+        <div class="bg-white/90 backdrop-blur-md border border-gray-200/80 rounded-full px-4 sm:px-5 py-2 sm:py-2.5 flex items-center justify-between shadow-sm">
           
           <!-- Left: Brand Emblem + Name -->
           <div class="flex items-center gap-2 sm:gap-2.5 cursor-pointer" onclick="switchView('landing')">
