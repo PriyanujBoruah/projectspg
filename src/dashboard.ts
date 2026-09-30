@@ -2101,6 +2101,13 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         </div>
 
         <div class="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+          <!-- BYOK Provider API Keys Button (visible when BYOK mode is ON) -->
+          <button id="btn-byok-keys" onclick="openByokKeysModal()" class="hidden px-2.5 sm:px-3 py-1.5 rounded-lg bg-white border border-groq-grayBorder text-xs font-medium text-groq-dark hover:bg-gray-50 flex items-center gap-1.5 shadow-2xs transition cursor-pointer shrink-0" title="Provider API Keys">
+            <i data-lucide="key" class="w-3.5 h-3.5 text-blue-600"></i>
+            <span>API Keys</span>
+            <span id="byok-keys-badge" class="hidden w-2 h-2 rounded-full bg-emerald-500 ring-2 ring-white" title="Keys configured"></span>
+          </button>
+
           <div class="relative">
             <select id="playground-model" onchange="onModelChange()" class="appearance-none bg-white border border-groq-grayBorder text-groq-dark text-xs font-sans font-medium rounded-lg pl-2.5 sm:pl-3 pr-7 sm:pr-8 py-1.5 focus:border-gray-400 focus:outline-none cursor-pointer max-w-[170px] sm:max-w-none truncate">
               <optgroup label="Groq Cloud">
@@ -2850,6 +2857,85 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
   </div>
 
   <!-- ========================================================================= -->
+  <!-- MODAL: BYOK PROVIDER API KEYS (Google, Mistral, Groq)                     -->
+  <!-- ========================================================================= -->
+  <div id="modal-byok-keys" onclick="if(event.target === this) closeByokKeysModal()" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white border border-groq-grayBorder rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
+      <button onclick="closeByokKeysModal()" class="absolute top-4 right-4 text-groq-textMuted hover:text-groq-dark transition p-1.5 rounded-lg hover:bg-gray-100 cursor-pointer" title="Close">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+
+      <div class="flex items-center gap-2.5 mb-1.5">
+        <div class="w-8 h-8 rounded-lg bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600">
+          <i data-lucide="key" class="w-4 h-4"></i>
+        </div>
+        <div>
+          <h3 class="text-base font-bold text-groq-dark">Provider API Keys</h3>
+          <p class="text-[11px] text-groq-textMuted">Bring-Your-Own-Key (BYOK) Credentials</p>
+        </div>
+      </div>
+
+      <p class="text-xs text-gray-500 mt-2 leading-relaxed">
+        Configure your direct provider API keys. When BYOK mode is enabled, prompts are routed directly with your credentials, bypassing free tier rate limits. Keys are stored locally in your browser and never saved on our servers.
+      </p>
+
+      <div class="mt-5 space-y-4 text-xs">
+        
+        <!-- Google AI Studio API Key -->
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <label class="block text-groq-dark font-semibold">Google API Key</label>
+            <span class="text-[10px] text-gray-400 font-mono">gemma-4-26b, gemma-4-31b</span>
+          </div>
+          <div class="relative">
+            <input type="password" id="byok-key-google" placeholder="AIzaSy..." class="w-full bg-[#f9fafb] border border-groq-grayBorder rounded-lg pl-3 pr-8 py-2 text-groq-dark placeholder-gray-400 focus:outline-none focus:border-gray-400 font-mono text-xs">
+            <button type="button" onclick="toggleKeyVisibility('byok-key-google', this)" class="absolute right-2.5 top-2 text-gray-400 hover:text-gray-600 cursor-pointer p-0.5" title="Toggle visibility">
+              <i data-lucide="eye" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mistral AI API Key -->
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <label class="block text-groq-dark font-semibold">Mistral API Key</label>
+            <span class="text-[10px] text-gray-400 font-mono">codestral, ministral</span>
+          </div>
+          <div class="relative">
+            <input type="password" id="byok-key-mistral" placeholder="api_..." class="w-full bg-[#f9fafb] border border-groq-grayBorder rounded-lg pl-3 pr-8 py-2 text-groq-dark placeholder-gray-400 focus:outline-none focus:border-gray-400 font-mono text-xs">
+            <button type="button" onclick="toggleKeyVisibility('byok-key-mistral', this)" class="absolute right-2.5 top-2 text-gray-400 hover:text-gray-600 cursor-pointer p-0.5" title="Toggle visibility">
+              <i data-lucide="eye" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Groq Cloud API Key -->
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <label class="block text-groq-dark font-semibold">Groq API Key</label>
+            <span class="text-[10px] text-gray-400 font-mono">gpt-oss-120b, qwen3.8</span>
+          </div>
+          <div class="relative">
+            <input type="password" id="byok-key-groq" placeholder="gsk_..." class="w-full bg-[#f9fafb] border border-groq-grayBorder rounded-lg pl-3 pr-8 py-2 text-groq-dark placeholder-gray-400 focus:outline-none focus:border-gray-400 font-mono text-xs">
+            <button type="button" onclick="toggleKeyVisibility('byok-key-groq', this)" class="absolute right-2.5 top-2 text-gray-400 hover:text-gray-600 cursor-pointer p-0.5" title="Toggle visibility">
+              <i data-lucide="eye" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="mt-6 pt-4 border-t border-gray-100 flex items-center justify-between text-xs">
+        <button onclick="clearByokKeys()" class="text-xs text-gray-400 hover:text-rose-600 transition cursor-pointer font-medium">Clear All</button>
+        <div class="flex items-center gap-2">
+          <button onclick="closeByokKeysModal()" class="px-3 py-1.5 rounded-lg text-gray-600 hover:bg-gray-100 transition cursor-pointer font-medium">Cancel</button>
+          <button onclick="saveByokKeys()" class="px-4 py-1.5 rounded-lg bg-black hover:bg-gray-800 text-white font-semibold shadow-xs transition cursor-pointer">Save Keys</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
   <!-- MODAL: FIREBASE AUTHENTICATION (Google + Email/Password) -->
   <!-- ========================================================================= -->
   <div id="modal-auth" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
@@ -2960,6 +3046,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       updateCodeViewer();
       fetchApiLogs();
       fetchApiKeys();
+      initByokKeys();
 
       // Initialize parameter slider fills
       updateSliderFill(document.getElementById('param-temp-slider'));
@@ -3539,24 +3626,32 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       playgroundTierMode = mode;
       const freeBtn = document.getElementById('btn-tier-free');
       const byokBtn = document.getElementById('btn-tier-byok');
+      const byokKeysBtn = document.getElementById('btn-byok-keys');
 
       if (mode === 'free') {
         if (freeBtn) {
-          freeBtn.className = 'px-3 py-1 rounded-md bg-white text-groq-dark font-medium shadow-xs text-xs transition cursor-pointer';
+          freeBtn.className = 'px-2.5 sm:px-3 py-1 rounded-md bg-white text-groq-dark font-medium shadow-xs text-xs transition cursor-pointer';
         }
         if (byokBtn) {
-          byokBtn.className = 'px-3 py-1 rounded-md text-groq-textMuted hover:text-groq-dark text-xs transition cursor-pointer';
+          byokBtn.className = 'px-2.5 sm:px-3 py-1 rounded-md text-groq-textMuted hover:text-groq-dark text-xs transition cursor-pointer';
+        }
+        if (byokKeysBtn) {
+          byokKeysBtn.classList.add('hidden');
         }
       } else {
         if (byokBtn) {
-          byokBtn.className = 'px-3 py-1 rounded-md bg-white text-groq-dark font-medium shadow-xs text-xs transition cursor-pointer';
+          byokBtn.className = 'px-2.5 sm:px-3 py-1 rounded-md bg-white text-groq-dark font-medium shadow-xs text-xs transition cursor-pointer';
         }
         if (freeBtn) {
-          freeBtn.className = 'px-3 py-1 rounded-md text-groq-textMuted hover:text-groq-dark text-xs transition cursor-pointer';
+          freeBtn.className = 'px-2.5 sm:px-3 py-1 rounded-md text-groq-textMuted hover:text-groq-dark text-xs transition cursor-pointer';
         }
-        const apiKey = document.getElementById('cfg-apikey') ? document.getElementById('cfg-apikey').value.trim() : '';
-        if (!apiKey) {
-          openConfigModal();
+        if (byokKeysBtn) {
+          byokKeysBtn.classList.remove('hidden');
+        }
+        updateByokBadge();
+        const hasKeys = !!(localStorage.getItem('byok_key_google') || localStorage.getItem('byok_key_mistral') || localStorage.getItem('byok_key_groq') || (document.getElementById('cfg-apikey') && document.getElementById('cfg-apikey').value.trim()));
+        if (!hasKeys) {
+          openByokKeysModal();
         }
       }
     }
@@ -3567,7 +3662,36 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
       const model = document.getElementById('playground-model').value;
       const kmsKey = document.getElementById('cfg-kms').value.trim();
-      const apiKey = playgroundTierMode === 'byok' ? (document.getElementById('cfg-apikey') ? document.getElementById('cfg-apikey').value.trim() : '') : '';
+      let apiKey = '';
+
+      if (playgroundTierMode === 'byok') {
+        const googleKey = (document.getElementById('byok-key-google') ? document.getElementById('byok-key-google').value.trim() : '') || localStorage.getItem('byok_key_google') || '';
+        const mistralKey = (document.getElementById('byok-key-mistral') ? document.getElementById('byok-key-mistral').value.trim() : '') || localStorage.getItem('byok_key_mistral') || '';
+        const groqKey = (document.getElementById('byok-key-groq') ? document.getElementById('byok-key-groq').value.trim() : '') || localStorage.getItem('byok_key_groq') || '';
+        const legacyKey = (document.getElementById('cfg-apikey') ? document.getElementById('cfg-apikey').value.trim() : '');
+
+        let providerName = '';
+        if (model.includes('gemini') || model.startsWith('gemma')) {
+          apiKey = googleKey || legacyKey;
+          providerName = 'Google AI Studio';
+        } else if (model.includes('mistral') || model.startsWith('codestral') || model.startsWith('ministral')) {
+          apiKey = mistralKey || legacyKey;
+          providerName = 'Mistral AI';
+        } else if (model.includes('groq') || model.includes('oss') || model.startsWith('qwen') || model.startsWith('llama')) {
+          apiKey = groqKey || legacyKey;
+          providerName = 'Groq Cloud';
+        } else {
+          apiKey = legacyKey || groqKey || mistralKey || googleKey;
+          providerName = 'upstream provider';
+        }
+
+        if (!apiKey) {
+          alert('BYOK Mode is ON: Please enter your ' + providerName + ' API key in the API Keys panel.');
+          openByokKeysModal();
+          return;
+        }
+      }
+
       const mode = document.getElementById('cfg-mode') ? document.getElementById('cfg-mode').value : 'mask';
 
       const btn = document.getElementById('btn-submit');
@@ -4372,6 +4496,95 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
 
     function openConfigModal() { document.getElementById('modal-config').classList.remove('hidden'); }
     function closeConfigModal() { document.getElementById('modal-config').classList.add('hidden'); }
+
+    // =========================================================================
+    // BYOK Provider API Keys Modal Handlers
+    // =========================================================================
+    function openByokKeysModal() {
+      const modal = document.getElementById('modal-byok-keys');
+      if (!modal) return;
+      const gInput = document.getElementById('byok-key-google');
+      const mInput = document.getElementById('byok-key-mistral');
+      const grInput = document.getElementById('byok-key-groq');
+      if (gInput) gInput.value = localStorage.getItem('byok_key_google') || '';
+      if (mInput) mInput.value = localStorage.getItem('byok_key_mistral') || '';
+      if (grInput) grInput.value = localStorage.getItem('byok_key_groq') || '';
+      modal.classList.remove('hidden');
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function closeByokKeysModal() {
+      const modal = document.getElementById('modal-byok-keys');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function saveByokKeys() {
+      const gKey = document.getElementById('byok-key-google') ? document.getElementById('byok-key-google').value.trim() : '';
+      const mKey = document.getElementById('byok-key-mistral') ? document.getElementById('byok-key-mistral').value.trim() : '';
+      const grKey = document.getElementById('byok-key-groq') ? document.getElementById('byok-key-groq').value.trim() : '';
+
+      if (gKey) localStorage.setItem('byok_key_google', gKey); else localStorage.removeItem('byok_key_google');
+      if (mKey) localStorage.setItem('byok_key_mistral', mKey); else localStorage.removeItem('byok_key_mistral');
+      if (grKey) localStorage.setItem('byok_key_groq', grKey); else localStorage.removeItem('byok_key_groq');
+
+      const legacyKey = document.getElementById('cfg-apikey');
+      if (legacyKey) legacyKey.value = grKey || mKey || gKey || '';
+
+      updateByokBadge();
+      closeByokKeysModal();
+    }
+
+    function clearByokKeys() {
+      if (document.getElementById('byok-key-google')) document.getElementById('byok-key-google').value = '';
+      if (document.getElementById('byok-key-mistral')) document.getElementById('byok-key-mistral').value = '';
+      if (document.getElementById('byok-key-groq')) document.getElementById('byok-key-groq').value = '';
+
+      localStorage.removeItem('byok_key_google');
+      localStorage.removeItem('byok_key_mistral');
+      localStorage.removeItem('byok_key_groq');
+
+      const legacyKey = document.getElementById('cfg-apikey');
+      if (legacyKey) legacyKey.value = '';
+
+      updateByokBadge();
+    }
+
+    function toggleKeyVisibility(inputId, btn) {
+      const input = document.getElementById(inputId);
+      if (!input) return;
+      if (input.type === 'password') {
+        input.type = 'text';
+        if (btn) btn.innerHTML = '<i data-lucide="eye-off" class="w-3.5 h-3.5"></i>';
+      } else {
+        input.type = 'password';
+        if (btn) btn.innerHTML = '<i data-lucide="eye" class="w-3.5 h-3.5"></i>';
+      }
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function updateByokBadge() {
+      const g = localStorage.getItem('byok_key_google') || (document.getElementById('byok-key-google') ? document.getElementById('byok-key-google').value.trim() : '');
+      const m = localStorage.getItem('byok_key_mistral') || (document.getElementById('byok-key-mistral') ? document.getElementById('byok-key-mistral').value.trim() : '');
+      const gr = localStorage.getItem('byok_key_groq') || (document.getElementById('byok-key-groq') ? document.getElementById('byok-key-groq').value.trim() : '');
+      const badge = document.getElementById('byok-keys-badge');
+      if (badge) {
+        if (g || m || gr) {
+          badge.classList.remove('hidden');
+        } else {
+          badge.classList.add('hidden');
+        }
+      }
+    }
+
+    function initByokKeys() {
+      const g = localStorage.getItem('byok_key_google') || '';
+      const m = localStorage.getItem('byok_key_mistral') || '';
+      const gr = localStorage.getItem('byok_key_groq') || '';
+      if (document.getElementById('byok-key-google')) document.getElementById('byok-key-google').value = g;
+      if (document.getElementById('byok-key-mistral')) document.getElementById('byok-key-mistral').value = m;
+      if (document.getElementById('byok-key-groq')) document.getElementById('byok-key-groq').value = gr;
+      updateByokBadge();
+    }
 
     // =========================================================================
     // Firebase Authentication Frontend Handlers
