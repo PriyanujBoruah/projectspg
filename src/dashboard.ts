@@ -408,7 +408,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           <nav class="hidden md:flex items-center gap-6 lg:gap-7 text-[13px] font-medium text-gray-600">
             <a href="#platform-section" class="hover:text-gray-950 transition">Platform</a>
             <a href="#research-section" class="hover:text-gray-950 transition">Research</a>
-            <a href="#news-section" class="hover:text-gray-950 transition">What's New</a>
+            <a href="#news-section" class="hover:text-gray-950 transition">Learn More</a>
             <a href="#access-section" class="hover:text-gray-950 transition">Private Access</a>
             <a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">Playground</a>
             <a href="#docs" onclick="switchView('docs')" class="hover:text-gray-950 transition">Docs</a>
@@ -442,7 +442,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400"></i>
             </a>
             <a href="#news-section" onclick="closeLandingMobileMenu()" class="flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-gray-50 hover:text-[#f0523d] transition">
-              <span class="flex items-center gap-2.5"><i data-lucide="newspaper" class="w-4 h-4 text-gray-400"></i> What's New</span>
+              <span class="flex items-center gap-2.5"><i data-lucide="book-open" class="w-4 h-4 text-gray-400"></i> Learn More</span>
               <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400"></i>
             </a>
             <a href="#access-section" onclick="closeLandingMobileMenu()" class="flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-gray-50 hover:text-[#f0523d] transition">
@@ -1559,7 +1559,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           <!-- Section Header Row -->
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-8 sm:mb-12">
             <h2 class="text-2xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-gray-950 font-sans">
-              What’s new at ProjectSPG
+              Learn more about ProjectSPG
             </h2>
             <a href="/blog/benchmark" class="self-start sm:self-auto px-4 py-2 rounded-lg bg-gray-100/90 hover:bg-gray-200/90 text-gray-800 text-[11px] font-bold tracking-wider uppercase transition shadow-2xs cursor-pointer flex items-center gap-1.5">
               <span>ALL BLOG POSTS</span>
