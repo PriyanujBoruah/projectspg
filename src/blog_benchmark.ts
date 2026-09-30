@@ -1199,7 +1199,7 @@ node scripts/multicore_benchmark.mjs --workers 8</pre>
         </a>
 
         <!-- Related 3: Supported Industries & Threat Models -->
-        <a href="/#features" style="text-decoration: none; color: inherit; display: block;" class="group">
+        <a href="/blog/industries" style="text-decoration: none; color: inherit; display: block;" class="group">
           <div style="aspect-ratio: 16/9; width: 100%; border-radius: 12px; overflow: hidden; background: #0f121d; border: 1px solid rgba(229,231,235,0.2); display: flex; align-items: center; justify-content: center; padding: 22px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.03); transition: all 0.25s;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 10px 25px rgba(0,0,0,0.2)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 1px 3px rgba(0,0,0,0.03)';">
             <div>
               <div style="display: flex; align-items: center; justify-content: center; gap: 4px; margin-bottom: 6px;">

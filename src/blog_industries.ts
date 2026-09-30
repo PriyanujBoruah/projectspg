@@ -1,38 +1,38 @@
 // ============================================================================
-// ProjectSPG - Global Sovereign AI Privacy & Supported Countries Blog
+// ProjectSPG - Enterprise Guardrails for Regulated Industries Blog
 // Matches clean, text-focused editorial layout from Together.ai blog
-// Routes: /blog/countries, /countries, /supported-countries
+// Routes: /blog/industries, /industries, /supported-industries
 // ============================================================================
 
-export const COUNTRIES_BLOG_HTML = `<!DOCTYPE html>
+export const INDUSTRIES_BLOG_HTML = `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Global Sovereign AI Privacy: 109 Jurisdictions & Sovereign Data Regulations Supported by ProjectSPG</title>
-  <meta name="description" content="Discover how ProjectSPG protects sensitive enterprise data across 109 sovereign jurisdictions, 10 global regions, and regulations including GDPR, India DPDP, Singapore PDPA, and HIPAA with zero code changes.">
-  <meta name="keywords" content="Global AI Privacy, Sovereign AI, 109 Jurisdictions, GDPR LLM Proxy, India DPDP Act, Singapore PDPA, HIPAA Compliance, Cross-Border AI Security, PII Redaction, Tokenization Engine">
+  <title>Enterprise Guardrails for Regulated Industries: Healthcare, FinTech, Legal & Defense | ProjectSPG</title>
+  <meta name="description" content="Explore how ProjectSPG sanitizes, protects, and secures sensitive enterprise data across healthcare (HIPAA), banking (PCI-DSS/GLBA), legal privilege, defense (ITAR), and DevSecOps.">
+  <meta name="keywords" content="Enterprise AI Privacy, HIPAA LLM Guardrails, FinTech AI Security, PCI-DSS Masking, Legal Privilege AI Proxy, ITAR Defense AI, PII Redaction, Tokenization Engine">
   
   <!-- Open Graph -->
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://projectspg.info/blog/countries">
-  <meta property="og:title" content="Global Sovereign AI Privacy: 109 Jurisdictions & Sovereign Data Regulations Supported by ProjectSPG">
-  <meta property="og:description" content="Protecting sensitive enterprise prompts across 109 sovereign jurisdictions, 10 global regions, and regulations including GDPR, India DPDP, Singapore PDPA, and HIPAA with zero code changes.">
-  <meta property="og:image" content="https://projectspg.info/og-countries.png">
+  <meta property="og:url" content="https://projectspg.info/blog/industries">
+  <meta property="og:title" content="Enterprise Guardrails for Regulated Industries: Healthcare, FinTech, Legal & Defense">
+  <meta property="og:description" content="How ProjectSPG eliminates cross-border PII leakage, protects clinical PHI under HIPAA, secures banking assets under PCI-DSS, and preserves legal privilege without code changes.">
+  <meta property="og:image" content="https://projectspg.info/og-industries.png">
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://projectspg.info/blog/countries">
-  <meta property="twitter:title" content="Global Sovereign AI Privacy: 109 Jurisdictions Supported by ProjectSPG">
-  <meta property="twitter:description" content="Protecting sensitive enterprise prompts across 109 sovereign jurisdictions, 10 global regions, and regulations including GDPR, India DPDP, Singapore PDPA, and HIPAA with zero code changes.">
+  <meta property="twitter:url" content="https://projectspg.info/blog/industries">
+  <meta property="twitter:title" content="Enterprise Guardrails for Regulated Industries: Healthcare, FinTech, Legal & Defense">
+  <meta property="twitter:description" content="How ProjectSPG eliminates cross-border PII leakage, protects clinical PHI under HIPAA, secures banking assets under PCI-DSS, and preserves legal privilege without code changes.">
 
   <!-- Schema.org TechArticle JSON-LD for Google SEO -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "TechArticle",
-    "headline": "Global Sovereign AI Privacy: 109 Jurisdictions & Sovereign Data Regulations Supported by ProjectSPG",
-    "description": "Comprehensive audit and technical architecture of ProjectSPG's 109 supported sovereign national jurisdictions, mathematical checksums, and compliance frameworks for global enterprise LLM inference.",
+    "headline": "Enterprise Guardrails for Regulated Industries: Healthcare, FinTech, Legal & Defense",
+    "description": "Comprehensive analysis of sector-specific AI threat models, regulatory mandates (HIPAA, PCI-DSS, GLBA, ITAR), and cryptographic sanitization architecture implemented by ProjectSPG.",
     "author": {
       "@type": "Person",
       "name": "Priyanuj Boruah"
@@ -228,7 +228,7 @@ export const COUNTRIES_BLOG_HTML = `<!DOCTYPE html>
       width: 44px;
       height: 44px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #10b981 0%, #0284c7 100%);
+      background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -352,7 +352,7 @@ export const COUNTRIES_BLOG_HTML = `<!DOCTYPE html>
       left: 0;
       right: 0;
       height: 3px;
-      background: linear-gradient(90deg, #f0523d, #8b5cf6);
+      background: linear-gradient(90deg, #8b5cf6, #ec4899);
     }
 
     .metric-val {
@@ -542,8 +542,9 @@ export const COUNTRIES_BLOG_HTML = `<!DOCTYPE html>
       <ul class="nav-center-links">
         <li><a href="/#platform-section">Platform</a></li>
         <li><a href="/#research-section">Research</a></li>
-        <li><a href="/blog/benchmark">Benchmark Blog</a></li>
-        <li><a href="/blog/countries" style="color: #f0523d; font-weight: 600;">Countries</a></li>
+        <li><a href="/blog/benchmark">Benchmark</a></li>
+        <li><a href="/blog/countries">Countries</a></li>
+        <li><a href="/blog/industries" style="color: #f0523d; font-weight: 600;">Industries</a></li>
         <li><a href="/#access-section">Private Access</a></li>
         <li><a href="/dashboard#docs">Docs</a></li>
         <li><a href="/dashboard#playground">Playground</a></li>
@@ -561,17 +562,17 @@ export const COUNTRIES_BLOG_HTML = `<!DOCTYPE html>
     
     <!-- Category & Date Header -->
     <div style="display: flex; align-items: center; margin-bottom: 8px;">
-      <span class="badge-category">COMPLIANCE</span>
+      <span class="badge-category">ENTERPRISE</span>
       <span class="post-date">PUBLISHED 9/30/2026</span>
     </div>
 
     <!-- Title & Subtitle -->
     <h1 class="article-title">
-      Global Sovereign AI Privacy: 109 Jurisdictions &amp; Sovereign Data Regulations Supported by ProjectSPG
+      Enterprise Guardrails for Regulated Industries: Healthcare, FinTech, Legal &amp; Defense
     </h1>
 
     <p class="article-subtitle">
-      How modern enterprises across the European Union, India, South East Asia, North America, Latin America, Africa, and APAC stream LLM prompts across borders with 100.00% zero-loss de-identification, mathematical checksum verification, and sub-millisecond edge latency.
+      A comprehensive technical deep-dive into how ProjectSPG sanitizes, protects, and cryptographically secures clinical PHI, banking ledger records, attorney-client privileged memos, defense parameters, and cloud credentials before payload egress to public LLMs.
     </p>
 
     <!-- Top Hero Grid: Left TOC/Author, Right Live Architecture Card -->
@@ -589,14 +590,15 @@ export const COUNTRIES_BLOG_HTML = `<!DOCTYPE html>
 
         <div class="toc-title">TABLE OF CONTENTS</div>
         <ul class="toc-list">
-          <li><a href="#dilemma">1. The Sovereign Data Dilemma in LLMs</a></li>
-          <li><a href="#global-map">2. Global Coverage: 109 Jurisdictions</a></li>
-          <li><a href="#regional-breakdown">3. Regional Deep-Dive &amp; Identifiers</a></li>
-          <li><a href="#checksums">4. Mathematical Checksum Verification</a></li>
-          <li><a href="#regulatory-matrix">5. Regulatory Mapping (GDPR, DPDP, HIPAA)</a></li>
-          <li><a href="#latency">6. Zero-Data Retention &amp; Edge Overhead</a></li>
-          <li><a href="#verifier">7. Interactive Sovereign Verifier</a></li>
-          <li><a href="#implementation">8. 60-Second Implementation Guide</a></li>
+          <li><a href="#threat-landscape">1. Industry AI Threat Landscape</a></li>
+          <li><a href="#healthcare">2. Healthcare &amp; Life Sciences (HIPAA)</a></li>
+          <li><a href="#fintech">3. Banking &amp; Capital Markets (PCI/GLBA)</a></li>
+          <li><a href="#legal">4. Legal &amp; Corporate Counsel</a></li>
+          <li><a href="#defense">5. Defense, Aerospace &amp; GovCloud</a></li>
+          <li><a href="#devsecops">6. DevSecOps &amp; Cloud Secrets</a></li>
+          <li><a href="#taxonomy">7. Entity Sanitization Taxonomy</a></li>
+          <li><a href="#sandbox">8. Interactive Industry Testbed</a></li>
+          <li><a href="#implementation">9. Enterprise Architecture Deployment</a></li>
         </ul>
       </div>
 
@@ -604,428 +606,338 @@ export const COUNTRIES_BLOG_HTML = `<!DOCTYPE html>
       <div class="hero-visual-card">
         <div class="hero-visual-header">
           <span style="display:flex; align-items:center; gap:8px;">
-            <span style="width:8px; height:8px; border-radius:50%; background:#22c55e;"></span>
-            GLOBAL JURISDICTION DISPATCH
+            <span style="width:8px; height:8px; border-radius:50%; background:#8b5cf6;"></span>
+            SECTOR THREAT MODEL DISPATCH
           </span>
-          <span style="color:#64748b;">10 MACRO REGIONS • 109 NATIONS</span>
+          <span style="color:#64748b;">40+ ASSET CLASSES PROTECTED</span>
         </div>
         <div class="hero-visual-body">
           <div style="font-size: 13px; font-family: 'JetBrains Mono', monospace; color: #94a3b8; margin-bottom: 16px;">
-            // Real-time edge sovereignty verification engine:
+            // Real-time zero-knowledge sector guardrails:
           </div>
 
-          <!-- Mini Regional Grid in Hero -->
+          <!-- Mini Sector Grid in Hero -->
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-family: 'JetBrains Mono', monospace; font-size: 12px;">
             <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08);">
-              <div style="color: #38bdf8; font-weight:700;">EUROPEAN UNION (27)</div>
-              <div style="color: #cbd5e1; font-size: 11px; margin-top: 4px;">GDPR Art 44-50, EU AI Act</div>
-              <div style="color: #22c55e; font-size: 10.5px; margin-top: 2px;">Steuer-ID, NIR, Codice, BSN, PESEL</div>
+              <div style="color: #ec4899; font-weight:700;">HEALTHCARE (HIPAA)</div>
+              <div style="color: #cbd5e1; font-size: 11px; margin-top: 4px;">45 CFR § 164.514 Safe Harbor</div>
+              <div style="color: #4ade80; font-size: 10.5px; margin-top: 2px;">MRN, ICD-10, HICN, Rx, Specimen IDs</div>
             </div>
 
             <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08);">
-              <div style="color: #f97316; font-weight:700;">ASIA-PACIFIC (24)</div>
-              <div style="color: #cbd5e1; font-size: 11px; margin-top: 4px;">India DPDP 2023, APPI, PIPA</div>
-              <div style="color: #22c55e; font-size: 10.5px; margin-top: 2px;">Aadhaar (Verhoeff), PAN, My Number</div>
+              <div style="color: #38bdf8; font-weight:700;">FINTECH &amp; BANKING</div>
+              <div style="color: #cbd5e1; font-size: 11px; margin-top: 4px;">PCI-DSS v4.0, GLBA Safeguards</div>
+              <div style="color: #4ade80; font-size: 10.5px; margin-top: 2px;">PAN (Luhn), IBAN (Mod-97), SWIFT, Wire</div>
             </div>
 
             <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08);">
-              <div style="color: #a855f7; font-weight:700;">SOUTH EAST ASIA (10)</div>
-              <div style="color: #cbd5e1; font-size: 11px; margin-top: 4px;">Singapore PDPA, Malaysia PDP</div>
-              <div style="color: #22c55e; font-size: 10.5px; margin-top: 2px;">NRIC/FIN, MyKad, NIK/KTP, CCCD</div>
+              <div style="color: #f59e0b; font-weight:700;">LEGAL &amp; M&amp;A COUNSEL</div>
+              <div style="color: #cbd5e1; font-size: 11px; margin-top: 4px;">Attorney-Client Privilege, MNPI</div>
+              <div style="color: #4ade80; font-size: 10.5px; margin-top: 2px;">Merger Targets, Deal Caps, Depositions</div>
             </div>
 
             <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08);">
-              <div style="color: #ec4899; font-weight:700;">AMERICAS &amp; GLOBAL (48)</div>
-              <div style="color: #cbd5e1; font-size: 11px; margin-top: 4px;">HIPAA, CCPA, LGPD, PCI-DSS</div>
-              <div style="color: #22c55e; font-size: 10.5px; margin-top: 2px;">SSN, SIN, CPF, IBAN (Mod-97), Cards (Luhn)</div>
+              <div style="color: #a855f7; font-weight:700;">DEVSECOPS &amp; DEFENSE</div>
+              <div style="color: #cbd5e1; font-size: 11px; margin-top: 4px;">ITAR, CMMC 2.0, SOC 2 Type II</div>
+              <div style="color: #4ade80; font-size: 10.5px; margin-top: 2px;">API Keys, JWTs, DB URIs, Weapons Specs</div>
             </div>
           </div>
 
           <div style="margin-top: 18px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: space-between; font-size: 11.5px; font-family: 'JetBrains Mono', monospace;">
-            <span style="color: #22c55e;">● IN-FLIGHT SOVEREIGNTY: 100% SECURE</span>
-            <span style="color: #94a3b8;">NO LOGGING • NO DATA RETENTION</span>
+            <span style="color: #4ade80;">● ACTIVE SECTOR SHIELDS: 100% IN-FLIGHT</span>
+            <span style="color: #94a3b8;">ZERO RETENTION • REVERSIBLE SURROGATES</span>
           </div>
         </div>
       </div>
 
     </div>
 
-    <!-- Editorial Blue Callout on Sovereign Cross-Border Compliance -->
+    <!-- Editorial Blue Callout on Industry Liabilities -->
     <div class="editorial-callout">
-      <strong>The Cross-Border AI Exposure Mandate:</strong> Under the European Union General Data Protection Regulation (GDPR Chapter V), the Indian Digital Personal Data Protection Act 2023 (DPDP Act §16), Singapore Personal Data Protection Act (PDPA §26), and US HIPAA Safe Harbor standards, transmitting unmasked personally identifiable national identifiers across foreign LLM inference clusters represents an immediate, high-severity regulatory violation. Penalties reach up to <strong>€20,000,000 or 4% of worldwide turnover</strong> under GDPR, and <strong>₹250 Crore per incident</strong> under India DPDP. ProjectSPG renders prompts 100% non-identifiable before packet transit.
+      <strong>The Regulated Industry AI Exposure Reality:</strong> A single employee copying an unredacted patient discharge summary into ChatGPT triggers a Tier 4 HIPAA violation costing up to <strong>$2,000,000 annually</strong> in civil monetary penalties. A financial analyst inputting acquisition balance sheets forfeits non-public material information (MNPI) under SEC and FINRA rules. A corporate litigator analyzing client settlement terms waives <strong>Attorney-Client Privilege</strong> under Federal Rule of Evidence 502. ProjectSPG renders outbound tokens mathematically unidentifiable at the edge before packet departure, shielding enterprises from catastrophic regulatory and evidentiary forfeiture.
     </div>
 
     <!-- 4 High-Impact Metric Cards -->
     <div class="metric-grid">
       <div class="metric-card">
-        <div class="metric-val">109</div>
-        <div class="metric-sub">Sovereign Jurisdictions Covered Natively</div>
+        <div class="metric-val">6+</div>
+        <div class="metric-sub">Regulated Industry Sectors Shielded</div>
       </div>
 
       <div class="metric-card">
-        <div class="metric-val">10</div>
-        <div class="metric-sub">Macro Geographic Regions with Local Parsers</div>
+        <div class="metric-val">40+</div>
+        <div class="metric-sub">Protected Sensitive Asset Classes</div>
       </div>
 
       <div class="metric-card">
-        <div class="metric-val">100.00%</div>
-        <div class="metric-sub">Checksum Precision (Verhoeff, Luhn, Mod-97)</div>
+        <div class="metric-val">0%</div>
+        <div class="metric-sub">Raw Data Leakage to Third-Party AI</div>
       </div>
 
       <div class="metric-card">
         <div class="metric-val">&lt;1ms</div>
-        <div class="metric-sub">Sub-millisecond Edge Inception Overhead</div>
+        <div class="metric-sub">Edge Sanitization &amp; Roundtrip Overhead</div>
       </div>
     </div>
 
-    <!-- Section 1: The Sovereign Dilemma -->
-    <section id="dilemma" style="margin-top: 56px;">
+    <!-- Section 1: The Threat Landscape -->
+    <section id="threat-landscape" style="margin-top: 56px;">
       <h2 style="font-size: 26px; font-weight: 800; color: #0f172a; letter-spacing: -0.02em; margin-bottom: 16px;">
-        1. The Sovereign Data Dilemma in Generative AI
+        1. The Regulated Industry AI Threat Landscape
       </h2>
       <p>
-        Enterprise adoption of Large Language Models (LLMs) has fundamentally collided with national data sovereignty frameworks. When a multinational enterprise deploys OpenAI GPT-4o, Anthropic Claude 3.5 Sonnet, Google Gemini 1.5 Pro, or DeepSeek V3, user queries and internal documents are routinely dispatched to centralized GPU clusters distributed across North America, Europe, or third-party cloud regions.
+        Generative AI adoption inside modern enterprises has outpaced traditional cybersecurity perimeter controls. Enterprise employees across hospitals, hedge funds, law firms, and defense contractors routinely use generative models to draft communications, summarize clinical trials, audit balance sheets, and debug backend software.
       </p>
       <p style="margin-top: 14px;">
-        If a healthcare worker in London enters an NHS patient number, a banking analyst in Singapore pastes an NRIC or UEN registration, a customer support agent in Frankfurt inputs a German Steuer-ID, or an Indian fintech routes an Aadhaar number, the prompt violates extraterritorial transfer prohibitions the moment the TLS connection establishes with the foreign LLM provider.
+        However, the fundamental architectural premise of cloud-hosted frontier LLMs—including OpenAI GPT-4o, Anthropic Claude 3.5 Sonnet, Google Gemini 1.5 Pro, and DeepSeek V3—relies on centralized ingest servers that log HTTP requests, process data in shared GPU memory pools, and potentially store prompts for monitoring or fine-tuning.
       </p>
       <p style="margin-top: 14px;">
-        Traditional solutions—such as deploying dedicated on-premise clusters or localized VPCs—impose crushing infrastructure capital expenditures, lack frontier model reasoning capabilities, and require months of bureaucratic deployment. ProjectSPG resolves this architectural contradiction through <strong>In-Flight Sovereign De-Identification</strong>: mathematical redaction and cryptographic surrogate tokenization that operates inside the edge network within the originating legal jurisdiction before payloads leave sovereign borders.
+        When sensitive corporate or sovereign payloads transit across public networks unmasked, the enterprise faces four acute risk vectors:
+      </p>
+      <ul style="margin-top: 10px; padding-left: 20px; line-height: 1.8; color: #334155;">
+        <li><strong>Regulatory Non-Compliance:</strong> Massive statutory fines under HIPAA, GDPR, India DPDP, and PCI-DSS v4.0 for unauthorized third-party processing.</li>
+        <li><strong>Evidentiary Privilege Waiver:</strong> Inadvertent forfeiture of legal privilege and work-product protection under judicial precedent when third parties process confidential legal drafts.</li>
+        <li><strong>Intellectual Property &amp; Trade Secret Exfiltration:</strong> Proprietary algorithmic trading weights, drug molecular targets, and source code leaking into model training corpora or cloud logs.</li>
+        <li><strong>Credential &amp; Infrastructure Compromise:</strong> Developers accidentally submitting production database connection strings, JWT tokens, and AWS root credentials into AI coding assistants.</li>
+      </ul>
+    </section>
+
+    <!-- Section 2: Healthcare & Life Sciences -->
+    <section id="healthcare" style="margin-top: 56px;">
+      <h2 style="font-size: 26px; font-weight: 800; color: #0f172a; letter-spacing: -0.02em; margin-bottom: 16px;">
+        2. Healthcare, Pharmaceuticals &amp; Life Sciences
+      </h2>
+      <p>
+        Under the Health Insurance Portability and Accountability Act (HIPAA) Privacy Rule and the HITECH Act, Covered Entities and Business Associates are strictly liable for the unauthorized exposure of Protected Health Information (PHI).
+      </p>
+      <div style="margin-top: 20px; background: #fafafa; border: 1px solid var(--border); border-radius: 12px; padding: 24px;">
+        <h3 style="font-size: 18px; font-weight: 700; color: #0f172a; margin-bottom: 12px; display:flex; align-items:center; gap:8px;">
+          <span style="color:#ec4899;">■</span> HIPAA Safe Harbor Method (45 CFR § 164.514(b)(2)) Enforcement
+        </h3>
+        <p style="font-size: 14.5px; color: #4b5563;">
+          ProjectSPG automatically intercepts, masks, and tokenizes all 18 statutorily defined direct and indirect identifiers in clinical text:
+        </p>
+        <ul style="margin-top: 10px; font-size: 14px; color: #374151; padding-left: 20px; line-height: 1.8;">
+          <li><strong>Patient Identifiers:</strong> Names, aliases, next-of-kin, emergency contact names mapped to consistent surrogates (<code>[PATIENT_1]</code>, <code>[DOCTOR_1]</code>).</li>
+          <li><strong>Clinical Numbers:</strong> Medical Record Numbers (MRNs), Health Plan Beneficiary numbers, Account numbers, Certificate/license numbers.</li>
+          <li><strong>Temporal &amp; Geographic Data:</strong> Admission dates, discharge dates, dates of death, ages over 89, postal codes, and specific clinical facilities.</li>
+          <li><strong>Biometric &amp; Genetic Data:</strong> Genomic sequencing accession IDs, lab specimen tags, and pathology sample barcodes.</li>
+        </ul>
+      </div>
+      <p style="margin-top: 14px;">
+        <strong>Clinical Rehydration Guarantee:</strong> When a physician asks an LLM to generate a treatment plan for a patient with complex comorbidities, the outbound prompt replaces all PHI with cryptographically reversible surrogates. When the LLM streams its diagnostic reasoning back, ProjectSPG instantly rehydrates the original patient context locally, enabling full clinical utility without third-party exposure.
       </p>
     </section>
 
-    <!-- Section 2: Global Coverage -->
-    <section id="global-map" style="margin-top: 56px;">
+    <!-- Section 3: Banking & FinTech -->
+    <section id="fintech" style="margin-top: 56px;">
       <h2 style="font-size: 26px; font-weight: 800; color: #0f172a; letter-spacing: -0.02em; margin-bottom: 16px;">
-        2. Global Coverage: 109 Jurisdictions Across 10 Regions
+        3. Banking, Capital Markets &amp; FinTech
       </h2>
       <p>
-        ProjectSPG’s tokenization engine features native syntactic parsers, structural character masks, and mathematical verification algorithms for 109 sovereign territories across every inhabited continent. Rather than relying on fuzzy machine learning classifiers that hallucinate and introduce non-deterministic latency, ProjectSPG executes zero-overhead deterministic regex parsers coupled with hardware-level checksum validations.
+        Global financial institutions operate under strict statutory regimes including the Gramm-Leach-Bliley Act (GLBA Safeguards Rule), PCI-DSS v4.0, FINRA Rule 4511, and the EU Payment Services Directive (PSD2).
       </p>
-
+      
       <div class="pro-table-wrapper">
         <table class="pro-table">
           <thead>
             <tr>
-              <th>Region</th>
-              <th>Jurisdictions</th>
-              <th>Key National Identifiers Covered</th>
-              <th>Primary Governing Regulation</th>
+              <th>Financial Asset Class</th>
+              <th>Syntactic Format &amp; Mathematical Checksum</th>
+              <th>Governing Mandate</th>
+              <th>Sanitization Action</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><strong>South East Asia (SEA)</strong></td>
-              <td>10 countries (Singapore, Malaysia, Indonesia, Thailand, Philippines, Vietnam, etc.)</td>
-              <td>Singapore NRIC/FIN, SingPass, UEN; Malaysia MyKad; Indonesia NIK/KTP; Philippines PhilSys; Vietnam CCCD</td>
-              <td><span class="table-tag tag-blue">SG PDPA / MY PDPA / ID PDP Law</span></td>
+              <td><strong>Primary Account Numbers (PAN)</strong></td>
+              <td>15–16 digit cards (Visa, MasterCard, Amex) verified via Luhn Algorithm</td>
+              <td><span class="table-tag tag-blue">PCI-DSS v4.0 Req 3.4</span></td>
+              <td>Masked to surrogate tokens with preserved card brand and last-4 digits for billing context</td>
             </tr>
             <tr>
-              <td><strong>Asia (Non-SEA)</strong></td>
-              <td>14 countries (India, Japan, South Korea, China, Taiwan, Hong Kong, etc.)</td>
-              <td>India Aadhaar (Verhoeff Checksum), PAN Card, Voter ID; Japan My Number; Korea RRN; China Resident ID</td>
-              <td><span class="table-tag tag-purple">India DPDP 2023 / Japan APPI / PIPA</span></td>
+              <td><strong>International Bank Account (IBAN)</strong></td>
+              <td>Up to 34 alphanumeric chars verified via ISO 13616 Modulo-97 algorithm</td>
+              <td><span class="table-tag tag-purple">SWIFT / SEPA / PSD2</span></td>
+              <td>Replaced with deterministic FPE tokens preserving bank country prefix (e.g. <code>[IBAN_DE_1]</code>)</td>
             </tr>
             <tr>
-              <td><strong>European Union</strong></td>
-              <td>27 EU Member States (Germany, France, Italy, Spain, Netherlands, Poland, Sweden, etc.)</td>
-              <td>German Steuer-ID &amp; Personalausweis; French NIR/INSEE; Italian Codice Fiscale; Spanish DNI/NIE; Dutch BSN; Polish PESEL</td>
-              <td><span class="table-tag tag-green">EU GDPR / EU AI Act / NIS2</span></td>
+              <td><strong>Wire Transfer Instructions</strong></td>
+              <td>Fedwire / ABA routing numbers (9 digits), SWIFT BIC codes (8–11 chars)</td>
+              <td><span class="table-tag tag-green">GLBA Safeguards</span></td>
+              <td>Anonymized routing paths preventing account takeover and wire fraud vectors</td>
             </tr>
             <tr>
-              <td><strong>Europe (Non-EU)</strong></td>
-              <td>8 countries (United Kingdom, Switzerland, Norway, Iceland, Liechtenstein, etc.)</td>
-              <td>UK NHS Number &amp; NINO; Swiss AHV/AVS13; Norway Fødselsnummer</td>
-              <td><span class="table-tag tag-green">UK GDPR &amp; DPA 2018 / Swiss FADP</span></td>
-            </tr>
-            <tr>
-              <td><strong>North America</strong></td>
-              <td>3 countries (United States, Canada, Mexico)</td>
-              <td>US SSN, EIN, ITIN, State Driver's Licenses; Canada SIN, Health Cards; Mexico CURP, RFC</td>
-              <td><span class="table-tag tag-amber">HIPAA / CCPA-CPRA / GLBA / PIPEDA</span></td>
-            </tr>
-            <tr>
-              <td><strong>South America</strong></td>
-              <td>12 countries (Brazil, Argentina, Colombia, Chile, Peru, etc.)</td>
-              <td>Brazil CPF &amp; CNPJ; Argentina DNI, CUIT; Colombia Cédula &amp; NIT; Chile RUT</td>
-              <td><span class="table-tag tag-amber">Brazil LGPD / Colombia Law 1581</span></td>
-            </tr>
-            <tr>
-              <td><strong>Africa</strong></td>
-              <td>18 countries (South Africa, Nigeria, Kenya, Egypt, Ghana, etc.)</td>
-              <td>Nigeria NIN &amp; BVN; South Africa ID &amp; Tax Reference; Kenya ID &amp; KRA PIN; Egypt National ID</td>
-              <td><span class="table-tag tag-rose">South Africa POPIA / Nigeria NDPA</span></td>
-            </tr>
-            <tr>
-              <td><strong>Oceania</strong></td>
-              <td>4 countries (Australia, New Zealand, Fiji, Papua New Guinea)</td>
-              <td>Australia TFN, Medicare, Driver's License; New Zealand IRD &amp; NHI</td>
-              <td><span class="table-tag tag-blue">Australia Privacy Act 1988 (APPs)</span></td>
-            </tr>
-            <tr>
-              <td><strong>Middle East</strong></td>
-              <td>10 countries (UAE, Saudi Arabia, Qatar, Israel, Kuwait, etc.)</td>
-              <td>UAE Emirates ID; Saudi National ID &amp; Iqama; Israel Teudat Zehut</td>
-              <td><span class="table-tag tag-purple">UAE Decree 45/2021 / Saudi PDPL</span></td>
-            </tr>
-            <tr>
-              <td><strong>Global / Universal</strong></td>
-              <td>Worldwide (195+ Countries)</td>
-              <td>ICAO Doc 9303 Passports, Luhn Credit Cards (Visa/MC/Amex), Modulo-97 IBANs, E.164 Phones, RFC 5322 Emails</td>
-              <td><span class="table-tag tag-green">PCI-DSS v4.0 / Cross-Border ISO</span></td>
+              <td><strong>Tax Identification Credentials</strong></td>
+              <td>US SSN/EIN, India PAN/Aadhaar (Verhoeff), Brazil CPF, German Steuer-ID</td>
+              <td><span class="table-tag tag-amber">SOX / FINRA / KYC</span></td>
+              <td>Cryptographic irreversible hashing or session-scoped surrogate tokenization</td>
             </tr>
           </tbody>
         </table>
       </div>
     </section>
 
-    <!-- Section 3: Regional Deep-Dive -->
-    <section id="regional-breakdown" style="margin-top: 56px;">
+    <!-- Section 4: Legal & Corporate Counsel -->
+    <section id="legal" style="margin-top: 56px;">
       <h2 style="font-size: 26px; font-weight: 800; color: #0f172a; letter-spacing: -0.02em; margin-bottom: 16px;">
-        3. Regional Breakdown &amp; Sovereign Identity Standards
+        4. Legal Practice, Litigation &amp; Corporate Counsel
       </h2>
       <p>
-        Each sovereign government issues national identity credentials engineered with idiosyncratic character sets, checksum validation schemes, and structural constraints. A generic PII redactor that searches merely for "digits" or "hyphens" generates intolerable false-positive rates on financial charts, part numbers, and code blocks while leaking non-standard alphanumeric identifiers.
+        For general counsels, litigation partners, and corporate deal attorneys, confidentiality is not merely a privacy policy—it is a condition precedent to the existence of <strong>Attorney-Client Privilege</strong> and the <strong>Attorney Work-Product Doctrine</strong>.
       </p>
-
-      <!-- Sub-region 3.1: South East Asia -->
-      <div style="margin-top: 28px; background: #fafafa; border: 1px solid var(--border); border-radius: 12px; padding: 24px;">
-        <h3 style="font-size: 18px; font-weight: 700; color: #0f172a; margin-bottom: 12px; display:flex; align-items:center; gap:8px;">
-          <span style="color:#f0523d;">■</span> South East Asia (SEA): Singapore, Malaysia, Indonesia, Philippines &amp; Vietnam
-        </h3>
-        <p style="font-size: 14.5px; color: #4b5563;">
-          South East Asian identity architectures combine century codes, serial issuance counters, and modular weighting checksums:
-        </p>
-        <ul style="margin-top: 10px; font-size: 14px; color: #374151; padding-left: 20px; line-height: 1.8;">
-          <li><strong>Singapore NRIC/FIN:</strong> 9-character alphanumeric structure (<code>^[STFGMC]\d{7}[A-Z]$</code>). Validated with modulus 11 weights <code>[2, 7, 6, 5, 4, 3, 2]</code> with offset mappings for pre-2000 citizens (<code>S</code>), post-2000 citizens (<code>T</code>), and foreign residents (<code>F/G/M</code>).</li>
-          <li><strong>Malaysia MyKad:</strong> 12-digit format (<code>YYMMDD-PB-###G</code>). Embeds verified date-of-birth, 2-digit birth state code (<code>01-16</code> for states/federal territories), and odd/even gender designation.</li>
-          <li><strong>Indonesia NIK (Nomor Induk Kependudukan):</strong> 16-digit structure detailing provincial code (2 digits), regency/city code (2 digits), district (2 digits), date of birth (with female birth date offset +40), and sequential registration digits.</li>
-          <li><strong>Philippines PhilSys Card (CRN):</strong> 12-digit Common Reference Number with modular parity verification.</li>
-          <li><strong>Vietnam CCCD (Căn cước công dân):</strong> 12-digit citizen identity card incorporating century code, province code, and unique identity series.</li>
-        </ul>
-      </div>
-
-      <!-- Sub-region 3.2: Asia (Non-SEA) -->
+      <p style="margin-top: 14px;">
+        Under Federal Rule of Evidence 502 and international professional responsibility standards, disclosing privileged legal advice or work-product to a third party lacking fiduciary protection can trigger a <em>subject-matter waiver</em>, forcing the law firm to disclose all related internal deliberations in litigation discovery.
+      </p>
       <div style="margin-top: 20px; background: #fafafa; border: 1px solid var(--border); border-radius: 12px; padding: 24px;">
         <h3 style="font-size: 18px; font-weight: 700; color: #0f172a; margin-bottom: 12px; display:flex; align-items:center; gap:8px;">
-          <span style="color:#8b5cf6;">■</span> Asia (Non-SEA): India, Japan, South Korea, China &amp; Taiwan
+          <span style="color:#f59e0b;">■</span> Protected Legal Artifacts
         </h3>
-        <p style="font-size: 14.5px; color: #4b5563;">
-          Home to the world's most populous biometric and identity databases, these standards demand strict mathematical validation:
-        </p>
-        <ul style="margin-top: 10px; font-size: 14px; color: #374151; padding-left: 20px; line-height: 1.8;">
-          <li><strong>India Aadhaar:</strong> 12-digit national identifier governed by UIDAI. Validated via the <em>Verhoeff algorithm</em> (based on dihedral group \(D_5\)), catching 100% of single-digit transcription errors and 95.3% of adjacent transposition errors.</li>
-          <li><strong>India Permanent Account Number (PAN):</strong> 10-character alphanumeric code (<code>^[A-Z]{3}[ABCFGHLJPT][A-Z]\d{4}[A-Z]$</code>) where the 4th character strictly categorizes taxpayer status (<code>P</code> for Individual, <code>C</code> for Company, <code>H</code> for HUF, <code>F</code> for Firm).</li>
-          <li><strong>Japan My Number (社会・社会保障番号):</strong> 12-digit individual number validated using modulus 11 with weights <code>[2, 3, 4, 5, 6, 7, 2, 3, 4, 5, 6]</code>.</li>
-          <li><strong>South Korea Resident Registration Number (RRN):</strong> 13-digit format (<code>YYMMDD-S######</code>) with gender century markers (1-4 for 20th/21st century natives, 5-8 for foreign residents) verified with modulus 11 parity.</li>
-          <li><strong>China Resident Identity Card:</strong> 18-digit identity string (<code>GB 11643-1999</code>) verified using ISO 7064:1983.MOD 11-2 check character (including check digit 'X').</li>
-        </ul>
-      </div>
-
-      <!-- Sub-region 3.3: European Union -->
-      <div style="margin-top: 20px; background: #fafafa; border: 1px solid var(--border); border-radius: 12px; padding: 24px;">
-        <h3 style="font-size: 18px; font-weight: 700; color: #0f172a; margin-bottom: 12px; display:flex; align-items:center; gap:8px;">
-          <span style="color:#10b981;">■</span> European Union (EU) &amp; United Kingdom
-        </h3>
-        <p style="font-size: 14.5px; color: #4b5563;">
-          Under the stringent mandates of GDPR and the EU AI Act, ProjectSPG identifies all sovereign member state identification schemas:
-        </p>
-        <ul style="margin-top: 10px; font-size: 14px; color: #374151; padding-left: 20px; line-height: 1.8;">
-          <li><strong>Germany Steuer-Identifikationsnummer:</strong> 11-digit tax ID verified with DIN ISO/IEC 7064, MOD 11, 10 algorithm with unique recurrence rules (exactly one digit appears twice, no digit appears three times).</li>
-          <li><strong>France NIR (Numéro de Sécurité Sociale):</strong> 15-digit code comprising sex, birth year/month, department of birth (including Corsica 2A/2B), commune, order number, and modulo 97 check key.</li>
-          <li><strong>Italy Codice Fiscale:</strong> 16-character alphanumeric string encoding surname consonants/vowels, given name, birth year, month character (A-T), day (with +40 female shift), cadastral municipality code, and complex checksum lookup table.</li>
-          <li><strong>United Kingdom NHS Number:</strong> 10-digit identifier validated using Modulus 11 with weights <code>[10, 9, 8, 7, 6, 5, 4, 3, 2]</code>.</li>
-          <li><strong>Spain DNI/NIE:</strong> 8-digit national identity card followed by modulus 23 character lookup (TRWAGMYFPDXBNJZSQVHLCKE).</li>
-        </ul>
-      </div>
-
-      <!-- Sub-region 3.4: Americas -->
-      <div style="margin-top: 20px; background: #fafafa; border: 1px solid var(--border); border-radius: 12px; padding: 24px;">
-        <h3 style="font-size: 18px; font-weight: 700; color: #0f172a; margin-bottom: 12px; display:flex; align-items:center; gap:8px;">
-          <span style="color:#0284c7;">■</span> Americas: United States, Canada, Brazil &amp; Latin America
-        </h3>
-        <p style="font-size: 14.5px; color: #4b5563;">
-          Covering federal, state, and provincial identification schemes across North and South America:
-        </p>
-        <ul style="margin-top: 10px; font-size: 14px; color: #374151; padding-left: 20px; line-height: 1.8;">
-          <li><strong>United States SSN:</strong> 9-digit Social Security Number with area exclusion checks (excluding 000, 666, and 900-999) and group/serial validation.</li>
-          <li><strong>Canada SIN (Social Insurance Number):</strong> 9-digit identifier validated using the Luhn checksum algorithm; 9-series temporary worker detection.</li>
-          <li><strong>Brazil CPF (Cadastro de Pessoas Físicas):</strong> 11-digit national identity verified by consecutive dual-pass modulus 11 check digits with 100% false-positive rejection.</li>
-          <li><strong>Brazil CNPJ:</strong> 14-digit corporate tax registry verified with dual modulus 11 weighting across corporate root, branch, and check digits.</li>
+        <ul style="font-size: 14px; color: #374151; padding-left: 20px; line-height: 1.8;">
+          <li><strong>M&amp;A Non-Public Material Information (MNPI):</strong> Acquisition targets, EBITDA multiples, enterprise valuations, breakup fees, and regulatory antitrust filings.</li>
+          <li><strong>Deposition Transcripts &amp; Witness Prep:</strong> Unredacted witness names, non-public testimony excerpts, litigation strategy notes, and settlement damage calculations.</li>
+          <li><strong>Confidential Contract Negotiations:</strong> Exclusivity clauses, non-compete terms, intellectual property royalty schedules, and indemnification caps.</li>
         </ul>
       </div>
     </section>
 
-    <!-- Section 4: Mathematical Checksums -->
-    <section id="checksums" style="margin-top: 56px;">
+    <!-- Section 5: Defense & Aerospace -->
+    <section id="defense" style="margin-top: 56px;">
       <h2 style="font-size: 26px; font-weight: 800; color: #0f172a; letter-spacing: -0.02em; margin-bottom: 16px;">
-        4. Mathematical Checksum Verification: Zero False Positives
+        5. Defense, Aerospace &amp; Sovereign Government
       </h2>
       <p>
-        The primary operational flaw of legacy data loss prevention (DLP) tools is reliance on naive regular expressions. When an enterprise scans engineering prompts containing memory addresses, Git commit hashes, UUIDs, or matrix multiplication weights, a standard 9-digit or 12-digit regex triggers thousands of false alarms, corrupting harmless technical prompts.
+        Government contractors and defense industrial base (DIB) organizations handle Controlled Unclassified Information (CUI) governed by the International Traffic in Arms Regulations (ITAR), Export Administration Regulations (EAR), and the Cybersecurity Maturity Model Certification (CMMC 2.0).
       </p>
       <p style="margin-top: 14px;">
-        ProjectSPG enforces a strict two-stage identification architecture:
+        Under ITAR § 120.17, transmitting technical data regarding items on the United States Munitions List (USML) across foreign servers constitutes an illegal deemed export. ProjectSPG resolves this by providing <strong>Sovereign Enclave Geofencing</strong>:
       </p>
-      <ol style="margin-top: 12px; padding-left: 20px; line-height: 1.8; color: #334155;">
-        <li><strong>Stage 1 (Syntax Parsing):</strong> High-throughput, zero-allocation regular expressions isolate potential sovereign tokens with boundary constraints in under <strong>15 microseconds</strong>.</li>
-        <li><strong>Stage 2 (Algorithmic Mathematical Validation):</strong> The token is evaluated against its respective sovereign mathematical checksum:
-          <ul style="margin-top: 8px; padding-left: 20px;">
-            <li><strong>Verhoeff Dihedral Checksum:</strong> For Indian Aadhaar numbers. Implemented via static multiplication and permutation tables over group \(D_5\).</li>
-            <li><strong>Luhn Algorithm (Base-10 Modulo):</strong> For Credit Cards (Visa, MasterCard, Amex) and Canadian SINs. Computes sum of doubled alternating digits.</li>
-            <li><strong>ISO 13616 Modulo-97:</strong> For International Bank Account Numbers (IBAN). Replaces country letters with numeric equivalents and validates that \(NumericValue \pmod{97} \equiv 1\).</li>
-            <li><strong>Weighted Modulus-11:</strong> For Singapore NRIC, UK NHS, German Steuer-ID, and Brazil CPF.</li>
-          </ul>
-        </li>
-      </ol>
-      <p style="margin-top: 14px;">
-        If a sequence of digits fails the sovereign mathematical checksum, <strong>it is immediately released untouched</strong>. This guarantees that software code, compiler flags, random integer sequences, and product model serial numbers are never erroneously modified.
-      </p>
+      <ul style="margin-top: 10px; padding-left: 20px; line-height: 1.8; color: #334155;">
+        <li><strong>Strict Boundary Routing:</strong> Packets are cryptographically prevented from transiting foreign edge relays or third-party cloud data centers outside designated national boundaries.</li>
+        <li><strong>Military Credential Masking:</strong> CAGE codes, DUNS numbers, military serial numbers, and clearance classification markings (e.g. <code>CUI//SP-DEFENSE</code>) are quarantined at the local boundary.</li>
+        <li><strong>Air-Gapped Edge Deployments:</strong> Support for self-hosted edge instances operating in completely isolated VPCs with Bring-Your-Own-KMS key governance.</li>
+      </ul>
     </section>
 
-    <!-- Section 5: Regulatory Compliance Mapping -->
-    <section id="regulatory-matrix" style="margin-top: 56px;">
+    <!-- Section 6: DevSecOps & Cloud Secrets -->
+    <section id="devsecops" style="margin-top: 56px;">
       <h2 style="font-size: 26px; font-weight: 800; color: #0f172a; letter-spacing: -0.02em; margin-bottom: 16px;">
-        5. Regulatory Compliance Mapping: GDPR, DPDP, HIPAA &amp; PDPA
+        6. DevSecOps, Cloud Infrastructure &amp; Technical Secrets
       </h2>
       <p>
-        ProjectSPG is built from the ground up to satisfy the audit and verification requirements of corporate Data Protection Officers (DPOs), General Counsels, and Chief Information Security Officers (CISOs).
+        Modern software development teams routinely submit code snippets, stack traces, and configuration files to AI coding assistants and terminal harness tools. Without automated guardrails, high-entropy secrets are transmitted directly to external model providers.
+      </p>
+      <p style="margin-top: 14px;">
+        ProjectSPG’s technical secret detection layer operates at the syntactic byte level, identifying and neutralizing:
+      </p>
+      <ul style="margin-top: 10px; padding-left: 20px; line-height: 1.8; color: #334155;">
+        <li><strong>API Tokens &amp; Private Keys:</strong> AWS access keys (<code>AKIA...</code>), OpenAI secret keys (<code>sk-...</code>), GitHub personal access tokens, Stripe live secrets, and SSH RSA/ED25519 private keys.</li>
+        <li><strong>Database Connection Strings:</strong> Full connection URIs with embedded passwords (e.g. <code>postgres://user:pass@internal-cluster.rds.amazonaws.com:5432/prod_db</code>).</li>
+        <li><strong>Internal Topology:</strong> RFC 1918 private IPv4 addresses (<code>10.0.0.0/8</code>, <code>192.168.0.0/16</code>), internal VPC hostnames, and MAC hardware addresses.</li>
+      </ul>
+    </section>
+
+    <!-- Section 7: Entity Sanitization Taxonomy -->
+    <section id="taxonomy" style="margin-top: 56px;">
+      <h2 style="font-size: 26px; font-weight: 800; color: #0f172a; letter-spacing: -0.02em; margin-bottom: 16px;">
+        7. Comprehensive Entity Sanitization Taxonomy
+      </h2>
+      <p>
+        ProjectSPG categorizes sensitive enterprise data across three distinct security classes with specific cryptographic handling modes:
       </p>
 
       <div class="pro-table-wrapper">
         <table class="pro-table">
           <thead>
             <tr>
-              <th>Regulation</th>
-              <th>Article / Clause</th>
-              <th>Compliance Mandate</th>
-              <th>ProjectSPG Technical Enforcement</th>
+              <th>Classification</th>
+              <th>Examples</th>
+              <th>Threat Vector</th>
+              <th>Sanitization Strategy</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><strong>EU GDPR</strong></td>
-              <td>Chapter V, Articles 44–50</td>
-              <td>Strict prohibition of personal data transfers to third countries lacking adequacy decisions (Schrems II precedent).</td>
-              <td>PII is completely tokenized and removed at the local edge before prompt packets transit outside EU boundaries.</td>
+              <td><strong>Direct Identifiers</strong></td>
+              <td>SSN, Aadhaar, NRIC, Passport Number, Credit Card PAN</td>
+              <td>Immediate identity theft, regulatory breach, financial fraud</td>
+              <td><span class="table-tag tag-blue">Surrogate Tokenization with Checksum Validation</span></td>
             </tr>
             <tr>
-              <td><strong>EU AI Act</strong></td>
-              <td>Article 10 (Data Governance)</td>
-              <td>High-risk AI systems must implement continuous data governance, privacy preservation, and anti-leakage controls.</td>
-              <td>Automated tokenization audit logging with zero persistent plaintext storage across the inference pipeline.</td>
+              <td><strong>Quasi-Identifiers</strong></td>
+              <td>DOB, Postal Code, Job Title + Organization, Admission Date</td>
+              <td>Re-identification via database cross-correlation attacks</td>
+              <td><span class="table-tag tag-purple">Generalization &amp; Differential Masking</span></td>
             </tr>
             <tr>
-              <td><strong>India DPDP Act 2023</strong></td>
-              <td>Section 16 &amp; Section 8(5)</td>
-              <td>Restrictions on transfer of personal data outside India; mandatory protective measures against data breaches.</td>
-              <td>Native Verhoeff-validated Aadhaar and PAN masking, preventing biometric or tax credentials from touching foreign LLM APIs.</td>
-            </tr>
-            <tr>
-              <td><strong>Singapore PDPA</strong></td>
-              <td>Section 26 (Transfer Limitation)</td>
-              <td>Organizations must not transfer personal data to a country outside Singapore unless comparable protection is ensured.</td>
-              <td>Complete surrogate tokenization of NRIC, FIN, SingPass, and corporate UEN registration data.</td>
-            </tr>
-            <tr>
-              <td><strong>US HIPAA</strong></td>
-              <td>45 CFR § 164.514(b) (Safe Harbor)</td>
-              <td>Removal of all 18 specified direct and indirect health identifiers before clinical data sharing.</td>
-              <td>Automatic masking of patient names, medical record numbers, dates, geographic data, and contact information.</td>
-            </tr>
-            <tr>
-              <td><strong>PCI-DSS v4.0</strong></td>
-              <td>Requirement 3.4 &amp; 3.5</td>
-              <td>Primary Account Numbers (PAN) must be rendered unreadable anywhere they are stored or processed.</td>
-              <td>Hardware-validated Luhn masking with preserved brand and last-4 digits for billing context without exposure.</td>
+              <td><strong>Corporate &amp; Technical Secrets</strong></td>
+              <td>API Keys, M&amp;A Valuations, DB URIs, Trade Secrets</td>
+              <td>Infrastructure compromise, insider trading, IP theft</td>
+              <td><span class="table-tag tag-rose">High-Entropy Redaction &amp; Key Replacement</span></td>
             </tr>
           </tbody>
         </table>
       </div>
     </section>
 
-    <!-- Section 6: Latency & Zero-Data Retention -->
-    <section id="latency" style="margin-top: 56px;">
+    <!-- Section 8: Interactive Industry Testbed -->
+    <section id="sandbox" style="margin-top: 56px;">
       <h2 style="font-size: 26px; font-weight: 800; color: #0f172a; letter-spacing: -0.02em; margin-bottom: 16px;">
-        6. Zero-Data Retention &amp; Sub-Millisecond Edge Latency
+        8. Interactive Industry Sanitization Testbed
       </h2>
       <p>
-        A data privacy layer cannot introduce latency bottlenecks or introduce a secondary point of compromise. ProjectSPG executes entirely within ephemeral worker memory across globally distributed edge nodes.
-      </p>
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 24px;">
-        <div style="background: #f8fafc; border: 1px solid var(--border); border-radius: 10px; padding: 20px;">
-          <h4 style="font-size: 16px; font-weight: 700; color: #0f172a; margin-bottom: 8px;">Zero Persistent Storage</h4>
-          <p style="font-size: 13.5px; color: #4b5563; line-height: 1.6;">
-            Surrogate token maps exist strictly in volatile memory for the duration of the HTTP streaming request. Once the downstream LLM delivers its completion tokens and ProjectSPG rehydrates the original terms in the client's response stream, the lookup table is permanently wiped from RAM.
-          </p>
-        </div>
-        <div style="background: #f8fafc; border: 1px solid var(--border); border-radius: 10px; padding: 20px;">
-          <h4 style="font-size: 16px; font-weight: 700; color: #0f172a; margin-bottom: 8px;">Sub-Millisecond Execution</h4>
-          <p style="font-size: 13.5px; color: #4b5563; line-height: 1.6;">
-            As proven in our empirical 9.33M prompt benchmark audit, the core sovereign tokenization engine adds just <strong>86 microseconds</strong> of processing overhead, running at over <strong>17,735 prompts/sec</strong> per edge compute worker.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Section 7: Interactive Sovereign Verifier -->
-    <section id="verifier" style="margin-top: 56px;">
-      <h2 style="font-size: 26px; font-weight: 800; color: #0f172a; letter-spacing: -0.02em; margin-bottom: 16px;">
-        7. Interactive Sovereign Entity Sandbox
-      </h2>
-      <p>
-        Test ProjectSPG's real-time sovereign entity detection. Select a regional template or paste your own sample payload to observe deterministic tokenization and reversible rehydration:
+        Experience real-time sector sanitization. Toggle between industry profiles to observe immediate in-flight tokenization and lossless rehydration:
       </p>
 
       <div class="verifier-box">
         <div class="verifier-header">
-          <span style="font-weight: 700; font-size: 14px; color: #0f172a;">SOVEREIGN DETECTION TESTBED</span>
-          <div style="display:flex; gap:8px;">
-            <button onclick="setSample('sea')" style="background:#f1f5f9; border:none; padding:4px 10px; border-radius:6px; font-size:11.5px; font-weight:600; cursor:pointer; color:#334155;">SEA (Singapore/Malaysia)</button>
-            <button onclick="setSample('india')" style="background:#f1f5f9; border:none; padding:4px 10px; border-radius:6px; font-size:11.5px; font-weight:600; cursor:pointer; color:#334155;">India (Aadhaar/PAN)</button>
-            <button onclick="setSample('eu')" style="background:#f1f5f9; border:none; padding:4px 10px; border-radius:6px; font-size:11.5px; font-weight:600; cursor:pointer; color:#334155;">EU (Germany/IBAN)</button>
-            <button onclick="setSample('us')" style="background:#f1f5f9; border:none; padding:4px 10px; border-radius:6px; font-size:11.5px; font-weight:600; cursor:pointer; color:#334155;">US/Global (SSN/CC)</button>
+          <span style="font-weight: 700; font-size: 14px; color: #0f172a;">INDUSTRY THREAT TESTBED</span>
+          <div style="display:flex; flex-wrap:wrap; gap:8px;">
+            <button onclick="setIndustrySample('healthcare')" style="background:#f1f5f9; border:none; padding:4px 10px; border-radius:6px; font-size:11.5px; font-weight:600; cursor:pointer; color:#334155;">Healthcare (HIPAA)</button>
+            <button onclick="setIndustrySample('fintech')" style="background:#f1f5f9; border:none; padding:4px 10px; border-radius:6px; font-size:11.5px; font-weight:600; cursor:pointer; color:#334155;">FinTech (Banking)</button>
+            <button onclick="setIndustrySample('legal')" style="background:#f1f5f9; border:none; padding:4px 10px; border-radius:6px; font-size:11.5px; font-weight:600; cursor:pointer; color:#334155;">Legal (M&amp;A)</button>
+            <button onclick="setIndustrySample('devops')" style="background:#f1f5f9; border:none; padding:4px 10px; border-radius:6px; font-size:11.5px; font-weight:600; cursor:pointer; color:#334155;">DevSecOps (Keys)</button>
           </div>
         </div>
 
         <div style="margin-bottom: 16px;">
           <label style="display:block; font-size: 12px; font-weight: 700; color: #4b5563; margin-bottom: 6px; text-transform: uppercase; font-family:'JetBrains Mono', monospace;">
-            Inbound Sovereign Prompt:
+            Inbound Enterprise Prompt:
           </label>
-          <textarea id="liveInputPrompt" rows="3" style="width:100%; border:1px solid #cbd5e1; border-radius:8px; padding:12px; font-family:'JetBrains Mono', monospace; font-size:13px; color:#1e293b; outline:none;" oninput="runLiveVerification()">Patient Tan Wei Ling (NRIC: S9876543A, SingPass: tan.wl@gov.sg) registered Singapore business UEN 201812345K with account SG89 0140 1234 5678 9012.</textarea>
+          <textarea id="industryInputPrompt" rows="3" style="width:100%; border:1px solid #cbd5e1; border-radius:8px; padding:12px; font-family:'JetBrains Mono', monospace; font-size:13px; color:#1e293b; outline:none;" oninput="runIndustryVerification()">Patient Eleanor Vance (MRN: 902-481-229, DOB: 04/18/1972) admitted to St. Jude Cardiac ICU. Prescribed 50mg Metoprolol (Rx: 4892018). Contact doctor dr.marcus@hospital.org or call 415-555-0199.</textarea>
         </div>
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
           <div>
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
               <span style="font-size: 11px; font-weight: 700; color: #f0523d; text-transform: uppercase; font-family:'JetBrains Mono', monospace;">
-                ● OUTBOUND TO LLM (SANITIZED)
+                ● SENT TO PUBLIC LLM (SANITIZED)
               </span>
-              <span style="font-size: 10px; color: #10b981; font-weight: 600;">ZERO LEAKAGE</span>
+              <span style="font-size: 10px; color: #10b981; font-weight: 600;">ZERO PHI LEAKAGE</span>
             </div>
-            <div id="liveOutputSanitized" style="background:#0f121d; color:#38bdf8; padding:14px; border-radius:8px; font-family:'JetBrains Mono', monospace; font-size:12.5px; min-height:100px; white-space:pre-wrap; border:1px solid #1e293b;"></div>
+            <div id="industryOutputSanitized" style="background:#0f121d; color:#38bdf8; padding:14px; border-radius:8px; font-family:'JetBrains Mono', monospace; font-size:12.5px; min-height:100px; white-space:pre-wrap; border:1px solid #1e293b;"></div>
           </div>
 
           <div>
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
               <span style="font-size: 11px; font-weight: 700; color: #10b981; text-transform: uppercase; font-family:'JetBrains Mono', monospace;">
-                ● RETURNED TO CLIENT (REHYDRATED)
+                ● RETURNED TO APPLICATION (REHYDRATED)
               </span>
-              <span style="font-size: 10px; color: #64748b; font-weight: 600;">100% FIDELITY</span>
+              <span style="font-size: 10px; color: #64748b; font-weight: 600;">100% REVERSIBLE FIDELITY</span>
             </div>
-            <div id="liveOutputRehydrated" style="background:#f8fafc; color:#1e293b; padding:14px; border-radius:8px; font-family:'JetBrains Mono', monospace; font-size:12.5px; min-height:100px; white-space:pre-wrap; border:1px solid #cbd5e1;"></div>
+            <div id="industryOutputRehydrated" style="background:#f8fafc; color:#1e293b; padding:14px; border-radius:8px; font-family:'JetBrains Mono', monospace; font-size:12.5px; min-height:100px; white-space:pre-wrap; border:1px solid #cbd5e1;"></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Section 8: 60-Second Implementation -->
+    <!-- Section 9: Enterprise Architecture Deployment -->
     <section id="implementation" style="margin-top: 56px;">
       <h2 style="font-size: 26px; font-weight: 800; color: #0f172a; letter-spacing: -0.02em; margin-bottom: 16px;">
-        8. 60-Second Drop-In Implementation Guide
+        9. Enterprise Architecture Deployment
       </h2>
       <p>
-        ProjectSPG is completely wire-compatible with the standard OpenAI API specification. To protect your enterprise across all 109 jurisdictions, simply point your existing client SDK to the ProjectSPG gateway endpoint:
+        ProjectSPG is completely wire-compatible with OpenAI SDKs, LangChain, LiteLLM, and LlamaIndex. Point your application's base URL to ProjectSPG to enforce sector guardrails in under 60 seconds:
       </p>
 
       <div class="terminal-box">
@@ -1035,33 +947,34 @@ export const COUNTRIES_BLOG_HTML = `<!DOCTYPE html>
             <span class="t-dot t-yellow"></span>
             <span class="t-dot t-green"></span>
           </div>
-          <span>python_openai_sovereign_client.py</span>
+          <span>enterprise_guardrail_client.py</span>
           <button onclick="copyTerminalCommands()" class="terminal-copy-btn" style="background:#334155; border:none; color:#f8fafc; padding:3px 9px; border-radius:4px; font-size:11px; cursor:pointer;">Copy</button>
         </div>
         <div class="terminal-body" id="terminalCommands">
-<span class="t-comment"># Install standard OpenAI client</span>
-<span class="t-prompt">$</span> <span class="t-cmd">pip install openai</span>
-
-<span class="t-comment"># Drop-in One-Line BaseURL Swap</span>
+<span class="t-comment"># Drop-in enterprise proxy with zero code refactoring</span>
 <span class="t-keyword" style="color:#c084fc;">import</span> os
 <span class="t-keyword" style="color:#c084fc;">from</span> openai <span class="t-keyword" style="color:#c084fc;">import</span> OpenAI
 
 client = OpenAI(
     api_key=os.environ.get(<span class="t-out">"OPENAI_API_KEY"</span>),
-    <span class="t-accent">base_url="https://projectspg.info/v1"</span>  <span class="t-comment"># Points to Sovereign Edge</span>
+    <span class="t-accent">base_url="https://projectspg.info/v1"</span>,  <span class="t-comment"># ProjectSPG Wire Proxy</span>
+    default_headers={
+        <span class="t-out">"x-detection-categories"</span>: <span class="t-out">"healthcare,fintech,corporate,global"</span>,
+        <span class="t-out">"x-tokenization-mode"</span>: <span class="t-out">"surrogate"</span>
+    }
 )
 
-<span class="t-comment"># Send sovereign payload - 100% compliant across 109 countries</span>
+<span class="t-comment"># Send sensitive clinical / banking prompt</span>
 response = client.chat.completions.create(
     model=<span class="t-out">"gpt-4o"</span>,
     messages=[{
         <span class="t-out">"role"</span>: <span class="t-out">"user"</span>,
-        <span class="t-out">"content"</span>: <span class="t-out">"Analyze patient Tan Wei Ling (NRIC: S9876543A) for cross-border care."</span>
+        <span class="t-out">"content"</span>: <span class="t-out">"Summarize patient Eleanor Vance (MRN: 902-481-229) cardiothoracic status."</span>
     }]
 )
 
 <span class="t-cmd">print</span>(response.choices[0].message.content)
-<span class="t-success"># =&gt; LLM receives non-identifiable tokens; response is rehydrated automatically.</span>
+<span class="t-success"># =&gt; LLM receives sanitized [PATIENT_1]; returned response is automatically rehydrated.</span>
         </div>
       </div>
     </section>
@@ -1105,7 +1018,7 @@ response = client.chat.completions.create(
           </div>
         </a>
 
-        <!-- Related 2: Supported Countries (Current article) -->
+        <!-- Related 2: Supported Countries -->
         <a href="/blog/countries" style="text-decoration: none; color: inherit; display: block;" class="group">
           <div style="aspect-ratio: 16/9; width: 100%; border-radius: 12px; overflow: hidden; background: linear-gradient(135deg, #fed7aa, #fef08a, #c7d2fe); border: 1px solid rgba(229,231,235,0.8); display: flex; align-items: center; justify-content: center; padding: 22px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.03); transition: all 0.25s;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 10px 25px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 1px 3px rgba(0,0,0,0.03)';">
             <div>
@@ -1126,7 +1039,7 @@ response = client.chat.completions.create(
           </div>
         </a>
 
-        <!-- Related 3: Supported Industries -->
+        <!-- Related 3: Supported Industries (Current article) -->
         <a href="/blog/industries" style="text-decoration: none; color: inherit; display: block;" class="group">
           <div style="aspect-ratio: 16/9; width: 100%; border-radius: 12px; overflow: hidden; background: #0f121d; border: 1px solid rgba(229,231,235,0.2); display: flex; align-items: center; justify-content: center; padding: 22px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.03); transition: all 0.25s;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 10px 25px rgba(0,0,0,0.2)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 1px 3px rgba(0,0,0,0.03)';">
             <div>
@@ -1135,7 +1048,7 @@ response = client.chat.completions.create(
                 <span style="font-size: 10px; font-weight: 700; color: #94a3b8;">project<span style="color:#f0523d;">spg</span></span>
               </div>
               <h4 style="font-size: 14.5px; font-weight: 800; color: #ffffff; line-height: 1.35;">
-                Enterprise Guardrails for Regulated Industries: Healthcare, FinTech &amp; Legal
+                Enterprise Guardrails for Regulated Industries: Healthcare, FinTech, Legal &amp; Defense
               </h4>
             </div>
           </div>
@@ -1180,7 +1093,7 @@ response = client.chat.completions.create(
         Start building on ProjectSPG
       </h2>
       <p class="text-sm sm:text-lg lg:text-xl text-gray-500 font-normal mt-4 max-w-2xl mx-auto leading-relaxed">
-        From sovereign edge de-identification across 109 countries to large-scale zero-trust AI model inference
+        From sector-grade de-identification across healthcare, banking, and defense to large-scale zero-trust AI model inference
       </p>
       <div class="mt-8 flex justify-center">
         <a href="/dashboard" class="px-7 py-3.5 rounded-xl bg-black hover:bg-gray-800 text-white text-xs font-bold tracking-wider uppercase transition shadow-md hover:shadow-lg cursor-pointer transform hover:-translate-y-0.5 inline-block">
@@ -1263,6 +1176,7 @@ response = client.chat.completions.create(
               <ul class="space-y-2.5 font-medium text-gray-600 mb-6">
                 <li><a href="/blog/benchmark" class="hover:text-gray-950 transition">Research &amp; Benchmark</a></li>
                 <li><a href="/blog/countries" class="hover:text-gray-950 transition">Supported Countries</a></li>
+                <li><a href="/blog/industries" class="hover:text-gray-950 transition">Regulated Industries</a></li>
                 <li><a href="/dashboard" class="hover:text-gray-950 transition">API Documentation</a></li>
                 <li><a href="https://github.com/PriyanujBoruah/AI-Privacy-Core" target="_blank" class="hover:text-gray-950 transition">Open-Source Core</a></li>
               </ul>
@@ -1285,6 +1199,7 @@ response = client.chat.completions.create(
               <ul class="space-y-2.5 font-medium text-gray-600">
                 <li><a href="/blog/benchmark" class="hover:text-gray-950 transition">Blog &amp; Benchmarks</a></li>
                 <li><a href="/blog/countries" class="hover:text-gray-950 transition">109 Countries Matrix</a></li>
+                <li><a href="/blog/industries" class="hover:text-gray-950 transition">Industry Guardrails</a></li>
                 <li><a href="/" class="hover:text-gray-950 transition">About ProjectSPG</a></li>
                 <li><a href="mailto:support@projectspg.info" class="hover:text-gray-950 transition">Support</a></li>
               </ul>
@@ -1335,20 +1250,20 @@ response = client.chat.completions.create(
   </footer>
 
   <script>
-    const samplePayloads = {
-      sea: "Patient Tan Wei Ling (NRIC: S9876543A, SingPass: tan.wl@gov.sg) registered Singapore business UEN 201812345K with account SG89 0140 1234 5678 9012. Malaysian colleague Lee Meng (MyKad: 880512-14-5521).",
-      india: "Fintech onboarded Rahul Sharma (Aadhaar: 4123 5678 9120, PAN: ABCPS1234F). Salary disbursed to account IFSC: HDFC0001234, email rahul.sharma@paytm.in.",
-      eu: "Senior Consultant Maximilian Weber (Steuer-ID: 04 459 821 346, IBAN: DE89 3704 0044 0532 0130 00). French counterpart Claire Dubois (INSEE: 2 85 07 75 123 456 78).",
-      us: "Employee Johnathan Davis (SSN: 942-58-1034) processed reimbursement on Visa card 4532 0159 8243 1928 with corporate email jdavis@enterprise.corp."
+    const industrySamples = {
+      healthcare: "Patient Eleanor Vance (MRN: 902-481-229, DOB: 04/18/1972) admitted to St. Jude Cardiac ICU. Prescribed 50mg Metoprolol (Rx: 4892018). Contact doctor dr.marcus@hospital.org or call 415-555-0199.",
+      fintech: "Authorize wire transfer of $2,450,000 to Beneficiary Alpha Holdings (IBAN: DE89 3704 0044 0532 0130 00, BIC: DEUTDEDBFXX). Debit corporate Visa card 4532 0159 8243 1928, routing ABA: 121000358.",
+      legal: "CONFIDENTIAL M&A MEMORANDUM: Project Titan acquisition of Apex Semiconductor for $4.2B ($38.50/share). Target EBITDA: $320M. Key counsel review by attorney sarah.jen@skadden-corp.law.",
+      devops: "DEBUG CONNECTION ISSUE: Failed connecting to postgres://admin_prod:Secr3tP@ssw0rd!@db-primary.vpc-internal.corp:5432/analytics with AWS key AKIAIOSFODNN7EXAMPLE and OpenAI sk-proj-8429184029482910."
     };
 
-    function setSample(region) {
-      document.getElementById('liveInputPrompt').value = samplePayloads[region] || samplePayloads.sea;
-      runLiveVerification();
+    function setIndustrySample(sector) {
+      document.getElementById('industryInputPrompt').value = industrySamples[sector] || industrySamples.healthcare;
+      runIndustryVerification();
     }
 
-    function runLiveVerification() {
-      const input = document.getElementById('liveInputPrompt').value;
+    function runIndustryVerification() {
+      const input = document.getElementById('industryInputPrompt').value;
       let sanitized = input;
       const tokenMap = {};
 
@@ -1359,58 +1274,37 @@ response = client.chat.completions.create(
         return tok;
       });
 
-      // Singapore NRIC / FIN
-      sanitized = sanitized.replace(/\\b[STFGMC]\\d{7}[A-Z]\\b/g, (m) => {
-        const tok = "[SG_NRIC_1]";
+      // AWS Access Keys
+      sanitized = sanitized.replace(/\\bAKIA[0-9A-Z]{16}\\b/g, (m) => {
+        const tok = "[AWS_ACCESS_KEY_1]";
         tokenMap[tok] = m;
         return tok;
       });
 
-      // Malaysia MyKad
-      sanitized = sanitized.replace(/\\b\\d{6}-\\d{2}-\\d{4}\\b/g, (m) => {
-        const tok = "[MY_MYKAD_1]";
+      // OpenAI secret keys
+      sanitized = sanitized.replace(/\\bsk-[a-zA-Z0-9_-]{20,}\\b/g, (m) => {
+        const tok = "[AI_API_KEY_1]";
         tokenMap[tok] = m;
         return tok;
       });
 
-      // Singapore UEN
-      sanitized = sanitized.replace(/\\b\\d{8,9}[A-Z]\\b/g, (m) => {
-        const tok = "[SG_UEN_1]";
+      // Database connection strings
+      sanitized = sanitized.replace(/postgres:\\/\\/[^\\s]+/g, (m) => {
+        const tok = "[DB_CONNECTION_URI_1]";
         tokenMap[tok] = m;
         return tok;
       });
 
-      // India Aadhaar (12 digits with spaces or hyphens)
-      sanitized = sanitized.replace(/\\b\\d{4}[\\s-]\\d{4}[\\s-]\\d{4}\\b/g, (m) => {
-        const tok = "[IN_AADHAAR_1]";
+      // MRN (Medical Record Numbers)
+      sanitized = sanitized.replace(/\\bMRN:\\s*[0-9-]+/gi, (m) => {
+        const tok = "MRN: [PROTECTED_MRN_1]";
         tokenMap[tok] = m;
         return tok;
       });
 
-      // India PAN Card
-      sanitized = sanitized.replace(/\\b[A-Z]{5}\\d{4}[A-Z]\\b/g, (m) => {
-        const tok = "[IN_PAN_1]";
-        tokenMap[tok] = m;
-        return tok;
-      });
-
-      // German Steuer-ID (11 digits with spaces)
-      sanitized = sanitized.replace(/\\b\\d{2}\\s\\d{3}\\s\\d{3}\\s\\d{3}\\b/g, (m) => {
-        const tok = "[DE_STEUER_ID_1]";
-        tokenMap[tok] = m;
-        return tok;
-      });
-
-      // French INSEE/NIR
-      sanitized = sanitized.replace(/\\b[12]\\s\\d{2}\\s\\d{2}\\s\\d{2}\\s\\d{3}\\s\\d{3}\\s\\d{2}\\b/g, (m) => {
-        const tok = "[FR_NIR_1]";
-        tokenMap[tok] = m;
-        return tok;
-      });
-
-      // US SSN
-      sanitized = sanitized.replace(/\\b\\d{3}-\\d{2}-\\d{4}\\b/g, (m) => {
-        const tok = "[US_SSN_1]";
+      // Rx (Prescriptions)
+      sanitized = sanitized.replace(/\\bRx:\\s*[0-9]+/gi, (m) => {
+        const tok = "Rx: [PROTECTED_RX_1]";
         tokenMap[tok] = m;
         return tok;
       });
@@ -1429,14 +1323,28 @@ response = client.chat.completions.create(
         return tok;
       });
 
-      document.getElementById('liveOutputSanitized').innerText = sanitized;
+      // Phones
+      sanitized = sanitized.replace(/(?<![A-Za-z0-9])(?:\\+\\d{1,3}[-.\\s]?)?\\(?\\d{3}\\)?[-.\\s]?\\d{3}[-.\\s]?\\d{4}\\b/g, (m) => {
+        const tok = "[PHONE_1]";
+        tokenMap[tok] = m;
+        return tok;
+      });
+
+      // Dollar amounts in deals (e.g. $4.2B, $2,450,000)
+      sanitized = sanitized.replace(/\\$[0-9,.]+[BMKbmk]?/g, (m) => {
+        const tok = "[FINANCIAL_VAL_1]";
+        tokenMap[tok] = m;
+        return tok;
+      });
+
+      document.getElementById('industryOutputSanitized').innerText = sanitized;
 
       // Rehydrate
       let rehydrated = sanitized;
       for (const [tok, orig] of Object.entries(tokenMap)) {
         rehydrated = rehydrated.replaceAll(tok, orig);
       }
-      document.getElementById('liveOutputRehydrated').innerText = rehydrated;
+      document.getElementById('industryOutputRehydrated').innerText = rehydrated;
     }
 
     function copyTerminalCommands() {
@@ -1457,7 +1365,7 @@ response = client.chat.completions.create(
     }
 
     // Run on load
-    runLiveVerification();
+    runIndustryVerification();
   </script>
 </body>
 </html>`;

@@ -1717,8 +1717,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                 </div>
               </div>
 
-              <!-- Item 3: GLM-5.3 vs. Claude Fable 5 on DeepSWE -->
-              <div class="group flex flex-col sm:flex-row items-start gap-3.5 sm:gap-5 cursor-pointer">
+              <!-- Item 3: Enterprise Guardrails for Regulated Industries -->
+              <div onclick="window.location.href='/blog/industries'" class="group flex flex-col sm:flex-row items-start gap-3.5 sm:gap-5 cursor-pointer">
                 <div class="w-full sm:w-44 md:w-52 aspect-[16/10] shrink-0 rounded-xl overflow-hidden relative shadow-xs border border-gray-200/60 bg-gradient-to-br from-[#fecdd3] via-[#e9d5ff] to-[#bfdbfe] flex items-center justify-center p-3 text-center transition-all duration-300 group-hover:shadow-md group-hover:scale-[1.02]">
                   <div class="flex flex-col items-center">
                     <div class="flex items-center gap-1 mb-1">
@@ -1726,20 +1726,20 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                       <span class="text-[9px] font-bold text-gray-800 lowercase tracking-tight">project<span class="text-[#f0523d]">spg</span></span>
                     </div>
                     <p class="text-[10px] sm:text-[11px] font-bold text-gray-900 leading-tight">
-                      GLM-5.3 vs Claude Fable 5
+                      Enterprise Guardrails &amp; Threat Models
                     </p>
                   </div>
                 </div>
 
                 <div class="flex-1 min-w-0">
                   <span class="px-2.5 py-0.5 rounded bg-gray-100 text-gray-700 font-bold text-[10px] tracking-wider uppercase">
-                    MODEL LIBRARY
+                    ENTERPRISE
                   </span>
                   <h4 class="text-base sm:text-lg font-bold text-gray-950 mt-1.5 group-hover:text-[#f0523d] transition-colors leading-snug">
-                    GLM-5.3 vs. Claude Fable 5 on DeepSWE: Cost, Coding, and Routing
+                    Enterprise Guardrails for Regulated Industries: Healthcare, FinTech &amp; Legal
                   </h4>
                   <p class="text-xs sm:text-sm text-gray-500 mt-1 line-clamp-2 leading-relaxed">
-                    We ran 904 DeepSWE rollouts on GLM-5.3 and Claude ...
+                    Protecting clinical PHI under HIPAA, financial assets under PCI-DSS, attorney-client privilege, and defense telemetry across frontier LLMs with zero code changes...
                   </p>
                 </div>
               </div>

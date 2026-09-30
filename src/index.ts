@@ -5,6 +5,7 @@ import openaiApp from "./routes/openai";
 import { DASHBOARD_HTML } from "./dashboard";
 import { BENCHMARK_BLOG_HTML } from "./blog_benchmark";
 import { COUNTRIES_BLOG_HTML } from "./blog_countries";
+import { INDUSTRIES_BLOG_HTML } from "./blog_industries";
 import {
   createApiKey,
   listApiKeys,
@@ -69,6 +70,11 @@ app.get("/test-results.html", (c) => c.html(BENCHMARK_BLOG_HTML));
 app.get("/blog/countries", (c) => c.html(COUNTRIES_BLOG_HTML));
 app.get("/countries", (c) => c.html(COUNTRIES_BLOG_HTML));
 app.get("/supported-countries", (c) => c.html(COUNTRIES_BLOG_HTML));
+
+// Serve Enterprise Guardrails for Regulated Industries Blog
+app.get("/blog/industries", (c) => c.html(INDUSTRIES_BLOG_HTML));
+app.get("/industries", (c) => c.html(INDUSTRIES_BLOG_HTML));
+app.get("/supported-industries", (c) => c.html(INDUSTRIES_BLOG_HTML));
 
 // Mount API Key Authentication Middleware on /v1 routes
 app.use("/v1/*", createAuthMiddleware());
