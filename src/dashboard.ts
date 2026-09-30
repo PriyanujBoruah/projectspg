@@ -2466,6 +2466,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             <tr class="text-groq-textSubtle text-[11px] uppercase tracking-wider font-semibold">
               <th class="pb-5 font-semibold text-groq-textSubtle pr-6">NAME</th>
               <th class="pb-5 font-semibold text-groq-textSubtle pr-6">SECRET KEY</th>
+              <th class="pb-5 font-semibold text-groq-textSubtle pr-6">TIER</th>
               <th class="pb-5 font-semibold text-groq-textSubtle pr-6">CREATED</th>
               <th class="pb-5 font-semibold text-groq-textSubtle pr-6">LAST USED</th>
               <th class="pb-5 font-semibold text-groq-textSubtle pr-6">EXPIRES</th>
@@ -2788,26 +2789,99 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
   <!-- MODALS -->
   <div id="modal-create-key" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-white border border-groq-grayBorder rounded-2xl max-w-md w-full p-6 shadow-2xl">
-      <h3 class="text-base font-bold text-groq-dark mb-1">Create API Key</h3>
-      <p class="text-xs text-groq-textMuted">Enter a name for your new API key.</p>
-      <div class="mt-4 space-y-3 text-xs">
+    <div class="bg-white border border-groq-grayBorder rounded-2xl max-w-md w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+      <button onclick="closeCreateKeyModal()" class="absolute top-4 right-4 text-groq-textMuted hover:text-groq-dark transition p-1.5 rounded-lg hover:bg-gray-100 cursor-pointer" title="Close">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+
+      <div class="flex items-center gap-2 text-groq-dark text-base font-bold mb-1">
+        <i data-lucide="key" class="w-4 h-4 text-[#f0523d]"></i> Create API Key
+      </div>
+      <p class="text-xs text-groq-textMuted">Generate a ProjectSPG key for wire-compatible AI privacy proxying.</p>
+
+      <div class="mt-4 space-y-4 text-xs">
         <div>
           <label class="block text-groq-dark font-medium mb-1">Key Name</label>
-          <input type="text" id="new-key-name" placeholder="e.g. ProjectSPG Test" class="w-full bg-[#f9fafb] border border-groq-grayBorder rounded-lg px-3 py-2 text-groq-dark focus:border-gray-400 focus:outline-none font-mono">
+          <input type="text" id="new-key-name" placeholder="e.g. Production Backend" class="w-full bg-[#f9fafb] border border-groq-grayBorder rounded-lg px-3 py-2 text-groq-dark focus:border-gray-400 focus:outline-none font-sans text-xs">
         </div>
+
         <div>
-          <label class="block text-groq-dark font-medium mb-1">Tier & Monthly Quota</label>
-          <select id="new-key-tier" class="w-full bg-[#f9fafb] border border-groq-grayBorder rounded-lg px-3 py-2 text-groq-dark focus:border-gray-400 focus:outline-none">
-            <option value="free">Free Tier (10,000 requests/mo)</option>
-            <option value="pro">Pro Tier (100,000 requests/mo)</option>
-            <option value="enterprise">Enterprise Tier (Unlimited)</option>
-          </select>
+          <label class="block text-groq-dark font-medium mb-1.5">Access Tier</label>
+          <div class="grid grid-cols-2 gap-2 bg-[#f3f4f6] p-1 rounded-xl">
+            <button type="button" id="tier-tab-free" onclick="selectCreateKeyTier('free')" class="py-2 px-3 rounded-lg text-xs font-semibold transition cursor-pointer bg-white text-groq-dark shadow-xs flex items-center justify-center gap-1.5">
+              <span>Free Tier</span>
+            </button>
+            <button type="button" id="tier-tab-byok" onclick="selectCreateKeyTier('byok')" class="py-2 px-3 rounded-lg text-xs font-semibold transition cursor-pointer text-groq-textMuted hover:text-groq-dark flex items-center justify-center gap-1.5">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5 text-blue-600"></i>
+              <span>BYOK Tier</span>
+            </button>
+          </div>
+          <input type="hidden" id="new-key-tier" value="free">
+        </div>
+
+        <!-- Free Tier Info Banner -->
+        <div id="tier-info-free" class="p-3 rounded-xl bg-gray-50 border border-gray-200/80 text-[11px] text-gray-600 leading-relaxed">
+          <div class="font-semibold text-gray-900 mb-0.5">Free Platform Quota</div>
+          Uses ProjectSPG community infrastructure (1 req / 15s rate limit, 10,000 req/mo). No AI provider API keys required.
+        </div>
+
+        <!-- BYOK Tier Credentials Section (Collapsible) -->
+        <div id="tier-info-byok" class="hidden space-y-3 pt-1">
+          <div class="p-3 rounded-xl bg-blue-50/70 border border-blue-200 text-[11px] text-blue-900 leading-relaxed">
+            <div class="font-semibold text-blue-950 mb-0.5 flex items-center gap-1">
+              <i data-lucide="shield-check" class="w-3.5 h-3.5 text-blue-600"></i>
+              Direct Upstream Zero-Throttling Routing
+            </div>
+            Associate your AI provider keys with this API key. When your backend or OpenAI SDK calls ProjectSPG with <code>spg_live_...</code>, requests are proxied directly using your accounts with zero platform rate limits.
+          </div>
+
+          <!-- Google AI Studio Key -->
+          <div>
+            <div class="flex items-center justify-between mb-1">
+              <label class="block text-groq-dark font-medium text-[11px]">Google AI Studio Key</label>
+              <span class="text-[10px] text-gray-400 font-mono">gemma-4-*</span>
+            </div>
+            <div class="relative">
+              <input type="password" id="new-byok-google" placeholder="AIzaSy... (Optional)" class="w-full bg-[#f9fafb] border border-groq-grayBorder rounded-lg pl-3 pr-8 py-2 text-groq-dark placeholder-gray-400 focus:outline-none focus:border-gray-400 font-mono text-xs">
+              <button type="button" onclick="toggleKeyVisibility('new-byok-google', this)" class="absolute right-2.5 top-2 text-gray-400 hover:text-gray-600 cursor-pointer p-0.5">
+                <i data-lucide="eye" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Mistral AI Key -->
+          <div>
+            <div class="flex items-center justify-between mb-1">
+              <label class="block text-groq-dark font-medium text-[11px]">Mistral AI Key</label>
+              <span class="text-[10px] text-gray-400 font-mono">codestral, ministral</span>
+            </div>
+            <div class="relative">
+              <input type="password" id="new-byok-mistral" placeholder="api_... (Optional)" class="w-full bg-[#f9fafb] border border-groq-grayBorder rounded-lg pl-3 pr-8 py-2 text-groq-dark placeholder-gray-400 focus:outline-none focus:border-gray-400 font-mono text-xs">
+              <button type="button" onclick="toggleKeyVisibility('new-byok-mistral', this)" class="absolute right-2.5 top-2 text-gray-400 hover:text-gray-600 cursor-pointer p-0.5">
+                <i data-lucide="eye" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Groq Cloud Key -->
+          <div>
+            <div class="flex items-center justify-between mb-1">
+              <label class="block text-groq-dark font-medium text-[11px]">Groq Cloud Key</label>
+              <span class="text-[10px] text-gray-400 font-mono">gpt-oss, qwen3.8</span>
+            </div>
+            <div class="relative">
+              <input type="password" id="new-byok-groq" placeholder="gsk_... (Optional)" class="w-full bg-[#f9fafb] border border-groq-grayBorder rounded-lg pl-3 pr-8 py-2 text-groq-dark placeholder-gray-400 focus:outline-none focus:border-gray-400 font-mono text-xs">
+              <button type="button" onclick="toggleKeyVisibility('new-byok-groq', this)" class="absolute right-2.5 top-2 text-gray-400 hover:text-gray-600 cursor-pointer p-0.5">
+                <i data-lucide="eye" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="mt-6 flex justify-end gap-2 text-xs">
-        <button onclick="closeCreateKeyModal()" class="px-4 py-2 rounded-lg bg-gray-100 text-groq-dark font-medium">Cancel</button>
-        <button onclick="submitCreateKey()" class="px-4 py-2 rounded-lg border border-[#f0523d] bg-white hover:bg-[#fff5f3] text-groq-dark font-semibold shadow-xs">Create API Key</button>
+
+      <div class="mt-6 pt-4 border-t border-gray-100 flex justify-end gap-2 text-xs">
+        <button onclick="closeCreateKeyModal()" class="px-4 py-2 rounded-lg bg-gray-100 text-groq-dark font-medium cursor-pointer">Cancel</button>
+        <button onclick="submitCreateKey()" class="px-4 py-2 rounded-lg bg-black hover:bg-gray-800 text-white font-semibold shadow-xs transition cursor-pointer">Create API Key</button>
       </div>
     </div>
   </div>
@@ -3023,8 +3097,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     let activeCodeLang = 'python';
 
     let sampleApiKeys = [
-      { id: 'key_1', name: 'Datums Space', key_prefix: 'gsk_...IZS1', created_at: '2026-09-09T00:00:00Z', last_used: '9/9/2026', expires: 'Never', requests_used: 0 },
-      { id: 'key_2', name: 'ProjectSPG Test', key_prefix: 'gsk_...R5Ve', created_at: '2026-09-27T00:00:00Z', last_used: '9/27/2026', expires: 'Never', requests_used: 3 }
+      { id: 'key_1', name: 'Datums Space', key_prefix: 'spg_live_97e4...IZS1', tier: 'free', created_at: '2026-09-09T00:00:00Z', last_used: '9/9/2026', expires: 'Never', requests_used: 0 },
+      { id: 'key_2', name: 'ProjectSPG Production', key_prefix: 'spg_live_41fa...R5Ve', tier: 'byok', byok_providers: ['Groq', 'Google', 'Mistral'], created_at: '2026-09-27T00:00:00Z', last_used: '9/27/2026', expires: 'Never', requests_used: 3 }
     ];
 
     // Mock logs exactly matching media_1790457001122.png
@@ -4033,22 +4107,35 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
           const dateCreated = k.created_at ? new Date(k.created_at).toLocaleDateString() : '9/9/2026';
           const lastUsed = k.last_used || dateCreated;
           const calls = k.requests_used !== undefined ? k.requests_used : 0;
-          const prefix = k.key_prefix || 'gsk_...IZS1';
+          const prefix = k.key_prefix || 'spg_live_...';
+          const isByok = k.tier === 'byok';
+
+          let providers = [];
+          if (k.byok_providers && Array.isArray(k.byok_providers)) {
+            providers = k.byok_providers;
+          } else {
+            if (k.byok_google_key) providers.push('Google');
+            if (k.byok_mistral_key) providers.push('Mistral');
+            if (k.byok_groq_key) providers.push('Groq');
+          }
+
+          const providerSuffix = providers.length > 0 ? (' (' + providers.join(', ') + ')') : '';
+          const tierBadge = isByok
+            ? ('<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span><span>BYOK</span>' + (providerSuffix ? ('<span class="text-emerald-600 font-normal">' + providerSuffix + '</span>') : '') + '</span>')
+            : '<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-medium bg-gray-100 text-gray-600">Free Tier</span>';
 
           return \`
             <tr class="hover:bg-gray-50/70 transition h-14">
               <td class="pr-6 font-sans font-medium text-groq-dark">\${k.name}</td>
               <td class="pr-6 font-mono text-groq-dark">\${prefix}</td>
+              <td class="pr-6 font-sans">\${tierBadge}</td>
               <td class="pr-6 font-sans text-groq-dark">\${dateCreated}</td>
               <td class="pr-6 font-sans text-groq-dark">\${lastUsed}</td>
               <td class="pr-6 font-sans text-groq-dark">\${k.expires || 'Never'}</td>
               <td class="pr-6 font-sans text-groq-dark">\${calls} API Calls</td>
               <td class="text-right">
                 <div class="flex items-center justify-end gap-2">
-                  <button class="p-2 rounded-lg bg-groq-grayBg hover:bg-gray-100 text-groq-dark transition" title="Edit">
-                    <i data-lucide="edit-3" class="w-3.5 h-3.5 text-groq-dark"></i>
-                  </button>
-                  <button onclick="deleteKey('\${k.id}')" class="p-2 rounded-lg bg-groq-grayBg hover:bg-[#fff5f3] text-[#f0523d] transition" title="Delete">
+                  <button onclick="deleteKey('\${k.id}')" class="p-2 rounded-lg bg-groq-grayBg hover:bg-[#fff5f3] text-[#f0523d] transition cursor-pointer" title="Delete">
                     <i data-lucide="trash-2" class="w-3.5 h-3.5 text-[#f0523d]"></i>
                   </button>
                 </div>
@@ -4063,13 +4150,47 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
       }
     }
 
-    function openCreateKeyModal() { document.getElementById('modal-create-key').classList.remove('hidden'); }
+    function selectCreateKeyTier(tier) {
+      const tierInput = document.getElementById('new-key-tier');
+      if (tierInput) tierInput.value = tier;
+      const freeTab = document.getElementById('tier-tab-free');
+      const byokTab = document.getElementById('tier-tab-byok');
+      const freeInfo = document.getElementById('tier-info-free');
+      const byokInfo = document.getElementById('tier-info-byok');
+
+      if (tier === 'free') {
+        if (freeTab) freeTab.className = 'py-2 px-3 rounded-lg text-xs font-semibold transition cursor-pointer bg-white text-groq-dark shadow-xs flex items-center justify-center gap-1.5';
+        if (byokTab) byokTab.className = 'py-2 px-3 rounded-lg text-xs font-semibold transition cursor-pointer text-groq-textMuted hover:text-groq-dark flex items-center justify-center gap-1.5';
+        if (freeInfo) freeInfo.classList.remove('hidden');
+        if (byokInfo) byokInfo.classList.add('hidden');
+      } else {
+        if (byokTab) byokTab.className = 'py-2 px-3 rounded-lg text-xs font-semibold transition cursor-pointer bg-white text-groq-dark shadow-xs flex items-center justify-center gap-1.5';
+        if (freeTab) freeTab.className = 'py-2 px-3 rounded-lg text-xs font-semibold transition cursor-pointer text-groq-textMuted hover:text-groq-dark flex items-center justify-center gap-1.5';
+        if (freeInfo) freeInfo.classList.add('hidden');
+        if (byokInfo) byokInfo.classList.remove('hidden');
+        if (window.lucide) lucide.createIcons();
+      }
+    }
+
+    function openCreateKeyModal() {
+      selectCreateKeyTier('free');
+      if (document.getElementById('new-key-name')) document.getElementById('new-key-name').value = '';
+      if (document.getElementById('new-byok-google')) document.getElementById('new-byok-google').value = '';
+      if (document.getElementById('new-byok-mistral')) document.getElementById('new-byok-mistral').value = '';
+      if (document.getElementById('new-byok-groq')) document.getElementById('new-byok-groq').value = '';
+      document.getElementById('modal-create-key').classList.remove('hidden');
+      if (window.lucide) lucide.createIcons();
+    }
     function closeCreateKeyModal() { document.getElementById('modal-create-key').classList.add('hidden'); }
 
     async function submitCreateKey() {
       const name = document.getElementById('new-key-name').value.trim() || 'ProjectSPG Key';
-      const tier = document.getElementById('new-key-tier').value;
-      const quota = tier === 'enterprise' ? 1000000 : (tier === 'pro' ? 100000 : 10000);
+      const tier = document.getElementById('new-key-tier') ? document.getElementById('new-key-tier').value : 'free';
+      const quota = tier === 'byok' ? 1000000 : 10000;
+      const byokGoogleKey = document.getElementById('new-byok-google') ? document.getElementById('new-byok-google').value.trim() : '';
+      const byokMistralKey = document.getElementById('new-byok-mistral') ? document.getElementById('new-byok-mistral').value.trim() : '';
+      const byokGroqKey = document.getElementById('new-byok-groq') ? document.getElementById('new-byok-groq').value.trim() : '';
+
       try {
         const headers = { 'Content-Type': 'application/json' };
         if (currentIdToken) {
@@ -4078,14 +4199,21 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
         const res = await fetch('/api/keys', {
           method: 'POST',
           headers: headers,
-          body: JSON.stringify({ name, tier, monthlyQuota: quota })
+          body: JSON.stringify({
+            name,
+            tier,
+            monthlyQuota: quota,
+            byokGoogleKey,
+            byokMistralKey,
+            byokGroqKey
+          })
         });
         const data = await res.json();
         closeCreateKeyModal();
         document.getElementById('displayed-raw-key').textContent = data.rawKey;
         document.getElementById('modal-show-key').classList.remove('hidden');
         fetchApiKeys();
-        lucide.createIcons();
+        if (window.lucide) lucide.createIcons();
       } catch (err) {
         alert('Failed: ' + err.message);
       }

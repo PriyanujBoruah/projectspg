@@ -181,10 +181,49 @@ export function resolveUpstreamAuth(
     return { headerName: "api-key", headerValue: azureKey, isUserKey: true };
   }
 
-  // 2. User has NOT added their own key: provide free tier platform key
+  // 2. Check if the authenticated API key record has BYOK provider keys attached
+  const apiKeyRecord: any = (c as any).get("apiKeyRecord");
   const url = targetUrl || resolveUpstreamBaseUrl(c, model);
   const modelLower = (model || "").toLowerCase();
 
+  if (apiKeyRecord && (apiKeyRecord.tier === "byok" || apiKeyRecord.byok_google_key || apiKeyRecord.byok_mistral_key || apiKeyRecord.byok_groq_key)) {
+    // Google AI Studio
+    if (url.includes("generativelanguage.googleapis.com") || modelLower.startsWith("gemini") || modelLower.startsWith("gemma")) {
+      if (apiKeyRecord.byok_google_key) {
+        return { headerName: "Authorization", headerValue: `Bearer ${apiKeyRecord.byok_google_key}`, isUserKey: true };
+      }
+    }
+
+    // Mistral AI
+    if (
+      url.includes("mistral.ai") ||
+      modelLower.startsWith("mistral") ||
+      modelLower.startsWith("codestral") ||
+      modelLower.startsWith("ministral") ||
+      modelLower.startsWith("open-mistral")
+    ) {
+      if (apiKeyRecord.byok_mistral_key) {
+        return { headerName: "Authorization", headerValue: `Bearer ${apiKeyRecord.byok_mistral_key}`, isUserKey: true };
+      }
+    }
+
+    // Groq Cloud
+    if (
+      url.includes("groq.com") ||
+      modelLower.startsWith("openai/gpt-oss") ||
+      modelLower.startsWith("qwen") ||
+      modelLower.startsWith("llama") ||
+      modelLower.startsWith("mixtral") ||
+      modelLower.startsWith("whisper") ||
+      modelLower.includes("groq")
+    ) {
+      if (apiKeyRecord.byok_groq_key) {
+        return { headerName: "Authorization", headerValue: `Bearer ${apiKeyRecord.byok_groq_key}`, isUserKey: true };
+      }
+    }
+  }
+
+  // 3. User has NOT added their own key: provide free tier platform key
   // Google AI Studio (Gemini & Gemma)
   if (url.includes("generativelanguage.googleapis.com") || modelLower.startsWith("gemini") || modelLower.startsWith("gemma")) {
     const key =
@@ -560,6 +599,10 @@ openaiApp.post("/chat/completions", async (c) => {
 
   if (upstreamAuth) {
     upstreamHeaders[upstreamAuth.headerName] = upstreamAuth.headerValue;
+  }
+  if (upstreamUrl.includes("generativelanguage.googleapis.com")) {
+    const googKey = c.req.header("x-goog-api-key") || apiKeyRecord?.byok_google_key;
+    if (googKey) upstreamHeaders["x-goog-api-key"] = googKey;
   }
 
   // Forward optional standard OpenAI headers
@@ -1012,10 +1055,11 @@ openaiApp.post("/v1beta/models/:action{.+}", async (c) => {
 
   const authHeader = c.req.header("Authorization");
   const googKey = c.req.header("x-goog-api-key");
-  const isUserKey = Boolean(authHeader || googKey);
+  const apiKeyRecord = (c as any).get("apiKeyRecord");
+  const byokGoogleKey = apiKeyRecord?.byok_google_key;
+  const isUserKey = Boolean(authHeader || googKey || byokGoogleKey);
 
   // Enforce Free Tier Rate Limit: 1 protected request per 15 seconds
-  const apiKeyRecord = (c as any).get("apiKeyRecord");
   const isFreeTier = isFreeTierRequest(c, apiKeyRecord, isUserKey);
 
   if (isFreeTier) {
@@ -1036,10 +1080,14 @@ openaiApp.post("/v1beta/models/:action{.+}", async (c) => {
     "Content-Type": "application/json",
   };
   if (authHeader) forwardHeaders["Authorization"] = authHeader;
-  if (googKey) forwardHeaders["x-goog-api-key"] = googKey;
+  if (googKey) {
+    forwardHeaders["x-goog-api-key"] = googKey;
+  } else if (byokGoogleKey) {
+    forwardHeaders["x-goog-api-key"] = byokGoogleKey;
+  }
 
   // If user hasn't provided their own key, provide platform Gemini key
-  if (!authHeader && !googKey) {
+  if (!authHeader && !googKey && !byokGoogleKey) {
     const geminiKey =
       (c.env as any)?.GEMINI_API_KEY ||
       (globalThis as any).process?.env?.GEMINI_API_KEY ||

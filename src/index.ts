@@ -139,8 +139,13 @@ app.post("/api/keys", async (c) => {
   }
   const name = body.name || "Default Key";
   const tier = body.tier || "free";
-  const quota = body.monthlyQuota || 10_000;
-  const result = await createApiKey(name, tier, quota, c.env, userId);
+  const quota = tier === "byok" ? 1_000_000 : (body.monthlyQuota || 10_000);
+  const byokKeys = {
+    googleKey: body.byokGoogleKey || body.byok_google_key || "",
+    mistralKey: body.byokMistralKey || body.byok_mistral_key || "",
+    groqKey: body.byokGroqKey || body.byok_groq_key || "",
+  };
+  const result = await createApiKey(name, tier, quota, c.env, userId, byokKeys);
   return c.json(result, 201);
 });
 

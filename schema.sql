@@ -25,7 +25,11 @@ CREATE TABLE IF NOT EXISTS api_keys (
     monthly_quota INTEGER DEFAULT 10000,
     requests_used INTEGER DEFAULT 0,
     is_active INTEGER DEFAULT 1,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    user_id TEXT DEFAULT 'anonymous',
+    byok_google_key TEXT,
+    byok_mistral_key TEXT,
+    byok_groq_key TEXT
 );
 
 CREATE INDEX IF NOT EXISTS idx_api_keys_hash ON api_keys(key_hash);

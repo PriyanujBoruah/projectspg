@@ -72,4 +72,40 @@ describe("API Key Authentication & Metering", () => {
     expect(valRandom.valid).toBe(false);
     expect(valRandom.statusCode).toBe(401);
   });
+
+  it("should create, store, and validate BYOK API keys with associated provider credentials", async () => {
+    const byokProviders = {
+      googleKey: "AIzaSyTestGoogleKey123",
+      mistralKey: "api_mistral_test_456",
+      groqKey: "gsk_groq_test_789",
+    };
+
+    const { rawKey, record } = await createApiKey(
+      "Production BYOK Key",
+      "byok",
+      1000000,
+      mockEnv,
+      "user_123",
+      byokProviders
+    );
+
+    expect(record.tier).toBe("byok");
+    expect(record.byok_google_key).toBe("AIzaSyTestGoogleKey123");
+    expect(record.byok_mistral_key).toBe("api_mistral_test_456");
+    expect(record.byok_groq_key).toBe("gsk_groq_test_789");
+    expect(record.byok_providers).toEqual(["Google", "Mistral", "Groq"]);
+
+    // Validation should return provider keys
+    const val = await validateApiKey(rawKey, mockEnv);
+    expect(val.valid).toBe(true);
+    expect(val.record?.tier).toBe("byok");
+    expect(val.record?.byok_google_key).toBe("AIzaSyTestGoogleKey123");
+
+    // List keys should mask provider secret keys
+    const list = await listApiKeys(mockEnv, "user_123");
+    const found = list.find((k) => k.id === record.id);
+    expect(found).toBeDefined();
+    expect(found?.byok_providers).toEqual(["Google", "Mistral", "Groq"]);
+    expect(found?.byok_google_key).toContain("••••••••");
+  });
 });

@@ -10,12 +10,16 @@ export interface ApiKeyRecord {
   id: string;
   key_prefix: string;
   name: string;
-  tier: "free" | "pro" | "enterprise";
+  tier: "free" | "pro" | "enterprise" | "byok";
   monthly_quota: number;
   requests_used: number;
   is_active: number;
   created_at: string;
   user_id?: string;
+  byok_google_key?: string | null;
+  byok_mistral_key?: string | null;
+  byok_groq_key?: string | null;
+  byok_providers?: string[];
 }
 
 export interface ApiKeyValidationResult {
@@ -64,10 +68,15 @@ export function generateRawKey(isTest = false): string {
  */
 export async function createApiKey(
   name: string,
-  tier: "free" | "pro" | "enterprise" = "free",
+  tier: "free" | "pro" | "enterprise" | "byok" = "free",
   monthlyQuota: number = 10_000,
   env: any,
-  userId: string = "anonymous"
+  userId: string = "anonymous",
+  byokKeys?: {
+    googleKey?: string;
+    mistralKey?: string;
+    groqKey?: string;
+  }
 ): Promise<{ rawKey: string; record: ApiKeyRecord }> {
   const rawKey = generateRawKey(tier === "free" && name.toLowerCase().includes("test"));
   const keyHash = await hashApiKey(rawKey);
@@ -75,30 +84,35 @@ export async function createApiKey(
   const id = `key_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`;
   const createdAt = new Date().toISOString();
 
+  const googleKey = byokKeys?.googleKey?.trim() || null;
+  const mistralKey = byokKeys?.mistralKey?.trim() || null;
+  const groqKey = byokKeys?.groqKey?.trim() || null;
+
+  const providers: string[] = [];
+  if (googleKey) providers.push("Google");
+  if (mistralKey) providers.push("Mistral");
+  if (groqKey) providers.push("Groq");
+
   const record: ApiKeyRecord = {
     id,
     key_prefix: keyPrefix,
     name: name.trim() || "Default Key",
     tier,
-    monthly_quota: monthlyQuota,
+    monthly_quota: tier === "byok" ? 1_000_000 : monthlyQuota,
     requests_used: 0,
     is_active: 1,
     created_at: createdAt,
     user_id: userId,
+    byok_google_key: googleKey,
+    byok_mistral_key: mistralKey,
+    byok_groq_key: groqKey,
+    byok_providers: providers,
   };
 
   const db = env?.DB;
   if (db && typeof db.prepare === "function") {
+    // 1. Ensure table and columns exist
     try {
-      await db
-        .prepare(
-          `INSERT INTO api_keys (id, key_hash, key_prefix, name, tier, monthly_quota, requests_used, is_active, created_at, user_id)
-           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
-        )
-        .bind(id, keyHash, keyPrefix, record.name, tier, monthlyQuota, 0, 1, createdAt, userId)
-        .run();
-    } catch {
-      // If table doesn't exist yet, attempt creation on the fly
       await db
         .prepare(
           `CREATE TABLE IF NOT EXISTS api_keys (
@@ -111,17 +125,41 @@ export async function createApiKey(
              requests_used INTEGER DEFAULT 0,
              is_active INTEGER DEFAULT 1,
              created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-             user_id TEXT DEFAULT 'anonymous'
+             user_id TEXT DEFAULT 'anonymous',
+             byok_google_key TEXT,
+             byok_mistral_key TEXT,
+             byok_groq_key TEXT
            )`
         )
         .run();
+    } catch {}
 
+    try {
+      await db.prepare(`ALTER TABLE api_keys ADD COLUMN byok_google_key TEXT`).run();
+    } catch {}
+    try {
+      await db.prepare(`ALTER TABLE api_keys ADD COLUMN byok_mistral_key TEXT`).run();
+    } catch {}
+    try {
+      await db.prepare(`ALTER TABLE api_keys ADD COLUMN byok_groq_key TEXT`).run();
+    } catch {}
+
+    try {
+      await db
+        .prepare(
+          `INSERT INTO api_keys (id, key_hash, key_prefix, name, tier, monthly_quota, requests_used, is_active, created_at, user_id, byok_google_key, byok_mistral_key, byok_groq_key)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+        )
+        .bind(id, keyHash, keyPrefix, record.name, tier, record.monthly_quota, 0, 1, createdAt, userId, googleKey, mistralKey, groqKey)
+        .run();
+    } catch {
+      // Fallback insert if columns differ
       await db
         .prepare(
           `INSERT INTO api_keys (id, key_hash, key_prefix, name, tier, monthly_quota, requests_used, is_active, created_at, user_id)
            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
         )
-        .bind(id, keyHash, keyPrefix, record.name, tier, monthlyQuota, 0, 1, createdAt, userId)
+        .bind(id, keyHash, keyPrefix, record.name, tier, record.monthly_quota, 0, 1, createdAt, userId)
         .run();
     }
   }
@@ -159,6 +197,11 @@ export async function validateApiKey(rawKey: string, env: any): Promise<ApiKeyVa
         .bind(keyHash)
         .first();
       if (res) {
+        const providers: string[] = [];
+        if (res.byok_google_key) providers.push("Google");
+        if (res.byok_mistral_key) providers.push("Mistral");
+        if (res.byok_groq_key) providers.push("Groq");
+
         record = {
           id: res.id,
           key_prefix: res.key_prefix,
@@ -168,6 +211,11 @@ export async function validateApiKey(rawKey: string, env: any): Promise<ApiKeyVa
           requests_used: res.requests_used,
           is_active: res.is_active,
           created_at: res.created_at,
+          user_id: res.user_id,
+          byok_google_key: res.byok_google_key,
+          byok_mistral_key: res.byok_mistral_key,
+          byok_groq_key: res.byok_groq_key,
+          byok_providers: providers,
         };
         inMemoryKeyCache.set(keyHash, { record, cachedAt: Date.now() });
       }
@@ -213,7 +261,7 @@ export async function listApiKeys(env: any, userId?: string): Promise<ApiKeyReco
   const db = env?.DB;
   if (db && typeof db.prepare === "function") {
     try {
-      let query = `SELECT id, key_prefix, name, tier, monthly_quota, requests_used, is_active, created_at, user_id FROM api_keys WHERE is_active = 1`;
+      let query = `SELECT id, key_prefix, name, tier, monthly_quota, requests_used, is_active, created_at, user_id, byok_google_key, byok_mistral_key, byok_groq_key FROM api_keys WHERE is_active = 1`;
       const params: any[] = [];
       if (userId) {
         query += ` AND (user_id = ? OR user_id = 'anonymous')`;
@@ -222,7 +270,19 @@ export async function listApiKeys(env: any, userId?: string): Promise<ApiKeyReco
       query += ` ORDER BY created_at DESC`;
       const res = await db.prepare(query).bind(...params).all();
       if (res && Array.isArray(res.results)) {
-        return res.results as ApiKeyRecord[];
+        return (res.results as any[]).map((row) => {
+          const providers: string[] = [];
+          if (row.byok_google_key) providers.push("Google");
+          if (row.byok_mistral_key) providers.push("Mistral");
+          if (row.byok_groq_key) providers.push("Groq");
+          return {
+            ...row,
+            byok_providers: providers,
+            byok_google_key: row.byok_google_key ? (row.byok_google_key.slice(0, 4) + "••••••••") : null,
+            byok_mistral_key: row.byok_mistral_key ? (row.byok_mistral_key.slice(0, 4) + "••••••••") : null,
+            byok_groq_key: row.byok_groq_key ? (row.byok_groq_key.slice(0, 4) + "••••••••") : null,
+          } as ApiKeyRecord;
+        });
       }
     } catch {
       // fallback to local store
@@ -232,9 +292,23 @@ export async function listApiKeys(env: any, userId?: string): Promise<ApiKeyReco
   if (userId) {
     keys = keys.filter((k) => !k.user_id || k.user_id === userId || k.user_id === "anonymous");
   }
-  return keys.sort(
-    (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-  );
+  return keys
+    .map((row) => {
+      const providers: string[] = [];
+      if (row.byok_google_key) providers.push("Google");
+      if (row.byok_mistral_key) providers.push("Mistral");
+      if (row.byok_groq_key) providers.push("Groq");
+      return {
+        ...row,
+        byok_providers: providers,
+        byok_google_key: row.byok_google_key ? (row.byok_google_key.slice(0, 4) + "••••••••") : null,
+        byok_mistral_key: row.byok_mistral_key ? (row.byok_mistral_key.slice(0, 4) + "••••••••") : null,
+        byok_groq_key: row.byok_groq_key ? (row.byok_groq_key.slice(0, 4) + "••••••••") : null,
+      } as ApiKeyRecord;
+    })
+    .sort(
+      (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+    );
 }
 
 /**
