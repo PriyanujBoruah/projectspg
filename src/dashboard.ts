@@ -1524,55 +1524,25 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
           </div>
 
-          <!-- Bottom Recognition Strip (ICLR, ICML, NeurIPS, MLSys) -->
-          <div class="mt-16 pt-10 border-t border-white/10 flex flex-wrap items-center justify-center gap-8 md:gap-14 opacity-80">
+          <!-- Bottom Testing & Empirical Validation Strip -->
+          <div class="mt-16 pt-10 border-t border-white/10 flex flex-wrap items-center justify-center gap-6 sm:gap-10 md:gap-12 opacity-85">
             <span class="text-[10.5px] font-bold tracking-widest text-gray-400 uppercase font-sans">
-              RECOGNIZED BY
+              TESTED ACROSS
             </span>
 
-            <!-- ICLR Logo -->
-            <div class="flex items-center gap-2 text-white font-bold text-base tracking-wider font-mono">
-              <svg class="w-5 h-5 text-gray-300" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-              </svg>
-              <span>ICLR</span>
-            </div>
+            <div class="h-5 w-px bg-white/15 hidden sm:block"></div>
+
+            <!-- 9.34 MILLION PROMPTS -->
+            <a href="/blog/benchmark" class="flex items-center gap-2 text-white hover:text-[#f0523d] font-bold text-sm sm:text-base tracking-wider font-sans transition-colors cursor-pointer">
+              <span>9.34 MILLION PROMPTS</span>
+            </a>
 
             <div class="h-5 w-px bg-white/15 hidden sm:block"></div>
 
-            <!-- ICML Logo -->
-            <div class="flex items-center gap-2 text-white font-bold text-base tracking-wider font-sans">
-              <div class="grid grid-cols-2 gap-0.5 w-4 h-4">
-                <span class="bg-gray-300 rounded-[1px]"></span>
-                <span class="bg-gray-400 rounded-[1px]"></span>
-                <span class="bg-gray-400 rounded-[1px]"></span>
-                <span class="bg-gray-200 rounded-[1px]"></span>
-              </div>
-              <span>ICML</span>
-            </div>
-
-            <div class="h-5 w-px bg-white/15 hidden sm:block"></div>
-
-            <!-- NeurIPS Logo -->
-            <div class="flex items-center gap-2 text-white font-medium text-xs tracking-wider font-sans">
-              <svg class="w-5 h-5 text-gray-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <circle cx="12" cy="12" r="9"/>
-                <path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6L5.6 18.4"/>
-              </svg>
-              <div class="leading-tight text-[10px]">
-                <div class="font-bold text-xs uppercase tracking-wide">NeurIPS</div>
-                <div class="text-gray-400 text-[8px] uppercase tracking-widest">Neural Information</div>
-              </div>
-            </div>
-
-            <div class="h-5 w-px bg-white/15 hidden sm:block"></div>
-
-            <!-- MLSys Logo -->
-            <div class="flex items-center gap-1.5 text-white font-bold text-base tracking-wider font-sans">
-              <span class="text-sky-400 font-mono text-sm">[ ]</span>
-              <span>MLSys</span>
-            </div>
-
+            <!-- 1.94 BILLION TOKENS -->
+            <a href="/blog/benchmark" class="flex items-center gap-2 text-white hover:text-[#f0523d] font-bold text-sm sm:text-base tracking-wider font-sans transition-colors cursor-pointer">
+              <span>1.94 BILLION TOKENS</span>
+            </a>
           </div>
 
         </div>
