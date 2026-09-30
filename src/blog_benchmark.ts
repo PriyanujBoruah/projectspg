@@ -1342,14 +1342,14 @@ node scripts/multicore_benchmark.mjs --workers 8</pre>
                 <li><a href="/dashboard" class="hover:text-gray-950 transition">Live Playground</a></li>
               </ul>
 
-              <!-- Subgroup 2: PRICING -->
+              <!-- Subgroup 2: PRIVATE ACCESS -->
               <div class="border-t border-gray-200/90 pt-3 mb-3.5">
-                <span class="text-[10px] font-bold tracking-widest uppercase text-gray-900 font-mono">PRICING</span>
+                <span class="text-[10px] font-bold tracking-widest uppercase text-gray-900 font-mono">PRIVATE ACCESS</span>
               </div>
               <ul class="space-y-2.5 font-medium text-gray-600">
-                <li><a href="/dashboard" class="hover:text-gray-950 transition">Pricing overview</a></li>
-                <li><a href="/dashboard" class="hover:text-gray-950 transition">Serverless Free Tier</a></li>
-                <li><a href="/dashboard" class="hover:text-gray-950 transition">Enterprise BYOK</a></li>
+                <li><a href="/#access-section" class="hover:text-gray-950 transition">Request Invitation</a></li>
+                <li><a href="/#access-section" class="hover:text-gray-950 transition">Redeem Invite Key</a></li>
+                <li><a href="/dashboard" class="hover:text-gray-950 transition">Enterprise Onboarding</a></li>
               </ul>
             </div>
 

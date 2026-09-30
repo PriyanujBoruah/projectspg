@@ -544,7 +544,7 @@ export const COUNTRIES_BLOG_HTML = `<!DOCTYPE html>
         <li><a href="/#research-section">Research</a></li>
         <li><a href="/blog/benchmark">Benchmark Blog</a></li>
         <li><a href="/blog/countries" style="color: #f0523d; font-weight: 600;">Countries</a></li>
-        <li><a href="/#pricing-section">Pricing</a></li>
+        <li><a href="/#access-section">Private Access</a></li>
         <li><a href="/dashboard#docs">Docs</a></li>
         <li><a href="/dashboard#playground">Playground</a></li>
       </ul>
@@ -1268,12 +1268,12 @@ response = client.chat.completions.create(
               </ul>
 
               <div class="border-t border-gray-200/90 pt-3 mb-3.5">
-                <span class="text-[10px] font-bold tracking-widest uppercase text-gray-900 font-mono">PRICING</span>
+                <span class="text-[10px] font-bold tracking-widest uppercase text-gray-900 font-mono">PRIVATE ACCESS</span>
               </div>
               <ul class="space-y-2.5 font-medium text-gray-600">
-                <li><a href="/dashboard" class="hover:text-gray-950 transition">Pricing overview</a></li>
-                <li><a href="/dashboard" class="hover:text-gray-950 transition">Serverless Free Tier</a></li>
-                <li><a href="/dashboard" class="hover:text-gray-950 transition">Enterprise BYOK</a></li>
+                <li><a href="/#access-section" class="hover:text-gray-950 transition">Request Invitation</a></li>
+                <li><a href="/#access-section" class="hover:text-gray-950 transition">Redeem Invite Key</a></li>
+                <li><a href="/dashboard" class="hover:text-gray-950 transition">Enterprise Onboarding</a></li>
               </ul>
             </div>
 

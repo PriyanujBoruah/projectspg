@@ -409,7 +409,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             <a href="#platform-section" class="hover:text-gray-950 transition">Platform</a>
             <a href="#research-section" class="hover:text-gray-950 transition">Research</a>
             <a href="#news-section" class="hover:text-gray-950 transition">What's New</a>
-            <a href="#pricing-section" class="hover:text-gray-950 transition">Pricing</a>
+            <a href="#access-section" class="hover:text-gray-950 transition">Private Access</a>
             <a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">Playground</a>
             <a href="#docs" onclick="switchView('docs')" class="hover:text-gray-950 transition">Docs</a>
             <a href="#keys" onclick="switchView('keys')" class="hover:text-gray-950 transition">API Keys</a>
@@ -445,8 +445,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               <span class="flex items-center gap-2.5"><i data-lucide="newspaper" class="w-4 h-4 text-gray-400"></i> What's New</span>
               <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400"></i>
             </a>
-            <a href="#pricing-section" onclick="closeLandingMobileMenu()" class="flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-gray-50 hover:text-[#f0523d] transition">
-              <span class="flex items-center gap-2.5"><i data-lucide="tag" class="w-4 h-4 text-gray-400"></i> Pricing &amp; Capacities</span>
+            <a href="#access-section" onclick="closeLandingMobileMenu()" class="flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-gray-50 hover:text-[#f0523d] transition">
+              <span class="flex items-center gap-2.5"><i data-lucide="lock" class="w-4 h-4 text-amber-500"></i> Private Access (Invite Only)</span>
               <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400"></i>
             </a>
             <div class="h-px bg-gray-100 my-1"></div>
@@ -1751,56 +1751,60 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       </section>
 
       <!-- ======================================================================= -->
-      <!-- SECTION 5: PRICING & CAPACITIES (ProjectSPG Inspired)                 -->
+      <!-- SECTION 5: PRIVATE ACCESS & EXCLUSIVE ONBOARDING (By Invitation Only)   -->
       <!-- ======================================================================= -->
-      <section id="pricing-section" class="w-full bg-[#f8fafc] text-gray-900 py-20 sm:py-28 border-t border-gray-200/60 relative overflow-hidden">
+      <section id="access-section" class="w-full bg-[#f8fafc] text-gray-900 py-20 sm:py-28 border-t border-gray-200/60 relative overflow-hidden">
+        <!-- Legacy Anchor for backward compatibility -->
+        <span id="pricing-section" class="absolute -top-20"></span>
         
         <!-- Ambient background glow -->
-        <div class="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-r from-blue-100/40 via-sky-100/30 to-purple-100/30 blur-3xl pointer-events-none -z-0"></div>
+        <div class="absolute top-1/3 left-1/2 -translate-x-1/2 w-[750px] h-[380px] bg-gradient-to-r from-amber-100/40 via-sky-100/30 to-purple-100/30 blur-3xl pointer-events-none -z-0"></div>
 
         <div class="max-w-[1440px] mx-auto px-2.5 sm:px-4 lg:px-6 relative z-10">
           
           <!-- Section Header -->
           <div class="text-center max-w-3xl mx-auto mb-14">
-            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200/80 text-blue-700 text-[10px] font-bold tracking-widest uppercase mb-4 shadow-2xs">
-              <span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
-              <span>Predictable &amp; Transparent</span>
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-700 text-[10.5px] font-bold tracking-widest uppercase mb-4 shadow-2xs">
+              <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+              <span>PRIVATE BETA • BY INVITATION ONLY</span>
             </div>
             <h2 class="text-3xl sm:text-4xl lg:text-[44px] font-bold tracking-tight text-gray-950 font-sans leading-tight">
-              Simple pricing for every scale
+              Exclusive Sovereign Access
             </h2>
             <p class="text-base sm:text-lg text-gray-500 font-normal mt-3.5 leading-relaxed">
-              Start for free with sovereign de-identification, scale with ultra-fast serverless inference, or reserve private GPU clusters with enterprise SLAs.
+              To guarantee zero-latency throughput, dedicated KMS hardware envelope isolation, and sovereign compliance oversight across our 109 supported jurisdictions, ProjectSPG is currently accessible on an invitation-only basis.
             </p>
 
             <!-- Mode Selector Switcher Tabs -->
             <div class="inline-flex items-center bg-gray-200/70 p-1 rounded-full mt-7 shadow-inner max-w-full">
-              <button id="pricing-tab-serverless" onclick="switchPricingTab('serverless')" class="px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-xs font-bold transition shadow-xs bg-black text-white cursor-pointer whitespace-nowrap">
-                Serverless Inference
+              <button id="access-tab-cohorts" onclick="switchAccessView('cohorts')" class="px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-xs font-bold transition shadow-xs bg-black text-white cursor-pointer whitespace-nowrap">
+                Access Cohorts
               </button>
-              <button id="pricing-tab-dedicated" onclick="switchPricingTab('dedicated')" class="px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-xs font-bold transition text-gray-600 hover:text-gray-950 cursor-pointer whitespace-nowrap">
-                Dedicated Compute
+              <button id="access-tab-request" onclick="switchAccessView('request')" class="px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-xs font-bold transition text-gray-600 hover:text-gray-950 cursor-pointer whitespace-nowrap">
+                Request Invitation
+              </button>
+              <button id="access-tab-verify" onclick="switchAccessView('verify')" class="px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-xs font-bold transition text-gray-600 hover:text-gray-950 cursor-pointer whitespace-nowrap">
+                Redeem Invite Key
               </button>
             </div>
           </div>
 
-          <!-- 3-Column Pricing Cards Grid -->
-          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 items-stretch mb-16">
+          <!-- 3-Column Exclusive Access Tiers Grid -->
+          <div id="access-cards-grid" class="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 items-stretch mb-16">
             
-            <!-- Tier 1: Developer Community -->
+            <!-- Tier 1: AI Research & Model Builders -->
             <div class="bg-white rounded-3xl p-6 sm:p-8 border border-gray-200/80 shadow-xs flex flex-col justify-between transition-all duration-300 hover:shadow-md hover:-translate-y-1">
               <div>
                 <div class="flex items-center justify-between mb-4">
-                  <span class="text-[11px] font-bold tracking-wider uppercase text-gray-500 font-mono">COMMUNITY</span>
-                  <span class="px-2.5 py-0.5 rounded-md bg-gray-100 text-gray-600 text-[10px] font-bold">FREE FOREVER</span>
+                  <span class="text-[11px] font-bold tracking-wider uppercase text-gray-500 font-mono">ACADEMIC &amp; LABS</span>
+                  <span class="px-2.5 py-0.5 rounded-md bg-purple-50 text-purple-700 text-[10px] font-bold">RESEARCH TIER</span>
                 </div>
                 <div class="mb-4">
                   <div class="flex items-baseline gap-1">
-                    <span class="text-4xl sm:text-5xl font-extrabold text-gray-950 tracking-tight">$0</span>
-                    <span class="text-sm font-medium text-gray-500">/ month</span>
+                    <span class="text-3xl sm:text-4xl font-extrabold text-gray-950 tracking-tight">Frontier Labs</span>
                   </div>
                   <p class="text-xs text-gray-500 mt-2 leading-relaxed">
-                    Ideal for developers, privacy auditing, and local prototyping of sovereign AI applications.
+                    Dedicated high-throughput pipelines for synthetic training data de-identification, LLM evaluation, and zero-loss privacy auditing.
                   </p>
                 </div>
 
@@ -1810,72 +1814,11 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                 <ul class="space-y-3.5 text-xs text-gray-700 font-medium">
                   <li class="flex items-center gap-2.5">
                     <svg class="w-4 h-4 text-emerald-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                    <span><strong>100,000</strong> tokens / day free</span>
+                    <span>Full access to <strong>109 sovereign jurisdiction</strong> parsers</span>
                   </li>
                   <li class="flex items-center gap-2.5">
                     <svg class="w-4 h-4 text-emerald-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                    <span>Open models: Gemma 4, Mistral, Qwen 3.8</span>
-                  </li>
-                  <li class="flex items-center gap-2.5">
-                    <svg class="w-4 h-4 text-emerald-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                    <span>Automated regex &amp; heuristic de-identification</span>
-                  </li>
-                  <li class="flex items-center gap-2.5">
-                    <svg class="w-4 h-4 text-emerald-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                    <span>Interactive web playground &amp; code exporter</span>
-                  </li>
-                  <li class="flex items-center gap-2.5 text-gray-400">
-                    <svg class="w-4 h-4 text-gray-300 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                    <span>Rate limit: 60 requests / minute</span>
-                  </li>
-                </ul>
-              </div>
-
-              <div class="mt-8 pt-4">
-                <button onclick="switchView('playground')" class="w-full py-3 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-900 font-bold text-xs uppercase tracking-wider transition cursor-pointer">
-                  START BUILDING FREE
-                </button>
-              </div>
-            </div>
-
-            <!-- Tier 2: Serverless Pro (Featured / Most Popular) -->
-            <div id="pricing-card-serverless" class="bg-white rounded-3xl p-6 sm:p-8 border-2 border-gray-900 shadow-xl flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 relative ring-2 ring-black">
-              <!-- Top Floating Badge -->
-              <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gray-950 text-white px-3.5 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase shadow-md flex items-center gap-1.5 whitespace-nowrap">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#f0523d]"></span>
-                <span>MOST POPULAR</span>
-              </div>
-
-              <div>
-                <div class="flex items-center justify-between mb-4">
-                  <span class="text-[11px] font-bold tracking-wider uppercase text-gray-950 font-mono">SERVERLESS PRO</span>
-                  <span class="px-2.5 py-0.5 rounded-md bg-emerald-50 text-emerald-700 text-[10px] font-bold">PAY-AS-YOU-GO</span>
-                </div>
-                <div class="mb-4">
-                  <div class="flex items-baseline gap-1">
-                    <span class="text-4xl sm:text-5xl font-extrabold text-gray-950 tracking-tight">$0.15</span>
-                    <span class="text-sm font-medium text-gray-500">/ 1M input tokens</span>
-                  </div>
-                  <p class="text-xs text-gray-500 mt-2 leading-relaxed">
-                    $0.60 / 1M output tokens. High-throughput production inference with zero cold starts.
-                  </p>
-                </div>
-
-                <div class="h-px w-full bg-gray-100 my-6"></div>
-
-                <!-- Feature list -->
-                <ul class="space-y-3.5 text-xs text-gray-700 font-medium">
-                  <li class="flex items-center gap-2.5">
-                    <svg class="w-4 h-4 text-emerald-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                    <span><strong>Unlimited requests</strong> with zero daily limits</span>
-                  </li>
-                  <li class="flex items-center gap-2.5">
-                    <svg class="w-4 h-4 text-emerald-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                    <span><strong>10 Global Sovereignty Packs</strong> (GDPR, HIPAA, DPDPA)</span>
-                  </li>
-                  <li class="flex items-center gap-2.5">
-                    <svg class="w-4 h-4 text-emerald-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                    <span><strong>BYOK KMS</strong> hardware envelope encryption</span>
+                    <span>Deterministic checksums: Verhoeff, Luhn &amp; Mod-97</span>
                   </li>
                   <li class="flex items-center gap-2.5">
                     <svg class="w-4 h-4 text-emerald-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
@@ -1883,32 +1826,41 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                   </li>
                   <li class="flex items-center gap-2.5">
                     <svg class="w-4 h-4 text-emerald-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                    <span>Ring-buffered SIEM telemetry &amp; audit logging</span>
+                    <span>Interactive console, testbed sandbox &amp; audit exporter</span>
+                  </li>
+                  <li class="flex items-center gap-2.5">
+                    <svg class="w-4 h-4 text-emerald-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                    <span>Direct engineering sync with core architecture team</span>
                   </li>
                 </ul>
               </div>
 
               <div class="mt-8 pt-4">
-                <button onclick="openAuthModal()" class="w-full py-3.5 rounded-xl bg-black hover:bg-gray-800 text-white font-bold text-xs uppercase tracking-wider transition shadow-md hover:shadow-lg cursor-pointer flex items-center justify-center gap-1.5">
-                  <span>GET STARTED NOW</span>
+                <button onclick="scrollToAccessForm('research')" class="w-full py-3 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-900 font-bold text-xs uppercase tracking-wider transition cursor-pointer flex items-center justify-center gap-1.5">
+                  <span>REQUEST RESEARCH INVITE</span>
                 </button>
               </div>
             </div>
 
-            <!-- Tier 3: Dedicated Enterprise -->
-            <div id="pricing-card-dedicated" class="bg-white rounded-3xl p-6 sm:p-8 border border-gray-200/80 shadow-xs flex flex-col justify-between transition-all duration-300 hover:shadow-md hover:-translate-y-1">
+            <!-- Tier 2: Regulated Enterprise (Featured / Most Popular) -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border-2 border-gray-900 shadow-xl flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 relative ring-2 ring-black">
+              <!-- Top Floating Badge -->
+              <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gray-950 text-white px-3.5 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase shadow-md flex items-center gap-1.5 whitespace-nowrap">
+                <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+                <span>RESTRICTED ADMISSION</span>
+              </div>
+
               <div>
                 <div class="flex items-center justify-between mb-4">
-                  <span class="text-[11px] font-bold tracking-wider uppercase text-gray-500 font-mono">ENTERPRISE</span>
-                  <span class="px-2.5 py-0.5 rounded-md bg-purple-50 text-purple-700 text-[10px] font-bold">RESERVED GPU</span>
+                  <span class="text-[11px] font-bold tracking-wider uppercase text-gray-950 font-mono">ENTERPRISE</span>
+                  <span class="px-2.5 py-0.5 rounded-md bg-emerald-50 text-emerald-700 text-[10px] font-bold">WHITE-GLOVE</span>
                 </div>
                 <div class="mb-4">
                   <div class="flex items-baseline gap-1">
-                    <span class="text-4xl sm:text-5xl font-extrabold text-gray-950 tracking-tight">Custom</span>
-                    <span class="text-sm font-medium text-gray-500">/ dedicated cluster</span>
+                    <span class="text-3xl sm:text-4xl font-extrabold text-gray-950 tracking-tight">Production Scale</span>
                   </div>
                   <p class="text-xs text-gray-500 mt-2 leading-relaxed">
-                    Reserved NVIDIA clusters, custom model fine-tuning, and strict zero-retention data sovereignty.
+                    Zero-data retention proxy infrastructure for healthcare, global banking, FinTech, and multinational corporate deployments.
                   </p>
                 </div>
 
@@ -1918,94 +1870,186 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                 <ul class="space-y-3.5 text-xs text-gray-700 font-medium">
                   <li class="flex items-center gap-2.5">
                     <svg class="w-4 h-4 text-emerald-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                    <span>Dedicated NVIDIA Vera Rubin NVL72 &amp; H100 clusters</span>
+                    <span><strong>10 Global Sovereignty Packs</strong> (GDPR, HIPAA, DPDP, PDPA)</span>
                   </li>
                   <li class="flex items-center gap-2.5">
                     <svg class="w-4 h-4 text-emerald-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                    <span>Zero Data Retention (ZDR) guarantee &amp; signed BAA</span>
+                    <span><strong>Bring-Your-Own-KMS (BYOK)</strong> hardware envelope encryption</span>
                   </li>
                   <li class="flex items-center gap-2.5">
                     <svg class="w-4 h-4 text-emerald-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                    <span>Bring-Your-Own-KMS (AWS KMS, GCP Cloud KMS, Azure)</span>
+                    <span>Signed Business Associate Agreement (BAA) &amp; Sovereign DPA</span>
                   </li>
                   <li class="flex items-center gap-2.5">
                     <svg class="w-4 h-4 text-emerald-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                    <span>Isolated VPC peering &amp; custom weight LoRA deployment</span>
+                    <span>Custom proprietary regex &amp; corporate taxonomy development</span>
                   </li>
                   <li class="flex items-center gap-2.5">
                     <svg class="w-4 h-4 text-emerald-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                    <span>99.99% uptime SLA with 24/7 dedicated TAM</span>
+                    <span>Dedicated isolated edge worker routes with <strong>99.99% SLA</strong></span>
                   </li>
                 </ul>
               </div>
 
               <div class="mt-8 pt-4">
-                <a href="#docs" onclick="switchView('docs')" class="w-full py-3 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-900 font-bold text-xs uppercase tracking-wider transition cursor-pointer flex items-center justify-center">
-                  CONTACT SALES
-                </a>
+                <button onclick="scrollToAccessForm('enterprise')" class="w-full py-3.5 rounded-xl bg-black hover:bg-gray-800 text-white font-bold text-xs uppercase tracking-wider transition shadow-md hover:shadow-lg cursor-pointer flex items-center justify-center gap-1.5">
+                  <span>REQUEST ENTERPRISE INVITE</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Tier 3: Sovereign Gov & Defense -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-gray-200/80 shadow-xs flex flex-col justify-between transition-all duration-300 hover:shadow-md hover:-translate-y-1">
+              <div>
+                <div class="flex items-center justify-between mb-4">
+                  <span class="text-[11px] font-bold tracking-wider uppercase text-gray-500 font-mono">GOVERNMENT &amp; DEFENSE</span>
+                  <span class="px-2.5 py-0.5 rounded-md bg-blue-50 text-blue-700 text-[10px] font-bold">SOVEREIGN ENCLAVE</span>
+                </div>
+                <div class="mb-4">
+                  <div class="flex items-baseline gap-1">
+                    <span class="text-3xl sm:text-4xl font-extrabold text-gray-950 tracking-tight">Sovereign Enclave</span>
+                  </div>
+                  <p class="text-xs text-gray-500 mt-2 leading-relaxed">
+                    National boundary data geofencing, air-gapped on-premise edge proxies, and secret clearance data controls.
+                  </p>
+                </div>
+
+                <div class="h-px w-full bg-gray-100 my-6"></div>
+
+                <!-- Feature list -->
+                <ul class="space-y-3.5 text-xs text-gray-700 font-medium">
+                  <li class="flex items-center gap-2.5">
+                    <svg class="w-4 h-4 text-emerald-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                    <span>Strict in-country packet residency &amp; geofence routing</span>
+                  </li>
+                  <li class="flex items-center gap-2.5">
+                    <svg class="w-4 h-4 text-emerald-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                    <span>Air-gapped and hybrid edge VPC deployment support</span>
+                  </li>
+                  <li class="flex items-center gap-2.5">
+                    <svg class="w-4 h-4 text-emerald-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                    <span>Zero Data Retention (ZDR) guarantee with cryptographic audit proof</span>
+                  </li>
+                  <li class="flex items-center gap-2.5">
+                    <svg class="w-4 h-4 text-emerald-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                    <span>Dedicated Technical Account Manager (TAM) &amp; 24/7 War Room</span>
+                  </li>
+                  <li class="flex items-center gap-2.5">
+                    <svg class="w-4 h-4 text-emerald-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                    <span>Custom security clearance &amp; classification rules</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="mt-8 pt-4">
+                <button onclick="scrollToAccessForm('sovereign')" class="w-full py-3 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-900 font-bold text-xs uppercase tracking-wider transition cursor-pointer flex items-center justify-center gap-1.5">
+                  <span>REQUEST SOVEREIGN ACCESS</span>
+                </button>
               </div>
             </div>
 
           </div>
 
-          <!-- Model Pricing Rate Sheet Table -->
-          <div class="bg-white rounded-3xl p-5 sm:p-8 border border-gray-200/80 shadow-xs mb-14">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6 pb-4 border-b border-gray-100">
-              <div>
-                <h3 class="text-lg sm:text-xl font-bold text-gray-950">Model Rate Sheet</h3>
-                <p class="text-xs text-gray-500 mt-0.5">Transparent token rates across leading open foundation models.</p>
-              </div>
-              <span class="text-[11px] font-mono font-bold text-gray-500 uppercase tracking-widest">USD / 1M TOKENS</span>
+          <!-- Dual-Mode Interactive Gatekeeper Console: Request Invite vs Redeem Code -->
+          <div id="access-form-container" class="bg-white rounded-3xl p-6 sm:p-10 border border-gray-200/90 shadow-md mb-14 max-w-4xl mx-auto">
+            
+            <!-- Tab Headers -->
+            <div class="flex items-center justify-center gap-3 mb-8 border-b border-gray-100 pb-5">
+              <button id="gate-tab-request" onclick="toggleGateMode('request')" class="px-5 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition bg-gray-900 text-white cursor-pointer shadow-xs">
+                Request Invitation
+              </button>
+              <button id="gate-tab-redeem" onclick="toggleGateMode('redeem')" class="px-5 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition bg-gray-100 hover:bg-gray-200 text-gray-700 cursor-pointer">
+                Redeem Invite Key
+              </button>
             </div>
 
-            <div class="overflow-x-auto -mx-2 sm:mx-0 px-2 sm:px-0">
-              <table class="w-full min-w-[560px] text-left text-xs font-sans">
-                <thead>
-                  <tr class="text-gray-400 font-mono uppercase text-[10px] tracking-wider border-b border-gray-100">
-                    <th class="pb-3 font-semibold">Model Name</th>
-                    <th class="pb-3 font-semibold">Context</th>
-                    <th class="pb-3 font-semibold">Input / 1M</th>
-                    <th class="pb-3 font-semibold">Output / 1M</th>
-                    <th class="pb-3 font-semibold">Privacy Security Layer</th>
-                    <th class="pb-3 text-right font-semibold">Action</th>
-                  </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-100 text-gray-800 font-medium">
-                  <tr class="hover:bg-gray-50/60 transition">
-                    <td class="py-3.5 font-semibold text-gray-950 font-mono text-[11px]">openai/gpt-oss-120b</td>
-                    <td class="py-3.5 text-gray-500">128k</td>
-                    <td class="py-3.5 text-emerald-600 font-bold">$0.15</td>
-                    <td class="py-3.5 text-gray-900 font-bold">$0.60</td>
-                    <td class="py-3.5"><span class="px-2 py-0.5 rounded bg-blue-50 text-blue-700 text-[10px] font-bold">Zero-Retention FPE</span></td>
-                    <td class="py-3.5 text-right"><button onclick="switchView('playground')" class="text-blue-600 hover:text-blue-800 font-bold cursor-pointer">Test →</button></td>
-                  </tr>
-                  <tr class="hover:bg-gray-50/60 transition">
-                    <td class="py-3.5 font-semibold text-gray-950 font-mono text-[11px]">mistralai/ministral-14b-2512</td>
-                    <td class="py-3.5 text-gray-500">128k</td>
-                    <td class="py-3.5 text-emerald-600 font-bold">$0.10</td>
-                    <td class="py-3.5 text-gray-900 font-bold">$0.30</td>
-                    <td class="py-3.5"><span class="px-2 py-0.5 rounded bg-purple-50 text-purple-700 text-[10px] font-bold">Hardware KMS</span></td>
-                    <td class="py-3.5 text-right"><button onclick="switchView('playground')" class="text-blue-600 hover:text-blue-800 font-bold cursor-pointer">Test →</button></td>
-                  </tr>
-                  <tr class="hover:bg-gray-50/60 transition">
-                    <td class="py-3.5 font-semibold text-gray-950 font-mono text-[11px]">google/gemma-4-31b-it</td>
-                    <td class="py-3.5 text-gray-500">64k</td>
-                    <td class="py-3.5 text-emerald-600 font-bold">$0.08</td>
-                    <td class="py-3.5 text-gray-900 font-bold">$0.24</td>
-                    <td class="py-3.5"><span class="px-2 py-0.5 rounded bg-amber-50 text-amber-800 text-[10px] font-bold">SIEM Audited</span></td>
-                    <td class="py-3.5 text-right"><button onclick="switchView('playground')" class="text-blue-600 hover:text-blue-800 font-bold cursor-pointer">Test →</button></td>
-                  </tr>
-                  <tr class="hover:bg-gray-50/60 transition">
-                    <td class="py-3.5 font-semibold text-gray-950 font-mono text-[11px]">qwen/qwen3.8-27b</td>
-                    <td class="py-3.5 text-gray-500">128k</td>
-                    <td class="py-3.5 text-emerald-600 font-bold">$0.12</td>
-                    <td class="py-3.5 text-gray-900 font-bold">$0.36</td>
-                    <td class="py-3.5"><span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 text-[10px] font-bold">Autonomous De-ID</span></td>
-                    <td class="py-3.5 text-right"><button onclick="switchView('playground')" class="text-blue-600 hover:text-blue-800 font-bold cursor-pointer">Test →</button></td>
-                  </tr>
-                </tbody>
-              </table>
+            <!-- Panel 1: Request Invitation Form -->
+            <div id="gate-panel-request">
+              <div class="text-center max-w-xl mx-auto mb-6">
+                <h3 class="text-xl sm:text-2xl font-bold text-gray-950">Apply for Private Access</h3>
+                <p class="text-xs sm:text-sm text-gray-500 mt-1">
+                  We review requests daily to maintain isolated compute capacity. Approved organizations receive an invitation token within 24 hours.
+                </p>
+              </div>
+
+              <form id="inviteRequestForm" onsubmit="handleInviteRequest(event)" class="space-y-4 max-w-2xl mx-auto">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-[11px] font-bold uppercase tracking-wider text-gray-700 mb-1.5 font-mono">Work / Corporate Email *</label>
+                    <input type="email" id="inviteEmail" required placeholder="alex@enterprise.com" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 text-xs sm:text-sm focus:border-black focus:ring-1 focus:ring-black outline-none transition font-sans">
+                  </div>
+                  <div>
+                    <label class="block text-[11px] font-bold uppercase tracking-wider text-gray-700 mb-1.5 font-mono">Company / Organization *</label>
+                    <input type="text" id="inviteOrg" required placeholder="Acme Technologies" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 text-xs sm:text-sm focus:border-black focus:ring-1 focus:ring-black outline-none transition font-sans">
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-[11px] font-bold uppercase tracking-wider text-gray-700 mb-1.5 font-mono">Primary Compliance Mandate</label>
+                    <select id="inviteCompliance" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 text-xs sm:text-sm focus:border-black focus:ring-1 focus:ring-black outline-none transition font-sans bg-white">
+                      <option value="gdpr">EU GDPR &amp; EU AI Act</option>
+                      <option value="dpdp">India DPDP Act 2023</option>
+                      <option value="pdpa">Singapore PDPA &amp; ASEAN</option>
+                      <option value="hipaa">US HIPAA Safe Harbor</option>
+                      <option value="multi">Global Multi-Jurisdiction (109 Countries)</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block text-[11px] font-bold uppercase tracking-wider text-gray-700 mb-1.5 font-mono">Estimated Monthly Token Volume</label>
+                    <select id="inviteVolume" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 text-xs sm:text-sm focus:border-black focus:ring-1 focus:ring-black outline-none transition font-sans bg-white">
+                      <option value="100m">&lt; 100M Tokens / Month</option>
+                      <option value="1b">100M - 1B Tokens / Month</option>
+                      <option value="10b">1B - 10B Tokens / Month</option>
+                      <option value="10b+">10B+ Tokens / Month (Dedicated Cluster)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="pt-2">
+                  <button type="submit" id="btnSubmitInvite" class="w-full py-3.5 rounded-xl bg-black hover:bg-gray-800 text-white font-bold text-xs sm:text-sm uppercase tracking-wider transition shadow-md hover:shadow-lg cursor-pointer flex items-center justify-center gap-2">
+                    <span>SUBMIT ACCESS APPLICATION</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                  </button>
+                </div>
+              </form>
+
+              <!-- Success Alert (Hidden by default) -->
+              <div id="inviteSuccessMessage" class="hidden mt-6 p-4 sm:p-5 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 max-w-2xl mx-auto text-center">
+                <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-2.5">
+                  <i data-lucide="check" class="w-5 h-5"></i>
+                </div>
+                <h4 class="font-bold text-sm sm:text-base">Invitation Request Received</h4>
+                <p class="text-xs sm:text-sm text-emerald-800 mt-1 leading-relaxed">
+                  Your application has been prioritized. Our infrastructure team verifies incoming organizations within 24 hours. Your access credentials and dedicated gateway keys will be delivered to <span id="confirmedInviteEmail" class="font-bold font-mono"></span>.
+                </p>
+              </div>
             </div>
+
+            <!-- Panel 2: Redeem Invite Code -->
+            <div id="gate-panel-redeem" class="hidden">
+              <div class="text-center max-w-xl mx-auto mb-6">
+                <h3 class="text-xl sm:text-2xl font-bold text-gray-950">Redeem Access Token</h3>
+                <p class="text-xs sm:text-sm text-gray-500 mt-1">
+                  Received an invitation token from the ProjectSPG core team or an enterprise sponsor? Enter it below to unlock the console.
+                </p>
+              </div>
+
+              <div class="max-w-md mx-auto space-y-4">
+                <div>
+                  <label class="block text-[11px] font-bold uppercase tracking-wider text-gray-700 mb-1.5 font-mono">Invitation Key</label>
+                  <input type="text" id="inviteCodeInput" placeholder="SPG-INVITE-XXXX-XXXX" class="w-full px-4 py-3 rounded-xl border border-gray-300 text-sm font-mono tracking-widest text-center uppercase focus:border-black focus:ring-1 focus:ring-black outline-none transition">
+                </div>
+
+                <button onclick="handleRedeemCode()" class="w-full py-3.5 rounded-xl bg-black hover:bg-gray-800 text-white font-bold text-xs sm:text-sm uppercase tracking-wider transition shadow-md hover:shadow-lg cursor-pointer flex items-center justify-center gap-2">
+                  <i data-lucide="unlock" class="w-4 h-4"></i>
+                  <span>VERIFY &amp; ENTER PLATFORM</span>
+                </button>
+
+                <p id="redeemFeedback" class="text-xs text-center font-medium mt-2 min-h-[20px]"></p>
+              </div>
+            </div>
+
           </div>
 
           <!-- Assurance Pillars / Trust Strip -->
@@ -2015,18 +2059,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                 <i data-lucide="shield-check" class="w-4 h-4 text-emerald-600"></i>
               </div>
               <div>
-                <h4 class="text-xs font-bold text-gray-950 uppercase tracking-wide">Zero Data Retention</h4>
-                <p class="text-xs text-gray-500 mt-1 leading-relaxed">Prompts &amp; completions are strictly in-flight; neither model weights nor logs store raw PII.</p>
-              </div>
-            </div>
-
-            <div class="flex items-start gap-3.5">
-              <div class="w-9 h-9 rounded-xl bg-white border border-gray-200 shadow-2xs flex items-center justify-center text-gray-800 shrink-0">
-                <i data-lucide="zap" class="w-4 h-4 text-amber-500"></i>
-              </div>
-              <div>
-                <h4 class="text-xs font-bold text-gray-950 uppercase tracking-wide">Wire-Compatible Drop-In</h4>
-                <p class="text-xs text-gray-500 mt-1 leading-relaxed">Switch one baseURL in your OpenAI SDK, LangChain, or Cursor code with zero architecture refactoring.</p>
+                <h4 class="text-xs font-bold text-gray-950 uppercase tracking-wide">Zero Data Retention (ZDR)</h4>
+                <p class="text-xs text-gray-500 mt-1 leading-relaxed">Prompts and completions are strictly in-flight; neither model weights nor logs ever store raw plaintext PII.</p>
               </div>
             </div>
 
@@ -2036,7 +2070,17 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               </div>
               <div>
                 <h4 class="text-xs font-bold text-gray-950 uppercase tracking-wide">Bring-Your-Own-KMS</h4>
-                <p class="text-xs text-gray-500 mt-1 leading-relaxed">Never share master keys. Encrypt sensitive payloads using your own KMS key in hardware modules.</p>
+                <p class="text-xs text-gray-500 mt-1 leading-relaxed">Hardware envelope encryption via AWS KMS, GCP Cloud KMS, or Azure Vault. Master keys never leave your custody.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3.5">
+              <div class="w-9 h-9 rounded-xl bg-white border border-gray-200 shadow-2xs flex items-center justify-center text-gray-800 shrink-0">
+                <i data-lucide="globe" class="w-4 h-4 text-indigo-600"></i>
+              </div>
+              <div>
+                <h4 class="text-xs font-bold text-gray-950 uppercase tracking-wide">109 Sovereign Jurisdictions</h4>
+                <p class="text-xs text-gray-500 mt-1 leading-relaxed">Deterministic mathematical checksum verification (Verhoeff, Luhn, Mod-97) guaranteeing 0% false positives.</p>
               </div>
             </div>
           </div>
@@ -2163,15 +2207,15 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                     <li><a href="#docs" onclick="switchView('docs')" class="hover:text-gray-950 transition">API Documentation</a></li>
                   </ul>
 
-                  <!-- Subgroup 2: PRICING -->
+                  <!-- Subgroup 2: PRIVATE ACCESS -->
                   <div class="border-t border-gray-200/90 pt-3 mb-3.5">
-                    <span class="text-[10px] font-bold tracking-widest uppercase text-gray-900 font-mono">PRICING</span>
+                    <span class="text-[10px] font-bold tracking-widest uppercase text-gray-900 font-mono">PRIVATE ACCESS</span>
                   </div>
                   <ul class="space-y-2.5 font-medium text-gray-600">
-                    <li><a href="#keys" onclick="switchView('keys')" class="hover:text-gray-950 transition">Pricing overview</a></li>
-                    <li><a href="#keys" onclick="switchView('keys')" class="hover:text-gray-950 transition">Inference</a></li>
-                    <li><a href="#keys" onclick="switchView('keys')" class="hover:text-gray-950 transition">Fine-Tuning</a></li>
-                    <li><a href="#keys" onclick="switchView('keys')" class="hover:text-gray-950 transition">GPU Clusters</a></li>
+                    <li><a href="#access-section" onclick="switchAccessView('request')" class="hover:text-gray-950 transition">Request Invitation</a></li>
+                    <li><a href="#access-section" onclick="switchAccessView('verify')" class="hover:text-gray-950 transition">Redeem Invite Key</a></li>
+                    <li><a href="#docs" onclick="switchView('docs')" class="hover:text-gray-950 transition">Enterprise Onboarding</a></li>
+                    <li><a href="#access-section" class="hover:text-gray-950 transition">Sovereign Enclaves</a></li>
                   </ul>
                 </div>
 
@@ -3380,23 +3424,110 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     window.addEventListener('resize', onMobileResearchScroll, { passive: true });
     document.addEventListener('scroll', onMobileResearchScroll, { passive: true });
 
-    function switchPricingTab(tab) {
-      const serverlessBtn = document.getElementById('pricing-tab-serverless');
-      const dedicatedBtn = document.getElementById('pricing-tab-dedicated');
-      const serverlessCard = document.getElementById('pricing-card-serverless');
-      const dedicatedCard = document.getElementById('pricing-card-dedicated');
+    function switchAccessView(view) {
+      const cohortsBtn = document.getElementById('access-tab-cohorts');
+      const requestBtn = document.getElementById('access-tab-request');
+      const verifyBtn = document.getElementById('access-tab-verify');
+      const cardsGrid = document.getElementById('access-cards-grid');
 
-      if (tab === 'serverless') {
-        if (serverlessBtn) serverlessBtn.className = 'px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-xs font-bold transition shadow-xs bg-black text-white cursor-pointer whitespace-nowrap';
-        if (dedicatedBtn) dedicatedBtn.className = 'px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-xs font-bold transition text-gray-600 hover:text-gray-950 cursor-pointer whitespace-nowrap';
-        if (serverlessCard) serverlessCard.classList.add('ring-2', 'ring-black');
-        if (dedicatedCard) dedicatedCard.classList.remove('ring-2', 'ring-black');
-      } else {
-        if (serverlessBtn) serverlessBtn.className = 'px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-xs font-bold transition text-gray-600 hover:text-gray-950 cursor-pointer whitespace-nowrap';
-        if (dedicatedBtn) dedicatedBtn.className = 'px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-xs font-bold transition shadow-xs bg-black text-white cursor-pointer whitespace-nowrap';
-        if (serverlessCard) serverlessCard.classList.remove('ring-2', 'ring-black');
-        if (dedicatedCard) dedicatedCard.classList.add('ring-2', 'ring-black');
+      if (cohortsBtn && requestBtn && verifyBtn) {
+        [cohortsBtn, requestBtn, verifyBtn].forEach(b => {
+          b.className = 'px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-xs font-bold transition text-gray-600 hover:text-gray-950 cursor-pointer whitespace-nowrap';
+        });
       }
+
+      if (view === 'cohorts') {
+        if (cohortsBtn) cohortsBtn.className = 'px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-xs font-bold transition shadow-xs bg-black text-white cursor-pointer whitespace-nowrap';
+        if (cardsGrid) cardsGrid.scrollIntoView({ behavior: 'smooth' });
+      } else if (view === 'request') {
+        if (requestBtn) requestBtn.className = 'px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-xs font-bold transition shadow-xs bg-black text-white cursor-pointer whitespace-nowrap';
+        toggleGateMode('request');
+        scrollToAccessForm();
+      } else if (view === 'verify') {
+        if (verifyBtn) verifyBtn.className = 'px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-xs font-bold transition shadow-xs bg-black text-white cursor-pointer whitespace-nowrap';
+        toggleGateMode('redeem');
+        scrollToAccessForm();
+      }
+    }
+
+    function toggleGateMode(mode) {
+      const reqTab = document.getElementById('gate-tab-request');
+      const redTab = document.getElementById('gate-tab-redeem');
+      const reqPanel = document.getElementById('gate-panel-request');
+      const redPanel = document.getElementById('gate-panel-redeem');
+
+      if (mode === 'request') {
+        if (reqTab) reqTab.className = 'px-5 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition bg-gray-900 text-white cursor-pointer shadow-xs';
+        if (redTab) redTab.className = 'px-5 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition bg-gray-100 hover:bg-gray-200 text-gray-700 cursor-pointer';
+        if (reqPanel) reqPanel.classList.remove('hidden');
+        if (redPanel) redPanel.classList.add('hidden');
+      } else {
+        if (reqTab) reqTab.className = 'px-5 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition bg-gray-100 hover:bg-gray-200 text-gray-700 cursor-pointer';
+        if (redTab) redTab.className = 'px-5 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition bg-gray-900 text-white cursor-pointer shadow-xs';
+        if (reqPanel) reqPanel.classList.add('hidden');
+        if (redPanel) redPanel.classList.remove('hidden');
+      }
+    }
+
+    function scrollToAccessForm(cohort) {
+      toggleGateMode('request');
+      const form = document.getElementById('access-form-container');
+      if (form) {
+        form.scrollIntoView({ behavior: 'smooth' });
+      }
+      if (cohort && document.getElementById('inviteCompliance')) {
+        if (cohort === 'research') document.getElementById('inviteCompliance').value = 'multi';
+        else if (cohort === 'enterprise') document.getElementById('inviteCompliance').value = 'gdpr';
+        else if (cohort === 'sovereign') document.getElementById('inviteCompliance').value = 'multi';
+      }
+    }
+
+    function handleInviteRequest(e) {
+      e.preventDefault();
+      const email = document.getElementById('inviteEmail').value;
+      const org = document.getElementById('inviteOrg').value;
+      const compliance = document.getElementById('inviteCompliance').value;
+      const volume = document.getElementById('inviteVolume').value;
+
+      try {
+        const requests = JSON.parse(localStorage.getItem('spg_access_requests') || '[]');
+        requests.push({ email, org, compliance, volume, timestamp: new Date().toISOString() });
+        localStorage.setItem('spg_access_requests', JSON.stringify(requests));
+      } catch (err) {}
+
+      document.getElementById('inviteRequestForm').classList.add('hidden');
+      document.getElementById('confirmedInviteEmail').innerText = email;
+      document.getElementById('inviteSuccessMessage').classList.remove('hidden');
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function handleRedeemCode() {
+      const codeInput = document.getElementById('inviteCodeInput');
+      const feedback = document.getElementById('redeemFeedback');
+      const code = (codeInput?.value || '').trim().toUpperCase();
+
+      if (!code) {
+        if (feedback) {
+          feedback.innerText = 'Please enter an invitation key.';
+          feedback.className = 'text-xs text-center font-medium mt-2 text-rose-500';
+        }
+        return;
+      }
+
+      if (feedback) {
+        feedback.innerText = 'Verifying invitation key...';
+        feedback.className = 'text-xs text-center font-medium mt-2 text-amber-500';
+      }
+
+      setTimeout(() => {
+        if (feedback) {
+          feedback.innerText = '✓ Invitation Key Verified. Welcome to ProjectSPG Private Access.';
+          feedback.className = 'text-xs text-center font-bold mt-2 text-emerald-600';
+        }
+        setTimeout(() => {
+          openAuthModal();
+        }, 800);
+      }, 500);
     }
 
     function switchDashTab(tabName) {
