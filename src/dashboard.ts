@@ -3952,9 +3952,14 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       const stopVal = stopInput ? ('"' + stopInput + '"') : 'None';
 
       if (lang === 'python') {
-        box.innerHTML = \`<span class="syn-keyword">from</span> groq <span class="syn-keyword">import</span> Groq
+        box.innerHTML = \`<span class="syn-keyword">from</span> openai <span class="syn-keyword">import</span> OpenAI
 
-client = Groq()
+<span class="syn-comment"># Universal drop-in privacy gateway (Google Gemma, Mistral, Groq)</span>
+client = OpenAI(
+    base_url=<span class="syn-string">"https://projectspg.boruahpriyanuj2004.workers.dev/v1"</span>,
+    api_key=<span class="syn-string">"spg_live_your_key"</span>  <span class="syn-comment"># Your ProjectSPG API Key</span>
+)
+
 completion = client.chat.completions.create(
     model=<span class="syn-string">"\${model}"</span>,
     messages=[
@@ -3964,11 +3969,9 @@ completion = client.chat.completions.create(
         }
     ],
     temperature=<span class="syn-number">\${tempVal}</span>,
-    max_completion_tokens=<span class="syn-number">\${tokensVal}</span>,
+    max_tokens=<span class="syn-number">\${tokensVal}</span>,
     top_p=<span class="syn-number">\${topPVal}</span>,
-    reasoning_effort=<span class="syn-string">"\${reasoningVal}"</span>,
-    stream=<span class="syn-bool">\${streamVal}</span>,
-    stop=<span class="syn-keyword">\${stopVal}</span>
+    stream=<span class="syn-bool">\${streamVal}</span>
 )
 
 <span class="syn-keyword">for</span> chunk <span class="syn-keyword">in</span> completion:
@@ -3976,8 +3979,7 @@ completion = client.chat.completions.create(
       } else if (lang === 'curl') {
         box.innerHTML = \`curl https://projectspg.boruahpriyanuj2004.workers.dev/v1/chat/completions \\\\
   -H <span class="syn-string">"Content-Type: application/json"</span> \\\\
-  -H <span class="syn-string">"Authorization: Bearer \\$API_KEY"</span> \\\\
-  -H <span class="syn-string">"x-spg-api-key: spg_live_your_key"</span> \\\\
+  -H <span class="syn-string">"Authorization: Bearer spg_live_your_key"</span> \\\\
   -d '{
     <span class="syn-string">"model"</span>: <span class="syn-string">"\${model}"</span>,
     <span class="syn-string">"messages"</span>: [
