@@ -487,9 +487,9 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               </div>
 
               <!-- Main Headline matching ProjectSPG -->
-              <h1 class="text-3xl sm:text-5xl lg:text-[62px] leading-[1.12] sm:leading-[1.08] font-bold tracking-tight text-gray-950 mb-5 sm:mb-6 font-sans">
+              <h1 class="text-3xl sm:text-5xl lg:text-[62px] leading-[1.12] sm:leading-[1.08] font-normal tracking-tight text-gray-950 mb-5 sm:mb-6 font-sans">
                 Build what's next <br/>
-                <span class="text-slate-500 font-normal">on the Private Cloud</span>
+                <span class="text-slate-500">on the Private Cloud</span>
               </h1>
 
               <!-- Subtitle -->
