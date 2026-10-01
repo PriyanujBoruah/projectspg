@@ -3,6 +3,10 @@
   "name": "projectspg",
   "main": "src/index.ts",
   "compatibility_date": "2025-02-14",
+  "routes": [
+    { "pattern": "projectspg.info/*", "zone_name": "projectspg.info" },
+    { "pattern": "www.projectspg.info/*", "zone_name": "projectspg.info" }
+  ],
   "observability": {
     "enabled": true
   },
