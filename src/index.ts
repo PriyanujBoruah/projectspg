@@ -16,6 +16,7 @@ import {
 import { getApiCallLogs } from "./audit/logger";
 import { verifyFirebaseIdToken, FIREBASE_CONFIG } from "./auth/firebase";
 import { LOGO_DATA_URIS, LOGO_FILES } from "./assets/logos";
+import { BLOG_IMAGE_DATA_URIS, BLOG_IMAGE_FILES } from "./assets/images";
 
 const app = new Hono();
 
@@ -190,6 +191,26 @@ app.get("/logos/:filename", (c) => {
     });
   }
   return c.text("Logo not found", 404);
+});
+
+// Serve static blog illustration images
+app.get("/images/:filename", (c) => {
+  const filename = c.req.param("filename");
+  const entry = Object.entries(BLOG_IMAGE_FILES).find(
+    ([_, file]) => file.toLowerCase() === filename.toLowerCase()
+  );
+  if (entry) {
+    const dataUri = BLOG_IMAGE_DATA_URIS[entry[0] as keyof typeof BLOG_IMAGE_DATA_URIS];
+    const base64Data = dataUri.split(",")[1];
+    const binary = Uint8Array.from(atob(base64Data), (char) => char.charCodeAt(0));
+    return new Response(binary, {
+      headers: {
+        "Content-Type": "image/png",
+        "Cache-Control": "public, max-age=31536000, immutable",
+      },
+    });
+  }
+  return c.text("Image not found", 404);
 });
 
 // Health check endpoint
