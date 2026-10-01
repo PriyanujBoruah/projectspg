@@ -18,12 +18,14 @@ export const BENCHMARK_BLOG_HTML = `<!DOCTYPE html>
   <meta property="og:url" content="https://projectspg.info/blog/benchmark">
   <meta property="og:title" content="Empirical Benchmark: 9,334,805 Prompts Evaluated with 100.00% Roundtrip Fidelity & 86µs Latency">
   <meta property="og:description" content="Empirical performance benchmarks across 1.94 billion tokens: 100.00% exact roundtrip fidelity, 17,735 prompts/sec throughput, and 13.3ms HTTPS latency.">
+  <meta property="og:image" content="https://projectspg.info/images/empirical-benchmark-highlights.png">
   
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://projectspg.info/blog/benchmark">
   <meta property="twitter:title" content="Empirical Benchmark: 9,334,805 Prompts Evaluated with 100.00% Roundtrip Fidelity">
   <meta property="twitter:description" content="Empirical performance benchmarks across 1.94 billion tokens: 100.00% exact roundtrip fidelity, 17,735 prompts/sec throughput, and 13.3ms HTTPS latency.">
+  <meta property="twitter:image" content="https://projectspg.info/images/empirical-benchmark-highlights.png">
 
   <!-- Schema.org TechArticle JSON-LD for Google SEO -->
   <script type="application/ld+json">
@@ -275,108 +277,28 @@ export const BENCHMARK_BLOG_HTML = `<!DOCTYPE html>
     .toc-item:hover { color: #111827; font-weight: 600; }
 
     /* Visual Architecture Box on Right */
-    .hero-diagram-card {
-      background: #f9fafb;
-      border: 1px solid #e5e7eb;
-      border-radius: 16px;
-      padding: 36px 32px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
-    }
-
-    .diagram-title {
-      font-size: 24px;
-      font-weight: 700;
-      color: #111827;
-      margin-bottom: 28px;
-      letter-spacing: -0.02em;
-    }
-
-    .pipeline-steps-row {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-      width: 100%;
-    }
-
-    .pipeline-step-box {
+    .hero-image-card {
       background: #ffffff;
       border: 1px solid #e5e7eb;
-      border-radius: 12px;
-      padding: 18px 14px;
-      text-align: center;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
       display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      min-height: 170px;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
-      transition: transform 0.15s, border-color 0.15s;
-    }
-
-    .pipeline-step-box:hover {
-      transform: translateY(-2px);
-      border-color: #cbd5e1;
-    }
-
-    .pipeline-step-box.highlight {
-      background: #f0523d;
-      border-color: #f0523d;
-      color: #ffffff;
-    }
-
-    .pipeline-step-box.highlight .step-num { color: rgba(255,255,255,0.8); }
-    .pipeline-step-box.highlight .step-name { color: #ffffff; }
-    .pipeline-step-box.highlight .step-desc { color: rgba(255,255,255,0.9); }
-    .pipeline-step-box.highlight .step-tag { background: rgba(255,255,255,0.2); color: #ffffff; }
-
-    .step-icon-circle {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      background: #f3f4f6;
-      display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 13px;
-      margin: 0 auto 8px;
+      transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
     }
 
-    .step-num {
-      font-size: 9.5px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: #9ca3af;
-      margin-bottom: 2px;
-      font-family: 'JetBrains Mono', monospace;
+    .hero-image-card:hover {
+      border-color: #cbd5e1;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
     }
 
-    .step-name {
-      font-size: 14px;
-      font-weight: 700;
-      color: #111827;
-      margin-bottom: 6px;
-    }
-
-    .step-desc {
-      font-size: 11px;
-      color: #6b7280;
-      line-height: 1.4;
-      margin-bottom: 12px;
-    }
-
-    .step-tag {
-      font-size: 9.5px;
-      font-weight: 600;
-      font-family: 'JetBrains Mono', monospace;
-      padding: 3px 8px;
-      border-radius: 4px;
-      background: #f3f4f6;
-      color: #4b5563;
-      display: inline-block;
-      margin: 0 auto;
+    .hero-illustration-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 15px;
     }
 
     /* Main Prose Section */
@@ -452,87 +374,27 @@ export const BENCHMARK_BLOG_HTML = `<!DOCTYPE html>
       font-weight: 600;
     }
 
-    /* Key Metrics Multi-Card Container matching Image 3 */
-    .metrics-showcase-wrap {
-      background: #f4f5f7;
-      border-radius: 20px;
-      padding: 36px 32px;
+    /* Key Metrics Multi-Card Container */
+    .showcase-image-card {
       margin: 40px 0;
-    }
-
-    .metrics-showcase-title {
-      font-size: 24px;
-      font-weight: 700;
-      color: #111827;
-      text-align: center;
-      margin-bottom: 24px;
-      letter-spacing: -0.02em;
-    }
-
-    .metric-tier-card {
-      background: #ffffff;
       border: 1px solid #e5e7eb;
-      border-radius: 12px;
-      padding: 20px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 14px;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+      border-radius: 16px;
+      overflow: hidden;
+      background: #ffffff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+      transition: border-color 0.15s, box-shadow 0.15s;
     }
 
-    .metric-tier-card:last-child { margin-bottom: 0; }
-
-    .tier-left {
-      display: flex;
-      align-items: center;
-      gap: 16px;
+    .showcase-image-card:hover {
+      border-color: #cbd5e1;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
     }
 
-    .tier-icon-box {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-    }
-
-    .icon-flame { background: #fef2f2; color: #ef4444; }
-    .icon-scale { background: #eff6ff; color: #3b82f6; }
-    .icon-bolt { background: #f5f3ff; color: #8b5cf6; }
-
-    .tier-info-header {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #f0523d;
-      font-family: 'JetBrains Mono', monospace;
-      margin-bottom: 2px;
-    }
-
-    .tier-title {
-      font-size: 18px;
-      font-weight: 700;
-      color: #111827;
-    }
-
-    .tier-subtext {
-      font-size: 13px;
-      color: #6b7280;
-    }
-
-    .tier-pill-badge {
-      background: #f1f5f9;
-      border: 1px solid #e2e8f0;
-      color: #334155;
-      font-size: 12.5px;
-      font-weight: 600;
-      font-family: 'JetBrains Mono', monospace;
-      padding: 6px 14px;
-      border-radius: 6px;
+    .showcase-illustration-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 15px;
     }
 
     /* Minimalist Data Tables */
@@ -683,7 +545,6 @@ export const BENCHMARK_BLOG_HTML = `<!DOCTYPE html>
       .hero-grid { grid-template-columns: 1fr; gap: 32px; }
       .nav-center-links { display: none; }
       .article-title { font-size: 32px; }
-      .pipeline-steps-row { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
@@ -758,55 +619,14 @@ export const BENCHMARK_BLOG_HTML = `<!DOCTYPE html>
         </div>
       </aside>
 
-      <!-- Right Visual Architecture Card matching Image 1 -->
-      <div class="hero-diagram-card">
-        <h3 class="diagram-title">The ProjectSPG Sovereign Privacy Pipeline</h3>
-        
-        <div class="pipeline-steps-row">
-          <!-- Step 1 -->
-          <div class="pipeline-step-box">
-            <div>
-              <div class="step-icon-circle">⚡</div>
-              <div class="step-num">STEP 01</div>
-              <div class="step-name">Intercept</div>
-              <div class="step-desc">Sub-millisecond prompt ingestion at the edge.</div>
-            </div>
-            <span class="step-tag">&lt;1ms P99</span>
-          </div>
-
-          <!-- Step 2 -->
-          <div class="pipeline-step-box">
-            <div>
-              <div class="step-icon-circle">🛡️</div>
-              <div class="step-num">STEP 02</div>
-              <div class="step-name">De-Identify</div>
-              <div class="step-desc">Tokenize sensitive PII into cryptographic surrogates.</div>
-            </div>
-            <span class="step-tag">109 Jurisdictions</span>
-          </div>
-
-          <!-- Step 3: Highlighted Box matching Image 1 -->
-          <div class="pipeline-step-box highlight">
-            <div>
-              <div class="step-icon-circle" style="background: rgba(255,255,255,0.2); color:#ffffff;">🔒</div>
-              <div class="step-num">STEP 03 • ZERO TRUST</div>
-              <div class="step-name">Inference</div>
-              <div class="step-desc">Upstream frontier LLMs compute on zero private data.</div>
-            </div>
-            <span class="step-tag">Zero Exposure</span>
-          </div>
-
-          <!-- Step 4 -->
-          <div class="pipeline-step-box">
-            <div>
-              <div class="step-icon-circle">🌊</div>
-              <div class="step-num">STEP 04</div>
-              <div class="step-name">Rehydrate</div>
-              <div class="step-desc">Streaming SSE chunks restored bit-for-bit in flight.</div>
-            </div>
-            <span class="step-tag">100.00% Fidelity</span>
-          </div>
-        </div>
+      <!-- Right Visual Architecture Card -->
+      <div class="hero-image-card">
+        <img 
+          src="/images/benchmark-routing-engine.png" 
+          alt="The ProjectSPG Sovereign Jurisdiction Routing Engine" 
+          class="hero-illustration-img"
+          loading="eager"
+        />
       </div>
 
     </div>
@@ -828,47 +648,13 @@ export const BENCHMARK_BLOG_HTML = `<!DOCTYPE html>
       </p>
 
       <!-- Key Metrics Showcase Canvas -->
-      <div class="metrics-showcase-wrap">
-        <h3 class="metrics-showcase-title">Empirical Benchmark Highlights</h3>
-
-        <!-- Card 1 -->
-        <div class="metric-tier-card">
-          <div class="tier-left">
-            <div class="tier-icon-box icon-flame">✓</div>
-            <div>
-              <div class="tier-info-header">FIDELITY AUDIT</div>
-              <div class="tier-title">100.00% Exact Roundtrip</div>
-              <div class="tier-subtext">9,334,805 / 9,334,805 bit-for-bit exact equality, 0 collisions</div>
-            </div>
-          </div>
-          <div class="tier-pill-badge">0 Mismatches</div>
-        </div>
-
-        <!-- Card 2 -->
-        <div class="metric-tier-card">
-          <div class="tier-left">
-            <div class="tier-icon-box icon-scale">⚡</div>
-            <div>
-              <div class="tier-info-header">ENGINE THROUGHPUT</div>
-              <div class="tier-title">17,735 Prompts / Sec</div>
-              <div class="tier-subtext">Parallel multi-core V8 execution across all 94 row groups</div>
-            </div>
-          </div>
-          <div class="tier-pill-badge">84x vs Presidio</div>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="metric-tier-card">
-          <div class="tier-left">
-            <div class="tier-icon-box icon-bolt">⏱️</div>
-            <div>
-              <div class="tier-info-header">COMPUTE LATENCY</div>
-              <div class="tier-title">86 µs Median Latency (p50)</div>
-              <div class="tier-subtext">0.086 ms per prompt de-identification compute time</div>
-            </div>
-          </div>
-          <div class="tier-pill-badge">&lt;0.1 ms Overhead</div>
-        </div>
+      <div class="showcase-image-card">
+        <img 
+          src="/images/empirical-benchmark-highlights.png" 
+          alt="Empirical Benchmark Highlights: 100.00% Exact Roundtrip Accuracy, 17,735 Prompts/Sec, 86 µs Median Latency" 
+          class="showcase-illustration-img"
+          loading="lazy"
+        />
       </div>
 
       <div class="prose-quote">
