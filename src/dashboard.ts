@@ -487,13 +487,13 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               </div>
 
               <!-- Main Headline matching ProjectSPG -->
-              <h1 class="text-3xl sm:text-5xl lg:text-[62px] leading-[1.12] sm:leading-[1.08] font-normal tracking-tight text-gray-950 mb-5 sm:mb-6 font-sans">
+              <h1 class="text-3xl sm:text-5xl lg:text-[62px] leading-[1.12] sm:leading-[1.08] font-medium tracking-tight text-gray-950 mb-5 sm:mb-6 font-sans" style="font-weight: 500;">
                 Build what's next <br/>
-                <span class="text-slate-500">on the Private Cloud</span>
+                <span class="text-slate-500 font-medium" style="font-weight: 500;">on the Private Cloud</span>
               </h1>
 
               <!-- Subtitle -->
-              <p class="text-sm sm:text-base lg:text-lg text-slate-700 font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0 mb-7 sm:mb-8">
+              <p class="text-sm sm:text-base lg:text-lg text-slate-700 font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0 mb-7 sm:mb-8" style="font-weight: 400;">
                 The high-performance AI privacy and routing layer. Real-time zero-knowledge de-identification, 10 sovereign regulatory compliance packs, and instant multi-provider LLM orchestration with sub-millisecond overhead.
               </p>
 
