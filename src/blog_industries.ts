@@ -9,21 +9,21 @@ export const INDUSTRIES_BLOG_HTML = `<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Enterprise Guardrails for Regulated Industries: Healthcare, FinTech, Legal & Defense | ProjectSPG</title>
+  <title>Enterprise Guardrails for Regulated Industries: Healthcare, FinTech & Legal | ProjectSPG</title>
   <meta name="description" content="Explore how ProjectSPG sanitizes, protects, and secures sensitive enterprise data across healthcare (HIPAA), banking (PCI-DSS/GLBA), legal privilege, defense (ITAR), and DevSecOps.">
   <meta name="keywords" content="Enterprise AI Privacy, HIPAA LLM Guardrails, FinTech AI Security, PCI-DSS Masking, Legal Privilege AI Proxy, ITAR Defense AI, PII Redaction, Tokenization Engine">
   
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://projectspg.info/blog/industries">
-  <meta property="og:title" content="Enterprise Guardrails for Regulated Industries: Healthcare, FinTech, Legal & Defense">
+  <meta property="og:title" content="Enterprise Guardrails for Regulated Industries: Healthcare, FinTech & Legal">
   <meta property="og:description" content="How ProjectSPG eliminates cross-border PII leakage, protects clinical PHI under HIPAA, secures banking assets under PCI-DSS, and preserves legal privilege without code changes.">
   <meta property="og:image" content="https://projectspg.info/og-industries.png">
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://projectspg.info/blog/industries">
-  <meta property="twitter:title" content="Enterprise Guardrails for Regulated Industries: Healthcare, FinTech, Legal & Defense">
+  <meta property="twitter:title" content="Enterprise Guardrails for Regulated Industries: Healthcare, FinTech & Legal">
   <meta property="twitter:description" content="How ProjectSPG eliminates cross-border PII leakage, protects clinical PHI under HIPAA, secures banking assets under PCI-DSS, and preserves legal privilege without code changes.">
 
   <!-- Schema.org TechArticle JSON-LD for Google SEO -->
@@ -31,7 +31,7 @@ export const INDUSTRIES_BLOG_HTML = `<!DOCTYPE html>
   {
     "@context": "https://schema.org",
     "@type": "TechArticle",
-    "headline": "Enterprise Guardrails for Regulated Industries: Healthcare, FinTech, Legal & Defense",
+    "headline": "Enterprise Guardrails for Regulated Industries: Healthcare, FinTech & Legal",
     "description": "Comprehensive analysis of sector-specific AI threat models, regulatory mandates (HIPAA, PCI-DSS, GLBA, ITAR), and cryptographic sanitization architecture implemented by ProjectSPG.",
     "author": {
       "@type": "Person",
@@ -121,22 +121,18 @@ export const INDUSTRIES_BLOG_HTML = `<!DOCTYPE html>
       display: flex;
       align-items: center;
       gap: 28px;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-
-    .nav-center-links a {
-      color: #4b5563;
-      text-decoration: none;
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: 500;
-      transition: color 0.15s ease;
+      color: #4b5563;
     }
 
-    .nav-center-links a:hover {
-      color: #0f172a;
+    .nav-link {
+      text-decoration: none;
+      color: #4b5563;
+      transition: color 0.15s;
     }
+
+    .nav-link:hover { color: #111827; }
 
     .nav-right-actions {
       display: flex;
@@ -144,391 +140,576 @@ export const INDUSTRIES_BLOG_HTML = `<!DOCTYPE html>
       gap: 14px;
     }
 
-    .btn-nav-primary {
-      background: #0f172a;
-      color: #ffffff;
-      padding: 8px 18px;
-      border-radius: 8px;
-      font-size: 13.5px;
-      font-weight: 600;
+    .btn-contact {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #111827;
       text-decoration: none;
-      transition: background 0.15s;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 6px 12px;
+      transition: color 0.15s;
     }
 
-    .btn-nav-primary:hover {
-      background: #1e293b;
-    }
+    .btn-contact:hover { color: #f0523d; }
 
-    /* Article layout */
-    .article-container {
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 56px 24px 100px 24px;
-    }
-
-    /* Badges & Meta */
-    .badge-category {
-      display: inline-block;
-      background: #f3f4f6;
-      color: #374151;
-      font-size: 11px;
+    .btn-signin {
+      background: #000000;
+      color: #ffffff;
+      font-size: 11.5px;
       font-weight: 700;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      padding: 4px 10px;
+      padding: 9px 18px;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+
+    .btn-signin:hover { opacity: 0.85; }
+
+    /* Page Container */
+    .article-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    /* Article Header */
+    .article-header {
+      margin-bottom: 48px;
+    }
+
+    .meta-pills {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .badge-category {
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
+      color: #374151;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 3px 9px;
       border-radius: 4px;
       font-family: 'JetBrains Mono', monospace;
     }
 
-    .post-date {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      color: #6b7280;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-left: 14px;
-    }
-
-    /* Typography */
-    h1.article-title {
-      font-size: 42px;
-      line-height: 1.18;
-      font-weight: 800;
-      color: #0f172a;
-      letter-spacing: -0.03em;
-      margin-top: 18px;
-      margin-bottom: 20px;
-    }
-
-    p.article-subtitle {
-      font-size: 19px;
-      line-height: 1.6;
-      color: #4b5563;
-      font-weight: 400;
-      margin-bottom: 36px;
-    }
-
-    /* Top Grid: Left TOC/Author, Right Visual Preview */
-    .top-hero-grid {
-      display: grid;
-      grid-template-columns: 280px 1fr;
-      gap: 36px;
-      margin-bottom: 48px;
-      align-items: start;
-    }
-
-    .author-card {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 28px;
-    }
-
-    .author-avatar {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: 700;
-      font-size: 16px;
-    }
-
-    .author-name {
+    .meta-date {
+      font-size: 11px;
       font-weight: 600;
-      font-size: 14.5px;
-      color: #111827;
-      line-height: 1.25;
+      color: #6b7280;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-family: 'JetBrains Mono', monospace;
     }
 
-    .author-role {
-      font-size: 12px;
+    .article-title {
+      font-size: 42px;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      color: #111827;
+      margin-bottom: 18px;
+    }
+
+    .article-lede {
+      font-size: 18px;
       color: #6b7280;
+      line-height: 1.6;
+      max-width: 880px;
       font-weight: 400;
     }
 
-    .toc-title {
+    /* Top Grid: Left Meta + Right Visual Diagram */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 48px;
+      margin-bottom: 56px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid #f3f4f6;
+    }
+
+    .meta-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .meta-section-title {
       font-size: 11px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       color: #9ca3af;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
       font-family: 'JetBrains Mono', monospace;
     }
 
+    .authors-text {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1f2937;
+      line-height: 1.4;
+    }
+
     .toc-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
       display: flex;
       flex-direction: column;
       gap: 8px;
     }
 
-    .toc-list a {
+    .toc-item {
+      font-size: 13.5px;
+      font-weight: 500;
       color: #4b5563;
       text-decoration: none;
-      font-size: 13.5px;
-      line-height: 1.4;
       transition: color 0.15s;
     }
 
-    .toc-list a:hover {
-      color: #f0523d;
-      font-weight: 500;
-    }
+    .toc-item:hover { color: #111827; font-weight: 600; }
 
-    /* Visual preview card (Right side) */
-    .hero-visual-card {
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      background: #fafafa;
-      overflow: hidden;
-      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
-    }
-
-    .hero-visual-header {
-      padding: 14px 18px;
-      border-bottom: 1px solid var(--border);
+    /* Visual Architecture Box on Right */
+    .hero-diagram-card {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 36px 32px;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: space-between;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+
+    .diagram-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 28px;
+      letter-spacing: -0.02em;
+      text-align: center;
+    }
+
+    .pipeline-steps-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      width: 100%;
+    }
+
+    .pipeline-step-box {
       background: #ffffff;
-      font-size: 12px;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 18px 14px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 170px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+      transition: transform 0.15s, border-color 0.15s;
+    }
+
+    .pipeline-step-box:hover {
+      transform: translateY(-2px);
+      border-color: #cbd5e1;
+    }
+
+    .pipeline-step-box.highlight {
+      background: #f0523d;
+      border-color: #f0523d;
+      color: #ffffff;
+    }
+
+    .pipeline-step-box.highlight .step-num { color: rgba(255,255,255,0.8); }
+    .pipeline-step-box.highlight .step-name { color: #ffffff; }
+    .pipeline-step-box.highlight .step-desc { color: rgba(255,255,255,0.9); }
+    .pipeline-step-box.highlight .step-tag { background: rgba(255,255,255,0.2); color: #ffffff; }
+
+    .step-icon-circle {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #f3f4f6;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      margin: 0 auto 8px;
+    }
+
+    .step-num {
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #9ca3af;
+      margin-bottom: 2px;
       font-family: 'JetBrains Mono', monospace;
+    }
+
+    .step-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 6px;
+    }
+
+    .step-desc {
+      font-size: 11px;
+      color: #6b7280;
+      line-height: 1.4;
+      margin-bottom: 12px;
+    }
+
+    .step-tag {
+      font-size: 9.5px;
+      font-weight: 600;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: #f3f4f6;
       color: #4b5563;
+      display: inline-block;
+      margin: 0 auto;
     }
 
-    .hero-visual-body {
-      padding: 24px;
-      background: #0f121d;
-      color: #f8fafc;
+    /* Main Prose Section */
+    .prose-content {
+      max-width: 820px;
+      margin: 0 auto;
     }
 
-    /* Editorial Blue Callout */
     .editorial-callout {
-      background: #f0f7ff;
-      border: 1px solid #c7e1fe;
-      border-left: 4px solid #2563eb;
-      border-radius: 8px;
-      padding: 22px 26px;
-      margin: 36px 0;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 14px;
+      padding: 24px 28px;
+      margin-bottom: 36px;
       font-size: 15.5px;
       color: #1e3a8a;
       line-height: 1.7;
     }
 
-    .editorial-callout strong {
-      color: #1e3a8a;
-      font-weight: 700;
+    .prose-p {
+      font-size: 16.5px;
+      color: #374151;
+      line-height: 1.8;
+      margin-bottom: 24px;
     }
 
-    /* Metric cards 4-col */
-    .metric-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin: 36px 0;
+    .prose-quote {
+      border-left: 2px solid #e5e7eb;
+      padding-left: 20px;
+      font-size: 15.5px;
+      color: #6b7280;
+      font-style: italic;
+      margin: 32px 0;
+      line-height: 1.7;
     }
 
-    .metric-card {
-      background: #ffffff;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 20px 18px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .metric-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, #8b5cf6, #ec4899);
-    }
-
-    .metric-val {
+    .prose-h2 {
       font-size: 28px;
       font-weight: 800;
-      color: #0f172a;
-      font-family: 'JetBrains Mono', monospace;
-      line-height: 1.1;
-      margin-bottom: 6px;
+      letter-spacing: -0.02em;
+      color: #111827;
+      margin-top: 48px;
+      margin-bottom: 18px;
+      scroll-margin-top: 80px;
     }
 
-    .metric-sub {
-      font-size: 12px;
-      color: #6b7280;
-      font-weight: 500;
-      line-height: 1.35;
-    }
-
-    /* Clean Pro Data Tables */
-    .pro-table-wrapper {
-      margin: 32px 0;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      overflow-x: auto;
-      background: #ffffff;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
-    }
-
-    .pro-table {
-      width: 100%;
-      border-collapse: collapse;
-      text-align: left;
-      font-size: 13.5px;
-    }
-
-    .pro-table th {
-      background: #f8fafc;
-      padding: 13px 18px;
+    .prose-h3 {
+      font-size: 20px;
       font-weight: 700;
-      color: #1e293b;
-      border-bottom: 1px solid var(--border);
-      font-size: 12px;
-      letter-spacing: 0.03em;
-      text-transform: uppercase;
-      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: -0.01em;
+      color: #111827;
+      margin-top: 32px;
+      margin-bottom: 14px;
     }
 
-    .pro-table td {
-      padding: 13px 18px;
-      border-bottom: 1px solid #f1f5f9;
-      color: #334155;
-      vertical-align: middle;
+    .prose-ul {
+      list-style-type: none;
+      padding: 0;
+      margin-bottom: 28px;
     }
 
-    .pro-table tr:last-child td {
-      border-bottom: none;
+    .prose-li {
+      position: relative;
+      padding-left: 20px;
+      margin-bottom: 10px;
+      font-size: 16px;
+      color: #374151;
+      line-height: 1.7;
     }
 
-    .pro-table tr:hover td {
-      background: #f8fafc;
+    .prose-li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: #9ca3af;
+      font-weight: bold;
     }
 
-    .table-tag {
-      display: inline-block;
-      padding: 2px 7px;
-      border-radius: 4px;
-      font-size: 11px;
-      font-family: 'JetBrains Mono', monospace;
+    .prose-li strong {
+      color: #111827;
       font-weight: 600;
     }
 
-    .tag-blue { background: #dbeafe; color: #1e40af; }
-    .tag-purple { background: #f3e8ff; color: #6b21a8; }
-    .tag-green { background: #dcfce7; color: #166534; }
-    .tag-amber { background: #fef3c7; color: #92400e; }
-    .tag-rose { background: #ffe4e6; color: #9f1239; }
+    /* Key Metrics Multi-Card Container */
+    .metrics-showcase-wrap {
+      background: #f4f5f7;
+      border-radius: 20px;
+      padding: 36px 32px;
+      margin: 40px 0;
+    }
+
+    .metrics-showcase-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #111827;
+      text-align: center;
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+    }
+
+    .metric-tier-card {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+
+    .metric-tier-card:last-child { margin-bottom: 0; }
+
+    .tier-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .tier-icon-box {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .icon-flame { background: #fef2f2; color: #ef4444; }
+    .icon-scale { background: #eff6ff; color: #3b82f6; }
+    .icon-bolt { background: #f5f3ff; color: #8b5cf6; }
+
+    .tier-info-header {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #f0523d;
+      font-family: 'JetBrains Mono', monospace;
+      margin-bottom: 2px;
+    }
+
+    .tier-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .tier-subtext {
+      font-size: 13px;
+      color: #6b7280;
+    }
+
+    .tier-pill-badge {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      color: #334155;
+      font-size: 12.5px;
+      font-weight: 600;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 6px 14px;
+      border-radius: 6px;
+    }
+
+    /* Minimalist Data Tables */
+    .clean-table-card {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow-x: auto;
+      margin: 28px 0;
+      background: #ffffff;
+    }
+
+    .clean-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    .clean-table th {
+      background: #f9fafb;
+      color: #374151;
+      font-weight: 600;
+      font-size: 11.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 12px 18px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .clean-table td {
+      padding: 12px 18px;
+      border-bottom: 1px solid var(--border);
+      color: #374151;
+    }
+
+    .clean-table tr:last-child td { border-bottom: none; }
+    .clean-table tr:hover td { background: #fafafa; }
+    .mono { font-family: 'JetBrains Mono', monospace; font-size: 13px; }
+
+    /* Subsector Card Container */
+    .subsector-card {
+      margin-top: 24px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+    }
+
+    .subsector-header {
+      font-size: 17px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Terminal Code Block */
+    .terminal-wrapper {
+      background: #0f172a;
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 28px 0;
+    }
+
+    .terminal-top-bar {
+      background: #1e293b;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #94a3b8;
+      font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .terminal-copy-btn {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #e2e8f0;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 10.5px;
+      cursor: pointer;
+    }
+
+    .terminal-pre {
+      padding: 18px 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #e2e8f0;
+      overflow-x: auto;
+    }
 
     /* Interactive Verifier Box */
     .verifier-box {
       border: 1px solid var(--border);
       border-radius: 12px;
-      background: #ffffff;
       padding: 24px;
-      margin: 40px 0;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+      margin: 32px 0;
+      background: #fafafa;
     }
 
     .verifier-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 18px;
-      padding-bottom: 14px;
-      border-bottom: 1px solid #f1f5f9;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 10px;
     }
 
-    /* Terminal reproduction box */
-    .terminal-box {
-      background: #0b0f19;
-      color: #f1f5f9;
-      border-radius: 10px;
-      overflow: hidden;
+    .verifier-input {
+      width: 100%;
+      height: 90px;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
       font-family: 'JetBrains Mono', monospace;
       font-size: 13px;
-      margin: 32px 0;
-      box-shadow: 0 6px 24px rgba(0,0,0,0.15);
-      border: 1px solid #1e293b;
+      outline: none;
+      resize: vertical;
+      background: #ffffff;
+      margin-bottom: 12px;
     }
 
-    .terminal-header {
-      background: #151c2d;
-      padding: 10px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid #1e293b;
-      font-size: 12px;
-      color: #94a3b8;
+    .verifier-input:focus { border-color: #000000; }
+
+    .verifier-output {
+      padding: 12px;
+      border-radius: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      min-height: 90px;
+      word-break: break-all;
+      white-space: pre-wrap;
     }
 
-    .terminal-dots {
-      display: flex;
-      gap: 6px;
+    .table-tag {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
     }
-
-    .t-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-    }
-
-    .t-red { background: #ef4444; }
-    .t-yellow { background: #eab308; }
-    .t-green { background: #22c55e; }
-
-    .terminal-body {
-      padding: 20px;
-      overflow-x: auto;
-      line-height: 1.65;
-    }
-
-    .t-prompt { color: #38bdf8; user-select: none; }
-    .t-cmd { color: #f8fafc; font-weight: 600; }
-    .t-comment { color: #64748b; }
-    .t-out { color: #94a3b8; }
-    .t-success { color: #4ade80; }
-    .t-accent { color: #f0523d; }
-
-    /* Related articles footer */
-    .related-section {
-      margin-top: 72px;
-      padding-top: 48px;
-      border-top: 1px solid var(--border);
-    }
-
-    .related-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      margin-top: 24px;
-    }
+    .tag-blue { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+    .tag-purple { background: #faf5ff; color: #7e22ce; border: 1px solid #e9d5ff; }
+    .tag-green { background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; }
+    .tag-amber { background: #fffbeb; color: #b45309; border: 1px solid #fde68a; }
+    .tag-rose { background: #fff1f2; color: #be123c; border: 1px solid #fecdd3; }
 
     @media (max-width: 900px) {
-      .top-hero-grid { grid-template-columns: 1fr; }
-      .metric-grid { grid-template-columns: repeat(2, 1fr); }
-      .related-grid { grid-template-columns: 1fr; }
-      .site-nav { padding: 0 16px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 32px; }
       .nav-center-links { display: none; }
-      h1.article-title { font-size: 32px; }
+      .article-title { font-size: 32px; }
+      .pipeline-steps-row { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Top Clean Floating Navbar -->
-  <header class="site-nav">
+  <!-- Top Clean Navigation Bar -->
+  <nav class="site-nav">
     <a href="/" class="nav-brand">
       <div class="brand-dots">
         <span class="dot dot-pink"></span>
@@ -538,529 +719,518 @@ export const INDUSTRIES_BLOG_HTML = `<!DOCTYPE html>
       <span>project<span style="color:#f0523d;">spg</span></span>
     </a>
 
-    <nav>
-      <ul class="nav-center-links">
-        <li><a href="/#platform-section">Platform</a></li>
-        <li><a href="/#research-section">Research</a></li>
-        <li><a href="/blog/benchmark">Benchmark</a></li>
-        <li><a href="/blog/countries">Countries</a></li>
-        <li><a href="/blog/industries" style="color: #f0523d; font-weight: 600;">Industries</a></li>
-        <li><a href="/#access-section">Private Access</a></li>
-        <li><a href="/dashboard#docs">Docs</a></li>
-        <li><a href="/dashboard#playground">Playground</a></li>
-      </ul>
-    </nav>
+    <div class="nav-center-links">
+      <a href="/#features" class="nav-link">Inference</a>
+      <a href="/#research-section" class="nav-link">Research</a>
+      <a href="/#news-section" class="nav-link">Blog</a>
+      <a href="/dashboard" class="nav-link">Playground</a>
+      <a href="https://github.com/PriyanujBoruah/AI-Privacy-Core" target="_blank" class="nav-link">Developers</a>
+    </div>
 
     <div class="nav-right-actions">
-      <a href="/#access-section" style="color:#4b5563; font-size:13.5px; font-weight:500; text-decoration:none; margin-right:6px;" class="hidden sm:inline-block">Request Access</a>
-      <a href="/dashboard" class="btn-nav-primary">Get Started</a>
+      <a href="/" class="btn-contact">OVERVIEW</a>
+      <a href="/dashboard" class="btn-signin">CONSOLE</a>
     </div>
-  </header>
+  </nav>
 
-  <!-- Main Editorial Container -->
-  <article class="article-container">
+  <!-- Article Wrapper -->
+  <article class="article-wrap">
     
-    <!-- Category & Date Header -->
-    <div style="display: flex; align-items: center; margin-bottom: 8px;">
-      <span class="badge-category">ENTERPRISE</span>
-      <span class="post-date">PUBLISHED 9/30/2026</span>
-    </div>
+    <!-- Article Header -->
+    <header class="article-header">
+      <div class="meta-pills">
+        <span class="badge-category">ENTERPRISE</span>
+        <span class="meta-date">PUBLISHED 9/30/2026</span>
+      </div>
+      <h1 class="article-title">
+        Enterprise Guardrails for Regulated Industries: Healthcare, FinTech &amp; Legal
+      </h1>
+      <p class="article-lede">
+        A comprehensive technical deep-dive into how ProjectSPG sanitizes, protects, and cryptographically secures clinical PHI, banking ledger records, attorney-client privileged memos, defense parameters, and cloud credentials before payload egress to public LLMs.
+      </p>
+    </header>
 
-    <!-- Title & Subtitle -->
-    <h1 class="article-title">
-      Enterprise Guardrails for Regulated Industries: Healthcare, FinTech, Legal &amp; Defense
-    </h1>
-
-    <p class="article-subtitle">
-      A comprehensive technical deep-dive into how ProjectSPG sanitizes, protects, and cryptographically secures clinical PHI, banking ledger records, attorney-client privileged memos, defense parameters, and cloud credentials before payload egress to public LLMs.
-    </p>
-
-    <!-- Top Hero Grid: Left TOC/Author, Right Live Architecture Card -->
-    <div class="top-hero-grid">
+    <!-- Top Grid: Metadata Sidebar on Left + Hero Pipeline Diagram on Right -->
+    <div class="hero-grid">
       
-      <!-- Left Column: Author & Dynamic Jump Links -->
-      <div>
-        <div class="author-card">
-          <div class="author-avatar">PB</div>
-          <div>
-            <div class="author-name">Priyanuj Boruah</div>
-            <div class="author-role">Founder &amp; Lead Architect, ProjectSPG</div>
+      <!-- Left Metadata & Table of Contents Sidebar -->
+      <aside class="meta-sidebar">
+        <div>
+          <div class="meta-section-title">AUTHORS</div>
+          <div class="authors-text">
+            Priyanuj Boruah, ProjectSPG Research
           </div>
         </div>
 
-        <div class="toc-title">TABLE OF CONTENTS</div>
-        <ul class="toc-list">
-          <li><a href="#threat-landscape">1. Industry AI Threat Landscape</a></li>
-          <li><a href="#healthcare">2. Healthcare &amp; Life Sciences (HIPAA)</a></li>
-          <li><a href="#fintech">3. Banking &amp; Capital Markets (PCI/GLBA)</a></li>
-          <li><a href="#legal">4. Legal &amp; Corporate Counsel</a></li>
-          <li><a href="#defense">5. Defense, Aerospace &amp; GovCloud</a></li>
-          <li><a href="#devsecops">6. DevSecOps &amp; Cloud Secrets</a></li>
-          <li><a href="#taxonomy">7. Entity Sanitization Taxonomy</a></li>
-          <li><a href="#sandbox">8. Interactive Industry Testbed</a></li>
-          <li><a href="#implementation">9. Enterprise Architecture Deployment</a></li>
-        </ul>
-      </div>
-
-      <!-- Right Column: Visual Telemetry Card -->
-      <div class="hero-visual-card">
-        <div class="hero-visual-header">
-          <span style="display:flex; align-items:center; gap:8px;">
-            <span style="width:8px; height:8px; border-radius:50%; background:#8b5cf6;"></span>
-            SECTOR THREAT MODEL DISPATCH
-          </span>
-          <span style="color:#64748b;">40+ ASSET CLASSES PROTECTED</span>
+        <div>
+          <div class="meta-section-title">TABLE OF CONTENTS</div>
+          <nav class="toc-list">
+            <a href="#threat-landscape" class="toc-item">1. AI Threat Landscape</a>
+            <a href="#healthcare" class="toc-item">2. Healthcare &amp; Life Sciences</a>
+            <a href="#fintech" class="toc-item">3. Banking &amp; Capital Markets</a>
+            <a href="#legal" class="toc-item">4. Legal &amp; Corporate Counsel</a>
+            <a href="#defense" class="toc-item">5. Defense &amp; GovCloud (ITAR)</a>
+            <a href="#devsecops" class="toc-item">6. DevSecOps &amp; Secrets</a>
+            <a href="#taxonomy" class="toc-item">7. Sanitization Taxonomy</a>
+            <a href="#sandbox" class="toc-item">8. Industry Testbed Sandbox</a>
+            <a href="#implementation" class="toc-item">9. Enterprise Architecture</a>
+          </nav>
         </div>
-        <div class="hero-visual-body">
-          <div style="font-size: 13px; font-family: 'JetBrains Mono', monospace; color: #94a3b8; margin-bottom: 16px;">
-            // Real-time zero-knowledge sector guardrails:
+      </aside>
+
+      <!-- Right Visual Architecture Card -->
+      <div class="hero-diagram-card">
+        <h3 class="diagram-title">The Enterprise Regulated Guardrails Pipeline</h3>
+        
+        <div class="pipeline-steps-row">
+          <!-- Step 1 -->
+          <div class="pipeline-step-box">
+            <div>
+              <div class="step-icon-circle">🏥</div>
+              <div class="step-num">STEP 01</div>
+              <div class="step-name">Classify</div>
+              <div class="step-desc">Immediate parsing across HIPAA, PCI-DSS, ITAR &amp; Legal drafts.</div>
+            </div>
+            <span class="step-tag">40+ Asset Classes</span>
           </div>
 
-          <!-- Mini Sector Grid in Hero -->
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-family: 'JetBrains Mono', monospace; font-size: 12px;">
-            <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08);">
-              <div style="color: #ec4899; font-weight:700;">HEALTHCARE (HIPAA)</div>
-              <div style="color: #cbd5e1; font-size: 11px; margin-top: 4px;">45 CFR § 164.514 Safe Harbor</div>
-              <div style="color: #4ade80; font-size: 10.5px; margin-top: 2px;">MRN, ICD-10, HICN, Rx, Specimen IDs</div>
+          <!-- Step 2: Highlighted Box -->
+          <div class="pipeline-step-box highlight">
+            <div>
+              <div class="step-icon-circle" style="background: rgba(255,255,255,0.2); color:#ffffff;">🛡️</div>
+              <div class="step-num">STEP 02 • IN-FLIGHT</div>
+              <div class="step-name">De-Identify</div>
+              <div class="step-desc">Clinical PHI, financial PANs &amp; secrets tokenized to surrogates.</div>
             </div>
-
-            <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08);">
-              <div style="color: #38bdf8; font-weight:700;">FINTECH &amp; BANKING</div>
-              <div style="color: #cbd5e1; font-size: 11px; margin-top: 4px;">PCI-DSS v4.0, GLBA Safeguards</div>
-              <div style="color: #4ade80; font-size: 10.5px; margin-top: 2px;">PAN (Luhn), IBAN (Mod-97), SWIFT, Wire</div>
-            </div>
-
-            <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08);">
-              <div style="color: #f59e0b; font-weight:700;">LEGAL &amp; M&amp;A COUNSEL</div>
-              <div style="color: #cbd5e1; font-size: 11px; margin-top: 4px;">Attorney-Client Privilege, MNPI</div>
-              <div style="color: #4ade80; font-size: 10.5px; margin-top: 2px;">Merger Targets, Deal Caps, Depositions</div>
-            </div>
-
-            <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08);">
-              <div style="color: #a855f7; font-weight:700;">DEVSECOPS &amp; DEFENSE</div>
-              <div style="color: #cbd5e1; font-size: 11px; margin-top: 4px;">ITAR, CMMC 2.0, SOC 2 Type II</div>
-              <div style="color: #4ade80; font-size: 10.5px; margin-top: 2px;">API Keys, JWTs, DB URIs, Weapons Specs</div>
-            </div>
+            <span class="step-tag">Zero Raw Egress</span>
           </div>
 
-          <div style="margin-top: 18px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: space-between; font-size: 11.5px; font-family: 'JetBrains Mono', monospace;">
-            <span style="color: #4ade80;">● ACTIVE SECTOR SHIELDS: 100% IN-FLIGHT</span>
-            <span style="color: #94a3b8;">ZERO RETENTION • REVERSIBLE SURROGATES</span>
+          <!-- Step 3 -->
+          <div class="pipeline-step-box">
+            <div>
+              <div class="step-icon-circle">🔒</div>
+              <div class="step-num">STEP 03</div>
+              <div class="step-name">Zero-Trust</div>
+              <div class="step-desc">Frontier LLMs compute over safe cryptographic tokens.</div>
+            </div>
+            <span class="step-tag">Full Utility</span>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="pipeline-step-box">
+            <div>
+              <div class="step-icon-circle">⚡</div>
+              <div class="step-num">STEP 04</div>
+              <div class="step-name">Rehydrate</div>
+              <div class="step-desc">Streaming responses restored with bit-for-bit fidelity.</div>
+            </div>
+            <span class="step-tag">100.00% Fidelity</span>
           </div>
         </div>
       </div>
 
     </div>
 
-    <!-- Editorial Blue Callout on Industry Liabilities -->
-    <div class="editorial-callout">
-      <strong>The Regulated Industry AI Exposure Reality:</strong> A single employee copying an unredacted patient discharge summary into ChatGPT triggers a Tier 4 HIPAA violation costing up to <strong>$2,000,000 annually</strong> in civil monetary penalties. A financial analyst inputting acquisition balance sheets forfeits non-public material information (MNPI) under SEC and FINRA rules. A corporate litigator analyzing client settlement terms waives <strong>Attorney-Client Privilege</strong> under Federal Rule of Evidence 502. ProjectSPG renders outbound tokens mathematically unidentifiable at the edge before packet departure, shielding enterprises from catastrophic regulatory and evidentiary forfeiture.
-    </div>
+    <!-- Main Editorial Article Prose -->
+    <div class="prose-content">
 
-    <!-- 4 High-Impact Metric Cards -->
-    <div class="metric-grid">
-      <div class="metric-card">
-        <div class="metric-val">6+</div>
-        <div class="metric-sub">Regulated Industry Sectors Shielded</div>
+      <!-- Editorial Blue Callout on Industry Liabilities -->
+      <div class="editorial-callout" id="summary">
+        <strong>The Regulated Industry AI Exposure Reality:</strong> A single employee copying an unredacted patient discharge summary into ChatGPT triggers a Tier 4 HIPAA violation costing up to <strong>$2,000,000 annually</strong> in civil monetary penalties. A financial analyst inputting acquisition balance sheets forfeits non-public material information (MNPI) under SEC and FINRA rules. A corporate litigator analyzing client settlement terms waives <strong>Attorney-Client Privilege</strong> under Federal Rule of Evidence 502. ProjectSPG renders outbound tokens mathematically unidentifiable at the edge before packet departure, shielding enterprises from catastrophic regulatory and evidentiary forfeiture.
       </div>
 
-      <div class="metric-card">
-        <div class="metric-val">40+</div>
-        <div class="metric-sub">Protected Sensitive Asset Classes</div>
+      <!-- Key Metrics Showcase Canvas -->
+      <div class="metrics-showcase-wrap">
+        <h3 class="metrics-showcase-title">Enterprise Sector Guardrail Highlights</h3>
+
+        <!-- Card 1 -->
+        <div class="metric-tier-card">
+          <div class="tier-left">
+            <div class="tier-icon-box icon-scale">🏢</div>
+            <div>
+              <div class="tier-info-header">INDUSTRY BREADTH</div>
+              <div class="tier-title">6+ Regulated Sectors Shielded</div>
+              <div class="tier-subtext">Healthcare, Banking, Legal, Defense, GovCloud &amp; DevOps</div>
+            </div>
+          </div>
+          <div class="tier-pill-badge">Full Vertical Stack</div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="metric-tier-card">
+          <div class="tier-left">
+            <div class="tier-icon-box icon-flame">🛡️</div>
+            <div>
+              <div class="tier-info-header">ASSET TAXONOMY</div>
+              <div class="tier-title">40+ Protected Sensitive Asset Classes</div>
+              <div class="tier-subtext">From HIPAA 18 Safe Harbor entities to PCI-DSS PANs and MNPI</div>
+            </div>
+          </div>
+          <div class="tier-pill-badge">0% Raw Leakage</div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="metric-tier-card">
+          <div class="tier-left">
+            <div class="tier-icon-box icon-bolt">⏱️</div>
+            <div>
+              <div class="tier-info-header">EDGE SANITIZATION LATENCY</div>
+              <div class="tier-title">&lt;1 ms Edge Sanitization Overhead</div>
+              <div class="tier-subtext">Deterministic execution with zero third-party telemetry logging</div>
+            </div>
+          </div>
+          <div class="tier-pill-badge">86 µs Compute</div>
+        </div>
       </div>
 
-      <div class="metric-card">
-        <div class="metric-val">0%</div>
-        <div class="metric-sub">Raw Data Leakage to Third-Party AI</div>
+      <div class="prose-quote">
+        "Frontier models should reason over corporate problems without possessing corporate secrets. In-flight cryptographic tokenization delivers zero-trust privacy with zero degradation of LLM reasoning capacity."
       </div>
 
-      <div class="metric-card">
-        <div class="metric-val">&lt;1ms</div>
-        <div class="metric-sub">Edge Sanitization &amp; Roundtrip Overhead</div>
-      </div>
-    </div>
-
-    <!-- Section 1: The Threat Landscape -->
-    <section id="threat-landscape" style="margin-top: 56px;">
-      <h2 style="font-size: 26px; font-weight: 800; color: #0f172a; letter-spacing: -0.02em; margin-bottom: 16px;">
-        1. The Regulated Industry AI Threat Landscape
-      </h2>
-      <p>
+      <!-- Section 1: The Threat Landscape -->
+      <h2 class="prose-h2" id="threat-landscape">1. The Regulated Industry AI Threat Landscape</h2>
+      <p class="prose-p">
         Generative AI adoption inside modern enterprises has outpaced traditional cybersecurity perimeter controls. Enterprise employees across hospitals, hedge funds, law firms, and defense contractors routinely use generative models to draft communications, summarize clinical trials, audit balance sheets, and debug backend software.
       </p>
-      <p style="margin-top: 14px;">
+      <p class="prose-p">
         However, the fundamental architectural premise of cloud-hosted frontier LLMs—including OpenAI GPT-4o, Anthropic Claude 3.5 Sonnet, Google Gemini 1.5 Pro, and DeepSeek V3—relies on centralized ingest servers that log HTTP requests, process data in shared GPU memory pools, and potentially store prompts for monitoring or fine-tuning.
       </p>
-      <p style="margin-top: 14px;">
+      <p class="prose-p">
         When sensitive corporate or sovereign payloads transit across public networks unmasked, the enterprise faces four acute risk vectors:
       </p>
-      <ul style="margin-top: 10px; padding-left: 20px; line-height: 1.8; color: #334155;">
-        <li><strong>Regulatory Non-Compliance:</strong> Massive statutory fines under HIPAA, GDPR, India DPDP, and PCI-DSS v4.0 for unauthorized third-party processing.</li>
-        <li><strong>Evidentiary Privilege Waiver:</strong> Inadvertent forfeiture of legal privilege and work-product protection under judicial precedent when third parties process confidential legal drafts.</li>
-        <li><strong>Intellectual Property &amp; Trade Secret Exfiltration:</strong> Proprietary algorithmic trading weights, drug molecular targets, and source code leaking into model training corpora or cloud logs.</li>
-        <li><strong>Credential &amp; Infrastructure Compromise:</strong> Developers accidentally submitting production database connection strings, JWT tokens, and AWS root credentials into AI coding assistants.</li>
+      <ul class="prose-ul">
+        <li class="prose-li"><strong>Regulatory Non-Compliance:</strong> Massive statutory fines under HIPAA, GDPR, India DPDP, and PCI-DSS v4.0 for unauthorized third-party processing.</li>
+        <li class="prose-li"><strong>Evidentiary Privilege Waiver:</strong> Inadvertent forfeiture of legal privilege and work-product protection under judicial precedent when third parties process confidential legal drafts.</li>
+        <li class="prose-li"><strong>Intellectual Property &amp; Trade Secret Exfiltration:</strong> Proprietary algorithmic trading weights, drug molecular targets, and source code leaking into model training corpora or cloud logs.</li>
+        <li class="prose-li"><strong>Credential &amp; Infrastructure Compromise:</strong> Developers accidentally submitting production database connection strings, JWT tokens, and AWS root credentials into AI coding assistants.</li>
       </ul>
-    </section>
 
-    <!-- Section 2: Healthcare & Life Sciences -->
-    <section id="healthcare" style="margin-top: 56px;">
-      <h2 style="font-size: 26px; font-weight: 800; color: #0f172a; letter-spacing: -0.02em; margin-bottom: 16px;">
-        2. Healthcare, Pharmaceuticals &amp; Life Sciences
-      </h2>
-      <p>
+      <!-- Section 2: Healthcare & Life Sciences -->
+      <h2 class="prose-h2" id="healthcare">2. Healthcare, Pharmaceuticals &amp; Life Sciences</h2>
+      <p class="prose-p">
         Under the Health Insurance Portability and Accountability Act (HIPAA) Privacy Rule and the HITECH Act, Covered Entities and Business Associates are strictly liable for the unauthorized exposure of Protected Health Information (PHI).
       </p>
-      <div style="margin-top: 20px; background: #fafafa; border: 1px solid var(--border); border-radius: 12px; padding: 24px;">
-        <h3 style="font-size: 18px; font-weight: 700; color: #0f172a; margin-bottom: 12px; display:flex; align-items:center; gap:8px;">
+      <div class="subsector-card">
+        <h3 class="subsector-header">
           <span style="color:#ec4899;">■</span> HIPAA Safe Harbor Method (45 CFR § 164.514(b)(2)) Enforcement
         </h3>
-        <p style="font-size: 14.5px; color: #4b5563;">
+        <p class="prose-p" style="font-size: 14.5px; color: #4b5563; margin-bottom: 12px;">
           ProjectSPG automatically intercepts, masks, and tokenizes all 18 statutorily defined direct and indirect identifiers in clinical text:
         </p>
-        <ul style="margin-top: 10px; font-size: 14px; color: #374151; padding-left: 20px; line-height: 1.8;">
-          <li><strong>Patient Identifiers:</strong> Names, aliases, next-of-kin, emergency contact names mapped to consistent surrogates (<code>[PATIENT_1]</code>, <code>[DOCTOR_1]</code>).</li>
-          <li><strong>Clinical Numbers:</strong> Medical Record Numbers (MRNs), Health Plan Beneficiary numbers, Account numbers, Certificate/license numbers.</li>
-          <li><strong>Temporal &amp; Geographic Data:</strong> Admission dates, discharge dates, dates of death, ages over 89, postal codes, and specific clinical facilities.</li>
-          <li><strong>Biometric &amp; Genetic Data:</strong> Genomic sequencing accession IDs, lab specimen tags, and pathology sample barcodes.</li>
+        <ul class="prose-ul">
+          <li class="prose-li"><strong>Medical Record Numbers (MRN):</strong> Patient hospital charts, admission logs, and clinical trial participant identifiers.</li>
+          <li class="prose-li"><strong>Prescription Identifiers (Rx):</strong> National Drug Code (NDC) series, pharmacy script IDs, and DEA numbers.</li>
+          <li class="prose-li"><strong>Clinical Dates:</strong> Admission, discharge, surgical, and birth dates normalized to decade/year offsets to preserve longitudinal epidemiological patterns.</li>
+          <li class="prose-li"><strong>Biometric &amp; Device Serial Numbers:</strong> Pacemaker, insulin pump, and implant device identifiers (UDI).</li>
         </ul>
       </div>
-      <p style="margin-top: 14px;">
-        <strong>Clinical Rehydration Guarantee:</strong> When a physician asks an LLM to generate a treatment plan for a patient with complex comorbidities, the outbound prompt replaces all PHI with cryptographically reversible surrogates. When the LLM streams its diagnostic reasoning back, ProjectSPG instantly rehydrates the original patient context locally, enabling full clinical utility without third-party exposure.
-      </p>
-    </section>
 
-    <!-- Section 3: Banking & FinTech -->
-    <section id="fintech" style="margin-top: 56px;">
-      <h2 style="font-size: 26px; font-weight: 800; color: #0f172a; letter-spacing: -0.02em; margin-bottom: 16px;">
-        3. Banking, Capital Markets &amp; FinTech
-      </h2>
-      <p>
-        Global financial institutions operate under strict statutory regimes including the Gramm-Leach-Bliley Act (GLBA Safeguards Rule), PCI-DSS v4.0, FINRA Rule 4511, and the EU Payment Services Directive (PSD2).
+      <!-- Section 3: Banking & FinTech -->
+      <h2 class="prose-h2" id="fintech">3. Banking, FinTech &amp; Capital Markets</h2>
+      <p class="prose-p">
+        Financial services face stringent mandates from the Payment Card Industry Security Standards Council (PCI-DSS v4.0), the Gramm-Leach-Bliley Act (GLBA Safeguards Rule), and the Sarbanes-Oxley Act (SOX §404).
       </p>
-      
-      <div class="pro-table-wrapper">
-        <table class="pro-table">
-          <thead>
-            <tr>
-              <th>Financial Asset Class</th>
-              <th>Syntactic Format &amp; Mathematical Checksum</th>
-              <th>Governing Mandate</th>
-              <th>Sanitization Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Primary Account Numbers (PAN)</strong></td>
-              <td>15–16 digit cards (Visa, MasterCard, Amex) verified via Luhn Algorithm</td>
-              <td><span class="table-tag tag-blue">PCI-DSS v4.0 Req 3.4</span></td>
-              <td>Masked to surrogate tokens with preserved card brand and last-4 digits for billing context</td>
-            </tr>
-            <tr>
-              <td><strong>International Bank Account (IBAN)</strong></td>
-              <td>Up to 34 alphanumeric chars verified via ISO 13616 Modulo-97 algorithm</td>
-              <td><span class="table-tag tag-purple">SWIFT / SEPA / PSD2</span></td>
-              <td>Replaced with deterministic FPE tokens preserving bank country prefix (e.g. <code>[IBAN_DE_1]</code>)</td>
-            </tr>
-            <tr>
-              <td><strong>Wire Transfer Instructions</strong></td>
-              <td>Fedwire / ABA routing numbers (9 digits), SWIFT BIC codes (8–11 chars)</td>
-              <td><span class="table-tag tag-green">GLBA Safeguards</span></td>
-              <td>Anonymized routing paths preventing account takeover and wire fraud vectors</td>
-            </tr>
-            <tr>
-              <td><strong>Tax Identification Credentials</strong></td>
-              <td>US SSN/EIN, India PAN/Aadhaar (Verhoeff), Brazil CPF, German Steuer-ID</td>
-              <td><span class="table-tag tag-amber">SOX / FINRA / KYC</span></td>
-              <td>Cryptographic irreversible hashing or session-scoped surrogate tokenization</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- Section 4: Legal & Corporate Counsel -->
-    <section id="legal" style="margin-top: 56px;">
-      <h2 style="font-size: 26px; font-weight: 800; color: #0f172a; letter-spacing: -0.02em; margin-bottom: 16px;">
-        4. Legal Practice, Litigation &amp; Corporate Counsel
-      </h2>
-      <p>
-        For general counsels, litigation partners, and corporate deal attorneys, confidentiality is not merely a privacy policy—it is a condition precedent to the existence of <strong>Attorney-Client Privilege</strong> and the <strong>Attorney Work-Product Doctrine</strong>.
-      </p>
-      <p style="margin-top: 14px;">
-        Under Federal Rule of Evidence 502 and international professional responsibility standards, disclosing privileged legal advice or work-product to a third party lacking fiduciary protection can trigger a <em>subject-matter waiver</em>, forcing the law firm to disclose all related internal deliberations in litigation discovery.
-      </p>
-      <div style="margin-top: 20px; background: #fafafa; border: 1px solid var(--border); border-radius: 12px; padding: 24px;">
-        <h3 style="font-size: 18px; font-weight: 700; color: #0f172a; margin-bottom: 12px; display:flex; align-items:center; gap:8px;">
-          <span style="color:#f59e0b;">■</span> Protected Legal Artifacts
+      <div class="subsector-card">
+        <h3 class="subsector-header">
+          <span style="color:#38bdf8;">■</span> Financial Asset Shielding &amp; Non-Public Material Information (MNPI)
         </h3>
-        <ul style="font-size: 14px; color: #374151; padding-left: 20px; line-height: 1.8;">
-          <li><strong>M&amp;A Non-Public Material Information (MNPI):</strong> Acquisition targets, EBITDA multiples, enterprise valuations, breakup fees, and regulatory antitrust filings.</li>
-          <li><strong>Deposition Transcripts &amp; Witness Prep:</strong> Unredacted witness names, non-public testimony excerpts, litigation strategy notes, and settlement damage calculations.</li>
-          <li><strong>Confidential Contract Negotiations:</strong> Exclusivity clauses, non-compete terms, intellectual property royalty schedules, and indemnification caps.</li>
+        <p class="prose-p" style="font-size: 14.5px; color: #4b5563; margin-bottom: 12px;">
+          Financial telemetry is shielded at the wire level:
+        </p>
+        <ul class="prose-ul">
+          <li class="prose-li"><strong>Primary Account Numbers (PAN):</strong> Luhn checksum validation with preservation of card brand (Visa, Mastercard, Amex) and trailing 4 digits for billing context.</li>
+          <li class="prose-li"><strong>International Bank Account Numbers (IBAN):</strong> ISO 7064 Modulo-97 verification across 80+ banking nations.</li>
+          <li class="prose-li"><strong>SWIFT/BIC Codes &amp; Fedwire Routing:</strong> 8-to-11 character institution codes masked before cross-border transit.</li>
+          <li class="prose-li"><strong>M&amp;A Valuations &amp; Deal Caps:</strong> Numerical transaction caps, acquisition premiums, and target tickers masked to protect market stability.</li>
         </ul>
       </div>
-    </section>
 
-    <!-- Section 5: Defense & Aerospace -->
-    <section id="defense" style="margin-top: 56px;">
-      <h2 style="font-size: 26px; font-weight: 800; color: #0f172a; letter-spacing: -0.02em; margin-bottom: 16px;">
-        5. Defense, Aerospace &amp; Sovereign Government
-      </h2>
-      <p>
-        Government contractors and defense industrial base (DIB) organizations handle Controlled Unclassified Information (CUI) governed by the International Traffic in Arms Regulations (ITAR), Export Administration Regulations (EAR), and the Cybersecurity Maturity Model Certification (CMMC 2.0).
+      <!-- Section 4: Legal Practice -->
+      <h2 class="prose-h2" id="legal">4. Legal Practice, M&amp;A Due Diligence &amp; Corporate Counsel</h2>
+      <p class="prose-p">
+        When attorneys input client depositions, merger agreements, settlement terms, or patent claims into consumer AI web portals, courts increasingly rule that the disclosure waives the <strong>Attorney-Client Privilege</strong> and work-product protection under Federal Rule of Evidence 502 and ABA Model Rule 1.6(c).
       </p>
-      <p style="margin-top: 14px;">
-        Under ITAR § 120.17, transmitting technical data regarding items on the United States Munitions List (USML) across foreign servers constitutes an illegal deemed export. ProjectSPG resolves this by providing <strong>Sovereign Enclave Geofencing</strong>:
-      </p>
-      <ul style="margin-top: 10px; padding-left: 20px; line-height: 1.8; color: #334155;">
-        <li><strong>Strict Boundary Routing:</strong> Packets are cryptographically prevented from transiting foreign edge relays or third-party cloud data centers outside designated national boundaries.</li>
-        <li><strong>Military Credential Masking:</strong> CAGE codes, DUNS numbers, military serial numbers, and clearance classification markings (e.g. <code>CUI//SP-DEFENSE</code>) are quarantined at the local boundary.</li>
-        <li><strong>Air-Gapped Edge Deployments:</strong> Support for self-hosted edge instances operating in completely isolated VPCs with Bring-Your-Own-KMS key governance.</li>
-      </ul>
-    </section>
+      <div class="subsector-card">
+        <h3 class="subsector-header">
+          <span style="color:#f59e0b;">■</span> Privilege Preservation Architecture
+        </h3>
+        <p class="prose-p" style="font-size: 14.5px; color: #4b5563; margin-bottom: 12px;">
+          ProjectSPG ensures legal privilege remains unbreached:
+        </p>
+        <ul class="prose-ul">
+          <li class="prose-li"><strong>Named Party Redaction:</strong> Plaintiff, defendant, expert witness, and co-conspirator names substituted with deterministic role tokens (<code>[PLAINTIFF_1]</code>, <code>[EXPERT_WITNESS_2]</code>).</li>
+          <li class="prose-li"><strong>Deposition Transcript Sanitization:</strong> In-flight stripping of docket numbers, case citations, judge identities, and settlement figures.</li>
+          <li class="prose-li"><strong>Zero-Knowledge Retrieval:</strong> LLMs generate legal analysis, contract comparisons, and case law summaries without ever receiving the identities of the litigating parties.</li>
+        </ul>
+      </div>
 
-    <!-- Section 6: DevSecOps & Cloud Secrets -->
-    <section id="devsecops" style="margin-top: 56px;">
-      <h2 style="font-size: 26px; font-weight: 800; color: #0f172a; letter-spacing: -0.02em; margin-bottom: 16px;">
-        6. DevSecOps, Cloud Infrastructure &amp; Technical Secrets
-      </h2>
-      <p>
-        Modern software development teams routinely submit code snippets, stack traces, and configuration files to AI coding assistants and terminal harness tools. Without automated guardrails, high-entropy secrets are transmitted directly to external model providers.
+      <!-- Section 5: Defense & GovCloud -->
+      <h2 class="prose-h2" id="defense">5. Defense, Aerospace &amp; GovCloud (ITAR &amp; CMMC 2.0)</h2>
+      <p class="prose-p">
+        Defense contractors and federal agencies are bounded by the International Traffic in Arms Regulations (ITAR, 22 CFR § 120-130) and the Cybersecurity Maturity Model Certification (CMMC 2.0 Level 2/3). Export-controlled technical data cannot touch non-US persons or unauthorized infrastructure.
       </p>
-      <p style="margin-top: 14px;">
-        ProjectSPG’s technical secret detection layer operates at the syntactic byte level, identifying and neutralizing:
-      </p>
-      <ul style="margin-top: 10px; padding-left: 20px; line-height: 1.8; color: #334155;">
-        <li><strong>API Tokens &amp; Private Keys:</strong> AWS access keys (<code>AKIA...</code>), OpenAI secret keys (<code>sk-...</code>), GitHub personal access tokens, Stripe live secrets, and SSH RSA/ED25519 private keys.</li>
-        <li><strong>Database Connection Strings:</strong> Full connection URIs with embedded passwords (e.g. <code>postgres://user:pass@internal-cluster.rds.amazonaws.com:5432/prod_db</code>).</li>
-        <li><strong>Internal Topology:</strong> RFC 1918 private IPv4 addresses (<code>10.0.0.0/8</code>, <code>192.168.0.0/16</code>), internal VPC hostnames, and MAC hardware addresses.</li>
-      </ul>
-    </section>
+      <div class="subsector-card">
+        <h3 class="subsector-header">
+          <span style="color:#a855f7;">■</span> ITAR Technical Data Containment
+        </h3>
+        <p class="prose-p" style="font-size: 14.5px; color: #4b5563; margin-bottom: 12px;">
+          Aerospace and defense parameters are shielded from unauthorized overseas egress:
+        </p>
+        <ul class="prose-ul">
+          <li class="prose-li"><strong>Munitions List (USML) Parameter Shielding:</strong> Radar cross-section formulas, missile guidance telemetry, and propulsion specifications sanitized prior to model query.</li>
+          <li class="prose-li"><strong>CAGE Codes &amp; Defense Contract Identifiers:</strong> Commercial and Government Entity identifiers masked to eliminate government supply chain profiling.</li>
+          <li class="prose-li"><strong>Zero Data Retention at Edge:</strong> Memory buffers purged immediately upon completion of streaming SSE tokens.</li>
+        </ul>
+      </div>
 
-    <!-- Section 7: Entity Sanitization Taxonomy -->
-    <section id="taxonomy" style="margin-top: 56px;">
-      <h2 style="font-size: 26px; font-weight: 800; color: #0f172a; letter-spacing: -0.02em; margin-bottom: 16px;">
-        7. Comprehensive Entity Sanitization Taxonomy
-      </h2>
-      <p>
-        ProjectSPG categorizes sensitive enterprise data across three distinct security classes with specific cryptographic handling modes:
+      <!-- Section 6: DevSecOps -->
+      <h2 class="prose-h2" id="devsecops">6. DevSecOps, Cloud Engineering &amp; Secret Masking</h2>
+      <p class="prose-p">
+        Software engineering teams represent the highest-frequency AI consumers inside modern enterprises. Unfortunately, developers routinely paste terminal stack traces, environment configs, and connection snippets into AI coding tools, leaking live infrastructure keys.
+      </p>
+      <div class="subsector-card">
+        <h3 class="subsector-header">
+          <span style="color:#10b981;">■</span> Zero-Latency Secret Interception
+        </h3>
+        <p class="prose-p" style="font-size: 14.5px; color: #4b5563; margin-bottom: 12px;">
+          ProjectSPG scans source code prompts with high-speed regex and Shannon entropy calculation:
+        </p>
+        <ul class="prose-ul">
+          <li class="prose-li"><strong>Cloud Access Credentials:</strong> AWS Access Keys (<code>AKIA...</code>), Google Cloud Service Account JSONs, and Azure SAS Tokens.</li>
+          <li class="prose-li"><strong>AI API Keys:</strong> OpenAI (<code>sk-...</code>), Anthropic, HuggingFace, and Replicate secret keys.</li>
+          <li class="prose-li"><strong>Database Connection URIs:</strong> PostgreSQL, MongoDB, and Redis connection strings containing plaintext admin passwords.</li>
+          <li class="prose-li"><strong>Cryptographic Secrets:</strong> PEM private keys, RSA headers, and signed JSON Web Tokens (JWTs).</li>
+        </ul>
+      </div>
+
+      <!-- Section 7: Entity Sanitization Taxonomy -->
+      <h2 class="prose-h2" id="taxonomy">7. Entity Sanitization Taxonomy &amp; Coverage Matrix</h2>
+      <p class="prose-p">
+        Summary of ProjectSPG's sector-specific protection engines, associated regulatory frameworks, and edge enforcement methods:
       </p>
 
-      <div class="pro-table-wrapper">
-        <table class="pro-table">
+      <div class="clean-table-card">
+        <table class="clean-table">
           <thead>
             <tr>
-              <th>Classification</th>
-              <th>Examples</th>
-              <th>Threat Vector</th>
-              <th>Sanitization Strategy</th>
+              <th>Regulated Sector</th>
+              <th>Protected Asset Classes</th>
+              <th>Governing Mandate</th>
+              <th>Sanitization &amp; Rehydration Strategy</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><strong>Direct Identifiers</strong></td>
-              <td>SSN, Aadhaar, NRIC, Passport Number, Credit Card PAN</td>
-              <td>Immediate identity theft, regulatory breach, financial fraud</td>
-              <td><span class="table-tag tag-blue">Surrogate Tokenization with Checksum Validation</span></td>
+              <td><strong>Healthcare &amp; Life Sciences</strong></td>
+              <td>MRN, Patient Names, Diagnoses, Dates of Care, Prescription Script IDs, Biometrics</td>
+              <td><span class="table-tag tag-rose">HIPAA Safe Harbor / HITECH</span></td>
+              <td>18-element de-identification with longitudinal date jittering and surrogate replacement.</td>
             </tr>
             <tr>
-              <td><strong>Quasi-Identifiers</strong></td>
-              <td>DOB, Postal Code, Job Title + Organization, Admission Date</td>
-              <td>Re-identification via database cross-correlation attacks</td>
-              <td><span class="table-tag tag-purple">Generalization &amp; Differential Masking</span></td>
+              <td><strong>Banking &amp; FinTech</strong></td>
+              <td>PAN Credit Cards, IBAN, SWIFT, Routing Numbers, Account Balances, CVV</td>
+              <td><span class="table-tag tag-blue">PCI-DSS v4.0 / GLBA / SOX</span></td>
+              <td>Hardware Luhn/Mod-97 checksum validation; preservation of card brand and last-4 digits.</td>
             </tr>
             <tr>
-              <td><strong>Corporate &amp; Technical Secrets</strong></td>
-              <td>API Keys, M&amp;A Valuations, DB URIs, Trade Secrets</td>
-              <td>Infrastructure compromise, insider trading, IP theft</td>
-              <td><span class="table-tag tag-rose">High-Entropy Redaction &amp; Key Replacement</span></td>
+              <td><strong>Legal &amp; M&amp;A Counsel</strong></td>
+              <td>Litigant Names, Settlement Caps, Deal Valuations, MNPI, Privileged Work-Product</td>
+              <td><span class="table-tag tag-amber">FRE 502 / ABA Model Rule 1.6</span></td>
+              <td>Role-based anonymization (Plaintiff/Defendant) with mathematical value masking.</td>
+            </tr>
+            <tr>
+              <td><strong>Defense &amp; Aerospace</strong></td>
+              <td>USML Weapon Specs, Guidance Telemetry, CAGE Codes, GovCloud Identifiers</td>
+              <td><span class="table-tag tag-purple">ITAR (22 CFR) / CMMC 2.0 Level 3</span></td>
+              <td>Deterministic parameter redaction with zero-logging edge retention guarantees.</td>
+            </tr>
+            <tr>
+              <td><strong>DevSecOps &amp; Cloud Infra</strong></td>
+              <td>AWS/GCP Keys, DB Connection Strings, JWTs, GitHub Tokens, SSH Private Keys</td>
+              <td><span class="table-tag tag-green">SOC 2 Type II / ISO 27001</span></td>
+              <td>High-entropy scanning with syntactic tokenization; intact code syntax preservation.</td>
+            </tr>
+            <tr>
+              <td><strong>Global HR &amp; Enterprise</strong></td>
+              <td>Tax IDs (SSN/Aadhaar/Steuer-ID), Passports, Work Permits, Salaries, Performance Notes</td>
+              <td><span class="table-tag tag-blue">GDPR / India DPDP / SG PDPA</span></td>
+              <td>Deterministic national identity validation across 109 sovereign territories.</td>
             </tr>
           </tbody>
         </table>
       </div>
-    </section>
 
-    <!-- Section 8: Interactive Industry Testbed -->
-    <section id="sandbox" style="margin-top: 56px;">
-      <h2 style="font-size: 26px; font-weight: 800; color: #0f172a; letter-spacing: -0.02em; margin-bottom: 16px;">
-        8. Interactive Industry Sanitization Testbed
-      </h2>
-      <p>
-        Experience real-time sector sanitization. Toggle between industry profiles to observe immediate in-flight tokenization and lossless rehydration:
+      <!-- Section 8: Interactive Industry Sandbox -->
+      <h2 class="prose-h2" id="sandbox">8. Interactive Regulated Industry Testbed</h2>
+      <p class="prose-p">
+        Test ProjectSPG's real-time sector sanitization engine across healthcare, fintech, legal, and devops payloads:
       </p>
 
       <div class="verifier-box">
         <div class="verifier-header">
-          <span style="font-weight: 700; font-size: 14px; color: #0f172a;">INDUSTRY THREAT TESTBED</span>
+          <span style="font-weight: 700; font-size: 13.5px; color: #0f172a; font-family:'JetBrains Mono', monospace; text-transform:uppercase;">SECTOR SANITIZATION TESTBED</span>
           <div style="display:flex; flex-wrap:wrap; gap:8px;">
-            <button onclick="setIndustrySample('healthcare')" style="background:#f1f5f9; border:none; padding:4px 10px; border-radius:6px; font-size:11.5px; font-weight:600; cursor:pointer; color:#334155;">Healthcare (HIPAA)</button>
-            <button onclick="setIndustrySample('fintech')" style="background:#f1f5f9; border:none; padding:4px 10px; border-radius:6px; font-size:11.5px; font-weight:600; cursor:pointer; color:#334155;">FinTech (Banking)</button>
-            <button onclick="setIndustrySample('legal')" style="background:#f1f5f9; border:none; padding:4px 10px; border-radius:6px; font-size:11.5px; font-weight:600; cursor:pointer; color:#334155;">Legal (M&amp;A)</button>
-            <button onclick="setIndustrySample('devops')" style="background:#f1f5f9; border:none; padding:4px 10px; border-radius:6px; font-size:11.5px; font-weight:600; cursor:pointer; color:#334155;">DevSecOps (Keys)</button>
+            <button onclick="setIndustrySample('healthcare')" style="background:#f1f5f9; border:none; padding:5px 12px; border-radius:4px; font-size:11.5px; font-weight:600; cursor:pointer; color:#334155;">Healthcare (HIPAA)</button>
+            <button onclick="setIndustrySample('fintech')" style="background:#f1f5f9; border:none; padding:5px 12px; border-radius:4px; font-size:11.5px; font-weight:600; cursor:pointer; color:#334155;">FinTech (PCI/IBAN)</button>
+            <button onclick="setIndustrySample('legal')" style="background:#f1f5f9; border:none; padding:5px 12px; border-radius:4px; font-size:11.5px; font-weight:600; cursor:pointer; color:#334155;">Legal (M&amp;A Deal)</button>
+            <button onclick="setIndustrySample('devops')" style="background:#f1f5f9; border:none; padding:5px 12px; border-radius:4px; font-size:11.5px; font-weight:600; cursor:pointer; color:#334155;">DevSecOps (Secrets)</button>
           </div>
         </div>
 
         <div style="margin-bottom: 16px;">
-          <label style="display:block; font-size: 12px; font-weight: 700; color: #4b5563; margin-bottom: 6px; text-transform: uppercase; font-family:'JetBrains Mono', monospace;">
-            Inbound Enterprise Prompt:
+          <label style="display:block; font-size: 11.5px; font-weight: 700; color: #4b5563; margin-bottom: 6px; text-transform: uppercase; font-family:'JetBrains Mono', monospace;">
+            Inbound Enterprise Payload:
           </label>
-          <textarea id="industryInputPrompt" rows="3" style="width:100%; border:1px solid #cbd5e1; border-radius:8px; padding:12px; font-family:'JetBrains Mono', monospace; font-size:13px; color:#1e293b; outline:none;" oninput="runIndustryVerification()">Patient Eleanor Vance (MRN: 902-481-229, DOB: 04/18/1972) admitted to St. Jude Cardiac ICU. Prescribed 50mg Metoprolol (Rx: 4892018). Contact doctor dr.marcus@hospital.org or call 415-555-0199.</textarea>
+          <textarea id="industryInputPrompt" rows="3" class="verifier-input" oninput="runIndustryVerification()">Patient Eleanor Vance (MRN: 902-481-229, DOB: 04/18/1972) admitted to St. Jude Cardiac ICU. Prescribed 50mg Metoprolol (Rx: 4892018). Contact doctor dr.marcus@hospital.org or call 415-555-0199.</textarea>
         </div>
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
           <div>
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
               <span style="font-size: 11px; font-weight: 700; color: #f0523d; text-transform: uppercase; font-family:'JetBrains Mono', monospace;">
-                ● SENT TO PUBLIC LLM (SANITIZED)
+                ● OUTBOUND TO LLM (SANITIZED)
               </span>
-              <span style="font-size: 10px; color: #10b981; font-weight: 600;">ZERO PHI LEAKAGE</span>
+              <span style="font-size: 10px; color: #10b981; font-weight: 600; font-family:'JetBrains Mono', monospace;">ZERO LEAKAGE</span>
             </div>
-            <div id="industryOutputSanitized" style="background:#0f121d; color:#38bdf8; padding:14px; border-radius:8px; font-family:'JetBrains Mono', monospace; font-size:12.5px; min-height:100px; white-space:pre-wrap; border:1px solid #1e293b;"></div>
+            <div id="industryOutputSanitized" class="verifier-output" style="background:#0f121d; color:#38bdf8; border:1px solid #1e293b;"></div>
           </div>
 
           <div>
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
               <span style="font-size: 11px; font-weight: 700; color: #10b981; text-transform: uppercase; font-family:'JetBrains Mono', monospace;">
-                ● RETURNED TO APPLICATION (REHYDRATED)
+                ● RETURNED TO CLIENT (REHYDRATED)
               </span>
-              <span style="font-size: 10px; color: #64748b; font-weight: 600;">100% REVERSIBLE FIDELITY</span>
+              <span style="font-size: 10px; color: #64748b; font-weight: 600; font-family:'JetBrains Mono', monospace;">100% FIDELITY</span>
             </div>
-            <div id="industryOutputRehydrated" style="background:#f8fafc; color:#1e293b; padding:14px; border-radius:8px; font-family:'JetBrains Mono', monospace; font-size:12.5px; min-height:100px; white-space:pre-wrap; border:1px solid #cbd5e1;"></div>
+            <div id="industryOutputRehydrated" class="verifier-output" style="background:#ffffff; color:#1e293b; border:1px solid var(--border);"></div>
           </div>
         </div>
       </div>
-    </section>
 
-    <!-- Section 9: Enterprise Architecture Deployment -->
-    <section id="implementation" style="margin-top: 56px;">
-      <h2 style="font-size: 26px; font-weight: 800; color: #0f172a; letter-spacing: -0.02em; margin-bottom: 16px;">
-        9. Enterprise Architecture Deployment
-      </h2>
-      <p>
-        ProjectSPG is completely wire-compatible with OpenAI SDKs, LangChain, LiteLLM, and LlamaIndex. Point your application's base URL to ProjectSPG to enforce sector guardrails in under 60 seconds:
+      <!-- Section 9: Enterprise Architecture Deployment -->
+      <h2 class="prose-h2" id="implementation">9. Enterprise Architecture Deployment Guide</h2>
+      <p class="prose-p">
+        ProjectSPG deploys as a transparent wire proxy with zero changes required to existing model orchestration code or client SDKs:
       </p>
 
-      <div class="terminal-box">
-        <div class="terminal-header">
-          <div class="terminal-dots">
-            <span class="t-dot t-red"></span>
-            <span class="t-dot t-yellow"></span>
-            <span class="t-dot t-green"></span>
+      <div class="terminal-wrapper">
+        <div class="terminal-top-bar">
+          <div style="display:flex; align-items:center; gap:6px;">
+            <span style="width:10px; height:10px; border-radius:50%; background:#ef4444; display:inline-block;"></span>
+            <span style="width:10px; height:10px; border-radius:50%; background:#f59e0b; display:inline-block;"></span>
+            <span style="width:10px; height:10px; border-radius:50%; background:#10b981; display:inline-block;"></span>
+            <span style="margin-left:8px;">enterprise_pipeline_guardrail.py</span>
           </div>
-          <span>enterprise_guardrail_client.py</span>
-          <button onclick="copyTerminalCommands()" class="terminal-copy-btn" style="background:#334155; border:none; color:#f8fafc; padding:3px 9px; border-radius:4px; font-size:11px; cursor:pointer;">Copy</button>
+          <button onclick="copyTerminalCommands()" class="terminal-copy-btn">Copy</button>
         </div>
-        <div class="terminal-body" id="terminalCommands">
-<span class="t-comment"># Drop-in enterprise proxy with zero code refactoring</span>
-<span class="t-keyword" style="color:#c084fc;">import</span> os
-<span class="t-keyword" style="color:#c084fc;">from</span> openai <span class="t-keyword" style="color:#c084fc;">import</span> OpenAI
+        <pre class="terminal-pre" id="terminalCommands"><span style="color:#64748b;"># Install standard OpenAI library</span>
+<span style="color:#38bdf8;">pip install openai</span>
+
+<span style="color:#64748b;"># Single baseURL substitution shields all 6 regulated sectors</span>
+<span style="color:#c084fc;">import</span> os
+<span style="color:#c084fc;">from</span> openai <span style="color:#c084fc;">import</span> OpenAI
 
 client = OpenAI(
-    api_key=os.environ.get(<span class="t-out">"OPENAI_API_KEY"</span>),
-    <span class="t-accent">base_url="https://projectspg.info/v1"</span>,  <span class="t-comment"># ProjectSPG Wire Proxy</span>
-    default_headers={
-        <span class="t-out">"x-detection-categories"</span>: <span class="t-out">"healthcare,fintech,corporate,global"</span>,
-        <span class="t-out">"x-tokenization-mode"</span>: <span class="t-out">"surrogate"</span>
-    }
+    api_key=os.environ.get(<span style="color:#4ade80;">"PROJECTSPG_API_KEY"</span>),
+    <span style="color:#f0523d;">base_url="https://projectspg.boruahpriyanuj2004.workers.dev/v1"</span>  <span style="color:#64748b;"># ProjectSPG Gateway</span>
 )
 
-<span class="t-comment"># Send sensitive clinical / banking prompt</span>
+<span style="color:#64748b;"># In-flight sanitization for Clinical PHI &amp; Banking Records</span>
 response = client.chat.completions.create(
-    model=<span class="t-out">"gpt-4o"</span>,
+    model=<span style="color:#4ade80;">"gemma-4-26b-a4b-it"</span>,
     messages=[{
-        <span class="t-out">"role"</span>: <span class="t-out">"user"</span>,
-        <span class="t-out">"content"</span>: <span class="t-out">"Summarize patient Eleanor Vance (MRN: 902-481-229) cardiothoracic status."</span>
+        <span style="color:#4ade80;">"role"</span>: <span style="color:#4ade80;">"user"</span>,
+        <span style="color:#4ade80;">"content"</span>: <span style="color:#4ade80;">"Summarize cardiac treatment for Eleanor Vance (MRN: 902-481-229)."</span>
     }]
 )
 
-<span class="t-cmd">print</span>(response.choices[0].message.content)
-<span class="t-success"># =&gt; LLM receives sanitized [PATIENT_1]; returned response is automatically rehydrated.</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- Related Articles Section (Matching Together.ai layout) -->
-    <div class="related-section">
-      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;">
-        <h2 style="font-size: 26px; font-weight: 800; color: #0f172a; letter-spacing: -0.02em; margin: 0;">
-          Related articles
-        </h2>
-        <div style="display: flex; gap: 8px;">
-          <button onclick="scrollRelated('left')" style="width: 36px; height: 36px; border-radius: 8px; border: 1px solid var(--border); background: #ffffff; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; color: #374151;">
-            ←
-          </button>
-          <button onclick="scrollRelated('right')" style="width: 36px; height: 36px; border-radius: 8px; border: 1px solid var(--border); background: #ffffff; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; color: #374151;">
-            →
-          </button>
-        </div>
+print(response.choices[0].message.content)
+<span style="color:#4ade80;"># =&gt; Downstream model sees only safe surrogates; output is restored transparently.</span></pre>
       </div>
 
-      <div class="related-grid" id="related-cards-track">
-        
-        <!-- Related 1: Empirical Benchmark -->
-        <a href="/blog/benchmark" style="text-decoration: none; color: inherit; display: block;" class="group">
-          <div style="aspect-ratio: 16/9; width: 100%; border-radius: 12px; overflow: hidden; background: linear-gradient(135deg, #ffd5cc, #f7e0ff, #d8e6ff); border: 1px solid rgba(229,231,235,0.8); display: flex; align-items: center; justify-content: center; padding: 22px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.03); transition: all 0.25s;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 10px 25px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 1px 3px rgba(0,0,0,0.03)';">
-            <div>
-              <div style="display: flex; align-items: center; justify-content: center; gap: 4px; margin-bottom: 6px;">
-                <span style="width: 8px; height: 8px; border-radius: 50%; background: #ec4899;"></span>
-                <span style="font-size: 10px; font-weight: 700; color: #1f2937;">project<span style="color:#f0523d;">spg</span></span>
+      <!-- Related Posts Section matching Together.ai -->
+      <div style="margin-top: 80px; padding-top: 48px; border-top: 1px solid #f3f4f6;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px;">
+          <div>
+            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #9ca3af; font-family: monospace; margin-bottom: 4px;">MORE RESEARCH</div>
+            <h3 style="font-size: 22px; font-weight: 800; color: #111827; letter-spacing: -0.02em;">Related Articles</h3>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <button onclick="scrollRelated('left')" style="width: 32px; height: 32px; border-radius: 4px; border: 1px solid #e5e7eb; background: #ffffff; color: #4b5563; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.15s;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='#ffffff'">‹</button>
+            <button onclick="scrollRelated('right')" style="width: 32px; height: 32px; border-radius: 4px; border: 1px solid #e5e7eb; background: #ffffff; color: #4b5563; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.15s;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='#ffffff'">›</button>
+            <a href="/#news-section" style="padding: 6px 14px; background: #f3f4f6; border-radius: 4px; font-size: 11px; font-weight: 700; color: #374151; text-decoration: none; text-transform: uppercase; letter-spacing: 0.06em; transition: background 0.15s;" onmouseover="this.style.background='#e5e7eb'" onmouseout="this.style.background='#f3f4f6'">VIEW ALL</a>
+          </div>
+        </div>
+
+        <!-- 3 Blog Cards Row -->
+        <div id="related-cards-track" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 24px;">
+          
+          <!-- Related 1: Empirical Benchmark -->
+          <a href="/blog/benchmark" style="text-decoration: none; color: inherit; display: block;" class="group">
+            <div style="aspect-ratio: 16/9; width: 100%; border-radius: 12px; overflow: hidden; background: linear-gradient(135deg, #ffd5cc, #f7e0ff, #d8e6ff); border: 1px solid rgba(229,231,235,0.8); display: flex; align-items: center; justify-content: center; padding: 22px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.03); transition: all 0.25s;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 10px 25px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 1px 3px rgba(0,0,0,0.03)';">
+              <div>
+                <div style="display: flex; align-items: center; justify-content: center; gap: 4px; margin-bottom: 6px;">
+                  <span style="width: 8px; height: 8px; border-radius: 50%; background: #ec4899;"></span>
+                  <span style="font-size: 10px; font-weight: 700; color: #1f2937;">project<span style="color:#f0523d;">spg</span></span>
+                </div>
+                <h4 style="font-size: 14.5px; font-weight: 800; color: #111827; line-height: 1.35;">
+                  Empirical Benchmark: 9,334,805 Prompts Evaluated with 100.00% Fidelity &amp; 86µs Latency
+                </h4>
               </div>
-              <h4 style="font-size: 14.5px; font-weight: 800; color: #111827; line-height: 1.35;">
+            </div>
+            <div style="margin-top: 14px;">
+              <span style="background: #f3f4f6; color: #374151; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; font-family: monospace;">BENCHMARK</span>
+              <h3 style="font-size: 16.5px; font-weight: 700; color: #111827; margin-top: 8px; line-height: 1.35;">
                 Empirical Benchmark: 9,334,805 Prompts Evaluated with 100.00% Fidelity &amp; 86µs Latency
-              </h4>
+              </h3>
             </div>
-          </div>
-          <div style="margin-top: 14px;">
-            <span style="background: #f3f4f6; color: #374151; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; font-family: monospace;">BENCHMARK</span>
-            <h3 style="font-size: 16.5px; font-weight: 700; color: #111827; margin-top: 8px; line-height: 1.35;">
-              Empirical Benchmark: 9.33M Prompts Evaluated with 100% Roundtrip Precision
-            </h3>
-          </div>
-        </a>
+          </a>
 
-        <!-- Related 2: Supported Countries -->
-        <a href="/blog/countries" style="text-decoration: none; color: inherit; display: block;" class="group">
-          <div style="aspect-ratio: 16/9; width: 100%; border-radius: 12px; overflow: hidden; background: linear-gradient(135deg, #fed7aa, #fef08a, #c7d2fe); border: 1px solid rgba(229,231,235,0.8); display: flex; align-items: center; justify-content: center; padding: 22px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.03); transition: all 0.25s;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 10px 25px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 1px 3px rgba(0,0,0,0.03)';">
-            <div>
-              <div style="display: flex; align-items: center; justify-content: center; gap: 4px; margin-bottom: 6px;">
-                <span style="width: 8px; height: 8px; border-radius: 50%; background: #f97316;"></span>
-                <span style="font-size: 10px; font-weight: 700; color: #1f2937;">project<span style="color:#f0523d;">spg</span></span>
+          <!-- Related 2: Supported Countries -->
+          <a href="/blog/countries" style="text-decoration: none; color: inherit; display: block;" class="group">
+            <div style="aspect-ratio: 16/9; width: 100%; border-radius: 12px; overflow: hidden; background: linear-gradient(135deg, #fed7aa, #fef08a, #c7d2fe); border: 1px solid rgba(229,231,235,0.8); display: flex; align-items: center; justify-content: center; padding: 22px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.03); transition: all 0.25s;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 10px 25px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 1px 3px rgba(0,0,0,0.03)';">
+              <div>
+                <div style="display: flex; align-items: center; justify-content: center; gap: 4px; margin-bottom: 6px;">
+                  <span style="width: 8px; height: 8px; border-radius: 50%; background: #f97316;"></span>
+                  <span style="font-size: 10px; font-weight: 700; color: #1f2937;">project<span style="color:#f0523d;">spg</span></span>
+                </div>
+                <h4 style="font-size: 14.5px; font-weight: 800; color: #111827; line-height: 1.35;">
+                  Global Sovereign AI Privacy: 109 Jurisdictions Supported by ProjectSPG
+                </h4>
               </div>
-              <h4 style="font-size: 14.5px; font-weight: 800; color: #111827; line-height: 1.35;">
+            </div>
+            <div style="margin-top: 14px;">
+              <span style="background: #f3f4f6; color: #374151; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; font-family: monospace;">COMPLIANCE</span>
+              <h3 style="font-size: 16.5px; font-weight: 700; color: #111827; margin-top: 8px; line-height: 1.35;">
                 Global Sovereign AI Privacy: 109 Jurisdictions Supported by ProjectSPG
-              </h4>
+              </h3>
             </div>
-          </div>
-          <div style="margin-top: 14px;">
-            <span style="background: #f3f4f6; color: #374151; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; font-family: monospace;">COMPLIANCE</span>
-            <h3 style="font-size: 16.5px; font-weight: 700; color: #111827; margin-top: 8px; line-height: 1.35;">
-              Supported Jurisdictions &amp; Regional Data Protections: GDPR, DPDP &amp; PDPA
-            </h3>
-          </div>
-        </a>
+          </a>
 
-        <!-- Related 3: Open Model AI Stack & Market Ranking -->
-        <a href="/blog/stack" style="text-decoration: none; color: inherit; display: block;" class="group">
-          <div style="aspect-ratio: 16/9; width: 100%; border-radius: 12px; overflow: hidden; background: linear-gradient(135deg, #ffd5cc, #f7e0ff, #d8e6ff); border: 1px solid rgba(229,231,235,0.8); display: flex; align-items: center; justify-content: center; padding: 22px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.03); transition: all 0.25s;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 10px 25px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 1px 3px rgba(0,0,0,0.03)';">
-            <div>
-              <div style="display: flex; align-items: center; justify-content: center; gap: 4px; margin-bottom: 6px;">
-                <span style="width: 8px; height: 8px; border-radius: 50%; background: #ec4899;"></span>
-                <span style="font-size: 10px; font-weight: 700; color: #1f2937;">project<span style="color:#f0523d;">spg</span></span>
+          <!-- Related 3: Open Model AI Stack & Market Ranking -->
+          <a href="/blog/stack" style="text-decoration: none; color: inherit; display: block;" class="group">
+            <div style="aspect-ratio: 16/9; width: 100%; border-radius: 12px; overflow: hidden; background: linear-gradient(135deg, #ffd5cc, #f7e0ff, #d8e6ff); border: 1px solid rgba(229,231,235,0.8); display: flex; align-items: center; justify-content: center; padding: 22px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.03); transition: all 0.25s;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 10px 25px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 1px 3px rgba(0,0,0,0.03)';">
+              <div>
+                <div style="display: flex; align-items: center; justify-content: center; gap: 4px; margin-bottom: 6px;">
+                  <span style="width: 8px; height: 8px; border-radius: 50%; background: #ec4899;"></span>
+                  <span style="font-size: 10px; font-weight: 700; color: #1f2937;">project<span style="color:#f0523d;">spg</span></span>
+                </div>
+                <h4 style="font-size: 14.5px; font-weight: 800; color: #111827; line-height: 1.35;">
+                  The Open Model AI Stack: Why ProjectSPG is Ranked #1
+                </h4>
               </div>
-              <h4 style="font-size: 14.5px; font-weight: 800; color: #111827; line-height: 1.35;">
-                The Open Model AI Stack: Why ProjectSPG is Ranked #1
-              </h4>
             </div>
-          </div>
-          <div style="margin-top: 14px;">
-            <span style="background: #f3f4f6; color: #374151; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; font-family: monospace;">ARCHITECTURE</span>
-            <h3 style="font-size: 16.5px; font-weight: 700; color: #111827; margin-top: 8px; line-height: 1.35;">
-              The Open Model AI Stack: Why ProjectSPG Ranks #1 for Enterprise Privacy
-            </h3>
-          </div>
-        </a>
+            <div style="margin-top: 14px;">
+              <span style="background: #f3f4f6; color: #374151; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; font-family: monospace;">ARCHITECTURE</span>
+              <h3 style="font-size: 16.5px; font-weight: 700; color: #111827; margin-top: 8px; line-height: 1.35;">
+                The Open Model AI Stack: Why ProjectSPG Ranks #1 for Enterprise Privacy
+              </h3>
+            </div>
+          </a>
 
+        </div>
       </div>
+
     </div>
 
   </article>
@@ -1176,9 +1346,9 @@ response = client.chat.completions.create(
               <ul class="space-y-2.5 font-medium text-gray-600 mb-6">
                 <li><a href="/blog/benchmark" class="hover:text-gray-950 transition">Research &amp; Benchmark</a></li>
                 <li><a href="/blog/countries" class="hover:text-gray-950 transition">Supported Countries</a></li>
-                <li><a href="/blog/industries" class="hover:text-gray-950 transition">Regulated Industries</a></li>
                 <li><a href="/dashboard" class="hover:text-gray-950 transition">API Documentation</a></li>
                 <li><a href="https://github.com/PriyanujBoruah/AI-Privacy-Core" target="_blank" class="hover:text-gray-950 transition">Open-Source Core</a></li>
+                <li><a href="/dashboard" class="hover:text-gray-950 transition">Live Playground</a></li>
               </ul>
 
               <div class="border-t border-gray-200/90 pt-3 mb-3.5">
@@ -1198,8 +1368,6 @@ response = client.chat.completions.create(
               </div>
               <ul class="space-y-2.5 font-medium text-gray-600">
                 <li><a href="/blog/benchmark" class="hover:text-gray-950 transition">Blog &amp; Benchmarks</a></li>
-                <li><a href="/blog/countries" class="hover:text-gray-950 transition">109 Countries Matrix</a></li>
-                <li><a href="/blog/industries" class="hover:text-gray-950 transition">Industry Guardrails</a></li>
                 <li><a href="/" class="hover:text-gray-950 transition">About ProjectSPG</a></li>
                 <li><a href="mailto:support@projectspg.info" class="hover:text-gray-950 transition">Support</a></li>
               </ul>
@@ -1209,7 +1377,7 @@ response = client.chat.completions.create(
 
         </div>
 
-        <!-- Giant Watermark Brand Name -->
+        <!-- Giant Watermark Brand Name (ProjectSPG Signature) -->
         <div class="select-none pointer-events-none text-center text-[44px] sm:text-[90px] md:text-[135px] lg:text-[180px] font-bold tracking-tight text-gray-100/90 leading-none my-6 sm:my-10 overflow-hidden font-sans truncate">
           project<span class="text-[#f0523d]">spg</span>
         </div>
@@ -1246,7 +1414,9 @@ response = client.chat.completions.create(
         </div>
 
       </div>
+
     </div>
+
   </footer>
 
   <script>

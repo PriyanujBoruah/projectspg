@@ -9,14 +9,14 @@ export const COUNTRIES_BLOG_HTML = `<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Global Sovereign AI Privacy: 109 Jurisdictions & Sovereign Data Regulations Supported by ProjectSPG</title>
+  <title>Global Sovereign AI Privacy: 109 Jurisdictions Supported by ProjectSPG | ProjectSPG</title>
   <meta name="description" content="Discover how ProjectSPG protects sensitive enterprise data across 109 sovereign jurisdictions, 10 global regions, and regulations including GDPR, India DPDP, Singapore PDPA, and HIPAA with zero code changes.">
   <meta name="keywords" content="Global AI Privacy, Sovereign AI, 109 Jurisdictions, GDPR LLM Proxy, India DPDP Act, Singapore PDPA, HIPAA Compliance, Cross-Border AI Security, PII Redaction, Tokenization Engine">
   
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://projectspg.info/blog/countries">
-  <meta property="og:title" content="Global Sovereign AI Privacy: 109 Jurisdictions & Sovereign Data Regulations Supported by ProjectSPG">
+  <meta property="og:title" content="Global Sovereign AI Privacy: 109 Jurisdictions Supported by ProjectSPG">
   <meta property="og:description" content="Protecting sensitive enterprise prompts across 109 sovereign jurisdictions, 10 global regions, and regulations including GDPR, India DPDP, Singapore PDPA, and HIPAA with zero code changes.">
   <meta property="og:image" content="https://projectspg.info/og-countries.png">
 
@@ -31,7 +31,7 @@ export const COUNTRIES_BLOG_HTML = `<!DOCTYPE html>
   {
     "@context": "https://schema.org",
     "@type": "TechArticle",
-    "headline": "Global Sovereign AI Privacy: 109 Jurisdictions & Sovereign Data Regulations Supported by ProjectSPG",
+    "headline": "Global Sovereign AI Privacy: 109 Jurisdictions Supported by ProjectSPG",
     "description": "Comprehensive audit and technical architecture of ProjectSPG's 109 supported sovereign national jurisdictions, mathematical checksums, and compliance frameworks for global enterprise LLM inference.",
     "author": {
       "@type": "Person",
@@ -121,22 +121,18 @@ export const COUNTRIES_BLOG_HTML = `<!DOCTYPE html>
       display: flex;
       align-items: center;
       gap: 28px;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-
-    .nav-center-links a {
-      color: #4b5563;
-      text-decoration: none;
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: 500;
-      transition: color 0.15s ease;
+      color: #4b5563;
     }
 
-    .nav-center-links a:hover {
-      color: #0f172a;
+    .nav-link {
+      text-decoration: none;
+      color: #4b5563;
+      transition: color 0.15s;
     }
+
+    .nav-link:hover { color: #111827; }
 
     .nav-right-actions {
       display: flex;
@@ -144,391 +140,577 @@ export const COUNTRIES_BLOG_HTML = `<!DOCTYPE html>
       gap: 14px;
     }
 
-    .btn-nav-primary {
-      background: #0f172a;
-      color: #ffffff;
-      padding: 8px 18px;
-      border-radius: 8px;
-      font-size: 13.5px;
-      font-weight: 600;
+    .btn-contact {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #111827;
       text-decoration: none;
-      transition: background 0.15s;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 6px 12px;
+      transition: color 0.15s;
     }
 
-    .btn-nav-primary:hover {
-      background: #1e293b;
-    }
+    .btn-contact:hover { color: #f0523d; }
 
-    /* Article layout */
-    .article-container {
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 56px 24px 100px 24px;
-    }
-
-    /* Badges & Meta */
-    .badge-category {
-      display: inline-block;
-      background: #f3f4f6;
-      color: #374151;
-      font-size: 11px;
+    .btn-signin {
+      background: #000000;
+      color: #ffffff;
+      font-size: 11.5px;
       font-weight: 700;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      padding: 4px 10px;
+      padding: 9px 18px;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+
+    .btn-signin:hover { opacity: 0.85; }
+
+    /* Page Container */
+    .article-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    /* Article Header */
+    .article-header {
+      margin-bottom: 48px;
+    }
+
+    .meta-pills {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .badge-category {
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
+      color: #374151;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 3px 9px;
       border-radius: 4px;
       font-family: 'JetBrains Mono', monospace;
     }
 
-    .post-date {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      color: #6b7280;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-left: 14px;
-    }
-
-    /* Typography */
-    h1.article-title {
-      font-size: 42px;
-      line-height: 1.18;
-      font-weight: 800;
-      color: #0f172a;
-      letter-spacing: -0.03em;
-      margin-top: 18px;
-      margin-bottom: 20px;
-    }
-
-    p.article-subtitle {
-      font-size: 19px;
-      line-height: 1.6;
-      color: #4b5563;
-      font-weight: 400;
-      margin-bottom: 36px;
-    }
-
-    /* Top Grid: Left TOC/Author, Right Visual Preview */
-    .top-hero-grid {
-      display: grid;
-      grid-template-columns: 280px 1fr;
-      gap: 36px;
-      margin-bottom: 48px;
-      align-items: start;
-    }
-
-    .author-card {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 28px;
-    }
-
-    .author-avatar {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #10b981 0%, #0284c7 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: 700;
-      font-size: 16px;
-    }
-
-    .author-name {
+    .meta-date {
+      font-size: 11px;
       font-weight: 600;
-      font-size: 14.5px;
-      color: #111827;
-      line-height: 1.25;
+      color: #6b7280;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-family: 'JetBrains Mono', monospace;
     }
 
-    .author-role {
-      font-size: 12px;
+    .article-title {
+      font-size: 42px;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      color: #111827;
+      margin-bottom: 18px;
+    }
+
+    .article-lede {
+      font-size: 18px;
       color: #6b7280;
+      line-height: 1.6;
+      max-width: 880px;
       font-weight: 400;
     }
 
-    .toc-title {
+    /* Top Grid: Left Meta + Right Visual Diagram */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 48px;
+      margin-bottom: 56px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid #f3f4f6;
+    }
+
+    .meta-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .meta-section-title {
       font-size: 11px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       color: #9ca3af;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
       font-family: 'JetBrains Mono', monospace;
     }
 
+    .authors-text {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1f2937;
+      line-height: 1.4;
+    }
+
     .toc-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
       display: flex;
       flex-direction: column;
       gap: 8px;
     }
 
-    .toc-list a {
+    .toc-item {
+      font-size: 13.5px;
+      font-weight: 500;
       color: #4b5563;
       text-decoration: none;
-      font-size: 13.5px;
-      line-height: 1.4;
       transition: color 0.15s;
     }
 
-    .toc-list a:hover {
-      color: #f0523d;
-      font-weight: 500;
-    }
+    .toc-item:hover { color: #111827; font-weight: 600; }
 
-    /* Visual preview card (Right side) */
-    .hero-visual-card {
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      background: #fafafa;
-      overflow: hidden;
-      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
-    }
-
-    .hero-visual-header {
-      padding: 14px 18px;
-      border-bottom: 1px solid var(--border);
+    /* Visual Architecture Box on Right */
+    .hero-diagram-card {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      padding: 36px 32px;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: space-between;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+
+    .diagram-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 28px;
+      letter-spacing: -0.02em;
+      text-align: center;
+    }
+
+    .pipeline-steps-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      width: 100%;
+    }
+
+    .pipeline-step-box {
       background: #ffffff;
-      font-size: 12px;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 18px 14px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 170px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+      transition: transform 0.15s, border-color 0.15s;
+    }
+
+    .pipeline-step-box:hover {
+      transform: translateY(-2px);
+      border-color: #cbd5e1;
+    }
+
+    .pipeline-step-box.highlight {
+      background: #f0523d;
+      border-color: #f0523d;
+      color: #ffffff;
+    }
+
+    .pipeline-step-box.highlight .step-num { color: rgba(255,255,255,0.8); }
+    .pipeline-step-box.highlight .step-name { color: #ffffff; }
+    .pipeline-step-box.highlight .step-desc { color: rgba(255,255,255,0.9); }
+    .pipeline-step-box.highlight .step-tag { background: rgba(255,255,255,0.2); color: #ffffff; }
+
+    .step-icon-circle {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #f3f4f6;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      margin: 0 auto 8px;
+    }
+
+    .step-num {
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #9ca3af;
+      margin-bottom: 2px;
       font-family: 'JetBrains Mono', monospace;
+    }
+
+    .step-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 6px;
+    }
+
+    .step-desc {
+      font-size: 11px;
+      color: #6b7280;
+      line-height: 1.4;
+      margin-bottom: 12px;
+    }
+
+    .step-tag {
+      font-size: 9.5px;
+      font-weight: 600;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: #f3f4f6;
       color: #4b5563;
+      display: inline-block;
+      margin: 0 auto;
     }
 
-    .hero-visual-body {
-      padding: 24px;
-      background: #0f121d;
-      color: #f8fafc;
+    /* Main Prose Section */
+    .prose-content {
+      max-width: 820px;
+      margin: 0 auto;
     }
 
-    /* Editorial Blue Callout */
+    /* Editorial Callout Box */
     .editorial-callout {
-      background: #f0f7ff;
-      border: 1px solid #c7e1fe;
-      border-left: 4px solid #2563eb;
-      border-radius: 8px;
-      padding: 22px 26px;
-      margin: 36px 0;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 14px;
+      padding: 24px 28px;
+      margin-bottom: 36px;
       font-size: 15.5px;
       color: #1e3a8a;
       line-height: 1.7;
     }
 
-    .editorial-callout strong {
-      color: #1e3a8a;
-      font-weight: 700;
+    .prose-p {
+      font-size: 16.5px;
+      color: #374151;
+      line-height: 1.8;
+      margin-bottom: 24px;
     }
 
-    /* Metric cards 4-col */
-    .metric-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin: 36px 0;
+    .prose-quote {
+      border-left: 2px solid #e5e7eb;
+      padding-left: 20px;
+      font-size: 15.5px;
+      color: #6b7280;
+      font-style: italic;
+      margin: 32px 0;
+      line-height: 1.7;
     }
 
-    .metric-card {
-      background: #ffffff;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 20px 18px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .metric-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, #f0523d, #8b5cf6);
-    }
-
-    .metric-val {
+    .prose-h2 {
       font-size: 28px;
       font-weight: 800;
-      color: #0f172a;
-      font-family: 'JetBrains Mono', monospace;
-      line-height: 1.1;
-      margin-bottom: 6px;
+      letter-spacing: -0.02em;
+      color: #111827;
+      margin-top: 48px;
+      margin-bottom: 18px;
+      scroll-margin-top: 80px;
     }
 
-    .metric-sub {
-      font-size: 12px;
-      color: #6b7280;
-      font-weight: 500;
-      line-height: 1.35;
-    }
-
-    /* Clean Pro Data Tables */
-    .pro-table-wrapper {
-      margin: 32px 0;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      overflow-x: auto;
-      background: #ffffff;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
-    }
-
-    .pro-table {
-      width: 100%;
-      border-collapse: collapse;
-      text-align: left;
-      font-size: 13.5px;
-    }
-
-    .pro-table th {
-      background: #f8fafc;
-      padding: 13px 18px;
+    .prose-h3 {
+      font-size: 20px;
       font-weight: 700;
-      color: #1e293b;
-      border-bottom: 1px solid var(--border);
-      font-size: 12px;
-      letter-spacing: 0.03em;
-      text-transform: uppercase;
-      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: -0.01em;
+      color: #111827;
+      margin-top: 32px;
+      margin-bottom: 14px;
     }
 
-    .pro-table td {
-      padding: 13px 18px;
-      border-bottom: 1px solid #f1f5f9;
-      color: #334155;
-      vertical-align: middle;
+    .prose-ul {
+      list-style-type: none;
+      padding: 0;
+      margin-bottom: 28px;
     }
 
-    .pro-table tr:last-child td {
-      border-bottom: none;
+    .prose-li {
+      position: relative;
+      padding-left: 20px;
+      margin-bottom: 10px;
+      font-size: 16px;
+      color: #374151;
+      line-height: 1.7;
     }
 
-    .pro-table tr:hover td {
-      background: #f8fafc;
+    .prose-li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: #9ca3af;
+      font-weight: bold;
     }
 
-    .table-tag {
-      display: inline-block;
-      padding: 2px 7px;
-      border-radius: 4px;
-      font-size: 11px;
-      font-family: 'JetBrains Mono', monospace;
+    .prose-li strong {
+      color: #111827;
       font-weight: 600;
     }
 
-    .tag-blue { background: #dbeafe; color: #1e40af; }
-    .tag-purple { background: #f3e8ff; color: #6b21a8; }
-    .tag-green { background: #dcfce7; color: #166534; }
-    .tag-amber { background: #fef3c7; color: #92400e; }
-    .tag-rose { background: #ffe4e6; color: #9f1239; }
+    /* Key Metrics Multi-Card Container */
+    .metrics-showcase-wrap {
+      background: #f4f5f7;
+      border-radius: 20px;
+      padding: 36px 32px;
+      margin: 40px 0;
+    }
+
+    .metrics-showcase-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #111827;
+      text-align: center;
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+    }
+
+    .metric-tier-card {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+
+    .metric-tier-card:last-child { margin-bottom: 0; }
+
+    .tier-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .tier-icon-box {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .icon-flame { background: #fef2f2; color: #ef4444; }
+    .icon-scale { background: #eff6ff; color: #3b82f6; }
+    .icon-bolt { background: #f5f3ff; color: #8b5cf6; }
+
+    .tier-info-header {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #f0523d;
+      font-family: 'JetBrains Mono', monospace;
+      margin-bottom: 2px;
+    }
+
+    .tier-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .tier-subtext {
+      font-size: 13px;
+      color: #6b7280;
+    }
+
+    .tier-pill-badge {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      color: #334155;
+      font-size: 12.5px;
+      font-weight: 600;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 6px 14px;
+      border-radius: 6px;
+    }
+
+    /* Minimalist Data Tables */
+    .clean-table-card {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow-x: auto;
+      margin: 28px 0;
+      background: #ffffff;
+    }
+
+    .clean-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    .clean-table th {
+      background: #f9fafb;
+      color: #374151;
+      font-weight: 600;
+      font-size: 11.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 12px 18px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .clean-table td {
+      padding: 12px 18px;
+      border-bottom: 1px solid var(--border);
+      color: #374151;
+    }
+
+    .clean-table tr:last-child td { border-bottom: none; }
+    .clean-table tr:hover td { background: #fafafa; }
+    .mono { font-family: 'JetBrains Mono', monospace; font-size: 13px; }
+
+    /* Sub-region Card Container */
+    .subregion-card {
+      margin-top: 24px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+    }
+
+    .subregion-header {
+      font-size: 17px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Terminal Code Block */
+    .terminal-wrapper {
+      background: #0f172a;
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 28px 0;
+    }
+
+    .terminal-top-bar {
+      background: #1e293b;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #94a3b8;
+      font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .terminal-copy-btn {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #e2e8f0;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 10.5px;
+      cursor: pointer;
+    }
+
+    .terminal-pre {
+      padding: 18px 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #e2e8f0;
+      overflow-x: auto;
+    }
 
     /* Interactive Verifier Box */
     .verifier-box {
       border: 1px solid var(--border);
       border-radius: 12px;
-      background: #ffffff;
       padding: 24px;
-      margin: 40px 0;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+      margin: 32px 0;
+      background: #fafafa;
     }
 
     .verifier-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 18px;
-      padding-bottom: 14px;
-      border-bottom: 1px solid #f1f5f9;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 10px;
     }
 
-    /* Terminal reproduction box */
-    .terminal-box {
-      background: #0b0f19;
-      color: #f1f5f9;
-      border-radius: 10px;
-      overflow: hidden;
+    .verifier-input {
+      width: 100%;
+      height: 90px;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
       font-family: 'JetBrains Mono', monospace;
       font-size: 13px;
-      margin: 32px 0;
-      box-shadow: 0 6px 24px rgba(0,0,0,0.15);
-      border: 1px solid #1e293b;
+      outline: none;
+      resize: vertical;
+      background: #ffffff;
+      margin-bottom: 12px;
     }
 
-    .terminal-header {
-      background: #151c2d;
-      padding: 10px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid #1e293b;
-      font-size: 12px;
-      color: #94a3b8;
+    .verifier-input:focus { border-color: #000000; }
+
+    .verifier-output {
+      padding: 12px;
+      border-radius: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      min-height: 90px;
+      word-break: break-all;
+      white-space: pre-wrap;
     }
 
-    .terminal-dots {
-      display: flex;
-      gap: 6px;
+    .table-tag {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
     }
-
-    .t-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-    }
-
-    .t-red { background: #ef4444; }
-    .t-yellow { background: #eab308; }
-    .t-green { background: #22c55e; }
-
-    .terminal-body {
-      padding: 20px;
-      overflow-x: auto;
-      line-height: 1.65;
-    }
-
-    .t-prompt { color: #38bdf8; user-select: none; }
-    .t-cmd { color: #f8fafc; font-weight: 600; }
-    .t-comment { color: #64748b; }
-    .t-out { color: #94a3b8; }
-    .t-success { color: #4ade80; }
-    .t-accent { color: #f0523d; }
-
-    /* Related articles footer */
-    .related-section {
-      margin-top: 72px;
-      padding-top: 48px;
-      border-top: 1px solid var(--border);
-    }
-
-    .related-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      margin-top: 24px;
-    }
+    .tag-blue { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+    .tag-purple { background: #faf5ff; color: #7e22ce; border: 1px solid #e9d5ff; }
+    .tag-green { background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; }
+    .tag-amber { background: #fffbeb; color: #b45309; border: 1px solid #fde68a; }
+    .tag-rose { background: #fff1f2; color: #be123c; border: 1px solid #fecdd3; }
 
     @media (max-width: 900px) {
-      .top-hero-grid { grid-template-columns: 1fr; }
-      .metric-grid { grid-template-columns: repeat(2, 1fr); }
-      .related-grid { grid-template-columns: 1fr; }
-      .site-nav { padding: 0 16px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 32px; }
       .nav-center-links { display: none; }
-      h1.article-title { font-size: 32px; }
+      .article-title { font-size: 32px; }
+      .pipeline-steps-row { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Top Clean Floating Navbar -->
-  <header class="site-nav">
+  <!-- Top Clean Navigation Bar -->
+  <nav class="site-nav">
     <a href="/" class="nav-brand">
       <div class="brand-dots">
         <span class="dot dot-pink"></span>
@@ -538,173 +720,193 @@ export const COUNTRIES_BLOG_HTML = `<!DOCTYPE html>
       <span>project<span style="color:#f0523d;">spg</span></span>
     </a>
 
-    <nav>
-      <ul class="nav-center-links">
-        <li><a href="/#platform-section">Platform</a></li>
-        <li><a href="/#research-section">Research</a></li>
-        <li><a href="/blog/benchmark">Benchmark Blog</a></li>
-        <li><a href="/blog/countries" style="color: #f0523d; font-weight: 600;">Countries</a></li>
-        <li><a href="/#access-section">Private Access</a></li>
-        <li><a href="/dashboard#docs">Docs</a></li>
-        <li><a href="/dashboard#playground">Playground</a></li>
-      </ul>
-    </nav>
+    <div class="nav-center-links">
+      <a href="/#features" class="nav-link">Inference</a>
+      <a href="/#research-section" class="nav-link">Research</a>
+      <a href="/#news-section" class="nav-link">Blog</a>
+      <a href="/dashboard" class="nav-link">Playground</a>
+      <a href="https://github.com/PriyanujBoruah/AI-Privacy-Core" target="_blank" class="nav-link">Developers</a>
+    </div>
 
     <div class="nav-right-actions">
-      <a href="/#access-section" style="color:#4b5563; font-size:13.5px; font-weight:500; text-decoration:none; margin-right:6px;" class="hidden sm:inline-block">Request Access</a>
-      <a href="/dashboard" class="btn-nav-primary">Get Started</a>
+      <a href="/" class="btn-contact">OVERVIEW</a>
+      <a href="/dashboard" class="btn-signin">CONSOLE</a>
     </div>
-  </header>
+  </nav>
 
-  <!-- Main Editorial Container -->
-  <article class="article-container">
+  <!-- Article Wrapper -->
+  <article class="article-wrap">
     
-    <!-- Category & Date Header -->
-    <div style="display: flex; align-items: center; margin-bottom: 8px;">
-      <span class="badge-category">COMPLIANCE</span>
-      <span class="post-date">PUBLISHED 9/30/2026</span>
-    </div>
+    <!-- Article Header -->
+    <header class="article-header">
+      <div class="meta-pills">
+        <span class="badge-category">COMPLIANCE</span>
+        <span class="meta-date">PUBLISHED 9/30/2026</span>
+      </div>
+      <h1 class="article-title">
+        Global Sovereign AI Privacy: 109 Jurisdictions Supported by ProjectSPG
+      </h1>
+      <p class="article-lede">
+        How modern enterprises across the European Union, India, South East Asia, North America, Latin America, Africa, and APAC stream LLM prompts across borders with 100.00% zero-loss de-identification, mathematical checksum verification, and sub-millisecond edge latency.
+      </p>
+    </header>
 
-    <!-- Title & Subtitle -->
-    <h1 class="article-title">
-      Global Sovereign AI Privacy: 109 Jurisdictions &amp; Sovereign Data Regulations Supported by ProjectSPG
-    </h1>
-
-    <p class="article-subtitle">
-      How modern enterprises across the European Union, India, South East Asia, North America, Latin America, Africa, and APAC stream LLM prompts across borders with 100.00% zero-loss de-identification, mathematical checksum verification, and sub-millisecond edge latency.
-    </p>
-
-    <!-- Top Hero Grid: Left TOC/Author, Right Live Architecture Card -->
-    <div class="top-hero-grid">
+    <!-- Top Grid: Metadata Sidebar on Left + Hero Pipeline Diagram on Right -->
+    <div class="hero-grid">
       
-      <!-- Left Column: Author & Dynamic Jump Links -->
-      <div>
-        <div class="author-card">
-          <div class="author-avatar">PB</div>
-          <div>
-            <div class="author-name">Priyanuj Boruah</div>
-            <div class="author-role">Founder &amp; Lead Architect, ProjectSPG</div>
+      <!-- Left Metadata & Table of Contents Sidebar -->
+      <aside class="meta-sidebar">
+        <div>
+          <div class="meta-section-title">AUTHORS</div>
+          <div class="authors-text">
+            Priyanuj Boruah, ProjectSPG Research
           </div>
         </div>
 
-        <div class="toc-title">TABLE OF CONTENTS</div>
-        <ul class="toc-list">
-          <li><a href="#dilemma">1. The Sovereign Data Dilemma in LLMs</a></li>
-          <li><a href="#global-map">2. Global Coverage: 109 Jurisdictions</a></li>
-          <li><a href="#regional-breakdown">3. Regional Deep-Dive &amp; Identifiers</a></li>
-          <li><a href="#checksums">4. Mathematical Checksum Verification</a></li>
-          <li><a href="#regulatory-matrix">5. Regulatory Mapping (GDPR, DPDP, HIPAA)</a></li>
-          <li><a href="#latency">6. Zero-Data Retention &amp; Edge Overhead</a></li>
-          <li><a href="#verifier">7. Interactive Sovereign Verifier</a></li>
-          <li><a href="#implementation">8. 60-Second Implementation Guide</a></li>
-        </ul>
-      </div>
-
-      <!-- Right Column: Visual Telemetry Card -->
-      <div class="hero-visual-card">
-        <div class="hero-visual-header">
-          <span style="display:flex; align-items:center; gap:8px;">
-            <span style="width:8px; height:8px; border-radius:50%; background:#22c55e;"></span>
-            GLOBAL JURISDICTION DISPATCH
-          </span>
-          <span style="color:#64748b;">10 MACRO REGIONS • 109 NATIONS</span>
+        <div>
+          <div class="meta-section-title">TABLE OF CONTENTS</div>
+          <nav class="toc-list">
+            <a href="#dilemma" class="toc-item">1. The Sovereign Data Dilemma</a>
+            <a href="#global-map" class="toc-item">2. Global Coverage: 109 Jurisdictions</a>
+            <a href="#regional-breakdown" class="toc-item">3. Regional Deep-Dive &amp; Standards</a>
+            <a href="#checksums" class="toc-item">4. Mathematical Checksums</a>
+            <a href="#regulatory-matrix" class="toc-item">5. Regulatory Mapping (GDPR/DPDP)</a>
+            <a href="#latency" class="toc-item">6. Zero-Data Retention &amp; Latency</a>
+            <a href="#verifier" class="toc-item">7. Interactive Sovereign Verifier</a>
+            <a href="#implementation" class="toc-item">8. 60-Second Implementation</a>
+          </nav>
         </div>
-        <div class="hero-visual-body">
-          <div style="font-size: 13px; font-family: 'JetBrains Mono', monospace; color: #94a3b8; margin-bottom: 16px;">
-            // Real-time edge sovereignty verification engine:
+      </aside>
+
+      <!-- Right Visual Architecture Card -->
+      <div class="hero-diagram-card">
+        <h3 class="diagram-title">The ProjectSPG Sovereign Jurisdiction Routing Engine</h3>
+        
+        <div class="pipeline-steps-row">
+          <!-- Step 1 -->
+          <div class="pipeline-step-box">
+            <div>
+              <div class="step-icon-circle">🌐</div>
+              <div class="step-num">STEP 01</div>
+              <div class="step-name">Ingestion</div>
+              <div class="step-desc">Sub-millisecond prompt ingestion across 10 macro regions.</div>
+            </div>
+            <span class="step-tag">109 Nations</span>
           </div>
 
-          <!-- Mini Regional Grid in Hero -->
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-family: 'JetBrains Mono', monospace; font-size: 12px;">
-            <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08);">
-              <div style="color: #38bdf8; font-weight:700;">EUROPEAN UNION (27)</div>
-              <div style="color: #cbd5e1; font-size: 11px; margin-top: 4px;">GDPR Art 44-50, EU AI Act</div>
-              <div style="color: #22c55e; font-size: 10.5px; margin-top: 2px;">Steuer-ID, NIR, Codice, BSN, PESEL</div>
+          <!-- Step 2 -->
+          <div class="pipeline-step-box">
+            <div>
+              <div class="step-icon-circle">🛡️</div>
+              <div class="step-num">STEP 02</div>
+              <div class="step-name">Checksums</div>
+              <div class="step-desc">Hardware-level Verhoeff, Luhn &amp; Mod-97 verification.</div>
             </div>
-
-            <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08);">
-              <div style="color: #f97316; font-weight:700;">ASIA-PACIFIC (24)</div>
-              <div style="color: #cbd5e1; font-size: 11px; margin-top: 4px;">India DPDP 2023, APPI, PIPA</div>
-              <div style="color: #22c55e; font-size: 10.5px; margin-top: 2px;">Aadhaar (Verhoeff), PAN, My Number</div>
-            </div>
-
-            <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08);">
-              <div style="color: #a855f7; font-weight:700;">SOUTH EAST ASIA (10)</div>
-              <div style="color: #cbd5e1; font-size: 11px; margin-top: 4px;">Singapore PDPA, Malaysia PDP</div>
-              <div style="color: #22c55e; font-size: 10.5px; margin-top: 2px;">NRIC/FIN, MyKad, NIK/KTP, CCCD</div>
-            </div>
-
-            <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08);">
-              <div style="color: #ec4899; font-weight:700;">AMERICAS &amp; GLOBAL (48)</div>
-              <div style="color: #cbd5e1; font-size: 11px; margin-top: 4px;">HIPAA, CCPA, LGPD, PCI-DSS</div>
-              <div style="color: #22c55e; font-size: 10.5px; margin-top: 2px;">SSN, SIN, CPF, IBAN (Mod-97), Cards (Luhn)</div>
-            </div>
+            <span class="step-tag">100.00% Precision</span>
           </div>
 
-          <div style="margin-top: 18px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: space-between; font-size: 11.5px; font-family: 'JetBrains Mono', monospace;">
-            <span style="color: #22c55e;">● IN-FLIGHT SOVEREIGNTY: 100% SECURE</span>
-            <span style="color: #94a3b8;">NO LOGGING • NO DATA RETENTION</span>
+          <!-- Step 3: Highlighted Box -->
+          <div class="pipeline-step-box highlight">
+            <div>
+              <div class="step-icon-circle" style="background: rgba(255,255,255,0.2); color:#ffffff;">🔒</div>
+              <div class="step-num">STEP 03 • ZERO LEAKAGE</div>
+              <div class="step-name">De-Identify</div>
+              <div class="step-desc">Sovereign identifiers converted into cryptographic tokens.</div>
+            </div>
+            <span class="step-tag">Zero Cross-Border</span>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="pipeline-step-box">
+            <div>
+              <div class="step-icon-circle">⚡</div>
+              <div class="step-num">STEP 04</div>
+              <div class="step-name">Rehydrate</div>
+              <div class="step-desc">Streaming SSE completions restored bit-for-bit in flight.</div>
+            </div>
+            <span class="step-tag">0 Character Loss</span>
           </div>
         </div>
       </div>
 
     </div>
 
-    <!-- Editorial Blue Callout on Sovereign Cross-Border Compliance -->
-    <div class="editorial-callout">
-      <strong>The Cross-Border AI Exposure Mandate:</strong> Under the European Union General Data Protection Regulation (GDPR Chapter V), the Indian Digital Personal Data Protection Act 2023 (DPDP Act §16), Singapore Personal Data Protection Act (PDPA §26), and US HIPAA Safe Harbor standards, transmitting unmasked personally identifiable national identifiers across foreign LLM inference clusters represents an immediate, high-severity regulatory violation. Penalties reach up to <strong>€20,000,000 or 4% of worldwide turnover</strong> under GDPR, and <strong>₹250 Crore per incident</strong> under India DPDP. ProjectSPG renders prompts 100% non-identifiable before packet transit.
-    </div>
+    <!-- Main Editorial Article Prose -->
+    <div class="prose-content">
 
-    <!-- 4 High-Impact Metric Cards -->
-    <div class="metric-grid">
-      <div class="metric-card">
-        <div class="metric-val">109</div>
-        <div class="metric-sub">Sovereign Jurisdictions Covered Natively</div>
+      <!-- Editorial Blue Callout on Sovereign Cross-Border Compliance -->
+      <div class="editorial-callout" id="summary">
+        <strong>The Cross-Border AI Exposure Mandate:</strong> Under the European Union General Data Protection Regulation (GDPR Chapter V), the Indian Digital Personal Data Protection Act 2023 (DPDP Act §16), Singapore Personal Data Protection Act (PDPA §26), and US HIPAA Safe Harbor standards, transmitting unmasked personally identifiable national identifiers across foreign LLM inference clusters represents an immediate, high-severity regulatory violation. Penalties reach up to <strong>€20,000,000 or 4% of worldwide turnover</strong> under GDPR, and <strong>₹250 Crore per incident</strong> under India DPDP. ProjectSPG renders prompts 100% non-identifiable before packet transit.
       </div>
 
-      <div class="metric-card">
-        <div class="metric-val">10</div>
-        <div class="metric-sub">Macro Geographic Regions with Local Parsers</div>
+      <!-- Key Metrics Showcase Canvas -->
+      <div class="metrics-showcase-wrap">
+        <h3 class="metrics-showcase-title">Global Sovereign Privacy Highlights</h3>
+
+        <!-- Card 1 -->
+        <div class="metric-tier-card">
+          <div class="tier-left">
+            <div class="tier-icon-box icon-scale">🌐</div>
+            <div>
+              <div class="tier-info-header">JURISDICTION COVERAGE</div>
+              <div class="tier-title">109 Sovereign Nations</div>
+              <div class="tier-subtext">Native deterministic syntactic parsers across all 10 global macro regions</div>
+            </div>
+          </div>
+          <div class="tier-pill-badge">109 Territories</div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="metric-tier-card">
+          <div class="tier-left">
+            <div class="tier-icon-box icon-flame">✓</div>
+            <div>
+              <div class="tier-info-header">MATHEMATICAL PRECISION</div>
+              <div class="tier-title">100.00% Checksum Verification</div>
+              <div class="tier-subtext">Verhoeff (Aadhaar), Luhn (Credit Cards), ISO 7064 Mod 97-10 (IBAN)</div>
+            </div>
+          </div>
+          <div class="tier-pill-badge">0 False Positives</div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="metric-tier-card">
+          <div class="tier-left">
+            <div class="tier-icon-box icon-bolt">⏱️</div>
+            <div>
+              <div class="tier-info-header">EDGE LATENCY</div>
+              <div class="tier-title">&lt;1 ms Edge Inception Overhead</div>
+              <div class="tier-subtext">In-flight packet sanitization before cross-border TLS egress</div>
+            </div>
+          </div>
+          <div class="tier-pill-badge">86 µs Compute</div>
+        </div>
       </div>
 
-      <div class="metric-card">
-        <div class="metric-val">100.00%</div>
-        <div class="metric-sub">Checksum Precision (Verhoeff, Luhn, Mod-97)</div>
+      <div class="prose-quote">
+        "Rather than relying on fuzzy probabilistic models that hallucinate and introduce non-deterministic latency, ProjectSPG executes zero-overhead deterministic regex parsers coupled with hardware-level checksum validations."
       </div>
 
-      <div class="metric-card">
-        <div class="metric-val">&lt;1ms</div>
-        <div class="metric-sub">Sub-millisecond Edge Inception Overhead</div>
-      </div>
-    </div>
-
-    <!-- Section 1: The Sovereign Dilemma -->
-    <section id="dilemma" style="margin-top: 56px;">
-      <h2 style="font-size: 26px; font-weight: 800; color: #0f172a; letter-spacing: -0.02em; margin-bottom: 16px;">
-        1. The Sovereign Data Dilemma in Generative AI
-      </h2>
-      <p>
+      <!-- Section 1: The Sovereign Dilemma -->
+      <h2 class="prose-h2" id="dilemma">1. The Sovereign Data Dilemma in Generative AI</h2>
+      <p class="prose-p">
         Enterprise adoption of Large Language Models (LLMs) has fundamentally collided with national data sovereignty frameworks. When a multinational enterprise deploys OpenAI GPT-4o, Anthropic Claude 3.5 Sonnet, Google Gemini 1.5 Pro, or DeepSeek V3, user queries and internal documents are routinely dispatched to centralized GPU clusters distributed across North America, Europe, or third-party cloud regions.
       </p>
-      <p style="margin-top: 14px;">
+      <p class="prose-p">
         If a healthcare worker in London enters an NHS patient number, a banking analyst in Singapore pastes an NRIC or UEN registration, a customer support agent in Frankfurt inputs a German Steuer-ID, or an Indian fintech routes an Aadhaar number, the prompt violates extraterritorial transfer prohibitions the moment the TLS connection establishes with the foreign LLM provider.
       </p>
-      <p style="margin-top: 14px;">
+      <p class="prose-p">
         Traditional solutions—such as deploying dedicated on-premise clusters or localized VPCs—impose crushing infrastructure capital expenditures, lack frontier model reasoning capabilities, and require months of bureaucratic deployment. ProjectSPG resolves this architectural contradiction through <strong>In-Flight Sovereign De-Identification</strong>: mathematical redaction and cryptographic surrogate tokenization that operates inside the edge network within the originating legal jurisdiction before payloads leave sovereign borders.
       </p>
-    </section>
 
-    <!-- Section 2: Global Coverage -->
-    <section id="global-map" style="margin-top: 56px;">
-      <h2 style="font-size: 26px; font-weight: 800; color: #0f172a; letter-spacing: -0.02em; margin-bottom: 16px;">
-        2. Global Coverage: 109 Jurisdictions Across 10 Regions
-      </h2>
-      <p>
+      <!-- Section 2: Global Coverage -->
+      <h2 class="prose-h2" id="global-map">2. Global Coverage: 109 Jurisdictions Across 10 Regions</h2>
+      <p class="prose-p">
         ProjectSPG’s tokenization engine features native syntactic parsers, structural character masks, and mathematical verification algorithms for 109 sovereign territories across every inhabited continent. Rather than relying on fuzzy machine learning classifiers that hallucinate and introduce non-deterministic latency, ProjectSPG executes zero-overhead deterministic regex parsers coupled with hardware-level checksum validations.
       </p>
 
-      <div class="pro-table-wrapper">
-        <table class="pro-table">
+      <div class="clean-table-card">
+        <table class="clean-table">
           <thead>
             <tr>
               <th>Region</th>
@@ -777,123 +979,111 @@ export const COUNTRIES_BLOG_HTML = `<!DOCTYPE html>
           </tbody>
         </table>
       </div>
-    </section>
 
-    <!-- Section 3: Regional Deep-Dive -->
-    <section id="regional-breakdown" style="margin-top: 56px;">
-      <h2 style="font-size: 26px; font-weight: 800; color: #0f172a; letter-spacing: -0.02em; margin-bottom: 16px;">
-        3. Regional Breakdown &amp; Sovereign Identity Standards
-      </h2>
-      <p>
+      <!-- Section 3: Regional Deep-Dive -->
+      <h2 class="prose-h2" id="regional-breakdown">3. Regional Breakdown &amp; Sovereign Identity Standards</h2>
+      <p class="prose-p">
         Each sovereign government issues national identity credentials engineered with idiosyncratic character sets, checksum validation schemes, and structural constraints. A generic PII redactor that searches merely for "digits" or "hyphens" generates intolerable false-positive rates on financial charts, part numbers, and code blocks while leaking non-standard alphanumeric identifiers.
       </p>
 
       <!-- Sub-region 3.1: South East Asia -->
-      <div style="margin-top: 28px; background: #fafafa; border: 1px solid var(--border); border-radius: 12px; padding: 24px;">
-        <h3 style="font-size: 18px; font-weight: 700; color: #0f172a; margin-bottom: 12px; display:flex; align-items:center; gap:8px;">
+      <div class="subregion-card">
+        <h3 class="subregion-header">
           <span style="color:#f0523d;">■</span> South East Asia (SEA): Singapore, Malaysia, Indonesia, Philippines &amp; Vietnam
         </h3>
-        <p style="font-size: 14.5px; color: #4b5563;">
+        <p class="prose-p" style="font-size: 14.5px; color: #4b5563; margin-bottom: 12px;">
           South East Asian identity architectures combine century codes, serial issuance counters, and modular weighting checksums:
         </p>
-        <ul style="margin-top: 10px; font-size: 14px; color: #374151; padding-left: 20px; line-height: 1.8;">
-          <li><strong>Singapore NRIC/FIN:</strong> 9-character alphanumeric structure (<code>^[STFGMC]\d{7}[A-Z]$</code>). Validated with modulus 11 weights <code>[2, 7, 6, 5, 4, 3, 2]</code> with offset mappings for pre-2000 citizens (<code>S</code>), post-2000 citizens (<code>T</code>), and foreign residents (<code>F/G/M</code>).</li>
-          <li><strong>Malaysia MyKad:</strong> 12-digit format (<code>YYMMDD-PB-###G</code>). Embeds verified date-of-birth, 2-digit birth state code (<code>01-16</code> for states/federal territories), and odd/even gender designation.</li>
-          <li><strong>Indonesia NIK (Nomor Induk Kependudukan):</strong> 16-digit structure detailing provincial code (2 digits), regency/city code (2 digits), district (2 digits), date of birth (with female birth date offset +40), and sequential registration digits.</li>
-          <li><strong>Philippines PhilSys Card (CRN):</strong> 12-digit Common Reference Number with modular parity verification.</li>
-          <li><strong>Vietnam CCCD (Căn cước công dân):</strong> 12-digit citizen identity card incorporating century code, province code, and unique identity series.</li>
+        <ul class="prose-ul">
+          <li class="prose-li"><strong>Singapore NRIC/FIN:</strong> 9-character alphanumeric structure (<code>^[STFGMC]\d{7}[A-Z]$</code>). Validated with modulus 11 weights <code>[2, 7, 6, 5, 4, 3, 2]</code> with offset mappings for pre-2000 citizens (<code>S</code>), post-2000 citizens (<code>T</code>), and foreign residents (<code>F/G/M</code>).</li>
+          <li class="prose-li"><strong>Malaysia MyKad:</strong> 12-digit format (<code>YYMMDD-PB-###G</code>). Embeds verified date-of-birth, 2-digit birth state code (<code>01-16</code> for states/federal territories), and odd/even gender designation.</li>
+          <li class="prose-li"><strong>Indonesia NIK (Nomor Induk Kependudukan):</strong> 16-digit structure detailing provincial code (2 digits), regency/city code (2 digits), district (2 digits), date of birth (with female birth date offset +40), and sequential registration digits.</li>
+          <li class="prose-li"><strong>Philippines PhilSys Card (CRN):</strong> 12-digit Common Reference Number with modular parity verification.</li>
+          <li class="prose-li"><strong>Vietnam CCCD (Căn cước công dân):</strong> 12-digit citizen identity card incorporating century code, province code, and unique identity series.</li>
         </ul>
       </div>
 
       <!-- Sub-region 3.2: Asia (Non-SEA) -->
-      <div style="margin-top: 20px; background: #fafafa; border: 1px solid var(--border); border-radius: 12px; padding: 24px;">
-        <h3 style="font-size: 18px; font-weight: 700; color: #0f172a; margin-bottom: 12px; display:flex; align-items:center; gap:8px;">
+      <div class="subregion-card">
+        <h3 class="subregion-header">
           <span style="color:#8b5cf6;">■</span> Asia (Non-SEA): India, Japan, South Korea, China &amp; Taiwan
         </h3>
-        <p style="font-size: 14.5px; color: #4b5563;">
+        <p class="prose-p" style="font-size: 14.5px; color: #4b5563; margin-bottom: 12px;">
           Home to the world's most populous biometric and identity databases, these standards demand strict mathematical validation:
         </p>
-        <ul style="margin-top: 10px; font-size: 14px; color: #374151; padding-left: 20px; line-height: 1.8;">
-          <li><strong>India Aadhaar:</strong> 12-digit national identifier governed by UIDAI. Validated via the <em>Verhoeff algorithm</em> (based on dihedral group \(D_5\)), catching 100% of single-digit transcription errors and 95.3% of adjacent transposition errors.</li>
-          <li><strong>India Permanent Account Number (PAN):</strong> 10-character alphanumeric code (<code>^[A-Z]{3}[ABCFGHLJPT][A-Z]\d{4}[A-Z]$</code>) where the 4th character strictly categorizes taxpayer status (<code>P</code> for Individual, <code>C</code> for Company, <code>H</code> for HUF, <code>F</code> for Firm).</li>
-          <li><strong>Japan My Number (社会・社会保障番号):</strong> 12-digit individual number validated using modulus 11 with weights <code>[2, 3, 4, 5, 6, 7, 2, 3, 4, 5, 6]</code>.</li>
-          <li><strong>South Korea Resident Registration Number (RRN):</strong> 13-digit format (<code>YYMMDD-S######</code>) with gender century markers (1-4 for 20th/21st century natives, 5-8 for foreign residents) verified with modulus 11 parity.</li>
-          <li><strong>China Resident Identity Card:</strong> 18-digit identity string (<code>GB 11643-1999</code>) verified using ISO 7064:1983.MOD 11-2 check character (including check digit 'X').</li>
+        <ul class="prose-ul">
+          <li class="prose-li"><strong>India Aadhaar:</strong> 12-digit national identifier governed by UIDAI. Validated via the <em>Verhoeff algorithm</em> (based on dihedral group D<sub>5</sub>), catching 100% of single-digit transcription errors and 95.3% of adjacent transposition errors.</li>
+          <li class="prose-li"><strong>India Permanent Account Number (PAN):</strong> 10-character alphanumeric code (<code>^[A-Z]{3}[ABCFGHLJPT][A-Z]\d{4}[A-Z]$</code>) where the 4th character strictly categorizes taxpayer status (<code>P</code> for Individual, <code>C</code> for Company, <code>H</code> for HUF, <code>F</code> for Firm).</li>
+          <li class="prose-li"><strong>Japan My Number (社会・社会保障番号):</strong> 12-digit individual number validated using modulus 11 with weights <code>[2, 3, 4, 5, 6, 7, 2, 3, 4, 5, 6]</code>.</li>
+          <li class="prose-li"><strong>South Korea Resident Registration Number (RRN):</strong> 13-digit format (<code>YYMMDD-S######</code>) with gender century markers (1-4 for 20th/21st century natives, 5-8 for foreign residents) verified with modulus 11 parity.</li>
+          <li class="prose-li"><strong>China Resident Identity Card:</strong> 18-digit identity string (<code>GB 11643-1999</code>) verified using ISO 7064:1983.MOD 11-2 check character (including check digit 'X').</li>
         </ul>
       </div>
 
       <!-- Sub-region 3.3: European Union -->
-      <div style="margin-top: 20px; background: #fafafa; border: 1px solid var(--border); border-radius: 12px; padding: 24px;">
-        <h3 style="font-size: 18px; font-weight: 700; color: #0f172a; margin-bottom: 12px; display:flex; align-items:center; gap:8px;">
+      <div class="subregion-card">
+        <h3 class="subregion-header">
           <span style="color:#10b981;">■</span> European Union (EU) &amp; United Kingdom
         </h3>
-        <p style="font-size: 14.5px; color: #4b5563;">
+        <p class="prose-p" style="font-size: 14.5px; color: #4b5563; margin-bottom: 12px;">
           Under the stringent mandates of GDPR and the EU AI Act, ProjectSPG identifies all sovereign member state identification schemas:
         </p>
-        <ul style="margin-top: 10px; font-size: 14px; color: #374151; padding-left: 20px; line-height: 1.8;">
-          <li><strong>Germany Steuer-Identifikationsnummer:</strong> 11-digit tax ID verified with DIN ISO/IEC 7064, MOD 11, 10 algorithm with unique recurrence rules (exactly one digit appears twice, no digit appears three times).</li>
-          <li><strong>France NIR (Numéro de Sécurité Sociale):</strong> 15-digit code comprising sex, birth year/month, department of birth (including Corsica 2A/2B), commune, order number, and modulo 97 check key.</li>
-          <li><strong>Italy Codice Fiscale:</strong> 16-character alphanumeric string encoding surname consonants/vowels, given name, birth year, month character (A-T), day (with +40 female shift), cadastral municipality code, and complex checksum lookup table.</li>
-          <li><strong>United Kingdom NHS Number:</strong> 10-digit identifier validated using Modulus 11 with weights <code>[10, 9, 8, 7, 6, 5, 4, 3, 2]</code>.</li>
-          <li><strong>Spain DNI/NIE:</strong> 8-digit national identity card followed by modulus 23 character lookup (TRWAGMYFPDXBNJZSQVHLCKE).</li>
+        <ul class="prose-ul">
+          <li class="prose-li"><strong>Germany Steuer-Identifikationsnummer:</strong> 11-digit tax ID verified with DIN ISO/IEC 7064, MOD 11, 10 algorithm with unique recurrence rules (exactly one digit appears twice, no digit appears three times).</li>
+          <li class="prose-li"><strong>France NIR (Numéro de Sécurité Sociale):</strong> 15-digit code comprising sex, birth year/month, department of birth (including Corsica 2A/2B), commune, order number, and modulo 97 check key.</li>
+          <li class="prose-li"><strong>Italy Codice Fiscale:</strong> 16-character alphanumeric string encoding surname consonants/vowels, given name, birth year, month character (A-T), day (with +40 female shift), cadastral municipality code, and complex checksum lookup table.</li>
+          <li class="prose-li"><strong>United Kingdom NHS Number:</strong> 10-digit identifier validated using Modulus 11 with weights <code>[10, 9, 8, 7, 6, 5, 4, 3, 2]</code>.</li>
+          <li class="prose-li"><strong>Spain DNI/NIE:</strong> 8-digit national identity card followed by modulus 23 character lookup (TRWAGMYFPDXBNJZSQVHLCKE).</li>
         </ul>
       </div>
 
       <!-- Sub-region 3.4: Americas -->
-      <div style="margin-top: 20px; background: #fafafa; border: 1px solid var(--border); border-radius: 12px; padding: 24px;">
-        <h3 style="font-size: 18px; font-weight: 700; color: #0f172a; margin-bottom: 12px; display:flex; align-items:center; gap:8px;">
+      <div class="subregion-card">
+        <h3 class="subregion-header">
           <span style="color:#0284c7;">■</span> Americas: United States, Canada, Brazil &amp; Latin America
         </h3>
-        <p style="font-size: 14.5px; color: #4b5563;">
+        <p class="prose-p" style="font-size: 14.5px; color: #4b5563; margin-bottom: 12px;">
           Covering federal, state, and provincial identification schemes across North and South America:
         </p>
-        <ul style="margin-top: 10px; font-size: 14px; color: #374151; padding-left: 20px; line-height: 1.8;">
-          <li><strong>United States SSN:</strong> 9-digit Social Security Number with area exclusion checks (excluding 000, 666, and 900-999) and group/serial validation.</li>
-          <li><strong>Canada SIN (Social Insurance Number):</strong> 9-digit identifier validated using the Luhn checksum algorithm; 9-series temporary worker detection.</li>
-          <li><strong>Brazil CPF (Cadastro de Pessoas Físicas):</strong> 11-digit national identity verified by consecutive dual-pass modulus 11 check digits with 100% false-positive rejection.</li>
-          <li><strong>Brazil CNPJ:</strong> 14-digit corporate tax registry verified with dual modulus 11 weighting across corporate root, branch, and check digits.</li>
+        <ul class="prose-ul">
+          <li class="prose-li"><strong>United States SSN:</strong> 9-digit Social Security Number with area exclusion checks (excluding 000, 666, and 900-999) and group/serial validation.</li>
+          <li class="prose-li"><strong>Canada SIN (Social Insurance Number):</strong> 9-digit identifier validated using the Luhn checksum algorithm; 9-series temporary worker detection.</li>
+          <li class="prose-li"><strong>Brazil CPF (Cadastro de Pessoas Físicas):</strong> 11-digit national identity verified by consecutive dual-pass modulus 11 check digits with 100% false-positive rejection.</li>
+          <li class="prose-li"><strong>Brazil CNPJ:</strong> 14-digit corporate tax registry verified with dual modulus 11 weighting across corporate root, branch, and check digits.</li>
         </ul>
       </div>
-    </section>
 
-    <!-- Section 4: Mathematical Checksums -->
-    <section id="checksums" style="margin-top: 56px;">
-      <h2 style="font-size: 26px; font-weight: 800; color: #0f172a; letter-spacing: -0.02em; margin-bottom: 16px;">
-        4. Mathematical Checksum Verification: Zero False Positives
-      </h2>
-      <p>
+      <!-- Section 4: Mathematical Checksums -->
+      <h2 class="prose-h2" id="checksums">4. Mathematical Checksum Verification: Zero False Positives</h2>
+      <p class="prose-p">
         The primary operational flaw of legacy data loss prevention (DLP) tools is reliance on naive regular expressions. When an enterprise scans engineering prompts containing memory addresses, Git commit hashes, UUIDs, or matrix multiplication weights, a standard 9-digit or 12-digit regex triggers thousands of false alarms, corrupting harmless technical prompts.
       </p>
-      <p style="margin-top: 14px;">
+      <p class="prose-p">
         ProjectSPG enforces a strict two-stage identification architecture:
       </p>
-      <ol style="margin-top: 12px; padding-left: 20px; line-height: 1.8; color: #334155;">
-        <li><strong>Stage 1 (Syntax Parsing):</strong> High-throughput, zero-allocation regular expressions isolate potential sovereign tokens with boundary constraints in under <strong>15 microseconds</strong>.</li>
-        <li><strong>Stage 2 (Algorithmic Mathematical Validation):</strong> The token is evaluated against its respective sovereign mathematical checksum:
-          <ul style="margin-top: 8px; padding-left: 20px;">
-            <li><strong>Verhoeff Dihedral Checksum:</strong> For Indian Aadhaar numbers. Implemented via static multiplication and permutation tables over group \(D_5\).</li>
+      <ul class="prose-ul">
+        <li class="prose-li"><strong>Stage 1 (Syntax Parsing):</strong> High-throughput, zero-allocation regular expressions isolate potential sovereign tokens with boundary constraints in under <strong>15 microseconds</strong>.</li>
+        <li class="prose-li"><strong>Stage 2 (Algorithmic Mathematical Validation):</strong> The token is evaluated against its respective sovereign mathematical checksum:
+          <ul style="margin-top: 8px; padding-left: 20px; list-style-type: circle;">
+            <li><strong>Verhoeff Dihedral Checksum:</strong> For Indian Aadhaar numbers. Implemented via static multiplication and permutation tables over dihedral group D<sub>5</sub>.</li>
             <li><strong>Luhn Algorithm (Base-10 Modulo):</strong> For Credit Cards (Visa, MasterCard, Amex) and Canadian SINs. Computes sum of doubled alternating digits.</li>
-            <li><strong>ISO 13616 Modulo-97:</strong> For International Bank Account Numbers (IBAN). Replaces country letters with numeric equivalents and validates that \(NumericValue \pmod{97} \equiv 1\).</li>
+            <li><strong>ISO 13616 Modulo-97:</strong> For International Bank Account Numbers (IBAN). Replaces country letters with numeric equivalents and validates that modulo 97 equals 1.</li>
             <li><strong>Weighted Modulus-11:</strong> For Singapore NRIC, UK NHS, German Steuer-ID, and Brazil CPF.</li>
           </ul>
         </li>
-      </ol>
-      <p style="margin-top: 14px;">
+      </ul>
+      <p class="prose-p">
         If a sequence of digits fails the sovereign mathematical checksum, <strong>it is immediately released untouched</strong>. This guarantees that software code, compiler flags, random integer sequences, and product model serial numbers are never erroneously modified.
       </p>
-    </section>
 
-    <!-- Section 5: Regulatory Compliance Mapping -->
-    <section id="regulatory-matrix" style="margin-top: 56px;">
-      <h2 style="font-size: 26px; font-weight: 800; color: #0f172a; letter-spacing: -0.02em; margin-bottom: 16px;">
-        5. Regulatory Compliance Mapping: GDPR, DPDP, HIPAA &amp; PDPA
-      </h2>
-      <p>
+      <!-- Section 5: Regulatory Compliance Mapping -->
+      <h2 class="prose-h2" id="regulatory-matrix">5. Regulatory Compliance Mapping: GDPR, DPDP, HIPAA &amp; PDPA</h2>
+      <p class="prose-p">
         ProjectSPG is built from the ground up to satisfy the audit and verification requirements of corporate Data Protection Officers (DPOs), General Counsels, and Chief Information Security Officers (CISOs).
       </p>
 
-      <div class="pro-table-wrapper">
-        <table class="pro-table">
+      <div class="clean-table-card">
+        <table class="clean-table">
           <thead>
             <tr>
               <th>Regulation</th>
@@ -942,57 +1132,50 @@ export const COUNTRIES_BLOG_HTML = `<!DOCTYPE html>
           </tbody>
         </table>
       </div>
-    </section>
 
-    <!-- Section 6: Latency & Zero-Data Retention -->
-    <section id="latency" style="margin-top: 56px;">
-      <h2 style="font-size: 26px; font-weight: 800; color: #0f172a; letter-spacing: -0.02em; margin-bottom: 16px;">
-        6. Zero-Data Retention &amp; Sub-Millisecond Edge Latency
-      </h2>
-      <p>
+      <!-- Section 6: Latency & Zero-Data Retention -->
+      <h2 class="prose-h2" id="latency">6. Zero-Data Retention &amp; Sub-Millisecond Edge Latency</h2>
+      <p class="prose-p">
         A data privacy layer cannot introduce latency bottlenecks or introduce a secondary point of compromise. ProjectSPG executes entirely within ephemeral worker memory across globally distributed edge nodes.
       </p>
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 24px;">
-        <div style="background: #f8fafc; border: 1px solid var(--border); border-radius: 10px; padding: 20px;">
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 24px 0 32px;">
+        <div style="background: #ffffff; border: 1px solid var(--border); border-radius: 12px; padding: 22px;">
           <h4 style="font-size: 16px; font-weight: 700; color: #0f172a; margin-bottom: 8px;">Zero Persistent Storage</h4>
-          <p style="font-size: 13.5px; color: #4b5563; line-height: 1.6;">
+          <p style="font-size: 13.5px; color: #4b5563; line-height: 1.6; margin: 0;">
             Surrogate token maps exist strictly in volatile memory for the duration of the HTTP streaming request. Once the downstream LLM delivers its completion tokens and ProjectSPG rehydrates the original terms in the client's response stream, the lookup table is permanently wiped from RAM.
           </p>
         </div>
-        <div style="background: #f8fafc; border: 1px solid var(--border); border-radius: 10px; padding: 20px;">
+        <div style="background: #ffffff; border: 1px solid var(--border); border-radius: 12px; padding: 22px;">
           <h4 style="font-size: 16px; font-weight: 700; color: #0f172a; margin-bottom: 8px;">Sub-Millisecond Execution</h4>
-          <p style="font-size: 13.5px; color: #4b5563; line-height: 1.6;">
+          <p style="font-size: 13.5px; color: #4b5563; line-height: 1.6; margin: 0;">
             As proven in our empirical 9.33M prompt benchmark audit, the core sovereign tokenization engine adds just <strong>86 microseconds</strong> of processing overhead, running at over <strong>17,735 prompts/sec</strong> per edge compute worker.
           </p>
         </div>
       </div>
-    </section>
 
-    <!-- Section 7: Interactive Sovereign Verifier -->
-    <section id="verifier" style="margin-top: 56px;">
-      <h2 style="font-size: 26px; font-weight: 800; color: #0f172a; letter-spacing: -0.02em; margin-bottom: 16px;">
-        7. Interactive Sovereign Entity Sandbox
-      </h2>
-      <p>
+      <!-- Section 7: Interactive Sovereign Verifier -->
+      <h2 class="prose-h2" id="verifier">7. Interactive Sovereign Entity Sandbox</h2>
+      <p class="prose-p">
         Test ProjectSPG's real-time sovereign entity detection. Select a regional template or paste your own sample payload to observe deterministic tokenization and reversible rehydration:
       </p>
 
       <div class="verifier-box">
         <div class="verifier-header">
-          <span style="font-weight: 700; font-size: 14px; color: #0f172a;">SOVEREIGN DETECTION TESTBED</span>
-          <div style="display:flex; gap:8px;">
-            <button onclick="setSample('sea')" style="background:#f1f5f9; border:none; padding:4px 10px; border-radius:6px; font-size:11.5px; font-weight:600; cursor:pointer; color:#334155;">SEA (Singapore/Malaysia)</button>
-            <button onclick="setSample('india')" style="background:#f1f5f9; border:none; padding:4px 10px; border-radius:6px; font-size:11.5px; font-weight:600; cursor:pointer; color:#334155;">India (Aadhaar/PAN)</button>
-            <button onclick="setSample('eu')" style="background:#f1f5f9; border:none; padding:4px 10px; border-radius:6px; font-size:11.5px; font-weight:600; cursor:pointer; color:#334155;">EU (Germany/IBAN)</button>
-            <button onclick="setSample('us')" style="background:#f1f5f9; border:none; padding:4px 10px; border-radius:6px; font-size:11.5px; font-weight:600; cursor:pointer; color:#334155;">US/Global (SSN/CC)</button>
+          <span style="font-weight: 700; font-size: 13.5px; color: #0f172a; font-family:'JetBrains Mono', monospace; text-transform:uppercase;">SOVEREIGN DETECTION TESTBED</span>
+          <div style="display:flex; flex-wrap:wrap; gap:8px;">
+            <button onclick="setSample('sea')" style="background:#f1f5f9; border:none; padding:5px 12px; border-radius:4px; font-size:11.5px; font-weight:600; cursor:pointer; color:#334155;">SEA (Singapore/Malaysia)</button>
+            <button onclick="setSample('india')" style="background:#f1f5f9; border:none; padding:5px 12px; border-radius:4px; font-size:11.5px; font-weight:600; cursor:pointer; color:#334155;">India (Aadhaar/PAN)</button>
+            <button onclick="setSample('eu')" style="background:#f1f5f9; border:none; padding:5px 12px; border-radius:4px; font-size:11.5px; font-weight:600; cursor:pointer; color:#334155;">EU (Germany/IBAN)</button>
+            <button onclick="setSample('us')" style="background:#f1f5f9; border:none; padding:5px 12px; border-radius:4px; font-size:11.5px; font-weight:600; cursor:pointer; color:#334155;">US/Global (SSN/CC)</button>
           </div>
         </div>
 
         <div style="margin-bottom: 16px;">
-          <label style="display:block; font-size: 12px; font-weight: 700; color: #4b5563; margin-bottom: 6px; text-transform: uppercase; font-family:'JetBrains Mono', monospace;">
+          <label style="display:block; font-size: 11.5px; font-weight: 700; color: #4b5563; margin-bottom: 6px; text-transform: uppercase; font-family:'JetBrains Mono', monospace;">
             Inbound Sovereign Prompt:
           </label>
-          <textarea id="liveInputPrompt" rows="3" style="width:100%; border:1px solid #cbd5e1; border-radius:8px; padding:12px; font-family:'JetBrains Mono', monospace; font-size:13px; color:#1e293b; outline:none;" oninput="runLiveVerification()">Patient Tan Wei Ling (NRIC: S9876543A, SingPass: tan.wl@gov.sg) registered Singapore business UEN 201812345K with account SG89 0140 1234 5678 9012.</textarea>
+          <textarea id="liveInputPrompt" rows="3" class="verifier-input" oninput="runLiveVerification()">Patient Tan Wei Ling (NRIC: S9876543A, SingPass: tan.wl@gov.sg) registered Singapore business UEN 201812345K with account SG89 0140 1234 5678 9012.</textarea>
         </div>
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
@@ -1001,9 +1184,9 @@ export const COUNTRIES_BLOG_HTML = `<!DOCTYPE html>
               <span style="font-size: 11px; font-weight: 700; color: #f0523d; text-transform: uppercase; font-family:'JetBrains Mono', monospace;">
                 ● OUTBOUND TO LLM (SANITIZED)
               </span>
-              <span style="font-size: 10px; color: #10b981; font-weight: 600;">ZERO LEAKAGE</span>
+              <span style="font-size: 10px; color: #10b981; font-weight: 600; font-family:'JetBrains Mono', monospace;">ZERO LEAKAGE</span>
             </div>
-            <div id="liveOutputSanitized" style="background:#0f121d; color:#38bdf8; padding:14px; border-radius:8px; font-family:'JetBrains Mono', monospace; font-size:12.5px; min-height:100px; white-space:pre-wrap; border:1px solid #1e293b;"></div>
+            <div id="liveOutputSanitized" class="verifier-output" style="background:#0f121d; color:#38bdf8; border:1px solid #1e293b;"></div>
           </div>
 
           <div>
@@ -1011,143 +1194,137 @@ export const COUNTRIES_BLOG_HTML = `<!DOCTYPE html>
               <span style="font-size: 11px; font-weight: 700; color: #10b981; text-transform: uppercase; font-family:'JetBrains Mono', monospace;">
                 ● RETURNED TO CLIENT (REHYDRATED)
               </span>
-              <span style="font-size: 10px; color: #64748b; font-weight: 600;">100% FIDELITY</span>
+              <span style="font-size: 10px; color: #64748b; font-weight: 600; font-family:'JetBrains Mono', monospace;">100% FIDELITY</span>
             </div>
-            <div id="liveOutputRehydrated" style="background:#f8fafc; color:#1e293b; padding:14px; border-radius:8px; font-family:'JetBrains Mono', monospace; font-size:12.5px; min-height:100px; white-space:pre-wrap; border:1px solid #cbd5e1;"></div>
+            <div id="liveOutputRehydrated" class="verifier-output" style="background:#ffffff; color:#1e293b; border:1px solid var(--border);"></div>
           </div>
         </div>
       </div>
-    </section>
 
-    <!-- Section 8: 60-Second Implementation -->
-    <section id="implementation" style="margin-top: 56px;">
-      <h2 style="font-size: 26px; font-weight: 800; color: #0f172a; letter-spacing: -0.02em; margin-bottom: 16px;">
-        8. 60-Second Drop-In Implementation Guide
-      </h2>
-      <p>
+      <!-- Section 8: 60-Second Implementation -->
+      <h2 class="prose-h2" id="implementation">8. 60-Second Drop-In Implementation Guide</h2>
+      <p class="prose-p">
         ProjectSPG is completely wire-compatible with the standard OpenAI API specification. To protect your enterprise across all 109 jurisdictions, simply point your existing client SDK to the ProjectSPG gateway endpoint:
       </p>
 
-      <div class="terminal-box">
-        <div class="terminal-header">
-          <div class="terminal-dots">
-            <span class="t-dot t-red"></span>
-            <span class="t-dot t-yellow"></span>
-            <span class="t-dot t-green"></span>
+      <div class="terminal-wrapper">
+        <div class="terminal-top-bar">
+          <div style="display:flex; align-items:center; gap:6px;">
+            <span style="width:10px; height:10px; border-radius:50%; background:#ef4444; display:inline-block;"></span>
+            <span style="width:10px; height:10px; border-radius:50%; background:#f59e0b; display:inline-block;"></span>
+            <span style="width:10px; height:10px; border-radius:50%; background:#10b981; display:inline-block;"></span>
+            <span style="margin-left:8px;">python_openai_sovereign_client.py</span>
           </div>
-          <span>python_openai_sovereign_client.py</span>
-          <button onclick="copyTerminalCommands()" class="terminal-copy-btn" style="background:#334155; border:none; color:#f8fafc; padding:3px 9px; border-radius:4px; font-size:11px; cursor:pointer;">Copy</button>
+          <button onclick="copyTerminalCommands()" class="terminal-copy-btn">Copy</button>
         </div>
-        <div class="terminal-body" id="terminalCommands">
-<span class="t-comment"># Install standard OpenAI client</span>
-<span class="t-prompt">$</span> <span class="t-cmd">pip install openai</span>
+        <pre class="terminal-pre" id="terminalCommands"><span style="color:#64748b;"># Install standard OpenAI client</span>
+<span style="color:#38bdf8;">pip install openai</span>
 
-<span class="t-comment"># Drop-in One-Line BaseURL Swap</span>
-<span class="t-keyword" style="color:#c084fc;">import</span> os
-<span class="t-keyword" style="color:#c084fc;">from</span> openai <span class="t-keyword" style="color:#c084fc;">import</span> OpenAI
+<span style="color:#64748b;"># Drop-in One-Line BaseURL Swap</span>
+<span style="color:#c084fc;">import</span> os
+<span style="color:#c084fc;">from</span> openai <span style="color:#c084fc;">import</span> OpenAI
 
 client = OpenAI(
-    api_key=os.environ.get(<span class="t-out">"OPENAI_API_KEY"</span>),
-    <span class="t-accent">base_url="https://projectspg.info/v1"</span>  <span class="t-comment"># Points to Sovereign Edge</span>
+    api_key=os.environ.get(<span style="color:#4ade80;">"PROJECTSPG_API_KEY"</span>),
+    <span style="color:#f0523d;">base_url="https://projectspg.boruahpriyanuj2004.workers.dev/v1"</span>  <span style="color:#64748b;"># Sovereign Edge Gateway</span>
 )
 
-<span class="t-comment"># Send sovereign payload - 100% compliant across 109 countries</span>
+<span style="color:#64748b;"># Send sovereign payload - 100% compliant across 109 countries</span>
 response = client.chat.completions.create(
-    model=<span class="t-out">"gpt-4o"</span>,
+    model=<span style="color:#4ade80;">"gemma-4-26b-a4b-it"</span>,
     messages=[{
-        <span class="t-out">"role"</span>: <span class="t-out">"user"</span>,
-        <span class="t-out">"content"</span>: <span class="t-out">"Analyze patient Tan Wei Ling (NRIC: S9876543A) for cross-border care."</span>
+        <span style="color:#4ade80;">"role"</span>: <span style="color:#4ade80;">"user"</span>,
+        <span style="color:#4ade80;">"content"</span>: <span style="color:#4ade80;">"Analyze patient Tan Wei Ling (NRIC: S9876543A) for cross-border care."</span>
     }]
 )
 
-<span class="t-cmd">print</span>(response.choices[0].message.content)
-<span class="t-success"># =&gt; LLM receives non-identifiable tokens; response is rehydrated automatically.</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- Related Articles Section (Matching Together.ai layout) -->
-    <div class="related-section">
-      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;">
-        <h2 style="font-size: 26px; font-weight: 800; color: #0f172a; letter-spacing: -0.02em; margin: 0;">
-          Related articles
-        </h2>
-        <div style="display: flex; gap: 8px;">
-          <button onclick="scrollRelated('left')" style="width: 36px; height: 36px; border-radius: 8px; border: 1px solid var(--border); background: #ffffff; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; color: #374151;">
-            ←
-          </button>
-          <button onclick="scrollRelated('right')" style="width: 36px; height: 36px; border-radius: 8px; border: 1px solid var(--border); background: #ffffff; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; color: #374151;">
-            →
-          </button>
-        </div>
+print(response.choices[0].message.content)
+<span style="color:#4ade80;"># =&gt; LLM receives non-identifiable tokens; response is rehydrated automatically.</span></pre>
       </div>
 
-      <div class="related-grid" id="related-cards-track">
-        
-        <!-- Related 1: Empirical Benchmark -->
-        <a href="/blog/benchmark" style="text-decoration: none; color: inherit; display: block;" class="group">
-          <div style="aspect-ratio: 16/9; width: 100%; border-radius: 12px; overflow: hidden; background: linear-gradient(135deg, #ffd5cc, #f7e0ff, #d8e6ff); border: 1px solid rgba(229,231,235,0.8); display: flex; align-items: center; justify-content: center; padding: 22px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.03); transition: all 0.25s;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 10px 25px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 1px 3px rgba(0,0,0,0.03)';">
-            <div>
-              <div style="display: flex; align-items: center; justify-content: center; gap: 4px; margin-bottom: 6px;">
-                <span style="width: 8px; height: 8px; border-radius: 50%; background: #ec4899;"></span>
-                <span style="font-size: 10px; font-weight: 700; color: #1f2937;">project<span style="color:#f0523d;">spg</span></span>
+      <!-- Related Posts Section matching Together.ai -->
+      <div style="margin-top: 80px; padding-top: 48px; border-top: 1px solid #f3f4f6;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px;">
+          <div>
+            <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #9ca3af; font-family: monospace; margin-bottom: 4px;">MORE RESEARCH</div>
+            <h3 style="font-size: 22px; font-weight: 800; color: #111827; letter-spacing: -0.02em;">Related Articles</h3>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <button onclick="scrollRelated('left')" style="width: 32px; height: 32px; border-radius: 4px; border: 1px solid #e5e7eb; background: #ffffff; color: #4b5563; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.15s;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='#ffffff'">‹</button>
+            <button onclick="scrollRelated('right')" style="width: 32px; height: 32px; border-radius: 4px; border: 1px solid #e5e7eb; background: #ffffff; color: #4b5563; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.15s;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='#ffffff'">›</button>
+            <a href="/#news-section" style="padding: 6px 14px; background: #f3f4f6; border-radius: 4px; font-size: 11px; font-weight: 700; color: #374151; text-decoration: none; text-transform: uppercase; letter-spacing: 0.06em; transition: background 0.15s;" onmouseover="this.style.background='#e5e7eb'" onmouseout="this.style.background='#f3f4f6'">VIEW ALL</a>
+          </div>
+        </div>
+
+        <!-- 3 Blog Cards Row -->
+        <div id="related-cards-track" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 24px;">
+          
+          <!-- Related 1: Empirical Benchmark -->
+          <a href="/blog/benchmark" style="text-decoration: none; color: inherit; display: block;" class="group">
+            <div style="aspect-ratio: 16/9; width: 100%; border-radius: 12px; overflow: hidden; background: linear-gradient(135deg, #ffd5cc, #f7e0ff, #d8e6ff); border: 1px solid rgba(229,231,235,0.8); display: flex; align-items: center; justify-content: center; padding: 22px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.03); transition: all 0.25s;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 10px 25px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 1px 3px rgba(0,0,0,0.03)';">
+              <div>
+                <div style="display: flex; align-items: center; justify-content: center; gap: 4px; margin-bottom: 6px;">
+                  <span style="width: 8px; height: 8px; border-radius: 50%; background: #ec4899;"></span>
+                  <span style="font-size: 10px; font-weight: 700; color: #1f2937;">project<span style="color:#f0523d;">spg</span></span>
+                </div>
+                <h4 style="font-size: 14.5px; font-weight: 800; color: #111827; line-height: 1.35;">
+                  Empirical Benchmark: 9,334,805 Prompts Evaluated with 100.00% Fidelity &amp; 86µs Latency
+                </h4>
               </div>
-              <h4 style="font-size: 14.5px; font-weight: 800; color: #111827; line-height: 1.35;">
+            </div>
+            <div style="margin-top: 14px;">
+              <span style="background: #f3f4f6; color: #374151; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; font-family: monospace;">BENCHMARK</span>
+              <h3 style="font-size: 16.5px; font-weight: 700; color: #111827; margin-top: 8px; line-height: 1.35;">
                 Empirical Benchmark: 9,334,805 Prompts Evaluated with 100.00% Fidelity &amp; 86µs Latency
-              </h4>
+              </h3>
             </div>
-          </div>
-          <div style="margin-top: 14px;">
-            <span style="background: #f3f4f6; color: #374151; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; font-family: monospace;">BENCHMARK</span>
-            <h3 style="font-size: 16.5px; font-weight: 700; color: #111827; margin-top: 8px; line-height: 1.35;">
-              Empirical Benchmark: 9.33M Prompts Evaluated with 100% Roundtrip Precision
-            </h3>
-          </div>
-        </a>
+          </a>
 
-        <!-- Related 2: Open Model AI Stack & Market Ranking -->
-        <a href="/blog/stack" style="text-decoration: none; color: inherit; display: block;" class="group">
-          <div style="aspect-ratio: 16/9; width: 100%; border-radius: 12px; overflow: hidden; background: linear-gradient(135deg, #fed7aa, #fef08a, #c7d2fe); border: 1px solid rgba(229,231,235,0.8); display: flex; align-items: center; justify-content: center; padding: 22px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.03); transition: all 0.25s;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 10px 25px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 1px 3px rgba(0,0,0,0.03)';">
-            <div>
-              <div style="display: flex; align-items: center; justify-content: center; gap: 4px; margin-bottom: 6px;">
-                <span style="width: 8px; height: 8px; border-radius: 50%; background: #f97316;"></span>
-                <span style="font-size: 10px; font-weight: 700; color: #1f2937;">project<span style="color:#f0523d;">spg</span></span>
+          <!-- Related 2: Open Model AI Stack & Market Ranking -->
+          <a href="/blog/stack" style="text-decoration: none; color: inherit; display: block;" class="group">
+            <div style="aspect-ratio: 16/9; width: 100%; border-radius: 12px; overflow: hidden; background: linear-gradient(135deg, #fed7aa, #fef08a, #c7d2fe); border: 1px solid rgba(229,231,235,0.8); display: flex; align-items: center; justify-content: center; padding: 22px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.03); transition: all 0.25s;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 10px 25px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 1px 3px rgba(0,0,0,0.03)';">
+              <div>
+                <div style="display: flex; align-items: center; justify-content: center; gap: 4px; margin-bottom: 6px;">
+                  <span style="width: 8px; height: 8px; border-radius: 50%; background: #f97316;"></span>
+                  <span style="font-size: 10px; font-weight: 700; color: #1f2937;">project<span style="color:#f0523d;">spg</span></span>
+                </div>
+                <h4 style="font-size: 14.5px; font-weight: 800; color: #111827; line-height: 1.35;">
+                  The Open Model AI Stack: Why ProjectSPG is Ranked #1
+                </h4>
               </div>
-              <h4 style="font-size: 14.5px; font-weight: 800; color: #111827; line-height: 1.35;">
-                The Open Model AI Stack: Why ProjectSPG is Ranked #1
-              </h4>
             </div>
-          </div>
-          <div style="margin-top: 14px;">
-            <span style="background: #f3f4f6; color: #374151; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; font-family: monospace;">ARCHITECTURE</span>
-            <h3 style="font-size: 16.5px; font-weight: 700; color: #111827; margin-top: 8px; line-height: 1.35;">
-              The Open Model AI Stack: Why ProjectSPG Ranks #1 for Enterprise Privacy
-            </h3>
-          </div>
-        </a>
+            <div style="margin-top: 14px;">
+              <span style="background: #f3f4f6; color: #374151; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; font-family: monospace;">ARCHITECTURE</span>
+              <h3 style="font-size: 16.5px; font-weight: 700; color: #111827; margin-top: 8px; line-height: 1.35;">
+                The Open Model AI Stack: Why ProjectSPG Ranks #1 for Enterprise Privacy
+              </h3>
+            </div>
+          </a>
 
-        <!-- Related 3: Supported Industries -->
-        <a href="/blog/industries" style="text-decoration: none; color: inherit; display: block;" class="group">
-          <div style="aspect-ratio: 16/9; width: 100%; border-radius: 12px; overflow: hidden; background: #0f121d; border: 1px solid rgba(229,231,235,0.2); display: flex; align-items: center; justify-content: center; padding: 22px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.03); transition: all 0.25s;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 10px 25px rgba(0,0,0,0.2)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 1px 3px rgba(0,0,0,0.03)';">
-            <div>
-              <div style="display: flex; align-items: center; justify-content: center; gap: 4px; margin-bottom: 6px;">
-                <span style="width: 8px; height: 8px; border-radius: 50%; background: #8b5cf6;"></span>
-                <span style="font-size: 10px; font-weight: 700; color: #94a3b8;">project<span style="color:#f0523d;">spg</span></span>
+          <!-- Related 3: Supported Industries -->
+          <a href="/blog/industries" style="text-decoration: none; color: inherit; display: block;" class="group">
+            <div style="aspect-ratio: 16/9; width: 100%; border-radius: 12px; overflow: hidden; background: #0f121d; border: 1px solid rgba(229,231,235,0.2); display: flex; align-items: center; justify-content: center; padding: 22px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.03); transition: all 0.25s;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 10px 25px rgba(0,0,0,0.2)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 1px 3px rgba(0,0,0,0.03)';">
+              <div>
+                <div style="display: flex; align-items: center; justify-content: center; gap: 4px; margin-bottom: 6px;">
+                  <span style="width: 8px; height: 8px; border-radius: 50%; background: #8b5cf6;"></span>
+                  <span style="font-size: 10px; font-weight: 700; color: #94a3b8;">project<span style="color:#f0523d;">spg</span></span>
+                </div>
+                <h4 style="font-size: 14.5px; font-weight: 800; color: #ffffff; line-height: 1.35;">
+                  Enterprise Guardrails for Regulated Industries: Healthcare, FinTech &amp; Legal
+                </h4>
               </div>
-              <h4 style="font-size: 14.5px; font-weight: 800; color: #ffffff; line-height: 1.35;">
+            </div>
+            <div style="margin-top: 14px;">
+              <span style="background: #f3f4f6; color: #374151; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; font-family: monospace;">ENTERPRISE</span>
+              <h3 style="font-size: 16.5px; font-weight: 700; color: #111827; margin-top: 8px; line-height: 1.35;">
                 Enterprise Guardrails for Regulated Industries: Healthcare, FinTech &amp; Legal
-              </h4>
+              </h3>
             </div>
-          </div>
-          <div style="margin-top: 14px;">
-            <span style="background: #f3f4f6; color: #374151; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; font-family: monospace;">ENTERPRISE</span>
-            <h3 style="font-size: 16.5px; font-weight: 700; color: #111827; margin-top: 8px; line-height: 1.35;">
-              Enterprise Guardrails for Regulated Industries: Healthcare, FinTech &amp; Legal
-            </h3>
-          </div>
-        </a>
+          </a>
 
+        </div>
       </div>
+
     </div>
 
   </article>
@@ -1265,6 +1442,7 @@ response = client.chat.completions.create(
                 <li><a href="/blog/countries" class="hover:text-gray-950 transition">Supported Countries</a></li>
                 <li><a href="/dashboard" class="hover:text-gray-950 transition">API Documentation</a></li>
                 <li><a href="https://github.com/PriyanujBoruah/AI-Privacy-Core" target="_blank" class="hover:text-gray-950 transition">Open-Source Core</a></li>
+                <li><a href="/dashboard" class="hover:text-gray-950 transition">Live Playground</a></li>
               </ul>
 
               <div class="border-t border-gray-200/90 pt-3 mb-3.5">
@@ -1294,7 +1472,7 @@ response = client.chat.completions.create(
 
         </div>
 
-        <!-- Giant Watermark Brand Name -->
+        <!-- Giant Watermark Brand Name (ProjectSPG Signature) -->
         <div class="select-none pointer-events-none text-center text-[44px] sm:text-[90px] md:text-[135px] lg:text-[180px] font-bold tracking-tight text-gray-100/90 leading-none my-6 sm:my-10 overflow-hidden font-sans truncate">
           project<span class="text-[#f0523d]">spg</span>
         </div>
@@ -1331,7 +1509,9 @@ response = client.chat.completions.create(
         </div>
 
       </div>
+
     </div>
+
   </footer>
 
   <script>
