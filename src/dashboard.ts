@@ -301,9 +301,14 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       pointer-events: auto;
     }
     /* Mobile-optimized smooth touch scrolling & scrollbar utilities */
+    html, body {
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-y: auto;
+    }
     .touch-scroll {
       -webkit-overflow-scrolling: touch;
-      overscroll-behavior: contain;
+      overscroll-behavior: auto;
+      touch-action: pan-x pan-y;
     }
     .no-scrollbar::-webkit-scrollbar {
       display: none;
@@ -2023,7 +2028,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     <!-- ======================================================================= -->
     <!-- VIEW 1: PLAYGROUND (Exact 3-Column Groq Layout) -->
     <!-- ======================================================================= -->
-    <div id="view-playground" class="view-panel hidden border-t border-l border-r border-groq-grayBorder rounded-t-2xl bg-white mx-0 sm:mx-2 lg:mx-3 flex-1 flex flex-col overflow-y-auto lg:overflow-hidden shadow-xs">
+    <div id="view-playground" class="view-panel hidden border-t border-l border-r border-groq-grayBorder rounded-t-2xl bg-white mx-0 sm:mx-2 lg:mx-3 flex-1 flex flex-col overflow-visible lg:overflow-hidden shadow-xs">
       
       <!-- Sub-Toolbar (54px height) -->
       <div class="h-auto min-h-[54px] py-2 sm:py-0 border-b border-groq-grayBorder bg-white px-2.5 sm:px-4 flex flex-wrap items-center justify-between gap-2 shrink-0">
@@ -2079,9 +2084,9 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       </div>
 
       <!-- Playground 3-Column Split -->
-      <div class="flex-1 flex flex-col lg:flex-row overflow-y-auto lg:overflow-hidden relative touch-scroll">
+      <div class="flex-1 flex flex-col lg:flex-row overflow-visible lg:overflow-hidden relative">
         <!-- Col 1: Prompts -->
-        <div class="w-full lg:w-[33%] lg:min-w-[320px] lg:max-w-[420px] border-b lg:border-b-0 lg:border-r border-groq-grayBorder p-3.5 sm:p-6 flex flex-col justify-between overflow-y-visible lg:overflow-y-auto bg-white shrink-0">
+        <div class="w-full lg:w-[33%] lg:min-w-[320px] lg:max-w-[420px] border-b lg:border-b-0 lg:border-r border-groq-grayBorder p-3.5 sm:p-6 flex flex-col justify-between overflow-visible lg:overflow-y-auto bg-white shrink-0">
           <div class="space-y-3.5 sm:space-y-4">
             <div class="flex items-center gap-2.5 sm:gap-3">
               <span class="text-[11px] font-semibold text-groq-textMuted uppercase tracking-wider shrink-0">SYSTEM</span>
@@ -2127,7 +2132,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         </div>
 
         <!-- Col 2: Response -->
-        <div id="col-response" class="w-full lg:flex-1 flex flex-col justify-between p-3.5 sm:p-6 border-b lg:border-b-0 lg:border-r border-groq-grayBorder overflow-y-visible lg:overflow-y-auto bg-white min-h-[340px]">
+        <div id="col-response" class="w-full lg:flex-1 flex flex-col justify-between p-3.5 sm:p-6 border-b lg:border-b-0 lg:border-r border-groq-grayBorder overflow-visible lg:overflow-y-auto bg-white min-h-[340px]">
           <div>
             <div class="flex items-center justify-between mb-4">
               <span class="text-[11px] font-semibold text-groq-textMuted uppercase tracking-wider">RESPONSE</span>
@@ -2176,7 +2181,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                   <span>Copy</span>
                 </button>
               </div>
-              <div id="protected-prompt-text" class="whitespace-pre-wrap text-slate-800 bg-[#f8fafc] p-3 sm:p-4 rounded-xl border border-slate-200 text-xs font-mono leading-relaxed max-h-52 overflow-y-auto shadow-2xs touch-scroll"></div>
+              <div id="protected-prompt-text" class="whitespace-pre-wrap text-slate-800 bg-[#f8fafc] p-3 sm:p-4 rounded-xl border border-slate-200 text-xs font-mono leading-relaxed max-h-none lg:max-h-52 lg:overflow-y-auto shadow-2xs"></div>
             </div>
 
             <!-- OUTPUT 2: AI Output (Rehydrated with Highlighted Parts) -->
@@ -2197,7 +2202,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                   <span>Copy</span>
                 </button>
               </div>
-              <div id="rehydrated-text" class="whitespace-pre-wrap text-groq-dark bg-groq-grayBg p-3 sm:p-4 rounded-xl border border-groq-grayBorder text-xs font-mono leading-relaxed max-h-72 overflow-y-auto touch-scroll"></div>
+              <div id="rehydrated-text" class="whitespace-pre-wrap text-groq-dark bg-groq-grayBg p-3 sm:p-4 rounded-xl border border-groq-grayBorder text-xs font-mono leading-relaxed max-h-none lg:max-h-72 lg:overflow-y-auto"></div>
             </div>
           </div>
 
@@ -2219,7 +2224,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         </div>
 
         <!-- Col 3: Code -->
-        <div id="col-code" class="w-full lg:w-[33%] lg:min-w-[320px] lg:max-w-[440px] p-3.5 sm:p-6 flex flex-col justify-between overflow-y-visible lg:overflow-y-auto bg-white shrink-0">
+        <div id="col-code" class="w-full lg:w-[33%] lg:min-w-[320px] lg:max-w-[440px] p-3.5 sm:p-6 flex flex-col justify-between overflow-visible lg:overflow-y-auto bg-white shrink-0">
           <div>
             <div class="flex items-center justify-between mb-4">
               <div class="relative">
@@ -2236,7 +2241,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               </button>
             </div>
 
-            <div id="code-snippet-box" class="font-mono text-[11px] leading-[1.65] text-groq-dark select-all overflow-x-auto whitespace-pre max-h-80 sm:max-h-none touch-scroll"></div>
+            <div id="code-snippet-box" class="font-mono text-[11px] leading-[1.65] text-groq-dark select-all overflow-x-auto whitespace-pre max-h-none lg:max-h-80 touch-scroll"></div>
           </div>
 
           <div class="pt-4 border-t border-groq-grayBorder text-[11px] text-groq-textSubtle flex items-center justify-between font-mono">
@@ -2392,7 +2397,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     <!-- ======================================================================= -->
     <!-- VIEW 2: API KEYS VIEW (Exact Groq API Keys Layout) -->
     <!-- ======================================================================= -->
-    <div id="view-keys" class="view-panel hidden border-t border-l border-r border-groq-grayBorder rounded-t-2xl bg-white mx-0 sm:mx-2 lg:mx-3 flex-1 p-3.5 sm:p-6 md:p-8 max-w-[1440px] w-full overflow-y-auto shadow-xs touch-scroll">
+    <div id="view-keys" class="view-panel hidden border-t border-l border-r border-groq-grayBorder rounded-t-2xl bg-white mx-0 sm:mx-2 lg:mx-3 flex-1 p-3.5 sm:p-6 md:p-8 max-w-[1440px] w-full overflow-visible md:overflow-y-auto shadow-xs">
       <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-6 sm:mb-8">
         <div>
           <h1 class="text-[17px] font-bold text-groq-dark tracking-tight mb-2">API Keys</h1>
@@ -2433,7 +2438,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     <!-- ======================================================================= -->
     <!-- VIEW 3: DASHBOARD (Exact Replica of Metrics, Usage, Logs Screenshots) -->
     <!-- ======================================================================= -->
-    <div id="view-dashboard" class="view-panel flex-1 flex flex-col md:flex-row overflow-y-auto md:overflow-hidden touch-scroll">
+    <div id="view-dashboard" class="view-panel flex-1 flex flex-col md:flex-row overflow-visible md:overflow-hidden">
       
       <!-- STANDALONE LEFT PANEL (Matching Groq Dashboard Left Sidebar with mobile responsive pill strip) -->
       <aside class="w-full md:w-44 shrink-0 px-3 sm:px-4 md:pl-8 py-2.5 md:py-8 flex flex-row md:flex-col gap-2 md:gap-0 md:space-y-7 text-xs font-medium border-b md:border-b-0 border-groq-grayBorder overflow-x-auto no-scrollbar bg-white touch-scroll">
@@ -2444,7 +2449,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       </aside>
 
       <!-- MAIN CARD CONTAINER (Rounded top-left & top-right border matching images) -->
-      <div class="border-t border-l border-r border-groq-grayBorder rounded-t-2xl md:rounded-tr-2xl md:rounded-br-none bg-white p-3.5 sm:p-6 md:p-8 mx-0 md:mx-0 mr-0 md:mr-2 flex-1 flex flex-col overflow-y-visible md:overflow-y-auto shadow-xs touch-scroll">
+      <div class="border-t border-l border-r border-groq-grayBorder rounded-t-2xl md:rounded-tr-2xl md:rounded-br-none bg-white p-3.5 sm:p-6 md:p-8 mx-0 md:mx-0 mr-0 md:mr-2 flex-1 flex flex-col overflow-visible md:overflow-y-auto shadow-xs">
         
         <!-- =================================================================== -->
         <!-- SUBVIEW A: METRICS (Exact 1:1 Match to media_1790456964674.png) -->
@@ -2731,8 +2736,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     <!-- ======================================================================= -->
     <!-- VIEW 4: DOCS VIEW -->
     <!-- ======================================================================= -->
-    <div id="view-docs" class="view-panel hidden border-t border-l border-r border-groq-grayBorder rounded-t-2xl bg-white mx-0 sm:mx-2 lg:mx-3 flex-1 flex flex-col md:flex-row overflow-y-auto md:overflow-hidden shadow-xs touch-scroll">
-      <aside class="w-full md:w-64 shrink-0 border-b md:border-b-0 md:border-r border-groq-grayBorder bg-white p-3.5 sm:p-5 text-xs overflow-y-auto touch-scroll">
+    <div id="view-docs" class="view-panel hidden border-t border-l border-r border-groq-grayBorder rounded-t-2xl bg-white mx-0 sm:mx-2 lg:mx-3 flex-1 flex flex-col md:flex-row overflow-visible md:overflow-hidden shadow-xs">
+      <aside class="w-full md:w-64 shrink-0 border-b md:border-b-0 md:border-r border-groq-grayBorder bg-white p-3.5 sm:p-5 text-xs overflow-visible md:overflow-y-auto">
         <!-- Mobile Accordion Trigger (Only visible on < md) -->
         <button type="button" onclick="toggleDocsMobileNav()" class="md:hidden w-full flex items-center justify-between py-2 px-3 rounded-lg bg-gray-50 border border-gray-200 text-xs font-semibold text-groq-dark cursor-pointer">
           <span class="flex items-center gap-2"><i data-lucide="book-open" class="w-4 h-4 text-[#f0523d]"></i> Documentation Navigation</span>
@@ -2765,7 +2770,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         </div>
       </aside>
 
-      <div class="flex-1 p-4 sm:p-8 overflow-y-auto flex flex-col lg:flex-row gap-6 lg:gap-8 bg-white touch-scroll">
+      <div class="flex-1 p-4 sm:p-8 overflow-visible md:overflow-y-auto flex flex-col lg:flex-row gap-6 lg:gap-8 bg-white">
         <div class="flex-1 max-w-xl space-y-6">
           <div>
             <h1 class="text-xl sm:text-2xl font-bold text-groq-dark mb-1">ProjectSPG API Reference</h1>
@@ -3219,17 +3224,13 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           if (activeView === 'playground') submitPrompt();
         }
       });
+
+      window.addEventListener('resize', syncBodyOverflow, { passive: true });
     });
 
-    function switchView(viewName) {
-      activeView = viewName;
-      window.location.hash = viewName;
-
-      const globalHeader = document.getElementById('global-header');
+    function syncBodyOverflow() {
       const mainEl = document.querySelector('main');
-
-      if (viewName === 'landing') {
-        if (globalHeader) globalHeader.classList.add('hidden');
+      if (activeView === 'landing' || window.innerWidth < 1024) {
         document.body.classList.remove('overflow-hidden', 'h-screen');
         document.body.classList.add('overflow-y-auto', 'min-h-screen');
         if (mainEl) {
@@ -3237,23 +3238,28 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           mainEl.classList.add('overflow-visible');
         }
       } else {
-        if (globalHeader) globalHeader.classList.remove('hidden');
-        if (window.innerWidth < 1024) {
-          document.body.classList.remove('overflow-hidden', 'h-screen');
-          document.body.classList.add('overflow-y-auto', 'min-h-screen');
-          if (mainEl) {
-            mainEl.classList.remove('overflow-hidden');
-            mainEl.classList.add('overflow-visible');
-          }
-        } else {
-          document.body.classList.add('overflow-hidden', 'h-screen');
-          document.body.classList.remove('overflow-y-auto', 'min-h-screen');
-          if (mainEl) {
-            mainEl.classList.add('overflow-hidden');
-            mainEl.classList.remove('overflow-visible');
-          }
+        document.body.classList.add('overflow-hidden', 'h-screen');
+        document.body.classList.remove('overflow-y-auto', 'min-h-screen');
+        if (mainEl) {
+          mainEl.classList.add('overflow-hidden');
+          mainEl.classList.remove('overflow-visible');
         }
       }
+    }
+
+    function switchView(viewName) {
+      activeView = viewName;
+      window.location.hash = viewName;
+
+      const globalHeader = document.getElementById('global-header');
+
+      if (viewName === 'landing') {
+        if (globalHeader) globalHeader.classList.add('hidden');
+      } else {
+        if (globalHeader) globalHeader.classList.remove('hidden');
+      }
+
+      syncBodyOverflow();
 
       document.querySelectorAll('.view-panel').forEach(el => el.classList.add('hidden'));
       const targetView = document.getElementById('view-' + viewName);
