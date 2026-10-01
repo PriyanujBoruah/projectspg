@@ -387,8 +387,6 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     <!-- ======================================================================= -->
     <div id="view-landing" class="view-panel flex-1 flex flex-col w-full bg-white relative">
       
-      <!-- Ambient Glow Behind Hero -->
-      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[1440px] h-96 bg-gradient-to-b from-sky-200/35 via-blue-100/20 to-transparent blur-3xl pointer-events-none -z-0"></div>
 
       <!-- Floating Header (ProjectSPG Floating Navbar) -->
       <header class="sticky top-0 w-full max-w-[1440px] mx-auto pt-3 sm:pt-4 px-2 sm:px-4 lg:px-6 z-50">
@@ -475,76 +473,77 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       </header>
 
       <!-- HERO SECTION -->
-      <section class="w-full max-w-[1440px] mx-auto px-2.5 sm:px-4 lg:px-6 pt-6 sm:pt-10 lg:pt-14 pb-12 sm:pb-16 relative z-10 flex-1 flex flex-col justify-center">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
-          
-          <!-- Left Column (Text & CTAs) -->
-          <div class="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left pr-0 lg:pr-6">
+      <section class="w-full bg-[#E8F4FF] border-b border-blue-200/50 relative z-10 flex flex-col justify-center -mt-[64px] sm:-mt-[72px] pt-[76px] sm:pt-[86px] overflow-hidden">
+        <div class="w-full max-w-[1440px] mx-auto px-2.5 sm:px-4 lg:px-6 pt-4 sm:pt-8 lg:pt-10 pb-10 sm:pb-14">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
             
-            <!-- Tech Badge Pill -->
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50/80 border border-blue-200/60 text-blue-700 text-[10.5px] sm:text-[11px] font-semibold tracking-wide uppercase mb-5 sm:mb-6 shadow-2xs">
-              <span class="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse"></span>
-              <span>Next-Gen Zero-Trust AI Gateway</span>
+            <!-- Left Column (Text & CTAs) -->
+            <div class="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left pr-0 lg:pr-6">
+              
+              <!-- Tech Badge Pill -->
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/90 border border-blue-200/80 text-blue-700 text-[10.5px] sm:text-[11px] font-semibold tracking-wide uppercase mb-5 sm:mb-6 shadow-2xs">
+                <span class="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse"></span>
+                <span>Next-Gen Zero-Trust AI Gateway</span>
+              </div>
+
+              <!-- Main Headline matching ProjectSPG -->
+              <h1 class="text-3xl sm:text-5xl lg:text-[62px] leading-[1.12] sm:leading-[1.08] font-bold tracking-tight text-gray-950 mb-5 sm:mb-6 font-sans">
+                Build what's next <br/>
+                <span class="text-slate-500 font-normal">on the Private Cloud</span>
+              </h1>
+
+              <!-- Subtitle -->
+              <p class="text-sm sm:text-base lg:text-lg text-slate-700 font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0 mb-7 sm:mb-8">
+                The high-performance AI privacy and routing layer. Real-time zero-knowledge de-identification, 10 sovereign regulatory compliance packs, and instant multi-provider LLM orchestration with sub-millisecond overhead.
+              </p>
+
+              <!-- CTA Button Group -->
+              <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 w-full sm:w-auto max-w-sm sm:max-w-none mx-auto lg:mx-0 mb-4 sm:mb-0">
+                <button onclick="openAuthModal()" class="w-full sm:w-auto px-6 py-3.5 rounded-full bg-black hover:bg-gray-800 text-white text-xs font-bold tracking-wider uppercase transition shadow-md hover:shadow-lg flex items-center justify-center gap-2 group cursor-pointer">
+                  <span>Start Building</span>
+                  <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-0.5 transition-transform"></i>
+                </button>
+                
+                <button onclick="switchView('playground')" class="w-full sm:w-auto px-6 py-3.5 rounded-full bg-white hover:bg-slate-50 text-gray-800 text-xs font-bold tracking-wider uppercase transition border border-blue-200/80 shadow-2xs flex items-center justify-center gap-2 cursor-pointer">
+                  <span>Try Playground</span>
+                  <i data-lucide="terminal" class="w-3.5 h-3.5 text-gray-500"></i>
+                </button>
+              </div>
+
             </div>
 
-            <!-- Main Headline matching ProjectSPG -->
-            <h1 class="text-3xl sm:text-5xl lg:text-[62px] leading-[1.12] sm:leading-[1.08] font-bold tracking-tight text-gray-950 mb-5 sm:mb-6 font-sans">
-              Build what's next <br/>
-              <span class="text-gray-400 font-normal">on the Private Cloud</span>
-            </h1>
+            <!-- Right Column (3D Isometric Architectural Artwork matching ProjectSPG) -->
+            <div class="lg:col-span-5 flex items-center justify-center relative">
+              <div class="relative w-full max-w-[460px] sm:max-w-[520px] lg:max-w-[560px] flex items-center justify-center mx-auto">
+                
+                <!-- Ambient Glow underneath 3D graphic -->
+                <div class="absolute inset-0 bg-gradient-to-tr from-cyan-400/25 via-blue-500/20 to-indigo-400/20 rounded-full blur-2xl -z-10"></div>
 
-            <!-- Subtitle -->
-            <p class="text-sm sm:text-base lg:text-lg text-gray-600 font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0 mb-7 sm:mb-8">
-              The high-performance AI privacy and routing layer. Real-time zero-knowledge de-identification, 10 sovereign regulatory compliance packs, and instant multi-provider LLM orchestration with sub-millisecond overhead.
-            </p>
-
-            <!-- CTA Button Group -->
-            <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 w-full sm:w-auto max-w-sm sm:max-w-none mx-auto lg:mx-0 mb-4 sm:mb-0">
-              <button onclick="openAuthModal()" class="w-full sm:w-auto px-6 py-3.5 rounded-full bg-black hover:bg-gray-800 text-white text-xs font-bold tracking-wider uppercase transition shadow-md hover:shadow-lg flex items-center justify-center gap-2 group cursor-pointer">
-                <span>Start Building</span>
-                <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-0.5 transition-transform"></i>
-              </button>
-              
-              <button onclick="switchView('playground')" class="w-full sm:w-auto px-6 py-3.5 rounded-full bg-[#f4f4f5] hover:bg-[#eaeaea] text-gray-800 text-xs font-bold tracking-wider uppercase transition border border-gray-200/80 flex items-center justify-center gap-2 cursor-pointer">
-                <span>Try Playground</span>
-                <i data-lucide="terminal" class="w-3.5 h-3.5 text-gray-500"></i>
-              </button>
+                <img 
+                  src="/images/hero-illustration.png" 
+                  alt="ProjectSPG Architecture: Zero-Trust De-Identification, Sub-Millisecond Latency, 10+ Sovereign Regulatory Packs, Tested Across 1.94 Billion Tokens" 
+                  class="w-full h-auto object-contain drop-shadow-2xl select-none transition-transform duration-300 hover:scale-[1.02]"
+                  loading="eager"
+                />
+              </div>
             </div>
 
           </div>
 
-          <!-- Right Column (3D Isometric Architectural Artwork matching ProjectSPG) -->
-          <div class="lg:col-span-5 flex items-center justify-center relative">
-            <div class="relative w-full max-w-[460px] sm:max-w-[520px] lg:max-w-[560px] flex items-center justify-center mx-auto">
-              
-              <!-- Ambient Glow underneath 3D graphic -->
-              <div class="absolute inset-0 bg-gradient-to-tr from-cyan-400/20 via-blue-500/15 to-purple-400/20 rounded-full blur-2xl -z-10"></div>
+          <!-- Brand Marquee Section with SVG Color Tint Filter -->
+          <svg class="sr-only absolute pointer-events-none" width="0" height="0" aria-hidden="true">
+            <filter id="logo-tint-949698" color-interpolation-filters="sRGB">
+              <feColorMatrix type="matrix" values="
+                0 0 0 0.5804 0
+                0 0 0 0.5882 0
+                0 0 0 0.5961 0
+                0 0 0 1 0" />
+            </filter>
+          </svg>
 
-              <img 
-                src="/images/hero-illustration.png" 
-                alt="ProjectSPG Architecture: Zero-Trust De-Identification, Sub-Millisecond Latency, 10+ Sovereign Regulatory Packs, Tested Across 1.94 Billion Tokens" 
-                class="w-full h-auto object-contain drop-shadow-2xl select-none transition-transform duration-300 hover:scale-[1.02]"
-                loading="eager"
-              />
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Brand Marquee Section with SVG Color Tint Filter -->
-        <svg class="sr-only absolute pointer-events-none" width="0" height="0" aria-hidden="true">
-          <filter id="logo-tint-949698" color-interpolation-filters="sRGB">
-            <feColorMatrix type="matrix" values="
-              0 0 0 0.5804 0
-              0 0 0 0.5882 0
-              0 0 0 0.5961 0
-              0 0 0 1 0" />
-          </filter>
-        </svg>
-
-        <div class="marquee-container w-full pt-4 pb-2 overflow-hidden border-t border-b border-gray-100/80 my-4 sm:my-6 relative">
-          <div class="absolute left-0 top-0 bottom-0 w-12 sm:w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
-          <div class="absolute right-0 top-0 bottom-0 w-12 sm:w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
+          <div class="marquee-container w-full pt-4 pb-2 overflow-hidden border-t border-b border-blue-200/50 my-4 sm:my-6 relative">
+            <div class="absolute left-0 top-0 bottom-0 w-12 sm:w-24 bg-gradient-to-r from-[#E8F4FF] to-transparent z-10 pointer-events-none"></div>
+            <div class="absolute right-0 top-0 bottom-0 w-12 sm:w-24 bg-gradient-to-l from-[#E8F4FF] to-transparent z-10 pointer-events-none"></div>
 
           <!-- Infinite Sliding Marquee Track -->
           <div class="flex overflow-hidden relative w-full select-none py-2 items-center">
@@ -645,8 +644,9 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             </div>
           </div>
         </div>
+      </div>
 
-      </section>
+    </section>
 
       <!-- ======================================================================= -->
       <!-- SECTION 2: THE PROJECTSPG PLATFORM (Interactive 3-Tab Feature Showcase)-->
