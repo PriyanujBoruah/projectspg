@@ -2508,49 +2508,51 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               <div class="flex items-center gap-2 text-xs font-medium text-groq-dark">
                 <span>Show Limits</span>
                 <label class="relative inline-flex items-center cursor-pointer">
-                  <input type="checkbox" class="sr-only peer">
+                  <input type="checkbox" id="metrics-show-limits" onchange="renderMetricsChart()" class="sr-only peer">
                   <div class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-groq-dark"></div>
                 </label>
               </div>
 
               <!-- Refresh Button -->
-              <button onclick="renderLogsTable()" class="px-3 py-1.5 rounded-lg bg-groq-grayBg border border-groq-grayBorder hover:bg-gray-100 text-xs font-medium text-groq-dark flex items-center gap-1.5 transition">
+              <button id="metrics-btn-refresh" onclick="refreshMetrics()" class="px-3 py-1.5 rounded-lg bg-groq-grayBg border border-groq-grayBorder hover:bg-gray-100 text-xs font-medium text-groq-dark flex items-center gap-1.5 transition cursor-pointer">
                 <i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-groq-textMuted"></i>
                 <span>Refresh</span>
               </button>
 
               <!-- Last 30 minutes dropdown -->
               <div class="relative">
-                <select class="appearance-none bg-groq-grayBg border border-groq-grayBorder text-groq-dark text-xs font-medium rounded-lg pl-3 pr-7 py-1.5 focus:outline-none cursor-pointer">
-                  <option>Last 30 minutes</option>
-                  <option>Last 1 hour</option>
-                  <option>Last 24 hours</option>
+                <select id="metrics-time-range" onchange="renderMetricsChart()" class="appearance-none bg-groq-grayBg border border-groq-grayBorder text-groq-dark text-xs font-medium rounded-lg pl-3 pr-7 py-1.5 focus:outline-none cursor-pointer">
+                  <option value="30m" selected>Last 30 minutes</option>
+                  <option value="1h">Last 1 hour</option>
+                  <option value="24h">Last 24 hours</option>
+                  <option value="7d">Last 7 days</option>
                 </select>
                 <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-groq-textSubtle absolute right-2 top-2 pointer-events-none"></i>
               </div>
 
               <!-- Show all Models dropdown -->
               <div class="relative">
-                <select class="appearance-none bg-groq-grayBg border border-groq-grayBorder text-groq-dark text-xs font-medium rounded-lg pl-3 pr-7 py-1.5 focus:outline-none cursor-pointer">
-                  <option>Show all Models</option>
-                  <option>openai/gpt-oss-120b</option>
-                  <option>openai/gpt-oss-20b</option>
-                  <option>qwen/qwen3.8-27b</option>
-                  <option>gemma-4-26b-a4b-it</option>
-                  <option>gemma-4-31b-it</option>
-                  <option>codestral-2508</option>
-                  <option>ministral-8b-2512</option>
-                  <option>ministral-14b-2512</option>
+                <select id="metrics-model-filter" onchange="renderMetricsChart()" class="appearance-none bg-groq-grayBg border border-groq-grayBorder text-groq-dark text-xs font-medium rounded-lg pl-3 pr-7 py-1.5 focus:outline-none cursor-pointer">
+                  <option value="all">Show all Models</option>
+                  <option value="openai/gpt-oss-120b">openai/gpt-oss-120b</option>
+                  <option value="openai/gpt-oss-20b">openai/gpt-oss-20b</option>
+                  <option value="qwen/qwen3.8-27b">qwen/qwen3.8-27b</option>
+                  <option value="gemma-4-26b-a4b-it">gemma-4-26b-a4b-it</option>
+                  <option value="gemma-4-31b-it">gemma-4-31b-it</option>
+                  <option value="codestral-2508">codestral-2508</option>
+                  <option value="ministral-8b-2512">ministral-8b-2512</option>
+                  <option value="ministral-14b-2512">ministral-14b-2512</option>
                 </select>
                 <i data-lucide="chevrons-up-down" class="w-3.5 h-3.5 text-groq-textSubtle absolute right-2 top-2 pointer-events-none"></i>
               </div>
 
               <!-- Show all API Keys dropdown -->
               <div class="relative">
-                <select class="appearance-none bg-groq-grayBg border border-groq-grayBorder text-groq-dark text-xs font-medium rounded-lg pl-3 pr-7 py-1.5 focus:outline-none cursor-pointer">
-                  <option>Show all API Keys</option>
-                  <option>ProjectSPG Test</option>
-                  <option>Datums Space</option>
+                <select id="metrics-key-filter" onchange="renderMetricsChart()" class="appearance-none bg-groq-grayBg border border-groq-grayBorder text-groq-dark text-xs font-medium rounded-lg pl-3 pr-7 py-1.5 focus:outline-none cursor-pointer">
+                  <option value="all">Show all API Keys</option>
+                  <option value="ProjectSPG Test">ProjectSPG Test</option>
+                  <option value="Datums Space">Datums Space</option>
+                  <option value="ProjectSPG Production">ProjectSPG Production</option>
                 </select>
                 <i data-lucide="chevrons-up-down" class="w-3.5 h-3.5 text-groq-textSubtle absolute right-2 top-2 pointer-events-none"></i>
               </div>
@@ -2558,22 +2560,40 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           </div>
 
           <!-- HTTP Status Codes Chart Card -->
-          <div class="border border-groq-grayBorder rounded-xl p-6 min-h-[380px] flex flex-col justify-between bg-white shadow-xs">
-            <div class="flex items-center gap-1.5 text-xs font-semibold text-groq-dark">
-              <span>HTTP Status Codes</span>
-              <i data-lucide="help-circle" class="w-3.5 h-3.5 text-groq-textSubtle"></i>
+          <div class="border border-groq-grayBorder rounded-xl p-6 bg-white shadow-xs">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+              <div class="flex items-center gap-1.5 text-xs font-semibold text-groq-dark">
+                <span>HTTP Status Codes</span>
+                <i data-lucide="help-circle" class="w-3.5 h-3.5 text-groq-textSubtle" title="Aggregated request status breakdown across time buckets"></i>
+              </div>
+
+              <!-- Status Code Legend & Counter Badges -->
+              <div class="flex flex-wrap items-center gap-3 text-xs">
+                <div class="flex items-center gap-1.5">
+                  <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"></span>
+                  <span class="text-groq-textMuted">200 OK:</span>
+                  <span id="metric-legend-200" class="font-mono font-semibold text-groq-dark">0</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block"></span>
+                  <span class="text-groq-textMuted">4xx Client:</span>
+                  <span id="metric-legend-4xx" class="font-mono font-semibold text-groq-dark">0</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block"></span>
+                  <span class="text-groq-textMuted">5xx Server:</span>
+                  <span id="metric-legend-5xx" class="font-mono font-semibold text-groq-dark">0</span>
+                </div>
+                <div class="h-3 w-px bg-gray-200"></div>
+                <div class="text-groq-textSubtle font-mono text-[11px]">
+                  Total: <span id="metric-total-summary" class="font-semibold text-groq-dark">0</span> reqs
+                </div>
+              </div>
             </div>
 
-            <!-- Empty Timeline Canvas with axis matching screenshot -->
-            <div class="flex-1 flex flex-col justify-end pt-16">
-              <div class="w-full border-b border-gray-100 mb-2"></div>
-              <div class="flex items-center justify-between text-[11px] font-mono text-groq-textSubtle px-2">
-                <span>2:09am</span>
-                <span>2:18am</span>
-                <span>2:24am</span>
-                <span>2:32am</span>
-                <span>2:39am</span>
-              </div>
+            <!-- Dynamic Chart Container -->
+            <div id="metrics-chart-container" class="relative w-full h-[260px] flex flex-col justify-end">
+              <!-- Dynamic Canvas & Bars injected here -->
             </div>
           </div>
         </section>
@@ -3101,11 +3121,12 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       { id: 'key_2', name: 'ProjectSPG Production', key_prefix: 'spg_live_41fa...R5Ve', tier: 'byok', byok_providers: ['Groq', 'Google', 'Mistral'], created_at: '2026-09-27T00:00:00Z', last_used: '9/27/2026', expires: 'Never', requests_used: 3 }
     ];
 
-    // Mock logs exactly matching media_1790457001122.png
+    // Initial logs with timestamps
+    const _initNow = Date.now();
     let localLogs = [
-      { time: '9/27/2026, 1:11:54 AM', model: 'openai/gpt-oss-120b', key: 'ProjectSPG Test', code: 200, ttft: '0.583', latency: '0.829', inTokens: 124, outTokens: 120, audio: '-', reqId: 'req_0...t5xz', error: '-' },
-      { time: '9/27/2026, 1:11:01 AM', model: 'openai/gpt-oss-120b', key: 'ProjectSPG Test', code: 200, ttft: '0.376', latency: '0.538', inTokens: 89, outTokens: 79, audio: '-', reqId: 'req_0...4xfy', error: '-' },
-      { time: '9/27/2026, 1:10:14 AM', model: 'llama-3.3-70b-versatile', key: 'ProjectSPG Test', code: 404, ttft: '0', latency: '0.002', inTokens: 0, outTokens: 0, audio: '-', reqId: 'req_0...0d96', error: 'model_not_found' }
+      { time: new Date(_initNow - 2 * 60 * 1000).toLocaleString(), timestamp: new Date(_initNow - 2 * 60 * 1000).toISOString(), model: 'openai/gpt-oss-120b', key: 'ProjectSPG Test', code: 200, ttft: '0.583', latency: '0.829', inTokens: 124, outTokens: 120, audio: '-', reqId: 'req_0...t5xz', error: '-' },
+      { time: new Date(_initNow - 8 * 60 * 1000).toLocaleString(), timestamp: new Date(_initNow - 8 * 60 * 1000).toISOString(), model: 'openai/gpt-oss-120b', key: 'ProjectSPG Test', code: 200, ttft: '0.376', latency: '0.538', inTokens: 89, outTokens: 79, audio: '-', reqId: 'req_0...4xfy', error: '-' },
+      { time: new Date(_initNow - 14 * 60 * 1000).toLocaleString(), timestamp: new Date(_initNow - 14 * 60 * 1000).toISOString(), model: 'llama-3.3-70b-versatile', key: 'ProjectSPG Test', code: 404, ttft: '0', latency: '0.002', inTokens: 0, outTokens: 0, audio: '-', reqId: 'req_0...0d96', error: 'model_not_found' }
     ];
 
     window.addEventListener('DOMContentLoaded', () => {
@@ -3121,6 +3142,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       fetchApiLogs();
       fetchApiKeys();
       initByokKeys();
+      renderMetricsChart();
 
       // Initialize parameter slider fills
       updateSliderFill(document.getElementById('param-temp-slider'));
@@ -3487,6 +3509,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       }
       if (tabName === 'logs') fetchApiLogs();
       if (tabName === 'usage') updateUsageStats();
+      if (tabName === 'metrics') renderMetricsChart();
       lucide.createIcons();
     }
 
@@ -3890,6 +3913,23 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             'To keep free inference available for everyone, free tier requests are rate limited to 1 protected request per 15 seconds.<br/>' +
             'Please retry in <strong class="text-[#f0523d]">' + retrySec + 's</strong>, or switch to BYOK mode for unlimited requests.' +
             '</div>';
+          localLogs.unshift({
+            time: new Date().toLocaleTimeString(),
+            timestamp: new Date().toISOString(),
+            model: model,
+            key: 'ProjectSPG Test',
+            code: 429,
+            ttft: '0.000',
+            latency: elapsedSec,
+            inTokens: 0,
+            outTokens: 0,
+            audio: '-',
+            reqId: 'req_' + Math.random().toString(36).slice(2, 7) + '...',
+            error: 'rate_limited',
+            protectedEntities: 0
+          });
+          renderLogsTable();
+          renderMetricsChart();
           startCooldown(retrySec);
         } else if (!res.ok || data.error) {
           document.getElementById('welcome-message').classList.add('hidden');
@@ -3905,6 +3945,23 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             '<strong>Provider Error (' + res.status + '):</strong> ' + escapeHtml(errMsg) +
             (isTierError ? '<br/><span class="text-groq-textSubtle mt-1.5 block">💡 <em>This model requires a paid Mistral AI subscription tier. To use paid Mistral models, click "Parameters", switch to BYOK mode, and enter your paid Mistral API key. For free testing, select <strong>codestral-2508</strong>, <strong>ministral-8b-2512</strong>, or <strong>ministral-14b-2512</strong>.</em></span>' : '') +
             '</div>';
+          localLogs.unshift({
+            time: new Date().toLocaleTimeString(),
+            timestamp: new Date().toISOString(),
+            model: model,
+            key: 'ProjectSPG Test',
+            code: res.status || 500,
+            ttft: '0.000',
+            latency: elapsedSec,
+            inTokens: 0,
+            outTokens: 0,
+            audio: '-',
+            reqId: 'req_' + Math.random().toString(36).slice(2, 7) + '...',
+            error: errMsg ? String(errMsg).slice(0, 30) : 'error',
+            protectedEntities: 0
+          });
+          renderLogsTable();
+          renderMetricsChart();
         }
       } catch (err) {
         document.getElementById('rehydrated-text').textContent = 'Execution error: ' + err.message;
@@ -4146,6 +4203,17 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
           \`;
         }).join('');
 
+        const keyFilterSelect = document.getElementById('metrics-key-filter');
+        if (keyFilterSelect) {
+          const currentVal = keyFilterSelect.value;
+          const keyNames = Array.from(new Set(keysToRender.map(k => k.name).filter(Boolean)));
+          keyFilterSelect.innerHTML = '<option value="all">Show all API Keys</option>' +
+            keyNames.map(name => '<option value="' + escapeHtml(name) + '">' + escapeHtml(name) + '</option>').join('');
+          if (currentVal && (currentVal === 'all' || keyNames.includes(currentVal))) {
+            keyFilterSelect.value = currentVal;
+          }
+        }
+
         lucide.createIcons();
       } catch (err) {
         console.error('Fetch keys error', err);
@@ -4247,11 +4315,13 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
             localLogs = data.logs.map(l => {
               const d = new Date(l.timestamp);
               const timeStr = isNaN(d.getTime()) ? l.timestamp : d.toLocaleString();
+              const isoStr = isNaN(d.getTime()) ? new Date().toISOString() : d.toISOString();
               const ttft = (Math.max(0.08, (l.latencyMs || 200) * 0.0004)).toFixed(3);
               const latency = ((l.latencyMs || 200) / 1000).toFixed(3);
               const reqId = l.id ? (l.id.length > 13 ? l.id.slice(0, 5) + '...' + l.id.slice(-4) : l.id) : 'req_...';
               return {
                 time: timeStr,
+                timestamp: isoStr,
                 model: l.model || 'openai/gpt-oss-120b',
                 key: (l.apiKeyPrefix && l.apiKeyPrefix !== 'none') ? l.apiKeyPrefix : 'ProjectSPG Test',
                 code: l.statusCode || 200,
@@ -4266,12 +4336,14 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
               };
             });
             updateUsageStats();
+            renderMetricsChart();
           }
         }
       } catch (err) {
         console.error('Fetch logs error', err);
       }
       renderLogsTable();
+      renderMetricsChart();
     }
 
     const SUPPORTED_MODELS_CATALOG = [
@@ -4622,6 +4694,219 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
       a.href = url;
       a.download = 'projectspg_logs.json';
       a.click();
+    }
+
+    // =========================================================================
+    // Dynamic HTTP Status Codes Chart & Metrics Rendering
+    // =========================================================================
+    async function refreshMetrics() {
+      const btn = document.getElementById('metrics-btn-refresh');
+      if (btn) {
+        btn.innerHTML = '<i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-groq-textMuted animate-spin"></i><span>Refreshing...</span>';
+        if (window.lucide) lucide.createIcons();
+      }
+      await fetchApiLogs();
+      renderMetricsChart();
+      setTimeout(() => {
+        if (btn) {
+          btn.innerHTML = '<i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-groq-textMuted"></i><span>Refresh</span>';
+          if (window.lucide) lucide.createIcons();
+        }
+      }, 400);
+    }
+
+    function renderMetricsChart() {
+      const container = document.getElementById('metrics-chart-container');
+      if (!container) return;
+
+      const timeRange = (document.getElementById('metrics-time-range') ? document.getElementById('metrics-time-range').value : '30m') || '30m';
+      const modelFilter = (document.getElementById('metrics-model-filter') ? document.getElementById('metrics-model-filter').value : 'all') || 'all';
+      const keyFilter = (document.getElementById('metrics-key-filter') ? document.getElementById('metrics-key-filter').value : 'all') || 'all';
+      const showLimits = document.getElementById('metrics-show-limits') ? document.getElementById('metrics-show-limits').checked : false;
+
+      // Determine duration & bucket count
+      let durationMs = 30 * 60 * 1000;
+      let bucketCount = 12;
+      if (timeRange === '1h') {
+        durationMs = 60 * 60 * 1000;
+        bucketCount = 12;
+      } else if (timeRange === '24h') {
+        durationMs = 24 * 60 * 60 * 1000;
+        bucketCount = 12;
+      } else if (timeRange === '7d') {
+        durationMs = 7 * 24 * 60 * 60 * 1000;
+        bucketCount = 14;
+      }
+
+      const now = Date.now();
+      const startTime = now - durationMs;
+      const bucketDuration = durationMs / bucketCount;
+
+      // Filter localLogs based on range, model, and key
+      const filteredLogs = localLogs.filter(l => {
+        let t = null;
+        if (l.timestamp) {
+          const pt = new Date(l.timestamp).getTime();
+          if (!isNaN(pt)) t = pt;
+        }
+        if (t === null && l.time) {
+          const pt = new Date(l.time).getTime();
+          if (!isNaN(pt)) t = pt;
+        }
+        if (t === null) t = now - 60000;
+
+        const inTime = (t >= startTime - 10000) && (t <= now + 60000);
+        const matchModel = (modelFilter === 'all') || (l.model === modelFilter);
+        const matchKey = (keyFilter === 'all') || (l.key === keyFilter) || (l.key && l.key.indexOf(keyFilter) !== -1);
+        return inTime && matchModel && matchKey;
+      });
+
+      // Status totals
+      const count200 = filteredLogs.filter(l => l.code >= 200 && l.code < 300).length;
+      const count4xx = filteredLogs.filter(l => l.code >= 400 && l.code < 500).length;
+      const count5xx = filteredLogs.filter(l => l.code >= 500 && l.code < 600).length;
+      const totalAll = filteredLogs.length;
+
+      const leg200 = document.getElementById('metric-legend-200');
+      const leg4xx = document.getElementById('metric-legend-4xx');
+      const leg5xx = document.getElementById('metric-legend-5xx');
+      const totalSum = document.getElementById('metric-total-summary');
+      if (leg200) leg200.textContent = count200;
+      if (leg4xx) leg4xx.textContent = count4xx;
+      if (leg5xx) leg5xx.textContent = count5xx;
+      if (totalSum) totalSum.textContent = totalAll;
+
+      // Build buckets
+      const buckets = [];
+      for (let i = 0; i < bucketCount; i++) {
+        const bStart = startTime + i * bucketDuration;
+        const bEnd = bStart + bucketDuration;
+        buckets.push({
+          start: bStart,
+          end: bEnd,
+          c200: 0,
+          c4xx: 0,
+          c5xx: 0,
+          total: 0
+        });
+      }
+
+      filteredLogs.forEach(l => {
+        let t = null;
+        if (l.timestamp) {
+          const pt = new Date(l.timestamp).getTime();
+          if (!isNaN(pt)) t = pt;
+        }
+        if (t === null && l.time) {
+          const pt = new Date(l.time).getTime();
+          if (!isNaN(pt)) t = pt;
+        }
+        if (t === null) t = now;
+
+        let bIdx = Math.floor((t - startTime) / bucketDuration);
+        if (bIdx < 0) bIdx = 0;
+        if (bIdx >= bucketCount) bIdx = bucketCount - 1;
+
+        const b = buckets[bIdx];
+        if (l.code >= 200 && l.code < 300) b.c200++;
+        else if (l.code >= 400 && l.code < 500) b.c4xx++;
+        else if (l.code >= 500 && l.code < 600) b.c5xx++;
+        else b.c200++;
+        b.total++;
+      });
+
+      const maxBucket = Math.max(0, ...buckets.map(b => b.total));
+      let yMax = 5;
+      if (maxBucket > 50) yMax = Math.ceil(maxBucket / 20) * 20;
+      else if (maxBucket > 20) yMax = 50;
+      else if (maxBucket > 10) yMax = 25;
+      else if (maxBucket > 4) yMax = 10;
+      else yMax = 5;
+
+      const freeLimit = Math.max(2, Math.round(yMax * 0.6));
+      const limitHeightPct = Math.min(95, Math.round((freeLimit / yMax) * 100));
+
+      // Generate 5 tick timestamps across bottom axis
+      const ticks = [];
+      for (let i = 0; i < 5; i++) {
+        const tickTs = startTime + (durationMs * (i / 4));
+        const d = new Date(tickTs);
+        let label = '';
+        if (timeRange === '7d') {
+          label = (d.getMonth() + 1) + '/' + d.getDate() + ' ' + d.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }).toLowerCase();
+        } else {
+          label = d.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }).toLowerCase();
+        }
+        ticks.push(label);
+      }
+
+      let limitsHtml = '';
+      if (showLimits) {
+        limitsHtml = '<div class="absolute left-8 right-0 border-b border-dashed border-[#f0523d] flex items-center justify-end pr-2 pointer-events-none z-10" style="bottom: calc(32px + ' + (limitHeightPct * 0.8) + '%);">' +
+          '<span class="bg-[#fff5f3] text-[#f0523d] border border-[#f0523d]/20 text-[9px] font-mono px-1.5 py-0.5 rounded -translate-y-3 font-semibold">Tier Rate Limit (' + freeLimit + ' req/bucket)</span>' +
+          '</div>';
+      }
+
+      let emptyHtml = '';
+      if (totalAll === 0) {
+        emptyHtml = '<div class="absolute inset-x-0 top-6 bottom-10 flex flex-col items-center justify-center text-center pointer-events-none z-20">' +
+          '<p class="text-xs font-medium text-groq-textMuted">No HTTP requests recorded in this time range</p>' +
+          '<p class="text-[11px] text-gray-400 mt-1">Make requests via the Playground or API to stream live telemetry</p>' +
+          '</div>';
+      }
+
+      let barsHtml = buckets.map(function(b) {
+        const barHeightPct = b.total > 0 ? Math.min(100, Math.max(8, (b.total / yMax) * 100)) : 0;
+        const startTimeStr = new Date(b.start).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }).toLowerCase();
+        const endTimeStr = new Date(b.end).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }).toLowerCase();
+        const p200 = b.total > 0 ? ((b.c200 / b.total) * 100) : 0;
+        const p4xx = b.total > 0 ? ((b.c4xx / b.total) * 100) : 0;
+        const p5xx = b.total > 0 ? ((b.c5xx / b.total) * 100) : 0;
+
+        let barInner = '';
+        if (b.total > 0) {
+          barInner = '<div class="w-full max-w-[32px] flex flex-col justify-end rounded-t overflow-hidden transition-all duration-200 group-hover:opacity-90 shadow-2xs" style="height: ' + barHeightPct + '%;">' +
+            (b.c5xx > 0 ? '<div class="w-full bg-rose-500 transition-all" style="height: ' + p5xx + '%;"></div>' : '') +
+            (b.c4xx > 0 ? '<div class="w-full bg-amber-500 transition-all" style="height: ' + p4xx + '%;"></div>' : '') +
+            (b.c200 > 0 ? '<div class="w-full bg-emerald-500 transition-all" style="height: ' + p200 + '%;"></div>' : '') +
+            '</div>';
+        } else {
+          barInner = '<div class="w-full max-w-[32px] h-[2px] bg-gray-200 group-hover:bg-gray-300 rounded-full transition-colors"></div>';
+        }
+
+        return '<div class="group relative flex-1 flex flex-col justify-end items-center h-full cursor-pointer">' +
+          '<div class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 hidden group-hover:flex flex-col bg-groq-dark text-white text-[11px] rounded-lg py-2 px-3 shadow-xl z-30 pointer-events-none whitespace-nowrap min-w-[130px]">' +
+            '<div class="text-[10px] text-gray-300 font-mono mb-1.5 pb-1 border-b border-gray-700">' + startTimeStr + ' – ' + endTimeStr + '</div>' +
+            '<div class="flex items-center justify-between gap-3 text-emerald-400 font-sans"><span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>200 OK:</span><span class="font-mono font-semibold">' + b.c200 + '</span></div>' +
+            '<div class="flex items-center justify-between gap-3 text-amber-400 font-sans"><span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>4xx Client:</span><span class="font-mono font-semibold">' + b.c4xx + '</span></div>' +
+            '<div class="flex items-center justify-between gap-3 text-rose-400 font-sans"><span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>5xx Server:</span><span class="font-mono font-semibold">' + b.c5xx + '</span></div>' +
+            '<div class="border-t border-gray-700 mt-1.5 pt-1 flex items-center justify-between gap-3 font-semibold text-white font-sans"><span>Total:</span><span class="font-mono">' + b.total + '</span></div>' +
+          '</div>' +
+          barInner +
+        '</div>';
+      }).join('');
+
+      container.innerHTML = '<div class="absolute inset-0 pointer-events-none flex flex-col justify-between pb-8">' +
+        '<div class="w-full flex items-center gap-2 border-b border-gray-100 pb-0.5"><span class="text-[10px] font-mono text-groq-textSubtle w-6 text-right select-none">' + yMax + '</span><div class="flex-1 border-b border-dashed border-gray-200"></div></div>' +
+        '<div class="w-full flex items-center gap-2 border-b border-gray-100 pb-0.5"><span class="text-[10px] font-mono text-groq-textSubtle w-6 text-right select-none">' + Math.round(yMax * 0.75) + '</span><div class="flex-1 border-b border-dashed border-gray-200"></div></div>' +
+        '<div class="w-full flex items-center gap-2 border-b border-gray-100 pb-0.5"><span class="text-[10px] font-mono text-groq-textSubtle w-6 text-right select-none">' + Math.round(yMax * 0.5) + '</span><div class="flex-1 border-b border-dashed border-gray-200"></div></div>' +
+        '<div class="w-full flex items-center gap-2 border-b border-gray-100 pb-0.5"><span class="text-[10px] font-mono text-groq-textSubtle w-6 text-right select-none">' + Math.round(yMax * 0.25) + '</span><div class="flex-1 border-b border-dashed border-gray-200"></div></div>' +
+        '<div class="w-full flex items-center gap-2 border-b border-gray-200 pb-0.5"><span class="text-[10px] font-mono text-groq-textSubtle w-6 text-right select-none">0</span><div class="flex-1 border-b border-gray-300"></div></div>' +
+        '</div>' +
+        limitsHtml +
+        emptyHtml +
+        '<div class="relative z-10 flex-1 flex items-end justify-between gap-1 sm:gap-2 pl-9 pr-2 pb-8 h-[220px]">' +
+        barsHtml +
+        '</div>' +
+        '<div class="w-full border-t border-gray-200 pt-2 flex items-center justify-between text-[11px] font-mono text-groq-textSubtle pl-9 pr-2">' +
+        '<span>' + ticks[0] + '</span>' +
+        '<span>' + ticks[1] + '</span>' +
+        '<span>' + ticks[2] + '</span>' +
+        '<span>' + ticks[3] + '</span>' +
+        '<span>' + ticks[4] + '</span>' +
+        '</div>';
+
+      if (window.lucide) lucide.createIcons();
     }
 
     function openConfigModal() { document.getElementById('modal-config').classList.remove('hidden'); }
