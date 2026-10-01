@@ -515,106 +515,17 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
           <!-- Right Column (3D Isometric Architectural Artwork matching ProjectSPG) -->
           <div class="lg:col-span-5 flex items-center justify-center relative">
-            <div class="relative w-full max-w-[340px] sm:max-w-[440px] lg:max-w-[480px] aspect-square flex items-center justify-center mx-auto">
+            <div class="relative w-full max-w-[460px] sm:max-w-[520px] lg:max-w-[560px] flex items-center justify-center mx-auto">
               
               <!-- Ambient Glow underneath 3D graphic -->
               <div class="absolute inset-0 bg-gradient-to-tr from-cyan-400/20 via-blue-500/15 to-purple-400/20 rounded-full blur-2xl -z-10"></div>
 
-              <!-- High-definition SVG Isometric Composition matching ProjectSPG's right graphic -->
-              <svg viewBox="0 0 580 540" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full drop-shadow-xl select-none">
-                <defs>
-                  <!-- Cyan Horizontal Disc Gradient -->
-                  <linearGradient id="discCyanGrad" x1="120" y1="280" x2="380" y2="440" gradientUnits="userSpaceOnUse">
-                    <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.85"/>
-                    <stop offset="60%" stop-color="#0284c7" stop-opacity="0.95"/>
-                    <stop offset="100%" stop-color="#0369a1"/>
-                  </linearGradient>
-                  
-                  <!-- Cobalt Vertical Disc Gradient -->
-                  <linearGradient id="discCobaltGrad" x1="220" y1="120" x2="380" y2="340" gradientUnits="userSpaceOnUse">
-                    <stop offset="0%" stop-color="#6366f1"/>
-                    <stop offset="50%" stop-color="#4338ca"/>
-                    <stop offset="100%" stop-color="#312e81"/>
-                  </linearGradient>
-
-                  <!-- Orange/Coral Facet Gradient -->
-                  <linearGradient id="facetOrangeGrad" x1="300" y1="200" x2="440" y2="360" gradientUnits="userSpaceOnUse">
-                    <stop offset="0%" stop-color="#fb923c"/>
-                    <stop offset="50%" stop-color="#f0523d"/>
-                    <stop offset="100%" stop-color="#c2410c"/>
-                  </linearGradient>
-
-                  <!-- Purple Prismatic Plane Gradient -->
-                  <linearGradient id="prismPurpleGrad" x1="160" y1="180" x2="300" y2="320" gradientUnits="userSpaceOnUse">
-                    <stop offset="0%" stop-color="#c084fc" stop-opacity="0.85"/>
-                    <stop offset="100%" stop-color="#7e22ce" stop-opacity="0.95"/>
-                  </linearGradient>
-                </defs>
-
-                <!-- Base Grid / Horizon ring -->
-                <ellipse cx="270" cy="380" rx="220" ry="75" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 4" fill="none" opacity="0.6"/>
-                <ellipse cx="270" cy="380" rx="160" ry="55" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2 4" fill="none" opacity="0.4"/>
-
-                <!-- Layer 1: Horizontal Cyan Sovereign Privacy Platform Disc -->
-                <g id="horizontal-platform">
-                  <!-- Thickness Rim -->
-                  <path d="M 90,360 C 90,410 450,410 450,360 L 450,378 C 450,428 90,428 90,378 Z" fill="#0284c7" opacity="0.75" />
-                  <!-- Top Surface -->
-                  <ellipse cx="270" cy="360" rx="180" ry="60" fill="url(#discCyanGrad)" />
-                  <ellipse cx="270" cy="360" rx="160" ry="52" stroke="#bae6fd" stroke-width="1.5" opacity="0.6" fill="none" />
-                </g>
-
-                <!-- Layer 2: Cobalt Vertical Sovereign Ring Disc (intersecting) -->
-                <g id="vertical-cobalt-disc">
-                  <path d="M 230,150 C 290,150 340,240 340,350 C 340,420 300,450 250,450 C 190,450 140,360 140,250 C 140,180 180,150 230,150 Z" 
-                        fill="url(#discCobaltGrad)" opacity="0.9" />
-                  <ellipse cx="240" cy="300" rx="75" ry="120" stroke="#a5b4fc" stroke-width="1.5" opacity="0.5" fill="none" transform="rotate(-15 240 300)" />
-                </g>
-
-                <!-- Layer 3: Purple Prismatic Diamond Plane -->
-                <g id="purple-plane">
-                  <polygon points="180,240 290,170 330,280 220,350" fill="url(#prismPurpleGrad)" opacity="0.85" />
-                  <polygon points="180,240 290,170 330,280 220,350" stroke="#f3e8ff" stroke-width="1.5" fill="none" opacity="0.8" />
-                </g>
-
-                <!-- Layer 4: Coral / Orange Prismatic Polyhedron (Focus Core) -->
-                <g id="coral-cube-facet">
-                  <!-- Left side facet -->
-                  <polygon points="310,220 380,180 380,270 310,310" fill="#f97316" />
-                  <!-- Right side facet -->
-                  <polygon points="380,180 440,220 440,310 380,270" fill="url(#facetOrangeGrad)" />
-                  <!-- Top facet -->
-                  <polygon points="310,220 370,180 440,220 380,260" fill="#fdba74" />
-                  <polygon points="310,220 370,180 440,220 380,260" stroke="#ffedd5" stroke-width="1" fill="none" />
-                </g>
-
-                <!-- Fine Isometric Grid & Technical Ray Lines -->
-                <line x1="270" y1="120" x2="270" y2="440" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="2 3" opacity="0.5"/>
-
-                <!-- ProjectSPG Callout 1: SUB-MILLISECOND LATENCY (Top Right) -->
-                <g id="callout-latency">
-                  <polyline points="380,225 430,175 490,175" stroke="#475569" stroke-width="1" fill="none" />
-                  <rect x="377" y="222" width="6" height="6" fill="#0f172a" />
-                  <text x="430" y="165" font-family="ui-sans-serif, system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" fill="#0f172a" letter-spacing="0.06em">SUB-MILLISECOND LATENCY</text>
-                  <text x="430" y="152" font-family="ui-sans-serif, system-ui, -apple-system, sans-serif" font-size="9" font-weight="500" fill="#64748b">0.8ms P99 ENGINE</text>
-                </g>
-
-                <!-- ProjectSPG Callout 2: ZERO-TRUST DE-IDENTIFICATION (Left) -->
-                <g id="callout-privacy">
-                  <polyline points="200,290 140,290 90,320" stroke="#475569" stroke-width="1" fill="none" />
-                  <rect x="197" y="287" width="6" height="6" fill="#0f172a" />
-                  <text x="25" y="340" font-family="ui-sans-serif, system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" fill="#0f172a" letter-spacing="0.06em">ZERO-TRUST DE-IDENTIFICATION</text>
-                  <text x="25" y="354" font-family="ui-sans-serif, system-ui, -apple-system, sans-serif" font-size="9" font-weight="500" fill="#64748b">REVERSIBLE BYOK TOKENIZATION</text>
-                </g>
-
-                <!-- ProjectSPG Callout 3: 10 SOVEREIGN PACKS (Bottom Right) -->
-                <g id="callout-sovereignty">
-                  <polyline points="330,370 390,410 470,410" stroke="#475569" stroke-width="1" fill="none" />
-                  <rect x="327" y="367" width="6" height="6" fill="#0f172a" />
-                  <text x="390" y="430" font-family="ui-sans-serif, system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" fill="#0f172a" letter-spacing="0.06em">10 SOVEREIGN PACKS</text>
-                  <text x="390" y="444" font-family="ui-sans-serif, system-ui, -apple-system, sans-serif" font-size="9" font-weight="500" fill="#64748b">HIPAA • GDPR • DORA • APPI</text>
-                </g>
-              </svg>
+              <img 
+                src="/images/hero-illustration.png" 
+                alt="ProjectSPG Architecture: Zero-Trust De-Identification, Sub-Millisecond Latency, 10+ Sovereign Regulatory Packs, Tested Across 1.94 Billion Tokens" 
+                class="w-full h-auto object-contain drop-shadow-2xl select-none transition-transform duration-300 hover:scale-[1.02]"
+                loading="eager"
+              />
             </div>
           </div>
 
