@@ -2126,7 +2126,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               </button>
             </div>
             <!-- Quick Submit for mobile viewports -->
-            <button onclick="submitPrompt()" class="lg:hidden px-3.5 py-1.5 rounded-full border-2 border-[#f0523d] bg-[#f0523d] text-white font-semibold text-xs flex items-center gap-1.5 transition active:scale-95 shadow-xs cursor-pointer shrink-0">
+            <button onclick="submitPrompt()" id="btn-quick-submit" class="lg:hidden px-3.5 py-1.5 rounded-full border-2 border-[#f0523d] bg-[#f0523d] text-white font-semibold text-xs flex items-center gap-1.5 transition active:scale-95 shadow-xs cursor-pointer shrink-0">
               <i data-lucide="send" class="w-3.5 h-3.5"></i>
               <span>Submit</span>
             </button>
@@ -3854,8 +3854,16 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       const mode = document.getElementById('cfg-mode') ? document.getElementById('cfg-mode').value : 'mask';
 
       const btn = document.getElementById('btn-submit');
-      btn.innerHTML = '<span>Running...</span>';
-      btn.disabled = true;
+      if (btn) {
+        btn.innerHTML = '<span class="flex items-center gap-1.5"><i data-lucide="loader-2" class="w-3.5 h-3.5 animate-spin"></i><span>Running...</span></span>';
+        btn.disabled = true;
+      }
+      const quickBtn = document.getElementById('btn-quick-submit');
+      if (quickBtn) {
+        quickBtn.innerHTML = '<i data-lucide="loader-2" class="w-3.5 h-3.5 animate-spin"></i><span>Running...</span>';
+        quickBtn.disabled = true;
+      }
+      if (window.lucide) lucide.createIcons();
 
       const t0 = performance.now();
 
@@ -4028,29 +4036,55 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       } catch (err) {
         document.getElementById('rehydrated-text').textContent = 'Execution error: ' + err.message;
       } finally {
-        if (!document.getElementById('btn-submit').disabled) {
-          btn.innerHTML = '<span>Submit</span> <span class="text-[11px] font-mono text-groq-textSubtle">Ctrl + ↵</span>';
+        if (!isCooldownActive) {
+          if (btn) {
+            btn.disabled = false;
+            btn.innerHTML = '<span>Submit</span> <span class="hidden sm:inline text-[11px] font-mono text-groq-textSubtle">Ctrl + ↵</span>';
+          }
+          const quickBtn = document.getElementById('btn-quick-submit');
+          if (quickBtn) {
+            quickBtn.disabled = false;
+            quickBtn.innerHTML = '<i data-lucide="send" class="w-3.5 h-3.5"></i><span>Submit</span>';
+          }
         }
-        lucide.createIcons();
+        if (window.lucide) lucide.createIcons();
       }
     }
 
+    let isCooldownActive = false;
+
     function startCooldown(sec) {
+      isCooldownActive = true;
       const btn = document.getElementById('btn-submit');
-      if (!btn) return;
+      const quickBtn = document.getElementById('btn-quick-submit');
       let remaining = sec;
-      btn.disabled = true;
-      btn.innerHTML = '<span>Wait ' + remaining + 's</span>';
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<span>Wait ' + remaining + 's</span>';
+      }
+      if (quickBtn) {
+        quickBtn.disabled = true;
+        quickBtn.innerHTML = '<span>Wait ' + remaining + 's</span>';
+      }
       const interval = setInterval(() => {
         remaining--;
         const timerEl = document.getElementById('cooldown-timer');
         if (timerEl) timerEl.textContent = remaining + 's';
         if (remaining <= 0) {
           clearInterval(interval);
-          btn.disabled = false;
-          btn.innerHTML = '<span>Submit</span> <span class="text-[11px] font-mono text-groq-textSubtle">Ctrl + ↵</span>';
+          isCooldownActive = false;
+          if (btn) {
+            btn.disabled = false;
+            btn.innerHTML = '<span>Submit</span> <span class="hidden sm:inline text-[11px] font-mono text-groq-textSubtle">Ctrl + ↵</span>';
+          }
+          if (quickBtn) {
+            quickBtn.disabled = false;
+            quickBtn.innerHTML = '<i data-lucide="send" class="w-3.5 h-3.5"></i><span>Submit</span>';
+          }
+          if (window.lucide) lucide.createIcons();
         } else {
-          btn.innerHTML = '<span>Wait ' + remaining + 's</span>';
+          if (btn) btn.innerHTML = '<span>Wait ' + remaining + 's</span>';
+          if (quickBtn) quickBtn.innerHTML = '<span>Wait ' + remaining + 's</span>';
         }
       }, 1000);
     }
