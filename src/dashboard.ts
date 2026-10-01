@@ -2030,11 +2030,11 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     <!-- ======================================================================= -->
     <!-- VIEW 1: PLAYGROUND (Exact 3-Column Groq Layout) -->
     <!-- ======================================================================= -->
-    <div id="view-playground" class="view-panel hidden border-t border-l border-r border-groq-grayBorder rounded-t-2xl bg-white mx-0 sm:mx-2 lg:mx-3 flex-1 flex flex-col overflow-visible lg:overflow-hidden shadow-xs w-full sm:w-auto min-w-0 max-w-full">
+    <div id="view-playground" class="view-panel hidden border-t border-l border-r border-groq-grayBorder rounded-t-2xl bg-white mx-0 sm:mx-2 lg:mx-3 flex-1 flex flex-col overflow-x-hidden overflow-y-visible lg:overflow-hidden shadow-xs w-full sm:w-auto min-w-0 max-w-full">
       
       <!-- Sub-Toolbar (54px height) -->
-      <div class="h-auto min-h-[54px] py-2 sm:py-0 border-b border-groq-grayBorder bg-white px-2.5 sm:px-4 flex flex-wrap items-center justify-between gap-2 shrink-0 w-full min-w-0 max-w-full">
-        <div class="flex items-center gap-2.5 sm:gap-4 shrink-0">
+      <div class="h-auto min-h-[54px] py-2 sm:py-0 border-b border-groq-grayBorder bg-white px-2 sm:px-4 flex flex-wrap items-center justify-between gap-1.5 sm:gap-2 shrink-0 w-full min-w-0 max-w-full">
+        <div class="flex items-center gap-2 sm:gap-4 shrink-0">
           <h2 class="text-[15px] font-semibold text-groq-dark tracking-tight">Playground</h2>
           <div class="bg-[#f3f4f6] p-0.5 rounded-lg flex items-center text-xs select-none">
             <button id="btn-tier-free" onclick="switchPlaygroundTier('free')" class="px-2.5 sm:px-3 py-1 rounded-md bg-white text-groq-dark font-medium shadow-xs text-xs transition cursor-pointer">Free</button>
@@ -2042,7 +2042,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           </div>
         </div>
 
-        <div class="flex items-center gap-1.5 sm:gap-2 flex-wrap max-w-full">
+        <div class="flex items-center gap-1 sm:gap-2 flex-wrap max-w-full min-w-0">
           <!-- BYOK Provider API Keys Button (visible when BYOK mode is ON) -->
           <button id="btn-byok-keys" onclick="openByokKeysModal()" class="hidden px-2.5 sm:px-3 py-1.5 rounded-lg bg-white border border-groq-grayBorder text-xs font-medium text-groq-dark hover:bg-gray-50 flex items-center gap-1.5 shadow-2xs transition cursor-pointer shrink-0" title="Provider API Keys">
             <i data-lucide="key" class="w-3.5 h-3.5 text-blue-600"></i>
@@ -2050,8 +2050,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             <span id="byok-keys-badge" class="hidden w-2 h-2 rounded-full bg-emerald-500 ring-2 ring-white" title="Keys configured"></span>
           </button>
 
-          <div class="relative max-w-[130px] sm:max-w-none">
-            <select id="playground-model" onchange="onModelChange()" class="appearance-none bg-white border border-groq-grayBorder text-groq-dark text-xs font-sans font-medium rounded-lg pl-2 sm:pl-3 pr-6 sm:pr-8 py-1.5 focus:border-gray-400 focus:outline-none cursor-pointer w-full truncate">
+          <div class="relative max-w-[115px] xs:max-w-[130px] sm:max-w-none shrink min-w-0">
+            <select id="playground-model" onchange="onModelChange()" class="appearance-none bg-white border border-groq-grayBorder text-groq-dark text-xs font-sans font-medium rounded-lg pl-2 sm:pl-3 pr-5 sm:pr-8 py-1.5 focus:border-gray-400 focus:outline-none cursor-pointer w-full truncate">
               <optgroup label="Groq Cloud">
                 <option value="openai/gpt-oss-120b" selected>openai/gpt-oss-120b</option>
                 <option value="openai/gpt-oss-20b">openai/gpt-oss-20b</option>
@@ -2067,16 +2067,16 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                 <option value="ministral-14b-2512">ministral-14b-2512</option>
               </optgroup>
             </select>
-            <i data-lucide="chevrons-up-down" class="w-3.5 h-3.5 text-groq-textSubtle absolute right-2 top-2 pointer-events-none"></i>
+            <i data-lucide="chevrons-up-down" class="w-3.5 h-3.5 text-groq-textSubtle absolute right-1.5 sm:right-2 top-2 pointer-events-none"></i>
           </div>
 
           <button onclick="copyModelName()" class="p-1.5 rounded-lg bg-white border border-groq-grayBorder text-groq-textMuted hover:text-groq-dark cursor-pointer shrink-0" title="Copy model name">
             <i data-lucide="copy" class="w-3.5 h-3.5"></i>
           </button>
 
-          <button onclick="toggleCodePanel()" id="btn-toggle-code" class="px-2 sm:px-3 py-1.5 rounded-lg bg-white border border-groq-grayBorder text-xs font-medium text-groq-dark hover:bg-gray-50 flex items-center gap-1 cursor-pointer shrink-0">
+          <button onclick="toggleCodePanel()" id="btn-toggle-code" class="px-2 sm:px-3 py-1.5 rounded-lg bg-white border border-groq-grayBorder text-xs font-medium text-groq-dark hover:bg-gray-50 flex items-center gap-1 cursor-pointer shrink-0" title="Toggle Code">
             <i data-lucide="code" class="w-3.5 h-3.5 text-groq-textMuted"></i>
-            <span id="code-btn-text">Hide code</span>
+            <span id="code-btn-text">Hide</span>
           </button>
 
           <button onclick="toggleParametersPanel()" id="btn-toggle-params" class="p-1.5 rounded-lg bg-white border border-groq-grayBorder text-groq-textMuted hover:text-groq-dark transition cursor-pointer shrink-0" title="Parameters">
@@ -2086,27 +2086,27 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       </div>
 
       <!-- Playground 3-Column Split -->
-      <div class="flex-1 flex flex-col lg:flex-row overflow-visible lg:overflow-hidden relative w-full min-w-0 max-w-full">
+      <div class="flex-1 flex flex-col lg:flex-row overflow-x-hidden overflow-y-visible lg:overflow-hidden relative w-full min-w-0 max-w-full">
         <!-- Col 1: Prompts -->
-        <div class="w-full lg:w-[33%] lg:min-w-[320px] lg:max-w-[420px] border-b lg:border-b-0 lg:border-r border-groq-grayBorder p-3.5 sm:p-6 flex flex-col justify-between overflow-visible lg:overflow-y-auto bg-white lg:shrink-0 min-w-0 max-w-full">
+        <div class="w-full lg:w-[33%] lg:min-w-[320px] lg:max-w-[420px] border-b lg:border-b-0 lg:border-r border-groq-grayBorder p-2.5 sm:p-6 flex flex-col justify-between overflow-x-hidden overflow-y-visible lg:overflow-y-auto bg-white lg:shrink-0 min-w-0 max-w-full">
           <div class="space-y-3.5 sm:space-y-4">
             <div class="flex items-center gap-2.5 sm:gap-3">
               <span class="text-[11px] font-semibold text-groq-textMuted uppercase tracking-wider shrink-0">SYSTEM</span>
               <input type="text" id="system-prompt" class="flex-1 min-w-0 bg-transparent border-0 text-xs text-groq-dark placeholder-groq-textSubtle focus:outline-none" placeholder="Enter system message (Optional)" value="Enter system message (Optional)">
             </div>
 
-            <div class="bg-groq-grayBg border border-groq-grayBorder rounded-2xl p-3 sm:p-4 transition focus-within:border-gray-300">
+            <div class="bg-groq-grayBg border border-groq-grayBorder rounded-2xl p-2.5 sm:p-4 transition focus-within:border-gray-300">
               <div class="text-[11px] font-semibold text-groq-textSubtle uppercase tracking-wider mb-2">USER</div>
               <textarea id="user-prompt" rows="5" class="w-full bg-transparent text-xs text-groq-dark placeholder-groq-textSubtle focus:outline-none resize-none leading-relaxed" placeholder="Enter user message...">Please confirm order for Alice Wong (email: alice.wong@fintech.de, SSN: 123-45-6789) using Visa card 4532-0151-1283-0366. Repeat back her name, email, and card number.</textarea>
               
-              <div class="mt-3 pt-2.5 border-t border-gray-200/70 flex flex-wrap gap-1.5 text-[10px]">
-                <button onclick="loadSample('banking')" class="px-2.5 py-1 rounded-md bg-white border border-groq-grayBorder hover:border-gray-300 text-groq-textMuted hover:text-groq-dark transition cursor-pointer">🏦 Banking Wire</button>
-                <button onclick="loadSample('patient')" class="px-2.5 py-1 rounded-md bg-white border border-groq-grayBorder hover:border-gray-300 text-groq-textMuted hover:text-groq-dark transition cursor-pointer">🏥 Patient Record</button>
-                <button onclick="loadSample('germantax')" class="px-2.5 py-1 rounded-md bg-white border border-groq-grayBorder hover:border-gray-300 text-groq-textMuted hover:text-groq-dark transition cursor-pointer">🇩🇪 German Tax ID</button>
+              <div class="mt-3 pt-2.5 border-t border-gray-200/70 flex flex-wrap gap-1 text-[10px]">
+                <button onclick="loadSample('banking')" class="px-2 py-1 rounded-md bg-white border border-groq-grayBorder hover:border-gray-300 text-groq-textMuted hover:text-groq-dark transition cursor-pointer whitespace-nowrap">🏦 Banking Wire</button>
+                <button onclick="loadSample('patient')" class="px-2 py-1 rounded-md bg-white border border-groq-grayBorder hover:border-gray-300 text-groq-textMuted hover:text-groq-dark transition cursor-pointer whitespace-nowrap">🏥 Patient Record</button>
+                <button onclick="loadSample('germantax')" class="px-2 py-1 rounded-md bg-white border border-groq-grayBorder hover:border-gray-300 text-groq-textMuted hover:text-groq-dark transition cursor-pointer whitespace-nowrap">🇩🇪 German Tax ID</button>
               </div>
             </div>
 
-            <div class="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 text-xs px-3 py-2 rounded-xl bg-sky-50 border border-sky-200 text-sky-900">
+            <div class="flex flex-col xs:flex-row items-start xs:items-center justify-between gap-1.5 text-xs px-2.5 sm:px-3 py-2 rounded-xl bg-sky-50 border border-sky-200 text-sky-900">
               <div class="flex items-center gap-1.5 min-w-0">
                 <i data-lucide="shield-check" class="w-4 h-4 text-sky-600 shrink-0"></i>
                 <span class="text-[11px] font-medium truncate sm:whitespace-normal">ProjectSPG Privacy Gateway Active</span>
@@ -2117,16 +2117,16 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
           <div class="pt-4 flex items-center justify-between gap-2">
             <div class="flex items-center gap-2">
-              <button onclick="clearInputs()" class="px-3 py-1.5 rounded-lg bg-groq-grayBg border border-groq-grayBorder hover:bg-gray-100 text-xs font-medium text-groq-dark flex items-center gap-1.5 transition cursor-pointer">
+              <button onclick="clearInputs()" class="px-2.5 sm:px-3 py-1.5 rounded-lg bg-groq-grayBg border border-groq-grayBorder hover:bg-gray-100 text-xs font-medium text-groq-dark flex items-center gap-1.5 transition cursor-pointer">
                 <i data-lucide="plus-circle" class="w-3.5 h-3.5 text-groq-textMuted"></i>
                 <span>New</span>
               </button>
-              <button onclick="clearInputs()" class="px-3 py-1.5 rounded-lg bg-groq-grayBg border border-groq-grayBorder hover:bg-gray-100 text-xs font-medium text-groq-textMuted hover:text-groq-dark transition cursor-pointer">
+              <button onclick="clearInputs()" class="px-2.5 sm:px-3 py-1.5 rounded-lg bg-groq-grayBg border border-groq-grayBorder hover:bg-gray-100 text-xs font-medium text-groq-textMuted hover:text-groq-dark transition cursor-pointer">
                 Clear
               </button>
             </div>
             <!-- Quick Submit for mobile viewports -->
-            <button onclick="submitPrompt()" class="lg:hidden px-4 py-1.5 rounded-full border-2 border-[#f0523d] bg-[#f0523d] text-white font-semibold text-xs flex items-center gap-1.5 transition active:scale-95 shadow-xs cursor-pointer">
+            <button onclick="submitPrompt()" class="lg:hidden px-3.5 py-1.5 rounded-full border-2 border-[#f0523d] bg-[#f0523d] text-white font-semibold text-xs flex items-center gap-1.5 transition active:scale-95 shadow-xs cursor-pointer shrink-0">
               <i data-lucide="send" class="w-3.5 h-3.5"></i>
               <span>Submit</span>
             </button>
@@ -2134,7 +2134,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         </div>
 
         <!-- Col 2: Response -->
-        <div id="col-response" class="w-full lg:flex-1 flex flex-col justify-between p-3.5 sm:p-6 border-b lg:border-b-0 lg:border-r border-groq-grayBorder overflow-visible lg:overflow-y-auto bg-white min-h-[340px] min-w-0 max-w-full">
+        <div id="col-response" class="w-full lg:flex-1 flex flex-col justify-between p-2.5 sm:p-6 border-b lg:border-b-0 lg:border-r border-groq-grayBorder overflow-x-hidden overflow-y-visible lg:overflow-y-auto bg-white min-h-[340px] min-w-0 max-w-full">
           <div>
             <div class="flex items-center justify-between mb-4">
               <span class="text-[11px] font-semibold text-groq-textMuted uppercase tracking-wider">RESPONSE</span>
@@ -2218,15 +2218,15 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               </button>
             </div>
 
-            <button onclick="submitPrompt()" id="btn-submit" class="px-5 py-2 rounded-full border-2 border-[#f0523d] bg-white hover:bg-[#fff5f3] text-groq-dark font-semibold text-xs flex items-center gap-2 transition active:scale-95 shadow-xs cursor-pointer">
+            <button onclick="submitPrompt()" id="btn-submit" class="px-4 sm:px-5 py-2 rounded-full border-2 border-[#f0523d] bg-white hover:bg-[#fff5f3] text-groq-dark font-semibold text-xs flex items-center gap-1.5 sm:gap-2 transition active:scale-95 shadow-xs cursor-pointer shrink-0">
               <span>Submit</span>
-              <span class="text-[11px] font-mono text-groq-textSubtle">Ctrl + ↵</span>
+              <span class="hidden sm:inline text-[11px] font-mono text-groq-textSubtle">Ctrl + ↵</span>
             </button>
           </div>
         </div>
 
         <!-- Col 3: Code -->
-        <div id="col-code" class="w-full lg:w-[33%] lg:min-w-[320px] lg:max-w-[440px] p-3.5 sm:p-6 flex flex-col justify-between overflow-visible lg:overflow-y-auto bg-white lg:shrink-0 min-w-0 max-w-full">
+        <div id="col-code" class="w-full lg:w-[33%] lg:min-w-[320px] lg:max-w-[440px] p-2.5 sm:p-6 flex flex-col justify-between overflow-x-hidden overflow-y-visible lg:overflow-y-auto bg-white lg:shrink-0 min-w-0 max-w-full">
           <div class="min-w-0 max-w-full">
             <div class="flex items-center justify-between mb-4">
               <div class="relative">
@@ -3581,10 +3581,10 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       isCodeVisible = !isCodeVisible;
       if (isCodeVisible) {
         panel.classList.remove('hidden');
-        text.textContent = 'Hide code';
+        text.textContent = 'Hide';
       } else {
         panel.classList.add('hidden');
-        text.textContent = 'View code';
+        text.textContent = 'Code';
       }
     }
 
