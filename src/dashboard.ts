@@ -300,44 +300,60 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       transform: translateY(0);
       pointer-events: auto;
     }
+    /* Mobile-optimized smooth touch scrolling & scrollbar utilities */
+    .touch-scroll {
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
   </style>
 </head>
 
 <body class="min-h-screen flex flex-col bg-white text-groq-dark antialiased overflow-y-auto selection:bg-[#f0523d]/20 selection:text-[#f0523d]">
 
   <!-- ========================================================================= -->
-  <!-- TOP GLOBAL NAVBAR (Exact 52px height) -->
+  <!-- TOP GLOBAL NAVBAR (Exact 52px height + Mobile Tab Strip) -->
   <!-- ========================================================================= -->
-  <header id="global-header" class="sticky top-0 h-[52px] bg-white px-2.5 sm:px-4 lg:px-6 flex items-center justify-between shrink-0 z-40 hidden border-b border-gray-100 shadow-2xs">
+  <header id="global-header" class="sticky top-0 bg-white z-40 hidden border-b border-gray-100 shadow-2xs">
     
-    <!-- Left: Brand Logo + Project Selector -->
-    <div class="flex items-center gap-2 sm:gap-3.5">
-      <a href="#landing" onclick="switchView('landing')" class="flex items-center gap-1 group" title="Return to Landing Page">
-        <span class="font-extrabold text-[20px] sm:text-[22px] tracking-tight text-groq-dark">project<span class="text-[#f0523d]">spg</span></span>
-      </a>
+    <!-- Main Top Row (52px) -->
+    <div class="h-[52px] px-3 sm:px-4 lg:px-6 flex items-center justify-between">
+      <!-- Left: Brand Logo + Project Selector -->
+      <div class="flex items-center gap-2 sm:gap-3.5">
+        <a href="#landing" onclick="switchView('landing')" class="flex items-center gap-1 group" title="Return to Landing Page">
+          <span class="font-extrabold text-[20px] sm:text-[22px] tracking-tight text-groq-dark">project<span class="text-[#f0523d]">spg</span></span>
+        </a>
 
-      <!-- Project Selector Pill Dropdown -->
-      <div class="hidden md:flex items-center gap-1.5 text-xs text-groq-textMuted cursor-pointer hover:text-groq-dark transition ml-2">
-        <span class="font-normal text-groq-textMuted">Personal</span>
-        <i data-lucide="chevrons-up-down" class="w-3 h-3 text-groq-textSubtle"></i>
-        <span class="mx-1 text-gray-300 font-light">/</span>
-        <span class="text-groq-dark font-medium">Default Project</span>
-        <i data-lucide="chevrons-up-down" class="w-3 h-3 text-groq-textSubtle"></i>
+        <!-- Project Selector Pill Dropdown -->
+        <div class="hidden md:flex items-center gap-1.5 text-xs text-groq-textMuted cursor-pointer hover:text-groq-dark transition ml-2">
+          <span class="font-normal text-groq-textMuted">Personal</span>
+          <i data-lucide="chevrons-up-down" class="w-3 h-3 text-groq-textSubtle"></i>
+          <span class="mx-1 text-gray-300 font-light">/</span>
+          <span class="text-groq-dark font-medium">Default Project</span>
+          <i data-lucide="chevrons-up-down" class="w-3 h-3 text-groq-textSubtle"></i>
+        </div>
       </div>
-    </div>
 
-    <!-- Right: Navigation Tabs + Settings + Avatar -->
-    <div class="flex items-center gap-2 sm:gap-6 text-xs">
-      <nav class="flex items-center gap-3 sm:gap-6 font-medium text-[11px] sm:text-xs overflow-x-auto">
-        <button onclick="switchView('playground')" id="nav-playground" class="nav-item text-groq-textMuted hover:text-groq-dark transition whitespace-nowrap">Playground</button>
-        <button onclick="switchView('keys')" id="nav-keys" class="nav-item text-groq-textMuted hover:text-groq-dark transition whitespace-nowrap">API Keys</button>
-        <button onclick="switchView('dashboard')" id="nav-dashboard" class="nav-item text-[#f0523d] font-semibold transition whitespace-nowrap">Dashboard</button>
-        <button onclick="switchView('docs')" id="nav-docs" class="nav-item text-groq-textMuted hover:text-groq-dark transition whitespace-nowrap">Docs</button>
-      </nav>
+      <!-- Center: Desktop Navigation Tabs (Hidden on < sm) -->
+      <div class="hidden sm:flex items-center gap-6 text-xs">
+        <nav class="flex items-center gap-6 font-medium text-xs">
+          <button onclick="switchView('playground')" id="nav-playground" class="nav-item text-groq-textMuted hover:text-groq-dark transition whitespace-nowrap cursor-pointer">Playground</button>
+          <button onclick="switchView('keys')" id="nav-keys" class="nav-item text-groq-textMuted hover:text-groq-dark transition whitespace-nowrap cursor-pointer">API Keys</button>
+          <button onclick="switchView('dashboard')" id="nav-dashboard" class="nav-item text-[#f0523d] font-semibold transition whitespace-nowrap cursor-pointer">Dashboard</button>
+          <button onclick="switchView('docs')" id="nav-docs" class="nav-item text-groq-textMuted hover:text-groq-dark transition whitespace-nowrap cursor-pointer">Docs</button>
+        </nav>
+      </div>
 
-      <div class="flex items-center gap-2 sm:gap-3.5 ml-1 sm:ml-2">
+      <!-- Right: Settings + Sign In / User Profile -->
+      <div class="flex items-center gap-2 sm:gap-3.5">
         <!-- Settings Gear Icon -->
-        <button onclick="openConfigModal()" class="text-groq-textMuted hover:text-groq-dark transition p-1" title="Settings">
+        <button onclick="openConfigModal()" class="text-groq-textMuted hover:text-groq-dark transition p-1.5 rounded-lg hover:bg-gray-100 cursor-pointer" title="Settings">
           <i data-lucide="settings" class="w-4 h-4"></i>
         </button>
 
@@ -373,6 +389,14 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           </div>
         </div>
       </div>
+    </div>
+
+    <!-- Mobile Sub-Header Navigation Strip (Visible on mobile screens < sm) -->
+    <div class="sm:hidden px-2 py-1.5 bg-[#fafafa] border-t border-gray-100 flex items-center gap-1.5 overflow-x-auto no-scrollbar touch-scroll">
+      <button onclick="switchView('playground')" id="nav-mobile-playground" class="nav-mobile-item flex-1 py-1.5 px-2 text-center rounded-lg text-xs font-medium whitespace-nowrap transition cursor-pointer text-groq-textMuted bg-white border border-gray-200/70 shadow-2xs">Playground</button>
+      <button onclick="switchView('keys')" id="nav-mobile-keys" class="nav-mobile-item flex-1 py-1.5 px-2 text-center rounded-lg text-xs font-medium whitespace-nowrap transition cursor-pointer text-groq-textMuted bg-white border border-gray-200/70 shadow-2xs">API Keys</button>
+      <button onclick="switchView('dashboard')" id="nav-mobile-dashboard" class="nav-mobile-item flex-1 py-1.5 px-2 text-center rounded-lg text-xs font-semibold whitespace-nowrap transition cursor-pointer text-[#f0523d] bg-orange-50 border border-[#f0523d]/30 shadow-2xs">Dashboard</button>
+      <button onclick="switchView('docs')" id="nav-mobile-docs" class="nav-mobile-item flex-1 py-1.5 px-2 text-center rounded-lg text-xs font-medium whitespace-nowrap transition cursor-pointer text-groq-textMuted bg-white border border-gray-200/70 shadow-2xs">Docs</button>
     </div>
 
   </header>
@@ -1999,11 +2023,11 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     <!-- ======================================================================= -->
     <!-- VIEW 1: PLAYGROUND (Exact 3-Column Groq Layout) -->
     <!-- ======================================================================= -->
-    <div id="view-playground" class="view-panel hidden border-t border-l border-r border-groq-grayBorder rounded-t-2xl bg-white mx-1 sm:mx-2 lg:mx-3 flex-1 flex flex-col overflow-hidden shadow-xs">
+    <div id="view-playground" class="view-panel hidden border-t border-l border-r border-groq-grayBorder rounded-t-2xl bg-white mx-0 sm:mx-2 lg:mx-3 flex-1 flex flex-col overflow-y-auto lg:overflow-hidden shadow-xs">
       
       <!-- Sub-Toolbar (54px height) -->
-      <div class="h-auto min-h-[54px] py-2 sm:py-0 border-b border-groq-grayBorder bg-white px-2 sm:px-4 flex flex-wrap items-center justify-between gap-2 shrink-0">
-        <div class="flex items-center gap-3 sm:gap-4">
+      <div class="h-auto min-h-[54px] py-2 sm:py-0 border-b border-groq-grayBorder bg-white px-2.5 sm:px-4 flex flex-wrap items-center justify-between gap-2 shrink-0">
+        <div class="flex items-center gap-2.5 sm:gap-4">
           <h2 class="text-[15px] font-semibold text-groq-dark tracking-tight">Playground</h2>
           <div class="bg-[#f3f4f6] p-0.5 rounded-lg flex items-center text-xs select-none">
             <button id="btn-tier-free" onclick="switchPlaygroundTier('free')" class="px-2.5 sm:px-3 py-1 rounded-md bg-white text-groq-dark font-medium shadow-xs text-xs transition cursor-pointer">Free</button>
@@ -2011,7 +2035,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           </div>
         </div>
 
-        <div class="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+        <div class="flex items-center gap-1.5 sm:gap-2 flex-wrap max-w-full">
           <!-- BYOK Provider API Keys Button (visible when BYOK mode is ON) -->
           <button id="btn-byok-keys" onclick="openByokKeysModal()" class="hidden px-2.5 sm:px-3 py-1.5 rounded-lg bg-white border border-groq-grayBorder text-xs font-medium text-groq-dark hover:bg-gray-50 flex items-center gap-1.5 shadow-2xs transition cursor-pointer shrink-0" title="Provider API Keys">
             <i data-lucide="key" class="w-3.5 h-3.5 text-blue-600"></i>
@@ -2019,8 +2043,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             <span id="byok-keys-badge" class="hidden w-2 h-2 rounded-full bg-emerald-500 ring-2 ring-white" title="Keys configured"></span>
           </button>
 
-          <div class="relative">
-            <select id="playground-model" onchange="onModelChange()" class="appearance-none bg-white border border-groq-grayBorder text-groq-dark text-xs font-sans font-medium rounded-lg pl-2.5 sm:pl-3 pr-7 sm:pr-8 py-1.5 focus:border-gray-400 focus:outline-none cursor-pointer max-w-[170px] sm:max-w-none truncate">
+          <div class="relative max-w-[155px] sm:max-w-none">
+            <select id="playground-model" onchange="onModelChange()" class="appearance-none bg-white border border-groq-grayBorder text-groq-dark text-xs font-sans font-medium rounded-lg pl-2.5 sm:pl-3 pr-7 sm:pr-8 py-1.5 focus:border-gray-400 focus:outline-none cursor-pointer w-full truncate">
               <optgroup label="Groq Cloud">
                 <option value="openai/gpt-oss-120b" selected>openai/gpt-oss-120b</option>
                 <option value="openai/gpt-oss-20b">openai/gpt-oss-20b</option>
@@ -2039,39 +2063,39 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             <i data-lucide="chevrons-up-down" class="w-3.5 h-3.5 text-groq-textSubtle absolute right-2 top-2 pointer-events-none"></i>
           </div>
 
-          <button onclick="copyModelName()" class="p-1.5 rounded-lg bg-white border border-groq-grayBorder text-groq-textMuted hover:text-groq-dark" title="Copy model name">
+          <button onclick="copyModelName()" class="p-1.5 rounded-lg bg-white border border-groq-grayBorder text-groq-textMuted hover:text-groq-dark cursor-pointer shrink-0" title="Copy model name">
             <i data-lucide="copy" class="w-3.5 h-3.5"></i>
           </button>
 
-          <button onclick="toggleCodePanel()" id="btn-toggle-code" class="px-2.5 sm:px-3 py-1.5 rounded-lg bg-white border border-groq-grayBorder text-xs font-medium text-groq-dark hover:bg-gray-50 flex items-center gap-1.5">
+          <button onclick="toggleCodePanel()" id="btn-toggle-code" class="px-2.5 sm:px-3 py-1.5 rounded-lg bg-white border border-groq-grayBorder text-xs font-medium text-groq-dark hover:bg-gray-50 flex items-center gap-1.5 cursor-pointer shrink-0">
             <i data-lucide="code" class="w-3.5 h-3.5 text-groq-textMuted"></i>
             <span id="code-btn-text">Hide code</span>
           </button>
 
-          <button onclick="toggleParametersPanel()" id="btn-toggle-params" class="p-1.5 rounded-lg bg-white border border-groq-grayBorder text-groq-textMuted hover:text-groq-dark transition" title="Parameters">
+          <button onclick="toggleParametersPanel()" id="btn-toggle-params" class="p-1.5 rounded-lg bg-white border border-groq-grayBorder text-groq-textMuted hover:text-groq-dark transition cursor-pointer shrink-0" title="Parameters">
             <i data-lucide="sliders-horizontal" class="w-3.5 h-3.5"></i>
           </button>
         </div>
       </div>
 
       <!-- Playground 3-Column Split -->
-      <div class="flex-1 flex flex-col lg:flex-row overflow-y-auto lg:overflow-hidden relative">
+      <div class="flex-1 flex flex-col lg:flex-row overflow-y-auto lg:overflow-hidden relative touch-scroll">
         <!-- Col 1: Prompts -->
-        <div class="w-full lg:w-[33%] lg:min-w-[320px] lg:max-w-[420px] border-b lg:border-b-0 lg:border-r border-groq-grayBorder p-4 sm:p-6 flex flex-col justify-between overflow-y-visible lg:overflow-y-auto bg-white shrink-0">
-          <div class="space-y-4">
-            <div class="flex items-center gap-3">
+        <div class="w-full lg:w-[33%] lg:min-w-[320px] lg:max-w-[420px] border-b lg:border-b-0 lg:border-r border-groq-grayBorder p-3.5 sm:p-6 flex flex-col justify-between overflow-y-visible lg:overflow-y-auto bg-white shrink-0">
+          <div class="space-y-3.5 sm:space-y-4">
+            <div class="flex items-center gap-2.5 sm:gap-3">
               <span class="text-[11px] font-semibold text-groq-textMuted uppercase tracking-wider shrink-0">SYSTEM</span>
               <input type="text" id="system-prompt" class="flex-1 bg-transparent border-0 text-xs text-groq-dark placeholder-groq-textSubtle focus:outline-none" placeholder="Enter system message (Optional)" value="Enter system message (Optional)">
             </div>
 
-            <div class="bg-groq-grayBg border border-groq-grayBorder rounded-2xl p-4 transition focus-within:border-gray-300">
+            <div class="bg-groq-grayBg border border-groq-grayBorder rounded-2xl p-3 sm:p-4 transition focus-within:border-gray-300">
               <div class="text-[11px] font-semibold text-groq-textSubtle uppercase tracking-wider mb-2">USER</div>
-              <textarea id="user-prompt" rows="8" class="w-full bg-transparent text-xs text-groq-dark placeholder-groq-textSubtle focus:outline-none resize-none leading-relaxed" placeholder="Enter user message...">Please confirm order for Alice Wong (email: alice.wong@fintech.de, SSN: 123-45-6789) using Visa card 4532-0151-1283-0366. Repeat back her name, email, and card number.</textarea>
+              <textarea id="user-prompt" rows="5" class="w-full bg-transparent text-xs text-groq-dark placeholder-groq-textSubtle focus:outline-none resize-none leading-relaxed" placeholder="Enter user message...">Please confirm order for Alice Wong (email: alice.wong@fintech.de, SSN: 123-45-6789) using Visa card 4532-0151-1283-0366. Repeat back her name, email, and card number.</textarea>
               
               <div class="mt-3 pt-2.5 border-t border-gray-200/70 flex flex-wrap gap-1.5 text-[10px]">
-                <button onclick="loadSample('banking')" class="px-2 py-0.5 rounded-md bg-white border border-groq-grayBorder hover:border-gray-300 text-groq-textMuted hover:text-groq-dark transition">🏦 Banking Wire</button>
-                <button onclick="loadSample('patient')" class="px-2 py-0.5 rounded-md bg-white border border-groq-grayBorder hover:border-gray-300 text-groq-textMuted hover:text-groq-dark transition">🏥 Patient Record</button>
-                <button onclick="loadSample('germantax')" class="px-2 py-0.5 rounded-md bg-white border border-groq-grayBorder hover:border-gray-300 text-groq-textMuted hover:text-groq-dark transition">🇩🇪 German Tax ID</button>
+                <button onclick="loadSample('banking')" class="px-2.5 py-1 rounded-md bg-white border border-groq-grayBorder hover:border-gray-300 text-groq-textMuted hover:text-groq-dark transition cursor-pointer">🏦 Banking Wire</button>
+                <button onclick="loadSample('patient')" class="px-2.5 py-1 rounded-md bg-white border border-groq-grayBorder hover:border-gray-300 text-groq-textMuted hover:text-groq-dark transition cursor-pointer">🏥 Patient Record</button>
+                <button onclick="loadSample('germantax')" class="px-2.5 py-1 rounded-md bg-white border border-groq-grayBorder hover:border-gray-300 text-groq-textMuted hover:text-groq-dark transition cursor-pointer">🇩🇪 German Tax ID</button>
               </div>
             </div>
 
@@ -2084,19 +2108,26 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             </div>
           </div>
 
-          <div class="pt-4 flex items-center justify-between">
-            <button onclick="clearInputs()" class="px-3.5 py-1.5 rounded-lg bg-groq-grayBg border border-groq-grayBorder hover:bg-gray-100 text-xs font-medium text-groq-dark flex items-center gap-1.5 transition">
-              <i data-lucide="plus-circle" class="w-3.5 h-3.5 text-groq-textMuted"></i>
-              <span>New Message</span>
-            </button>
-            <button onclick="clearInputs()" class="px-4 py-1.5 rounded-lg bg-groq-grayBg border border-groq-grayBorder hover:bg-gray-100 text-xs font-medium text-groq-textMuted hover:text-groq-dark transition">
-              Clear
+          <div class="pt-4 flex items-center justify-between gap-2">
+            <div class="flex items-center gap-2">
+              <button onclick="clearInputs()" class="px-3 py-1.5 rounded-lg bg-groq-grayBg border border-groq-grayBorder hover:bg-gray-100 text-xs font-medium text-groq-dark flex items-center gap-1.5 transition cursor-pointer">
+                <i data-lucide="plus-circle" class="w-3.5 h-3.5 text-groq-textMuted"></i>
+                <span>New</span>
+              </button>
+              <button onclick="clearInputs()" class="px-3 py-1.5 rounded-lg bg-groq-grayBg border border-groq-grayBorder hover:bg-gray-100 text-xs font-medium text-groq-textMuted hover:text-groq-dark transition cursor-pointer">
+                Clear
+              </button>
+            </div>
+            <!-- Quick Submit for mobile viewports -->
+            <button onclick="submitPrompt()" class="lg:hidden px-4 py-1.5 rounded-full border-2 border-[#f0523d] bg-[#f0523d] text-white font-semibold text-xs flex items-center gap-1.5 transition active:scale-95 shadow-xs cursor-pointer">
+              <i data-lucide="send" class="w-3.5 h-3.5"></i>
+              <span>Submit</span>
             </button>
           </div>
         </div>
 
         <!-- Col 2: Response -->
-        <div id="col-response" class="w-full lg:flex-1 flex flex-col justify-between p-4 sm:p-6 border-b lg:border-b-0 lg:border-r border-groq-grayBorder overflow-y-visible lg:overflow-y-auto bg-white min-h-[340px]">
+        <div id="col-response" class="w-full lg:flex-1 flex flex-col justify-between p-3.5 sm:p-6 border-b lg:border-b-0 lg:border-r border-groq-grayBorder overflow-y-visible lg:overflow-y-auto bg-white min-h-[340px]">
           <div>
             <div class="flex items-center justify-between mb-4">
               <span class="text-[11px] font-semibold text-groq-textMuted uppercase tracking-wider">RESPONSE</span>
@@ -2145,7 +2176,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                   <span>Copy</span>
                 </button>
               </div>
-              <div id="protected-prompt-text" class="whitespace-pre-wrap text-slate-800 bg-[#f8fafc] p-4 rounded-xl border border-slate-200 text-xs font-mono leading-relaxed max-h-52 overflow-y-auto shadow-2xs"></div>
+              <div id="protected-prompt-text" class="whitespace-pre-wrap text-slate-800 bg-[#f8fafc] p-3 sm:p-4 rounded-xl border border-slate-200 text-xs font-mono leading-relaxed max-h-52 overflow-y-auto shadow-2xs touch-scroll"></div>
             </div>
 
             <!-- OUTPUT 2: AI Output (Rehydrated with Highlighted Parts) -->
@@ -2166,21 +2197,21 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                   <span>Copy</span>
                 </button>
               </div>
-              <div id="rehydrated-text" class="whitespace-pre-wrap text-groq-dark bg-groq-grayBg p-4 rounded-xl border border-groq-grayBorder text-xs font-mono leading-relaxed max-h-72 overflow-y-auto"></div>
+              <div id="rehydrated-text" class="whitespace-pre-wrap text-groq-dark bg-groq-grayBg p-3 sm:p-4 rounded-xl border border-groq-grayBorder text-xs font-mono leading-relaxed max-h-72 overflow-y-auto touch-scroll"></div>
             </div>
           </div>
 
           <div class="pt-4 flex items-center justify-between">
             <div class="flex items-center gap-3">
-              <button onclick="addConversationTurn()" class="text-xs text-groq-textMuted hover:text-groq-dark flex items-center gap-1.5 font-medium transition">
+              <button onclick="addConversationTurn()" class="text-xs text-groq-textMuted hover:text-groq-dark flex items-center gap-1.5 font-medium transition cursor-pointer">
                 <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> Add
               </button>
-              <button onclick="clearResponse()" class="text-xs text-groq-textMuted hover:text-groq-dark flex items-center gap-1.5 font-medium transition">
+              <button onclick="clearResponse()" class="text-xs text-groq-textMuted hover:text-groq-dark flex items-center gap-1.5 font-medium transition cursor-pointer">
                 <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Clear
               </button>
             </div>
 
-            <button onclick="submitPrompt()" id="btn-submit" class="px-5 py-2 rounded-full border-2 border-[#f0523d] bg-white hover:bg-[#fff5f3] text-groq-dark font-semibold text-xs flex items-center gap-2 transition active:scale-95 shadow-xs">
+            <button onclick="submitPrompt()" id="btn-submit" class="px-5 py-2 rounded-full border-2 border-[#f0523d] bg-white hover:bg-[#fff5f3] text-groq-dark font-semibold text-xs flex items-center gap-2 transition active:scale-95 shadow-xs cursor-pointer">
               <span>Submit</span>
               <span class="text-[11px] font-mono text-groq-textSubtle">Ctrl + ↵</span>
             </button>
@@ -2188,7 +2219,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         </div>
 
         <!-- Col 3: Code -->
-        <div id="col-code" class="w-full lg:w-[33%] lg:min-w-[320px] lg:max-w-[440px] p-4 sm:p-6 flex flex-col justify-between overflow-y-visible lg:overflow-y-auto bg-white shrink-0">
+        <div id="col-code" class="w-full lg:w-[33%] lg:min-w-[320px] lg:max-w-[440px] p-3.5 sm:p-6 flex flex-col justify-between overflow-y-visible lg:overflow-y-auto bg-white shrink-0">
           <div>
             <div class="flex items-center justify-between mb-4">
               <div class="relative">
@@ -2200,12 +2231,12 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                 <i data-lucide="chevrons-up-down" class="w-3 h-3 text-groq-textSubtle absolute right-0 top-0.5 pointer-events-none"></i>
               </div>
 
-              <button onclick="copySnippet()" class="text-xs text-groq-textSubtle hover:text-groq-dark flex items-center gap-1 font-medium transition">
+              <button onclick="copySnippet()" class="text-xs text-groq-textSubtle hover:text-groq-dark flex items-center gap-1 font-medium transition cursor-pointer">
                 <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy
               </button>
             </div>
 
-            <div id="code-snippet-box" class="font-mono text-[11px] leading-[1.65] text-groq-dark select-all overflow-x-auto whitespace-pre"></div>
+            <div id="code-snippet-box" class="font-mono text-[11px] leading-[1.65] text-groq-dark select-all overflow-x-auto whitespace-pre max-h-80 sm:max-h-none touch-scroll"></div>
           </div>
 
           <div class="pt-4 border-t border-groq-grayBorder text-[11px] text-groq-textSubtle flex items-center justify-between font-mono">
@@ -2214,8 +2245,11 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           </div>
         </div>
 
+        <!-- Parameters Drawer Backdrop for mobile -->
+        <div id="parameters-backdrop" onclick="toggleParametersPanel()" class="hidden fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-40 lg:hidden transition-opacity"></div>
+
         <!-- Col 4: Parameters Panel (Exact 1:1 Match to media_1790517999090.png & media_1790518000351.png) -->
-        <div id="col-parameters" class="hidden fixed lg:relative inset-y-0 right-0 z-50 lg:z-20 w-full sm:w-[300px] lg:w-[280px] lg:min-w-[280px] lg:max-w-[320px] border-l border-groq-grayBorder bg-white flex flex-col h-full overflow-hidden shrink-0 shadow-2xl lg:shadow-xs">
+        <div id="col-parameters" class="hidden fixed lg:relative inset-y-0 right-0 z-50 lg:z-20 w-[88vw] sm:w-[320px] lg:w-[280px] lg:min-w-[280px] lg:max-w-[320px] border-l border-groq-grayBorder bg-white flex flex-col h-full overflow-hidden shrink-0 shadow-2xl lg:shadow-xs">
           <!-- Panel Header -->
           <div class="h-[50px] px-5 border-b border-gray-100 flex items-center justify-between shrink-0">
             <span class="text-[11px] font-semibold text-gray-500 uppercase tracking-wider">PARAMETERS</span>
@@ -2358,20 +2392,26 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     <!-- ======================================================================= -->
     <!-- VIEW 2: API KEYS VIEW (Exact Groq API Keys Layout) -->
     <!-- ======================================================================= -->
-    <div id="view-keys" class="view-panel hidden border-t border-l border-r border-groq-grayBorder rounded-t-2xl bg-white mx-1 sm:mx-2 lg:mx-3 flex-1 p-3 sm:p-6 md:p-8 max-w-[1440px] w-full overflow-y-auto shadow-xs">
-      <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-8">
+    <div id="view-keys" class="view-panel hidden border-t border-l border-r border-groq-grayBorder rounded-t-2xl bg-white mx-0 sm:mx-2 lg:mx-3 flex-1 p-3.5 sm:p-6 md:p-8 max-w-[1440px] w-full overflow-y-auto shadow-xs touch-scroll">
+      <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-6 sm:mb-8">
         <div>
           <h1 class="text-[17px] font-bold text-groq-dark tracking-tight mb-2">API Keys</h1>
           <p class="text-xs text-groq-textMuted">Manage your project API keys. Remember to keep your API keys safe to prevent unauthorized access.</p>
         </div>
 
-        <button onclick="openCreateKeyModal()" class="px-4 py-2 rounded-lg border border-[#f0523d] bg-white hover:bg-[#fff5f3] text-groq-dark text-xs font-semibold flex items-center gap-1.5 transition shadow-xs self-start shrink-0">
+        <button onclick="openCreateKeyModal()" class="px-4 py-2 rounded-lg border border-[#f0523d] bg-white hover:bg-[#fff5f3] text-groq-dark text-xs font-semibold flex items-center justify-center gap-1.5 transition shadow-xs w-full sm:w-auto shrink-0 cursor-pointer">
           <i data-lucide="plus" class="w-3.5 h-3.5 text-groq-dark"></i>
           <span>Create API Key</span>
         </button>
       </div>
 
-      <div class="w-full overflow-x-auto -mx-2 sm:mx-0 px-2 sm:px-0">
+      <!-- Mobile swipe hint -->
+      <div class="sm:hidden flex items-center gap-1.5 text-[11px] text-groq-textSubtle mb-2.5 px-0.5">
+        <i data-lucide="arrow-right-left" class="w-3.5 h-3.5 text-[#f0523d]"></i>
+        <span>Swipe table horizontally to view full API keys data</span>
+      </div>
+
+      <div class="w-full overflow-x-auto -mx-1 sm:mx-0 px-1 sm:px-0 touch-scroll">
         <table class="w-full min-w-[620px] text-left text-xs font-sans border-collapse">
           <thead>
             <tr class="text-groq-textSubtle text-[11px] uppercase tracking-wider font-semibold">
@@ -2393,18 +2433,18 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     <!-- ======================================================================= -->
     <!-- VIEW 3: DASHBOARD (Exact Replica of Metrics, Usage, Logs Screenshots) -->
     <!-- ======================================================================= -->
-    <div id="view-dashboard" class="view-panel flex-1 flex flex-col md:flex-row overflow-y-auto md:overflow-hidden">
+    <div id="view-dashboard" class="view-panel flex-1 flex flex-col md:flex-row overflow-y-auto md:overflow-hidden touch-scroll">
       
-      <!-- STANDALONE LEFT PANEL (Exact matching Groq Dashboard Left Sidebar) -->
-      <aside class="w-full md:w-44 shrink-0 px-4 md:pl-8 pt-4 md:pt-8 flex flex-row md:flex-col gap-5 md:gap-0 md:space-y-7 text-xs font-medium border-b md:border-b-0 border-groq-grayBorder overflow-x-auto bg-white">
-        <button onclick="switchDashTab('metrics')" id="dash-tab-btn-metrics" class="dash-tab-btn whitespace-nowrap block text-left text-groq-textMuted hover:text-groq-dark transition">Metrics</button>
-        <button onclick="switchDashTab('usage')" id="dash-tab-btn-usage" class="dash-tab-btn whitespace-nowrap block text-left text-groq-textMuted hover:text-groq-dark transition">Usage</button>
-        <button onclick="switchDashTab('logs')" id="dash-tab-btn-logs" class="dash-tab-btn whitespace-nowrap block text-left text-[#f0523d] font-semibold transition">Logs</button>
-        <button onclick="switchDashTab('batch')" id="dash-tab-btn-batch" class="dash-tab-btn whitespace-nowrap block text-left text-groq-textMuted hover:text-groq-dark transition">Batch</button>
+      <!-- STANDALONE LEFT PANEL (Matching Groq Dashboard Left Sidebar with mobile responsive pill strip) -->
+      <aside class="w-full md:w-44 shrink-0 px-3 sm:px-4 md:pl-8 py-2.5 md:py-8 flex flex-row md:flex-col gap-2 md:gap-0 md:space-y-7 text-xs font-medium border-b md:border-b-0 border-groq-grayBorder overflow-x-auto no-scrollbar bg-white touch-scroll">
+        <button onclick="switchDashTab('metrics')" id="dash-tab-btn-metrics" class="dash-tab-btn whitespace-nowrap px-3 py-1.5 md:px-0 md:py-0 rounded-lg md:rounded-none text-center md:text-left text-groq-textMuted hover:text-groq-dark transition cursor-pointer shrink-0">Metrics</button>
+        <button onclick="switchDashTab('usage')" id="dash-tab-btn-usage" class="dash-tab-btn whitespace-nowrap px-3 py-1.5 md:px-0 md:py-0 rounded-lg md:rounded-none text-center md:text-left text-groq-textMuted hover:text-groq-dark transition cursor-pointer shrink-0">Usage</button>
+        <button onclick="switchDashTab('logs')" id="dash-tab-btn-logs" class="dash-tab-btn whitespace-nowrap px-3 py-1.5 md:px-0 md:py-0 rounded-lg md:rounded-none text-center md:text-left text-[#f0523d] font-semibold transition cursor-pointer shrink-0">Logs</button>
+        <button onclick="switchDashTab('batch')" id="dash-tab-btn-batch" class="dash-tab-btn whitespace-nowrap px-3 py-1.5 md:px-0 md:py-0 rounded-lg md:rounded-none text-center md:text-left text-groq-textMuted hover:text-groq-dark transition cursor-pointer shrink-0">Batch</button>
       </aside>
 
       <!-- MAIN CARD CONTAINER (Rounded top-left & top-right border matching images) -->
-      <div class="border-t border-l border-r border-groq-grayBorder rounded-t-2xl md:rounded-tr-2xl md:rounded-br-none bg-white p-3 sm:p-6 md:p-8 mx-1 md:mx-0 mr-1 md:mr-2 flex-1 flex flex-col overflow-y-visible md:overflow-y-auto shadow-xs">
+      <div class="border-t border-l border-r border-groq-grayBorder rounded-t-2xl md:rounded-tr-2xl md:rounded-br-none bg-white p-3.5 sm:p-6 md:p-8 mx-0 md:mx-0 mr-0 md:mr-2 flex-1 flex flex-col overflow-y-visible md:overflow-y-auto shadow-xs touch-scroll">
         
         <!-- =================================================================== -->
         <!-- SUBVIEW A: METRICS (Exact 1:1 Match to media_1790456964674.png) -->
@@ -2414,64 +2454,68 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             <h1 class="text-[17px] font-bold text-groq-dark tracking-tight">Metrics</h1>
             
             <!-- Controls on Right -->
-            <div class="flex flex-wrap items-center gap-2 sm:gap-3">
-              <!-- Show Limits Switch -->
-              <div class="flex items-center gap-2 text-xs font-medium text-groq-dark">
-                <span>Show Limits</span>
-                <label class="relative inline-flex items-center cursor-pointer">
-                  <input type="checkbox" id="metrics-show-limits" onchange="renderMetricsChart()" class="sr-only peer">
-                  <div class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-groq-dark"></div>
-                </label>
+            <div class="flex flex-wrap items-center gap-2 sm:gap-3 w-full sm:w-auto">
+              <!-- Row 1 on mobile: Limits switch & Refresh button -->
+              <div class="flex items-center justify-between sm:justify-start gap-3 w-full sm:w-auto">
+                <div class="flex items-center gap-2 text-xs font-medium text-groq-dark">
+                  <span>Show Limits</span>
+                  <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" id="metrics-show-limits" onchange="renderMetricsChart()" class="sr-only peer">
+                    <div class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-groq-dark"></div>
+                  </label>
+                </div>
+
+                <button id="metrics-btn-refresh" onclick="refreshMetrics()" class="px-3 py-1.5 rounded-lg bg-groq-grayBg border border-groq-grayBorder hover:bg-gray-100 text-xs font-medium text-groq-dark flex items-center gap-1.5 transition cursor-pointer">
+                  <i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-groq-textMuted"></i>
+                  <span>Refresh</span>
+                </button>
               </div>
 
-              <!-- Refresh Button -->
-              <button id="metrics-btn-refresh" onclick="refreshMetrics()" class="px-3 py-1.5 rounded-lg bg-groq-grayBg border border-groq-grayBorder hover:bg-gray-100 text-xs font-medium text-groq-dark flex items-center gap-1.5 transition cursor-pointer">
-                <i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-groq-textMuted"></i>
-                <span>Refresh</span>
-              </button>
+              <!-- Filter Dropdowns -->
+              <div class="flex items-center gap-2 flex-wrap w-full sm:w-auto">
+                <!-- Last 30 minutes dropdown -->
+                <div class="relative flex-1 sm:flex-initial min-w-[125px]">
+                  <select id="metrics-time-range" onchange="renderMetricsChart()" class="w-full appearance-none bg-groq-grayBg border border-groq-grayBorder text-groq-dark text-xs font-medium rounded-lg pl-3 pr-7 py-1.5 focus:outline-none cursor-pointer">
+                    <option value="30m" selected>Last 30 minutes</option>
+                    <option value="1h">Last 1 hour</option>
+                    <option value="24h">Last 24 hours</option>
+                    <option value="7d">Last 7 days</option>
+                  </select>
+                  <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-groq-textSubtle absolute right-2 top-2 pointer-events-none"></i>
+                </div>
 
-              <!-- Last 30 minutes dropdown -->
-              <div class="relative">
-                <select id="metrics-time-range" onchange="renderMetricsChart()" class="appearance-none bg-groq-grayBg border border-groq-grayBorder text-groq-dark text-xs font-medium rounded-lg pl-3 pr-7 py-1.5 focus:outline-none cursor-pointer">
-                  <option value="30m" selected>Last 30 minutes</option>
-                  <option value="1h">Last 1 hour</option>
-                  <option value="24h">Last 24 hours</option>
-                  <option value="7d">Last 7 days</option>
-                </select>
-                <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-groq-textSubtle absolute right-2 top-2 pointer-events-none"></i>
-              </div>
+                <!-- Show all Models dropdown -->
+                <div class="relative flex-1 sm:flex-initial min-w-[140px]">
+                  <select id="metrics-model-filter" onchange="renderMetricsChart()" class="w-full appearance-none bg-groq-grayBg border border-groq-grayBorder text-groq-dark text-xs font-medium rounded-lg pl-3 pr-7 py-1.5 focus:outline-none cursor-pointer">
+                    <option value="all">Show all Models</option>
+                    <option value="openai/gpt-oss-120b">openai/gpt-oss-120b</option>
+                    <option value="openai/gpt-oss-20b">openai/gpt-oss-20b</option>
+                    <option value="qwen/qwen3.8-27b">qwen/qwen3.8-27b</option>
+                    <option value="gemma-4-26b-a4b-it">gemma-4-26b-a4b-it</option>
+                    <option value="gemma-4-31b-it">gemma-4-31b-it</option>
+                    <option value="codestral-2508">codestral-2508</option>
+                    <option value="ministral-8b-2512">ministral-8b-2512</option>
+                    <option value="ministral-14b-2512">ministral-14b-2512</option>
+                  </select>
+                  <i data-lucide="chevrons-up-down" class="w-3.5 h-3.5 text-groq-textSubtle absolute right-2 top-2 pointer-events-none"></i>
+                </div>
 
-              <!-- Show all Models dropdown -->
-              <div class="relative">
-                <select id="metrics-model-filter" onchange="renderMetricsChart()" class="appearance-none bg-groq-grayBg border border-groq-grayBorder text-groq-dark text-xs font-medium rounded-lg pl-3 pr-7 py-1.5 focus:outline-none cursor-pointer">
-                  <option value="all">Show all Models</option>
-                  <option value="openai/gpt-oss-120b">openai/gpt-oss-120b</option>
-                  <option value="openai/gpt-oss-20b">openai/gpt-oss-20b</option>
-                  <option value="qwen/qwen3.8-27b">qwen/qwen3.8-27b</option>
-                  <option value="gemma-4-26b-a4b-it">gemma-4-26b-a4b-it</option>
-                  <option value="gemma-4-31b-it">gemma-4-31b-it</option>
-                  <option value="codestral-2508">codestral-2508</option>
-                  <option value="ministral-8b-2512">ministral-8b-2512</option>
-                  <option value="ministral-14b-2512">ministral-14b-2512</option>
-                </select>
-                <i data-lucide="chevrons-up-down" class="w-3.5 h-3.5 text-groq-textSubtle absolute right-2 top-2 pointer-events-none"></i>
-              </div>
-
-              <!-- Show all API Keys dropdown -->
-              <div class="relative">
-                <select id="metrics-key-filter" onchange="renderMetricsChart()" class="appearance-none bg-groq-grayBg border border-groq-grayBorder text-groq-dark text-xs font-medium rounded-lg pl-3 pr-7 py-1.5 focus:outline-none cursor-pointer">
-                  <option value="all">Show all API Keys</option>
-                  <option value="ProjectSPG Test">ProjectSPG Test</option>
-                  <option value="Datums Space">Datums Space</option>
-                  <option value="ProjectSPG Production">ProjectSPG Production</option>
-                </select>
-                <i data-lucide="chevrons-up-down" class="w-3.5 h-3.5 text-groq-textSubtle absolute right-2 top-2 pointer-events-none"></i>
+                <!-- Show all API Keys dropdown -->
+                <div class="relative flex-1 sm:flex-initial min-w-[130px]">
+                  <select id="metrics-key-filter" onchange="renderMetricsChart()" class="w-full appearance-none bg-groq-grayBg border border-groq-grayBorder text-groq-dark text-xs font-medium rounded-lg pl-3 pr-7 py-1.5 focus:outline-none cursor-pointer">
+                    <option value="all">Show all API Keys</option>
+                    <option value="ProjectSPG Test">ProjectSPG Test</option>
+                    <option value="Datums Space">Datums Space</option>
+                    <option value="ProjectSPG Production">ProjectSPG Production</option>
+                  </select>
+                  <i data-lucide="chevrons-up-down" class="w-3.5 h-3.5 text-groq-textSubtle absolute right-2 top-2 pointer-events-none"></i>
+                </div>
               </div>
             </div>
           </div>
 
           <!-- HTTP Status Codes Chart Card -->
-          <div class="border border-groq-grayBorder rounded-xl p-6 bg-white shadow-xs">
+          <div class="border border-groq-grayBorder rounded-xl p-4 sm:p-6 bg-white shadow-xs">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
               <div class="flex items-center gap-1.5 text-xs font-semibold text-groq-dark">
                 <span>HTTP Status Codes</span>
@@ -2503,7 +2547,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             </div>
 
             <!-- Dynamic Chart Container -->
-            <div id="metrics-chart-container" class="relative w-full h-[260px] flex flex-col justify-end">
+            <div id="metrics-chart-container" class="relative w-full h-[220px] sm:h-[260px] flex flex-col justify-end">
               <!-- Dynamic Canvas & Bars injected here -->
             </div>
           </div>
@@ -2513,14 +2557,14 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         <!-- SUBVIEW B: USAGE (Exact 1:1 Match to media_1790456991949.png) -->
         <!-- =================================================================== -->
         <section id="dash-content-usage" class="dash-subview hidden space-y-6">
-          <div class="flex items-start justify-between">
+          <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
             <div>
               <h1 class="text-[17px] font-bold text-groq-dark tracking-tight mb-2">Usage</h1>
               <p class="text-xs font-medium text-groq-dark">View usage data for your project</p>
               <p class="text-[11px] text-groq-textSubtle mt-0.5">Note: Data can be delayed by up to 15 minutes. All data shown in UTC time.</p>
             </div>
 
-            <div class="flex items-center gap-2">
+            <div class="flex flex-wrap items-center gap-2">
               <button class="px-3.5 py-1.5 rounded-lg bg-groq-grayBg border border-groq-grayBorder text-xs font-medium text-groq-dark flex items-center gap-1.5">
                 <i data-lucide="folder" class="w-3.5 h-3.5 text-groq-textMuted"></i>
                 <span>Default Project</span>
@@ -2541,7 +2585,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           <!-- SUBTAB 1: COST -->
           <div id="usage-view-cost" class="space-y-6">
             <!-- Total Spend Card -->
-            <div class="border border-groq-grayBorder rounded-xl p-5 max-w-sm bg-white shadow-xs">
+            <div class="border border-groq-grayBorder rounded-xl p-5 max-w-sm w-full bg-white shadow-xs">
               <div class="flex items-center justify-between">
                 <span class="text-xs font-medium text-groq-dark">Total Spend</span>
                 <span id="usage-total-spend" class="text-sm font-semibold text-groq-dark font-mono">$0.0000 USD</span>
@@ -2558,18 +2602,24 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           <!-- SUBTAB 2: ACTIVITY -->
           <div id="usage-view-activity" class="hidden space-y-6">
             <div class="border border-groq-grayBorder rounded-xl overflow-hidden bg-white shadow-xs">
-              <div class="p-5 border-b border-gray-100 flex items-center justify-between">
+              <div class="p-4 sm:p-5 border-b border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                 <div>
                   <h3 class="text-xs font-bold text-groq-dark">Model Activity Breakdown</h3>
                   <p class="text-[11px] text-groq-textMuted mt-0.5">Aggregate usage, token consumption, and privacy interception counts per supported model</p>
                 </div>
-                <div class="flex items-center gap-2">
+                <div class="flex items-center gap-2 self-start sm:self-auto">
                   <span class="text-[11px] font-mono text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200">Live Metering</span>
                 </div>
               </div>
 
-              <div class="overflow-x-auto">
-                <table class="w-full text-left text-xs border-collapse font-sans">
+              <!-- Mobile swipe hint -->
+              <div class="sm:hidden flex items-center gap-1.5 text-[11px] text-groq-textSubtle p-2.5 pb-1">
+                <i data-lucide="arrow-right-left" class="w-3.5 h-3.5 text-[#f0523d]"></i>
+                <span>Swipe table horizontally to inspect all metrics</span>
+              </div>
+
+              <div class="overflow-x-auto touch-scroll">
+                <table class="w-full min-w-[660px] text-left text-xs border-collapse font-sans">
                   <thead>
                     <tr class="bg-gray-50/70 text-groq-textSubtle text-[10px] uppercase tracking-wider font-semibold border-b border-gray-100">
                       <th class="py-3 px-4">Supported Model</th>
@@ -2595,7 +2645,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         <!-- SUBVIEW C: LOGS (Exact 1:1 Match to media_1790457001122.png) -->
         <!-- =================================================================== -->
         <section id="dash-content-logs" class="dash-subview space-y-6">
-          <div class="flex items-center justify-between">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <h1 class="text-[17px] font-bold text-groq-dark tracking-tight">Logs</h1>
 
             <div class="flex items-center gap-3">
@@ -2609,15 +2659,21 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               </div>
 
               <!-- Download dropdown button -->
-              <button onclick="downloadLogs()" class="px-3.5 py-1.5 rounded-lg bg-groq-grayBg border border-groq-grayBorder hover:bg-gray-100 text-xs font-medium text-groq-dark flex items-center gap-1.5 transition">
+              <button onclick="downloadLogs()" class="px-3.5 py-1.5 rounded-lg bg-groq-grayBg border border-groq-grayBorder hover:bg-gray-100 text-xs font-medium text-groq-dark flex items-center gap-1.5 transition cursor-pointer">
                 <span>Download</span>
                 <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-groq-textSubtle"></i>
               </button>
             </div>
           </div>
 
+          <!-- Mobile swipe hint -->
+          <div class="sm:hidden flex items-center gap-1.5 text-[11px] text-groq-textSubtle mb-2 px-0.5">
+            <i data-lucide="arrow-right-left" class="w-3.5 h-3.5 text-[#f0523d]"></i>
+            <span>Swipe table horizontally to inspect all 11 telemetry columns</span>
+          </div>
+
           <!-- Logs Table (Exact Columns as Screenshot 3) -->
-          <div class="w-full overflow-x-auto -mx-2 sm:mx-0 px-2 sm:px-0">
+          <div class="w-full overflow-x-auto -mx-1 sm:mx-0 px-1 sm:px-0 touch-scroll">
             <table class="w-full min-w-[760px] text-left text-xs font-mono border-collapse">
               <thead>
                 <tr class="text-groq-textSubtle text-[10px] uppercase tracking-wider font-semibold border-b border-gray-100 pb-3">
@@ -2675,43 +2731,106 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     <!-- ======================================================================= -->
     <!-- VIEW 4: DOCS VIEW -->
     <!-- ======================================================================= -->
-    <div id="view-docs" class="view-panel hidden border-t border-l border-r border-groq-grayBorder rounded-t-2xl bg-white mx-1 sm:mx-2 lg:mx-3 flex-1 flex flex-col md:flex-row overflow-y-auto md:overflow-hidden shadow-xs">
-      <aside class="w-full md:w-64 shrink-0 border-b md:border-b-0 md:border-r border-groq-grayBorder bg-white p-4 sm:p-5 text-xs overflow-y-auto space-y-4">
-        <div class="relative">
-          <input type="text" placeholder="Search" class="w-full bg-[#f9fafb] border border-groq-grayBorder rounded-lg pl-8 pr-12 py-1.5 text-xs text-groq-dark placeholder-groq-textSubtle focus:outline-none">
-          <i data-lucide="search" class="w-3.5 h-3.5 text-groq-textSubtle absolute left-2.5 top-2.5"></i>
-          <kbd class="text-[10px] text-groq-textSubtle border border-gray-300 px-1 py-0.5 rounded bg-white absolute right-2 top-2 font-mono">CTRL K</kbd>
-        </div>
+    <div id="view-docs" class="view-panel hidden border-t border-l border-r border-groq-grayBorder rounded-t-2xl bg-white mx-0 sm:mx-2 lg:mx-3 flex-1 flex flex-col md:flex-row overflow-y-auto md:overflow-hidden shadow-xs touch-scroll">
+      <aside class="w-full md:w-64 shrink-0 border-b md:border-b-0 md:border-r border-groq-grayBorder bg-white p-3.5 sm:p-5 text-xs overflow-y-auto touch-scroll">
+        <!-- Mobile Accordion Trigger (Only visible on < md) -->
+        <button type="button" onclick="toggleDocsMobileNav()" class="md:hidden w-full flex items-center justify-between py-2 px-3 rounded-lg bg-gray-50 border border-gray-200 text-xs font-semibold text-groq-dark cursor-pointer">
+          <span class="flex items-center gap-2"><i data-lucide="book-open" class="w-4 h-4 text-[#f0523d]"></i> Documentation Navigation</span>
+          <i id="docs-mobile-chevron" data-lucide="chevron-down" class="w-4 h-4 text-gray-500 transition-transform duration-200"></i>
+        </button>
 
-        <div class="flex items-center gap-4 text-xs font-semibold border-b border-groq-grayBorder pb-2">
-          <button class="text-groq-textMuted hover:text-groq-dark">Docs</button>
-          <button class="text-[#f0523d] border-b-2 border-[#f0523d] pb-1 font-bold">API Reference</button>
-        </div>
+        <!-- Sidebar Content (Collapsible on mobile, always visible on md+) -->
+        <div id="docs-sidebar-content" class="hidden md:block space-y-4 mt-3 md:mt-0">
+          <div class="relative">
+            <input type="text" placeholder="Search" class="w-full bg-[#f9fafb] border border-groq-grayBorder rounded-lg pl-8 pr-12 py-1.5 text-xs text-groq-dark placeholder-groq-textSubtle focus:outline-none">
+            <i data-lucide="search" class="w-3.5 h-3.5 text-groq-textSubtle absolute left-2.5 top-2.5"></i>
+            <kbd class="text-[10px] text-groq-textSubtle border border-gray-300 px-1 py-0.5 rounded bg-white absolute right-2 top-2 font-mono">CTRL K</kbd>
+          </div>
 
-        <div>
-          <div class="text-[10px] font-bold text-groq-textSubtle uppercase tracking-wider mb-2">ENDPOINTS</div>
-          <div class="space-y-1 font-mono text-[11px]">
-            <a href="#chat" class="block px-2.5 py-1.5 rounded-lg bg-[#fff5f3] text-[#f0523d] font-semibold border-l-2 border-[#f0523d]">Chat</a>
-            <a href="#chat" class="block px-4 py-1 text-[#f0523d] font-medium">Create chat completion</a>
-            <a href="javascript:void(0)" class="block px-2.5 py-1.5 rounded text-groq-textMuted hover:text-groq-dark">Responses (beta)</a>
-            <a href="javascript:void(0)" class="block px-2.5 py-1.5 rounded text-groq-textMuted hover:text-groq-dark">Audio</a>
-            <a href="javascript:void(0)" class="block px-2.5 py-1.5 rounded text-groq-textMuted hover:text-groq-dark">Models</a>
+          <div class="flex items-center gap-4 text-xs font-semibold border-b border-groq-grayBorder pb-2">
+            <button class="text-groq-textMuted hover:text-groq-dark">Docs</button>
+            <button class="text-[#f0523d] border-b-2 border-[#f0523d] pb-1 font-bold">API Reference</button>
+          </div>
+
+          <div>
+            <div class="text-[10px] font-bold text-groq-textSubtle uppercase tracking-wider mb-2">ENDPOINTS</div>
+            <div class="space-y-1 font-mono text-[11px]">
+              <a href="#chat" class="block px-2.5 py-1.5 rounded-lg bg-[#fff5f3] text-[#f0523d] font-semibold border-l-2 border-[#f0523d]">Chat</a>
+              <a href="#chat" class="block px-4 py-1 text-[#f0523d] font-medium">Create chat completion</a>
+              <a href="javascript:void(0)" class="block px-2.5 py-1.5 rounded text-groq-textMuted hover:text-groq-dark">Responses (beta)</a>
+              <a href="javascript:void(0)" class="block px-2.5 py-1.5 rounded text-groq-textMuted hover:text-groq-dark">Audio</a>
+              <a href="javascript:void(0)" class="block px-2.5 py-1.5 rounded text-groq-textMuted hover:text-groq-dark">Models</a>
+            </div>
           </div>
         </div>
       </aside>
 
-      <div class="flex-1 p-4 sm:p-8 overflow-y-auto flex flex-col lg:flex-row gap-6 lg:gap-8 bg-white">
+      <div class="flex-1 p-4 sm:p-8 overflow-y-auto flex flex-col lg:flex-row gap-6 lg:gap-8 bg-white touch-scroll">
         <div class="flex-1 max-w-xl space-y-6">
-          <h1 class="text-2xl font-bold text-groq-dark mb-1">ProjectSPG API Reference</h1>
-          <h2 class="text-lg font-semibold text-groq-dark">Chat</h2>
-          <div class="space-y-2">
-            <h3 class="text-sm font-semibold text-groq-dark">Create chat completion</h3>
-            <div class="flex flex-wrap items-center gap-2 p-2.5 sm:px-3 sm:py-1.5 rounded-lg bg-gray-50 border border-groq-grayBorder font-mono text-xs break-all">
-              <span class="px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold text-[10px] shrink-0">POST</span>
-              <span class="text-groq-dark break-all">https://projectspg.boruahpriyanuj2004.workers.dev/v1/chat/completions</span>
-            </div>
-            <p class="text-xs text-groq-textMuted pt-1">Creates a model response with automated edge privacy neutralization and reversible tokenization.</p>
+          <div>
+            <h1 class="text-xl sm:text-2xl font-bold text-groq-dark mb-1">ProjectSPG API Reference</h1>
+            <p class="text-xs text-groq-textMuted">Enterprise Privacy-Preserving LLM Gateway Reference</p>
           </div>
+
+          <div class="space-y-3">
+            <h2 class="text-base sm:text-lg font-semibold text-groq-dark flex items-center gap-2">
+              <i data-lucide="shield-check" class="w-4 h-4 text-emerald-600"></i>
+              Chat Completions
+            </h2>
+            <div class="space-y-2">
+              <h3 class="text-xs sm:text-sm font-semibold text-groq-dark">Create chat completion</h3>
+              <div class="flex flex-wrap items-center gap-2 p-2.5 sm:px-3 sm:py-2 rounded-xl bg-gray-50 border border-groq-grayBorder font-mono text-xs break-all">
+                <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold text-[10px] shrink-0">POST</span>
+                <span class="text-groq-dark break-all flex-1 select-all font-medium">https://projectspg.info/v1/chat/completions</span>
+                <button onclick="navigator.clipboard.writeText('https://projectspg.info/v1/chat/completions'); alert('Endpoint URL copied!');" class="p-1 text-groq-textMuted hover:text-groq-dark cursor-pointer shrink-0" title="Copy endpoint">
+                  <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+              <p class="text-xs text-groq-textMuted leading-relaxed">Creates a model response with automated edge privacy neutralization and reversible tokenization across 109 sovereign jurisdictions.</p>
+            </div>
+          </div>
+
+          <!-- Quick Parameters Table -->
+          <div class="space-y-2">
+            <h4 class="text-xs font-semibold text-groq-dark uppercase tracking-wider">Required Headers</h4>
+            <div class="border border-groq-grayBorder rounded-xl overflow-hidden text-xs font-sans">
+              <div class="bg-gray-50 px-3 py-2 border-b border-gray-100 font-mono text-[11px] text-groq-textSubtle flex justify-between">
+                <span>HEADER</span>
+                <span>TYPE / VALUE</span>
+              </div>
+              <div class="p-3 border-b border-gray-100 flex items-center justify-between font-mono text-[11px]">
+                <span class="text-groq-dark font-medium">Authorization</span>
+                <span class="text-emerald-700 font-semibold">Bearer spg_live_...</span>
+              </div>
+              <div class="p-3 flex items-center justify-between font-mono text-[11px]">
+                <span class="text-groq-dark font-medium">Content-Type</span>
+                <span class="text-gray-600">application/json</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Side: Code Snippet Card in Docs -->
+        <div class="w-full lg:w-[420px] shrink-0 space-y-3">
+          <div class="flex items-center justify-between text-xs font-semibold text-groq-dark">
+            <span class="flex items-center gap-1.5"><i data-lucide="terminal" class="w-3.5 h-3.5 text-[#f0523d]"></i> Example Request</span>
+            <button onclick="navigator.clipboard.writeText(document.getElementById('docs-code-curl').innerText); alert('cURL snippet copied!');" class="text-[11px] text-groq-textMuted hover:text-groq-dark flex items-center gap-1 font-medium cursor-pointer">
+              <i data-lucide="copy" class="w-3 h-3"></i> Copy
+            </button>
+          </div>
+          <div id="docs-code-curl" class="bg-[#1e1e2e] text-slate-100 p-4 rounded-xl font-mono text-[11px] leading-[1.65] overflow-x-auto whitespace-pre touch-scroll shadow-md select-all">curl https://projectspg.info/v1/chat/completions \
+  -H "Authorization: Bearer spg_live_your_key" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "openai/gpt-oss-120b",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Confirm order for Alice (SSN: 123-45-6789)"
+      }
+    ],
+    "temperature": 0.7
+  }'</div>
         </div>
       </div>
     </div>
@@ -2818,23 +2937,23 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
   </div>
 
   <div id="modal-show-key" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-white border border-groq-grayBorder rounded-2xl max-w-lg w-full p-6 shadow-2xl">
+    <div class="bg-white border border-groq-grayBorder rounded-2xl max-w-lg w-full p-5 sm:p-6 shadow-2xl max-h-[90vh] overflow-y-auto touch-scroll">
       <div class="flex items-center gap-2 text-groq-dark text-sm font-bold mb-1">
         <i data-lucide="key" class="w-4 h-4 text-[#f0523d]"></i> Save your key
       </div>
       <p class="text-xs text-groq-textMuted">Save this secret key in a safe place. You won't be able to view it again.</p>
       <div class="mt-4 p-3 bg-gray-50 border border-groq-grayBorder rounded-lg flex items-center justify-between font-mono text-xs text-[#f0523d]">
         <span id="displayed-raw-key" class="break-all select-all font-semibold"></span>
-        <button onclick="copyRawKey()" class="ml-2 text-groq-textMuted hover:text-groq-dark p-1"><i data-lucide="copy" class="w-4 h-4"></i></button>
+        <button onclick="copyRawKey()" class="ml-2 text-groq-textMuted hover:text-groq-dark p-1 cursor-pointer"><i data-lucide="copy" class="w-4 h-4"></i></button>
       </div>
       <div class="mt-6 flex justify-end text-xs">
-        <button onclick="closeShowKeyModal()" class="px-5 py-2 rounded-lg border border-[#f0523d] bg-white hover:bg-[#fff5f3] text-groq-dark font-semibold">Done</button>
+        <button onclick="closeShowKeyModal()" class="px-5 py-2 rounded-lg border border-[#f0523d] bg-white hover:bg-[#fff5f3] text-groq-dark font-semibold cursor-pointer">Done</button>
       </div>
     </div>
   </div>
 
   <div id="modal-config" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-white border border-groq-grayBorder rounded-2xl max-w-md w-full p-6 shadow-2xl">
+    <div class="bg-white border border-groq-grayBorder rounded-2xl max-w-md w-full p-5 sm:p-6 shadow-2xl max-h-[90vh] overflow-y-auto touch-scroll">
       <h3 class="text-base font-bold text-groq-dark mb-1 flex items-center gap-2">
         <i data-lucide="sliders-horizontal" class="w-4 h-4 text-[#f0523d]"></i> Gateway Parameters
       </h3>
@@ -2856,7 +2975,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         </div>
       </div>
       <div class="mt-6 flex justify-end text-xs">
-        <button onclick="closeConfigModal()" class="px-5 py-2 rounded-lg border border-[#f0523d] bg-white hover:bg-[#fff5f3] text-groq-dark font-semibold">Save Settings</button>
+        <button onclick="closeConfigModal()" class="px-5 py-2 rounded-lg border border-[#f0523d] bg-white hover:bg-[#fff5f3] text-groq-dark font-semibold cursor-pointer">Save Settings</button>
       </div>
     </div>
   </div>
@@ -2865,7 +2984,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
   <!-- MODAL: BYOK PROVIDER API KEYS (Google, Mistral, Groq)                     -->
   <!-- ========================================================================= -->
   <div id="modal-byok-keys" onclick="if(event.target === this) closeByokKeysModal()" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-white border border-groq-grayBorder rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
+    <div class="bg-white border border-groq-grayBorder rounded-2xl max-w-md w-full p-5 sm:p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto touch-scroll">
       <button onclick="closeByokKeysModal()" class="absolute top-4 right-4 text-groq-textMuted hover:text-groq-dark transition p-1.5 rounded-lg hover:bg-gray-100 cursor-pointer" title="Close">
         <i data-lucide="x" class="w-4 h-4"></i>
       </button>
@@ -2944,8 +3063,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
   <!-- MODAL: FIREBASE AUTHENTICATION (Google + Email/Password) -->
   <!-- ========================================================================= -->
   <div id="modal-auth" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-white border border-groq-grayBorder rounded-2xl max-w-sm w-full p-6 shadow-2xl relative">
-      <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-groq-textMuted hover:text-groq-dark transition p-1">
+    <div class="bg-white border border-groq-grayBorder rounded-2xl max-w-sm w-full p-5 sm:p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto touch-scroll">
+      <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-groq-textMuted hover:text-groq-dark transition p-1 cursor-pointer">
         <i data-lucide="x" class="w-4 h-4"></i>
       </button>
 
@@ -3149,6 +3268,15 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       if (activeBtn) {
         activeBtn.classList.add('text-[#f0523d]', 'font-semibold');
         activeBtn.classList.remove('text-groq-textMuted');
+      }
+
+      // Update mobile navigation strip pills
+      document.querySelectorAll('.nav-mobile-item').forEach(btn => {
+        btn.className = 'nav-mobile-item flex-1 py-1.5 px-2 text-center rounded-lg text-xs font-medium whitespace-nowrap transition cursor-pointer text-groq-textMuted bg-white border border-gray-200/70 shadow-2xs';
+      });
+      const activeMobileBtn = document.getElementById('nav-mobile-' + viewName);
+      if (activeMobileBtn) {
+        activeMobileBtn.className = 'nav-mobile-item flex-1 py-1.5 px-2 text-center rounded-lg text-xs font-semibold whitespace-nowrap transition cursor-pointer text-[#f0523d] bg-orange-50 border border-[#f0523d]/30 shadow-2xs';
       }
 
       if (viewName === 'keys') fetchApiKeys();
@@ -3409,19 +3537,34 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       if (target) target.classList.remove('hidden');
 
       document.querySelectorAll('.dash-tab-btn').forEach(btn => {
-        btn.classList.remove('text-[#f0523d]', 'font-semibold');
+        btn.classList.remove('text-[#f0523d]', 'font-semibold', 'bg-orange-50', 'border', 'border-[#f0523d]/20');
         btn.classList.add('text-groq-textMuted');
       });
 
       const activeBtn = document.getElementById('dash-tab-btn-' + tabName);
       if (activeBtn) {
         activeBtn.classList.remove('text-groq-textMuted');
-        activeBtn.classList.add('text-[#f0523d]', 'font-semibold');
+        activeBtn.classList.add('text-[#f0523d]', 'font-semibold', 'bg-orange-50', 'border', 'border-[#f0523d]/20');
       }
       if (tabName === 'logs') fetchApiLogs();
       if (tabName === 'usage') updateUsageStats();
       if (tabName === 'metrics') renderMetricsChart();
       lucide.createIcons();
+    }
+
+    function toggleDocsMobileNav() {
+      const content = document.getElementById('docs-sidebar-content');
+      const chevron = document.getElementById('docs-mobile-chevron');
+      if (!content) return;
+      const isHidden = content.classList.contains('hidden');
+      if (isHidden) {
+        content.classList.remove('hidden');
+        if (chevron) chevron.classList.add('rotate-180');
+      } else {
+        content.classList.add('hidden');
+        if (chevron) chevron.classList.remove('rotate-180');
+      }
+      if (window.lucide) lucide.createIcons();
     }
 
     function toggleCodePanel() {
@@ -3990,10 +4133,12 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
     function toggleParametersPanel() {
       const panel = document.getElementById('col-parameters');
       const btn = document.getElementById('btn-toggle-params');
+      const backdrop = document.getElementById('parameters-backdrop');
       if (!panel) return;
       isParamsVisible = !isParamsVisible;
       if (isParamsVisible) {
         panel.classList.remove('hidden');
+        if (backdrop) backdrop.classList.remove('hidden');
         if (btn) {
           btn.classList.add('bg-gray-100', 'text-groq-dark');
           btn.classList.remove('text-groq-textMuted');
@@ -4003,6 +4148,7 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
         updateSliderFill(document.getElementById('param-top-p-slider'));
       } else {
         panel.classList.add('hidden');
+        if (backdrop) backdrop.classList.add('hidden');
         if (btn) {
           btn.classList.remove('bg-gray-100', 'text-groq-dark');
           btn.classList.add('text-groq-textMuted');
@@ -4806,14 +4952,14 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
         '</div>' +
         limitsHtml +
         emptyHtml +
-        '<div class="relative z-10 flex-1 flex items-end justify-between gap-1 sm:gap-2 pl-9 pr-2 pb-8 h-[220px]">' +
+        '<div class="relative z-10 flex-1 flex items-end justify-between gap-1 sm:gap-2 pl-9 pr-2 pb-8 h-[180px] sm:h-[220px]">' +
         barsHtml +
         '</div>' +
-        '<div class="w-full border-t border-gray-200 pt-2 flex items-center justify-between text-[11px] font-mono text-groq-textSubtle pl-9 pr-2">' +
+        '<div class="w-full border-t border-gray-200 pt-2 flex items-center justify-between text-[10px] sm:text-[11px] font-mono text-groq-textSubtle pl-9 pr-2">' +
         '<span>' + ticks[0] + '</span>' +
-        '<span>' + ticks[1] + '</span>' +
+        '<span class="hidden sm:inline">' + ticks[1] + '</span>' +
         '<span>' + ticks[2] + '</span>' +
-        '<span>' + ticks[3] + '</span>' +
+        '<span class="hidden sm:inline">' + ticks[3] + '</span>' +
         '<span>' + ticks[4] + '</span>' +
         '</div>';
 
