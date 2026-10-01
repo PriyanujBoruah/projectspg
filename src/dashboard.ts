@@ -304,6 +304,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     html, body {
       -webkit-overflow-scrolling: touch;
       overscroll-behavior-y: auto;
+      overflow-x: hidden;
+      max-width: 100%;
     }
     .touch-scroll {
       -webkit-overflow-scrolling: touch;
@@ -320,7 +322,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
   </style>
 </head>
 
-<body class="min-h-screen flex flex-col bg-white text-groq-dark antialiased overflow-y-auto selection:bg-[#f0523d]/20 selection:text-[#f0523d]">
+<body class="min-h-screen flex flex-col bg-white text-groq-dark antialiased overflow-y-auto overflow-x-hidden w-full max-w-full selection:bg-[#f0523d]/20 selection:text-[#f0523d]">
 
   <!-- ========================================================================= -->
   <!-- TOP GLOBAL NAVBAR (Exact 52px height + Mobile Tab Strip) -->
@@ -409,7 +411,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
   <!-- ========================================================================= -->
   <!-- MAIN WORKSPACE -->
   <!-- ========================================================================= -->
-  <main class="flex-1 flex overflow-visible">
+  <main class="flex-1 flex flex-col w-full min-w-0 max-w-full overflow-visible">
 
     <!-- ======================================================================= -->
     <!-- VIEW 0: LANDING PAGE (ProjectSPG Enterprise Platform) -->
@@ -2028,11 +2030,11 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     <!-- ======================================================================= -->
     <!-- VIEW 1: PLAYGROUND (Exact 3-Column Groq Layout) -->
     <!-- ======================================================================= -->
-    <div id="view-playground" class="view-panel hidden border-t border-l border-r border-groq-grayBorder rounded-t-2xl bg-white mx-0 sm:mx-2 lg:mx-3 flex-1 flex flex-col overflow-visible lg:overflow-hidden shadow-xs">
+    <div id="view-playground" class="view-panel hidden border-t border-l border-r border-groq-grayBorder rounded-t-2xl bg-white mx-0 sm:mx-2 lg:mx-3 flex-1 flex flex-col overflow-visible lg:overflow-hidden shadow-xs w-full sm:w-auto min-w-0 max-w-full">
       
       <!-- Sub-Toolbar (54px height) -->
-      <div class="h-auto min-h-[54px] py-2 sm:py-0 border-b border-groq-grayBorder bg-white px-2.5 sm:px-4 flex flex-wrap items-center justify-between gap-2 shrink-0">
-        <div class="flex items-center gap-2.5 sm:gap-4">
+      <div class="h-auto min-h-[54px] py-2 sm:py-0 border-b border-groq-grayBorder bg-white px-2.5 sm:px-4 flex flex-wrap items-center justify-between gap-2 shrink-0 w-full min-w-0 max-w-full">
+        <div class="flex items-center gap-2.5 sm:gap-4 shrink-0">
           <h2 class="text-[15px] font-semibold text-groq-dark tracking-tight">Playground</h2>
           <div class="bg-[#f3f4f6] p-0.5 rounded-lg flex items-center text-xs select-none">
             <button id="btn-tier-free" onclick="switchPlaygroundTier('free')" class="px-2.5 sm:px-3 py-1 rounded-md bg-white text-groq-dark font-medium shadow-xs text-xs transition cursor-pointer">Free</button>
@@ -2048,8 +2050,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             <span id="byok-keys-badge" class="hidden w-2 h-2 rounded-full bg-emerald-500 ring-2 ring-white" title="Keys configured"></span>
           </button>
 
-          <div class="relative max-w-[155px] sm:max-w-none">
-            <select id="playground-model" onchange="onModelChange()" class="appearance-none bg-white border border-groq-grayBorder text-groq-dark text-xs font-sans font-medium rounded-lg pl-2.5 sm:pl-3 pr-7 sm:pr-8 py-1.5 focus:border-gray-400 focus:outline-none cursor-pointer w-full truncate">
+          <div class="relative max-w-[130px] sm:max-w-none">
+            <select id="playground-model" onchange="onModelChange()" class="appearance-none bg-white border border-groq-grayBorder text-groq-dark text-xs font-sans font-medium rounded-lg pl-2 sm:pl-3 pr-6 sm:pr-8 py-1.5 focus:border-gray-400 focus:outline-none cursor-pointer w-full truncate">
               <optgroup label="Groq Cloud">
                 <option value="openai/gpt-oss-120b" selected>openai/gpt-oss-120b</option>
                 <option value="openai/gpt-oss-20b">openai/gpt-oss-20b</option>
@@ -2072,7 +2074,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             <i data-lucide="copy" class="w-3.5 h-3.5"></i>
           </button>
 
-          <button onclick="toggleCodePanel()" id="btn-toggle-code" class="px-2.5 sm:px-3 py-1.5 rounded-lg bg-white border border-groq-grayBorder text-xs font-medium text-groq-dark hover:bg-gray-50 flex items-center gap-1.5 cursor-pointer shrink-0">
+          <button onclick="toggleCodePanel()" id="btn-toggle-code" class="px-2 sm:px-3 py-1.5 rounded-lg bg-white border border-groq-grayBorder text-xs font-medium text-groq-dark hover:bg-gray-50 flex items-center gap-1 cursor-pointer shrink-0">
             <i data-lucide="code" class="w-3.5 h-3.5 text-groq-textMuted"></i>
             <span id="code-btn-text">Hide code</span>
           </button>
@@ -2084,13 +2086,13 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       </div>
 
       <!-- Playground 3-Column Split -->
-      <div class="flex-1 flex flex-col lg:flex-row overflow-visible lg:overflow-hidden relative">
+      <div class="flex-1 flex flex-col lg:flex-row overflow-visible lg:overflow-hidden relative w-full min-w-0 max-w-full">
         <!-- Col 1: Prompts -->
-        <div class="w-full lg:w-[33%] lg:min-w-[320px] lg:max-w-[420px] border-b lg:border-b-0 lg:border-r border-groq-grayBorder p-3.5 sm:p-6 flex flex-col justify-between overflow-visible lg:overflow-y-auto bg-white shrink-0">
+        <div class="w-full lg:w-[33%] lg:min-w-[320px] lg:max-w-[420px] border-b lg:border-b-0 lg:border-r border-groq-grayBorder p-3.5 sm:p-6 flex flex-col justify-between overflow-visible lg:overflow-y-auto bg-white lg:shrink-0 min-w-0 max-w-full">
           <div class="space-y-3.5 sm:space-y-4">
             <div class="flex items-center gap-2.5 sm:gap-3">
               <span class="text-[11px] font-semibold text-groq-textMuted uppercase tracking-wider shrink-0">SYSTEM</span>
-              <input type="text" id="system-prompt" class="flex-1 bg-transparent border-0 text-xs text-groq-dark placeholder-groq-textSubtle focus:outline-none" placeholder="Enter system message (Optional)" value="Enter system message (Optional)">
+              <input type="text" id="system-prompt" class="flex-1 min-w-0 bg-transparent border-0 text-xs text-groq-dark placeholder-groq-textSubtle focus:outline-none" placeholder="Enter system message (Optional)" value="Enter system message (Optional)">
             </div>
 
             <div class="bg-groq-grayBg border border-groq-grayBorder rounded-2xl p-3 sm:p-4 transition focus-within:border-gray-300">
@@ -2104,12 +2106,12 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               </div>
             </div>
 
-            <div class="flex items-center justify-between text-xs px-3 py-2 rounded-xl bg-sky-50 border border-sky-200 text-sky-900">
-              <div class="flex items-center gap-1.5">
-                <i data-lucide="shield-check" class="w-4 h-4 text-sky-600"></i>
-                <span class="text-[11px] font-medium">ProjectSPG Privacy Gateway Active</span>
+            <div class="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 text-xs px-3 py-2 rounded-xl bg-sky-50 border border-sky-200 text-sky-900">
+              <div class="flex items-center gap-1.5 min-w-0">
+                <i data-lucide="shield-check" class="w-4 h-4 text-sky-600 shrink-0"></i>
+                <span class="text-[11px] font-medium truncate sm:whitespace-normal">ProjectSPG Privacy Gateway Active</span>
               </div>
-              <span class="text-[10px] font-mono font-semibold text-sky-700 bg-white border border-sky-300 px-1.5 py-0.5 rounded" title="All 10 Canonical Regional & Corporate Packs Enabled">All 10 Packs Active</span>
+              <span class="text-[10px] font-mono font-semibold text-sky-700 bg-white border border-sky-300 px-1.5 py-0.5 rounded shrink-0 whitespace-nowrap" title="All 10 Canonical Regional & Corporate Packs Enabled">All 10 Packs Active</span>
             </div>
           </div>
 
@@ -2132,7 +2134,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         </div>
 
         <!-- Col 2: Response -->
-        <div id="col-response" class="w-full lg:flex-1 flex flex-col justify-between p-3.5 sm:p-6 border-b lg:border-b-0 lg:border-r border-groq-grayBorder overflow-visible lg:overflow-y-auto bg-white min-h-[340px]">
+        <div id="col-response" class="w-full lg:flex-1 flex flex-col justify-between p-3.5 sm:p-6 border-b lg:border-b-0 lg:border-r border-groq-grayBorder overflow-visible lg:overflow-y-auto bg-white min-h-[340px] min-w-0 max-w-full">
           <div>
             <div class="flex items-center justify-between mb-4">
               <span class="text-[11px] font-semibold text-groq-textMuted uppercase tracking-wider">RESPONSE</span>
@@ -2166,47 +2168,47 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
             <!-- OUTPUT 1: What is sent to the AI (The Protected Prompt) -->
             <div id="output-protected-container" class="hidden space-y-1.5 mb-4">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                  <span class="text-[11px] font-semibold text-groq-dark uppercase tracking-wider flex items-center gap-1.5">
+              <div class="flex flex-wrap items-center justify-between gap-1.5">
+                <div class="flex items-center gap-2 flex-wrap min-w-0">
+                  <span class="text-[11px] font-semibold text-groq-dark uppercase tracking-wider flex items-center gap-1.5 shrink-0">
                     <i data-lucide="shield-check" class="w-3.5 h-3.5 text-sky-600"></i>
                     Protected Prompt (Sent to AI)
                   </span>
-                  <span id="protected-entities-badge" class="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full bg-sky-100 text-sky-800 border border-sky-200">
+                  <span id="protected-entities-badge" class="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full bg-sky-100 text-sky-800 border border-sky-200 shrink-0">
                     Zero Raw PII
                   </span>
                 </div>
-                <button onclick="copyProtectedPrompt()" class="text-[11px] text-groq-textMuted hover:text-groq-dark flex items-center gap-1 transition cursor-pointer" title="Copy Protected Prompt">
+                <button onclick="copyProtectedPrompt()" class="text-[11px] text-groq-textMuted hover:text-groq-dark flex items-center gap-1 transition cursor-pointer shrink-0 ml-auto sm:ml-0" title="Copy Protected Prompt">
                   <i data-lucide="copy" class="w-3 h-3"></i>
                   <span>Copy</span>
                 </button>
               </div>
-              <div id="protected-prompt-text" class="whitespace-pre-wrap text-slate-800 bg-[#f8fafc] p-3 sm:p-4 rounded-xl border border-slate-200 text-xs font-mono leading-relaxed max-h-none lg:max-h-52 lg:overflow-y-auto shadow-2xs"></div>
+              <div id="protected-prompt-text" class="whitespace-pre-wrap break-words [overflow-wrap:anywhere] max-w-full text-slate-800 bg-[#f8fafc] p-3 sm:p-4 rounded-xl border border-slate-200 text-xs font-mono leading-relaxed max-h-none lg:max-h-52 lg:overflow-y-auto shadow-2xs"></div>
             </div>
 
             <!-- OUTPUT 2: AI Output (Rehydrated with Highlighted Parts) -->
             <div id="output-rehydrated-container" class="hidden space-y-1.5">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                  <span class="text-[11px] font-semibold text-groq-dark uppercase tracking-wider flex items-center gap-1.5">
+              <div class="flex flex-wrap items-center justify-between gap-1.5">
+                <div class="flex items-center gap-2 flex-wrap min-w-0">
+                  <span class="text-[11px] font-semibold text-groq-dark uppercase tracking-wider flex items-center gap-1.5 shrink-0">
                     <i data-lucide="sparkles" class="w-3.5 h-3.5 text-[#f0523d]"></i>
                     AI Output (Rehydrated)
                   </span>
-                  <span class="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full bg-orange-50 text-orange-800 border border-orange-200 flex items-center gap-1">
+                  <span class="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full bg-orange-50 text-orange-800 border border-orange-200 flex items-center gap-1 shrink-0">
                     <span class="w-1.5 h-1.5 rounded-full bg-[#f0523d]"></span>
                     Hover highlighted parts to inspect
                   </span>
                 </div>
-                <button onclick="copyRehydratedText()" class="text-[11px] text-groq-textMuted hover:text-groq-dark flex items-center gap-1 transition cursor-pointer" title="Copy AI Output">
+                <button onclick="copyRehydratedText()" class="text-[11px] text-groq-textMuted hover:text-groq-dark flex items-center gap-1 transition cursor-pointer shrink-0 ml-auto sm:ml-0" title="Copy AI Output">
                   <i data-lucide="copy" class="w-3 h-3"></i>
                   <span>Copy</span>
                 </button>
               </div>
-              <div id="rehydrated-text" class="whitespace-pre-wrap text-groq-dark bg-groq-grayBg p-3 sm:p-4 rounded-xl border border-groq-grayBorder text-xs font-mono leading-relaxed max-h-none lg:max-h-72 lg:overflow-y-auto"></div>
+              <div id="rehydrated-text" class="whitespace-pre-wrap break-words [overflow-wrap:anywhere] max-w-full text-groq-dark bg-groq-grayBg p-3 sm:p-4 rounded-xl border border-groq-grayBorder text-xs font-mono leading-relaxed max-h-none lg:max-h-72 lg:overflow-y-auto"></div>
             </div>
           </div>
 
-          <div class="pt-4 flex items-center justify-between">
+          <div class="pt-4 flex flex-wrap items-center justify-between gap-2">
             <div class="flex items-center gap-3">
               <button onclick="addConversationTurn()" class="text-xs text-groq-textMuted hover:text-groq-dark flex items-center gap-1.5 font-medium transition cursor-pointer">
                 <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> Add
@@ -2224,8 +2226,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         </div>
 
         <!-- Col 3: Code -->
-        <div id="col-code" class="w-full lg:w-[33%] lg:min-w-[320px] lg:max-w-[440px] p-3.5 sm:p-6 flex flex-col justify-between overflow-visible lg:overflow-y-auto bg-white shrink-0">
-          <div>
+        <div id="col-code" class="w-full lg:w-[33%] lg:min-w-[320px] lg:max-w-[440px] p-3.5 sm:p-6 flex flex-col justify-between overflow-visible lg:overflow-y-auto bg-white lg:shrink-0 min-w-0 max-w-full">
+          <div class="min-w-0 max-w-full">
             <div class="flex items-center justify-between mb-4">
               <div class="relative">
                 <select id="code-lang-select" onchange="updateCodeViewer()" class="appearance-none bg-transparent text-xs font-medium text-groq-textSubtle hover:text-groq-dark pr-4 focus:outline-none cursor-pointer">
@@ -2241,7 +2243,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               </button>
             </div>
 
-            <div id="code-snippet-box" class="font-mono text-[11px] leading-[1.65] text-groq-dark select-all overflow-x-auto whitespace-pre max-h-none lg:max-h-80 touch-scroll"></div>
+            <div id="code-snippet-box" class="font-mono text-[11px] leading-[1.65] text-groq-dark select-all overflow-x-auto whitespace-pre max-h-none lg:max-h-80 touch-scroll w-full min-w-0 max-w-full"></div>
           </div>
 
           <div class="pt-4 border-t border-groq-grayBorder text-[11px] text-groq-textSubtle flex items-center justify-between font-mono">
