@@ -483,9 +483,9 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       </header>
 
       <!-- HERO SECTION -->
-      <section class="w-full bg-[#E8F4FF] border-b border-blue-200/50 relative z-10 flex flex-col justify-center pt-20 sm:pt-24 lg:pt-28 overflow-hidden">
-        <div class="w-full max-w-[1440px] mx-auto px-2.5 sm:px-4 lg:px-6 pt-4 sm:pt-8 lg:pt-10 pb-10 sm:pb-14">
-          <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+      <section class="w-full bg-[#E8F4FF] border-b border-blue-200/50 relative z-10 flex flex-col justify-between min-h-screen min-h-[100dvh] pt-20 sm:pt-24 lg:pt-24 overflow-hidden">
+        <div class="w-full max-w-[1440px] mx-auto px-2.5 sm:px-4 lg:px-6 flex-1 flex flex-col justify-between pt-2 sm:pt-4 pb-2 sm:pb-4">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center my-auto py-2 sm:py-4">
             
             <!-- Left Column (Text & CTAs) -->
             <div class="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left pr-0 lg:pr-6">
@@ -551,7 +551,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             </filter>
           </svg>
 
-          <div class="marquee-container w-full pt-4 pb-2 overflow-hidden border-t border-b border-blue-200/50 my-4 sm:my-6 relative">
+          <div class="marquee-container w-full pt-3 pb-1.5 overflow-hidden border-t border-b border-blue-200/50 mt-auto mb-1 relative">
             <div class="absolute left-0 top-0 bottom-0 w-12 sm:w-24 bg-gradient-to-r from-[#E8F4FF] to-transparent z-10 pointer-events-none"></div>
             <div class="absolute right-0 top-0 bottom-0 w-12 sm:w-24 bg-gradient-to-l from-[#E8F4FF] to-transparent z-10 pointer-events-none"></div>
 
