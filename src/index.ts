@@ -64,6 +64,7 @@ app.get("/", (c) => c.html(DASHBOARD_HTML));
 app.get("/dashboard", (c) => c.html(DASHBOARD_HTML));
 
 // Serve Technical Benchmark & Empirical Reliability Blog
+app.get("/blog", (c) => c.redirect("/blog/benchmark"));
 app.get("/blog/benchmark", (c) => c.html(BENCHMARK_BLOG_HTML));
 app.get("/test-results", (c) => c.html(BENCHMARK_BLOG_HTML));
 app.get("/test-results.html", (c) => c.html(BENCHMARK_BLOG_HTML));

@@ -437,11 +437,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           <nav class="hidden md:flex items-center gap-6 lg:gap-7 text-[13px] font-medium text-gray-600">
             <a href="#platform-section" class="hover:text-gray-950 transition">Platform</a>
             <a href="#research-section" class="hover:text-gray-950 transition">Research</a>
-            <a href="#news-section" class="hover:text-gray-950 transition">Learn More</a>
-            <a href="#access-section" class="hover:text-gray-950 transition">Private Access</a>
-            <a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">Playground</a>
-            <a href="#docs" onclick="switchView('docs')" class="hover:text-gray-950 transition">Docs</a>
-            <a href="#keys" onclick="switchView('keys')" class="hover:text-gray-950 transition">API Keys</a>
+            <a href="/blog/benchmark" class="hover:text-gray-950 transition">Blog</a>
           </nav>
 
           <!-- Right: Actions -->
@@ -470,25 +466,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               <span class="flex items-center gap-2.5"><i data-lucide="sparkles" class="w-4 h-4 text-gray-400"></i> Research</span>
               <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400"></i>
             </a>
-            <a href="#news-section" onclick="closeLandingMobileMenu()" class="flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-gray-50 hover:text-[#f0523d] transition">
-              <span class="flex items-center gap-2.5"><i data-lucide="book-open" class="w-4 h-4 text-gray-400"></i> Learn More</span>
-              <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400"></i>
-            </a>
-            <a href="#access-section" onclick="closeLandingMobileMenu()" class="flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-gray-50 hover:text-[#f0523d] transition">
-              <span class="flex items-center gap-2.5"><i data-lucide="lock" class="w-4 h-4 text-amber-500"></i> Private Access (Invite Only)</span>
-              <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400"></i>
-            </a>
-            <div class="h-px bg-gray-100 my-1"></div>
-            <a href="#playground" onclick="closeLandingMobileMenu(); switchView('playground')" class="flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-gray-50 hover:text-[#f0523d] transition">
-              <span class="flex items-center gap-2.5"><i data-lucide="terminal" class="w-4 h-4 text-cyan-600"></i> Try Playground</span>
-              <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400"></i>
-            </a>
-            <a href="#keys" onclick="closeLandingMobileMenu(); switchView('keys')" class="flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-gray-50 hover:text-[#f0523d] transition">
-              <span class="flex items-center gap-2.5"><i data-lucide="key" class="w-4 h-4 text-amber-500"></i> API Keys &amp; Vault</span>
-              <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400"></i>
-            </a>
-            <a href="#docs" onclick="closeLandingMobileMenu(); switchView('docs')" class="flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-gray-50 hover:text-[#f0523d] transition">
-              <span class="flex items-center gap-2.5"><i data-lucide="book-open" class="w-4 h-4 text-blue-600"></i> Documentation</span>
+            <a href="/blog/benchmark" onclick="closeLandingMobileMenu()" class="flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-gray-50 hover:text-[#f0523d] transition">
+              <span class="flex items-center gap-2.5"><i data-lucide="newspaper" class="w-4 h-4 text-gray-400"></i> Blog</span>
               <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400"></i>
             </a>
             <div class="pt-2 flex flex-col gap-2">
