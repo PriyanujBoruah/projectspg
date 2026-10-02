@@ -421,7 +421,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
       <!-- Floating Header (ProjectSPG Floating Navbar) -->
       <header class="fixed top-0 left-0 right-0 w-full max-w-[1440px] mx-auto pt-3 sm:pt-4 px-2 sm:px-4 lg:px-6 z-50 pointer-events-none">
-        <div class="pointer-events-auto bg-white/90 backdrop-blur-md border border-gray-200/80 rounded-full px-4 sm:px-5 py-2 sm:py-2.5 flex items-center justify-between shadow-sm">
+        <div class="pointer-events-auto bg-white border border-gray-200/80 rounded-full px-4 sm:px-5 py-2 sm:py-2.5 flex items-center justify-between shadow-sm" style="background-color: #FFFFFF;">
           
           <!-- Left: Brand Emblem + Name -->
           <div class="flex items-center gap-2 sm:gap-2.5 cursor-pointer" onclick="switchView('landing')">
@@ -455,7 +455,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         </div>
 
         <!-- Mobile Dropdown Navigation Menu Sheet -->
-        <div id="landing-mobile-menu" class="pointer-events-auto hidden md:hidden mt-2 bg-white/95 backdrop-blur-xl border border-gray-200/90 rounded-2xl p-4 sm:p-5 shadow-xl transition-all duration-300 max-h-[85vh] overflow-y-auto">
+        <div id="landing-mobile-menu" class="pointer-events-auto hidden md:hidden mt-2 bg-white border border-gray-200/90 rounded-2xl p-4 sm:p-5 shadow-xl transition-all duration-300 max-h-[85vh] overflow-y-auto" style="background-color: #FFFFFF;">
           <nav class="flex flex-col gap-1 text-sm font-medium text-gray-800">
             <a href="#platform-section" onclick="closeLandingMobileMenu()" class="flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-gray-50 hover:text-[#f0523d] transition">
               <span class="flex items-center gap-2.5"><i data-lucide="layers" class="w-4 h-4 text-gray-400"></i> Platform</span>
