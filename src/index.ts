@@ -1,4 +1,4 @@
-import { Hono } from "hono";
+import { Hono, Context } from "hono";
 import { cors } from "hono/cors";
 import tokenizationApp from "./routes/tokenization";
 import openaiApp from "./routes/openai";
@@ -156,6 +156,193 @@ app.delete("/api/keys/:id", async (c) => {
   await revokeApiKey(id, c.env);
   return c.json({ success: true, message: `API key ${id} revoked.` });
 });
+
+// =========================================================================
+// BYOK Multi-Provider Live Model Discovery Endpoint
+// Queries Groq Cloud, Google AI Studio, and Mistral AI concurrently
+// =========================================================================
+async function handleByokModelsDiscovery(c: Context) {
+  let body: any = {};
+  if (c.req.method === "POST") {
+    try {
+      body = await c.req.json();
+    } catch {
+      // fallback to headers or query
+    }
+  }
+
+  const groqKey =
+    body.groqKey?.trim() ||
+    c.req.query("groqKey")?.trim() ||
+    c.req.header("x-byok-groq-key")?.trim() ||
+    "";
+  const googleKey =
+    body.googleKey?.trim() ||
+    c.req.query("googleKey")?.trim() ||
+    c.req.header("x-byok-google-key")?.trim() ||
+    "";
+  const mistralKey =
+    body.mistralKey?.trim() ||
+    c.req.query("mistralKey")?.trim() ||
+    c.req.header("x-byok-mistral-key")?.trim() ||
+    "";
+
+  const results: {
+    groq: { models: { id: string; name: string }[]; error?: string; count: number };
+    google: { models: { id: string; name: string }[]; error?: string; count: number };
+    mistral: { models: { id: string; name: string }[]; error?: string; count: number };
+  } = {
+    groq: { models: [], count: 0 },
+    google: { models: [], count: 0 },
+    mistral: { models: [], count: 0 },
+  };
+
+  await Promise.allSettled([
+    // 1. Groq Cloud Models (api.groq.com/openai/v1/models)
+    (async () => {
+      if (!groqKey) return;
+      try {
+        const res = await fetch("https://api.groq.com/openai/v1/models", {
+          method: "GET",
+          headers: { Authorization: `Bearer ${groqKey}` },
+        });
+        if (!res.ok) {
+          const errText = await res.text();
+          results.groq.error = `Groq error (${res.status}): ${errText.slice(0, 100)}`;
+          return;
+        }
+        const data: any = await res.json();
+        if (Array.isArray(data?.data)) {
+          const models = data.data
+            .filter(
+              (m: any) =>
+                m.active !== false &&
+                !m.id.startsWith("whisper-") &&
+                !m.id.startsWith("distil-whisper-") &&
+                !m.id.includes("guard")
+            )
+            .map((m: any) => ({
+              id: m.id,
+              name: m.id,
+            }))
+            .sort((a: any, b: any) => a.id.localeCompare(b.id));
+          results.groq.models = models;
+          results.groq.count = models.length;
+        }
+      } catch (err: any) {
+        results.groq.error = err?.message || "Failed to fetch Groq models";
+      }
+    })(),
+
+    // 2. Google AI Studio Models (generativelanguage.googleapis.com)
+    (async () => {
+      if (!googleKey) return;
+      try {
+        // Try OpenAI compatibility endpoint first
+        const res = await fetch("https://generativelanguage.googleapis.com/v1beta/openai/models", {
+          method: "GET",
+          headers: { Authorization: `Bearer ${googleKey}` },
+        });
+
+        if (res.ok) {
+          const data: any = await res.json();
+          if (Array.isArray(data?.data) && data.data.length > 0) {
+            const models = data.data
+              .filter(
+                (m: any) =>
+                  !m.id.includes("embedding") &&
+                  !m.id.includes("aqa") &&
+                  (m.id.startsWith("gemini") || m.id.startsWith("gemma") || m.id.includes("gemini"))
+              )
+              .map((m: any) => ({
+                id: m.id,
+                name: m.id,
+              }))
+              .sort((a: any, b: any) => a.id.localeCompare(b.id));
+            results.google.models = models;
+            results.google.count = models.length;
+            return;
+          }
+        }
+
+        // Fallback to Native Gemini models API
+        const nativeRes = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models?key=${googleKey}`,
+          { method: "GET" }
+        );
+        if (!nativeRes.ok) {
+          const errText = await nativeRes.text();
+          results.google.error = `Google error (${nativeRes.status}): ${errText.slice(0, 100)}`;
+          return;
+        }
+        const nativeData: any = await nativeRes.json();
+        if (Array.isArray(nativeData?.models)) {
+          const models = nativeData.models
+            .filter((m: any) =>
+              Array.isArray(m.supportedGenerationMethods)
+                ? m.supportedGenerationMethods.includes("generateContent")
+                : true
+            )
+            .map((m: any) => {
+              const cleanId = m.name?.replace(/^models\//, "") || m.name;
+              return {
+                id: cleanId,
+                name: cleanId,
+              };
+            })
+            .sort((a: any, b: any) => a.id.localeCompare(b.id));
+          results.google.models = models;
+          results.google.count = models.length;
+        }
+      } catch (err: any) {
+        results.google.error = err?.message || "Failed to fetch Google models";
+      }
+    })(),
+
+    // 3. Mistral AI Models (api.mistral.ai/v1/models)
+    (async () => {
+      if (!mistralKey) return;
+      try {
+        const res = await fetch("https://api.mistral.ai/v1/models", {
+          method: "GET",
+          headers: { Authorization: `Bearer ${mistralKey}` },
+        });
+        if (!res.ok) {
+          const errText = await res.text();
+          results.mistral.error = `Mistral error (${res.status}): ${errText.slice(0, 100)}`;
+          return;
+        }
+        const data: any = await res.json();
+        if (Array.isArray(data?.data)) {
+          const models = data.data
+            .filter(
+              (m: any) =>
+                !m.id.includes("embed") &&
+                (m.capabilities ? m.capabilities.completion_chat !== false : true)
+            )
+            .map((m: any) => ({
+              id: m.id,
+              name: m.id,
+            }))
+            .sort((a: any, b: any) => a.id.localeCompare(b.id));
+          results.mistral.models = models;
+          results.mistral.count = models.length;
+        }
+      } catch (err: any) {
+        results.mistral.error = err?.message || "Failed to fetch Mistral models";
+      }
+    })(),
+  ]);
+
+  return c.json({
+    status: "ok",
+    providers: results,
+    totalDiscovered: results.groq.count + results.google.count + results.mistral.count,
+  });
+}
+
+app.post("/api/byok/models", handleByokModelsDiscovery);
+app.get("/api/byok/models", handleByokModelsDiscovery);
 
 // =========================================================================
 // API Request & Token Usage Logs (Identified by API Key)

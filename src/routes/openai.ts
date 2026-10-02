@@ -118,30 +118,36 @@ export function resolveUpstreamBaseUrl(c: Context, model?: string): string {
   if (
     modelLower.startsWith("gemini") ||
     modelLower.startsWith("gemma") ||
+    modelLower.includes("gemini") ||
+    modelLower.startsWith("learnlm") ||
     authHeader.includes("AIza") ||
     googHeader.startsWith("AIza")
   ) {
     return "https://generativelanguage.googleapis.com/v1beta/openai";
   }
 
-  // 2. Mistral AI (mistral, codestral, ministral)
+  // 2. Mistral AI (mistral, codestral, ministral, pixtral)
   if (
     modelLower.startsWith("mistral") ||
     modelLower.startsWith("codestral") ||
     modelLower.startsWith("ministral") ||
-    modelLower.startsWith("open-mistral")
+    modelLower.startsWith("open-mistral") ||
+    modelLower.startsWith("pixtral") ||
+    modelLower.includes("mistral")
   ) {
     return "https://api.mistral.ai/v1";
   }
 
-  // 3. Groq Cloud (openai/gpt-oss-*, qwen/*, llama*, mixtral*, whisper*, groq)
+  // 3. Groq Cloud (openai/gpt-oss-*, qwen/*, llama*, mixtral*, whisper*, deepseek, groq)
   if (
     modelLower.startsWith("openai/gpt-oss") ||
     modelLower.startsWith("qwen") ||
     modelLower.startsWith("llama") ||
     modelLower.startsWith("mixtral") ||
     modelLower.startsWith("whisper") ||
-    modelLower.includes("groq")
+    modelLower.includes("deepseek") ||
+    modelLower.includes("groq") ||
+    modelLower.includes("llama")
   ) {
     return "https://api.groq.com/openai/v1";
   }
@@ -188,7 +194,13 @@ export function resolveUpstreamAuth(
 
   if (apiKeyRecord && (apiKeyRecord.tier === "byok" || apiKeyRecord.byok_google_key || apiKeyRecord.byok_mistral_key || apiKeyRecord.byok_groq_key)) {
     // Google AI Studio
-    if (url.includes("generativelanguage.googleapis.com") || modelLower.startsWith("gemini") || modelLower.startsWith("gemma")) {
+    if (
+      url.includes("generativelanguage.googleapis.com") ||
+      modelLower.startsWith("gemini") ||
+      modelLower.startsWith("gemma") ||
+      modelLower.includes("gemini") ||
+      modelLower.startsWith("learnlm")
+    ) {
       if (apiKeyRecord.byok_google_key) {
         return { headerName: "Authorization", headerValue: `Bearer ${apiKeyRecord.byok_google_key}`, isUserKey: true };
       }
@@ -200,7 +212,9 @@ export function resolveUpstreamAuth(
       modelLower.startsWith("mistral") ||
       modelLower.startsWith("codestral") ||
       modelLower.startsWith("ministral") ||
-      modelLower.startsWith("open-mistral")
+      modelLower.startsWith("open-mistral") ||
+      modelLower.startsWith("pixtral") ||
+      modelLower.includes("mistral")
     ) {
       if (apiKeyRecord.byok_mistral_key) {
         return { headerName: "Authorization", headerValue: `Bearer ${apiKeyRecord.byok_mistral_key}`, isUserKey: true };
@@ -215,7 +229,9 @@ export function resolveUpstreamAuth(
       modelLower.startsWith("llama") ||
       modelLower.startsWith("mixtral") ||
       modelLower.startsWith("whisper") ||
-      modelLower.includes("groq")
+      modelLower.includes("deepseek") ||
+      modelLower.includes("groq") ||
+      modelLower.includes("llama")
     ) {
       if (apiKeyRecord.byok_groq_key) {
         return { headerName: "Authorization", headerValue: `Bearer ${apiKeyRecord.byok_groq_key}`, isUserKey: true };
@@ -225,7 +241,13 @@ export function resolveUpstreamAuth(
 
   // 3. User has NOT added their own key: provide free tier platform key
   // Google AI Studio (Gemini & Gemma)
-  if (url.includes("generativelanguage.googleapis.com") || modelLower.startsWith("gemini") || modelLower.startsWith("gemma")) {
+  if (
+    url.includes("generativelanguage.googleapis.com") ||
+    modelLower.startsWith("gemini") ||
+    modelLower.startsWith("gemma") ||
+    modelLower.includes("gemini") ||
+    modelLower.startsWith("learnlm")
+  ) {
     const key =
       (c.env as any)?.GEMINI_API_KEY ||
       (globalThis as any).process?.env?.GEMINI_API_KEY ||
@@ -235,13 +257,15 @@ export function resolveUpstreamAuth(
     }
   }
 
-  // Mistral AI (mistral, codestral, ministral)
+  // Mistral AI (mistral, codestral, ministral, pixtral)
   if (
     url.includes("mistral.ai") ||
     modelLower.startsWith("mistral") ||
     modelLower.startsWith("codestral") ||
     modelLower.startsWith("ministral") ||
-    modelLower.startsWith("open-mistral")
+    modelLower.startsWith("open-mistral") ||
+    modelLower.startsWith("pixtral") ||
+    modelLower.includes("mistral")
   ) {
     const key =
       (c.env as any)?.MISTRAL_API_KEY ||
@@ -252,13 +276,16 @@ export function resolveUpstreamAuth(
     }
   }
 
-  // Groq Cloud (openai/gpt-oss, qwen, llama, mixtral)
+  // Groq Cloud (openai/gpt-oss, qwen, llama, mixtral, deepseek)
   if (
     url.includes("groq.com") ||
     modelLower.startsWith("openai/gpt-oss") ||
     modelLower.startsWith("qwen") ||
     modelLower.startsWith("llama") ||
-    modelLower.startsWith("mixtral")
+    modelLower.startsWith("mixtral") ||
+    modelLower.includes("deepseek") ||
+    modelLower.includes("groq") ||
+    modelLower.includes("llama")
   ) {
     const key =
       (c.env as any)?.GROQ_API_KEY ||

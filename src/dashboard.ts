@@ -2032,18 +2032,18 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           <div class="relative max-w-[115px] xs:max-w-[130px] sm:max-w-none shrink min-w-0">
             <select id="playground-model" onchange="onModelChange()" class="appearance-none bg-white border border-groq-grayBorder text-groq-dark text-xs font-sans font-medium rounded-lg pl-2 sm:pl-3 pr-5 sm:pr-8 py-1.5 focus:border-gray-400 focus:outline-none cursor-pointer w-full truncate">
               <optgroup label="Groq Cloud">
-                <option value="openai/gpt-oss-120b" selected>openai/gpt-oss-120b</option>
-                <option value="openai/gpt-oss-20b">openai/gpt-oss-20b</option>
-                <option value="qwen/qwen3.8-27b">qwen/qwen3.8-27b</option>
+                <option value="openai/gpt-oss-120b" data-provider="groq" selected>openai/gpt-oss-120b</option>
+                <option value="openai/gpt-oss-20b" data-provider="groq">openai/gpt-oss-20b</option>
+                <option value="qwen/qwen3.8-27b" data-provider="groq">qwen/qwen3.8-27b</option>
               </optgroup>
               <optgroup label="Google AI Studio">
-                <option value="gemma-4-26b-a4b-it">gemma-4-26b-a4b-it</option>
-                <option value="gemma-4-31b-it">gemma-4-31b-it</option>
+                <option value="gemma-4-26b-a4b-it" data-provider="google">gemma-4-26b-a4b-it</option>
+                <option value="gemma-4-31b-it" data-provider="google">gemma-4-31b-it</option>
               </optgroup>
               <optgroup label="Mistral AI">
-                <option value="codestral-2508">codestral-2508</option>
-                <option value="ministral-8b-2512">ministral-8b-2512</option>
-                <option value="ministral-14b-2512">ministral-14b-2512</option>
+                <option value="codestral-2508" data-provider="mistral">codestral-2508</option>
+                <option value="ministral-8b-2512" data-provider="mistral">ministral-8b-2512</option>
+                <option value="ministral-14b-2512" data-provider="mistral">ministral-14b-2512</option>
               </optgroup>
             </select>
             <i data-lucide="chevrons-up-down" class="w-3.5 h-3.5 text-groq-textSubtle absolute right-1.5 sm:right-2 top-2 pointer-events-none"></i>
@@ -2986,7 +2986,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       </div>
 
       <p class="text-xs text-gray-500 mt-2 leading-relaxed">
-        Configure your direct provider API keys. When BYOK mode is enabled, prompts are routed directly with your credentials, bypassing free tier rate limits. Keys are stored locally in your browser and never saved on our servers.
+        Configure your direct provider API keys. In BYOK mode, adding your keys automatically unlocks and populates all available models directly from Groq Cloud, Google AI Studio, and Mistral AI with zero platform rate limits.
       </p>
 
       <div class="mt-5 space-y-4 text-xs">
@@ -2994,8 +2994,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         <!-- Google AI Studio API Key -->
         <div>
           <div class="flex items-center justify-between mb-1">
-            <label class="block text-groq-dark font-semibold">Google API Key</label>
-            <span class="text-[10px] text-gray-400 font-mono">gemma-4-26b, gemma-4-31b</span>
+            <label class="block text-groq-dark font-semibold">Google AI Studio Key</label>
+            <span class="text-[10px] text-gray-400 font-mono">gemini-2.0-flash, gemini-1.5-pro, gemma...</span>
           </div>
           <div class="relative">
             <input type="password" id="byok-key-google" placeholder="AIzaSy..." class="w-full bg-[#f9fafb] border border-groq-grayBorder rounded-lg pl-3 pr-8 py-2 text-groq-dark placeholder-gray-400 focus:outline-none focus:border-gray-400 font-mono text-xs">
@@ -3009,7 +3009,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         <div>
           <div class="flex items-center justify-between mb-1">
             <label class="block text-groq-dark font-semibold">Mistral API Key</label>
-            <span class="text-[10px] text-gray-400 font-mono">codestral, ministral</span>
+            <span class="text-[10px] text-gray-400 font-mono">mistral-large, codestral, ministral...</span>
           </div>
           <div class="relative">
             <input type="password" id="byok-key-mistral" placeholder="api_..." class="w-full bg-[#f9fafb] border border-groq-grayBorder rounded-lg pl-3 pr-8 py-2 text-groq-dark placeholder-gray-400 focus:outline-none focus:border-gray-400 font-mono text-xs">
@@ -3023,7 +3023,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         <div>
           <div class="flex items-center justify-between mb-1">
             <label class="block text-groq-dark font-semibold">Groq API Key</label>
-            <span class="text-[10px] text-gray-400 font-mono">gpt-oss-120b, qwen3.8</span>
+            <span class="text-[10px] text-gray-400 font-mono">llama-3.3-70b, deepseek-r1, qwen...</span>
           </div>
           <div class="relative">
             <input type="password" id="byok-key-groq" placeholder="gsk_..." class="w-full bg-[#f9fafb] border border-groq-grayBorder rounded-lg pl-3 pr-8 py-2 text-groq-dark placeholder-gray-400 focus:outline-none focus:border-gray-400 font-mono text-xs">
@@ -3033,6 +3033,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           </div>
         </div>
 
+        <div id="byok-sync-status" class="hidden p-2.5 rounded-lg text-xs flex items-center gap-2"></div>
       </div>
 
       <div class="mt-6 pt-4 border-t border-gray-100 flex items-center justify-between text-xs">
@@ -3758,6 +3759,185 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       alert('Model name copied: ' + model);
     }
 
+    const FREE_TIER_MODELS = {
+      groq: [
+        { id: 'openai/gpt-oss-120b', name: 'openai/gpt-oss-120b' },
+        { id: 'openai/gpt-oss-20b', name: 'openai/gpt-oss-20b' },
+        { id: 'qwen/qwen3.8-27b', name: 'qwen/qwen3.8-27b' }
+      ],
+      google: [
+        { id: 'gemma-4-26b-a4b-it', name: 'gemma-4-26b-a4b-it' },
+        { id: 'gemma-4-31b-it', name: 'gemma-4-31b-it' }
+      ],
+      mistral: [
+        { id: 'codestral-2508', name: 'codestral-2508' },
+        { id: 'ministral-8b-2512', name: 'ministral-8b-2512' },
+        { id: 'ministral-14b-2512', name: 'ministral-14b-2512' }
+      ]
+    };
+
+    // Fallback expanded list for a provider if dynamic API fetch has network error but user HAS provided that provider's key
+    const EXPANDED_FALLBACK_MODELS = {
+      groq: [
+        { id: 'openai/gpt-oss-120b', name: 'openai/gpt-oss-120b' },
+        { id: 'openai/gpt-oss-20b', name: 'openai/gpt-oss-20b' },
+        { id: 'qwen/qwen3.8-27b', name: 'qwen/qwen3.8-27b' },
+        { id: 'llama-3.3-70b-versatile', name: 'llama-3.3-70b-versatile' },
+        { id: 'llama-3.1-8b-instant', name: 'llama-3.1-8b-instant' },
+        { id: 'mixtral-8x7b-32768', name: 'mixtral-8x7b-32768' },
+        { id: 'llama-guard-3-8b', name: 'llama-guard-3-8b' }
+      ],
+      google: [
+        { id: 'gemini-2.5-pro', name: 'gemini-2.5-pro' },
+        { id: 'gemini-2.5-flash', name: 'gemini-2.5-flash' },
+        { id: 'gemini-2.0-flash', name: 'gemini-2.0-flash' },
+        { id: 'gemini-1.5-pro', name: 'gemini-1.5-pro' },
+        { id: 'gemini-1.5-flash', name: 'gemini-1.5-flash' },
+        { id: 'gemma-4-26b-a4b-it', name: 'gemma-4-26b-a4b-it' },
+        { id: 'gemma-4-31b-it', name: 'gemma-4-31b-it' }
+      ],
+      mistral: [
+        { id: 'mistral-large-latest', name: 'mistral-large-latest' },
+        { id: 'codestral-latest', name: 'codestral-latest' },
+        { id: 'mistral-small-latest', name: 'mistral-small-latest' },
+        { id: 'codestral-2508', name: 'codestral-2508' },
+        { id: 'ministral-8b-2512', name: 'ministral-8b-2512' },
+        { id: 'ministral-14b-2512', name: 'ministral-14b-2512' }
+      ]
+    };
+
+    let cachedByokCatalog = null;
+    let isFetchingByokModels = false;
+
+    function renderPlaygroundModelDropdown(catalog, preferredSelected) {
+      const select = document.getElementById('playground-model');
+      if (!select) return;
+      const targetVal = preferredSelected || select.value;
+      select.innerHTML = '';
+
+      const groups = [
+        { label: 'Groq Cloud', provider: 'groq', items: catalog?.groq || [] },
+        { label: 'Google AI Studio', provider: 'google', items: catalog?.google || [] },
+        { label: 'Mistral AI', provider: 'mistral', items: catalog?.mistral || [] }
+      ];
+
+      let found = false;
+      groups.forEach(g => {
+        if (!g.items || g.items.length === 0) return;
+        const optgroup = document.createElement('optgroup');
+        optgroup.label = g.label;
+        g.items.forEach(item => {
+          const id = typeof item === 'string' ? item : item.id;
+          const name = typeof item === 'string' ? item : (item.name || item.id);
+          const opt = document.createElement('option');
+          opt.value = id;
+          opt.textContent = name;
+          opt.setAttribute('data-provider', g.provider);
+          if (id === targetVal) {
+            opt.selected = true;
+            found = true;
+          }
+          optgroup.appendChild(opt);
+        });
+        select.appendChild(optgroup);
+      });
+
+      if (!found && select.options.length > 0) {
+        select.selectedIndex = 0;
+      }
+      if (typeof updateCodeViewer === 'function') {
+        updateCodeViewer();
+      }
+    }
+
+    async function fetchAndPopulateByokModels(forceRefresh = false) {
+      if (playgroundTierMode !== 'byok') return;
+
+      const groqKey = localStorage.getItem('byok_key_groq') || (document.getElementById('byok-key-groq') ? document.getElementById('byok-key-groq').value.trim() : '');
+      const googleKey = localStorage.getItem('byok_key_google') || (document.getElementById('byok-key-google') ? document.getElementById('byok-key-google').value.trim() : '');
+      const mistralKey = localStorage.getItem('byok_key_mistral') || (document.getElementById('byok-key-mistral') ? document.getElementById('byok-key-mistral').value.trim() : '');
+
+      const catalog = {
+        groq: [...FREE_TIER_MODELS.groq],
+        google: [...FREE_TIER_MODELS.google],
+        mistral: [...FREE_TIER_MODELS.mistral]
+      };
+
+      // If user hasn't added any keys at all, only show standard models
+      if (!groqKey && !googleKey && !mistralKey) {
+        cachedByokCatalog = catalog;
+        renderPlaygroundModelDropdown(catalog);
+        return;
+      }
+
+      if (cachedByokCatalog && !forceRefresh) {
+        renderPlaygroundModelDropdown(cachedByokCatalog);
+        return;
+      }
+
+      if (isFetchingByokModels) return;
+      isFetchingByokModels = true;
+
+      const select = document.getElementById('playground-model');
+      const prevVal = select ? select.value : '';
+
+      try {
+        const res = await fetch('/api/byok/models', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ groqKey, googleKey, mistralKey })
+        });
+        if (!res.ok) throw new Error('Failed to query BYOK models');
+        const data = await res.json();
+        const providers = data?.providers || {};
+
+        // Groq: only show longer list if user provided groqKey
+        if (groqKey) {
+          if (providers.groq?.models && providers.groq.models.length > 0) {
+            catalog.groq = providers.groq.models;
+          } else {
+            catalog.groq = EXPANDED_FALLBACK_MODELS.groq;
+          }
+        } else {
+          catalog.groq = [...FREE_TIER_MODELS.groq];
+        }
+
+        // Google AI Studio: only show longer list if user provided googleKey
+        if (googleKey) {
+          if (providers.google?.models && providers.google.models.length > 0) {
+            catalog.google = providers.google.models;
+          } else {
+            catalog.google = EXPANDED_FALLBACK_MODELS.google;
+          }
+        } else {
+          catalog.google = [...FREE_TIER_MODELS.google];
+        }
+
+        // Mistral AI: only show longer list if user provided mistralKey
+        if (mistralKey) {
+          if (providers.mistral?.models && providers.mistral.models.length > 0) {
+            catalog.mistral = providers.mistral.models;
+          } else {
+            catalog.mistral = EXPANDED_FALLBACK_MODELS.mistral;
+          }
+        } else {
+          catalog.mistral = [...FREE_TIER_MODELS.mistral];
+        }
+
+        cachedByokCatalog = catalog;
+        renderPlaygroundModelDropdown(catalog, prevVal);
+      } catch (err) {
+        console.warn('BYOK dynamic model fetch error:', err);
+        // On network error, only expand providers where user actually added their key
+        if (groqKey) catalog.groq = EXPANDED_FALLBACK_MODELS.groq;
+        if (googleKey) catalog.google = EXPANDED_FALLBACK_MODELS.google;
+        if (mistralKey) catalog.mistral = EXPANDED_FALLBACK_MODELS.mistral;
+        renderPlaygroundModelDropdown(catalog, prevVal);
+      } finally {
+        isFetchingByokModels = false;
+      }
+    }
+
     let playgroundTierMode = 'free'; // 'free' or 'byok'
 
     function switchPlaygroundTier(mode) {
@@ -3776,6 +3956,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         if (byokKeysBtn) {
           byokKeysBtn.classList.add('hidden');
         }
+        renderPlaygroundModelDropdown(FREE_TIER_MODELS, 'openai/gpt-oss-120b');
       } else {
         if (byokBtn) {
           byokBtn.className = 'px-2.5 sm:px-3 py-1 rounded-md bg-white text-groq-dark font-medium shadow-xs text-xs transition cursor-pointer';
@@ -3789,7 +3970,10 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         updateByokBadge();
         const hasKeys = !!(localStorage.getItem('byok_key_google') || localStorage.getItem('byok_key_mistral') || localStorage.getItem('byok_key_groq') || (document.getElementById('cfg-apikey') && document.getElementById('cfg-apikey').value.trim()));
         if (!hasKeys) {
+          renderPlaygroundModelDropdown(FREE_TIER_MODELS);
           openByokKeysModal();
+        } else {
+          fetchAndPopulateByokModels();
         }
       }
     }
@@ -3798,9 +3982,19 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       const userPrompt = document.getElementById('user-prompt').value.trim();
       if (!userPrompt) return;
 
-      const model = document.getElementById('playground-model').value;
+      const select = document.getElementById('playground-model');
+      const model = select ? select.value : '';
+      const selectedOption = select && select.selectedIndex >= 0 ? select.options[select.selectedIndex] : null;
+      const optProvider = selectedOption ? selectedOption.getAttribute('data-provider') : '';
       const kmsKey = document.getElementById('cfg-kms').value.trim();
       let apiKey = '';
+
+      let targetProvider = optProvider;
+      if (!targetProvider) {
+        if (model.includes('gemini') || model.startsWith('gemma')) targetProvider = 'google';
+        else if (model.includes('mistral') || model.startsWith('codestral') || model.startsWith('ministral')) targetProvider = 'mistral';
+        else if (model.includes('groq') || model.includes('oss') || model.startsWith('qwen') || model.startsWith('llama')) targetProvider = 'groq';
+      }
 
       if (playgroundTierMode === 'byok') {
         const googleKey = (document.getElementById('byok-key-google') ? document.getElementById('byok-key-google').value.trim() : '') || localStorage.getItem('byok_key_google') || '';
@@ -3809,13 +4003,13 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         const legacyKey = (document.getElementById('cfg-apikey') ? document.getElementById('cfg-apikey').value.trim() : '');
 
         let providerName = '';
-        if (model.includes('gemini') || model.startsWith('gemma')) {
+        if (targetProvider === 'google') {
           apiKey = googleKey || legacyKey;
           providerName = 'Google AI Studio';
-        } else if (model.includes('mistral') || model.startsWith('codestral') || model.startsWith('ministral')) {
+        } else if (targetProvider === 'mistral') {
           apiKey = mistralKey || legacyKey;
           providerName = 'Mistral AI';
-        } else if (model.includes('groq') || model.includes('oss') || model.startsWith('qwen') || model.startsWith('llama')) {
+        } else if (targetProvider === 'groq') {
           apiKey = groqKey || legacyKey;
           providerName = 'Groq Cloud';
         } else {
@@ -3855,12 +4049,12 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         if (kmsKey) headers['x-vault-encryption-key'] = kmsKey;
         if (apiKey) headers['Authorization'] = 'Bearer ' + apiKey;
 
-        if (model.includes('gemini') || model.startsWith('gemma')) {
+        if (targetProvider === 'google') {
           headers['x-upstream-base-url'] = 'https://generativelanguage.googleapis.com/v1beta/openai';
           if (apiKey) headers['x-goog-api-key'] = apiKey;
-        } else if (model.includes('groq') || model.includes('oss') || model.startsWith('qwen') || model.startsWith('llama')) {
+        } else if (targetProvider === 'groq') {
           headers['x-upstream-base-url'] = 'https://api.groq.com/openai/v1';
-        } else if (model.includes('mistral') || model.startsWith('codestral') || model.startsWith('ministral')) {
+        } else if (targetProvider === 'mistral') {
           headers['x-upstream-base-url'] = 'https://api.mistral.ai/v1';
         } else if (model.includes('openrouter')) {
           headers['x-upstream-base-url'] = 'https://openrouter.ai/api/v1';
@@ -5023,8 +5217,13 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
       const legacyKey = document.getElementById('cfg-apikey');
       if (legacyKey) legacyKey.value = grKey || mKey || gKey || '';
 
+      cachedByokCatalog = null;
       updateByokBadge();
       closeByokKeysModal();
+
+      if (playgroundTierMode === 'byok') {
+        fetchAndPopulateByokModels(true);
+      }
     }
 
     function clearByokKeys() {
@@ -5039,7 +5238,12 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
       const legacyKey = document.getElementById('cfg-apikey');
       if (legacyKey) legacyKey.value = '';
 
+      cachedByokCatalog = null;
       updateByokBadge();
+
+      if (playgroundTierMode === 'byok') {
+        renderPlaygroundModelDropdown(FREE_TIER_MODELS);
+      }
     }
 
     function toggleKeyVisibility(inputId, btn) {
