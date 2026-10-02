@@ -437,7 +437,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           <nav class="hidden md:flex items-center gap-6 lg:gap-7 text-[13px] font-medium text-gray-600">
             <a href="#platform-section" class="hover:text-gray-950 transition">Platform</a>
             <a href="#research-section" class="hover:text-gray-950 transition">Research</a>
-            <a href="/blog/benchmark" class="hover:text-gray-950 transition">Blog</a>
+            <a href="#news-section" class="hover:text-gray-950 transition">Blog</a>
           </nav>
 
           <!-- Right: Actions -->
@@ -466,7 +466,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               <span class="flex items-center gap-2.5"><i data-lucide="sparkles" class="w-4 h-4 text-gray-400"></i> Research</span>
               <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400"></i>
             </a>
-            <a href="/blog/benchmark" onclick="closeLandingMobileMenu()" class="flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-gray-50 hover:text-[#f0523d] transition">
+            <a href="#news-section" onclick="closeLandingMobileMenu()" class="flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-gray-50 hover:text-[#f0523d] transition">
               <span class="flex items-center gap-2.5"><i data-lucide="newspaper" class="w-4 h-4 text-gray-400"></i> Blog</span>
               <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400"></i>
             </a>
