@@ -551,7 +551,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             </filter>
           </svg>
 
-          <div class="marquee-container w-full pt-3 pb-1.5 overflow-hidden border-t border-b border-blue-200/50 mt-auto mb-1 relative">
+          <div class="marquee-container w-full pt-3 pb-1.5 overflow-hidden mt-auto mb-1 relative">
             <div class="absolute left-0 top-0 bottom-0 w-12 sm:w-24 bg-gradient-to-r from-[#E8F4FF] to-transparent z-10 pointer-events-none"></div>
             <div class="absolute right-0 top-0 bottom-0 w-12 sm:w-24 bg-gradient-to-l from-[#E8F4FF] to-transparent z-10 pointer-events-none"></div>
 
