@@ -420,8 +420,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       
 
       <!-- Floating Header (ProjectSPG Floating Navbar) -->
-      <header class="sticky top-0 w-full max-w-[1440px] mx-auto pt-3 sm:pt-4 px-2 sm:px-4 lg:px-6 z-50">
-        <div class="bg-white/90 backdrop-blur-md border border-gray-200/80 rounded-full px-4 sm:px-5 py-2 sm:py-2.5 flex items-center justify-between shadow-sm">
+      <header class="fixed top-0 left-0 right-0 w-full max-w-[1440px] mx-auto pt-3 sm:pt-4 px-2 sm:px-4 lg:px-6 z-50 pointer-events-none">
+        <div class="pointer-events-auto bg-white/90 backdrop-blur-md border border-gray-200/80 rounded-full px-4 sm:px-5 py-2 sm:py-2.5 flex items-center justify-between shadow-sm">
           
           <!-- Left: Brand Emblem + Name -->
           <div class="flex items-center gap-2 sm:gap-2.5 cursor-pointer" onclick="switchView('landing')">
@@ -455,7 +455,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         </div>
 
         <!-- Mobile Dropdown Navigation Menu Sheet -->
-        <div id="landing-mobile-menu" class="hidden md:hidden mt-2 bg-white/95 backdrop-blur-xl border border-gray-200/90 rounded-2xl p-4 sm:p-5 shadow-xl transition-all duration-300">
+        <div id="landing-mobile-menu" class="pointer-events-auto hidden md:hidden mt-2 bg-white/95 backdrop-blur-xl border border-gray-200/90 rounded-2xl p-4 sm:p-5 shadow-xl transition-all duration-300 max-h-[85vh] overflow-y-auto">
           <nav class="flex flex-col gap-1 text-sm font-medium text-gray-800">
             <a href="#platform-section" onclick="closeLandingMobileMenu()" class="flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-gray-50 hover:text-[#f0523d] transition">
               <span class="flex items-center gap-2.5"><i data-lucide="layers" class="w-4 h-4 text-gray-400"></i> Platform</span>
@@ -483,7 +483,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       </header>
 
       <!-- HERO SECTION -->
-      <section class="w-full bg-[#E8F4FF] border-b border-blue-200/50 relative z-10 flex flex-col justify-center -mt-[64px] sm:-mt-[72px] pt-[76px] sm:pt-[86px] overflow-hidden">
+      <section class="w-full bg-[#E8F4FF] border-b border-blue-200/50 relative z-10 flex flex-col justify-center pt-20 sm:pt-24 lg:pt-28 overflow-hidden">
         <div class="w-full max-w-[1440px] mx-auto px-2.5 sm:px-4 lg:px-6 pt-4 sm:pt-8 lg:pt-10 pb-10 sm:pb-14">
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
             
@@ -662,7 +662,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       <!-- SECTION 2: THE PROJECTSPG PLATFORM (Interactive 3-Tab Feature Showcase)-->
       <!-- Matches uploaded media: 1790540329449, 1790540346632, 1790540364464, 1790540377437 -->
       <!-- ======================================================================= -->
-      <section id="platform-section" class="w-full py-12 sm:py-20 lg:py-24 relative z-10 bg-gradient-to-b from-[#e8f7f8]/55 via-[#f1f4fb]/60 to-[#f8fafc] border-t border-gray-100">
+      <section id="platform-section" class="w-full py-12 sm:py-20 lg:py-24 relative z-10 bg-gradient-to-b from-[#e8f7f8]/55 via-[#f1f4fb]/60 to-[#f8fafc] border-t border-gray-100 scroll-mt-20 sm:scroll-mt-24">
         <div class="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8">
         
         <!-- Section Header -->
@@ -1246,7 +1246,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       <!-- SECTION 3: GROUNDED IN CUTTING-EDGE RESEARCH                            -->
       <!-- Matches uploaded media: 1790540856043.png & 1790540898787.png           -->
       <!-- ======================================================================= -->
-      <section id="research-section" class="w-full bg-[#010120] text-white py-14 sm:py-24 relative border-t border-[#121235]">
+      <section id="research-section" class="w-full bg-[#010120] text-white py-14 sm:py-24 relative border-t border-[#121235] scroll-mt-20 sm:scroll-mt-24">
         
         <!-- Ambient Subtle Deep Background Glow -->
         <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-r from-blue-900/15 via-purple-900/15 to-indigo-900/15 blur-3xl pointer-events-none -z-0"></div>
@@ -1474,7 +1474,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       <!-- SECTION 4: WHAT'S NEW AT PROJECTSPG (Blog & Updates)                  -->
       <!-- Matches uploaded media: 1790541881610.png                               -->
       <!-- ======================================================================= -->
-      <section id="news-section" class="w-full bg-white text-gray-900 py-12 sm:py-20 border-t border-gray-100">
+      <section id="news-section" class="w-full bg-white text-gray-900 py-12 sm:py-20 border-t border-gray-100 scroll-mt-20 sm:scroll-mt-24">
         <div class="max-w-[1440px] mx-auto px-2.5 sm:px-4 lg:px-6">
           
           <!-- Section Header Row -->
@@ -1674,7 +1674,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       <!-- ======================================================================= -->
       <!-- SECTION 5: PRIVATE ACCESS & EXCLUSIVE ONBOARDING (By Invitation Only)   -->
       <!-- ======================================================================= -->
-      <section id="access-section" class="w-full bg-[#f8fafc] text-gray-900 py-20 sm:py-28 border-t border-gray-200/60 relative overflow-hidden">
+      <section id="access-section" class="w-full bg-[#f8fafc] text-gray-900 py-20 sm:py-28 border-t border-gray-200/60 relative overflow-hidden scroll-mt-20 sm:scroll-mt-24">
         <!-- Legacy Anchor for backward compatibility -->
         <span id="pricing-section" class="absolute -top-20"></span>
         
