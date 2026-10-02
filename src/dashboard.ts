@@ -433,18 +433,16 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             <span class="font-bold text-[17px] tracking-tight text-gray-900">project<span class="text-[#f0523d]">spg</span></span>
           </div>
 
-          <!-- Right: Navigation Links & Actions -->
-          <div class="flex items-center gap-3 sm:gap-4 lg:gap-5 text-xs font-semibold">
-            <!-- Navigation Links -->
-            <nav class="hidden md:flex items-center gap-5 lg:gap-6 text-[13px] font-medium text-gray-600">
-              <a href="#platform-section" class="hover:text-gray-950 transition">Platform</a>
-              <a href="#research-section" class="hover:text-gray-950 transition">Research</a>
-              <a href="#news-section" class="hover:text-gray-950 transition">Blog</a>
-              <a href="#access-section" onclick="switchAccessView('request')" class="hover:text-gray-950 transition">Request Access</a>
-            </nav>
+          <!-- Middle: Navigation Links -->
+          <nav class="hidden md:flex items-center gap-6 lg:gap-7 text-[13px] font-medium text-gray-600">
+            <a href="#platform-section" class="hover:text-gray-950 transition">Platform</a>
+            <a href="#research-section" class="hover:text-gray-950 transition">Research</a>
+            <a href="#news-section" class="hover:text-gray-950 transition">Blog</a>
+            <a href="#access-section" onclick="switchAccessView('request')" class="hover:text-gray-950 transition">Request Access</a>
+          </nav>
 
-            <div class="h-4 w-px bg-gray-200 hidden md:block"></div>
-
+          <!-- Right: Actions -->
+          <div class="flex items-center gap-2.5 sm:gap-4 text-xs font-semibold">
             <button onclick="openAuthModal()" class="px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase transition shadow-xs cursor-pointer flex items-center gap-1.5">
               <span>Sign In</span>
             </button>
