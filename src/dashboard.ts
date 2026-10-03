@@ -761,7 +761,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                 <div class="platform-accordion-drawer-inner overflow-hidden min-h-0">
                   <div class="px-4 sm:px-5 pb-5 sm:pb-6 pt-0">
                     <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
-                      Detect and shield regional identifiers across North America, Europe, Asia, and Latin America with zero manual setup.
+                      Detect and shield regional identifiers across North America, Europe, Asia, Africa, and Latin America with zero manual setup.
                     </p>
                     <button onclick="event.stopPropagation(); switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
                       LEARN MORE
