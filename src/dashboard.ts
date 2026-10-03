@@ -1818,17 +1818,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
           <div class="relative max-w-[115px] xs:max-w-[130px] sm:max-w-none shrink min-w-0">
             <select id="playground-model" onchange="onModelChange()" class="appearance-none bg-white border border-groq-grayBorder text-groq-dark text-xs font-sans font-medium rounded-lg pl-2 sm:pl-3 pr-5 sm:pr-8 py-1.5 focus:border-gray-400 focus:outline-none cursor-pointer w-full truncate">
-              <optgroup label="Groq Cloud">
-                <option value="openai/gpt-oss-120b" data-provider="groq" selected>openai/gpt-oss-120b</option>
-                <option value="openai/gpt-oss-20b" data-provider="groq">openai/gpt-oss-20b</option>
-                <option value="qwen/qwen3.8-27b" data-provider="groq">qwen/qwen3.8-27b</option>
-              </optgroup>
-              <optgroup label="Google AI Studio">
-                <option value="gemma-4-26b-a4b-it" data-provider="google">gemma-4-26b-a4b-it</option>
-                <option value="gemma-4-31b-it" data-provider="google">gemma-4-31b-it</option>
-              </optgroup>
-              <optgroup label="Mistral AI">
-                <option value="codestral-2508" data-provider="mistral">codestral-2508</option>
+              <optgroup label="Mistral AI (Limited Access)">
+                <option value="codestral-2508" data-provider="mistral" selected>codestral-2508</option>
                 <option value="ministral-8b-2512" data-provider="mistral">ministral-8b-2512</option>
                 <option value="ministral-14b-2512" data-provider="mistral">ministral-14b-2512</option>
               </optgroup>
@@ -3754,10 +3745,14 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       const targetVal = preferredSelected || select.value;
       select.innerHTML = '';
 
-      const groups = [
+      const isFull = isUserFullyInvited();
+
+      const groups = isFull ? [
         { label: 'Groq Cloud', provider: 'groq', items: catalog?.groq || [] },
         { label: 'Google AI Studio', provider: 'google', items: catalog?.google || [] },
         { label: 'Mistral AI', provider: 'mistral', items: catalog?.mistral || [] }
+      ] : [
+        { label: 'Mistral AI (Limited Access)', provider: 'mistral', items: FREE_TIER_MODELS.mistral }
       ];
 
       let found = false;
@@ -3782,7 +3777,13 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       });
 
       if (!found && select.options.length > 0) {
-        select.selectedIndex = 0;
+        if (!isFull) {
+          const codestralOpt = Array.from(select.options).find(o => o.value === 'codestral-2508');
+          if (codestralOpt) codestralOpt.selected = true;
+          else select.selectedIndex = 0;
+        } else {
+          select.selectedIndex = 0;
+        }
       }
       if (typeof updateCodeViewer === 'function') {
         updateCodeViewer();
@@ -3936,6 +3937,17 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       const optProvider = selectedOption ? selectedOption.getAttribute('data-provider') : '';
       const kmsKey = document.getElementById('cfg-kms').value.trim();
       let apiKey = '';
+
+      const isFull = isUserFullyInvited();
+      if (!isFull) {
+        const allowedMistral = ['codestral-2508', 'ministral-8b-2512', 'ministral-14b-2512'];
+        if (!allowedMistral.includes(model)) {
+          alert('Limited accounts are restricted to the 3 Mistral AI models (codestral-2508, ministral-8b-2512, ministral-14b-2512). Please redeem an invitation key for Full Access.');
+          showInvitationToast(true);
+          renderPlaygroundModelDropdown(FREE_TIER_MODELS, 'codestral-2508');
+          return;
+        }
+      }
 
       let targetProvider = optProvider;
       if (!targetProvider) {
@@ -5766,6 +5778,7 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
           if (byokLock) byokLock.classList.remove('hidden');
           if (createByokLock) createByokLock.classList.remove('hidden');
           if (createByokTab) createByokTab.title = "BYOK Tier requires Full Access (Invitation Only)";
+          renderPlaygroundModelDropdown(FREE_TIER_MODELS, 'codestral-2508');
         } else {
           if (byokBtn) {
             byokBtn.title = "BYOK Mode (Zero Rate-Limiting)";
@@ -5775,6 +5788,7 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
           if (createByokLock) createByokLock.classList.add('hidden');
           if (createByokTab) createByokTab.title = "BYOK Tier";
           dismissInvitationToast(true);
+          renderPlaygroundModelDropdown(FREE_TIER_MODELS);
         }
       } else {
         if (loginBtn) loginBtn.classList.remove('hidden');
@@ -5796,6 +5810,7 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
         if (byokLock) byokLock.classList.remove('hidden');
         if (createByokLock) createByokLock.classList.remove('hidden');
         if (createByokTab) createByokTab.title = "BYOK Tier requires Full Access (Invitation Only)";
+        renderPlaygroundModelDropdown(FREE_TIER_MODELS, 'codestral-2508');
       }
       lucide.createIcons();
     }

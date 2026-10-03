@@ -12,7 +12,15 @@ import {
   createRateLimitErrorPayload,
   getRateLimitHeaders,
 } from "../auth/rate_limiter";
+import { getUserProfile } from "../auth/profile";
+import { verifyFirebaseIdToken } from "../auth/firebase";
 import { Env } from "./tokenization";
+
+export const LIMITED_ALLOWED_MISTRAL_MODELS = new Set([
+  "codestral-2508",
+  "ministral-8b-2512",
+  "ministral-14b-2512",
+]);
 
 const openaiApp = new Hono<{ Bindings: Env }>();
 
@@ -524,6 +532,34 @@ openaiApp.post("/chat/completions", async (c) => {
   const isStreaming = body.stream === true;
   const requestedModel = body.model || "gpt-4o";
 
+  // Enforce limited account model restriction:
+  // Limited accounts should be able to access only the 3 Mistral models
+  const apiKeyRecord = (c as any).get("apiKeyRecord");
+  const authHeader = c.req.header("Authorization") || "";
+  let clientUserId = apiKeyRecord?.user_id;
+  if (!clientUserId && authHeader.startsWith("Bearer ") && !authHeader.toLowerCase().startsWith("bearer spg_")) {
+    const token = authHeader.slice(7).trim();
+    const fbUser = await verifyFirebaseIdToken(token);
+    if (fbUser) clientUserId = fbUser.uid;
+  }
+
+  if (clientUserId) {
+    const profile = await getUserProfile(c.env, clientUserId);
+    if (profile && profile.accessLevel === "Limited Access") {
+      const reqModelNorm = (requestedModel || "").toLowerCase().trim();
+      if (!LIMITED_ALLOWED_MISTRAL_MODELS.has(reqModelNorm)) {
+        const err = createOpenAIError(
+          `Limited accounts are restricted to the 3 Mistral AI models (codestral-2508, ministral-8b-2512, ministral-14b-2512). Model '${requestedModel}' requires Full Access.`,
+          "permission_denied",
+          "model",
+          "model_access_restricted",
+          403
+        );
+        return c.json(err, 403);
+      }
+    }
+  }
+
   // Step 1: Intercept & Sanitize All Prompt Messages at Sub-Millisecond Speed
   const {
     sanitizedMessages,
@@ -587,7 +623,6 @@ openaiApp.post("/chat/completions", async (c) => {
   const upstreamAuth = resolveUpstreamAuth(c, requestedModel, upstreamBaseUrl);
 
   // Enforce Free Tier Rate Limit: 1 protected request per 15 seconds
-  const apiKeyRecord = (c as any).get("apiKeyRecord");
   const isFreeTier = isFreeTierRequest(c, apiKeyRecord, upstreamAuth?.isUserKey);
 
   if (isFreeTier) {
@@ -1039,6 +1074,27 @@ openaiApp.post("/v1beta/models/:action{.+}", async (c) => {
     return c.json({ error: { message: "Invalid JSON body", code: 400 } }, 400);
   }
 
+  // Enforce limited account model restriction:
+  const apiKeyRecord = (c as any).get("apiKeyRecord");
+  const authHeader = c.req.header("Authorization") || "";
+  let clientUserId = apiKeyRecord?.user_id;
+  if (!clientUserId && authHeader.startsWith("Bearer ") && !authHeader.toLowerCase().startsWith("bearer spg_")) {
+    const token = authHeader.slice(7).trim();
+    const fbUser = await verifyFirebaseIdToken(token);
+    if (fbUser) clientUserId = fbUser.uid;
+  }
+  if (clientUserId) {
+    const profile = await getUserProfile(c.env, clientUserId);
+    if (profile && profile.accessLevel === "Limited Access") {
+      return c.json({
+        error: {
+          message: "Limited accounts are restricted to the 3 Mistral AI models (codestral-2508, ministral-8b-2512, ministral-14b-2512). Google AI Studio models require Full Access.",
+          code: 403
+        }
+      }, 403);
+    }
+  }
+
   const customKeywords = resolveCustomKeywords(c);
   const categories = resolveCategories(c);
   const mode = resolveMode(c);
@@ -1080,9 +1136,7 @@ openaiApp.post("/v1beta/models/:action{.+}", async (c) => {
   const queryStr = urlObj.search || "";
   const upstreamUrl = `https://generativelanguage.googleapis.com/v1beta/models/${actionParam}${queryStr}`;
 
-  const authHeader = c.req.header("Authorization");
   const googKey = c.req.header("x-goog-api-key");
-  const apiKeyRecord = (c as any).get("apiKeyRecord");
   const byokGoogleKey = apiKeyRecord?.byok_google_key;
   const isUserKey = Boolean(authHeader || googKey || byokGoogleKey);
 

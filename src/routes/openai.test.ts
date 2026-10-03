@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { Hono } from "hono";
 import openaiApp from "./openai";
+import { saveUserProfile } from "../auth/profile";
 
 describe("OpenAI Drop-In Wire-Compatible Proxy (/v1/chat/completions)", () => {
   let app: Hono;
@@ -659,5 +660,60 @@ describe("OpenAI Drop-In Wire-Compatible Proxy (/v1/chat/completions)", () => {
       });
       expect(capturedUrl).toBe("https://api.mistral.ai/v1/chat/completions");
     }
+  });
+
+  it("should restrict limited access accounts to only the 3 Mistral models", async () => {
+    await saveUserProfile({}, {
+      userId: "test_limited_user_restrict",
+      name: "Limited User",
+      email: "limited@example.com",
+      invitationCode: "", // Tags with Limited Access
+    });
+
+    const testApp = new Hono();
+    testApp.use("*", async (c, next) => {
+      (c as any).set("apiKeyRecord", { user_id: "test_limited_user_restrict", tier: "free" });
+      await next();
+    });
+    testApp.route("/v1", openaiApp);
+
+    globalThis.fetch = vi.fn().mockImplementation(() =>
+      Promise.resolve(
+        new Response(JSON.stringify({ choices: [{ message: { content: "OK" } }] }), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        })
+      )
+    );
+
+    // 1. Allowed Mistral models: codestral-2508, ministral-8b-2512, ministral-14b-2512
+    for (const model of ["codestral-2508", "ministral-8b-2512", "ministral-14b-2512"]) {
+      const res = await testApp.request("/v1/chat/completions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ model, messages: [{ role: "user", content: "hello" }] }),
+      });
+      expect(res.status).toBe(200);
+    }
+
+    // 2. Disallowed models: mistral-large-2512, openai/gpt-oss-120b, gemma-4-31b-it, gpt-4o
+    for (const model of ["mistral-large-2512", "openai/gpt-oss-120b", "gemma-4-31b-it", "gpt-4o"]) {
+      const res = await testApp.request("/v1/chat/completions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ model, messages: [{ role: "user", content: "hello" }] }),
+      });
+      expect(res.status).toBe(403);
+      const data: any = await res.json();
+      expect(data.error.code).toBe("model_access_restricted");
+    }
+
+    // 3. Native Gemini route should also block limited accounts
+    const geminiRes = await testApp.request("/v1/v1beta/models/gemini-1.5-flash:generateContent", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ contents: [{ parts: [{ text: "hello" }] }] }),
+    });
+    expect(geminiRes.status).toBe(403);
   });
 });
