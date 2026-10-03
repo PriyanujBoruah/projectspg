@@ -3196,10 +3196,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     let isCodeVisible = true;
     let activeCodeLang = 'python';
 
-    let sampleApiKeys = [
-      { id: 'key_1', name: 'Datums Space', key_prefix: 'spg_live_97e4...IZS1', tier: 'free', created_at: '2026-09-09T00:00:00Z', last_used: '9/9/2026', expires: 'Never', requests_used: 0 },
-      { id: 'key_2', name: 'ProjectSPG Production', key_prefix: 'spg_live_41fa...R5Ve', tier: 'byok', byok_providers: ['Groq', 'Google', 'Mistral'], created_at: '2026-09-27T00:00:00Z', last_used: '9/27/2026', expires: 'Never', requests_used: 3 }
-    ];
+    let sampleApiKeys = [];
 
     // Initial logs with timestamps
     const _initNow = Date.now();
@@ -4534,18 +4531,43 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
 
     async function fetchApiKeys() {
       try {
+        const tbody = document.getElementById('api-keys-tbody');
+        if (!tbody) return;
+
+        // If not logged in, prompt user to sign in
+        if (!currentFirebaseUser) {
+          tbody.innerHTML = '<tr><td colspan="8" class="text-center py-12"><div class="flex flex-col items-center justify-center text-center"><div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 mb-3"><i data-lucide="lock" class="w-5 h-5"></i></div><h4 class="text-xs font-semibold text-groq-dark mb-1">Sign in to manage API keys</h4><p class="text-[11px] text-groq-textMuted max-w-xs mb-3">API keys are securely tied to your individual account. Please sign in to create or view your keys.</p><button onclick="openAuthModal()" class="px-3 py-1.5 rounded-lg bg-[#f0523d] hover:bg-[#e0422d] text-white font-medium text-xs shadow-xs transition cursor-pointer">Sign In</button></div></td></tr>';
+          if (window.lucide) lucide.createIcons();
+          return;
+        }
+
         const headers = {};
-        if (currentIdToken) {
-          headers['Authorization'] = 'Bearer ' + currentIdToken;
+        let token = currentIdToken;
+        if (!token && currentFirebaseUser) {
+          try {
+            token = await currentFirebaseUser.getIdToken();
+            currentIdToken = token;
+          } catch (e) {
+            token = null;
+          }
+        }
+        if (token) {
+          headers['Authorization'] = 'Bearer ' + token;
         }
         const res = await fetch('/api/keys', { headers });
         const data = await res.json();
-        const tbody = document.getElementById('api-keys-tbody');
 
-        let keysToRender = (data.keys && data.keys.length > 0) ? data.keys : sampleApiKeys;
+        // Account-exclusive: strictly render only the keys for this account
+        const keysToRender = (data && Array.isArray(data.keys)) ? data.keys : [];
+
+        if (keysToRender.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="8" class="text-center py-12"><div class="flex flex-col items-center justify-center text-center"><div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 mb-3"><i data-lucide="key" class="w-5 h-5"></i></div><h4 class="text-xs font-semibold text-groq-dark mb-1">No API keys found</h4><p class="text-[11px] text-groq-textMuted max-w-xs mb-3">You don\'t have any active API keys for this account yet. Click "Create New Key" to generate your first key.</p><button onclick="openCreateKeyModal()" class="px-3 py-1.5 rounded-lg bg-[#f0523d] hover:bg-[#e0422d] text-white font-medium text-xs shadow-xs transition cursor-pointer">Create New Key</button></div></td></tr>';
+          if (window.lucide) lucide.createIcons();
+          return;
+        }
 
         tbody.innerHTML = keysToRender.map(k => {
-          const dateCreated = k.created_at ? new Date(k.created_at).toLocaleDateString() : '9/9/2026';
+          const dateCreated = k.created_at ? new Date(k.created_at).toLocaleDateString() : 'N/A';
           const lastUsed = k.last_used || dateCreated;
           const calls = k.requests_used !== undefined ? k.requests_used : 0;
           const prefix = k.key_prefix || 'spg_live_...';
@@ -4567,8 +4589,8 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
 
           return \`
             <tr class="hover:bg-gray-50/70 transition h-14">
-              <td class="pr-6 font-sans font-medium text-groq-dark">\${k.name}</td>
-              <td class="pr-6 font-mono text-groq-dark">\${prefix}</td>
+              <td class="pr-6 font-sans font-medium text-groq-dark">\${escapeHtml(k.name || 'Key')}</td>
+              <td class="pr-6 font-mono text-groq-dark">\${escapeHtml(prefix)}</td>
               <td class="pr-6 font-sans">\${tierBadge}</td>
               <td class="pr-6 font-sans text-groq-dark">\${dateCreated}</td>
               <td class="pr-6 font-sans text-groq-dark">\${lastUsed}</td>
@@ -4634,6 +4656,10 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
     }
 
     function openCreateKeyModal() {
+      if (!currentFirebaseUser) {
+        openAuthModal();
+        return;
+      }
       selectCreateKeyTier('free');
       if (document.getElementById('new-key-name')) document.getElementById('new-key-name').value = '';
       if (document.getElementById('new-byok-google')) document.getElementById('new-byok-google').value = '';
@@ -4645,6 +4671,10 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
     function closeCreateKeyModal() { document.getElementById('modal-create-key').classList.add('hidden'); }
 
     async function submitCreateKey() {
+      if (!currentFirebaseUser) {
+        openAuthModal();
+        return;
+      }
       const name = document.getElementById('new-key-name').value.trim() || 'ProjectSPG Key';
       const tier = document.getElementById('new-key-tier') ? document.getElementById('new-key-tier').value : 'free';
       if (tier === 'byok' && !isUserFullyInvited()) {
@@ -4662,10 +4692,21 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
       const byokGroqKey = document.getElementById('new-byok-groq') ? document.getElementById('new-byok-groq').value.trim() : '';
 
       try {
-        const headers = { 'Content-Type': 'application/json' };
-        if (currentIdToken) {
-          headers['Authorization'] = 'Bearer ' + currentIdToken;
+        let token = currentIdToken;
+        if (currentFirebaseUser) {
+          try {
+            token = await currentFirebaseUser.getIdToken();
+            currentIdToken = token;
+          } catch (e) {}
         }
+        if (!token) {
+          openAuthModal();
+          return;
+        }
+        const headers = { 
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        };
         const res = await fetch('/api/keys', {
           method: 'POST',
           headers: headers,
@@ -4687,7 +4728,7 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
         closeCreateKeyModal();
         document.getElementById('displayed-raw-key').textContent = data.rawKey;
         document.getElementById('modal-show-key').classList.remove('hidden');
-        fetchApiKeys();
+        await fetchApiKeys();
         if (window.lucide) lucide.createIcons();
       } catch (err) {
         alert('Failed: ' + err.message);
@@ -4703,11 +4744,23 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
     async function deleteKey(id) {
       if (!confirm('Are you sure you want to delete this API key?')) return;
       const headers = {};
-      if (currentIdToken) {
-        headers['Authorization'] = 'Bearer ' + currentIdToken;
+      let token = currentIdToken;
+      if (currentFirebaseUser) {
+        try {
+          token = await currentFirebaseUser.getIdToken();
+          currentIdToken = token;
+        } catch (e) {}
       }
-      await fetch('/api/keys/' + id, { method: 'DELETE', headers });
-      fetchApiKeys();
+      if (token) {
+        headers['Authorization'] = 'Bearer ' + token;
+      }
+      const res = await fetch('/api/keys/' + id, { method: 'DELETE', headers });
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        alert('Failed to revoke key: ' + (errData.error || ('HTTP ' + res.status)));
+        return;
+      }
+      await fetchApiKeys();
     }
 
     // Live API Usage and Telemetry Logs

@@ -135,6 +135,9 @@ export async function createApiKey(
     } catch {}
 
     try {
+      await db.prepare(`ALTER TABLE api_keys ADD COLUMN user_id TEXT`).run();
+    } catch {}
+    try {
       await db.prepare(`ALTER TABLE api_keys ADD COLUMN byok_google_key TEXT`).run();
     } catch {}
     try {
@@ -255,7 +258,8 @@ export async function validateApiKey(rawKey: string, env: any): Promise<ApiKeyVa
 }
 
 /**
- * List all API keys (without sensitive hashes)
+ * List all API keys for an authenticated user (without sensitive hashes).
+ * Account-exclusive: strictly returns only keys belonging to the specified userId.
  */
 export async function listApiKeys(env: any, userId?: string): Promise<ApiKeyRecord[]> {
   const db = env?.DB;
@@ -264,7 +268,7 @@ export async function listApiKeys(env: any, userId?: string): Promise<ApiKeyReco
       let query = `SELECT id, key_prefix, name, tier, monthly_quota, requests_used, is_active, created_at, user_id, byok_google_key, byok_mistral_key, byok_groq_key FROM api_keys WHERE is_active = 1`;
       const params: any[] = [];
       if (userId) {
-        query += ` AND (user_id = ? OR user_id = 'anonymous')`;
+        query += ` AND user_id = ?`;
         params.push(userId);
       }
       query += ` ORDER BY created_at DESC`;
@@ -290,7 +294,7 @@ export async function listApiKeys(env: any, userId?: string): Promise<ApiKeyReco
   }
   let keys = Array.from(localKeyStore.values()).filter((k) => k.is_active === 1);
   if (userId) {
-    keys = keys.filter((k) => !k.user_id || k.user_id === userId || k.user_id === "anonymous");
+    keys = keys.filter((k) => k.user_id === userId);
   }
   return keys
     .map((row) => {
@@ -312,20 +316,24 @@ export async function listApiKeys(env: any, userId?: string): Promise<ApiKeyReco
 }
 
 /**
- * Revoke an API key by ID
+ * Revoke an API key by ID (optionally scoped to a specific userId)
  */
-export async function revokeApiKey(id: string, env: any): Promise<boolean> {
+export async function revokeApiKey(id: string, env: any, userId?: string): Promise<boolean> {
   const db = env?.DB;
   if (db && typeof db.prepare === "function") {
     try {
-      await db.prepare(`UPDATE api_keys SET is_active = 0 WHERE id = ?`).bind(id).run();
+      if (userId) {
+        await db.prepare(`UPDATE api_keys SET is_active = 0 WHERE id = ? AND user_id = ?`).bind(id, userId).run();
+      } else {
+        await db.prepare(`UPDATE api_keys SET is_active = 0 WHERE id = ?`).bind(id).run();
+      }
     } catch {
       // fallback
     }
   }
 
   for (const [hash, rec] of localKeyStore.entries()) {
-    if (rec.id === id) {
+    if (rec.id === id && (!userId || rec.user_id === userId)) {
       rec.is_active = 0;
       inMemoryKeyCache.delete(hash);
       return true;

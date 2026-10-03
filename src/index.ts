@@ -231,6 +231,9 @@ app.get("/api/keys", async (c) => {
     const user = await verifyFirebaseIdToken(token);
     if (user) userId = user.uid;
   }
+  if (!userId) {
+    return c.json({ keys: [] });
+  }
   const keys = await listApiKeys(c.env, userId);
   return c.json({ keys });
 });
@@ -243,11 +246,14 @@ app.post("/api/keys", async (c) => {
     // empty body fallback
   }
   const authHeader = c.req.header("Authorization") || "";
-  let userId = "anonymous";
+  let userId: string | undefined = undefined;
   if (authHeader.startsWith("Bearer ")) {
     const token = authHeader.slice(7).trim();
     const user = await verifyFirebaseIdToken(token);
     if (user) userId = user.uid;
+  }
+  if (!userId || userId === "anonymous") {
+    return c.json({ error: "Authentication required to generate an API key. Please sign in." }, 401);
   }
   const name = body.name || "Default Key";
   const tier = body.tier || "free";
@@ -268,8 +274,23 @@ app.post("/api/keys", async (c) => {
 });
 
 app.delete("/api/keys/:id", async (c) => {
+  const authHeader = c.req.header("Authorization") || "";
+  let userId: string | undefined = undefined;
+  let userEmail: string | undefined = undefined;
+  if (authHeader.startsWith("Bearer ")) {
+    const token = authHeader.slice(7).trim();
+    const user = await verifyFirebaseIdToken(token);
+    if (user) {
+      userId = user.uid;
+      userEmail = user.email;
+    }
+  }
+  if (!userId) {
+    return c.json({ error: "Authentication required to revoke API keys." }, 401);
+  }
   const id = c.req.param("id");
-  await revokeApiKey(id, c.env);
+  const isAdmin = userEmail && isAdminEmail(userEmail);
+  await revokeApiKey(id, c.env, isAdmin ? undefined : userId);
   return c.json({ success: true, message: `API key ${id} revoked.` });
 });
 

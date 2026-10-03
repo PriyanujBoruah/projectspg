@@ -108,4 +108,44 @@ describe("API Key Authentication & Metering", () => {
     expect(found?.byok_providers).toEqual(["Google", "Mistral", "Groq"]);
     expect(found?.byok_google_key).toContain("••••••••");
   });
+
+  it("should enforce strict account exclusivity between different user accounts", async () => {
+    // User Alpha creates a key
+    const { record: keyAlpha } = await createApiKey(
+      "Alpha Key",
+      "free",
+      10000,
+      mockEnv,
+      "user_alpha"
+    );
+
+    // User Beta creates a key
+    const { record: keyBeta } = await createApiKey(
+      "Beta Key",
+      "free",
+      10000,
+      mockEnv,
+      "user_beta"
+    );
+
+    // Alpha lists keys - must contain Alpha Key, and must NEVER contain Beta Key
+    const listAlpha = await listApiKeys(mockEnv, "user_alpha");
+    expect(listAlpha.some((k) => k.id === keyAlpha.id)).toBe(true);
+    expect(listAlpha.some((k) => k.id === keyBeta.id)).toBe(false);
+
+    // Beta lists keys - must contain Beta Key, and must NEVER contain Alpha Key
+    const listBeta = await listApiKeys(mockEnv, "user_beta");
+    expect(listBeta.some((k) => k.id === keyBeta.id)).toBe(true);
+    expect(listBeta.some((k) => k.id === keyAlpha.id)).toBe(false);
+
+    // User Beta attempts to revoke User Alpha's key - should NOT revoke Alpha's key
+    await revokeApiKey(keyAlpha.id, mockEnv, "user_beta");
+    const listAlphaAfterUnauthorizedRevoke = await listApiKeys(mockEnv, "user_alpha");
+    expect(listAlphaAfterUnauthorizedRevoke.some((k) => k.id === keyAlpha.id && k.is_active === 1)).toBe(true);
+
+    // User Alpha revokes their own key - should succeed
+    await revokeApiKey(keyAlpha.id, mockEnv, "user_alpha");
+    const listAlphaAfterAuthorizedRevoke = await listApiKeys(mockEnv, "user_alpha");
+    expect(listAlphaAfterAuthorizedRevoke.some((k) => k.id === keyAlpha.id)).toBe(false);
+  });
 });
