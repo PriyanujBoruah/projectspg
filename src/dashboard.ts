@@ -2277,7 +2277,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                 <div class="relative flex-1 sm:flex-initial min-w-[130px]">
                   <select id="metrics-key-filter" onchange="renderMetricsChart()" class="w-full appearance-none bg-groq-grayBg border border-groq-grayBorder text-groq-dark text-xs font-medium rounded-lg pl-3 pr-7 py-1.5 focus:outline-none cursor-pointer">
                     <option value="all">Show all API Keys</option>
-                    <option value="ProjectSPG Test">ProjectSPG Test</option>
+                    <option value="ProjectSPG Free">ProjectSPG Free</option>
                     <option value="Datums Space">Datums Space</option>
                     <option value="ProjectSPG Production">ProjectSPG Production</option>
                   </select>
@@ -4237,7 +4237,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             time: new Date().toLocaleTimeString(),
             timestamp: new Date().toISOString(),
             model: model,
-            key: 'ProjectSPG Test',
+            key: 'ProjectSPG Free',
             code: 200,
             ttft: (elapsedSec * 0.4).toFixed(3),
             latency: elapsedSec,
@@ -4266,7 +4266,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             time: new Date().toLocaleTimeString(),
             timestamp: new Date().toISOString(),
             model: model,
-            key: 'ProjectSPG Test',
+            key: 'ProjectSPG Free',
             code: 429,
             ttft: '0.000',
             latency: elapsedSec,
@@ -4298,7 +4298,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             time: new Date().toLocaleTimeString(),
             timestamp: new Date().toISOString(),
             model: model,
-            key: 'ProjectSPG Test',
+            key: 'ProjectSPG Free',
             code: res.status || 500,
             ttft: '0.000',
             latency: elapsedSec,
@@ -4673,9 +4673,8 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
       if (!currentFirebaseUser) {
         openAuthModal();
         return;
-      }
-      const name = document.getElementById('new-key-name').value.trim() || 'ProjectSPG Key';
       const tier = document.getElementById('new-key-tier') ? document.getElementById('new-key-tier').value : 'free';
+      const name = document.getElementById('new-key-name').value.trim() || (tier === 'free' ? 'ProjectSPG Free' : 'ProjectSPG Key');
       if (tier === 'byok' && !isUserFullyInvited()) {
         showInvitationToast(true);
         const feedback = document.getElementById('toast-inv-feedback');
@@ -4799,7 +4798,7 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
                 time: timeStr,
                 timestamp: isoStr,
                 model: l.model || 'openai/gpt-oss-120b',
-                key: (l.apiKeyPrefix && l.apiKeyPrefix !== 'none') ? l.apiKeyPrefix : 'ProjectSPG Test',
+                key: (l.apiKeyPrefix && l.apiKeyPrefix !== 'none' && l.apiKeyPrefix !== 'ProjectSPG Test') ? l.apiKeyPrefix : 'ProjectSPG Free',
                 code: l.statusCode || 200,
                 ttft: ttft,
                 latency: latency,
