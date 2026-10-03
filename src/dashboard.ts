@@ -2502,109 +2502,891 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     </div> <!-- End View Dashboard -->
 
     <!-- ======================================================================= -->
-    <!-- VIEW 4: DOCS VIEW -->
+<!-- VIEW 4: DOCS VIEW -->
     <!-- ======================================================================= -->
     <div id="view-docs" class="view-panel hidden border-t border-l border-r border-groq-grayBorder rounded-t-2xl bg-white mx-0 sm:mx-2 lg:mx-3 flex-1 flex flex-col md:flex-row overflow-visible md:overflow-hidden shadow-xs">
-      <aside class="w-full md:w-64 shrink-0 border-b md:border-b-0 md:border-r border-groq-grayBorder bg-white p-3.5 sm:p-5 text-xs overflow-visible md:overflow-y-auto">
+      
+      <!-- Sidebar Navigation -->
+      <aside class="w-full md:w-72 shrink-0 border-b md:border-b-0 md:border-r border-groq-grayBorder bg-[#fafafa]/80 p-3.5 sm:p-5 text-xs overflow-visible md:overflow-y-auto">
         <!-- Mobile Accordion Trigger (Only visible on < md) -->
-        <button type="button" onclick="toggleDocsMobileNav()" class="md:hidden w-full flex items-center justify-between py-2 px-3 rounded-lg bg-gray-50 border border-gray-200 text-xs font-semibold text-groq-dark cursor-pointer">
-          <span class="flex items-center gap-2"><i data-lucide="book-open" class="w-4 h-4 text-[#f0523d]"></i> Documentation Navigation</span>
+        <button type="button" onclick="toggleDocsMobileNav()" class="md:hidden w-full flex items-center justify-between py-2 px-3 rounded-lg bg-white border border-gray-200 text-xs font-semibold text-groq-dark cursor-pointer shadow-2xs">
+          <span class="flex items-center gap-2"><i data-lucide="book-open" class="w-4 h-4 text-[#f0523d]"></i> API Reference Navigation</span>
           <i id="docs-mobile-chevron" data-lucide="chevron-down" class="w-4 h-4 text-gray-500 transition-transform duration-200"></i>
         </button>
 
-        <!-- Sidebar Content (Collapsible on mobile, always visible on md+) -->
-        <div id="docs-sidebar-content" class="hidden md:block space-y-4 mt-3 md:mt-0">
+        <!-- Sidebar Content -->
+        <div id="docs-sidebar-content" class="hidden md:block space-y-5 mt-3 md:mt-0">
           <div class="relative">
-            <input type="text" placeholder="Search" class="w-full bg-[#f9fafb] border border-groq-grayBorder rounded-lg pl-8 pr-12 py-1.5 text-xs text-groq-dark placeholder-groq-textSubtle focus:outline-none">
+            <input type="text" id="docs-search-input" oninput="filterDocsEndpoints(this.value)" placeholder="Filter endpoints..." class="w-full bg-white border border-groq-grayBorder rounded-lg pl-8 pr-8 py-1.5 text-xs text-groq-dark placeholder-groq-textSubtle focus:outline-none focus:border-[#f0523d]/50 shadow-2xs">
             <i data-lucide="search" class="w-3.5 h-3.5 text-groq-textSubtle absolute left-2.5 top-2.5"></i>
-            <kbd class="text-[10px] text-groq-textSubtle border border-gray-300 px-1 py-0.5 rounded bg-white absolute right-2 top-2 font-mono">CTRL K</kbd>
           </div>
 
-          <div class="flex items-center gap-4 text-xs font-semibold border-b border-groq-grayBorder pb-2">
-            <button class="text-groq-textMuted hover:text-groq-dark">Docs</button>
-            <button class="text-[#f0523d] border-b-2 border-[#f0523d] pb-1 font-bold">API Reference</button>
-          </div>
-
+          <!-- Section: Getting Started -->
           <div>
-            <div class="text-[10px] font-bold text-groq-textSubtle uppercase tracking-wider mb-2">ENDPOINTS</div>
-            <div class="space-y-1 font-mono text-[11px]">
-              <a href="#chat" class="block px-2.5 py-1.5 rounded-lg bg-[#fff5f3] text-[#f0523d] font-semibold border-l-2 border-[#f0523d]">Chat</a>
-              <a href="#chat" class="block px-4 py-1 text-[#f0523d] font-medium">Create chat completion</a>
-              <a href="javascript:void(0)" class="block px-2.5 py-1.5 rounded text-groq-textMuted hover:text-groq-dark">Responses (beta)</a>
-              <a href="javascript:void(0)" class="block px-2.5 py-1.5 rounded text-groq-textMuted hover:text-groq-dark">Audio</a>
-              <a href="javascript:void(0)" class="block px-2.5 py-1.5 rounded text-groq-textMuted hover:text-groq-dark">Models</a>
+            <div class="text-[10px] font-bold text-groq-textSubtle uppercase tracking-wider mb-1.5 px-2">OVERVIEW</div>
+            <div class="space-y-0.5 font-sans text-xs">
+              <div class="docs-nav-item">
+                <a href="javascript:void(0)" onclick="switchDocsEndpoint('docs-quickstart')" id="docs-nav-docs-quickstart" class="docs-nav-link flex items-center gap-2 px-2.5 py-1.5 rounded-lg bg-[#fff5f3] text-[#f0523d] font-semibold border-l-2 border-[#f0523d] transition cursor-pointer">
+                  <i data-lucide="zap" class="w-3.5 h-3.5 shrink-0"></i>
+                  <span>Quickstart & Base URLs</span>
+                </a>
+              </div>
+              <div class="docs-nav-item">
+                <a href="javascript:void(0)" onclick="switchDocsEndpoint('docs-auth-headers')" id="docs-nav-docs-auth-headers" class="docs-nav-link flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-groq-textMuted hover:text-groq-dark hover:bg-gray-100/70 transition cursor-pointer">
+                  <i data-lucide="lock" class="w-3.5 h-3.5 shrink-0"></i>
+                  <span>Authentication & Headers</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section: LLM Gateway -->
+          <div>
+            <div class="text-[10px] font-bold text-groq-textSubtle uppercase tracking-wider mb-1.5 px-2 flex items-center justify-between">
+              <span>LLM GATEWAY</span>
+              <span class="text-[9px] font-mono text-emerald-600 font-semibold bg-emerald-50 px-1 rounded">v1</span>
+            </div>
+            <div class="space-y-0.5 font-mono text-[11px]">
+              <div class="docs-nav-item">
+                <a href="javascript:void(0)" onclick="switchDocsEndpoint('docs-chat-completions')" id="docs-nav-docs-chat-completions" class="docs-nav-link flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-groq-textMuted hover:text-groq-dark hover:bg-gray-100/70 transition cursor-pointer">
+                  <span class="px-1.5 py-0.2 rounded text-[9px] font-bold bg-emerald-100 text-emerald-800">POST</span>
+                  <span class="truncate">/v1/chat/completions</span>
+                </a>
+              </div>
+              <div class="docs-nav-item">
+                <a href="javascript:void(0)" onclick="switchDocsEndpoint('docs-embeddings')" id="docs-nav-docs-embeddings" class="docs-nav-link flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-groq-textMuted hover:text-groq-dark hover:bg-gray-100/70 transition cursor-pointer">
+                  <span class="px-1.5 py-0.2 rounded text-[9px] font-bold bg-emerald-100 text-emerald-800">POST</span>
+                  <span class="truncate">/v1/embeddings</span>
+                </a>
+              </div>
+              <div class="docs-nav-item">
+                <a href="javascript:void(0)" onclick="switchDocsEndpoint('docs-models')" id="docs-nav-docs-models" class="docs-nav-link flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-groq-textMuted hover:text-groq-dark hover:bg-gray-100/70 transition cursor-pointer">
+                  <span class="px-1.5 py-0.2 rounded text-[9px] font-bold bg-blue-100 text-blue-800">GET</span>
+                  <span class="truncate">/v1/models</span>
+                </a>
+              </div>
+              <div class="docs-nav-item">
+                <a href="javascript:void(0)" onclick="switchDocsEndpoint('docs-models-get')" id="docs-nav-docs-models-get" class="docs-nav-link flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-groq-textMuted hover:text-groq-dark hover:bg-gray-100/70 transition cursor-pointer">
+                  <span class="px-1.5 py-0.2 rounded text-[9px] font-bold bg-blue-100 text-blue-800">GET</span>
+                  <span class="truncate">/v1/models/{model}</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section: Privacy Vault -->
+          <div>
+            <div class="text-[10px] font-bold text-groq-textSubtle uppercase tracking-wider mb-1.5 px-2 flex items-center justify-between">
+              <span>STANDALONE VAULT</span>
+              <span class="text-[9px] font-mono text-purple-600 font-semibold bg-purple-50 px-1 rounded">Native</span>
+            </div>
+            <div class="space-y-0.5 font-mono text-[11px]">
+              <div class="docs-nav-item">
+                <a href="javascript:void(0)" onclick="switchDocsEndpoint('docs-tokenize')" id="docs-nav-docs-tokenize" class="docs-nav-link flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-groq-textMuted hover:text-groq-dark hover:bg-gray-100/70 transition cursor-pointer">
+                  <span class="px-1.5 py-0.2 rounded text-[9px] font-bold bg-emerald-100 text-emerald-800">POST</span>
+                  <span class="truncate">/api/tokenize</span>
+                </a>
+              </div>
+              <div class="docs-nav-item">
+                <a href="javascript:void(0)" onclick="switchDocsEndpoint('docs-detokenize')" id="docs-nav-docs-detokenize" class="docs-nav-link flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-groq-textMuted hover:text-groq-dark hover:bg-gray-100/70 transition cursor-pointer">
+                  <span class="px-1.5 py-0.2 rounded text-[9px] font-bold bg-emerald-100 text-emerald-800">POST</span>
+                  <span class="truncate">/api/detokenize</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section: Telemetry & SIEM -->
+          <div>
+            <div class="text-[10px] font-bold text-groq-textSubtle uppercase tracking-wider mb-1.5 px-2">TELEMETRY & LOGS</div>
+            <div class="space-y-0.5 font-mono text-[11px]">
+              <div class="docs-nav-item">
+                <a href="javascript:void(0)" onclick="switchDocsEndpoint('docs-logs')" id="docs-nav-docs-logs" class="docs-nav-link flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-groq-textMuted hover:text-groq-dark hover:bg-gray-100/70 transition cursor-pointer">
+                  <span class="px-1.5 py-0.2 rounded text-[9px] font-bold bg-blue-100 text-blue-800">GET</span>
+                  <span class="truncate">/v1/logs</span>
+                </a>
+              </div>
+              <div class="docs-nav-item">
+                <a href="javascript:void(0)" onclick="switchDocsEndpoint('docs-audit-events')" id="docs-nav-docs-audit-events" class="docs-nav-link flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-groq-textMuted hover:text-groq-dark hover:bg-gray-100/70 transition cursor-pointer">
+                  <span class="px-1.5 py-0.2 rounded text-[9px] font-bold bg-blue-100 text-blue-800">GET</span>
+                  <span class="truncate">/v1/audit/events</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section: Management & Health -->
+          <div>
+            <div class="text-[10px] font-bold text-groq-textSubtle uppercase tracking-wider mb-1.5 px-2">KEYS & HEALTH</div>
+            <div class="space-y-0.5 font-mono text-[11px]">
+              <div class="docs-nav-item">
+                <a href="javascript:void(0)" onclick="switchDocsEndpoint('docs-keys-list')" id="docs-nav-docs-keys-list" class="docs-nav-link flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-groq-textMuted hover:text-groq-dark hover:bg-gray-100/70 transition cursor-pointer">
+                  <span class="px-1.5 py-0.2 rounded text-[9px] font-bold bg-blue-100 text-blue-800">GET</span>
+                  <span class="truncate">/api/keys</span>
+                </a>
+              </div>
+              <div class="docs-nav-item">
+                <a href="javascript:void(0)" onclick="switchDocsEndpoint('docs-keys-create')" id="docs-nav-docs-keys-create" class="docs-nav-link flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-groq-textMuted hover:text-groq-dark hover:bg-gray-100/70 transition cursor-pointer">
+                  <span class="px-1.5 py-0.2 rounded text-[9px] font-bold bg-emerald-100 text-emerald-800">POST</span>
+                  <span class="truncate">/api/keys</span>
+                </a>
+              </div>
+              <div class="docs-nav-item">
+                <a href="javascript:void(0)" onclick="switchDocsEndpoint('docs-keys-delete')" id="docs-nav-docs-keys-delete" class="docs-nav-link flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-groq-textMuted hover:text-groq-dark hover:bg-gray-100/70 transition cursor-pointer">
+                  <span class="px-1.5 py-0.2 rounded text-[9px] font-bold bg-rose-100 text-rose-800">DELETE</span>
+                  <span class="truncate">/api/keys/{id}</span>
+                </a>
+              </div>
+              <div class="docs-nav-item">
+                <a href="javascript:void(0)" onclick="switchDocsEndpoint('docs-health')" id="docs-nav-docs-health" class="docs-nav-link flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-groq-textMuted hover:text-groq-dark hover:bg-gray-100/70 transition cursor-pointer">
+                  <span class="px-1.5 py-0.2 rounded text-[9px] font-bold bg-blue-100 text-blue-800">GET</span>
+                  <span class="truncate">/health</span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </aside>
 
-      <div class="flex-1 p-4 sm:p-8 overflow-visible md:overflow-y-auto flex flex-col lg:flex-row gap-6 lg:gap-8 bg-white">
-        <div class="flex-1 max-w-xl space-y-6">
+      <!-- Main Scrollable Documentation Canvas -->
+      <div id="docs-main-scroll" class="flex-1 p-4 sm:p-8 md:p-10 overflow-visible md:overflow-y-auto space-y-16 bg-white">
+        
+        <!-- SECTION 1: QUICKSTART -->
+        <section id="docs-quickstart" class="space-y-6 pt-2">
           <div>
-            <h1 class="text-xl sm:text-2xl font-bold text-groq-dark mb-1">ProjectSPG API Reference</h1>
-            <p class="text-xs text-groq-textMuted">Enterprise Privacy-Preserving LLM Gateway Reference</p>
+            <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-orange-50 border border-orange-200/60 text-[#f0523d] text-[11px] font-semibold mb-3">
+              <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> Zero-Code Drop-In Privacy Layer
+            </div>
+            <h1 class="text-2xl sm:text-3xl font-extrabold text-groq-dark tracking-tight">ProjectSPG API Reference</h1>
+            <p class="text-xs sm:text-sm text-groq-textMuted mt-1.5 max-w-3xl leading-relaxed">
+              Integrate privacy-preserving, zero-data-leakage LLM intelligence into your stack. ProjectSPG functions as a wire-compatible, transparent drop-in replacement for the OpenAI SDK, LangChain, LlamaIndex, and native HTTP clients.
+            </p>
           </div>
 
-          <div class="space-y-3">
-            <h2 class="text-base sm:text-lg font-semibold text-groq-dark flex items-center gap-2">
-              <i data-lucide="shield-check" class="w-4 h-4 text-emerald-600"></i>
-              Chat Completions
+          <!-- Base URLs Card -->
+          <div class="p-5 rounded-2xl border border-groq-grayBorder bg-slate-50/60 space-y-3">
+            <h3 class="text-xs font-bold text-groq-dark uppercase tracking-wider">Gateway Base URLs</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+              <div class="p-3 bg-white rounded-xl border border-gray-200/80 shadow-2xs space-y-1">
+                <span class="text-[10px] font-bold text-gray-500 uppercase">Primary API Gateway</span>
+                <div class="flex items-center justify-between font-mono text-[11px] text-groq-dark font-medium select-all">
+                  <span>https://api.projectspg.info/v1</span>
+                  <button onclick="navigator.clipboard.writeText('https://api.projectspg.info/v1'); alert('Copied!');" class="text-gray-400 hover:text-gray-700 cursor-pointer" title="Copy"><i data-lucide="copy" class="w-3.5 h-3.5"></i></button>
+                </div>
+              </div>
+              <div class="p-3 bg-white rounded-xl border border-gray-200/80 shadow-2xs space-y-1">
+                <span class="text-[10px] font-bold text-gray-500 uppercase">Web Edge Gateway</span>
+                <div class="flex items-center justify-between font-mono text-[11px] text-groq-dark font-medium select-all">
+                  <span>https://projectspg.info/v1</span>
+                  <button onclick="navigator.clipboard.writeText('https://projectspg.info/v1'); alert('Copied!');" class="text-gray-400 hover:text-gray-700 cursor-pointer" title="Copy"><i data-lucide="copy" class="w-3.5 h-3.5"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 1-Line Drop-in Migration Snippet -->
+          <div class="p-5 rounded-2xl border border-gray-200 bg-white shadow-2xs space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-groq-dark flex items-center gap-1.5"><i data-lucide="code-2" class="w-4 h-4 text-[#f0523d]"></i> Standard 1-Line Client Migration</span>
+              <span class="text-[10px] font-mono text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full font-medium">Compatible with OpenAI SDK v1.0+</span>
+            </div>
+            <p class="text-xs text-groq-textMuted leading-relaxed">
+              Simply replace your client base URL with ProjectSPG. Every prompt is intercepted at sub-millisecond speeds, de-identified using cryptographic tokenization, sent to the model safely, and restored on return.
+            </p>
+            <div class="bg-[#181825] text-slate-100 p-4 rounded-xl font-mono text-[11px] leading-relaxed overflow-x-auto whitespace-pre select-all"># Python
+from openai import OpenAI
+
+client = OpenAI(
+    api_key="spg_live_your_key_here",
+    base_url="https://api.projectspg.info/v1"   # Drop-in ProjectSPG Gateway
+)
+
+response = client.chat.completions.create(
+    model="openai/gpt-oss-120b",
+    messages=[{"role": "user", "content": "Schedule appointment for David at SSN: 123-45-6789"}]
+)
+print(response.choices[0].message.content)</div>
+          </div>
+        </section>
+
+        <!-- SECTION 2: AUTHENTICATION & HEADERS -->
+        <section id="docs-auth-headers" class="space-y-4 pt-4 border-t border-gray-100">
+          <div>
+            <h2 class="text-lg sm:text-xl font-bold text-groq-dark flex items-center gap-2">
+              <i data-lucide="lock" class="w-4 h-4 text-purple-600"></i>
+              Authentication & Enterprise Privacy Headers
             </h2>
-            <div class="space-y-2">
-              <h3 class="text-xs sm:text-sm font-semibold text-groq-dark">Create chat completion</h3>
-              <div class="flex flex-wrap items-center gap-2 p-2.5 sm:px-3 sm:py-2 rounded-xl bg-gray-50 border border-groq-grayBorder font-mono text-xs break-all">
-                <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold text-[10px] shrink-0">POST</span>
-                <span class="text-groq-dark break-all flex-1 select-all font-medium">https://projectspg.info/v1/chat/completions</span>
-                <button onclick="navigator.clipboard.writeText('https://projectspg.info/v1/chat/completions'); alert('Endpoint URL copied!');" class="p-1 text-groq-textMuted hover:text-groq-dark cursor-pointer shrink-0" title="Copy endpoint">
-                  <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-                </button>
-              </div>
-              <p class="text-xs text-groq-textMuted leading-relaxed">Creates a model response with automated edge privacy neutralization and reversible tokenization across 109 sovereign jurisdictions.</p>
-            </div>
+            <p class="text-xs text-groq-textMuted mt-1">Authenticate all API requests via standard Bearer tokens and configure zero-knowledge encryption parameters.</p>
           </div>
 
-          <!-- Quick Parameters Table -->
+          <div class="border border-groq-grayBorder rounded-xl overflow-hidden text-xs">
+            <table class="w-full text-left border-collapse">
+              <thead class="bg-gray-50/80 font-mono text-[10px] text-groq-textSubtle uppercase tracking-wider border-b border-gray-200">
+                <tr>
+                  <th class="py-2.5 px-4 font-semibold">HEADER</th>
+                  <th class="py-2.5 px-4 font-semibold">TYPE</th>
+                  <th class="py-2.5 px-4 font-semibold">REQUIRED</th>
+                  <th class="py-2.5 px-4 font-semibold">DESCRIPTION</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-100 font-sans">
+                <tr>
+                  <td class="py-3 px-4 font-mono font-medium text-groq-dark">Authorization</td>
+                  <td class="py-3 px-4 font-mono text-gray-500">string</td>
+                  <td class="py-3 px-4"><span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700">Required</span></td>
+                  <td class="py-3 px-4 text-groq-textMuted">Bearer token with your project API key: <code>Bearer spg_live_...</code></td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-4 font-mono font-medium text-groq-dark">Content-Type</td>
+                  <td class="py-3 px-4 font-mono text-gray-500">string</td>
+                  <td class="py-3 px-4"><span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700">Required</span></td>
+                  <td class="py-3 px-4 text-groq-textMuted">Must be <code>application/json</code> for JSON request bodies.</td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-4 font-mono font-medium text-groq-dark">x-tokenization-mode</td>
+                  <td class="py-3 px-4 font-mono text-gray-500">string</td>
+                  <td class="py-3 px-4"><span class="px-2 py-0.5 rounded text-[10px] font-medium bg-gray-100 text-gray-600">Optional</span></td>
+                  <td class="py-3 px-4 text-groq-textMuted">Privacy mode: <code>mask</code> (default: e.g. <code>[PERSON_1]</code>), <code>synthetic</code> (realistic fake data), or <code>fpe</code> (Format-Preserving Encryption).</td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-4 font-mono font-medium text-groq-dark">x-detection-categories</td>
+                  <td class="py-3 px-4 font-mono text-gray-500">string</td>
+                  <td class="py-3 px-4"><span class="px-2 py-0.5 rounded text-[10px] font-medium bg-gray-100 text-gray-600">Optional</span></td>
+                  <td class="py-3 px-4 text-groq-textMuted">Comma-separated regions or categories to scan (e.g. <code>north_america,european_union,financial,corporate</code> or <code>all</code>). Default: <code>all</code>.</td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-4 font-mono font-medium text-groq-dark">x-vault-encryption-key</td>
+                  <td class="py-3 px-4 font-mono text-gray-500">string</td>
+                  <td class="py-3 px-4"><span class="px-2 py-0.5 rounded text-[10px] font-medium bg-gray-100 text-gray-600">Optional</span></td>
+                  <td class="py-3 px-4 text-groq-textMuted">Client-provided 32-character AES-256-GCM encryption key. Zero plaintext is stored in the vault without this key.</td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-4 font-mono font-medium text-groq-dark">x-custom-entities</td>
+                  <td class="py-3 px-4 font-mono text-gray-500">string</td>
+                  <td class="py-3 px-4"><span class="px-2 py-0.5 rounded text-[10px] font-medium bg-gray-100 text-gray-600">Optional</span></td>
+                  <td class="py-3 px-4 text-groq-textMuted">JSON array or comma-separated list of proprietary keywords or project codenames to redact (e.g. <code>[&quot;ProjectTitan&quot;, &quot;SecretAlgorithm&quot;]</code>).</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- SECTION 3: POST /v1/chat/completions -->
+        <section id="docs-chat-completions" class="space-y-5 pt-4 border-t border-gray-100">
+          <div class="space-y-1.5">
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold font-mono text-xs">POST</span>
+              <h2 class="text-lg sm:text-xl font-bold font-mono text-groq-dark">/v1/chat/completions</h2>
+            </div>
+            <p class="text-xs text-groq-textMuted leading-relaxed">
+              Creates a privacy-sanitized chat completion. Ingests raw user prompts, masks 109-country PII/financial/health entities with cryptographic tokens at sub-millisecond edge speed, executes upstream inference, and rehydrates the model output back to the original entities. Supports real-time Server-Sent Events (SSE) streaming.
+            </p>
+          </div>
+
+          <!-- Endpoint URL Bar -->
+          <div class="flex items-center justify-between p-3 rounded-xl bg-gray-50 border border-groq-grayBorder font-mono text-xs select-all">
+            <span class="text-groq-dark font-medium">https://api.projectspg.info/v1/chat/completions</span>
+            <button onclick="navigator.clipboard.writeText('https://api.projectspg.info/v1/chat/completions'); alert('Copied endpoint URL!');" class="text-gray-400 hover:text-gray-700 cursor-pointer" title="Copy"><i data-lucide="copy" class="w-3.5 h-3.5"></i></button>
+          </div>
+
+          <!-- Request Body Parameters Table -->
           <div class="space-y-2">
-            <h4 class="text-xs font-semibold text-groq-dark uppercase tracking-wider">Required Headers</h4>
-            <div class="border border-groq-grayBorder rounded-xl overflow-hidden text-xs font-sans">
-              <div class="bg-gray-50 px-3 py-2 border-b border-gray-100 font-mono text-[11px] text-groq-textSubtle flex justify-between">
-                <span>HEADER</span>
-                <span>TYPE / VALUE</span>
-              </div>
-              <div class="p-3 border-b border-gray-100 flex items-center justify-between font-mono text-[11px]">
-                <span class="text-groq-dark font-medium">Authorization</span>
-                <span class="text-emerald-700 font-semibold">Bearer spg_live_...</span>
-              </div>
-              <div class="p-3 flex items-center justify-between font-mono text-[11px]">
-                <span class="text-groq-dark font-medium">Content-Type</span>
-                <span class="text-gray-600">application/json</span>
-              </div>
+            <h3 class="text-xs font-bold text-groq-dark uppercase tracking-wider">Request Body Parameters</h3>
+            <div class="border border-groq-grayBorder rounded-xl overflow-hidden text-xs">
+              <table class="w-full text-left border-collapse">
+                <thead class="bg-gray-50/80 font-mono text-[10px] text-groq-textSubtle uppercase tracking-wider border-b border-gray-200">
+                  <tr>
+                    <th class="py-2.5 px-4 font-semibold">PARAMETER</th>
+                    <th class="py-2.5 px-4 font-semibold">TYPE</th>
+                    <th class="py-2.5 px-4 font-semibold">DEFAULT</th>
+                    <th class="py-2.5 px-4 font-semibold">DESCRIPTION</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100 font-sans">
+                  <tr>
+                    <td class="py-3 px-4 font-mono font-medium text-groq-dark">model</td>
+                    <td class="py-3 px-4 font-mono text-gray-500">string</td>
+                    <td class="py-3 px-4 text-gray-400 font-mono">-</td>
+                    <td class="py-3 px-4 text-groq-textMuted"><strong class="text-emerald-700">Required.</strong> Model ID, e.g. <code>openai/gpt-oss-120b</code>, <code>codestral-2508</code>, <code>ministral-8b-2512</code>, <code>gemini-3.5-flash-lite</code>.</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 px-4 font-mono font-medium text-groq-dark">messages</td>
+                    <td class="py-3 px-4 font-mono text-gray-500">array&lt;object&gt;</td>
+                    <td class="py-3 px-4 text-gray-400 font-mono">-</td>
+                    <td class="py-3 px-4 text-groq-textMuted"><strong class="text-emerald-700">Required.</strong> Array of message objects, each containing <code>role</code> (<code>system</code>, <code>user</code>, or <code>assistant</code>) and <code>content</code> (string).</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 px-4 font-mono font-medium text-groq-dark">temperature</td>
+                    <td class="py-3 px-4 font-mono text-gray-500">number</td>
+                    <td class="py-3 px-4 text-gray-600 font-mono">1.0</td>
+                    <td class="py-3 px-4 text-groq-textMuted">Sampling temperature between 0 and 2. Lower values result in more deterministic completions.</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 px-4 font-mono font-medium text-groq-dark">max_tokens</td>
+                    <td class="py-3 px-4 font-mono text-gray-500">integer</td>
+                    <td class="py-3 px-4 text-gray-600 font-mono">2048</td>
+                    <td class="py-3 px-4 text-groq-textMuted">The maximum number of tokens to generate in the chat completion.</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 px-4 font-mono font-medium text-groq-dark">stream</td>
+                    <td class="py-3 px-4 font-mono text-gray-500">boolean</td>
+                    <td class="py-3 px-4 text-gray-600 font-mono">false</td>
+                    <td class="py-3 px-4 text-groq-textMuted">If true, partial message deltas are streamed as Server-Sent Events (SSE) using the StreamTokenBuffer.</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 px-4 font-mono font-medium text-groq-dark">response_format</td>
+                    <td class="py-3 px-4 font-mono text-gray-500">object</td>
+                    <td class="py-3 px-4 text-gray-400 font-mono">null</td>
+                    <td class="py-3 px-4 text-groq-textMuted">Set to <code>{ &quot;type&quot;: &quot;json_object&quot; }</code> to enable JSON mode output.</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 px-4 font-mono font-medium text-groq-dark">seed</td>
+                    <td class="py-3 px-4 font-mono text-gray-500">integer</td>
+                    <td class="py-3 px-4 text-gray-400 font-mono">null</td>
+                    <td class="py-3 px-4 text-groq-textMuted">Deterministic sampling seed for reproducible outputs.</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 px-4 font-mono font-medium text-groq-dark">stop</td>
+                    <td class="py-3 px-4 font-mono text-gray-500">string | array</td>
+                    <td class="py-3 px-4 text-gray-400 font-mono">null</td>
+                    <td class="py-3 px-4 text-groq-textMuted">Up to 4 sequences where the API will stop generating further tokens.</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
-        </div>
 
-        <!-- Right Side: Code Snippet Card in Docs -->
-        <div class="w-full lg:w-[420px] shrink-0 space-y-3">
-          <div class="flex items-center justify-between text-xs font-semibold text-groq-dark">
-            <span class="flex items-center gap-1.5"><i data-lucide="terminal" class="w-3.5 h-3.5 text-[#f0523d]"></i> Example Request</span>
-            <button onclick="navigator.clipboard.writeText(document.getElementById('docs-code-curl').innerText); alert('cURL snippet copied!');" class="text-[11px] text-groq-textMuted hover:text-groq-dark flex items-center gap-1 font-medium cursor-pointer">
-              <i data-lucide="copy" class="w-3 h-3"></i> Copy
-            </button>
-          </div>
-          <div id="docs-code-curl" class="bg-[#1e1e2e] text-slate-100 p-4 rounded-xl font-mono text-[11px] leading-[1.65] overflow-x-auto whitespace-pre touch-scroll shadow-md select-all">curl https://projectspg.info/v1/chat/completions \
-  -H "Authorization: Bearer spg_live_your_key" \
-  -H "Content-Type: application/json" \
+          <!-- Multi-Tab Code Example Box -->
+          <div id="docs-codeblock-chat" class="rounded-2xl border border-gray-800 bg-[#181825] overflow-hidden shadow-lg">
+            <div class="flex items-center justify-between px-4 py-2.5 bg-[#1e1e2e] border-b border-gray-800 text-xs">
+              <div class="flex items-center gap-4">
+                <button onclick="switchDocsCodeLang('chat', 'curl')" id="docs-tab-chat-curl" class="docs-lang-tab text-[#f0523d] border-b-2 border-[#f0523d] pb-1 font-semibold cursor-pointer">cURL</button>
+                <button onclick="switchDocsCodeLang('chat', 'python')" id="docs-tab-chat-python" class="docs-lang-tab text-gray-400 hover:text-white pb-1 font-medium cursor-pointer">Python (OpenAI SDK)</button>
+                <button onclick="switchDocsCodeLang('chat', 'node')" id="docs-tab-chat-node" class="docs-lang-tab text-gray-400 hover:text-white pb-1 font-medium cursor-pointer">Node.js (OpenAI SDK)</button>
+                <button onclick="switchDocsCodeLang('chat', 'fetch')" id="docs-tab-chat-fetch" class="docs-lang-tab text-gray-400 hover:text-white pb-1 font-medium cursor-pointer">Fetch (Browser/Edge)</button>
+              </div>
+              <button onclick="copyDocsSnippet('docs-code-chat-active', this)" class="text-[11px] text-gray-400 hover:text-white flex items-center gap-1 font-medium cursor-pointer transition">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy
+              </button>
+            </div>
+            
+            <!-- cURL Pane -->
+            <div id="docs-code-chat-curl" class="docs-code-pane p-4 font-mono text-[11px] text-slate-100 leading-relaxed overflow-x-auto whitespace-pre select-all"><span id="docs-code-chat-active">curl https://api.projectspg.info/v1/chat/completions \\
+  -H "Authorization: Bearer spg_live_your_key_here" \\
+  -H "Content-Type: application/json" \\
+  -H "x-tokenization-mode: mask" \\
+  -H "x-detection-categories: all" \\
   -d '{
     "model": "openai/gpt-oss-120b",
     "messages": [
       {
+        "role": "system",
+        "content": "You are a helpful customer support assistant."
+      },
+      {
         "role": "user",
-        "content": "Confirm order for Alice (SSN: 123-45-6789)"
+        "content": "Hello, my email is alice@company.com and my credit card is 4111-2222-3333-4444. Can you refund me?"
       }
     ],
-    "temperature": 0.7
+    "temperature": 0.7,
+    "max_tokens": 1024
+  }'</span></div>
+
+            <!-- Python Pane -->
+            <div id="docs-code-chat-python" class="docs-code-pane hidden p-4 font-mono text-[11px] text-slate-100 leading-relaxed overflow-x-auto whitespace-pre select-all">from openai import OpenAI
+
+# Drop-in replacement: point standard OpenAI SDK to ProjectSPG base_url
+client = OpenAI(
+    api_key="spg_live_your_key_here",
+    base_url="https://api.projectspg.info/v1"
+)
+
+response = client.chat.completions.create(
+    model="openai/gpt-oss-120b",
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": "Confirm shipment to Bob (SSN: 987-65-4321) at bob@domain.com"}
+    ],
+    temperature=0.7
+)
+
+# Plaintext entities are restored safely in the final output
+print("AI Response:", response.choices[0].message.content)</div>
+
+            <!-- Node.js Pane -->
+            <div id="docs-code-chat-node" class="docs-code-pane hidden p-4 font-mono text-[11px] text-slate-100 leading-relaxed overflow-x-auto whitespace-pre select-all">import OpenAI from "openai";
+
+// Drop-in replacement: point standard OpenAI client to ProjectSPG
+const client = new OpenAI({
+  apiKey: "spg_live_your_key_here",
+  baseURL: "https://api.projectspg.info/v1"
+});
+
+async function main() {
+  const completion = await client.chat.completions.create({
+    model: "openai/gpt-oss-120b",
+    messages: [
+      { role: "user", content: "Process order for Alice, passport: K1234567" }
+    ]
+  });
+
+  console.log(completion.choices[0].message.content);
+}
+
+main();</div>
+
+            <!-- Fetch Pane -->
+            <div id="docs-code-chat-fetch" class="docs-code-pane hidden p-4 font-mono text-[11px] text-slate-100 leading-relaxed overflow-x-auto whitespace-pre select-all">const response = await fetch("https://api.projectspg.info/v1/chat/completions", {
+  method: "POST",
+  headers: {
+    "Authorization": "Bearer spg_live_your_key_here",
+    "Content-Type": "application/json",
+    "x-tokenization-mode": "mask"
+  },
+  body: JSON.stringify({
+    model: "openai/gpt-oss-120b",
+    messages: [
+      { role: "user", content: "Please contact me at john.doe@securebank.com regarding account 849204819" }
+    ]
+  })
+});
+
+const data = await response.json();
+console.log(data.choices[0].message.content);</div>
+          </div>
+
+          <!-- Response Example -->
+          <div class="space-y-2">
+            <h3 class="text-xs font-bold text-groq-dark uppercase tracking-wider">Example Response (200 OK)</h3>
+            <div class="bg-[#181825] text-slate-100 p-4 rounded-xl font-mono text-[11px] leading-relaxed overflow-x-auto whitespace-pre select-all">{
+  "id": "chatcmpl-9x1u...abc",
+  "object": "chat.completion",
+  "created": 1727982000,
+  "model": "openai/gpt-oss-120b",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "I have initiated the refund for alice@company.com to your card ending in 4444."
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 42,
+    "completion_tokens": 28,
+    "total_tokens": 70
+  },
+  "privacy": {
+    "protected_prompt": "Hello, my email is [EMAIL_1] and my credit card is [CARD_1]. Can you refund me?",
+    "entities_count": 2,
+    "token_map": {
+      "[EMAIL_1]": "alice@company.com",
+      "[CARD_1]": "4111-2222-3333-4444"
+    },
+    "engine_latency_us": 142
+  }
+}</div>
+          </div>
+        </section>
+
+        <!-- SECTION 4: POST /v1/embeddings -->
+        <section id="docs-embeddings" class="space-y-5 pt-4 border-t border-gray-100">
+          <div class="space-y-1.5">
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold font-mono text-xs">POST</span>
+              <h2 class="text-lg sm:text-xl font-bold font-mono text-groq-dark">/v1/embeddings</h2>
+            </div>
+            <p class="text-xs text-groq-textMuted leading-relaxed">
+              Vector embedding privacy sanitization. Intercepts raw text or text batches, neutralizes PII and identifiers, and requests normalized vector embeddings from the upstream model without leaking raw data to vector database indexing pipelines.
+            </p>
+          </div>
+
+          <div class="flex items-center justify-between p-3 rounded-xl bg-gray-50 border border-groq-grayBorder font-mono text-xs select-all">
+            <span class="text-groq-dark font-medium">https://api.projectspg.info/v1/embeddings</span>
+            <button onclick="navigator.clipboard.writeText('https://api.projectspg.info/v1/embeddings'); alert('Copied endpoint URL!');" class="text-gray-400 hover:text-gray-700 cursor-pointer" title="Copy"><i data-lucide="copy" class="w-3.5 h-3.5"></i></button>
+          </div>
+
+          <div class="space-y-2">
+            <h3 class="text-xs font-bold text-groq-dark uppercase tracking-wider">Parameters</h3>
+            <div class="border border-groq-grayBorder rounded-xl overflow-hidden text-xs">
+              <table class="w-full text-left border-collapse">
+                <thead class="bg-gray-50/80 font-mono text-[10px] text-groq-textSubtle uppercase tracking-wider border-b border-gray-200">
+                  <tr>
+                    <th class="py-2.5 px-4 font-semibold">PARAMETER</th>
+                    <th class="py-2.5 px-4 font-semibold">TYPE</th>
+                    <th class="py-2.5 px-4 font-semibold">REQUIRED</th>
+                    <th class="py-2.5 px-4 font-semibold">DESCRIPTION</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100 font-sans">
+                  <tr>
+                    <td class="py-3 px-4 font-mono font-medium text-groq-dark">input</td>
+                    <td class="py-3 px-4 font-mono text-gray-500">string | array&lt;string&gt;</td>
+                    <td class="py-3 px-4"><span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700">Required</span></td>
+                    <td class="py-3 px-4 text-groq-textMuted">The text or array of strings to generate vector embeddings for.</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 px-4 font-mono font-medium text-groq-dark">model</td>
+                    <td class="py-3 px-4 font-mono text-gray-500">string</td>
+                    <td class="py-3 px-4"><span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700">Required</span></td>
+                    <td class="py-3 px-4 text-groq-textMuted">Embedding model identifier (e.g. <code>text-embedding-3-small</code>, <code>text-embedding-3-large</code>).</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="bg-[#181825] text-slate-100 p-4 rounded-xl font-mono text-[11px] leading-relaxed overflow-x-auto whitespace-pre select-all">curl https://api.projectspg.info/v1/embeddings \\
+  -H "Authorization: Bearer spg_live_your_key_here" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "model": "text-embedding-3-small",
+    "input": "Patient John Doe was admitted to hospital on 2026-08-12."
   }'</div>
-        </div>
+        </section>
+
+        <!-- SECTION 5: GET /v1/models -->
+        <section id="docs-models" class="space-y-5 pt-4 border-t border-gray-100">
+          <div class="space-y-1.5">
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-bold font-mono text-xs">GET</span>
+              <h2 class="text-lg sm:text-xl font-bold font-mono text-groq-dark">/v1/models</h2>
+            </div>
+            <p class="text-xs text-groq-textMuted leading-relaxed">
+              Lists the catalog of available LLMs, including model IDs, upstream providers (Groq Cloud, Google AI Studio, Mistral AI), rate per 1M tokens, context windows, and operational tier tags.
+            </p>
+          </div>
+
+          <div class="flex items-center justify-between p-3 rounded-xl bg-gray-50 border border-groq-grayBorder font-mono text-xs select-all">
+            <span class="text-groq-dark font-medium">https://api.projectspg.info/v1/models</span>
+            <button onclick="navigator.clipboard.writeText('https://api.projectspg.info/v1/models'); alert('Copied endpoint URL!');" class="text-gray-400 hover:text-gray-700 cursor-pointer" title="Copy"><i data-lucide="copy" class="w-3.5 h-3.5"></i></button>
+          </div>
+
+          <div class="bg-[#181825] text-slate-100 p-4 rounded-xl font-mono text-[11px] leading-relaxed overflow-x-auto whitespace-pre select-all">curl https://api.projectspg.info/v1/models \\
+  -H "Authorization: Bearer spg_live_your_key_here"</div>
+
+          <div class="space-y-2">
+            <h3 class="text-xs font-bold text-groq-dark uppercase tracking-wider">Example Response (200 OK)</h3>
+            <div class="bg-[#181825] text-slate-100 p-4 rounded-xl font-mono text-[11px] leading-relaxed overflow-x-auto whitespace-pre select-all">{
+  "object": "list",
+  "data": [
+    {
+      "id": "openai/gpt-oss-120b",
+      "object": "model",
+      "owned_by": "groq",
+      "provider": "Groq Cloud",
+      "rate_per_1m_tokens": 0.15,
+      "context_window": 131072
+    },
+    {
+      "id": "codestral-2508",
+      "object": "model",
+      "owned_by": "mistral",
+      "provider": "Mistral AI",
+      "rate_per_1m_tokens": 0.30,
+      "context_window": 262144
+    },
+    {
+      "id": "ministral-8b-2512",
+      "object": "model",
+      "owned_by": "mistral",
+      "provider": "Mistral AI",
+      "rate_per_1m_tokens": 0.10,
+      "context_window": 131072
+    }
+  ]
+}</div>
+        </section>
+
+        <!-- SECTION 6: GET /v1/models/{model} -->
+        <section id="docs-models-get" class="space-y-5 pt-4 border-t border-gray-100">
+          <div class="space-y-1.5">
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-bold font-mono text-xs">GET</span>
+              <h2 class="text-lg sm:text-xl font-bold font-mono text-groq-dark">/v1/models/{model}</h2>
+            </div>
+            <p class="text-xs text-groq-textMuted leading-relaxed">
+              Retrieves a single model instance and its operational configuration, verification status, and provider endpoint.
+            </p>
+          </div>
+
+          <div class="bg-[#181825] text-slate-100 p-4 rounded-xl font-mono text-[11px] leading-relaxed overflow-x-auto whitespace-pre select-all">curl https://api.projectspg.info/v1/models/codestral-2508 \\
+  -H "Authorization: Bearer spg_live_your_key_here"</div>
+        </section>
+
+        <!-- SECTION 7: POST /api/tokenize -->
+        <section id="docs-tokenize" class="space-y-5 pt-4 border-t border-gray-100">
+          <div class="space-y-1.5">
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold font-mono text-xs">POST</span>
+              <h2 class="text-lg sm:text-xl font-bold font-mono text-groq-dark">/api/tokenize</h2>
+            </div>
+            <p class="text-xs text-groq-textMuted leading-relaxed">
+              Standalone data de-identification & reversible tokenization. Neutralizes sensitive PII, PHI, financial cards, and custom keywords without invoking an external LLM. Use this to sanitize database rows, log pipelines, or document indexing before storage.
+            </p>
+          </div>
+
+          <div class="flex items-center justify-between p-3 rounded-xl bg-gray-50 border border-groq-grayBorder font-mono text-xs select-all">
+            <span class="text-groq-dark font-medium">https://api.projectspg.info/api/tokenize</span>
+            <button onclick="navigator.clipboard.writeText('https://api.projectspg.info/api/tokenize'); alert('Copied endpoint URL!');" class="text-gray-400 hover:text-gray-700 cursor-pointer" title="Copy"><i data-lucide="copy" class="w-3.5 h-3.5"></i></button>
+          </div>
+
+          <div class="space-y-2">
+            <h3 class="text-xs font-bold text-groq-dark uppercase tracking-wider">Parameters</h3>
+            <div class="border border-groq-grayBorder rounded-xl overflow-hidden text-xs">
+              <table class="w-full text-left border-collapse">
+                <thead class="bg-gray-50/80 font-mono text-[10px] text-groq-textSubtle uppercase tracking-wider border-b border-gray-200">
+                  <tr>
+                    <th class="py-2.5 px-4 font-semibold">PARAMETER</th>
+                    <th class="py-2.5 px-4 font-semibold">TYPE</th>
+                    <th class="py-2.5 px-4 font-semibold">DEFAULT</th>
+                    <th class="py-2.5 px-4 font-semibold">DESCRIPTION</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100 font-sans">
+                  <tr>
+                    <td class="py-3 px-4 font-mono font-medium text-groq-dark">text</td>
+                    <td class="py-3 px-4 font-mono text-gray-500">string</td>
+                    <td class="py-3 px-4 text-gray-400 font-mono">-</td>
+                    <td class="py-3 px-4 text-groq-textMuted"><strong class="text-emerald-700">Required.</strong> Raw input text to sanitize.</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 px-4 font-mono font-medium text-groq-dark">categories</td>
+                    <td class="py-3 px-4 font-mono text-gray-500">array&lt;string&gt;</td>
+                    <td class="py-3 px-4 text-gray-600 font-mono">["all"]</td>
+                    <td class="py-3 px-4 text-groq-textMuted">Jurisdiction filters: <code>["north_america", "european_union", "financial"]</code>.</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 px-4 font-mono font-medium text-groq-dark">mode</td>
+                    <td class="py-3 px-4 font-mono text-gray-500">string</td>
+                    <td class="py-3 px-4 text-gray-600 font-mono">"mask"</td>
+                    <td class="py-3 px-4 text-groq-textMuted">Tokenization scheme: <code>"mask"</code>, <code>"synthetic"</code>, or <code>"fpe"</code>.</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 px-4 font-mono font-medium text-groq-dark">sessionId</td>
+                    <td class="py-3 px-4 font-mono text-gray-500">string</td>
+                    <td class="py-3 px-4 text-gray-400 font-mono">auto</td>
+                    <td class="py-3 px-4 text-groq-textMuted">Optional session ID to persist token mappings in the edge vault for later rehydration.</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 px-4 font-mono font-medium text-groq-dark">ttlSeconds</td>
+                    <td class="py-3 px-4 font-mono text-gray-500">integer</td>
+                    <td class="py-3 px-4 text-gray-600 font-mono">86400</td>
+                    <td class="py-3 px-4 text-groq-textMuted">Time to live in seconds for the session mapping (default: 24 hours).</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="bg-[#181825] text-slate-100 p-4 rounded-xl font-mono text-[11px] leading-relaxed overflow-x-auto whitespace-pre select-all">curl https://api.projectspg.info/api/tokenize \\
+  -H "Authorization: Bearer spg_live_your_key_here" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "text": "Transfer $5,000 from account 9876543210 to David Lee (SSN: 000-11-2222).",
+    "mode": "mask",
+    "categories": ["all"]
+  }'</div>
+
+          <div class="space-y-2">
+            <h3 class="text-xs font-bold text-groq-dark uppercase tracking-wider">Example Response (200 OK)</h3>
+            <div class="bg-[#181825] text-slate-100 p-4 rounded-xl font-mono text-[11px] leading-relaxed overflow-x-auto whitespace-pre select-all">{
+  "sanitizedText": "Transfer $5,000 from account [BANK_ACCOUNT_1] to [PERSON_1] (SSN: [SSN_1]).",
+  "sessionId": "sess_9x2u1m7a",
+  "entitiesCount": 3,
+  "entitiesDetected": ["BANK_ACCOUNT", "PERSON", "SSN"],
+  "tokenMap": {
+    "[BANK_ACCOUNT_1]": "9876543210",
+    "[PERSON_1]": "David Lee",
+    "[SSN_1]": "000-11-2222"
+  },
+  "engineLatencyUs": 84
+}</div>
+          </div>
+        </section>
+
+        <!-- SECTION 8: POST /api/detokenize -->
+        <section id="docs-detokenize" class="space-y-5 pt-4 border-t border-gray-100">
+          <div class="space-y-1.5">
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold font-mono text-xs">POST</span>
+              <h2 class="text-lg sm:text-xl font-bold font-mono text-groq-dark">/api/detokenize</h2>
+            </div>
+            <p class="text-xs text-groq-textMuted leading-relaxed">
+              Reversible rehydration. Takes a sanitized text containing tokens (e.g. <code>[PERSON_1]</code>) and restores the original plaintext values using either the stored <code>sessionId</code> or an explicitly passed <code>tokenMap</code>.
+            </p>
+          </div>
+
+          <div class="flex items-center justify-between p-3 rounded-xl bg-gray-50 border border-groq-grayBorder font-mono text-xs select-all">
+            <span class="text-groq-dark font-medium">https://api.projectspg.info/api/detokenize</span>
+            <button onclick="navigator.clipboard.writeText('https://api.projectspg.info/api/detokenize'); alert('Copied endpoint URL!');" class="text-gray-400 hover:text-gray-700 cursor-pointer" title="Copy"><i data-lucide="copy" class="w-3.5 h-3.5"></i></button>
+          </div>
+
+          <div class="bg-[#181825] text-slate-100 p-4 rounded-xl font-mono text-[11px] leading-relaxed overflow-x-auto whitespace-pre select-all">curl https://api.projectspg.info/api/detokenize \\
+  -H "Authorization: Bearer spg_live_your_key_here" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "text": "Payment sent to [PERSON_1] at [BANK_ACCOUNT_1].",
+    "sessionId": "sess_9x2u1m7a"
+  }'</div>
+
+          <div class="space-y-2">
+            <h3 class="text-xs font-bold text-groq-dark uppercase tracking-wider">Example Response (200 OK)</h3>
+            <div class="bg-[#181825] text-slate-100 p-4 rounded-xl font-mono text-[11px] leading-relaxed overflow-x-auto whitespace-pre select-all">{
+  "rehydratedText": "Payment sent to David Lee at 9876543210.",
+  "entitiesRestored": 2,
+  "sessionId": "sess_9x2u1m7a"
+}</div>
+          </div>
+        </section>
+
+        <!-- SECTION 9: GET /v1/logs -->
+        <section id="docs-logs" class="space-y-5 pt-4 border-t border-gray-100">
+          <div class="space-y-1.5">
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-bold font-mono text-xs">GET</span>
+              <h2 class="text-lg sm:text-xl font-bold font-mono text-groq-dark">/v1/logs</h2>
+            </div>
+            <p class="text-xs text-groq-textMuted leading-relaxed">
+              Retrieves the recent API call telemetry logs strictly belonging to the authenticated API key or user account. Used for real-time metering, token usage tracking, and audit verification.
+            </p>
+          </div>
+
+          <div class="space-y-2">
+            <h3 class="text-xs font-bold text-groq-dark uppercase tracking-wider">Query Parameters</h3>
+            <div class="border border-groq-grayBorder rounded-xl overflow-hidden text-xs">
+              <table class="w-full text-left border-collapse">
+                <thead class="bg-gray-50/80 font-mono text-[10px] text-groq-textSubtle uppercase tracking-wider border-b border-gray-200">
+                  <tr>
+                    <th class="py-2.5 px-4 font-semibold">PARAMETER</th>
+                    <th class="py-2.5 px-4 font-semibold">TYPE</th>
+                    <th class="py-2.5 px-4 font-semibold">DEFAULT</th>
+                    <th class="py-2.5 px-4 font-semibold">DESCRIPTION</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100 font-sans">
+                  <tr>
+                    <td class="py-3 px-4 font-mono font-medium text-groq-dark">limit</td>
+                    <td class="py-3 px-4 font-mono text-gray-500">integer</td>
+                    <td class="py-3 px-4 text-gray-600 font-mono">50</td>
+                    <td class="py-3 px-4 text-groq-textMuted">Number of recent log records to return (maximum: 100).</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="bg-[#181825] text-slate-100 p-4 rounded-xl font-mono text-[11px] leading-relaxed overflow-x-auto whitespace-pre select-all">curl "https://api.projectspg.info/v1/logs?limit=10" \\
+  -H "Authorization: Bearer spg_live_your_key_here"</div>
+        </section>
+
+        <!-- SECTION 10: GET /v1/audit/events -->
+        <section id="docs-audit-events" class="space-y-5 pt-4 border-t border-gray-100">
+          <div class="space-y-1.5">
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-bold font-mono text-xs">GET</span>
+              <h2 class="text-lg sm:text-xl font-bold font-mono text-groq-dark">/v1/audit/events</h2>
+            </div>
+            <p class="text-xs text-groq-textMuted leading-relaxed">
+              Retrieves structured, zero-plaintext audit events formatted for enterprise SIEM ingestion (Splunk, Datadog, AWS CloudWatch). Every event includes rule IDs, SHA-256 fingerprints, execution latencies, and KMS encryption flags.
+            </p>
+          </div>
+
+          <div class="bg-[#181825] text-slate-100 p-4 rounded-xl font-mono text-[11px] leading-relaxed overflow-x-auto whitespace-pre select-all">curl "https://api.projectspg.info/v1/audit/events?limit=25" \\
+  -H "Authorization: Bearer spg_live_your_key_here"</div>
+        </section>
+
+        <!-- SECTION 11: KEYS MANAGEMENT -->
+        <section id="docs-keys-list" class="space-y-5 pt-4 border-t border-gray-100">
+          <div class="space-y-1.5">
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-bold font-mono text-xs">GET</span>
+              <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold font-mono text-xs">POST</span>
+              <span class="px-2 py-0.5 rounded bg-rose-100 text-rose-800 font-bold font-mono text-xs">DELETE</span>
+              <h2 class="text-lg sm:text-xl font-bold font-mono text-groq-dark">API Key Management (/api/keys)</h2>
+            </div>
+            <p class="text-xs text-groq-textMuted leading-relaxed">
+              Programmatically provision, inspect, and revoke API keys for your infrastructure, continuous deployment pipelines, and microservices.
+            </p>
+          </div>
+
+          <!-- Sub-endpoint Cards -->
+          <div class="space-y-4">
+            <!-- 1. List Keys -->
+            <div class="p-4 rounded-xl border border-groq-grayBorder bg-slate-50/60 space-y-2">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2 font-mono text-xs font-semibold text-groq-dark">
+                  <span class="px-1.5 py-0.5 rounded text-[10px] bg-blue-100 text-blue-800 font-bold">GET</span>
+                  <span>/api/keys</span>
+                </div>
+                <span class="text-[11px] text-gray-500">List all active keys for account</span>
+              </div>
+              <div class="bg-[#181825] text-slate-100 p-3 rounded-lg font-mono text-[11px] leading-relaxed overflow-x-auto whitespace-pre select-all">curl https://api.projectspg.info/api/keys \\
+  -H "Authorization: Bearer &lt;Firebase_ID_Token&gt;"</div>
+            </div>
+
+            <!-- 2. Create Key -->
+            <div id="docs-keys-create" class="p-4 rounded-xl border border-groq-grayBorder bg-slate-50/60 space-y-2">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2 font-mono text-xs font-semibold text-groq-dark">
+                  <span class="px-1.5 py-0.5 rounded text-[10px] bg-emerald-100 text-emerald-800 font-bold">POST</span>
+                  <span>/api/keys</span>
+                </div>
+                <span class="text-[11px] text-gray-500">Provision a new API key</span>
+              </div>
+              <div class="bg-[#181825] text-slate-100 p-3 rounded-lg font-mono text-[11px] leading-relaxed overflow-x-auto whitespace-pre select-all">curl -X POST https://api.projectspg.info/api/keys \\
+  -H "Authorization: Bearer &lt;Firebase_ID_Token&gt;" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "name": "Production Microservice",
+    "tier": "free",
+    "monthlyQuota": 10000
+  }'</div>
+            </div>
+
+            <!-- 3. Delete Key -->
+            <div id="docs-keys-delete" class="p-4 rounded-xl border border-groq-grayBorder bg-slate-50/60 space-y-2">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2 font-mono text-xs font-semibold text-groq-dark">
+                  <span class="px-1.5 py-0.5 rounded text-[10px] bg-rose-100 text-rose-800 font-bold">DELETE</span>
+                  <span>/api/keys/{id}</span>
+                </div>
+                <span class="text-[11px] text-gray-500">Revoke an active key instantly</span>
+              </div>
+              <div class="bg-[#181825] text-slate-100 p-3 rounded-lg font-mono text-[11px] leading-relaxed overflow-x-auto whitespace-pre select-all">curl -X DELETE https://api.projectspg.info/api/keys/key_123456 \\
+  -H "Authorization: Bearer &lt;Firebase_ID_Token&gt;"</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 12: GET /health -->
+        <section id="docs-health" class="space-y-4 pt-4 border-t border-gray-100 pb-16">
+          <div class="space-y-1.5">
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-bold font-mono text-xs">GET</span>
+              <h2 class="text-lg sm:text-xl font-bold font-mono text-groq-dark">/health</h2>
+            </div>
+            <p class="text-xs text-groq-textMuted leading-relaxed">
+              Global edge health check and latency ping. Returns cluster operational status, response timestamp, Cloudflare Colo edge region, and active engine version.
+            </p>
+          </div>
+
+          <div class="bg-[#181825] text-slate-100 p-4 rounded-xl font-mono text-[11px] leading-relaxed overflow-x-auto whitespace-pre select-all">curl https://api.projectspg.info/health</div>
+
+          <div class="space-y-2">
+            <h3 class="text-xs font-bold text-groq-dark uppercase tracking-wider">Example Response (200 OK)</h3>
+            <div class="bg-[#181825] text-slate-100 p-4 rounded-xl font-mono text-[11px] leading-relaxed overflow-x-auto whitespace-pre select-all">{
+  "status": "healthy",
+  "gateway": "ProjectSPG Privacy Gateway",
+  "version": "1.2.0",
+  "region": "HKG",
+  "timestamp": "2026-10-04T02:45:00.000Z"
+}</div>
+          </div>
+        </section>
+
       </div>
     </div>
 
@@ -3608,6 +4390,76 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       if (tabName === 'metrics') renderMetricsChart();
       lucide.createIcons();
       showInvitationToast();
+    }
+
+    
+    function switchDocsEndpoint(id) {
+      const target = document.getElementById(id);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      document.querySelectorAll('.docs-nav-link').forEach(link => {
+        link.classList.remove('bg-[#fff5f3]', 'text-[#f0523d]', 'font-semibold', 'border-l-2', 'border-[#f0523d]');
+        link.classList.add('text-groq-textMuted');
+      });
+      const activeLink = document.getElementById('docs-nav-' + id);
+      if (activeLink) {
+        activeLink.classList.remove('text-groq-textMuted');
+        activeLink.classList.add('bg-[#fff5f3]', 'text-[#f0523d]', 'font-semibold', 'border-l-2', 'border-[#f0523d]');
+      }
+      if (window.innerWidth < 768) {
+        const content = document.getElementById('docs-sidebar-content');
+        if (content && !content.classList.contains('hidden')) {
+          toggleDocsMobileNav();
+        }
+      }
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function filterDocsEndpoints(query) {
+      const q = (query || '').toLowerCase().trim();
+      const items = document.querySelectorAll('.docs-nav-item');
+      items.forEach(item => {
+        const text = item.textContent.toLowerCase();
+        if (!q || text.includes(q)) {
+          item.classList.remove('hidden');
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+    }
+
+    function switchDocsCodeLang(endpointKey, lang) {
+      const block = document.getElementById('docs-codeblock-' + endpointKey);
+      if (!block) return;
+      block.querySelectorAll('.docs-code-pane').forEach(el => el.classList.add('hidden'));
+      const targetPane = document.getElementById('docs-code-' + endpointKey + '-' + lang);
+      if (targetPane) targetPane.classList.remove('hidden');
+
+      block.querySelectorAll('.docs-lang-tab').forEach(btn => {
+        btn.classList.remove('text-[#f0523d]', 'border-b-2', 'border-[#f0523d]', 'font-semibold');
+        btn.classList.add('text-gray-400');
+      });
+      const activeTab = document.getElementById('docs-tab-' + endpointKey + '-' + lang);
+      if (activeTab) {
+        activeTab.classList.remove('text-gray-400');
+        activeTab.classList.add('text-[#f0523d]', 'border-b-2', 'border-[#f0523d]', 'font-semibold');
+      }
+    }
+
+    function copyDocsSnippet(elementId, btn) {
+      const el = document.getElementById(elementId);
+      if (!el) return;
+      navigator.clipboard.writeText(el.innerText || el.textContent);
+      if (btn) {
+        const origHtml = btn.innerHTML;
+        btn.innerHTML = '<i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i><span class="text-emerald-500 font-semibold">Copied!</span>';
+        if (window.lucide) lucide.createIcons();
+        setTimeout(() => {
+          btn.innerHTML = origHtml;
+          if (window.lucide) lucide.createIcons();
+        }, 2000);
+      }
     }
 
     function toggleDocsMobileNav() {
