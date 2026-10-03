@@ -806,22 +806,22 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             
             <!-- Mockup 0: Automatic Data Redaction Showcase -->
             <div class="mockup-inference relative rounded-xl border border-gray-200 overflow-hidden w-full h-full aspect-[10/8] lg:aspect-auto bg-white flex items-center justify-center">
-              <img id="img-platform-inference-0" src="/images/automatic-data-redaction-v2.png" alt="Automatic Data Redaction" class="w-full h-full object-cover block" />
+              <img id="img-platform-inference-0" src="/images/automatic-data-redaction-v3.png" alt="Automatic Data Redaction" class="w-full h-full object-cover block" />
             </div>
 
             <!-- Mockup 1: Context-Preserving Masking Showcase -->
             <div class="mockup-inference hidden relative rounded-xl border border-gray-200 overflow-hidden w-full h-full aspect-[10/8] lg:aspect-auto bg-white flex items-center justify-center">
-              <img id="img-platform-inference-1" src="/images/context-preserving-masking-v2.png" alt="Context-Preserving Masking" class="w-full h-full object-cover block" />
+              <img id="img-platform-inference-1" src="/images/context-preserving-masking-v3.png" alt="Context-Preserving Masking" class="w-full h-full object-cover block" />
             </div>
 
             <!-- Mockup 2: Global Privacy Scanner Showcase -->
             <div class="mockup-inference hidden relative rounded-xl border border-gray-200 overflow-hidden w-full h-full aspect-[10/8] lg:aspect-auto bg-white flex items-center justify-center">
-              <img id="img-platform-inference-2" src="/images/global-privacy-scanner-v2.png" alt="Global Privacy Scanner" class="w-full h-full object-cover block" />
+              <img id="img-platform-inference-2" src="/images/global-privacy-scanner-v3.png" alt="Global Privacy Scanner" class="w-full h-full object-cover block" />
             </div>
 
             <!-- Mockup 3: Secure Enterprise Vault Showcase -->
             <div class="mockup-inference hidden relative rounded-xl border border-gray-200 overflow-hidden w-full h-full aspect-[10/8] lg:aspect-auto bg-white flex items-center justify-center">
-              <img id="img-platform-inference-3" src="/images/secure-enterprise-vault-v2.png" alt="Secure Enterprise Vault" class="w-full h-full object-cover block" />
+              <img id="img-platform-inference-3" src="/images/secure-enterprise-vault-v3.png" alt="Secure Enterprise Vault" class="w-full h-full object-cover block" />
             </div>
 
           </div>
@@ -915,17 +915,17 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             
             <!-- Mockup 0: One-Click AI Gateway Showcase -->
             <div class="mockup-compute relative rounded-xl border border-gray-200 overflow-hidden w-full h-full aspect-[10/8] lg:aspect-auto bg-white flex items-center justify-center">
-              <img id="img-platform-compute-0" src="/images/one-click-ai-gateway.png" alt="One-Click AI Gateway" class="w-full h-full object-cover block" />
+              <img id="img-platform-compute-0" src="/images/one-click-ai-gateway-v3.png" alt="One-Click AI Gateway" class="w-full h-full object-cover block" />
             </div>
 
             <!-- Mockup 1: Multi-Model Freedom (BYOK) Showcase -->
             <div class="mockup-compute hidden relative rounded-xl border border-gray-200 overflow-hidden w-full h-full aspect-[10/8] lg:aspect-auto bg-white flex items-center justify-center">
-              <img id="img-platform-compute-1" src="/images/multi-model-freedom.png" alt="Multi-Model Freedom (BYOK)" class="w-full h-full object-cover block" />
+              <img id="img-platform-compute-1" src="/images/multi-model-freedom-v3.png" alt="Multi-Model Freedom (BYOK)" class="w-full h-full object-cover block" />
             </div>
 
             <!-- Mockup 2: Seamless Live Rehydration Showcase -->
             <div class="mockup-compute hidden relative rounded-xl border border-gray-200 overflow-hidden w-full h-full aspect-[10/8] lg:aspect-auto bg-white flex items-center justify-center">
-              <img id="img-platform-compute-2" src="/images/seamless-live-rehydration.png" alt="Seamless Live Rehydration" class="w-full h-full object-cover block" />
+              <img id="img-platform-compute-2" src="/images/seamless-live-rehydration-v3.png" alt="Seamless Live Rehydration" class="w-full h-full object-cover block" />
             </div>
 
           </div>
@@ -990,69 +990,17 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
           </div>
 
-          <!-- Right Column: Visual Showcases for Compliance (Image Placeholders) -->
+          <!-- Right Column: Visual Showcases for Compliance -->
           <div class="w-full lg:w-[480px] xl:w-[540px] shrink-0 flex flex-col justify-stretch">
             
-            <!-- Mockup 0: Fine-Tuning Image Placeholder -->
-            <div class="mockup-shaping relative rounded-2xl sm:rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#e9d5ff] via-[#fdf2f8] to-[#f472b6] border border-gray-200/70 shadow-lg min-h-[260px] sm:min-h-[380px] lg:min-h-[460px] flex items-center justify-center overflow-hidden">
-              <div class="w-full aspect-[16/10] bg-white/95 backdrop-blur-md rounded-xl sm:rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden flex flex-col relative">
-                <div class="h-8 sm:h-9 px-3 sm:px-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0">
-                  <div class="flex items-center gap-1.5 sm:gap-2">
-                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-red-400"></span>
-                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-amber-400"></span>
-                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-emerald-400"></span>
-                    <span class="text-[10px] sm:text-[11px] font-mono text-gray-500 ml-1.5 sm:ml-2">realtime-security-audit.png</span>
-                  </div>
-                  <span class="text-[9px] sm:text-[10px] text-gray-400 font-medium">16:10</span>
-                </div>
-                <div class="flex-1 relative flex items-center justify-center bg-gray-50/50 p-2 overflow-hidden">
-                  <!-- PLACEHOLDER IMG: Replace src with image URL/path -->
-                  <img id="img-platform-shaping-0" src="" alt="Real-Time Security Audit Logs" class="w-full h-full object-cover rounded-xl hidden" onload="this.classList.remove('hidden'); const fb=document.getElementById('fb-platform-shaping-0'); if(fb) fb.classList.add('hidden');" />
-                  <div id="fb-platform-shaping-0" class="w-full h-full min-h-[200px] sm:min-h-[320px] border-2 border-dashed border-purple-300/80 rounded-xl bg-purple-50/40 flex flex-col items-center justify-center p-4 sm:p-8 text-center">
-                    <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center shadow-xs mb-2 sm:mb-3.5">
-                      <i data-lucide="sliders" class="w-6 h-6 sm:w-8 sm:h-8"></i>
-                    </div>
-                    <h4 class="text-sm sm:text-base font-bold text-gray-900 mb-1">Real-Time Security Audit Dashboard</h4>
-                    <p class="text-[11px] sm:text-xs text-gray-500 max-w-sm mb-3 sm:mb-4">
-                      Drop your screenshot into <code class="text-purple-800 bg-purple-100/70 px-1 py-0.5 rounded font-mono text-[10px] sm:text-[11px]">#img-platform-shaping-0</code>
-                    </p>
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-gray-200/90 text-gray-700 text-[9px] sm:text-[10px] font-semibold tracking-wide uppercase shadow-2xs">
-                      <i data-lucide="upload-cloud" class="w-3.5 h-3.5 text-purple-600"></i> Placeholder Image (16:10)
-                    </span>
-                  </div>
-                </div>
-              </div>
+            <!-- Mockup 0: Real-Time Security Audit Logs Showcase -->
+            <div class="mockup-shaping relative rounded-xl border border-gray-200 overflow-hidden w-full h-full aspect-[10/8] lg:aspect-auto bg-white flex items-center justify-center">
+              <img id="img-platform-shaping-0" src="/images/real-time-security-audit-v3.png" alt="Real-Time Security Audit Logs" class="w-full h-full object-cover block" />
             </div>
 
-            <!-- Mockup 1: Turnkey Compliance Showcase Placeholder -->
-            <div class="mockup-shaping hidden relative rounded-2xl sm:rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#fbcfe8] via-[#fdf4ff] to-[#ddd6fe] border border-gray-200/70 shadow-lg min-h-[260px] sm:min-h-[380px] lg:min-h-[460px] flex items-center justify-center overflow-hidden">
-              <div class="w-full aspect-[16/10] bg-white/95 backdrop-blur-md rounded-xl sm:rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden flex flex-col relative">
-                <div class="h-8 sm:h-9 px-3 sm:px-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0">
-                  <div class="flex items-center gap-1.5 sm:gap-2">
-                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-red-400"></span>
-                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-amber-400"></span>
-                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-emerald-400"></span>
-                    <span class="text-[10px] sm:text-[11px] font-mono text-gray-500 ml-1.5 sm:ml-2">turnkey-regulatory-compliance.png</span>
-                  </div>
-                  <span class="text-[9px] sm:text-[10px] text-gray-400 font-medium">16:10</span>
-                </div>
-                <div class="flex-1 relative flex items-center justify-center bg-gray-50/50 p-2 overflow-hidden">
-                  <!-- PLACEHOLDER IMG: Replace src with image URL/path -->
-                  <img id="img-platform-shaping-1" src="" alt="Turnkey Regulatory Compliance" class="w-full h-full object-cover rounded-xl hidden" onload="this.classList.remove('hidden'); const fb=document.getElementById('fb-platform-shaping-1'); if(fb) fb.classList.add('hidden');" />
-                  <div id="fb-platform-shaping-1" class="w-full h-full min-h-[200px] sm:min-h-[320px] border-2 border-dashed border-pink-300/80 rounded-xl bg-pink-50/40 flex flex-col items-center justify-center p-4 sm:p-8 text-center">
-                    <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-pink-100 text-pink-700 flex items-center justify-center shadow-xs mb-2 sm:mb-3.5">
-                      <i data-lucide="git-merge" class="w-6 h-6 sm:w-8 sm:h-8"></i>
-                    </div>
-                    <h4 class="text-sm sm:text-base font-bold text-gray-900 mb-1">Model Alignment Image</h4>
-                    <p class="text-[11px] sm:text-xs text-gray-500 max-w-sm mb-3 sm:mb-4">
-                      Drop your screenshot into <code class="text-pink-800 bg-pink-100/70 px-1 py-0.5 rounded font-mono text-[10px] sm:text-[11px]">#img-platform-shaping-1</code>
-                    </p>
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-gray-200/90 text-gray-700 text-[9px] sm:text-[10px] font-semibold tracking-wide uppercase shadow-2xs">
-                      <i data-lucide="upload-cloud" class="w-3.5 h-3.5 text-pink-600"></i> Placeholder Image (16:10)
-                    </span>
-                  </div>
-                </div>
-              </div>
+            <!-- Mockup 1: Turnkey Regulatory Compliance Showcase -->
+            <div class="mockup-shaping hidden relative rounded-xl border border-gray-200 overflow-hidden w-full h-full aspect-[10/8] lg:aspect-auto bg-white flex items-center justify-center">
+              <img id="img-platform-shaping-1" src="/images/turnkey-regulatory-compliance-v3.png" alt="Turnkey Regulatory Compliance" class="w-full h-full object-cover block" />
             </div>
 
           </div>
