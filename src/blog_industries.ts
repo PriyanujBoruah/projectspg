@@ -1132,7 +1132,7 @@ export const INDUSTRIES_BLOG_HTML = `<!DOCTYPE html>
 
 client = OpenAI(
     api_key=os.environ.get(<span style="color:#4ade80;">"PROJECTSPG_API_KEY"</span>),
-    <span style="color:#f0523d;">base_url="https://projectspg.boruahpriyanuj2004.workers.dev/v1"</span>  <span style="color:#64748b;"># ProjectSPG Gateway</span>
+    <span style="color:#f0523d;">base_url="https://api.projectspg.info/v1"</span>  <span style="color:#64748b;"># ProjectSPG Gateway</span>
 )
 
 <span style="color:#64748b;"># In-flight sanitization for Clinical PHI &amp; Banking Records</span>

@@ -4391,7 +4391,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
 <span class="syn-comment"># Universal drop-in privacy gateway (Google Gemma, Mistral, Groq)</span>
 client = OpenAI(
-    base_url=<span class="syn-string">"https://projectspg.boruahpriyanuj2004.workers.dev/v1"</span>,
+    base_url=<span class="syn-string">"https://api.projectspg.info/v1"</span>,
     api_key=<span class="syn-string">"spg_live_your_key"</span>  <span class="syn-comment"># Your ProjectSPG API Key</span>
 )
 
@@ -4412,7 +4412,7 @@ completion = client.chat.completions.create(
 <span class="syn-keyword">for</span> chunk <span class="syn-keyword">in</span> completion:
     <span class="syn-keyword">print</span>(chunk.choices[<span class="syn-number">0</span>].delta.content <span class="syn-keyword">or</span> <span class="syn-string">""</span>, end=<span class="syn-string">""</span>)\`;
       } else if (lang === 'curl') {
-        box.innerHTML = \`curl https://projectspg.boruahpriyanuj2004.workers.dev/v1/chat/completions \\\\
+        box.innerHTML = \`curl https://api.projectspg.info/v1/chat/completions \\\\
   -H <span class="syn-string">"Content-Type: application/json"</span> \\\\
   -H <span class="syn-string">"Authorization: Bearer spg_live_your_key"</span> \\\\
   -d '{
@@ -4433,7 +4433,7 @@ completion = client.chat.completions.create(
 <span class="syn-keyword">from</span> ai_privacy_core.integrations.langchain <span class="syn-keyword">import</span> PrivacyCallbackHandler
 
 privacy_handler = PrivacyCallbackHandler(
-    base_url=<span class="syn-string">"https://projectspg.boruahpriyanuj2004.workers.dev/v1"</span>,
+    base_url=<span class="syn-string">"https://api.projectspg.info/v1"</span>,
     api_key=<span class="syn-string">"spg_live_your_key"</span>
 )
 
