@@ -806,22 +806,22 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             
             <!-- Mockup 0: Automatic Data Redaction Showcase -->
             <div class="mockup-inference relative rounded-xl border border-gray-200 overflow-hidden w-full bg-white">
-              <img id="img-platform-inference-0" src="/images/automatic-data-redaction.png" alt="Automatic Data Redaction" class="w-full h-auto block object-contain" />
+              <img id="img-platform-inference-0" src="/images/automatic-data-redaction.png" alt="Automatic Data Redaction" class="w-full h-auto block object-contain" style="aspect-ratio: 10/8;" />
             </div>
 
             <!-- Mockup 1: Context-Preserving Masking Showcase -->
             <div class="mockup-inference hidden relative rounded-xl border border-gray-200 overflow-hidden w-full bg-white">
-              <img id="img-platform-inference-1" src="/images/context-preserving-masking.png" alt="Context-Preserving Masking" class="w-full h-auto block object-contain" />
+              <img id="img-platform-inference-1" src="/images/context-preserving-masking.png" alt="Context-Preserving Masking" class="w-full h-auto block object-contain" style="aspect-ratio: 10/8;" />
             </div>
 
             <!-- Mockup 2: Global Privacy Scanner Showcase -->
             <div class="mockup-inference hidden relative rounded-xl border border-gray-200 overflow-hidden w-full bg-white">
-              <img id="img-platform-inference-2" src="/images/global-privacy-scanner.png" alt="Global Privacy Scanner" class="w-full h-auto block object-contain" />
+              <img id="img-platform-inference-2" src="/images/global-privacy-scanner.png" alt="Global Privacy Scanner" class="w-full h-auto block object-contain" style="aspect-ratio: 10/8;" />
             </div>
 
             <!-- Mockup 3: Secure Enterprise Vault Showcase -->
             <div class="mockup-inference hidden relative rounded-xl border border-gray-200 overflow-hidden w-full bg-white">
-              <img id="img-platform-inference-3" src="/images/secure-enterprise-vault.png" alt="Secure Enterprise Vault" class="w-full h-auto block object-contain" />
+              <img id="img-platform-inference-3" src="/images/secure-enterprise-vault.png" alt="Secure Enterprise Vault" class="w-full h-auto block object-contain" style="aspect-ratio: 10/8;" />
             </div>
 
           </div>
