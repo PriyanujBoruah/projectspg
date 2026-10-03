@@ -698,7 +698,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         <!-- ===================================================================== -->
         <!-- CATEGORY PANEL 1: DE-IDENTIFY -->
         <!-- ===================================================================== -->
-        <div id="platform-cat-panel-inference" class="flex flex-col lg:flex-row gap-8 lg:gap-10 items-start">
+        <div id="platform-cat-panel-inference" class="flex flex-col lg:flex-row gap-8 lg:gap-10 items-stretch">
           
           <!-- Left Column: De-Identify Sub-items Accordion -->
           <div class="flex-1 min-w-0 w-full flex flex-col space-y-3">
@@ -802,26 +802,26 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           </div>
 
           <!-- Right Column: Visual Showcases for De-Identify -->
-          <div class="w-full lg:w-[480px] xl:w-[540px] shrink-0 flex items-center justify-center lg:justify-end">
+          <div class="w-full lg:w-[480px] xl:w-[540px] shrink-0 flex flex-col justify-stretch">
             
             <!-- Mockup 0: Automatic Data Redaction Showcase -->
-            <div class="mockup-inference relative rounded-xl border border-gray-200 overflow-hidden w-full bg-white">
-              <img id="img-platform-inference-0" src="/images/automatic-data-redaction-v2.png" alt="Automatic Data Redaction" class="w-full h-auto block object-contain" style="aspect-ratio: 10/8;" />
+            <div class="mockup-inference relative rounded-xl border border-gray-200 overflow-hidden w-full h-full aspect-[10/8] lg:aspect-auto bg-white flex items-center justify-center">
+              <img id="img-platform-inference-0" src="/images/automatic-data-redaction-v2.png" alt="Automatic Data Redaction" class="w-full h-full object-cover block" />
             </div>
 
             <!-- Mockup 1: Context-Preserving Masking Showcase -->
-            <div class="mockup-inference hidden relative rounded-xl border border-gray-200 overflow-hidden w-full bg-white">
-              <img id="img-platform-inference-1" src="/images/context-preserving-masking-v2.png" alt="Context-Preserving Masking" class="w-full h-auto block object-contain" style="aspect-ratio: 10/8;" />
+            <div class="mockup-inference hidden relative rounded-xl border border-gray-200 overflow-hidden w-full h-full aspect-[10/8] lg:aspect-auto bg-white flex items-center justify-center">
+              <img id="img-platform-inference-1" src="/images/context-preserving-masking-v2.png" alt="Context-Preserving Masking" class="w-full h-full object-cover block" />
             </div>
 
             <!-- Mockup 2: Global Privacy Scanner Showcase -->
-            <div class="mockup-inference hidden relative rounded-xl border border-gray-200 overflow-hidden w-full bg-white">
-              <img id="img-platform-inference-2" src="/images/global-privacy-scanner-v2.png" alt="Global Privacy Scanner" class="w-full h-auto block object-contain" style="aspect-ratio: 10/8;" />
+            <div class="mockup-inference hidden relative rounded-xl border border-gray-200 overflow-hidden w-full h-full aspect-[10/8] lg:aspect-auto bg-white flex items-center justify-center">
+              <img id="img-platform-inference-2" src="/images/global-privacy-scanner-v2.png" alt="Global Privacy Scanner" class="w-full h-full object-cover block" />
             </div>
 
             <!-- Mockup 3: Secure Enterprise Vault Showcase -->
-            <div class="mockup-inference hidden relative rounded-xl border border-gray-200 overflow-hidden w-full bg-white">
-              <img id="img-platform-inference-3" src="/images/secure-enterprise-vault-v2.png" alt="Secure Enterprise Vault" class="w-full h-auto block object-contain" style="aspect-ratio: 10/8;" />
+            <div class="mockup-inference hidden relative rounded-xl border border-gray-200 overflow-hidden w-full h-full aspect-[10/8] lg:aspect-auto bg-white flex items-center justify-center">
+              <img id="img-platform-inference-3" src="/images/secure-enterprise-vault-v2.png" alt="Secure Enterprise Vault" class="w-full h-full object-cover block" />
             </div>
 
           </div>
@@ -831,7 +831,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         <!-- ===================================================================== -->
         <!-- CATEGORY PANEL 2: PRIVACY -->
         <!-- ===================================================================== -->
-        <div id="platform-cat-panel-compute" class="hidden flex flex-col lg:flex-row gap-8 lg:gap-10 items-start">
+        <div id="platform-cat-panel-compute" class="hidden flex flex-col lg:flex-row gap-8 lg:gap-10 items-stretch">
           
           <!-- Left Column: Privacy Sub-items Accordion -->
           <div class="flex-1 min-w-0 w-full flex flex-col space-y-3">
@@ -911,7 +911,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           </div>
 
           <!-- Right Column: Visual Showcases for Privacy (Image Placeholders) -->
-          <div class="w-full lg:w-[480px] xl:w-[540px] shrink-0 flex items-center justify-center lg:justify-end">
+          <div class="w-full lg:w-[480px] xl:w-[540px] shrink-0 flex flex-col justify-stretch">
             
             <!-- Mockup 0: One-Click AI Gateway Integration Placeholder -->
             <div class="mockup-compute relative rounded-2xl sm:rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#93c5fd] via-[#e0e7ff] to-[#38bdf8] border border-gray-200/70 shadow-lg min-h-[260px] sm:min-h-[380px] lg:min-h-[460px] flex items-center justify-center overflow-hidden">
@@ -1013,7 +1013,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         <!-- ===================================================================== -->
         <!-- CATEGORY PANEL 3: COMPLIANCE -->
         <!-- ===================================================================== -->
-        <div id="platform-cat-panel-shaping" class="hidden flex flex-col lg:flex-row gap-8 lg:gap-10 items-start">
+        <div id="platform-cat-panel-shaping" class="hidden flex flex-col lg:flex-row gap-8 lg:gap-10 items-stretch">
           
           <!-- Left Column: Compliance Sub-items Accordion -->
           <div class="flex-1 min-w-0 w-full flex flex-col space-y-3">
@@ -1069,7 +1069,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           </div>
 
           <!-- Right Column: Visual Showcases for Compliance (Image Placeholders) -->
-          <div class="w-full lg:w-[480px] xl:w-[540px] shrink-0 flex items-center justify-center lg:justify-end">
+          <div class="w-full lg:w-[480px] xl:w-[540px] shrink-0 flex flex-col justify-stretch">
             
             <!-- Mockup 0: Fine-Tuning Image Placeholder -->
             <div class="mockup-shaping relative rounded-2xl sm:rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#e9d5ff] via-[#fdf2f8] to-[#f472b6] border border-gray-200/70 shadow-lg min-h-[260px] sm:min-h-[380px] lg:min-h-[460px] flex items-center justify-center overflow-hidden">
