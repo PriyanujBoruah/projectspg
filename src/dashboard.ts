@@ -2971,6 +2971,68 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     </div>
   </div>
 
+  <!-- ========================================================================= -->
+  <!-- TOASTER NOTIFICATION: INVITATION PROMPT -->
+  <!-- Appears when switching between playground, dashboard, keys, docs, etc.   -->
+  <!-- Only shown if user does not already have (Full Access)                   -->
+  <!-- ========================================================================= -->
+  <div id="toast-invitation" class="fixed bottom-5 right-5 z-50 max-w-sm sm:max-w-md w-[calc(100%-2.5rem)] hidden transition-all duration-300 transform translate-y-4 opacity-0 pointer-events-auto">
+    <div class="bg-white/95 backdrop-blur-md border border-orange-200/90 rounded-2xl p-4 sm:p-5 shadow-2xl shadow-orange-950/10 text-left font-sans relative overflow-hidden">
+      <!-- Top subtle gradient accent line -->
+      <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#f0523d] via-amber-400 to-[#f0523d]"></div>
+
+      <div class="flex items-start justify-between gap-3">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-xl bg-orange-50 border border-orange-200/70 text-[#f0523d] flex items-center justify-center shrink-0 shadow-2xs">
+            <i data-lucide="ticket" class="w-4 h-4"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h4 class="text-xs font-bold text-gray-900 tracking-tight">Private Invitation Preview</h4>
+              <span class="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider bg-amber-50 text-amber-700 border border-amber-200/80">Limited Access</span>
+            </div>
+            <p class="text-[11px] text-gray-500 mt-0.5">Unlock sovereign compliance & enterprise routing</p>
+          </div>
+        </div>
+
+        <button onclick="dismissInvitationToast()" class="text-gray-400 hover:text-gray-700 transition p-1 rounded-lg hover:bg-gray-100 cursor-pointer shrink-0" aria-label="Dismiss toast">
+          <i data-lucide="x" class="w-3.5 h-3.5"></i>
+        </button>
+      </div>
+
+      <!-- Toast Feedback Message -->
+      <div id="toast-inv-feedback" class="hidden my-2.5 p-2 rounded-lg text-[11px] leading-tight font-medium"></div>
+
+      <!-- Form Body -->
+      <div id="toast-inv-form" class="mt-3">
+        <p class="text-xs text-gray-600 mb-2 leading-relaxed">
+          ProjectSPG is invitation-only. Enter your invitation key below to unlock <strong class="text-emerald-700 font-semibold">(Full Access)</strong>:
+        </p>
+
+        <form onsubmit="handleToastInvitationSubmit(event)" class="space-y-2">
+          <div class="flex items-center gap-1.5">
+            <div class="relative flex-1">
+              <input type="text" id="toast-inv-code-input" placeholder="e.g. SPG-BETA-2026" class="w-full bg-[#f9fafb] border border-gray-300 rounded-xl pl-3 pr-3 py-2 text-xs font-mono uppercase tracking-wider text-gray-900 focus:outline-none focus:border-[#f0523d] focus:bg-white shadow-2xs">
+            </div>
+            <button type="submit" id="btn-toast-inv-submit" class="px-3.5 py-2 rounded-xl bg-[#f0523d] hover:bg-[#e0422d] text-white font-semibold text-xs tracking-wide transition shadow-xs cursor-pointer shrink-0 flex items-center gap-1">
+              <span>Unlock</span>
+              <i data-lucide="arrow-right" class="w-3 h-3"></i>
+            </button>
+          </div>
+
+          <div class="flex items-center justify-between text-[11px] text-gray-400 pt-0.5">
+            <button type="button" onclick="openInvitationModal(true); dismissInvitationToast()" class="hover:text-[#f0523d] transition text-left cursor-pointer">
+              Fill full organization profile &rarr;
+            </button>
+            <button type="button" onclick="dismissInvitationToast()" class="hover:text-gray-600 transition cursor-pointer">
+              Dismiss
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
   <!-- JAVASCRIPT CONTROLLER -->
   <script>
     const SAMPLES = {
@@ -3144,6 +3206,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       }
       if (viewName === 'landing') {
         setTimeout(updateMobileResearchHighlight, 100);
+      } else {
+        showInvitationToast();
       }
     }
 
@@ -3408,6 +3472,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       if (tabName === 'usage') updateUsageStats();
       if (tabName === 'metrics') renderMetricsChart();
       lucide.createIcons();
+      showInvitationToast();
     }
 
     function toggleDocsMobileNav() {
@@ -5634,6 +5699,10 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
         if (landingMobileBtnText) {
           landingMobileBtnText.textContent = 'Console (' + (isFull ? 'Full' : 'Limited') + ')';
         }
+
+        if (isFull) {
+          dismissInvitationToast(true);
+        }
       } else {
         if (loginBtn) loginBtn.classList.remove('hidden');
         if (userMenu) userMenu.classList.add('hidden');
@@ -5641,6 +5710,143 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
         if (landingMobileBtnText) landingMobileBtnText.textContent = 'Sign In';
       }
       lucide.createIcons();
+    }
+
+    // =========================================================================
+    // INVITATION TOASTER NOTIFICATION CONTROLLER
+    // =========================================================================
+    let toastDismissedUntil = 0;
+
+    function isUserFullyInvited() {
+      return !!(currentUserProfile && currentUserProfile.accessLevel === 'Full Access');
+    }
+
+    function showInvitationToast(force = false) {
+      if (isUserFullyInvited()) {
+        dismissInvitationToast(true);
+        return;
+      }
+      if (!force && Date.now() < toastDismissedUntil) {
+        return;
+      }
+      const toast = document.getElementById('toast-invitation');
+      if (!toast) return;
+
+      toast.classList.remove('hidden');
+      requestAnimationFrame(() => {
+        toast.classList.remove('translate-y-4', 'opacity-0');
+        toast.classList.add('translate-y-0', 'opacity-100');
+      });
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+    }
+
+    function dismissInvitationToast(silent = false) {
+      const toast = document.getElementById('toast-invitation');
+      if (!toast) return;
+
+      toast.classList.remove('translate-y-0', 'opacity-100');
+      toast.classList.add('translate-y-4', 'opacity-0');
+
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 300);
+
+      if (!silent) {
+        // Suppress re-showing for 45 seconds on explicit user dismissal
+        toastDismissedUntil = Date.now() + 45000;
+      }
+    }
+
+    async function handleToastInvitationSubmit(e) {
+      if (e) e.preventDefault();
+      const codeInput = document.getElementById('toast-inv-code-input');
+      const feedback = document.getElementById('toast-inv-feedback');
+      const submitBtn = document.getElementById('btn-toast-inv-submit');
+      const code = (codeInput?.value || '').trim();
+
+      if (!code || code.length < 3) {
+        if (feedback) {
+          feedback.textContent = 'Please enter a valid invitation or referral key.';
+          feedback.className = 'my-2.5 p-2 rounded-lg text-[11px] leading-tight font-medium bg-red-50 text-red-600 border border-red-200 block';
+        }
+        return;
+      }
+
+      const origBtnContent = submitBtn ? submitBtn.innerHTML : '';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span>Checking...</span>';
+      }
+
+      if (feedback) {
+        feedback.textContent = 'Verifying invitation code...';
+        feedback.className = 'my-2.5 p-2 rounded-lg text-[11px] leading-tight font-medium bg-amber-50 text-amber-700 border border-amber-200 block';
+      }
+
+      const user = currentFirebaseUser;
+      const userId = user ? user.uid : ('anon_' + Date.now());
+      const name = (currentUserProfile && currentUserProfile.name) || user?.displayName || 'User';
+      const email = (currentUserProfile && currentUserProfile.email) || user?.email || '';
+      const org = (currentUserProfile && currentUserProfile.org) || '';
+      const orgWebsite = (currentUserProfile && currentUserProfile.orgWebsite) || '';
+
+      const payload = {
+        userId,
+        name,
+        email,
+        org,
+        orgWebsite,
+        invitationCode: code,
+        accessLevel: 'Full Access'
+      };
+
+      try {
+        const headers = { 'Content-Type': 'application/json' };
+        if (currentIdToken) {
+          headers['Authorization'] = 'Bearer ' + currentIdToken;
+        }
+
+        const res = await fetch('/api/user/profile', {
+          method: 'POST',
+          headers,
+          body: JSON.stringify(payload)
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.profile) {
+            currentUserProfile = data.profile;
+          } else {
+            currentUserProfile = payload;
+          }
+        } else {
+          currentUserProfile = payload;
+        }
+      } catch (err) {
+        currentUserProfile = payload;
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = origBtnContent;
+        }
+      }
+
+      try {
+        localStorage.setItem('projectspg_profile_' + userId, JSON.stringify(currentUserProfile));
+      } catch (err) {}
+
+      updateUserUI(currentFirebaseUser);
+
+      if (feedback) {
+        feedback.textContent = '✓ Invitation Verified! Full Access Granted.';
+        feedback.className = 'my-2.5 p-2 rounded-lg text-[11px] leading-tight font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 block';
+      }
+
+      setTimeout(() => {
+        dismissInvitationToast(true);
+      }, 1800);
+
+      if (typeof lucide !== 'undefined') lucide.createIcons();
     }
   </script>
 </body>
