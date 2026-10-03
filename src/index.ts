@@ -192,6 +192,12 @@ app.post("/api/keys", async (c) => {
   }
   const name = body.name || "Default Key";
   const tier = body.tier || "free";
+  if (tier === "byok") {
+    const profile = await getUserProfile(c.env, userId);
+    if (!profile || profile.accessLevel !== "Full Access") {
+      return c.json({ error: "BYOK tier requires Full Access (valid invitation code required)" }, 403);
+    }
+  }
   const quota = tier === "byok" ? 1_000_000 : (body.monthlyQuota || 10_000);
   const byokKeys = {
     googleKey: body.byokGoogleKey || body.byok_google_key || "",

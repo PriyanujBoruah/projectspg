@@ -1801,7 +1801,10 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           <h2 class="text-[15px] font-semibold text-groq-dark tracking-tight">Playground</h2>
           <div class="bg-[#f3f4f6] p-0.5 rounded-lg flex items-center text-xs select-none">
             <button id="btn-tier-free" onclick="switchPlaygroundTier('free')" class="px-2.5 sm:px-3 py-1 rounded-md bg-white text-groq-dark font-medium shadow-xs text-xs transition cursor-pointer">Free</button>
-            <button id="btn-tier-byok" onclick="switchPlaygroundTier('byok')" class="px-2.5 sm:px-3 py-1 rounded-md text-groq-textMuted hover:text-groq-dark text-xs transition cursor-pointer">BYOK</button>
+            <button id="btn-tier-byok" onclick="switchPlaygroundTier('byok')" class="px-2.5 sm:px-3 py-1 rounded-md text-groq-textMuted hover:text-groq-dark text-xs transition cursor-pointer flex items-center gap-1">
+              <span>BYOK</span>
+              <span id="btn-tier-byok-lock" class="hidden text-amber-600 font-bold text-[10px]"><i data-lucide="lock" class="w-3 h-3"></i></span>
+            </button>
           </div>
         </div>
 
@@ -2634,6 +2637,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             <button type="button" id="tier-tab-byok" onclick="selectCreateKeyTier('byok')" class="py-2 px-3 rounded-lg text-xs font-semibold transition cursor-pointer text-groq-textMuted hover:text-groq-dark flex items-center justify-center gap-1.5">
               <i data-lucide="sparkles" class="w-3.5 h-3.5 text-blue-600"></i>
               <span>BYOK Tier</span>
+              <span id="tier-tab-byok-lock" class="hidden text-amber-600 font-bold text-[10px]"><i data-lucide="lock" class="w-3 h-3"></i></span>
             </button>
           </div>
           <input type="hidden" id="new-key-tier" value="free">
@@ -3876,6 +3880,15 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     let playgroundTierMode = 'free'; // 'free' or 'byok'
 
     function switchPlaygroundTier(mode) {
+      if (mode === 'byok' && !isUserFullyInvited()) {
+        showInvitationToast(true);
+        const feedback = document.getElementById('toast-inv-feedback');
+        if (feedback) {
+          feedback.textContent = 'BYOK Mode is an enterprise feature requiring Full Access. Enter an invitation code to unlock.';
+          feedback.className = 'my-2.5 p-2 rounded-lg text-[11px] leading-tight font-medium bg-amber-50 text-amber-800 border border-amber-200 block';
+        }
+        return;
+      }
       playgroundTierMode = mode;
       const freeBtn = document.getElementById('btn-tier-free');
       const byokBtn = document.getElementById('btn-tier-byok');
@@ -3886,7 +3899,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           freeBtn.className = 'px-2.5 sm:px-3 py-1 rounded-md bg-white text-groq-dark font-medium shadow-xs text-xs transition cursor-pointer';
         }
         if (byokBtn) {
-          byokBtn.className = 'px-2.5 sm:px-3 py-1 rounded-md text-groq-textMuted hover:text-groq-dark text-xs transition cursor-pointer';
+          byokBtn.className = 'px-2.5 sm:px-3 py-1 rounded-md text-groq-textMuted hover:text-groq-dark text-xs transition cursor-pointer flex items-center gap-1';
         }
         if (byokKeysBtn) {
           byokKeysBtn.classList.add('hidden');
@@ -3894,7 +3907,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         renderPlaygroundModelDropdown(FREE_TIER_MODELS, 'openai/gpt-oss-120b');
       } else {
         if (byokBtn) {
-          byokBtn.className = 'px-2.5 sm:px-3 py-1 rounded-md bg-white text-groq-dark font-medium shadow-xs text-xs transition cursor-pointer';
+          byokBtn.className = 'px-2.5 sm:px-3 py-1 rounded-md bg-white text-groq-dark font-medium shadow-xs text-xs transition cursor-pointer flex items-center gap-1';
         }
         if (freeBtn) {
           freeBtn.className = 'px-2.5 sm:px-3 py-1 rounded-md text-groq-textMuted hover:text-groq-dark text-xs transition cursor-pointer';
@@ -3932,6 +3945,11 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       }
 
       if (playgroundTierMode === 'byok') {
+        if (!isUserFullyInvited()) {
+          switchPlaygroundTier('free');
+          showInvitationToast(true);
+          return;
+        }
         const googleKey = (document.getElementById('byok-key-google') ? document.getElementById('byok-key-google').value.trim() : '') || localStorage.getItem('byok_key_google') || '';
         const mistralKey = (document.getElementById('byok-key-mistral') ? document.getElementById('byok-key-mistral').value.trim() : '') || localStorage.getItem('byok_key_mistral') || '';
         const groqKey = (document.getElementById('byok-key-groq') ? document.getElementById('byok-key-groq').value.trim() : '') || localStorage.getItem('byok_key_groq') || '';
@@ -4428,6 +4446,15 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
     }
 
     function selectCreateKeyTier(tier) {
+      if (tier === 'byok' && !isUserFullyInvited()) {
+        showInvitationToast(true);
+        const feedback = document.getElementById('toast-inv-feedback');
+        if (feedback) {
+          feedback.textContent = 'Creating BYOK Keys requires Full Access. Enter an invitation code to unlock.';
+          feedback.className = 'my-2.5 p-2 rounded-lg text-[11px] leading-tight font-medium bg-amber-50 text-amber-800 border border-amber-200 block';
+        }
+        return;
+      }
       const tierInput = document.getElementById('new-key-tier');
       if (tierInput) tierInput.value = tier;
       const freeTab = document.getElementById('tier-tab-free');
@@ -4463,6 +4490,15 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
     async function submitCreateKey() {
       const name = document.getElementById('new-key-name').value.trim() || 'ProjectSPG Key';
       const tier = document.getElementById('new-key-tier') ? document.getElementById('new-key-tier').value : 'free';
+      if (tier === 'byok' && !isUserFullyInvited()) {
+        showInvitationToast(true);
+        const feedback = document.getElementById('toast-inv-feedback');
+        if (feedback) {
+          feedback.textContent = 'Creating BYOK Keys requires Full Access. Enter an invitation code to unlock.';
+          feedback.className = 'my-2.5 p-2 rounded-lg text-[11px] leading-tight font-medium bg-amber-50 text-amber-800 border border-amber-200 block';
+        }
+        return;
+      }
       const quota = tier === 'byok' ? 1000000 : 10000;
       const byokGoogleKey = document.getElementById('new-byok-google') ? document.getElementById('new-byok-google').value.trim() : '';
       const byokMistralKey = document.getElementById('new-byok-mistral') ? document.getElementById('new-byok-mistral').value.trim() : '';
@@ -4485,6 +4521,11 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
             byokGroqKey
           })
         });
+        if (!res.ok) {
+          const errData = await res.json().catch(() => ({}));
+          alert('Failed: ' + (errData.error || ('HTTP ' + res.status)));
+          return;
+        }
         const data = await res.json();
         closeCreateKeyModal();
         document.getElementById('displayed-raw-key').textContent = data.rawKey;
@@ -5123,6 +5164,15 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
     // BYOK Provider API Keys Modal Handlers
     // =========================================================================
     function openByokKeysModal() {
+      if (!isUserFullyInvited()) {
+        showInvitationToast(true);
+        const feedback = document.getElementById('toast-inv-feedback');
+        if (feedback) {
+          feedback.textContent = 'BYOK Mode is an enterprise feature requiring Full Access. Enter an invitation code to unlock.';
+          feedback.className = 'my-2.5 p-2 rounded-lg text-[11px] leading-tight font-medium bg-amber-50 text-amber-800 border border-amber-200 block';
+        }
+        return;
+      }
       const modal = document.getElementById('modal-byok-keys');
       if (!modal) return;
       const gInput = document.getElementById('byok-key-google');
@@ -5700,7 +5750,30 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
           landingMobileBtnText.textContent = 'Console (' + (isFull ? 'Full' : 'Limited') + ')';
         }
 
-        if (isFull) {
+        const byokBtn = document.getElementById('btn-tier-byok');
+        const byokLock = document.getElementById('btn-tier-byok-lock');
+        const createByokTab = document.getElementById('tier-tab-byok');
+        const createByokLock = document.getElementById('tier-tab-byok-lock');
+
+        if (!isFull) {
+          if (playgroundTierMode === 'byok') {
+            switchPlaygroundTier('free');
+          }
+          if (byokBtn) {
+            byokBtn.title = "BYOK Mode requires Full Access (Invitation Only)";
+            byokBtn.classList.add('opacity-75');
+          }
+          if (byokLock) byokLock.classList.remove('hidden');
+          if (createByokLock) createByokLock.classList.remove('hidden');
+          if (createByokTab) createByokTab.title = "BYOK Tier requires Full Access (Invitation Only)";
+        } else {
+          if (byokBtn) {
+            byokBtn.title = "BYOK Mode (Zero Rate-Limiting)";
+            byokBtn.classList.remove('opacity-75');
+          }
+          if (byokLock) byokLock.classList.add('hidden');
+          if (createByokLock) createByokLock.classList.add('hidden');
+          if (createByokTab) createByokTab.title = "BYOK Tier";
           dismissInvitationToast(true);
         }
       } else {
@@ -5708,6 +5781,21 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
         if (userMenu) userMenu.classList.add('hidden');
         if (landingBtnText) landingBtnText.textContent = 'Sign In';
         if (landingMobileBtnText) landingMobileBtnText.textContent = 'Sign In';
+
+        if (playgroundTierMode === 'byok') {
+          switchPlaygroundTier('free');
+        }
+        const byokBtn = document.getElementById('btn-tier-byok');
+        const byokLock = document.getElementById('btn-tier-byok-lock');
+        const createByokTab = document.getElementById('tier-tab-byok');
+        const createByokLock = document.getElementById('tier-tab-byok-lock');
+        if (byokBtn) {
+          byokBtn.title = "BYOK Mode requires Full Access (Invitation Only)";
+          byokBtn.classList.add('opacity-75');
+        }
+        if (byokLock) byokLock.classList.remove('hidden');
+        if (createByokLock) createByokLock.classList.remove('hidden');
+        if (createByokTab) createByokTab.title = "BYOK Tier requires Full Access (Invitation Only)";
       }
       lucide.createIcons();
     }
