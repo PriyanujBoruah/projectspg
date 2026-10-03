@@ -269,12 +269,12 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
     .platform-subitem:not(.is-active) .subitem-title {
       color: #4b5563 !important; /* gray-600 */
-      font-weight: 400 !important;
+      font-weight: 500 !important;
     }
 
     .platform-subitem.is-active .subitem-title {
       color: #030712 !important; /* gray-950 */
-      font-weight: 400 !important;
+      font-weight: 500 !important;
     }
 
     .platform-accordion-drawer {
@@ -681,13 +681,13 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
         <!-- 3 Squarish Category Buttons with Rounded Corners (De-Identify, Privacy, Compliance) -->
         <div class="grid grid-cols-3 gap-3 sm:gap-6 max-w-4xl mx-auto mb-8 sm:mb-12 px-1">
-          <button id="cat-tab-inference" onclick="selectPlatformCategory('inference')" class="cat-pill py-3.5 sm:py-4.5 px-2 sm:px-6 rounded-md text-center font-normal text-sm sm:text-lg md:text-2xl transition-all duration-200 cursor-pointer text-gray-950 border border-transparent shadow-2xs bg-[#d5f5f6]">
+          <button id="cat-tab-inference" onclick="selectPlatformCategory('inference')" class="cat-pill py-3.5 sm:py-4.5 px-2 sm:px-6 rounded-md text-center font-medium text-sm sm:text-lg md:text-2xl transition-all duration-200 cursor-pointer text-gray-950 border border-transparent shadow-2xs bg-[#d5f5f6]">
             De-Identify
           </button>
-          <button id="cat-tab-compute" onclick="selectPlatformCategory('compute')" class="cat-pill py-3.5 sm:py-4.5 px-2 sm:px-6 rounded-md text-center font-normal text-sm sm:text-lg md:text-2xl transition-all duration-200 cursor-pointer bg-white text-gray-900 border border-gray-200/70 shadow-2xs hover:bg-gray-50/90 hover:text-black">
+          <button id="cat-tab-compute" onclick="selectPlatformCategory('compute')" class="cat-pill py-3.5 sm:py-4.5 px-2 sm:px-6 rounded-md text-center font-medium text-sm sm:text-lg md:text-2xl transition-all duration-200 cursor-pointer bg-white text-gray-900 border border-gray-200/70 shadow-2xs hover:bg-gray-50/90 hover:text-black">
             Privacy
           </button>
-          <button id="cat-tab-shaping" onclick="selectPlatformCategory('shaping')" class="cat-pill py-3.5 sm:py-4.5 px-2 sm:px-6 rounded-md text-center font-normal text-sm sm:text-lg md:text-2xl transition-all duration-200 cursor-pointer bg-white text-gray-900 border border-gray-200/70 shadow-2xs hover:bg-gray-50/90 hover:text-black">
+          <button id="cat-tab-shaping" onclick="selectPlatformCategory('shaping')" class="cat-pill py-3.5 sm:py-4.5 px-2 sm:px-6 rounded-md text-center font-medium text-sm sm:text-lg md:text-2xl transition-all duration-200 cursor-pointer bg-white text-gray-900 border border-gray-200/70 shadow-2xs hover:bg-gray-50/90 hover:text-black">
             Compliance
           </button>
         </div>
@@ -710,7 +710,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                   <div class="subitem-icon-box w-9 h-9 rounded-xl bg-cyan-50 border border-cyan-100 flex items-center justify-center text-cyan-600 transition-all duration-300">
                     <i data-lucide="shield-check" class="w-5 h-5"></i>
                   </div>
-                  <h3 class="subitem-title text-xl sm:text-2xl font-normal tracking-tight text-gray-950 transition-colors">Automatic Data Redaction</h3>
+                  <h3 class="subitem-title text-xl sm:text-2xl font-medium tracking-tight text-gray-950 transition-colors">Automatic Data Redaction</h3>
                 </div>
               </div>
               <div class="platform-accordion-drawer grid transition-[grid-template-rows] duration-350 ease-out">
@@ -734,7 +734,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                   <div class="subitem-icon-box w-9 h-9 rounded-xl bg-cyan-50 border border-cyan-100 flex items-center justify-center text-cyan-600 transition-all duration-300">
                     <i data-lucide="hash" class="w-5 h-5"></i>
                   </div>
-                  <h3 class="subitem-title text-xl sm:text-2xl font-normal tracking-tight text-gray-950 transition-colors">Context-Preserving Masking</h3>
+                  <h3 class="subitem-title text-xl sm:text-2xl font-medium tracking-tight text-gray-950 transition-colors">Context-Preserving Masking</h3>
                 </div>
               </div>
               <div class="platform-accordion-drawer grid transition-[grid-template-rows] duration-350 ease-out">
@@ -758,7 +758,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                   <div class="subitem-icon-box w-9 h-9 rounded-xl bg-cyan-50 border border-cyan-100 flex items-center justify-center text-cyan-600 transition-all duration-300">
                     <i data-lucide="scan" class="w-5 h-5"></i>
                   </div>
-                  <h3 class="subitem-title text-xl sm:text-2xl font-normal tracking-tight text-gray-950 transition-colors">Global Privacy Scanner</h3>
+                  <h3 class="subitem-title text-xl sm:text-2xl font-medium tracking-tight text-gray-950 transition-colors">Global Privacy Scanner</h3>
                 </div>
               </div>
               <div class="platform-accordion-drawer grid transition-[grid-template-rows] duration-350 ease-out">
@@ -782,7 +782,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                   <div class="subitem-icon-box w-9 h-9 rounded-xl bg-cyan-50 border border-cyan-100 flex items-center justify-center text-cyan-600 transition-all duration-300">
                     <i data-lucide="database" class="w-5 h-5"></i>
                   </div>
-                  <h3 class="subitem-title text-xl sm:text-2xl font-normal tracking-tight text-gray-950 transition-colors">Secure Enterprise Vault</h3>
+                  <h3 class="subitem-title text-xl sm:text-2xl font-medium tracking-tight text-gray-950 transition-colors">Secure Enterprise Vault</h3>
                 </div>
               </div>
               <div class="platform-accordion-drawer grid transition-[grid-template-rows] duration-350 ease-out">
@@ -843,7 +843,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                   <div class="subitem-icon-box w-9 h-9 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 transition-all duration-300">
                     <i data-lucide="cpu" class="w-5 h-5"></i>
                   </div>
-                  <h3 class="subitem-title text-xl sm:text-2xl font-normal tracking-tight text-gray-950 transition-colors">One-Click AI Gateway</h3>
+                  <h3 class="subitem-title text-xl sm:text-2xl font-medium tracking-tight text-gray-950 transition-colors">One-Click AI Gateway</h3>
                 </div>
               </div>
               <div class="platform-accordion-drawer grid transition-[grid-template-rows] duration-350 ease-out">
@@ -867,7 +867,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                   <div class="subitem-icon-box w-9 h-9 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 transition-all duration-300">
                     <i data-lucide="box" class="w-5 h-5"></i>
                   </div>
-                  <h3 class="subitem-title text-xl sm:text-2xl font-normal tracking-tight text-gray-950 transition-colors">Multi-Model Freedom (BYOK)</h3>
+                  <h3 class="subitem-title text-xl sm:text-2xl font-medium tracking-tight text-gray-950 transition-colors">Multi-Model Freedom (BYOK)</h3>
                 </div>
               </div>
               <div class="platform-accordion-drawer grid transition-[grid-template-rows] duration-350 ease-out">
@@ -891,7 +891,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                   <div class="subitem-icon-box w-9 h-9 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 transition-all duration-300">
                     <i data-lucide="hard-drive" class="w-5 h-5"></i>
                   </div>
-                  <h3 class="subitem-title text-xl sm:text-2xl font-normal tracking-tight text-gray-950 transition-colors">Seamless Live Rehydration</h3>
+                  <h3 class="subitem-title text-xl sm:text-2xl font-medium tracking-tight text-gray-950 transition-colors">Seamless Live Rehydration</h3>
                 </div>
               </div>
               <div class="platform-accordion-drawer grid transition-[grid-template-rows] duration-350 ease-out">
@@ -1025,7 +1025,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                   <div class="subitem-icon-box w-9 h-9 rounded-xl bg-purple-50 border border-purple-100 flex items-center justify-center text-purple-600 transition-all duration-300">
                     <i data-lucide="activity" class="w-5 h-5"></i>
                   </div>
-                  <h3 class="subitem-title text-xl sm:text-2xl font-normal tracking-tight text-gray-950 transition-colors">Real-Time Security Audit Logs</h3>
+                  <h3 class="subitem-title text-xl sm:text-2xl font-medium tracking-tight text-gray-950 transition-colors">Real-Time Security Audit Logs</h3>
                 </div>
               </div>
               <div class="platform-accordion-drawer grid transition-[grid-template-rows] duration-350 ease-out">
@@ -1049,7 +1049,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                   <div class="subitem-icon-box w-9 h-9 rounded-xl bg-purple-50 border border-purple-100 flex items-center justify-center text-purple-600 transition-all duration-300">
                     <i data-lucide="shield" class="w-5 h-5"></i>
                   </div>
-                  <h3 class="subitem-title text-xl sm:text-2xl font-normal tracking-tight text-gray-950 transition-colors">Turnkey Regulatory Compliance</h3>
+                  <h3 class="subitem-title text-xl sm:text-2xl font-medium tracking-tight text-gray-950 transition-colors">Turnkey Regulatory Compliance</h3>
                 </div>
               </div>
               <div class="platform-accordion-drawer grid transition-[grid-template-rows] duration-350 ease-out">
@@ -3187,7 +3187,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       ['inference', 'compute', 'shaping'].forEach(c => {
         const btn = document.getElementById('cat-tab-' + c);
         if (btn) {
-          btn.className = 'cat-pill py-3.5 sm:py-4.5 px-2 sm:px-6 rounded-md text-center font-normal text-sm sm:text-lg md:text-2xl transition-all duration-200 cursor-pointer bg-white text-gray-900 border border-gray-200/70 shadow-2xs hover:bg-gray-50/90 hover:text-black';
+          btn.className = 'cat-pill py-3.5 sm:py-4.5 px-2 sm:px-6 rounded-md text-center font-medium text-sm sm:text-lg md:text-2xl transition-all duration-200 cursor-pointer bg-white text-gray-900 border border-gray-200/70 shadow-2xs hover:bg-gray-50/90 hover:text-black';
         }
         const panel = document.getElementById('platform-cat-panel-' + c);
         if (panel) panel.classList.add('hidden');
@@ -3196,7 +3196,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       if (catConfig[cat]) {
         const activeBtn = document.getElementById(catConfig[cat].tab);
         if (activeBtn) {
-          activeBtn.className = 'cat-pill py-3.5 sm:py-4.5 px-2 sm:px-6 rounded-md text-center font-normal text-sm sm:text-lg md:text-2xl transition-all duration-200 cursor-pointer text-gray-950 border border-transparent shadow-2xs ' + catConfig[cat].bg;
+          activeBtn.className = 'cat-pill py-3.5 sm:py-4.5 px-2 sm:px-6 rounded-md text-center font-medium text-sm sm:text-lg md:text-2xl transition-all duration-200 cursor-pointer text-gray-950 border border-transparent shadow-2xs ' + catConfig[cat].bg;
         }
       }
 
