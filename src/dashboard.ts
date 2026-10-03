@@ -375,21 +375,35 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         </button>
 
         <!-- User Profile Dropdown (Shown when logged in) -->
-        <div id="user-profile-menu-container" class="relative hidden">
+        <div id="user-profile-menu-container" class="relative hidden flex items-center gap-2">
+          <!-- Access Tag Badge Pill -->
+          <span id="user-access-tag" class="hidden sm:inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-wide uppercase transition shadow-2xs"></span>
+          
           <button onclick="toggleUserDropdown(event)" id="btn-user-avatar" class="w-7 h-7 rounded-full overflow-hidden border border-groq-grayBorder bg-groq-avatar text-white flex items-center justify-center text-xs font-semibold shadow-xs hover:ring-2 hover:ring-[#f0523d]/30 transition focus:outline-none cursor-pointer">
             <span id="user-avatar-initials">P</span>
             <img id="user-avatar-img" class="w-full h-full object-cover hidden" alt="Profile" />
           </button>
           
-          <div id="user-dropdown-menu" class="hidden absolute right-0 mt-2 w-56 bg-white border border-groq-grayBorder rounded-xl shadow-lg p-2 z-50 text-xs font-sans">
+          <div id="user-dropdown-menu" class="hidden absolute right-0 mt-2 w-60 bg-white border border-groq-grayBorder rounded-xl shadow-lg p-2 z-50 text-xs font-sans">
             <div class="px-3 py-2 border-b border-gray-100">
-              <p id="user-menu-name" class="font-semibold text-groq-dark truncate">User</p>
+              <div class="flex items-center justify-between gap-1.5 mb-1">
+                <p id="user-menu-name" class="font-semibold text-groq-dark truncate">User</p>
+                <span id="user-menu-badge" class="px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider shrink-0"></span>
+              </div>
               <p id="user-menu-email" class="text-groq-textMuted text-[11px] truncate">user@example.com</p>
+              <div id="user-menu-org" class="text-gray-500 text-[10px] truncate mt-1 hidden flex items-center gap-1">
+                <i data-lucide="building-2" class="w-3 h-3 text-gray-400 shrink-0"></i>
+                <span id="user-menu-org-text" class="truncate"></span>
+              </div>
             </div>
             <div class="py-1">
               <button onclick="copyUserId()" class="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-50 flex items-center justify-between text-groq-textMuted hover:text-groq-dark transition">
                 <span class="flex items-center gap-2"><i data-lucide="fingerprint" class="w-3.5 h-3.5"></i> Copy User ID</span>
                 <i data-lucide="copy" class="w-3 h-3 text-gray-400"></i>
+              </button>
+              <button onclick="openInvitationModal(true)" class="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-50 flex items-center justify-between text-groq-textMuted hover:text-groq-dark transition">
+                <span class="flex items-center gap-2"><i data-lucide="ticket" class="w-3.5 h-3.5"></i> Invitation & Org Profile</span>
+                <i data-lucide="chevron-right" class="w-3 h-3 text-gray-400"></i>
               </button>
             </div>
             <div class="pt-1 border-t border-gray-100">
@@ -447,8 +461,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
           <!-- Right: Actions -->
           <div class="flex items-center gap-2.5 sm:gap-4 text-xs font-semibold">
-            <button onclick="openAuthModal()" class="px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase transition shadow-xs cursor-pointer flex items-center gap-1.5">
-              <span>Sign In</span>
+            <button onclick="handleLandingAuthClick()" class="px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase transition shadow-xs cursor-pointer flex items-center gap-1.5">
+              <span id="btn-landing-signin-text">Sign In</span>
             </button>
             <!-- Mobile Menu Hamburger Button -->
             <button onclick="toggleLandingMobileMenu()" id="btn-landing-mobile-menu" class="md:hidden p-1.5 rounded-full hover:bg-gray-100 text-gray-700 hover:text-gray-950 transition cursor-pointer flex items-center justify-center" aria-label="Toggle navigation menu">
@@ -478,8 +492,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400"></i>
             </a>
             <div class="pt-2 flex flex-col gap-2">
-              <button onclick="closeLandingMobileMenu(); openAuthModal()" class="w-full py-2.5 rounded-xl bg-black hover:bg-gray-800 text-white text-xs font-bold uppercase tracking-wider transition shadow-sm">
-                Sign In
+              <button onclick="closeLandingMobileMenu(); handleLandingAuthClick()" class="w-full py-2.5 rounded-xl bg-black hover:bg-gray-800 text-white text-xs font-bold uppercase tracking-wider transition shadow-sm">
+                <span id="btn-landing-mobile-signin-text">Sign In</span>
               </button>
             </div>
           </nav>
@@ -513,7 +527,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
               <!-- CTA Button Group -->
               <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 w-full sm:w-auto max-w-sm sm:max-w-none mx-auto lg:mx-0 mb-4 sm:mb-0">
-                <button onclick="openAuthModal()" class="w-full sm:w-auto px-6 py-3.5 rounded-full bg-black hover:bg-gray-800 text-white text-xs font-bold tracking-wider uppercase transition shadow-md hover:shadow-lg flex items-center justify-center gap-2 group cursor-pointer">
+                <button onclick="handleStartBuildingClick()" class="w-full sm:w-auto px-6 py-3.5 rounded-full bg-black hover:bg-gray-800 text-white text-xs font-bold tracking-wider uppercase transition shadow-md hover:shadow-lg flex items-center justify-center gap-2 group cursor-pointer">
                   <span>Start Building</span>
                   <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-0.5 transition-transform"></i>
                 </button>
@@ -1606,7 +1620,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             From real-time prompt de-identification to enterprise-grade privacy compliance
           </p>
           <div class="mt-8 flex justify-center">
-            <button onclick="openAuthModal()" class="px-7 py-3.5 rounded-xl bg-black hover:bg-gray-800 text-white text-xs font-bold tracking-wider uppercase transition shadow-md hover:shadow-lg cursor-pointer transform hover:-translate-y-0.5">
+            <button onclick="handleStartBuildingClick()" class="px-7 py-3.5 rounded-xl bg-black hover:bg-gray-800 text-white text-xs font-bold tracking-wider uppercase transition shadow-md hover:shadow-lg cursor-pointer transform hover:-translate-y-0.5">
               GET STARTED NOW
             </button>
           </div>
@@ -2874,6 +2888,89 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     </div>
   </div>
 
+  <!-- ========================================================================= -->
+  <!-- MODAL: INVITATION & ORGANIZATION ONBOARDING -->
+  <!-- ========================================================================= -->
+  <div id="modal-invitation" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white border border-groq-grayBorder rounded-2xl max-w-md w-full p-5 sm:p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto touch-scroll">
+      <button onclick="closeInvitationModal()" class="absolute top-4 right-4 text-groq-textMuted hover:text-groq-dark transition p-1 cursor-pointer" aria-label="Close modal">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+
+      <div class="text-center mb-5">
+        <div class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-orange-50 border border-orange-200/60 text-[#f0523d] mb-2 shadow-2xs">
+          <i data-lucide="sparkles" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <span class="font-extrabold text-[22px] tracking-tight text-groq-dark">project<span class="text-[#f0523d]">spg</span></span>
+        </div>
+        <h3 id="inv-modal-title" class="text-base font-semibold text-groq-dark mt-1">Welcome to ProjectSPG</h3>
+        <p id="inv-modal-subtitle" class="text-xs text-groq-textMuted mt-1 leading-relaxed">
+          Access is currently invitation-only. Please confirm your details and provide your invitation code to unlock full platform capabilities.
+        </p>
+      </div>
+
+      <!-- Current Access Status Pill (if editing/updating) -->
+      <div id="inv-current-status-banner" class="hidden mb-4 p-2.5 rounded-xl border flex items-center justify-between text-xs bg-gray-50 border-gray-200">
+        <span class="font-medium text-gray-700">Current Access Level:</span>
+        <span id="inv-current-status-badge" class="font-bold uppercase tracking-wider px-2 py-0.5 rounded text-[10px]"></span>
+      </div>
+
+      <!-- Feedback / Error Banner -->
+      <div id="inv-error-banner" class="hidden mb-3 p-2.5 bg-red-50 border border-red-200 rounded-lg text-red-600 text-xs text-left leading-tight"></div>
+      <div id="inv-success-banner" class="hidden mb-3 p-2.5 bg-emerald-50 border border-emerald-200 rounded-lg text-emerald-700 text-xs text-left leading-tight"></div>
+
+      <!-- Invitation & Org Form -->
+      <form onsubmit="handleInvitationSubmit(event)" class="space-y-3.5 text-xs text-left">
+        <div>
+          <label class="block text-groq-dark font-medium mb-1">Full Name <span class="text-red-500">*</span></label>
+          <input type="text" id="inv-name" required placeholder="e.g. Elena Rostova" class="w-full bg-[#f9fafb] border border-groq-grayBorder rounded-lg px-3 py-2 text-groq-dark focus:outline-none focus:border-gray-400 font-sans">
+        </div>
+
+        <div>
+          <label class="block text-groq-dark font-medium mb-1">Work / Primary Email <span class="text-red-500">*</span></label>
+          <input type="email" id="inv-email" required placeholder="name@company.com" class="w-full bg-[#f9fafb] border border-groq-grayBorder rounded-lg px-3 py-2 text-groq-dark focus:outline-none focus:border-gray-400 font-sans">
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-groq-dark font-medium mb-1">Organization</label>
+            <input type="text" id="inv-org" placeholder="e.g. Acme Corp / Lab" class="w-full bg-[#f9fafb] border border-groq-grayBorder rounded-lg px-3 py-2 text-groq-dark focus:outline-none focus:border-gray-400 font-sans">
+          </div>
+          <div>
+            <label class="block text-groq-dark font-medium mb-1">Org Website</label>
+            <input type="url" id="inv-website" placeholder="https://example.com" class="w-full bg-[#f9fafb] border border-groq-grayBorder rounded-lg px-3 py-2 text-groq-dark focus:outline-none focus:border-gray-400 font-sans">
+          </div>
+        </div>
+
+        <div class="pt-1">
+          <div class="flex items-center justify-between mb-1">
+            <label class="block text-groq-dark font-medium">Invitation / Referral Code</label>
+            <span class="text-[10px] text-gray-400">Optional for limited access</span>
+          </div>
+          <div class="relative">
+            <input type="text" id="inv-code" placeholder="e.g. SPG-BETA-2026" class="w-full bg-[#f9fafb] border border-groq-grayBorder rounded-lg pl-3 pr-8 py-2 text-groq-dark uppercase tracking-wider font-mono text-xs focus:outline-none focus:border-[#f0523d]">
+            <i data-lucide="ticket" class="w-3.5 h-3.5 text-gray-400 absolute right-2.5 top-2.5 pointer-events-none"></i>
+          </div>
+          <p class="text-[11px] text-gray-500 mt-1 leading-normal">
+            Entering an invitation code unlocks <strong class="text-emerald-700 font-semibold">(Full Access)</strong>. If you do not have a code, you will continue with <strong class="text-amber-700 font-semibold">(Limited Access)</strong>.
+          </p>
+        </div>
+
+        <div class="pt-2 space-y-2">
+          <button type="submit" id="btn-inv-submit" class="w-full py-2.5 px-4 rounded-xl bg-[#f0523d] hover:bg-[#e0422d] text-white font-semibold transition text-xs shadow-xs cursor-pointer flex items-center justify-center gap-2">
+            <span>Confirm & Enter Platform</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </button>
+
+          <button type="button" onclick="continueWithLimitedAccess()" id="btn-inv-limited" class="w-full py-2.5 px-4 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium transition text-xs cursor-pointer flex items-center justify-center gap-1.5">
+            <span>Continue with (Limited Access)</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- JAVASCRIPT CONTROLLER -->
   <script>
     const SAMPLES = {
@@ -2895,6 +2992,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
     let firebaseAuth = null;
     let currentFirebaseUser = null;
+    let currentUserProfile = null;
     let currentIdToken = null;
     let authMode = 'signin'; // 'signin' or 'signup'
 
@@ -2949,8 +3047,10 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               } catch (e) {
                 currentIdToken = null;
               }
+              await checkUserInvitationStatus(user);
               updateUserUI(user);
             } else {
+              currentUserProfile = null;
               currentIdToken = null;
               updateUserUI(null);
             }
@@ -5176,6 +5276,286 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
       }
     }
 
+    function handleStartBuildingClick() {
+      if (currentFirebaseUser) {
+        switchView('playground');
+      } else {
+        openAuthModal();
+      }
+    }
+
+    function handleLandingAuthClick() {
+      if (currentFirebaseUser) {
+        switchView('playground');
+      } else {
+        openAuthModal();
+      }
+    }
+
+    async function checkUserInvitationStatus(user) {
+      if (!user) return;
+      const storageKey = 'projectspg_profile_' + user.uid;
+      let profile = null;
+
+      // 1. Check local storage cache
+      try {
+        const cached = localStorage.getItem(storageKey);
+        if (cached) {
+          profile = JSON.parse(cached);
+        }
+      } catch (e) {
+        console.warn('Local profile read warning:', e);
+      }
+
+      // 2. Fetch from backend /api/user/profile
+      try {
+        const headers = {};
+        if (currentIdToken) {
+          headers['Authorization'] = 'Bearer ' + currentIdToken;
+        }
+        const res = await fetch('/api/user/profile?userId=' + encodeURIComponent(user.uid), { headers });
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.profile) {
+            profile = data.profile;
+            try {
+              localStorage.setItem(storageKey, JSON.stringify(profile));
+            } catch (e) {}
+          }
+        }
+      } catch (e) {
+        console.warn('Backend profile fetch warning:', e);
+      }
+
+      currentUserProfile = profile;
+
+      // 3. If no profile exists yet, user hasn't completed onboarding -> prompt them!
+      if (!profile) {
+        openInvitationModal(false);
+      }
+    }
+
+    function openInvitationModal(isManualEdit = false) {
+      const modal = document.getElementById('modal-invitation');
+      if (!modal) return;
+
+      const titleEl = document.getElementById('inv-modal-title');
+      const subtitleEl = document.getElementById('inv-modal-subtitle');
+      const submitBtn = document.getElementById('btn-inv-submit');
+      const statusBanner = document.getElementById('inv-current-status-banner');
+      const statusBadge = document.getElementById('inv-current-status-badge');
+      const errorBanner = document.getElementById('inv-error-banner');
+      const successBanner = document.getElementById('inv-success-banner');
+
+      if (errorBanner) errorBanner.classList.add('hidden');
+      if (successBanner) successBanner.classList.add('hidden');
+
+      const nameInput = document.getElementById('inv-name');
+      const emailInput = document.getElementById('inv-email');
+      const orgInput = document.getElementById('inv-org');
+      const websiteInput = document.getElementById('inv-website');
+      const codeInput = document.getElementById('inv-code');
+
+      // Pre-fill Name & Email if available from login or existing profile
+      const user = currentFirebaseUser;
+      const defaultName = (currentUserProfile && currentUserProfile.name)
+        ? currentUserProfile.name
+        : (user ? (user.displayName || (user.email ? user.email.split('@')[0] : '')) : '');
+
+      const defaultEmail = (currentUserProfile && currentUserProfile.email)
+        ? currentUserProfile.email
+        : (user ? (user.email || '') : '');
+
+      if (nameInput) nameInput.value = defaultName;
+      if (emailInput) emailInput.value = defaultEmail;
+      if (orgInput) orgInput.value = (currentUserProfile && currentUserProfile.org) ? currentUserProfile.org : '';
+      if (websiteInput) websiteInput.value = (currentUserProfile && currentUserProfile.orgWebsite) ? currentUserProfile.orgWebsite : '';
+      if (codeInput) codeInput.value = (currentUserProfile && currentUserProfile.invitationCode) ? currentUserProfile.invitationCode : '';
+
+      if (isManualEdit && currentUserProfile) {
+        if (titleEl) titleEl.textContent = 'Organization Profile & Invitation';
+        if (subtitleEl) subtitleEl.textContent = 'Update your organization details or enter an invitation code to upgrade access.';
+        if (submitBtn) {
+          const btnSpan = submitBtn.querySelector('span');
+          if (btnSpan) btnSpan.textContent = 'Save Changes';
+        }
+        if (statusBanner && statusBadge) {
+          statusBanner.classList.remove('hidden');
+          const isFull = currentUserProfile.accessLevel === 'Full Access';
+          statusBadge.className = isFull
+            ? 'font-bold uppercase tracking-wider px-2 py-0.5 rounded text-[10px] bg-emerald-100 text-emerald-800'
+            : 'font-bold uppercase tracking-wider px-2 py-0.5 rounded text-[10px] bg-amber-100 text-amber-800';
+          statusBadge.textContent = isFull ? 'Full Access' : 'Limited Access';
+        }
+      } else {
+        if (titleEl) titleEl.textContent = 'Welcome to ProjectSPG';
+        if (subtitleEl) subtitleEl.textContent = 'Access is currently invitation-only. Please confirm your organization details and enter your invitation code to unlock full platform capabilities.';
+        if (submitBtn) {
+          const btnSpan = submitBtn.querySelector('span');
+          if (btnSpan) btnSpan.textContent = 'Confirm & Enter Platform';
+        }
+        if (statusBanner) statusBanner.classList.add('hidden');
+      }
+
+      modal.classList.remove('hidden');
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+    }
+
+    function closeInvitationModal() {
+      const modal = document.getElementById('modal-invitation');
+      if (modal) modal.classList.add('hidden');
+      // If closing on initial login without having a profile, assign limited access
+      if (currentFirebaseUser && !currentUserProfile) {
+        continueWithLimitedAccess();
+      }
+    }
+
+    async function handleInvitationSubmit(e) {
+      if (e) e.preventDefault();
+      const errorBanner = document.getElementById('inv-error-banner');
+      const successBanner = document.getElementById('inv-success-banner');
+      const submitBtn = document.getElementById('btn-inv-submit');
+
+      if (errorBanner) errorBanner.classList.add('hidden');
+      if (successBanner) successBanner.classList.add('hidden');
+
+      const name = (document.getElementById('inv-name').value || '').trim();
+      const email = (document.getElementById('inv-email').value || '').trim();
+      const org = (document.getElementById('inv-org').value || '').trim();
+      const orgWebsite = (document.getElementById('inv-website').value || '').trim();
+      const invitationCode = (document.getElementById('inv-code').value || '').trim();
+
+      const user = currentFirebaseUser;
+      const userId = user ? user.uid : ('anon_' + Date.now());
+
+      const originalBtnHtml = submitBtn ? submitBtn.innerHTML : '';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span>Saving...</span>';
+      }
+
+      const hasCode = invitationCode.length >= 3;
+      const accessLevel = hasCode ? 'Full Access' : 'Limited Access';
+
+      const payload = {
+        userId,
+        name: name || (user?.displayName || 'User'),
+        email: email || (user?.email || ''),
+        org,
+        orgWebsite,
+        invitationCode,
+        accessLevel
+      };
+
+      try {
+        const headers = { 'Content-Type': 'application/json' };
+        if (currentIdToken) {
+          headers['Authorization'] = 'Bearer ' + currentIdToken;
+        }
+
+        const res = await fetch('/api/user/profile', {
+          method: 'POST',
+          headers,
+          body: JSON.stringify(payload)
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.profile) {
+            currentUserProfile = data.profile;
+          } else {
+            currentUserProfile = payload;
+          }
+        } else {
+          currentUserProfile = payload;
+        }
+      } catch (err) {
+        console.warn('Profile save warning, using offline persistence:', err);
+        currentUserProfile = payload;
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalBtnHtml;
+        }
+      }
+
+      // Persist to local storage
+      try {
+        localStorage.setItem('projectspg_profile_' + userId, JSON.stringify(currentUserProfile));
+      } catch (e) {}
+
+      updateUserUI(currentFirebaseUser);
+
+      const modal = document.getElementById('modal-invitation');
+      if (modal) modal.classList.add('hidden');
+
+      if (activeView === 'landing') {
+        switchView('playground');
+      }
+    }
+
+    async function continueWithLimitedAccess() {
+      const nameInput = document.getElementById('inv-name');
+      const emailInput = document.getElementById('inv-email');
+      const orgInput = document.getElementById('inv-org');
+      const websiteInput = document.getElementById('inv-website');
+
+      const user = currentFirebaseUser;
+      const userId = user ? user.uid : ('anon_' + Date.now());
+
+      const name = (nameInput?.value || '').trim() || (user ? (user.displayName || user.email?.split('@')[0]) : 'User');
+      const email = (emailInput?.value || '').trim() || (user ? (user.email || '') : '');
+      const org = (orgInput?.value || '').trim();
+      const orgWebsite = (websiteInput?.value || '').trim();
+
+      const payload = {
+        userId,
+        name,
+        email,
+        org,
+        orgWebsite,
+        invitationCode: '',
+        accessLevel: 'Limited Access'
+      };
+
+      try {
+        const headers = { 'Content-Type': 'application/json' };
+        if (currentIdToken) {
+          headers['Authorization'] = 'Bearer ' + currentIdToken;
+        }
+        const res = await fetch('/api/user/profile', {
+          method: 'POST',
+          headers,
+          body: JSON.stringify(payload)
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.profile) {
+            currentUserProfile = data.profile;
+          } else {
+            currentUserProfile = payload;
+          }
+        } else {
+          currentUserProfile = payload;
+        }
+      } catch (err) {
+        currentUserProfile = payload;
+      }
+
+      try {
+        localStorage.setItem('projectspg_profile_' + userId, JSON.stringify(currentUserProfile));
+      } catch (e) {}
+
+      updateUserUI(currentFirebaseUser);
+
+      const modal = document.getElementById('modal-invitation');
+      if (modal) modal.classList.add('hidden');
+
+      if (activeView === 'landing') {
+        switchView('playground');
+      }
+    }
+
     function updateUserUI(user) {
       const loginBtn = document.getElementById('btn-login-trigger');
       const userMenu = document.getElementById('user-profile-menu-container');
@@ -5184,12 +5564,24 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
       const initialsEl = document.getElementById('user-avatar-initials');
       const imgEl = document.getElementById('user-avatar-img');
 
+      const accessTagEl = document.getElementById('user-access-tag');
+      const menuBadgeEl = document.getElementById('user-menu-badge');
+      const menuOrgEl = document.getElementById('user-menu-org');
+      const menuOrgTextEl = document.getElementById('user-menu-org-text');
+
+      const landingBtnText = document.getElementById('btn-landing-signin-text');
+      const landingMobileBtnText = document.getElementById('btn-landing-mobile-signin-text');
+
       if (user) {
         if (loginBtn) loginBtn.classList.add('hidden');
         if (userMenu) userMenu.classList.remove('hidden');
 
-        const displayName = user.displayName || (user.email ? user.email.split('@')[0] : 'User');
-        const displayEmail = user.email || 'No email attached';
+        const displayName = (currentUserProfile && currentUserProfile.name)
+          ? currentUserProfile.name
+          : (user.displayName || (user.email ? user.email.split('@')[0] : 'User'));
+        const displayEmail = (currentUserProfile && currentUserProfile.email)
+          ? currentUserProfile.email
+          : (user.email || 'No email attached');
         const initials = displayName.charAt(0).toUpperCase();
 
         if (nameEl) nameEl.textContent = displayName;
@@ -5206,9 +5598,47 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
           }
           if (imgEl) imgEl.classList.add('hidden');
         }
+
+        // Access Level Tagging
+        const accessLevel = (currentUserProfile && currentUserProfile.accessLevel)
+          ? currentUserProfile.accessLevel
+          : 'Limited Access';
+        const isFull = accessLevel === 'Full Access';
+
+        if (accessTagEl) {
+          accessTagEl.className = isFull
+            ? 'hidden sm:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-wide transition shadow-2xs bg-emerald-50 text-emerald-700 border border-emerald-300'
+            : 'hidden sm:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-wide transition shadow-2xs bg-amber-50 text-amber-700 border border-amber-300';
+          accessTagEl.innerHTML = '<span class="w-1.5 h-1.5 rounded-full ' + (isFull ? 'bg-emerald-500' : 'bg-amber-500') + '"></span>' + (isFull ? 'Full Access' : 'Limited Access');
+        }
+
+        if (menuBadgeEl) {
+          menuBadgeEl.className = isFull
+            ? 'px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider shrink-0 bg-emerald-100 text-emerald-800'
+            : 'px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider shrink-0 bg-amber-100 text-amber-800';
+          menuBadgeEl.textContent = isFull ? 'Full Access' : 'Limited Access';
+        }
+
+        if (menuOrgEl && menuOrgTextEl) {
+          if (currentUserProfile && currentUserProfile.org) {
+            menuOrgTextEl.textContent = currentUserProfile.org;
+            menuOrgEl.classList.remove('hidden');
+          } else {
+            menuOrgEl.classList.add('hidden');
+          }
+        }
+
+        if (landingBtnText) {
+          landingBtnText.textContent = 'Console (' + (isFull ? 'Full' : 'Limited') + ')';
+        }
+        if (landingMobileBtnText) {
+          landingMobileBtnText.textContent = 'Console (' + (isFull ? 'Full' : 'Limited') + ')';
+        }
       } else {
         if (loginBtn) loginBtn.classList.remove('hidden');
         if (userMenu) userMenu.classList.add('hidden');
+        if (landingBtnText) landingBtnText.textContent = 'Sign In';
+        if (landingMobileBtnText) landingMobileBtnText.textContent = 'Sign In';
       }
       lucide.createIcons();
     }

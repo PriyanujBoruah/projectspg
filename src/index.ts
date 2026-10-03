@@ -15,6 +15,7 @@ import {
 } from "./auth/keys";
 import { getApiCallLogs } from "./audit/logger";
 import { verifyFirebaseIdToken, FIREBASE_CONFIG } from "./auth/firebase";
+import { getUserProfile, saveUserProfile } from "./auth/profile";
 import { LOGO_DATA_URIS, LOGO_FILES } from "./assets/logos";
 import { BLOG_IMAGE_DATA_URIS, BLOG_IMAGE_FILES } from "./assets/images";
 
@@ -111,6 +112,56 @@ app.get("/api/auth/me", async (c) => {
   const token = authHeader.slice(7).trim();
   const user = await verifyFirebaseIdToken(token);
   return c.json({ user });
+});
+
+// User Profile & Invitation Access Endpoints
+app.get("/api/user/profile", async (c) => {
+  const authHeader = c.req.header("Authorization") || "";
+  let userId = c.req.query("userId") || "";
+  if (authHeader.startsWith("Bearer ")) {
+    const token = authHeader.slice(7).trim();
+    const user = await verifyFirebaseIdToken(token);
+    if (user) userId = user.uid;
+  }
+  if (!userId) {
+    return c.json({ profile: null, error: "Unauthorized" }, 401);
+  }
+  const profile = await getUserProfile(c.env, userId);
+  return c.json({ profile });
+});
+
+app.post("/api/user/profile", async (c) => {
+  let body: any = {};
+  try {
+    body = await c.req.json();
+  } catch {
+    // empty body fallback
+  }
+  const authHeader = c.req.header("Authorization") || "";
+  let userId = body.userId || "";
+  let email = body.email || "";
+  let name = body.name || "";
+  if (authHeader.startsWith("Bearer ")) {
+    const token = authHeader.slice(7).trim();
+    const user = await verifyFirebaseIdToken(token);
+    if (user) {
+      userId = user.uid;
+      if (!email && user.email) email = user.email;
+      if (!name && user.name) name = user.name;
+    }
+  }
+  if (!userId) {
+    return c.json({ error: "User ID required" }, 400);
+  }
+  const profile = await saveUserProfile(c.env, {
+    userId,
+    name: body.name || name,
+    email: body.email || email,
+    org: body.org,
+    orgWebsite: body.orgWebsite || body.org_website,
+    invitationCode: body.invitationCode || body.invitation_code,
+  });
+  return c.json({ success: true, profile });
 });
 
 app.get("/api/keys", async (c) => {
