@@ -814,8 +814,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                 </div>
                 <div class="flex-1 relative flex items-center justify-center bg-gray-50/50 p-2 overflow-hidden">
                   <!-- PLACEHOLDER IMG: Replace src with image URL/path -->
-                  <img id="img-platform-inference-0" src="" alt="Automatic Data Redaction" class="w-full h-full object-cover rounded-xl hidden" onload="this.classList.remove('hidden'); const fb=document.getElementById('fb-platform-inference-0'); if(fb) fb.classList.add('hidden');" />
-                  <div id="fb-platform-inference-0" class="w-full h-full min-h-[200px] sm:min-h-[320px] border-2 border-dashed border-cyan-300/80 rounded-xl bg-cyan-50/40 flex flex-col items-center justify-center p-4 sm:p-8 text-center">
+                  <img id="img-platform-inference-0" src="/images/automatic-data-redaction.png" alt="Automatic Data Redaction" class="w-full h-full object-cover rounded-xl" onload="const fb=document.getElementById('fb-platform-inference-0'); if(fb) fb.classList.add('hidden');" />
+                  <div id="fb-platform-inference-0" class="hidden w-full h-full min-h-[200px] sm:min-h-[320px] border-2 border-dashed border-cyan-300/80 rounded-xl bg-cyan-50/40 flex flex-col items-center justify-center p-4 sm:p-8 text-center">
                     <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-cyan-100 text-cyan-700 flex items-center justify-center shadow-xs mb-2 sm:mb-3.5">
                       <i data-lucide="shield-check" class="w-6 h-6 sm:w-8 sm:h-8"></i>
                     </div>
@@ -845,8 +845,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                 </div>
                 <div class="flex-1 relative flex items-center justify-center bg-gray-50/50 p-2 overflow-hidden">
                   <!-- PLACEHOLDER IMG: Replace src with image URL/path -->
-                  <img id="img-platform-inference-1" src="" alt="Context-Preserving Masking" class="w-full h-full object-cover rounded-xl hidden" onload="this.classList.remove('hidden'); const fb=document.getElementById('fb-platform-inference-1'); if(fb) fb.classList.add('hidden');" />
-                  <div id="fb-platform-inference-1" class="w-full h-full min-h-[200px] sm:min-h-[320px] border-2 border-dashed border-teal-300/80 rounded-xl bg-teal-50/40 flex flex-col items-center justify-center p-4 sm:p-8 text-center">
+                  <img id="img-platform-inference-1" src="/images/context-preserving-masking.png" alt="Context-Preserving Masking" class="w-full h-full object-cover rounded-xl" onload="const fb=document.getElementById('fb-platform-inference-1'); if(fb) fb.classList.add('hidden');" />
+                  <div id="fb-platform-inference-1" class="hidden w-full h-full min-h-[200px] sm:min-h-[320px] border-2 border-dashed border-teal-300/80 rounded-xl bg-teal-50/40 flex flex-col items-center justify-center p-4 sm:p-8 text-center">
                     <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-teal-100 text-teal-700 flex items-center justify-center shadow-xs mb-2 sm:mb-3.5">
                       <i data-lucide="hash" class="w-6 h-6 sm:w-8 sm:h-8"></i>
                     </div>
@@ -876,8 +876,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                 </div>
                 <div class="flex-1 relative flex items-center justify-center bg-gray-50/50 p-2 overflow-hidden">
                   <!-- PLACEHOLDER IMG: Replace src with image URL/path -->
-                  <img id="img-platform-inference-2" src="" alt="Global Privacy Scanner" class="w-full h-full object-cover rounded-xl hidden" onload="this.classList.remove('hidden'); const fb=document.getElementById('fb-platform-inference-2'); if(fb) fb.classList.add('hidden');" />
-                  <div id="fb-platform-inference-2" class="w-full h-full min-h-[200px] sm:min-h-[320px] border-2 border-dashed border-sky-300/80 rounded-xl bg-sky-50/40 flex flex-col items-center justify-center p-4 sm:p-8 text-center">
+                  <img id="img-platform-inference-2" src="/images/global-privacy-scanner.png" alt="Global Privacy Scanner" class="w-full h-full object-cover rounded-xl" onload="const fb=document.getElementById('fb-platform-inference-2'); if(fb) fb.classList.add('hidden');" />
+                  <div id="fb-platform-inference-2" class="hidden w-full h-full min-h-[200px] sm:min-h-[320px] border-2 border-dashed border-sky-300/80 rounded-xl bg-sky-50/40 flex flex-col items-center justify-center p-4 sm:p-8 text-center">
                     <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-sky-100 text-sky-700 flex items-center justify-center shadow-xs mb-2 sm:mb-3.5">
                       <i data-lucide="scan" class="w-6 h-6 sm:w-8 sm:h-8"></i>
                     </div>
@@ -907,8 +907,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                 </div>
                 <div class="flex-1 relative flex items-center justify-center bg-gray-50/50 p-2 overflow-hidden">
                   <!-- PLACEHOLDER IMG: Replace src with image URL/path -->
-                  <img id="img-platform-inference-3" src="" alt="Secure Enterprise Vault" class="w-full h-full object-cover rounded-xl hidden" onload="this.classList.remove('hidden'); const fb=document.getElementById('fb-platform-inference-3'); if(fb) fb.classList.add('hidden');" />
-                  <div id="fb-platform-inference-3" class="w-full h-full min-h-[340px] border-2 border-dashed border-indigo-300/80 rounded-xl bg-indigo-50/40 flex flex-col items-center justify-center p-8 text-center">
+                  <img id="img-platform-inference-3" src="/images/secure-enterprise-vault.png" alt="Secure Enterprise Vault" class="w-full h-full object-cover rounded-xl" onload="const fb=document.getElementById('fb-platform-inference-3'); if(fb) fb.classList.add('hidden');" />
+                  <div id="fb-platform-inference-3" class="hidden w-full h-full min-h-[340px] border-2 border-dashed border-indigo-300/80 rounded-xl bg-indigo-50/40 flex flex-col items-center justify-center p-8 text-center">
                     <div class="w-16 h-16 rounded-2xl bg-indigo-100 text-indigo-700 flex items-center justify-center shadow-xs mb-3.5">
                       <i data-lucide="database" class="w-8 h-8"></i>
                     </div>

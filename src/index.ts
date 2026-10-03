@@ -389,11 +389,13 @@ app.get("/images/:filename", (c) => {
   );
   if (entry) {
     const dataUri = BLOG_IMAGE_DATA_URIS[entry[0] as keyof typeof BLOG_IMAGE_DATA_URIS];
+    const mimeMatch = dataUri.match(/^data:([^;]+);base64,/);
+    const contentType = mimeMatch ? mimeMatch[1] : "image/png";
     const base64Data = dataUri.split(",")[1];
     const binary = Uint8Array.from(atob(base64Data), (char) => char.charCodeAt(0));
     return new Response(binary, {
       headers: {
-        "Content-Type": "image/png",
+        "Content-Type": contentType,
         "Cache-Control": "public, max-age=31536000, immutable",
       },
     });
