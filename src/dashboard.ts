@@ -3247,10 +3247,12 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               }
               await checkUserInvitationStatus(user);
               updateUserUI(user);
+              initByokKeys();
             } else {
               currentUserProfile = null;
               currentIdToken = null;
               updateUserUI(null);
+              clearByokInputs();
             }
             fetchApiKeys();
           });
@@ -3935,9 +3937,9 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     async function fetchAndPopulateByokModels(forceRefresh = false) {
       if (playgroundTierMode !== 'byok') return;
 
-      const groqKey = localStorage.getItem('byok_key_groq') || (document.getElementById('byok-key-groq') ? document.getElementById('byok-key-groq').value.trim() : '');
-      const googleKey = localStorage.getItem('byok_key_google') || (document.getElementById('byok-key-google') ? document.getElementById('byok-key-google').value.trim() : '');
-      const mistralKey = localStorage.getItem('byok_key_mistral') || (document.getElementById('byok-key-mistral') ? document.getElementById('byok-key-mistral').value.trim() : '');
+      const groqKey = getStoredByokKey('groq') || (document.getElementById('byok-key-groq') ? document.getElementById('byok-key-groq').value.trim() : '');
+      const googleKey = getStoredByokKey('google') || (document.getElementById('byok-key-google') ? document.getElementById('byok-key-google').value.trim() : '');
+      const mistralKey = getStoredByokKey('mistral') || (document.getElementById('byok-key-mistral') ? document.getElementById('byok-key-mistral').value.trim() : '');
 
       const catalog = {
         groq: [...FREE_TIER_MODELS.groq],
@@ -4059,7 +4061,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           byokKeysBtn.classList.remove('hidden');
         }
         updateByokBadge();
-        const hasKeys = !!(localStorage.getItem('byok_key_google') || localStorage.getItem('byok_key_mistral') || localStorage.getItem('byok_key_groq') || (document.getElementById('cfg-apikey') && document.getElementById('cfg-apikey').value.trim()));
+        const hasKeys = !!(getStoredByokKey('google') || getStoredByokKey('mistral') || getStoredByokKey('groq') || (document.getElementById('cfg-apikey') && document.getElementById('cfg-apikey').value.trim()));
         if (!hasKeys) {
           renderPlaygroundModelDropdown(FREE_TIER_MODELS);
           openByokKeysModal();
@@ -4104,9 +4106,9 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           showInvitationToast(true);
           return;
         }
-        const googleKey = (document.getElementById('byok-key-google') ? document.getElementById('byok-key-google').value.trim() : '') || localStorage.getItem('byok_key_google') || '';
-        const mistralKey = (document.getElementById('byok-key-mistral') ? document.getElementById('byok-key-mistral').value.trim() : '') || localStorage.getItem('byok_key_mistral') || '';
-        const groqKey = (document.getElementById('byok-key-groq') ? document.getElementById('byok-key-groq').value.trim() : '') || localStorage.getItem('byok_key_groq') || '';
+        const googleKey = (document.getElementById('byok-key-google') ? document.getElementById('byok-key-google').value.trim() : '') || getStoredByokKey('google') || '';
+        const mistralKey = (document.getElementById('byok-key-mistral') ? document.getElementById('byok-key-mistral').value.trim() : '') || getStoredByokKey('mistral') || '';
+        const groqKey = (document.getElementById('byok-key-groq') ? document.getElementById('byok-key-groq').value.trim() : '') || getStoredByokKey('groq') || '';
         const legacyKey = (document.getElementById('cfg-apikey') ? document.getElementById('cfg-apikey').value.trim() : '');
 
         let providerName = '';
@@ -5371,9 +5373,51 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
     function closeConfigModal() { document.getElementById('modal-config').classList.add('hidden'); }
 
     // =========================================================================
+    // Account-Scoped BYOK Provider Key Storage Helpers
+    // =========================================================================
+    function getByokStorageKey(provider) {
+      const uid = currentFirebaseUser ? currentFirebaseUser.uid : null;
+      if (!uid) return null;
+      return 'byok_key_' + uid + '_' + provider;
+    }
+
+    function getStoredByokKey(provider) {
+      const key = getByokStorageKey(provider);
+      return key ? (localStorage.getItem(key) || '') : '';
+    }
+
+    function setStoredByokKey(provider, value) {
+      const key = getByokStorageKey(provider);
+      if (!key) return;
+      if (value && value.trim()) {
+        localStorage.setItem(key, value.trim());
+      } else {
+        localStorage.removeItem(key);
+      }
+    }
+
+    function removeStoredByokKey(provider) {
+      const key = getByokStorageKey(provider);
+      if (key) localStorage.removeItem(key);
+    }
+
+    function clearByokInputs() {
+      if (document.getElementById('byok-key-google')) document.getElementById('byok-key-google').value = '';
+      if (document.getElementById('byok-key-mistral')) document.getElementById('byok-key-mistral').value = '';
+      if (document.getElementById('byok-key-groq')) document.getElementById('byok-key-groq').value = '';
+      if (document.getElementById('cfg-apikey')) document.getElementById('cfg-apikey').value = '';
+      cachedByokCatalog = null;
+      updateByokBadge();
+    }
+
+    // =========================================================================
     // BYOK Provider API Keys Modal Handlers
     // =========================================================================
     function openByokKeysModal() {
+      if (!currentFirebaseUser) {
+        openAuthModal();
+        return;
+      }
       if (!isUserFullyInvited()) {
         showInvitationToast(true);
         const feedback = document.getElementById('toast-inv-feedback');
@@ -5388,9 +5432,9 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
       const gInput = document.getElementById('byok-key-google');
       const mInput = document.getElementById('byok-key-mistral');
       const grInput = document.getElementById('byok-key-groq');
-      if (gInput) gInput.value = localStorage.getItem('byok_key_google') || '';
-      if (mInput) mInput.value = localStorage.getItem('byok_key_mistral') || '';
-      if (grInput) grInput.value = localStorage.getItem('byok_key_groq') || '';
+      if (gInput) gInput.value = getStoredByokKey('google');
+      if (mInput) mInput.value = getStoredByokKey('mistral');
+      if (grInput) grInput.value = getStoredByokKey('groq');
       modal.classList.remove('hidden');
       if (window.lucide) lucide.createIcons();
     }
@@ -5401,13 +5445,17 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
     }
 
     function saveByokKeys() {
+      if (!currentFirebaseUser) {
+        openAuthModal();
+        return;
+      }
       const gKey = document.getElementById('byok-key-google') ? document.getElementById('byok-key-google').value.trim() : '';
       const mKey = document.getElementById('byok-key-mistral') ? document.getElementById('byok-key-mistral').value.trim() : '';
       const grKey = document.getElementById('byok-key-groq') ? document.getElementById('byok-key-groq').value.trim() : '';
 
-      if (gKey) localStorage.setItem('byok_key_google', gKey); else localStorage.removeItem('byok_key_google');
-      if (mKey) localStorage.setItem('byok_key_mistral', mKey); else localStorage.removeItem('byok_key_mistral');
-      if (grKey) localStorage.setItem('byok_key_groq', grKey); else localStorage.removeItem('byok_key_groq');
+      setStoredByokKey('google', gKey);
+      setStoredByokKey('mistral', mKey);
+      setStoredByokKey('groq', grKey);
 
       const legacyKey = document.getElementById('cfg-apikey');
       if (legacyKey) legacyKey.value = grKey || mKey || gKey || '';
@@ -5422,19 +5470,10 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
     }
 
     function clearByokKeys() {
-      if (document.getElementById('byok-key-google')) document.getElementById('byok-key-google').value = '';
-      if (document.getElementById('byok-key-mistral')) document.getElementById('byok-key-mistral').value = '';
-      if (document.getElementById('byok-key-groq')) document.getElementById('byok-key-groq').value = '';
-
-      localStorage.removeItem('byok_key_google');
-      localStorage.removeItem('byok_key_mistral');
-      localStorage.removeItem('byok_key_groq');
-
-      const legacyKey = document.getElementById('cfg-apikey');
-      if (legacyKey) legacyKey.value = '';
-
-      cachedByokCatalog = null;
-      updateByokBadge();
+      clearByokInputs();
+      removeStoredByokKey('google');
+      removeStoredByokKey('mistral');
+      removeStoredByokKey('groq');
 
       if (playgroundTierMode === 'byok') {
         renderPlaygroundModelDropdown(FREE_TIER_MODELS);
@@ -5455,9 +5494,9 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
     }
 
     function updateByokBadge() {
-      const g = localStorage.getItem('byok_key_google') || (document.getElementById('byok-key-google') ? document.getElementById('byok-key-google').value.trim() : '');
-      const m = localStorage.getItem('byok_key_mistral') || (document.getElementById('byok-key-mistral') ? document.getElementById('byok-key-mistral').value.trim() : '');
-      const gr = localStorage.getItem('byok_key_groq') || (document.getElementById('byok-key-groq') ? document.getElementById('byok-key-groq').value.trim() : '');
+      const g = getStoredByokKey('google') || (document.getElementById('byok-key-google') ? document.getElementById('byok-key-google').value.trim() : '');
+      const m = getStoredByokKey('mistral') || (document.getElementById('byok-key-mistral') ? document.getElementById('byok-key-mistral').value.trim() : '');
+      const gr = getStoredByokKey('groq') || (document.getElementById('byok-key-groq') ? document.getElementById('byok-key-groq').value.trim() : '');
       const badge = document.getElementById('byok-keys-badge');
       if (badge) {
         if (g || m || gr) {
@@ -5469,9 +5508,20 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
     }
 
     function initByokKeys() {
-      const g = localStorage.getItem('byok_key_google') || '';
-      const m = localStorage.getItem('byok_key_mistral') || '';
-      const gr = localStorage.getItem('byok_key_groq') || '';
+      // Clean up legacy unscoped keys
+      try {
+        localStorage.removeItem('byok_key_google');
+        localStorage.removeItem('byok_key_mistral');
+        localStorage.removeItem('byok_key_groq');
+      } catch (e) {}
+
+      if (!currentFirebaseUser) {
+        clearByokInputs();
+        return;
+      }
+      const g = getStoredByokKey('google');
+      const m = getStoredByokKey('mistral');
+      const gr = getStoredByokKey('groq');
       if (document.getElementById('byok-key-google')) document.getElementById('byok-key-google').value = g;
       if (document.getElementById('byok-key-mistral')) document.getElementById('byok-key-mistral').value = m;
       if (document.getElementById('byok-key-groq')) document.getElementById('byok-key-groq').value = gr;
