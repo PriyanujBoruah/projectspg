@@ -910,100 +910,22 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
           </div>
 
-          <!-- Right Column: Visual Showcases for Privacy (Image Placeholders) -->
+          <!-- Right Column: Visual Showcases for Privacy -->
           <div class="w-full lg:w-[480px] xl:w-[540px] shrink-0 flex flex-col justify-stretch">
             
-            <!-- Mockup 0: One-Click AI Gateway Integration Placeholder -->
-            <div class="mockup-compute relative rounded-2xl sm:rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#93c5fd] via-[#e0e7ff] to-[#38bdf8] border border-gray-200/70 shadow-lg min-h-[260px] sm:min-h-[380px] lg:min-h-[460px] flex items-center justify-center overflow-hidden">
-              <div class="w-full aspect-[16/10] bg-white/95 backdrop-blur-md rounded-xl sm:rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden flex flex-col relative">
-                <div class="h-8 sm:h-9 px-3 sm:px-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0">
-                  <div class="flex items-center gap-1.5 sm:gap-2">
-                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-red-400"></span>
-                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-amber-400"></span>
-                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-emerald-400"></span>
-                    <span class="text-[10px] sm:text-[11px] font-mono text-gray-500 ml-1.5 sm:ml-2">one-click-ai-gateway.png</span>
-                  </div>
-                  <span class="text-[9px] sm:text-[10px] text-gray-400 font-medium">16:10</span>
-                </div>
-                <div class="flex-1 relative flex items-center justify-center bg-gray-50/50 p-2 overflow-hidden">
-                  <!-- PLACEHOLDER IMG: Replace src with image URL/path -->
-                  <img id="img-platform-compute-0" src="" alt="One-Click AI Gateway" class="w-full h-full object-cover rounded-xl hidden" onload="this.classList.remove('hidden'); const fb=document.getElementById('fb-platform-compute-0'); if(fb) fb.classList.add('hidden');" />
-                  <div id="fb-platform-compute-0" class="w-full h-full min-h-[200px] sm:min-h-[320px] border-2 border-dashed border-blue-300/80 rounded-xl bg-blue-50/40 flex flex-col items-center justify-center p-4 sm:p-8 text-center">
-                    <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-blue-100 text-blue-700 flex items-center justify-center shadow-xs mb-2 sm:mb-3.5">
-                      <i data-lucide="cpu" class="w-6 h-6 sm:w-8 sm:h-8"></i>
-                    </div>
-                    <h4 class="text-sm sm:text-base font-bold text-gray-900 mb-1">Accelerated Compute Image</h4>
-                    <p class="text-[11px] sm:text-xs text-gray-500 max-w-sm mb-3 sm:mb-4">
-                      Drop your screenshot into <code class="text-blue-800 bg-blue-100/70 px-1 py-0.5 rounded font-mono text-[10px] sm:text-[11px]">#img-platform-compute-0</code>
-                    </p>
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-gray-200/90 text-gray-700 text-[9px] sm:text-[10px] font-semibold tracking-wide uppercase shadow-2xs">
-                      <i data-lucide="upload-cloud" class="w-3.5 h-3.5 text-blue-600"></i> Placeholder Image (16:10)
-                    </span>
-                  </div>
-                </div>
-              </div>
+            <!-- Mockup 0: One-Click AI Gateway Showcase -->
+            <div class="mockup-compute relative rounded-xl border border-gray-200 overflow-hidden w-full h-full aspect-[10/8] lg:aspect-auto bg-white flex items-center justify-center">
+              <img id="img-platform-compute-0" src="/images/one-click-ai-gateway.png" alt="One-Click AI Gateway" class="w-full h-full object-cover block" />
             </div>
 
-            <!-- Mockup 1: Sandbox Image Placeholder -->
-            <div class="mockup-compute hidden relative rounded-2xl sm:rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#a5b4fc] via-[#f0f9ff] to-[#67e8f9] border border-gray-200/70 shadow-lg min-h-[260px] sm:min-h-[380px] lg:min-h-[460px] flex items-center justify-center overflow-hidden">
-              <div class="w-full aspect-[16/10] bg-white/95 backdrop-blur-md rounded-xl sm:rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden flex flex-col relative">
-                <div class="h-8 sm:h-9 px-3 sm:px-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0">
-                  <div class="flex items-center gap-1.5 sm:gap-2">
-                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-red-400"></span>
-                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-amber-400"></span>
-                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-emerald-400"></span>
-                    <span class="text-[10px] sm:text-[11px] font-mono text-gray-500 ml-1.5 sm:ml-2">multi-model-freedom.png</span>
-                  </div>
-                  <span class="text-[9px] sm:text-[10px] text-gray-400 font-medium">16:10</span>
-                </div>
-                <div class="flex-1 relative flex items-center justify-center bg-gray-50/50 p-2 overflow-hidden">
-                  <!-- PLACEHOLDER IMG: Replace src with image URL/path -->
-                  <img id="img-platform-compute-1" src="" alt="Multi-Model Freedom (BYOK)" class="w-full h-full object-cover rounded-xl hidden" onload="this.classList.remove('hidden'); const fb=document.getElementById('fb-platform-compute-1'); if(fb) fb.classList.add('hidden');" />
-                  <div id="fb-platform-compute-1" class="w-full h-full min-h-[200px] sm:min-h-[320px] border-2 border-dashed border-indigo-300/80 rounded-xl bg-indigo-50/40 flex flex-col items-center justify-center p-4 sm:p-8 text-center">
-                    <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-indigo-100 text-indigo-700 flex items-center justify-center shadow-xs mb-2 sm:mb-3.5">
-                      <i data-lucide="box" class="w-6 h-6 sm:w-8 sm:h-8"></i>
-                    </div>
-                    <h4 class="text-sm sm:text-base font-bold text-gray-900 mb-1">Multi-Provider BYOK Routing</h4>
-                    <p class="text-[11px] sm:text-xs text-gray-500 max-w-sm mb-3 sm:mb-4">
-                      Drop your screenshot into <code class="text-indigo-800 bg-indigo-100/70 px-1 py-0.5 rounded font-mono text-[10px] sm:text-[11px]">#img-platform-compute-1</code>
-                    </p>
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-gray-200/90 text-gray-700 text-[9px] sm:text-[10px] font-semibold tracking-wide uppercase shadow-2xs">
-                      <i data-lucide="upload-cloud" class="w-3.5 h-3.5 text-indigo-600"></i> Placeholder Image (16:10)
-                    </span>
-                  </div>
-                </div>
-              </div>
+            <!-- Mockup 1: Multi-Model Freedom (BYOK) Showcase -->
+            <div class="mockup-compute hidden relative rounded-xl border border-gray-200 overflow-hidden w-full h-full aspect-[10/8] lg:aspect-auto bg-white flex items-center justify-center">
+              <img id="img-platform-compute-1" src="/images/multi-model-freedom.png" alt="Multi-Model Freedom (BYOK)" class="w-full h-full object-cover block" />
             </div>
 
-            <!-- Mockup 2: Seamless Live Rehydration Showcase Placeholder -->
-            <div class="mockup-compute hidden relative rounded-2xl sm:rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#93c5fd] via-[#e2e8f0] to-[#bfdbfe] border border-gray-200/70 shadow-lg min-h-[260px] sm:min-h-[380px] lg:min-h-[460px] flex items-center justify-center overflow-hidden">
-              <div class="w-full aspect-[16/10] bg-white/95 backdrop-blur-md rounded-xl sm:rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden flex flex-col relative">
-                <div class="h-8 sm:h-9 px-3 sm:px-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0">
-                  <div class="flex items-center gap-1.5 sm:gap-2">
-                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-red-400"></span>
-                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-amber-400"></span>
-                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-emerald-400"></span>
-                    <span class="text-[10px] sm:text-[11px] font-mono text-gray-500 ml-1.5 sm:ml-2">seamless-live-rehydration.png</span>
-                  </div>
-                  <span class="text-[9px] sm:text-[10px] text-gray-400 font-medium">16:10</span>
-                </div>
-                <div class="flex-1 relative flex items-center justify-center bg-gray-50/50 p-2 overflow-hidden">
-                  <!-- PLACEHOLDER IMG: Replace src with image URL/path -->
-                  <img id="img-platform-compute-2" src="" alt="Seamless Live Rehydration" class="w-full h-full object-cover rounded-xl hidden" onload="this.classList.remove('hidden'); const fb=document.getElementById('fb-platform-compute-2'); if(fb) fb.classList.add('hidden');" />
-                  <div id="fb-platform-compute-2" class="w-full h-full min-h-[200px] sm:min-h-[320px] border-2 border-dashed border-blue-300/80 rounded-xl bg-blue-50/40 flex flex-col items-center justify-center p-4 sm:p-8 text-center">
-                    <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-blue-100 text-blue-700 flex items-center justify-center shadow-xs mb-2 sm:mb-3.5">
-                      <i data-lucide="hard-drive" class="w-6 h-6 sm:w-8 sm:h-8"></i>
-                    </div>
-                    <h4 class="text-sm sm:text-base font-bold text-gray-900 mb-1">Managed Storage Image</h4>
-                    <p class="text-[11px] sm:text-xs text-gray-500 max-w-sm mb-3 sm:mb-4">
-                      Drop your screenshot into <code class="text-blue-800 bg-blue-100/70 px-1 py-0.5 rounded font-mono text-[10px] sm:text-[11px]">#img-platform-compute-2</code>
-                    </p>
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-gray-200/90 text-gray-700 text-[9px] sm:text-[10px] font-semibold tracking-wide uppercase shadow-2xs">
-                      <i data-lucide="upload-cloud" class="w-3.5 h-3.5 text-blue-600"></i> Placeholder Image (16:10)
-                    </span>
-                  </div>
-                </div>
-              </div>
+            <!-- Mockup 2: Seamless Live Rehydration Showcase -->
+            <div class="mockup-compute hidden relative rounded-xl border border-gray-200 overflow-hidden w-full h-full aspect-[10/8] lg:aspect-auto bg-white flex items-center justify-center">
+              <img id="img-platform-compute-2" src="/images/seamless-live-rehydration.png" alt="Seamless Live Rehydration" class="w-full h-full object-cover block" />
             </div>
 
           </div>
