@@ -713,7 +713,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                 <div class="platform-accordion-drawer-inner overflow-hidden min-h-0">
                   <div class="px-4 sm:px-5 pb-5 sm:pb-6 pt-0">
                     <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
-                      Safeguard customer PII, confidential contracts, and financial records automatically. Sensitive data is stripped before prompts reach public AI models, neutralizing data leak risks without slowing down development.
+                      Automatically redact customer PII and confidential records before prompts reach AI models, preventing data leaks without slowing development.
                     </p>
                     <button onclick="event.stopPropagation(); switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
                       TRY IN PLAYGROUND
@@ -737,7 +737,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                 <div class="platform-accordion-drawer-inner overflow-hidden min-h-0">
                   <div class="px-4 sm:px-5 pb-5 sm:pb-6 pt-0">
                     <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
-                      Keep your AI smart and context-aware. Sensitive numbers and names are disguised while preserving original formatting and grammar, allowing models to reason accurately without ever seeing real customer data.
+                      Disguise sensitive names and numbers while preserving formatting and grammar, letting models reason accurately without seeing real data.
                     </p>
                     <button onclick="event.stopPropagation(); switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
                       LEARN MORE
@@ -761,7 +761,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                 <div class="platform-accordion-drawer-inner overflow-hidden min-h-0">
                   <div class="px-4 sm:px-5 pb-5 sm:pb-6 pt-0">
                     <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
-                      Expand into international markets with total confidence. Built-in scanners automatically identify and shield personal identifiers across North America, Europe, Asia, Latin America, and beyond.
+                      Detect and shield regional identifiers across North America, Europe, Asia, and Latin America with zero manual setup.
                     </p>
                     <button onclick="event.stopPropagation(); switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
                       LEARN MORE
@@ -785,7 +785,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                 <div class="platform-accordion-drawer-inner overflow-hidden min-h-0">
                   <div class="px-4 sm:px-5 pb-5 sm:pb-6 pt-0">
                     <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
-                      Maintain 100% ownership of your business data. Real customer information stays strictly within your isolated vault, protected by enterprise encryption keys that only your organization can unlock.
+                      Keep real data isolated in your dedicated vault, secured by enterprise encryption keys that only your organization controls.
                     </p>
                     <button onclick="event.stopPropagation(); switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
                       LEARN MORE
@@ -950,7 +950,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                 <div class="platform-accordion-drawer-inner overflow-hidden min-h-0">
                   <div class="px-4 sm:px-5 pb-5 sm:pb-6 pt-0">
                     <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
-                      Deploy enterprise-wide AI protection with zero code rewrites. Connect existing internal chatbots, customer applications, and agent workflows in minutes with a simple single-line URL change.
+                      Protect chatbots, agents, and apps in minutes with a single-line URL change — zero code rewrites required.
                     </p>
                     <button onclick="event.stopPropagation(); switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
                       LEARN MORE
@@ -974,7 +974,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                 <div class="platform-accordion-drawer-inner overflow-hidden min-h-0">
                   <div class="px-4 sm:px-5 pb-5 sm:pb-6 pt-0">
                     <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
-                      Avoid costly vendor lock-in. Seamlessly route prompts across Groq Cloud, Google Gemini, Mistral AI, and open-source models using your own enterprise keys — optimizing cost, speed, and quality on your terms.
+                      Route prompts across Groq, Gemini, Mistral, and open-source models with your own keys to optimize speed, cost, and quality.
                     </p>
                     <button onclick="event.stopPropagation(); switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
                       LEARN MORE
@@ -998,7 +998,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                 <div class="platform-accordion-drawer-inner overflow-hidden min-h-0">
                   <div class="px-4 sm:px-5 pb-5 sm:pb-6 pt-0">
                     <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
-                      Deliver exceptional end-user experiences with zero friction. As AI responses stream back, original customer details are reconstituted in real time, keeping answers personalized, accurate, and completely secure.
+                      Reconstitute original details in real time as AI answers stream back, delivering personalized responses with zero friction.
                     </p>
                     <button onclick="event.stopPropagation(); switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
                       LEARN MORE
@@ -1132,7 +1132,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                 <div class="platform-accordion-drawer-inner overflow-hidden min-h-0">
                   <div class="px-4 sm:px-5 pb-5 sm:pb-6 pt-0">
                     <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
-                      Gain full visibility across all enterprise AI traffic. Track every protected request, redacted entity, and model transaction in real time — giving your security team and auditors complete operational clarity.
+                      Track every protected prompt, redacted entity, and model transaction in real time for complete security and audit visibility.
                     </p>
                     <button onclick="event.stopPropagation(); switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
                       LEARN MORE
@@ -1156,7 +1156,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                 <div class="platform-accordion-drawer-inner overflow-hidden min-h-0">
                   <div class="px-4 sm:px-5 pb-5 sm:pb-6 pt-0">
                     <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
-                      Fast-track approval from legal and risk committees. Pre-configured compliance guardrails immediately satisfy strict HIPAA, GDPR, CCPA, and SOC 2 requirements, eliminating adoption roadblocks overnight.
+                      Satisfy HIPAA, GDPR, CCPA, and SOC 2 guardrails instantly, fast-tracking approval from legal and risk committees.
                     </p>
                     <button onclick="event.stopPropagation(); switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
                       LEARN MORE
