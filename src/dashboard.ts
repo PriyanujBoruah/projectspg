@@ -802,26 +802,26 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           </div>
 
           <!-- Right Column: Visual Showcases for De-Identify -->
-          <div class="w-full lg:w-[500px] xl:w-[580px] shrink-0 flex items-center justify-center lg:justify-end">
+          <div class="w-full lg:w-[480px] xl:w-[540px] shrink-0 flex items-center justify-center lg:justify-end">
             
             <!-- Mockup 0: Automatic Data Redaction Showcase -->
-            <div class="mockup-inference relative rounded-xl border border-gray-200 overflow-hidden aspect-[10/8] w-full bg-white flex items-center justify-center">
-              <img id="img-platform-inference-0" src="/images/automatic-data-redaction.png" alt="Automatic Data Redaction" class="w-full h-full object-cover" />
+            <div class="mockup-inference relative rounded-xl border border-gray-200 overflow-hidden w-full bg-white">
+              <img id="img-platform-inference-0" src="/images/automatic-data-redaction.png" alt="Automatic Data Redaction" class="w-full h-auto block object-contain" />
             </div>
 
             <!-- Mockup 1: Context-Preserving Masking Showcase -->
-            <div class="mockup-inference hidden relative rounded-xl border border-gray-200 overflow-hidden aspect-[10/8] w-full bg-white flex items-center justify-center">
-              <img id="img-platform-inference-1" src="/images/context-preserving-masking.png" alt="Context-Preserving Masking" class="w-full h-full object-cover" />
+            <div class="mockup-inference hidden relative rounded-xl border border-gray-200 overflow-hidden w-full bg-white">
+              <img id="img-platform-inference-1" src="/images/context-preserving-masking.png" alt="Context-Preserving Masking" class="w-full h-auto block object-contain" />
             </div>
 
             <!-- Mockup 2: Global Privacy Scanner Showcase -->
-            <div class="mockup-inference hidden relative rounded-xl border border-gray-200 overflow-hidden aspect-[10/8] w-full bg-white flex items-center justify-center">
-              <img id="img-platform-inference-2" src="/images/global-privacy-scanner.png" alt="Global Privacy Scanner" class="w-full h-full object-cover" />
+            <div class="mockup-inference hidden relative rounded-xl border border-gray-200 overflow-hidden w-full bg-white">
+              <img id="img-platform-inference-2" src="/images/global-privacy-scanner.png" alt="Global Privacy Scanner" class="w-full h-auto block object-contain" />
             </div>
 
             <!-- Mockup 3: Secure Enterprise Vault Showcase -->
-            <div class="mockup-inference hidden relative rounded-xl border border-gray-200 overflow-hidden aspect-[10/8] w-full bg-white flex items-center justify-center">
-              <img id="img-platform-inference-3" src="/images/secure-enterprise-vault.png" alt="Secure Enterprise Vault" class="w-full h-full object-cover" />
+            <div class="mockup-inference hidden relative rounded-xl border border-gray-200 overflow-hidden w-full bg-white">
+              <img id="img-platform-inference-3" src="/images/secure-enterprise-vault.png" alt="Secure Enterprise Vault" class="w-full h-auto block object-contain" />
             </div>
 
           </div>
@@ -911,7 +911,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           </div>
 
           <!-- Right Column: Visual Showcases for Privacy (Image Placeholders) -->
-          <div class="w-full lg:w-[500px] xl:w-[580px] shrink-0 flex items-center justify-center lg:justify-end">
+          <div class="w-full lg:w-[480px] xl:w-[540px] shrink-0 flex items-center justify-center lg:justify-end">
             
             <!-- Mockup 0: One-Click AI Gateway Integration Placeholder -->
             <div class="mockup-compute relative rounded-2xl sm:rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#93c5fd] via-[#e0e7ff] to-[#38bdf8] border border-gray-200/70 shadow-lg min-h-[260px] sm:min-h-[380px] lg:min-h-[460px] flex items-center justify-center overflow-hidden">
@@ -1069,7 +1069,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           </div>
 
           <!-- Right Column: Visual Showcases for Compliance (Image Placeholders) -->
-          <div class="w-full lg:w-[500px] xl:w-[580px] shrink-0 flex items-center justify-center lg:justify-end">
+          <div class="w-full lg:w-[480px] xl:w-[540px] shrink-0 flex items-center justify-center lg:justify-end">
             
             <!-- Mockup 0: Fine-Tuning Image Placeholder -->
             <div class="mockup-shaping relative rounded-2xl sm:rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#e9d5ff] via-[#fdf2f8] to-[#f472b6] border border-gray-200/70 shadow-lg min-h-[260px] sm:min-h-[380px] lg:min-h-[460px] flex items-center justify-center overflow-hidden">
