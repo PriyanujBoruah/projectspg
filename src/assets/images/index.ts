@@ -4,10 +4,10 @@ export const BLOG_IMAGE_FILES = {
   benchmark_routing_engine: 'benchmark-routing-engine.png',
   empirical_benchmark_highlights: 'empirical-benchmark-highlights.png',
   hero_illustration: 'hero-illustration.png',
-  automatic_data_redaction: 'automatic-data-redaction.png',
-  context_preserving_masking: 'context-preserving-masking.png',
-  global_privacy_scanner: 'global-privacy-scanner.png',
-  secure_enterprise_vault: 'secure-enterprise-vault.png',
+  automatic_data_redaction: 'automatic-data-redaction-v2.png',
+  context_preserving_masking: 'context-preserving-masking-v2.png',
+  global_privacy_scanner: 'global-privacy-scanner-v2.png',
+  secure_enterprise_vault: 'secure-enterprise-vault-v2.png',
 } as const;
 
 export const BLOG_IMAGE_DATA_URIS = {

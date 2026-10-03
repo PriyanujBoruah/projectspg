@@ -384,8 +384,12 @@ app.get("/logos/:filename", (c) => {
 // Serve static blog illustration images
 app.get("/images/:filename", (c) => {
   const filename = c.req.param("filename");
+  const normalized = filename.replace(/-v\d+/i, "").toLowerCase();
   const entry = Object.entries(BLOG_IMAGE_FILES).find(
-    ([_, file]) => file.toLowerCase() === filename.toLowerCase()
+    ([_, file]) => {
+      const fLower = file.toLowerCase();
+      return fLower === filename.toLowerCase() || fLower === normalized;
+    }
   );
   if (entry) {
     const dataUri = BLOG_IMAGE_DATA_URIS[entry[0] as keyof typeof BLOG_IMAGE_DATA_URIS];
@@ -396,7 +400,7 @@ app.get("/images/:filename", (c) => {
     return new Response(binary, {
       headers: {
         "Content-Type": contentType,
-        "Cache-Control": "public, max-age=31536000, immutable",
+        "Cache-Control": "public, max-age=0, must-revalidate",
       },
     });
   }
