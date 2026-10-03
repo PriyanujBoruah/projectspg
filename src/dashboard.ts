@@ -6209,7 +6209,7 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
 
       if (!tbody) return;
 
-      if (adminInvitationsList.length === 0) {
+      if (!adminInvitationsList || adminInvitationsList.length === 0) {
         tbody.innerHTML = '<tr><td colspan="6" class="py-8 text-center text-gray-400">No invitation codes created yet. Use the generator above to issue your first partner code!</td></tr>';
         if (countEl) countEl.textContent = '0 codes total';
         if (activeCountEl) activeCountEl.textContent = '0';
@@ -6220,7 +6220,9 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
       let activeCount = 0;
       let totalUses = 0;
 
-      const rowsHtml = adminInvitationsList.map(item => {
+      tbody.innerHTML = '';
+
+      adminInvitationsList.forEach(item => {
         const isRevoked = !item.isActive;
         const isExhausted = item.maxUses > 0 && item.usesCount >= item.maxUses;
         const isActive = !isRevoked && !isExhausted;
@@ -6228,51 +6230,95 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
         if (isActive) activeCount++;
         totalUses += (item.usesCount || 0);
 
-        let statusBadge = '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Active</span>';
+        let statusBadgeClass = 'bg-emerald-50 text-emerald-700 border-emerald-200';
+        let statusDotClass = 'bg-emerald-500';
+        let statusText = 'Active';
+
         if (isRevoked) {
-          statusBadge = '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-red-50 text-red-700 border border-red-200"><span class="w-1.5 h-1.5 rounded-full bg-red-500"></span> Revoked</span>';
+          statusBadgeClass = 'bg-red-50 text-red-700 border-red-200';
+          statusDotClass = 'bg-red-500';
+          statusText = 'Revoked';
         } else if (isExhausted) {
-          statusBadge = '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-700 border border-amber-200"><span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> Exhausted</span>';
+          statusBadgeClass = 'bg-amber-50 text-amber-700 border-amber-200';
+          statusDotClass = 'bg-amber-500';
+          statusText = 'Exhausted';
         }
 
         const usesText = item.maxUses <= 0 ? (item.usesCount + ' / Unlimited') : (item.usesCount + ' / ' + item.maxUses);
         const createdDate = item.createdAt ? new Date(item.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' }) : 'Recent';
 
-        return '<tr class="hover:bg-gray-50/50 transition border-b border-gray-100">' +
-          '<td class="py-3 px-4">' +
-            '<span class="font-mono font-bold text-purple-700 bg-purple-50/80 px-2 py-1 rounded-md border border-purple-200/80 select-all tracking-wider">' + escapeHtml(item.code) + '</span>' +
-          '</td>' +
-          '<td class="py-3 px-4 font-medium text-gray-800 max-w-[200px] truncate" title="' + escapeHtml(item.description || '') + '">' +
-            escapeHtml(item.description || 'General Invite') +
-          '</td>' +
-          '<td class="py-3 px-4 font-semibold text-gray-700 font-mono">' +
-            usesText +
-          '</td>' +
-          '<td class="py-3 px-4">' +
-            statusBadge +
-          '</td>' +
-          '<td class="py-3 px-4 text-gray-500">' +
-            createdDate +
-          '</td>' +
-          '<td class="py-3 px-4 text-right whitespace-nowrap">' +
-            '<div class="flex items-center justify-end gap-1.5">' +
-              '<button type="button" onclick="copyAdminInviteCode(\'' + escapeHtml(item.code) + '\')" class="px-2 py-1 rounded bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium text-[11px] transition cursor-pointer" title="Copy code">' +
-                'Copy Code' +
-              '</button>' +
-              '<button type="button" onclick="copyAdminInviteLink(\'' + escapeHtml(item.code) + '\')" class="px-2 py-1 rounded bg-purple-50 hover:bg-purple-100 text-purple-700 font-medium text-[11px] border border-purple-200/60 transition cursor-pointer" title="Copy direct onboarding URL">' +
-                'Copy Link' +
-              '</button>' +
-              (!isRevoked ? (
-                '<button type="button" onclick="handleAdminRevokeInvitation(\'' + escapeHtml(item.code) + '\')" class="px-2 py-1 rounded hover:bg-red-50 text-red-600 font-medium text-[11px] transition cursor-pointer" title="Revoke code">' +
-                  'Revoke' +
-                '</button>'
-              ) : '') +
-            '</div>' +
-          '</td>' +
-        '</tr>';
-      }).join('');
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-gray-50/50 transition border-b border-gray-100';
 
-      tbody.innerHTML = rowsHtml;
+        // 1. Code TD
+        const tdCode = document.createElement('td');
+        tdCode.className = 'py-3 px-4';
+        const codeSpan = document.createElement('span');
+        codeSpan.className = 'font-mono font-bold text-purple-700 bg-purple-50/80 px-2 py-1 rounded-md border border-purple-200/80 select-all tracking-wider';
+        codeSpan.textContent = item.code;
+        tdCode.appendChild(codeSpan);
+        tr.appendChild(tdCode);
+
+        // 2. Description TD
+        const tdDesc = document.createElement('td');
+        tdDesc.className = 'py-3 px-4 font-medium text-gray-800 max-w-[200px] truncate';
+        tdDesc.title = item.description || '';
+        tdDesc.textContent = item.description || 'General Invite';
+        tr.appendChild(tdDesc);
+
+        // 3. Redemptions TD
+        const tdUses = document.createElement('td');
+        tdUses.className = 'py-3 px-4 font-semibold text-gray-700 font-mono';
+        tdUses.textContent = usesText;
+        tr.appendChild(tdUses);
+
+        // 4. Status TD
+        const tdStatus = document.createElement('td');
+        tdStatus.className = 'py-3 px-4';
+        tdStatus.innerHTML = '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold border ' + statusBadgeClass + '"><span class="w-1.5 h-1.5 rounded-full ' + statusDotClass + '"></span> ' + statusText + '</span>';
+        tr.appendChild(tdStatus);
+
+        // 5. Date TD
+        const tdDate = document.createElement('td');
+        tdDate.className = 'py-3 px-4 text-gray-500';
+        tdDate.textContent = createdDate;
+        tr.appendChild(tdDate);
+
+        // 6. Actions TD
+        const tdActions = document.createElement('td');
+        tdActions.className = 'py-3 px-4 text-right whitespace-nowrap';
+        const actionsDiv = document.createElement('div');
+        actionsDiv.className = 'flex items-center justify-end gap-1.5';
+
+        const btnCopyCode = document.createElement('button');
+        btnCopyCode.type = 'button';
+        btnCopyCode.className = 'px-2 py-1 rounded bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium text-[11px] transition cursor-pointer';
+        btnCopyCode.textContent = 'Copy Code';
+        btnCopyCode.onclick = function() { copyAdminInviteCode(item.code); };
+        actionsDiv.appendChild(btnCopyCode);
+
+        const btnCopyLink = document.createElement('button');
+        btnCopyLink.type = 'button';
+        btnCopyLink.className = 'px-2 py-1 rounded bg-purple-50 hover:bg-purple-100 text-purple-700 font-medium text-[11px] border border-purple-200/60 transition cursor-pointer';
+        btnCopyLink.textContent = 'Copy Link';
+        btnCopyLink.onclick = function() { copyAdminInviteLink(item.code); };
+        actionsDiv.appendChild(btnCopyLink);
+
+        if (!isRevoked) {
+          const btnRevoke = document.createElement('button');
+          btnRevoke.type = 'button';
+          btnRevoke.className = 'px-2 py-1 rounded hover:bg-red-50 text-red-600 font-medium text-[11px] transition cursor-pointer';
+          btnRevoke.textContent = 'Revoke';
+          btnRevoke.onclick = function() { handleAdminRevokeInvitation(item.code); };
+          actionsDiv.appendChild(btnRevoke);
+        }
+
+        tdActions.appendChild(actionsDiv);
+        tr.appendChild(tdActions);
+
+        tbody.appendChild(tr);
+      });
+
       if (countEl) countEl.textContent = adminInvitationsList.length + ' codes total';
       if (activeCountEl) activeCountEl.textContent = String(activeCount);
       if (usesCountEl) usesCountEl.textContent = String(totalUses);
