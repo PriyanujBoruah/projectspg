@@ -671,20 +671,20 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             The ProjectSPG Platform
           </h2>
           <p class="text-sm sm:text-base lg:text-lg text-gray-600 font-normal leading-relaxed px-2">
-            Powering every step of the AI development journey — from experimentation to massive scale.
+            End-to-end data de-identification, zero-retention privacy routing, and continuous enterprise compliance.
           </p>
         </div>
 
-        <!-- 3 Squarish Category Buttons with Rounded Corners (Inference, Compute, Model shaping) -->
+        <!-- 3 Squarish Category Buttons with Rounded Corners (De-Identify, Privacy, Compliance) -->
         <div class="grid grid-cols-3 gap-3 sm:gap-6 max-w-4xl mx-auto mb-8 sm:mb-12 px-1">
           <button id="cat-tab-inference" onclick="selectPlatformCategory('inference')" class="cat-pill py-3.5 sm:py-4.5 px-2 sm:px-6 rounded-md text-center font-bold text-xs sm:text-base md:text-xl transition-all duration-200 cursor-pointer text-gray-950 border border-transparent shadow-2xs bg-[#d5f5f6]">
-            Inference
+            De-Identify
           </button>
           <button id="cat-tab-compute" onclick="selectPlatformCategory('compute')" class="cat-pill py-3.5 sm:py-4.5 px-2 sm:px-6 rounded-md text-center font-bold text-xs sm:text-base md:text-xl transition-all duration-200 cursor-pointer bg-white text-gray-900 border border-gray-200/70 shadow-2xs hover:bg-gray-50/90 hover:text-black">
-            Compute
+            Privacy
           </button>
           <button id="cat-tab-shaping" onclick="selectPlatformCategory('shaping')" class="cat-pill py-3.5 sm:py-4.5 px-2 sm:px-6 rounded-md text-center font-bold text-xs sm:text-base md:text-xl transition-all duration-200 cursor-pointer bg-white text-gray-900 border border-gray-200/70 shadow-2xs hover:bg-gray-50/90 hover:text-black">
-            Model shaping
+            Compliance
           </button>
         </div>
 
@@ -692,52 +692,52 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         <div class="w-full bg-white rounded-xl p-5 sm:p-8 lg:p-10 border border-gray-200/80 shadow-xs">
 
         <!-- ===================================================================== -->
-        <!-- CATEGORY PANEL 1: INFERENCE -->
+        <!-- CATEGORY PANEL 1: DE-IDENTIFY -->
         <!-- ===================================================================== -->
         <div id="platform-cat-panel-inference" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
-          <!-- Left Column: Inference Sub-items Accordion -->
+          <!-- Left Column: De-Identify Sub-items Accordion -->
           <div class="lg:col-span-5 flex flex-col space-y-3">
             
-            <!-- Item 0: Serverless Inference (Active Default) -->
+            <!-- Item 0: Reversible Tokenization (Active Default) -->
             <div class="platform-subitem subitem-inference is-active w-full rounded-xl border transition-all duration-300 cursor-pointer overflow-hidden" onclick="selectPlatformSubItem('inference', 0)">
               <div class="p-4 sm:p-5 flex items-center justify-between">
                 <div class="flex items-center gap-3.5">
                   <div class="subitem-icon-box w-9 h-9 rounded-xl bg-cyan-50 border border-cyan-100 flex items-center justify-center text-cyan-600 transition-all duration-300">
-                    <i data-lucide="cloud" class="w-5 h-5"></i>
+                    <i data-lucide="shield-check" class="w-5 h-5"></i>
                   </div>
-                  <h3 class="subitem-title text-lg sm:text-xl font-bold tracking-tight text-gray-950 transition-colors">Serverless Inference</h3>
+                  <h3 class="subitem-title text-lg sm:text-xl font-bold tracking-tight text-gray-950 transition-colors">Reversible Tokenization</h3>
                 </div>
               </div>
               <div class="platform-accordion-drawer grid transition-[grid-template-rows] duration-350 ease-out">
                 <div class="platform-accordion-drawer-inner overflow-hidden min-h-0">
                   <div class="px-4 sm:px-5 pb-5 sm:pb-6 pt-0">
                     <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
-                      The fastest way to run open-source models on demand. Powered by cutting-edge inference research. No infrastructure to manage, no long-term commitments.
+                      Automatically detect and replace sensitive PII, PHI, financial records, and credentials with reversible cryptographic tokens before prompts leave your network perimeter.
                     </p>
                     <button onclick="event.stopPropagation(); switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
-                      LEARN MORE
+                      TRY IN PLAYGROUND
                     </button>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- Item 1: Batch Inference -->
+            <!-- Item 1: Format-Preserving Encryption -->
             <div class="platform-subitem subitem-inference w-full rounded-xl border transition-all duration-300 cursor-pointer overflow-hidden" onclick="selectPlatformSubItem('inference', 1)">
               <div class="p-4 sm:p-5 flex items-center justify-between">
                 <div class="flex items-center gap-3.5">
                   <div class="subitem-icon-box w-9 h-9 rounded-xl bg-cyan-50 border border-cyan-100 flex items-center justify-center text-cyan-600 transition-all duration-300">
-                    <i data-lucide="layers" class="w-5 h-5"></i>
+                    <i data-lucide="hash" class="w-5 h-5"></i>
                   </div>
-                  <h3 class="subitem-title text-lg sm:text-xl font-bold tracking-tight text-gray-950 transition-colors">Batch Inference</h3>
+                  <h3 class="subitem-title text-lg sm:text-xl font-bold tracking-tight text-gray-950 transition-colors">Format-Preserving Encryption</h3>
                 </div>
               </div>
               <div class="platform-accordion-drawer grid transition-[grid-template-rows] duration-350 ease-out">
                 <div class="platform-accordion-drawer-inner overflow-hidden min-h-0">
                   <div class="px-4 sm:px-5 pb-5 sm:pb-6 pt-0">
                     <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
-                      Cost-effectively process massive workloads asynchronously. Scale to 30 billion tokens per model with any serverless model or private deployment.
+                      NIST-standard FF3-1 format-preserving encryption retains exact length, casing, and syntactic constraints of data so LLMs maintain reasoning capabilities without seeing plaintext.
                     </p>
                     <button onclick="event.stopPropagation(); switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
                       LEARN MORE
@@ -747,21 +747,21 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               </div>
             </div>
 
-            <!-- Item 2: Provisioned Throughput -->
+            <!-- Item 2: Global Entity Detectors -->
             <div class="platform-subitem subitem-inference w-full rounded-xl border transition-all duration-300 cursor-pointer overflow-hidden" onclick="selectPlatformSubItem('inference', 2)">
               <div class="p-4 sm:p-5 flex items-center justify-between">
                 <div class="flex items-center gap-3.5">
                   <div class="subitem-icon-box w-9 h-9 rounded-xl bg-cyan-50 border border-cyan-100 flex items-center justify-center text-cyan-600 transition-all duration-300">
-                    <i data-lucide="sliders-horizontal" class="w-5 h-5"></i>
+                    <i data-lucide="scan" class="w-5 h-5"></i>
                   </div>
-                  <h3 class="subitem-title text-lg sm:text-xl font-bold tracking-tight text-gray-950 transition-colors">Provisioned Throughput</h3>
+                  <h3 class="subitem-title text-lg sm:text-xl font-bold tracking-tight text-gray-950 transition-colors">Global Entity Detectors</h3>
                 </div>
               </div>
               <div class="platform-accordion-drawer grid transition-[grid-template-rows] duration-350 ease-out">
                 <div class="platform-accordion-drawer-inner overflow-hidden min-h-0">
                   <div class="px-4 sm:px-5 pb-5 sm:pb-6 pt-0">
                     <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
-                      Guaranteed low-latency capacity for high-volume production applications with dedicated inference endpoints and SLAs.
+                      High-throughput multi-jurisdictional detection engine with pre-configured rulepacks covering North America, EU, Asia, Latin America, Africa, and Oceania.
                     </p>
                     <button onclick="event.stopPropagation(); switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
                       LEARN MORE
@@ -771,21 +771,21 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               </div>
             </div>
 
-            <!-- Item 3: Dedicated Model Inference -->
+            <!-- Item 3: Isolated KMS Token Vault -->
             <div class="platform-subitem subitem-inference w-full rounded-xl border transition-all duration-300 cursor-pointer overflow-hidden" onclick="selectPlatformSubItem('inference', 3)">
               <div class="p-4 sm:p-5 flex items-center justify-between">
                 <div class="flex items-center gap-3.5">
                   <div class="subitem-icon-box w-9 h-9 rounded-xl bg-cyan-50 border border-cyan-100 flex items-center justify-center text-cyan-600 transition-all duration-300">
-                    <i data-lucide="server" class="w-5 h-5"></i>
+                    <i data-lucide="database" class="w-5 h-5"></i>
                   </div>
-                  <h3 class="subitem-title text-lg sm:text-xl font-bold tracking-tight text-gray-950 transition-colors">Dedicated Model Inference</h3>
+                  <h3 class="subitem-title text-lg sm:text-xl font-bold tracking-tight text-gray-950 transition-colors">Isolated KMS Token Vault</h3>
                 </div>
               </div>
               <div class="platform-accordion-drawer grid transition-[grid-template-rows] duration-350 ease-out">
                 <div class="platform-accordion-drawer-inner overflow-hidden min-h-0">
                   <div class="px-4 sm:px-5 pb-5 sm:pb-6 pt-0">
                     <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
-                      Deploy models on dedicated, fully isolated instances for maximum performance, data privacy, and full hardware isolation.
+                      Tokens and mapping pairs are encrypted using customer-controlled KMS keys (AES-256-GCM) with strict zero-knowledge envelope isolation and zero plain-text disk storage.
                     </p>
                     <button onclick="event.stopPropagation(); switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
                       LEARN MORE
@@ -797,10 +797,10 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
           </div>
 
-          <!-- Right Column: Visual Showcases for Inference (Image Placeholders) -->
+          <!-- Right Column: Visual Showcases for De-Identify (Image Placeholders) -->
           <div class="lg:col-span-7">
             
-            <!-- Mockup 0: Serverless Inference Image Placeholder -->
+            <!-- Mockup 0: Reversible Tokenization Architecture Placeholder -->
             <div class="mockup-inference relative rounded-2xl sm:rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#c8f5f6] via-[#f7f2fb] to-[#ffd2df] border border-gray-200/70 shadow-lg min-h-[260px] sm:min-h-[380px] lg:min-h-[460px] flex items-center justify-center overflow-hidden">
               <div class="w-full aspect-[16/10] bg-white/95 backdrop-blur-md rounded-xl sm:rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden flex flex-col relative">
                 <div class="h-8 sm:h-9 px-3 sm:px-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0">
@@ -808,16 +808,16 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                     <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-red-400"></span>
                     <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-amber-400"></span>
                     <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-emerald-400"></span>
-                    <span class="text-[10px] sm:text-[11px] font-mono text-gray-500 ml-1.5 sm:ml-2">serverless-inference.png</span>
+                    <span class="text-[10px] sm:text-[11px] font-mono text-gray-500 ml-1.5 sm:ml-2">reversible-tokenization.png</span>
                   </div>
                   <span class="text-[9px] sm:text-[10px] text-gray-400 font-medium">16:10</span>
                 </div>
                 <div class="flex-1 relative flex items-center justify-center bg-gray-50/50 p-2 overflow-hidden">
                   <!-- PLACEHOLDER IMG: Replace src with image URL/path -->
-                  <img id="img-platform-inference-0" src="" alt="Serverless Inference" class="w-full h-full object-cover rounded-xl hidden" onload="this.classList.remove('hidden'); const fb=document.getElementById('fb-platform-inference-0'); if(fb) fb.classList.add('hidden');" />
+                  <img id="img-platform-inference-0" src="" alt="Reversible Tokenization" class="w-full h-full object-cover rounded-xl hidden" onload="this.classList.remove('hidden'); const fb=document.getElementById('fb-platform-inference-0'); if(fb) fb.classList.add('hidden');" />
                   <div id="fb-platform-inference-0" class="w-full h-full min-h-[200px] sm:min-h-[320px] border-2 border-dashed border-cyan-300/80 rounded-xl bg-cyan-50/40 flex flex-col items-center justify-center p-4 sm:p-8 text-center">
                     <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-cyan-100 text-cyan-700 flex items-center justify-center shadow-xs mb-2 sm:mb-3.5">
-                      <i data-lucide="image" class="w-6 h-6 sm:w-8 sm:h-8"></i>
+                      <i data-lucide="shield-check" class="w-6 h-6 sm:w-8 sm:h-8"></i>
                     </div>
                     <h4 class="text-sm sm:text-base font-bold text-gray-900 mb-1">Serverless Inference Image</h4>
                     <p class="text-[11px] sm:text-xs text-gray-500 max-w-sm mb-3 sm:mb-4">
@@ -831,7 +831,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               </div>
             </div>
 
-            <!-- Mockup 1: Batch Inference Image Placeholder -->
+            <!-- Mockup 1: Format-Preserving Encryption Visual Placeholder -->
             <div class="mockup-inference hidden relative rounded-2xl sm:rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#99f6e4] via-[#f0f9ff] to-[#fbcfe8] border border-gray-200/70 shadow-lg min-h-[260px] sm:min-h-[380px] lg:min-h-[460px] flex items-center justify-center overflow-hidden">
               <div class="w-full aspect-[16/10] bg-white/95 backdrop-blur-md rounded-xl sm:rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden flex flex-col relative">
                 <div class="h-8 sm:h-9 px-3 sm:px-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0">
@@ -839,16 +839,16 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                     <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-red-400"></span>
                     <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-amber-400"></span>
                     <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-emerald-400"></span>
-                    <span class="text-[10px] sm:text-[11px] font-mono text-gray-500 ml-1.5 sm:ml-2">batch-inference.png</span>
+                    <span class="text-[10px] sm:text-[11px] font-mono text-gray-500 ml-1.5 sm:ml-2">format-preserving-encryption.png</span>
                   </div>
                   <span class="text-[9px] sm:text-[10px] text-gray-400 font-medium">16:10</span>
                 </div>
                 <div class="flex-1 relative flex items-center justify-center bg-gray-50/50 p-2 overflow-hidden">
                   <!-- PLACEHOLDER IMG: Replace src with image URL/path -->
-                  <img id="img-platform-inference-1" src="" alt="Batch Inference" class="w-full h-full object-cover rounded-xl hidden" onload="this.classList.remove('hidden'); const fb=document.getElementById('fb-platform-inference-1'); if(fb) fb.classList.add('hidden');" />
+                  <img id="img-platform-inference-1" src="" alt="Format-Preserving Encryption" class="w-full h-full object-cover rounded-xl hidden" onload="this.classList.remove('hidden'); const fb=document.getElementById('fb-platform-inference-1'); if(fb) fb.classList.add('hidden');" />
                   <div id="fb-platform-inference-1" class="w-full h-full min-h-[200px] sm:min-h-[320px] border-2 border-dashed border-teal-300/80 rounded-xl bg-teal-50/40 flex flex-col items-center justify-center p-4 sm:p-8 text-center">
                     <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-teal-100 text-teal-700 flex items-center justify-center shadow-xs mb-2 sm:mb-3.5">
-                      <i data-lucide="layers" class="w-6 h-6 sm:w-8 sm:h-8"></i>
+                      <i data-lucide="hash" class="w-6 h-6 sm:w-8 sm:h-8"></i>
                     </div>
                     <h4 class="text-sm sm:text-base font-bold text-gray-900 mb-1">Batch Inference Image</h4>
                     <p class="text-[11px] sm:text-xs text-gray-500 max-w-sm mb-3 sm:mb-4">
@@ -862,7 +862,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               </div>
             </div>
 
-            <!-- Mockup 2: Provisioned Throughput Image Placeholder -->
+            <!-- Mockup 2: Global Entity Detectors Visual Placeholder -->
             <div class="mockup-inference hidden relative rounded-2xl sm:rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#bae6fd] via-[#f0f9ff] to-[#e0e7ff] border border-gray-200/70 shadow-lg min-h-[260px] sm:min-h-[380px] lg:min-h-[460px] flex items-center justify-center overflow-hidden">
               <div class="w-full aspect-[16/10] bg-white/95 backdrop-blur-md rounded-xl sm:rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden flex flex-col relative">
                 <div class="h-8 sm:h-9 px-3 sm:px-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0">
@@ -870,16 +870,16 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                     <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-red-400"></span>
                     <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-amber-400"></span>
                     <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-emerald-400"></span>
-                    <span class="text-[10px] sm:text-[11px] font-mono text-gray-500 ml-1.5 sm:ml-2">provisioned-throughput.png</span>
+                    <span class="text-[10px] sm:text-[11px] font-mono text-gray-500 ml-1.5 sm:ml-2">global-entity-detectors.png</span>
                   </div>
                   <span class="text-[9px] sm:text-[10px] text-gray-400 font-medium">16:10</span>
                 </div>
                 <div class="flex-1 relative flex items-center justify-center bg-gray-50/50 p-2 overflow-hidden">
                   <!-- PLACEHOLDER IMG: Replace src with image URL/path -->
-                  <img id="img-platform-inference-2" src="" alt="Provisioned Throughput" class="w-full h-full object-cover rounded-xl hidden" onload="this.classList.remove('hidden'); const fb=document.getElementById('fb-platform-inference-2'); if(fb) fb.classList.add('hidden');" />
+                  <img id="img-platform-inference-2" src="" alt="Global Entity Detectors" class="w-full h-full object-cover rounded-xl hidden" onload="this.classList.remove('hidden'); const fb=document.getElementById('fb-platform-inference-2'); if(fb) fb.classList.add('hidden');" />
                   <div id="fb-platform-inference-2" class="w-full h-full min-h-[200px] sm:min-h-[320px] border-2 border-dashed border-sky-300/80 rounded-xl bg-sky-50/40 flex flex-col items-center justify-center p-4 sm:p-8 text-center">
                     <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-sky-100 text-sky-700 flex items-center justify-center shadow-xs mb-2 sm:mb-3.5">
-                      <i data-lucide="sliders-horizontal" class="w-6 h-6 sm:w-8 sm:h-8"></i>
+                      <i data-lucide="scan" class="w-6 h-6 sm:w-8 sm:h-8"></i>
                     </div>
                     <h4 class="text-sm sm:text-base font-bold text-gray-900 mb-1">Provisioned Throughput Image</h4>
                     <p class="text-[11px] sm:text-xs text-gray-500 max-w-sm mb-3 sm:mb-4">
@@ -893,7 +893,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               </div>
             </div>
 
-            <!-- Mockup 3: Dedicated Model Inference Image Placeholder -->
+            <!-- Mockup 3: Isolated KMS Token Vault Visual Placeholder -->
             <div class="mockup-inference hidden relative rounded-2xl sm:rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#c7d2fe] via-[#f0fdfa] to-[#bfdbfe] border border-gray-200/70 shadow-lg min-h-[260px] sm:min-h-[380px] lg:min-h-[460px] flex items-center justify-center overflow-hidden">
               <div class="w-full aspect-[16/10] bg-white/95 backdrop-blur-md rounded-xl sm:rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden flex flex-col relative">
                 <div class="h-8 sm:h-9 px-3 sm:px-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0">
@@ -901,16 +901,16 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                     <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-red-400"></span>
                     <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
                     <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
-                    <span class="text-[11px] font-mono text-gray-500 ml-2">dedicated-inference.png</span>
+                    <span class="text-[11px] font-mono text-gray-500 ml-2">kms-token-vault.png</span>
                   </div>
                   <span class="text-[10px] text-gray-400 font-medium">1200 × 750 (16:10)</span>
                 </div>
                 <div class="flex-1 relative flex items-center justify-center bg-gray-50/50 p-2 overflow-hidden">
                   <!-- PLACEHOLDER IMG: Replace src with image URL/path -->
-                  <img id="img-platform-inference-3" src="" alt="Dedicated Model Inference" class="w-full h-full object-cover rounded-xl hidden" onload="this.classList.remove('hidden'); const fb=document.getElementById('fb-platform-inference-3'); if(fb) fb.classList.add('hidden');" />
+                  <img id="img-platform-inference-3" src="" alt="Isolated KMS Token Vault" class="w-full h-full object-cover rounded-xl hidden" onload="this.classList.remove('hidden'); const fb=document.getElementById('fb-platform-inference-3'); if(fb) fb.classList.add('hidden');" />
                   <div id="fb-platform-inference-3" class="w-full h-full min-h-[340px] border-2 border-dashed border-indigo-300/80 rounded-xl bg-indigo-50/40 flex flex-col items-center justify-center p-8 text-center">
                     <div class="w-16 h-16 rounded-2xl bg-indigo-100 text-indigo-700 flex items-center justify-center shadow-xs mb-3.5">
-                      <i data-lucide="server" class="w-8 h-8"></i>
+                      <i data-lucide="database" class="w-8 h-8"></i>
                     </div>
                     <h4 class="text-base font-bold text-gray-900 mb-1">Dedicated Model Inference Image</h4>
                     <p class="text-xs text-gray-500 max-w-sm mb-4">
@@ -929,28 +929,28 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         </div>
 
         <!-- ===================================================================== -->
-        <!-- CATEGORY PANEL 2: COMPUTE -->
+        <!-- CATEGORY PANEL 2: PRIVACY -->
         <!-- ===================================================================== -->
         <div id="platform-cat-panel-compute" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
-          <!-- Left Column: Compute Sub-items Accordion -->
+          <!-- Left Column: Privacy Sub-items Accordion -->
           <div class="lg:col-span-5 flex flex-col space-y-3">
             
-            <!-- Item 0: Accelerated Compute (Active Default) -->
+            <!-- Item 0: Universal OpenAI Wire Gateway (Active Default) -->
             <div class="platform-subitem subitem-compute is-active w-full rounded-xl border transition-all duration-300 cursor-pointer overflow-hidden" onclick="selectPlatformSubItem('compute', 0)">
               <div class="p-4 sm:p-5 flex items-center justify-between">
                 <div class="flex items-center gap-3.5">
                   <div class="subitem-icon-box w-9 h-9 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 transition-all duration-300">
                     <i data-lucide="cpu" class="w-5 h-5"></i>
                   </div>
-                  <h3 class="subitem-title text-lg sm:text-xl font-bold tracking-tight text-gray-950 transition-colors">Accelerated Compute</h3>
+                  <h3 class="subitem-title text-lg sm:text-xl font-bold tracking-tight text-gray-950 transition-colors">Universal OpenAI Wire Gateway</h3>
                 </div>
               </div>
               <div class="platform-accordion-drawer grid transition-[grid-template-rows] duration-350 ease-out">
                 <div class="platform-accordion-drawer-inner overflow-hidden min-h-0">
                   <div class="px-4 sm:px-5 pb-5 sm:pb-6 pt-0">
                     <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
-                      Scale from self-serve instant clusters to thousands of GPUs, all optimized for better performance with ProjectSPG Kernel Collection.
+                      Zero-refactor drop-in gateway compatible with official OpenAI SDKs, LangChain, and LlamaIndex. Point your baseURL to ProjectSPG and secure your entire AI pipeline instantly.
                     </p>
                     <button onclick="event.stopPropagation(); switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
                       LEARN MORE
@@ -960,21 +960,21 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               </div>
             </div>
 
-            <!-- Item 1: Sandbox -->
+            <!-- Item 1: Multi-Provider BYOK Routing -->
             <div class="platform-subitem subitem-compute w-full rounded-xl border transition-all duration-300 cursor-pointer overflow-hidden" onclick="selectPlatformSubItem('compute', 1)">
               <div class="p-4 sm:p-5 flex items-center justify-between">
                 <div class="flex items-center gap-3.5">
                   <div class="subitem-icon-box w-9 h-9 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 transition-all duration-300">
                     <i data-lucide="box" class="w-5 h-5"></i>
                   </div>
-                  <h3 class="subitem-title text-lg sm:text-xl font-bold tracking-tight text-gray-950 transition-colors">Sandbox</h3>
+                  <h3 class="subitem-title text-lg sm:text-xl font-bold tracking-tight text-gray-950 transition-colors">Multi-Provider BYOK Routing</h3>
                 </div>
               </div>
               <div class="platform-accordion-drawer grid transition-[grid-template-rows] duration-350 ease-out">
                 <div class="platform-accordion-drawer-inner overflow-hidden min-h-0">
                   <div class="px-4 sm:px-5 pb-5 sm:pb-6 pt-0">
                     <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
-                      Secure, isolated environments for benchmarking inference kernels, validating fine-tuning runs, and stress-testing workloads.
+                      Bring Your Own Keys (BYOK) for Groq Cloud, Google AI Studio, Mistral AI, and open-source models with automatic header routing and key isolation.
                     </p>
                     <button onclick="event.stopPropagation(); switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
                       LEARN MORE
@@ -984,21 +984,21 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               </div>
             </div>
 
-            <!-- Item 2: Managed Storage -->
+            <!-- Item 2: Real-Time Response Rehydration -->
             <div class="platform-subitem subitem-compute w-full rounded-xl border transition-all duration-300 cursor-pointer overflow-hidden" onclick="selectPlatformSubItem('compute', 2)">
               <div class="p-4 sm:p-5 flex items-center justify-between">
                 <div class="flex items-center gap-3.5">
                   <div class="subitem-icon-box w-9 h-9 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 transition-all duration-300">
                     <i data-lucide="hard-drive" class="w-5 h-5"></i>
                   </div>
-                  <h3 class="subitem-title text-lg sm:text-xl font-bold tracking-tight text-gray-950 transition-colors">Managed Storage</h3>
+                  <h3 class="subitem-title text-lg sm:text-xl font-bold tracking-tight text-gray-950 transition-colors">Real-Time Response Rehydration</h3>
                 </div>
               </div>
               <div class="platform-accordion-drawer grid transition-[grid-template-rows] duration-350 ease-out">
                 <div class="platform-accordion-drawer-inner overflow-hidden min-h-0">
                   <div class="px-4 sm:px-5 pb-5 sm:pb-6 pt-0">
                     <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
-                      High-throughput, low-latency clustered storage engineered for fast model checkpointing and parallel dataset hydration.
+                      As model tokens stream back through the gateway, sensitive cryptographic tokens are reconstituted into their original values seamlessly for end users.
                     </p>
                     <button onclick="event.stopPropagation(); switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
                       LEARN MORE
@@ -1010,10 +1010,10 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
           </div>
 
-          <!-- Right Column: Visual Showcases for Compute (Image Placeholders) -->
+          <!-- Right Column: Visual Showcases for Privacy (Image Placeholders) -->
           <div class="lg:col-span-7">
             
-            <!-- Mockup 0: Accelerated Compute Image Placeholder -->
+            <!-- Mockup 0: Universal Gateway Architecture Placeholder -->
             <div class="mockup-compute relative rounded-2xl sm:rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#93c5fd] via-[#e0e7ff] to-[#38bdf8] border border-gray-200/70 shadow-lg min-h-[260px] sm:min-h-[380px] lg:min-h-[460px] flex items-center justify-center overflow-hidden">
               <div class="w-full aspect-[16/10] bg-white/95 backdrop-blur-md rounded-xl sm:rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden flex flex-col relative">
                 <div class="h-8 sm:h-9 px-3 sm:px-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0">
@@ -1021,13 +1021,13 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                     <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-red-400"></span>
                     <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-amber-400"></span>
                     <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-emerald-400"></span>
-                    <span class="text-[10px] sm:text-[11px] font-mono text-gray-500 ml-1.5 sm:ml-2">accelerated-compute.png</span>
+                    <span class="text-[10px] sm:text-[11px] font-mono text-gray-500 ml-1.5 sm:ml-2">openai-wire-gateway.png</span>
                   </div>
                   <span class="text-[9px] sm:text-[10px] text-gray-400 font-medium">16:10</span>
                 </div>
                 <div class="flex-1 relative flex items-center justify-center bg-gray-50/50 p-2 overflow-hidden">
                   <!-- PLACEHOLDER IMG: Replace src with image URL/path -->
-                  <img id="img-platform-compute-0" src="" alt="Accelerated Compute" class="w-full h-full object-cover rounded-xl hidden" onload="this.classList.remove('hidden'); const fb=document.getElementById('fb-platform-compute-0'); if(fb) fb.classList.add('hidden');" />
+                  <img id="img-platform-compute-0" src="" alt="Universal OpenAI Wire Gateway" class="w-full h-full object-cover rounded-xl hidden" onload="this.classList.remove('hidden'); const fb=document.getElementById('fb-platform-compute-0'); if(fb) fb.classList.add('hidden');" />
                   <div id="fb-platform-compute-0" class="w-full h-full min-h-[200px] sm:min-h-[320px] border-2 border-dashed border-blue-300/80 rounded-xl bg-blue-50/40 flex flex-col items-center justify-center p-4 sm:p-8 text-center">
                     <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-blue-100 text-blue-700 flex items-center justify-center shadow-xs mb-2 sm:mb-3.5">
                       <i data-lucide="cpu" class="w-6 h-6 sm:w-8 sm:h-8"></i>
@@ -1052,18 +1052,18 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                     <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-red-400"></span>
                     <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-amber-400"></span>
                     <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-emerald-400"></span>
-                    <span class="text-[10px] sm:text-[11px] font-mono text-gray-500 ml-1.5 sm:ml-2">compute-sandbox.png</span>
+                    <span class="text-[10px] sm:text-[11px] font-mono text-gray-500 ml-1.5 sm:ml-2">multi-provider-byok.png</span>
                   </div>
                   <span class="text-[9px] sm:text-[10px] text-gray-400 font-medium">16:10</span>
                 </div>
                 <div class="flex-1 relative flex items-center justify-center bg-gray-50/50 p-2 overflow-hidden">
                   <!-- PLACEHOLDER IMG: Replace src with image URL/path -->
-                  <img id="img-platform-compute-1" src="" alt="Compute Sandbox" class="w-full h-full object-cover rounded-xl hidden" onload="this.classList.remove('hidden'); const fb=document.getElementById('fb-platform-compute-1'); if(fb) fb.classList.add('hidden');" />
+                  <img id="img-platform-compute-1" src="" alt="Multi-Provider BYOK Routing" class="w-full h-full object-cover rounded-xl hidden" onload="this.classList.remove('hidden'); const fb=document.getElementById('fb-platform-compute-1'); if(fb) fb.classList.add('hidden');" />
                   <div id="fb-platform-compute-1" class="w-full h-full min-h-[200px] sm:min-h-[320px] border-2 border-dashed border-indigo-300/80 rounded-xl bg-indigo-50/40 flex flex-col items-center justify-center p-4 sm:p-8 text-center">
                     <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-indigo-100 text-indigo-700 flex items-center justify-center shadow-xs mb-2 sm:mb-3.5">
                       <i data-lucide="box" class="w-6 h-6 sm:w-8 sm:h-8"></i>
                     </div>
-                    <h4 class="text-sm sm:text-base font-bold text-gray-900 mb-1">Sandbox Environment Image</h4>
+                    <h4 class="text-sm sm:text-base font-bold text-gray-900 mb-1">Multi-Provider BYOK Routing</h4>
                     <p class="text-[11px] sm:text-xs text-gray-500 max-w-sm mb-3 sm:mb-4">
                       Drop your screenshot into <code class="text-indigo-800 bg-indigo-100/70 px-1 py-0.5 rounded font-mono text-[10px] sm:text-[11px]">#img-platform-compute-1</code>
                     </p>
@@ -1075,7 +1075,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               </div>
             </div>
 
-            <!-- Mockup 2: Managed Storage Image Placeholder -->
+            <!-- Mockup 2: Response Rehydration Visual Placeholder -->
             <div class="mockup-compute hidden relative rounded-2xl sm:rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#93c5fd] via-[#e2e8f0] to-[#bfdbfe] border border-gray-200/70 shadow-lg min-h-[260px] sm:min-h-[380px] lg:min-h-[460px] flex items-center justify-center overflow-hidden">
               <div class="w-full aspect-[16/10] bg-white/95 backdrop-blur-md rounded-xl sm:rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden flex flex-col relative">
                 <div class="h-8 sm:h-9 px-3 sm:px-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0">
@@ -1083,13 +1083,13 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                     <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-red-400"></span>
                     <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-amber-400"></span>
                     <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-emerald-400"></span>
-                    <span class="text-[10px] sm:text-[11px] font-mono text-gray-500 ml-1.5 sm:ml-2">managed-storage.png</span>
+                    <span class="text-[10px] sm:text-[11px] font-mono text-gray-500 ml-1.5 sm:ml-2">response-rehydration.png</span>
                   </div>
                   <span class="text-[9px] sm:text-[10px] text-gray-400 font-medium">16:10</span>
                 </div>
                 <div class="flex-1 relative flex items-center justify-center bg-gray-50/50 p-2 overflow-hidden">
                   <!-- PLACEHOLDER IMG: Replace src with image URL/path -->
-                  <img id="img-platform-compute-2" src="" alt="Managed Storage" class="w-full h-full object-cover rounded-xl hidden" onload="this.classList.remove('hidden'); const fb=document.getElementById('fb-platform-compute-2'); if(fb) fb.classList.add('hidden');" />
+                  <img id="img-platform-compute-2" src="" alt="Real-Time Response Rehydration" class="w-full h-full object-cover rounded-xl hidden" onload="this.classList.remove('hidden'); const fb=document.getElementById('fb-platform-compute-2'); if(fb) fb.classList.add('hidden');" />
                   <div id="fb-platform-compute-2" class="w-full h-full min-h-[200px] sm:min-h-[320px] border-2 border-dashed border-blue-300/80 rounded-xl bg-blue-50/40 flex flex-col items-center justify-center p-4 sm:p-8 text-center">
                     <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-blue-100 text-blue-700 flex items-center justify-center shadow-xs mb-2 sm:mb-3.5">
                       <i data-lucide="hard-drive" class="w-6 h-6 sm:w-8 sm:h-8"></i>
@@ -1111,28 +1111,28 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         </div>
 
         <!-- ===================================================================== -->
-        <!-- CATEGORY PANEL 3: MODEL SHAPING -->
+        <!-- CATEGORY PANEL 3: COMPLIANCE -->
         <!-- ===================================================================== -->
         <div id="platform-cat-panel-shaping" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
-          <!-- Left Column: Model Shaping Sub-items Accordion -->
+          <!-- Left Column: Compliance Sub-items Accordion -->
           <div class="lg:col-span-5 flex flex-col space-y-3">
             
-            <!-- Item 0: Fine-Tuning (Active Default) -->
+            <!-- Item 0: Real-Time SIEM Audit Telemetry (Active Default) -->
             <div class="platform-subitem subitem-shaping is-active w-full rounded-xl border transition-all duration-300 cursor-pointer overflow-hidden" onclick="selectPlatformSubItem('shaping', 0)">
               <div class="p-4 sm:p-5 flex items-center justify-between">
                 <div class="flex items-center gap-3.5">
                   <div class="subitem-icon-box w-9 h-9 rounded-xl bg-purple-50 border border-purple-100 flex items-center justify-center text-purple-600 transition-all duration-300">
-                    <i data-lucide="sliders" class="w-5 h-5"></i>
+                    <i data-lucide="activity" class="w-5 h-5"></i>
                   </div>
-                  <h3 class="subitem-title text-lg sm:text-xl font-bold tracking-tight text-gray-950 transition-colors">Fine-Tuning</h3>
+                  <h3 class="subitem-title text-lg sm:text-xl font-bold tracking-tight text-gray-950 transition-colors">Real-Time SIEM Telemetry</h3>
                 </div>
               </div>
               <div class="platform-accordion-drawer grid transition-[grid-template-rows] duration-350 ease-out">
                 <div class="platform-accordion-drawer-inner overflow-hidden min-h-0">
                   <div class="px-4 sm:px-5 pb-5 sm:pb-6 pt-0">
                     <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
-                      Fine-tune open-source models for production workloads, using the latest research techniques. Improve accuracy, reduce hallucinations, and control behavior — without managing training infrastructure.
+                      Tamper-evident audit logging recording millisecond-resolution token metrics, entity interception counts, policy enforcement, and cryptographic session IDs.
                     </p>
                     <button onclick="event.stopPropagation(); switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
                       LEARN MORE
@@ -1142,21 +1142,21 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               </div>
             </div>
 
-            <!-- Item 1: Model Alignment -->
+            <!-- Item 1: Enterprise Regulatory Rulepacks -->
             <div class="platform-subitem subitem-shaping w-full rounded-xl border transition-all duration-300 cursor-pointer overflow-hidden" onclick="selectPlatformSubItem('shaping', 1)">
               <div class="p-4 sm:p-5 flex items-center justify-between">
                 <div class="flex items-center gap-3.5">
                   <div class="subitem-icon-box w-9 h-9 rounded-xl bg-purple-50 border border-purple-100 flex items-center justify-center text-purple-600 transition-all duration-300">
-                    <i data-lucide="git-merge" class="w-5 h-5"></i>
+                    <i data-lucide="shield" class="w-5 h-5"></i>
                   </div>
-                  <h3 class="subitem-title text-lg sm:text-xl font-bold tracking-tight text-gray-950 transition-colors">Model Alignment</h3>
+                  <h3 class="subitem-title text-lg sm:text-xl font-bold tracking-tight text-gray-950 transition-colors">Regulatory Rulepacks</h3>
                 </div>
               </div>
               <div class="platform-accordion-drawer grid transition-[grid-template-rows] duration-350 ease-out">
                 <div class="platform-accordion-drawer-inner overflow-hidden min-h-0">
                   <div class="px-4 sm:px-5 pb-5 sm:pb-6 pt-0">
                     <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
-                      Align base models with Direct Preference Optimization (DPO) and task-specific safety guardrails to enforce strict corporate compliance.
+                      Out-of-the-box compliance profiles enforcing HIPAA, GDPR, CCPA, PCI-DSS, APPI, POPIA, and PDPA privacy guardrails across all AI interactions.
                     </p>
                     <button onclick="event.stopPropagation(); switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
                       LEARN MORE
@@ -1168,7 +1168,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
           </div>
 
-          <!-- Right Column: Visual Showcases for Model Shaping (Image Placeholders) -->
+          <!-- Right Column: Visual Showcases for Compliance (Image Placeholders) -->
           <div class="lg:col-span-7">
             
             <!-- Mockup 0: Fine-Tuning Image Placeholder -->
@@ -1179,18 +1179,18 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                     <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-red-400"></span>
                     <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-amber-400"></span>
                     <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-emerald-400"></span>
-                    <span class="text-[10px] sm:text-[11px] font-mono text-gray-500 ml-1.5 sm:ml-2">model-fine-tuning.png</span>
+                    <span class="text-[10px] sm:text-[11px] font-mono text-gray-500 ml-1.5 sm:ml-2">siem-audit-telemetry.png</span>
                   </div>
                   <span class="text-[9px] sm:text-[10px] text-gray-400 font-medium">16:10</span>
                 </div>
                 <div class="flex-1 relative flex items-center justify-center bg-gray-50/50 p-2 overflow-hidden">
                   <!-- PLACEHOLDER IMG: Replace src with image URL/path -->
-                  <img id="img-platform-shaping-0" src="" alt="Model Fine-Tuning" class="w-full h-full object-cover rounded-xl hidden" onload="this.classList.remove('hidden'); const fb=document.getElementById('fb-platform-shaping-0'); if(fb) fb.classList.add('hidden');" />
+                  <img id="img-platform-shaping-0" src="" alt="Real-Time SIEM Telemetry" class="w-full h-full object-cover rounded-xl hidden" onload="this.classList.remove('hidden'); const fb=document.getElementById('fb-platform-shaping-0'); if(fb) fb.classList.add('hidden');" />
                   <div id="fb-platform-shaping-0" class="w-full h-full min-h-[200px] sm:min-h-[320px] border-2 border-dashed border-purple-300/80 rounded-xl bg-purple-50/40 flex flex-col items-center justify-center p-4 sm:p-8 text-center">
                     <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center shadow-xs mb-2 sm:mb-3.5">
                       <i data-lucide="sliders" class="w-6 h-6 sm:w-8 sm:h-8"></i>
                     </div>
-                    <h4 class="text-sm sm:text-base font-bold text-gray-900 mb-1">Model Fine-Tuning Image</h4>
+                    <h4 class="text-sm sm:text-base font-bold text-gray-900 mb-1">SIEM Audit Telemetry Visual</h4>
                     <p class="text-[11px] sm:text-xs text-gray-500 max-w-sm mb-3 sm:mb-4">
                       Drop your screenshot into <code class="text-purple-800 bg-purple-100/70 px-1 py-0.5 rounded font-mono text-[10px] sm:text-[11px]">#img-platform-shaping-0</code>
                     </p>
@@ -1202,7 +1202,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               </div>
             </div>
 
-            <!-- Mockup 1: Model Alignment Image Placeholder -->
+            <!-- Mockup 1: Regulatory Rulepacks Visual Placeholder -->
             <div class="mockup-shaping hidden relative rounded-2xl sm:rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#fbcfe8] via-[#fdf4ff] to-[#ddd6fe] border border-gray-200/70 shadow-lg min-h-[260px] sm:min-h-[380px] lg:min-h-[460px] flex items-center justify-center overflow-hidden">
               <div class="w-full aspect-[16/10] bg-white/95 backdrop-blur-md rounded-xl sm:rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden flex flex-col relative">
                 <div class="h-8 sm:h-9 px-3 sm:px-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0">
@@ -1210,13 +1210,13 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                     <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-red-400"></span>
                     <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-amber-400"></span>
                     <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-emerald-400"></span>
-                    <span class="text-[10px] sm:text-[11px] font-mono text-gray-500 ml-1.5 sm:ml-2">model-alignment.png</span>
+                    <span class="text-[10px] sm:text-[11px] font-mono text-gray-500 ml-1.5 sm:ml-2">regulatory-rulepacks.png</span>
                   </div>
                   <span class="text-[9px] sm:text-[10px] text-gray-400 font-medium">16:10</span>
                 </div>
                 <div class="flex-1 relative flex items-center justify-center bg-gray-50/50 p-2 overflow-hidden">
                   <!-- PLACEHOLDER IMG: Replace src with image URL/path -->
-                  <img id="img-platform-shaping-1" src="" alt="Model Alignment" class="w-full h-full object-cover rounded-xl hidden" onload="this.classList.remove('hidden'); const fb=document.getElementById('fb-platform-shaping-1'); if(fb) fb.classList.add('hidden');" />
+                  <img id="img-platform-shaping-1" src="" alt="Enterprise Regulatory Rulepacks" class="w-full h-full object-cover rounded-xl hidden" onload="this.classList.remove('hidden'); const fb=document.getElementById('fb-platform-shaping-1'); if(fb) fb.classList.add('hidden');" />
                   <div id="fb-platform-shaping-1" class="w-full h-full min-h-[200px] sm:min-h-[320px] border-2 border-dashed border-pink-300/80 rounded-xl bg-pink-50/40 flex flex-col items-center justify-center p-4 sm:p-8 text-center">
                     <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-pink-100 text-pink-700 flex items-center justify-center shadow-xs mb-2 sm:mb-3.5">
                       <i data-lucide="git-merge" class="w-6 h-6 sm:w-8 sm:h-8"></i>
@@ -1833,7 +1833,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             Start building on ProjectSPG
           </h2>
           <p class="text-sm sm:text-lg lg:text-xl text-gray-500 font-normal mt-4 max-w-2xl mx-auto leading-relaxed">
-            From optimized training and model shaping to large-scale production inference
+            From real-time prompt de-identification to enterprise-grade privacy compliance
           </p>
           <div class="mt-8 flex justify-center">
             <button onclick="openAuthModal()" class="px-7 py-3.5 rounded-xl bg-black hover:bg-gray-800 text-white text-xs font-bold tracking-wider uppercase transition shadow-md hover:shadow-lg cursor-pointer transform hover:-translate-y-0.5">
@@ -1883,13 +1883,13 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                     <span class="text-[10px] font-bold tracking-widest uppercase text-gray-900 font-mono">PRODUCTS</span>
                   </div>
                   <ul class="space-y-2.5 font-medium text-gray-600">
-                    <li><a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">Accelerated Compute</a></li>
-                    <li><a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">Serverless Inference</a></li>
-                    <li><a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">Provisioned Throughput</a></li>
-                    <li><a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">Dedicated Inference</a></li>
-                    <li><a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">Fine-Tuning</a></li>
-                    <li><a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">Sandbox</a></li>
-                    <li><a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">Evaluations</a></li>
+                    <li><a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">Reversible Tokenization</a></li>
+                    <li><a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">Format-Preserving Encryption</a></li>
+                    <li><a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">Universal Privacy Gateway</a></li>
+                    <li><a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">Multi-Provider BYOK</a></li>
+                    <li><a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">Response Rehydration</a></li>
+                    <li><a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">SIEM Audit Telemetry</a></li>
+                    <li><a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">Enterprise Compliance</a></li>
                   </ul>
                 </div>
 
