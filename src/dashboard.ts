@@ -4673,6 +4673,7 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
       if (!currentFirebaseUser) {
         openAuthModal();
         return;
+      }
       const tier = document.getElementById('new-key-tier') ? document.getElementById('new-key-tier').value : 'free';
       const name = document.getElementById('new-key-name').value.trim() || (tier === 'free' ? 'ProjectSPG Free' : 'ProjectSPG Key');
       if (tier === 'byok' && !isUserFullyInvited()) {
@@ -4798,7 +4799,7 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
                 time: timeStr,
                 timestamp: isoStr,
                 model: l.model || 'openai/gpt-oss-120b',
-                key: (l.apiKeyPrefix && l.apiKeyPrefix !== 'none' && l.apiKeyPrefix !== 'ProjectSPG Test') ? l.apiKeyPrefix : 'ProjectSPG Free',
+                key: (l.apiKeyPrefix && l.apiKeyPrefix !== 'none') ? l.apiKeyPrefix : 'ProjectSPG Free',
                 code: l.statusCode || 200,
                 ttft: ttft,
                 latency: latency,
