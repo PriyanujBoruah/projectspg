@@ -268,9 +268,13 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     }
 
     .platform-subitem:not(.is-active) .subitem-title {
-      color: #374151 !important; /* gray-700 */
-      font-weight: 600 !important;
-      font-size: 1.125rem !important; /* text-lg */
+      color: #4b5563 !important; /* gray-600 */
+      font-weight: 400 !important;
+    }
+
+    .platform-subitem.is-active .subitem-title {
+      color: #030712 !important; /* gray-950 */
+      font-weight: 400 !important;
     }
 
     .platform-accordion-drawer {
@@ -677,13 +681,13 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
         <!-- 3 Squarish Category Buttons with Rounded Corners (De-Identify, Privacy, Compliance) -->
         <div class="grid grid-cols-3 gap-3 sm:gap-6 max-w-4xl mx-auto mb-8 sm:mb-12 px-1">
-          <button id="cat-tab-inference" onclick="selectPlatformCategory('inference')" class="cat-pill py-3.5 sm:py-4.5 px-2 sm:px-6 rounded-md text-center font-bold text-xs sm:text-base md:text-xl transition-all duration-200 cursor-pointer text-gray-950 border border-transparent shadow-2xs bg-[#d5f5f6]">
+          <button id="cat-tab-inference" onclick="selectPlatformCategory('inference')" class="cat-pill py-3.5 sm:py-4.5 px-2 sm:px-6 rounded-md text-center font-normal text-sm sm:text-lg md:text-2xl transition-all duration-200 cursor-pointer text-gray-950 border border-transparent shadow-2xs bg-[#d5f5f6]">
             De-Identify
           </button>
-          <button id="cat-tab-compute" onclick="selectPlatformCategory('compute')" class="cat-pill py-3.5 sm:py-4.5 px-2 sm:px-6 rounded-md text-center font-bold text-xs sm:text-base md:text-xl transition-all duration-200 cursor-pointer bg-white text-gray-900 border border-gray-200/70 shadow-2xs hover:bg-gray-50/90 hover:text-black">
+          <button id="cat-tab-compute" onclick="selectPlatformCategory('compute')" class="cat-pill py-3.5 sm:py-4.5 px-2 sm:px-6 rounded-md text-center font-normal text-sm sm:text-lg md:text-2xl transition-all duration-200 cursor-pointer bg-white text-gray-900 border border-gray-200/70 shadow-2xs hover:bg-gray-50/90 hover:text-black">
             Privacy
           </button>
-          <button id="cat-tab-shaping" onclick="selectPlatformCategory('shaping')" class="cat-pill py-3.5 sm:py-4.5 px-2 sm:px-6 rounded-md text-center font-bold text-xs sm:text-base md:text-xl transition-all duration-200 cursor-pointer bg-white text-gray-900 border border-gray-200/70 shadow-2xs hover:bg-gray-50/90 hover:text-black">
+          <button id="cat-tab-shaping" onclick="selectPlatformCategory('shaping')" class="cat-pill py-3.5 sm:py-4.5 px-2 sm:px-6 rounded-md text-center font-normal text-sm sm:text-lg md:text-2xl transition-all duration-200 cursor-pointer bg-white text-gray-900 border border-gray-200/70 shadow-2xs hover:bg-gray-50/90 hover:text-black">
             Compliance
           </button>
         </div>
@@ -706,13 +710,13 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                   <div class="subitem-icon-box w-9 h-9 rounded-xl bg-cyan-50 border border-cyan-100 flex items-center justify-center text-cyan-600 transition-all duration-300">
                     <i data-lucide="shield-check" class="w-5 h-5"></i>
                   </div>
-                  <h3 class="subitem-title text-lg sm:text-xl font-bold tracking-tight text-gray-950 transition-colors">Automatic Data Redaction</h3>
+                  <h3 class="subitem-title text-xl sm:text-2xl font-normal tracking-tight text-gray-950 transition-colors">Automatic Data Redaction</h3>
                 </div>
               </div>
               <div class="platform-accordion-drawer grid transition-[grid-template-rows] duration-350 ease-out">
                 <div class="platform-accordion-drawer-inner overflow-hidden min-h-0">
                   <div class="px-4 sm:px-5 pb-5 sm:pb-6 pt-0">
-                    <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
+                    <p class="text-base sm:text-lg text-gray-600 leading-relaxed mb-6 font-normal">
                       Automatically redact customer PII and confidential records before prompts reach AI models, preventing data leaks without slowing development.
                     </p>
                     <button onclick="event.stopPropagation(); switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
@@ -730,13 +734,13 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                   <div class="subitem-icon-box w-9 h-9 rounded-xl bg-cyan-50 border border-cyan-100 flex items-center justify-center text-cyan-600 transition-all duration-300">
                     <i data-lucide="hash" class="w-5 h-5"></i>
                   </div>
-                  <h3 class="subitem-title text-lg sm:text-xl font-bold tracking-tight text-gray-950 transition-colors">Context-Preserving Masking</h3>
+                  <h3 class="subitem-title text-xl sm:text-2xl font-normal tracking-tight text-gray-950 transition-colors">Context-Preserving Masking</h3>
                 </div>
               </div>
               <div class="platform-accordion-drawer grid transition-[grid-template-rows] duration-350 ease-out">
                 <div class="platform-accordion-drawer-inner overflow-hidden min-h-0">
                   <div class="px-4 sm:px-5 pb-5 sm:pb-6 pt-0">
-                    <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
+                    <p class="text-base sm:text-lg text-gray-600 leading-relaxed mb-6 font-normal">
                       Disguise sensitive names and numbers while preserving formatting and grammar, letting models reason accurately without seeing real data.
                     </p>
                     <button onclick="event.stopPropagation(); switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
@@ -754,13 +758,13 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                   <div class="subitem-icon-box w-9 h-9 rounded-xl bg-cyan-50 border border-cyan-100 flex items-center justify-center text-cyan-600 transition-all duration-300">
                     <i data-lucide="scan" class="w-5 h-5"></i>
                   </div>
-                  <h3 class="subitem-title text-lg sm:text-xl font-bold tracking-tight text-gray-950 transition-colors">Global Privacy Scanner</h3>
+                  <h3 class="subitem-title text-xl sm:text-2xl font-normal tracking-tight text-gray-950 transition-colors">Global Privacy Scanner</h3>
                 </div>
               </div>
               <div class="platform-accordion-drawer grid transition-[grid-template-rows] duration-350 ease-out">
                 <div class="platform-accordion-drawer-inner overflow-hidden min-h-0">
                   <div class="px-4 sm:px-5 pb-5 sm:pb-6 pt-0">
-                    <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
+                    <p class="text-base sm:text-lg text-gray-600 leading-relaxed mb-6 font-normal">
                       Detect and shield regional identifiers across North America, Europe, Asia, Africa, and Latin America with zero manual setup.
                     </p>
                     <button onclick="event.stopPropagation(); switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
@@ -778,13 +782,13 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                   <div class="subitem-icon-box w-9 h-9 rounded-xl bg-cyan-50 border border-cyan-100 flex items-center justify-center text-cyan-600 transition-all duration-300">
                     <i data-lucide="database" class="w-5 h-5"></i>
                   </div>
-                  <h3 class="subitem-title text-lg sm:text-xl font-bold tracking-tight text-gray-950 transition-colors">Secure Enterprise Vault</h3>
+                  <h3 class="subitem-title text-xl sm:text-2xl font-normal tracking-tight text-gray-950 transition-colors">Secure Enterprise Vault</h3>
                 </div>
               </div>
               <div class="platform-accordion-drawer grid transition-[grid-template-rows] duration-350 ease-out">
                 <div class="platform-accordion-drawer-inner overflow-hidden min-h-0">
                   <div class="px-4 sm:px-5 pb-5 sm:pb-6 pt-0">
-                    <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
+                    <p class="text-base sm:text-lg text-gray-600 leading-relaxed mb-6 font-normal">
                       Keep real data isolated in your dedicated vault, secured by enterprise encryption keys that only your organization controls.
                     </p>
                     <button onclick="event.stopPropagation(); switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
@@ -839,13 +843,13 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                   <div class="subitem-icon-box w-9 h-9 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 transition-all duration-300">
                     <i data-lucide="cpu" class="w-5 h-5"></i>
                   </div>
-                  <h3 class="subitem-title text-lg sm:text-xl font-bold tracking-tight text-gray-950 transition-colors">One-Click AI Gateway</h3>
+                  <h3 class="subitem-title text-xl sm:text-2xl font-normal tracking-tight text-gray-950 transition-colors">One-Click AI Gateway</h3>
                 </div>
               </div>
               <div class="platform-accordion-drawer grid transition-[grid-template-rows] duration-350 ease-out">
                 <div class="platform-accordion-drawer-inner overflow-hidden min-h-0">
                   <div class="px-4 sm:px-5 pb-5 sm:pb-6 pt-0">
-                    <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
+                    <p class="text-base sm:text-lg text-gray-600 leading-relaxed mb-6 font-normal">
                       Protect chatbots, agents, and apps in minutes with a single-line URL change — zero code rewrites required.
                     </p>
                     <button onclick="event.stopPropagation(); switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
@@ -863,13 +867,13 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                   <div class="subitem-icon-box w-9 h-9 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 transition-all duration-300">
                     <i data-lucide="box" class="w-5 h-5"></i>
                   </div>
-                  <h3 class="subitem-title text-lg sm:text-xl font-bold tracking-tight text-gray-950 transition-colors">Multi-Model Freedom (BYOK)</h3>
+                  <h3 class="subitem-title text-xl sm:text-2xl font-normal tracking-tight text-gray-950 transition-colors">Multi-Model Freedom (BYOK)</h3>
                 </div>
               </div>
               <div class="platform-accordion-drawer grid transition-[grid-template-rows] duration-350 ease-out">
                 <div class="platform-accordion-drawer-inner overflow-hidden min-h-0">
                   <div class="px-4 sm:px-5 pb-5 sm:pb-6 pt-0">
-                    <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
+                    <p class="text-base sm:text-lg text-gray-600 leading-relaxed mb-6 font-normal">
                       Route prompts across Groq, Gemini, Mistral, and open-source models with your own keys to optimize speed, cost, and quality.
                     </p>
                     <button onclick="event.stopPropagation(); switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
@@ -887,13 +891,13 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                   <div class="subitem-icon-box w-9 h-9 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 transition-all duration-300">
                     <i data-lucide="hard-drive" class="w-5 h-5"></i>
                   </div>
-                  <h3 class="subitem-title text-lg sm:text-xl font-bold tracking-tight text-gray-950 transition-colors">Seamless Live Rehydration</h3>
+                  <h3 class="subitem-title text-xl sm:text-2xl font-normal tracking-tight text-gray-950 transition-colors">Seamless Live Rehydration</h3>
                 </div>
               </div>
               <div class="platform-accordion-drawer grid transition-[grid-template-rows] duration-350 ease-out">
                 <div class="platform-accordion-drawer-inner overflow-hidden min-h-0">
                   <div class="px-4 sm:px-5 pb-5 sm:pb-6 pt-0">
-                    <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
+                    <p class="text-base sm:text-lg text-gray-600 leading-relaxed mb-6 font-normal">
                       Reconstitute original details in real time as AI answers stream back, delivering personalized responses with zero friction.
                     </p>
                     <button onclick="event.stopPropagation(); switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
@@ -1021,13 +1025,13 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                   <div class="subitem-icon-box w-9 h-9 rounded-xl bg-purple-50 border border-purple-100 flex items-center justify-center text-purple-600 transition-all duration-300">
                     <i data-lucide="activity" class="w-5 h-5"></i>
                   </div>
-                  <h3 class="subitem-title text-lg sm:text-xl font-bold tracking-tight text-gray-950 transition-colors">Real-Time Security Audit Logs</h3>
+                  <h3 class="subitem-title text-xl sm:text-2xl font-normal tracking-tight text-gray-950 transition-colors">Real-Time Security Audit Logs</h3>
                 </div>
               </div>
               <div class="platform-accordion-drawer grid transition-[grid-template-rows] duration-350 ease-out">
                 <div class="platform-accordion-drawer-inner overflow-hidden min-h-0">
                   <div class="px-4 sm:px-5 pb-5 sm:pb-6 pt-0">
-                    <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
+                    <p class="text-base sm:text-lg text-gray-600 leading-relaxed mb-6 font-normal">
                       Track every protected prompt, redacted entity, and model transaction in real time for complete security and audit visibility.
                     </p>
                     <button onclick="event.stopPropagation(); switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
@@ -1045,13 +1049,13 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                   <div class="subitem-icon-box w-9 h-9 rounded-xl bg-purple-50 border border-purple-100 flex items-center justify-center text-purple-600 transition-all duration-300">
                     <i data-lucide="shield" class="w-5 h-5"></i>
                   </div>
-                  <h3 class="subitem-title text-lg sm:text-xl font-bold tracking-tight text-gray-950 transition-colors">Turnkey Regulatory Compliance</h3>
+                  <h3 class="subitem-title text-xl sm:text-2xl font-normal tracking-tight text-gray-950 transition-colors">Turnkey Regulatory Compliance</h3>
                 </div>
               </div>
               <div class="platform-accordion-drawer grid transition-[grid-template-rows] duration-350 ease-out">
                 <div class="platform-accordion-drawer-inner overflow-hidden min-h-0">
                   <div class="px-4 sm:px-5 pb-5 sm:pb-6 pt-0">
-                    <p class="text-sm sm:text-[15px] text-gray-600 leading-relaxed mb-6 font-normal">
+                    <p class="text-base sm:text-lg text-gray-600 leading-relaxed mb-6 font-normal">
                       Satisfy HIPAA, GDPR, CCPA, and SOC 2 guardrails instantly, fast-tracking approval from legal and risk committees.
                     </p>
                     <button onclick="event.stopPropagation(); switchView('playground')" class="px-5 py-2.5 bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase rounded-sm transition shadow-xs cursor-pointer">
@@ -3183,7 +3187,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       ['inference', 'compute', 'shaping'].forEach(c => {
         const btn = document.getElementById('cat-tab-' + c);
         if (btn) {
-          btn.className = 'cat-pill py-3.5 sm:py-4.5 px-2 sm:px-6 rounded-md text-center font-bold text-xs sm:text-base md:text-xl transition-all duration-200 cursor-pointer bg-white text-gray-900 border border-gray-200/70 shadow-2xs hover:bg-gray-50/90 hover:text-black';
+          btn.className = 'cat-pill py-3.5 sm:py-4.5 px-2 sm:px-6 rounded-md text-center font-normal text-sm sm:text-lg md:text-2xl transition-all duration-200 cursor-pointer bg-white text-gray-900 border border-gray-200/70 shadow-2xs hover:bg-gray-50/90 hover:text-black';
         }
         const panel = document.getElementById('platform-cat-panel-' + c);
         if (panel) panel.classList.add('hidden');
@@ -3192,7 +3196,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       if (catConfig[cat]) {
         const activeBtn = document.getElementById(catConfig[cat].tab);
         if (activeBtn) {
-          activeBtn.className = 'cat-pill py-3.5 sm:py-4.5 px-2 sm:px-6 rounded-md text-center font-bold text-xs sm:text-base md:text-xl transition-all duration-200 cursor-pointer text-gray-950 border border-transparent shadow-2xs ' + catConfig[cat].bg;
+          activeBtn.className = 'cat-pill py-3.5 sm:py-4.5 px-2 sm:px-6 rounded-md text-center font-normal text-sm sm:text-lg md:text-2xl transition-all duration-200 cursor-pointer text-gray-950 border border-transparent shadow-2xs ' + catConfig[cat].bg;
         }
       }
 
