@@ -187,10 +187,12 @@ tokenizationApp.post("/tokenize", async (c) => {
     // Record API Call Usage Log (model, token count, protected entity count, timestamp, API key)
     const apiKeyId = apiKeyRecord?.id || "anonymous";
     const apiKeyPrefix = apiKeyRecord?.key_prefix || "none";
+    const userId = apiKeyRecord?.user_id || undefined;
     const promptTokens = Math.max(1, Math.ceil(body.text.length / 4));
 
     recordApiCallLog(
       {
+        userId,
         apiKeyId,
         apiKeyPrefix,
         model: body.mode === "fpe" ? "tokenizer-fpe" : "tokenizer-structural",

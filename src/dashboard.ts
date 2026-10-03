@@ -3198,13 +3198,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
     let sampleApiKeys = [];
 
-    // Initial logs with timestamps
-    const _initNow = Date.now();
-    let localLogs = [
-      { time: new Date(_initNow - 2 * 60 * 1000).toLocaleString(), timestamp: new Date(_initNow - 2 * 60 * 1000).toISOString(), model: 'openai/gpt-oss-120b', key: 'ProjectSPG Test', code: 200, ttft: '0.583', latency: '0.829', inTokens: 124, outTokens: 120, audio: '-', reqId: 'req_0...t5xz', error: '-' },
-      { time: new Date(_initNow - 8 * 60 * 1000).toLocaleString(), timestamp: new Date(_initNow - 8 * 60 * 1000).toISOString(), model: 'openai/gpt-oss-120b', key: 'ProjectSPG Test', code: 200, ttft: '0.376', latency: '0.538', inTokens: 89, outTokens: 79, audio: '-', reqId: 'req_0...4xfy', error: '-' },
-      { time: new Date(_initNow - 14 * 60 * 1000).toLocaleString(), timestamp: new Date(_initNow - 14 * 60 * 1000).toISOString(), model: 'llama-3.3-70b-versatile', key: 'ProjectSPG Test', code: 404, ttft: '0', latency: '0.002', inTokens: 0, outTokens: 0, audio: '-', reqId: 'req_0...0d96', error: 'model_not_found' }
-    ];
+    // Initial logs - strictly account-exclusive
+    let localLogs = [];
 
     window.addEventListener('DOMContentLoaded', () => {
       const urlParams = new URLSearchParams(window.location.search);
@@ -3255,6 +3250,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               clearByokInputs();
             }
             fetchApiKeys();
+            fetchApiLogs();
           });
         } catch (e) {
           console.warn('Firebase init warning:', e);
@@ -3607,7 +3603,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         activeBtn.classList.remove('text-groq-textMuted');
         activeBtn.classList.add('text-[#f0523d]', 'font-semibold', 'bg-orange-50', 'border', 'border-[#f0523d]/20');
       }
-      if (tabName === 'logs') fetchApiLogs();
+      if (tabName === 'logs' || tabName === 'usage' || tabName === 'metrics') fetchApiLogs();
       if (tabName === 'usage') updateUsageStats();
       if (tabName === 'metrics') renderMetricsChart();
       lucide.createIcons();
@@ -4157,6 +4153,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         };
         if (kmsKey) headers['x-vault-encryption-key'] = kmsKey;
         if (apiKey) headers['Authorization'] = 'Bearer ' + apiKey;
+        if (currentIdToken) headers['x-user-token'] = currentIdToken;
 
         if (targetProvider === 'google') {
           headers['x-upstream-base-url'] = 'https://generativelanguage.googleapis.com/v1beta/openai';
@@ -4765,13 +4762,32 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
       await fetchApiKeys();
     }
 
-    // Live API Usage and Telemetry Logs
+    // Live API Usage and Telemetry Logs (Account-Exclusive)
     async function fetchApiLogs() {
       try {
-        const res = await fetch('/api/logs?limit=50');
+        if (!currentFirebaseUser) {
+          localLogs = [];
+          updateUsageStats();
+          renderLogsTable();
+          renderMetricsChart();
+          return;
+        }
+
+        let token = currentIdToken;
+        if (!token && currentFirebaseUser) {
+          try {
+            token = await currentFirebaseUser.getIdToken();
+            currentIdToken = token;
+          } catch (e) {
+            token = null;
+          }
+        }
+
+        const headers = token ? { 'Authorization': 'Bearer ' + token } : {};
+        const res = await fetch('/api/logs?limit=50', { headers });
         if (res.ok) {
           const data = await res.json();
-          if (data && Array.isArray(data.logs) && data.logs.length > 0) {
+          if (data && Array.isArray(data.logs)) {
             localLogs = data.logs.map(l => {
               const d = new Date(l.timestamp);
               const timeStr = isNaN(d.getTime()) ? l.timestamp : d.toLocaleString();
@@ -4795,9 +4811,11 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
                 protectedEntities: l.protectedEntityCount || 0
               };
             });
-            updateUsageStats();
-            renderMetricsChart();
+          } else {
+            localLogs = [];
           }
+          updateUsageStats();
+          renderMetricsChart();
         }
       } catch (err) {
         console.error('Fetch logs error', err);
@@ -5124,6 +5142,11 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
       if (!tbody) return;
       const errorsOnly = document.getElementById('filter-errors') ? document.getElementById('filter-errors').checked : false;
       const filtered = errorsOnly ? localLogs.filter(l => l.code !== 200) : localLogs;
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="11" class="text-center py-8 text-sm text-gray-400 font-sans">No request logs recorded for this account.</td></tr>';
+        return;
+      }
 
       tbody.innerHTML = filtered.map(l => \`
         <tr class="hover:bg-gray-50/70 transition h-14 border-b border-gray-50/80">

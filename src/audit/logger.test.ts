@@ -147,4 +147,44 @@ describe("API Key Request Usage & Telemetry Logging", () => {
     expect(finLogs[0].model).toBe("claude-3-5-sonnet");
     expect(finLogs[0].protectedEntityCount).toBe(12);
   });
+
+  it("should enforce account-exclusive log retrieval by userId", async () => {
+    recordApiCallLog({
+      userId: "user_alice_123",
+      apiKeyId: "key_alice_01",
+      apiKeyPrefix: "spg_live_alice...",
+      model: "codestral-2508",
+      promptTokens: 50,
+      completionTokens: 25,
+      totalTokens: 75,
+      protectedEntityCount: 2,
+    });
+
+    recordApiCallLog({
+      userId: "user_bob_456",
+      apiKeyId: "key_bob_01",
+      apiKeyPrefix: "spg_live_bob...",
+      model: "openai/gpt-oss-120b",
+      promptTokens: 120,
+      completionTokens: 60,
+      totalTokens: 180,
+      protectedEntityCount: 0,
+    });
+
+    const aliceLogs = await getApiCallLogs({ userId: "user_alice_123" });
+    expect(aliceLogs.length).toBe(1);
+    expect(aliceLogs[0].userId).toBe("user_alice_123");
+    expect(aliceLogs[0].apiKeyId).toBe("key_alice_01");
+    expect(aliceLogs[0].model).toBe("codestral-2508");
+
+    const bobLogs = await getApiCallLogs({ userId: "user_bob_456" });
+    expect(bobLogs.length).toBe(1);
+    expect(bobLogs[0].userId).toBe("user_bob_456");
+    expect(bobLogs[0].apiKeyId).toBe("key_bob_01");
+    expect(bobLogs[0].model).toBe("openai/gpt-oss-120b");
+
+    const charlieLogs = await getApiCallLogs({ userId: "user_charlie_789" });
+    expect(charlieLogs.length).toBe(0);
+  });
 });
+

@@ -542,6 +542,13 @@ openaiApp.post("/chat/completions", async (c) => {
     const fbUser = await verifyFirebaseIdToken(token);
     if (fbUser) clientUserId = fbUser.uid;
   }
+  if (!clientUserId) {
+    const userTokenHeader = c.req.header("x-user-token") || "";
+    if (userTokenHeader) {
+      const fbUser = await verifyFirebaseIdToken(userTokenHeader.replace(/^Bearer /i, "").trim());
+      if (fbUser) clientUserId = fbUser.uid;
+    }
+  }
 
   if (clientUserId) {
     const profile = await getUserProfile(c.env, clientUserId);
@@ -753,6 +760,7 @@ openaiApp.post("/chat/completions", async (c) => {
     // Log streaming API call
     recordApiCallLog(
       {
+        userId: clientUserId || undefined,
         apiKeyId,
         apiKeyPrefix,
         model: requestedModel,
@@ -836,6 +844,7 @@ openaiApp.post("/chat/completions", async (c) => {
 
   recordApiCallLog(
     {
+      userId: clientUserId || undefined,
       apiKeyId,
       apiKeyPrefix,
       model: requestedModel,
@@ -957,11 +966,26 @@ openaiApp.post("/embeddings", async (c) => {
 
     const apiKeyId = apiKeyRecord?.id || "anonymous";
     const apiKeyPrefix = apiKeyRecord?.key_prefix || "none";
+    let embedUserId = apiKeyRecord?.user_id;
+    const authHdr = c.req.header("Authorization") || "";
+    if (!embedUserId && authHdr.startsWith("Bearer ") && !authHdr.toLowerCase().startsWith("bearer spg_")) {
+      const token = authHdr.slice(7).trim();
+      const fbUser = await verifyFirebaseIdToken(token);
+      if (fbUser) embedUserId = fbUser.uid;
+    }
+    if (!embedUserId) {
+      const userTokenHdr = c.req.header("x-user-token") || "";
+      if (userTokenHdr) {
+        const fbUser = await verifyFirebaseIdToken(userTokenHdr.replace(/^Bearer /i, "").trim());
+        if (fbUser) embedUserId = fbUser.uid;
+      }
+    }
     const promptTokens = Math.max(1, Math.ceil(JSON.stringify(sanitizedInput).length / 4));
     const latencyMs = Math.round(performance.now() - startTime);
 
     recordApiCallLog(
       {
+        userId: embedUserId || undefined,
         apiKeyId,
         apiKeyPrefix,
         model: body.model || "text-embedding-3-small",

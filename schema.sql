@@ -68,3 +68,25 @@ CREATE TABLE IF NOT EXISTS invitation_codes (
 
 CREATE INDEX IF NOT EXISTS idx_invitation_codes_active ON invitation_codes(is_active);
 
+-- =========================================================================
+-- API Request & Usage Logs Table (Account-Exclusive Telemetry)
+-- =========================================================================
+CREATE TABLE IF NOT EXISTS api_request_logs (
+    id TEXT PRIMARY KEY,
+    user_id TEXT,
+    api_key_id TEXT NOT NULL,
+    api_key_prefix TEXT NOT NULL,
+    model TEXT NOT NULL,
+    prompt_tokens INTEGER DEFAULT 0,
+    completion_tokens INTEGER DEFAULT 0,
+    total_tokens INTEGER DEFAULT 0,
+    protected_entity_count INTEGER DEFAULT 0,
+    status_code INTEGER DEFAULT 200,
+    latency_ms REAL DEFAULT 0,
+    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS idx_logs_api_key_id ON api_request_logs(api_key_id);
+CREATE INDEX IF NOT EXISTS idx_logs_user_id ON api_request_logs(user_id);
+

@@ -482,19 +482,32 @@ app.post("/api/byok/models", handleByokModelsDiscovery);
 app.get("/api/byok/models", handleByokModelsDiscovery);
 
 // =========================================================================
-// API Request & Token Usage Logs (Identified by API Key)
+// API Request & Token Usage Logs (Account-Exclusive Telemetry)
 // =========================================================================
 app.get("/api/logs", async (c) => {
+  const authHeader = c.req.header("Authorization") || "";
+  let userId: string | undefined = undefined;
+  if (authHeader.startsWith("Bearer ") && !authHeader.toLowerCase().startsWith("bearer spg_")) {
+    const token = authHeader.slice(7).trim();
+    const user = await verifyFirebaseIdToken(token);
+    if (user) userId = user.uid;
+  }
+  if (!userId) {
+    return c.json({ logs: [] });
+  }
   const apiKeyId = c.req.query("api_key_id");
   const limit = Number(c.req.query("limit")) || 50;
-  const logs = await getApiCallLogs({ apiKeyId, limit }, c.env);
+  const logs = await getApiCallLogs({ apiKeyId, userId, limit }, c.env);
   return c.json({ logs });
 });
 
 app.get("/v1/logs", async (c) => {
   const apiKeyRecord = (c as any).get("apiKeyRecord");
   const limit = Number(c.req.query("limit")) || 50;
-  const logs = await getApiCallLogs({ apiKeyId: apiKeyRecord?.id, limit }, c.env);
+  if (!apiKeyRecord?.id) {
+    return c.json({ object: "list", data: [] });
+  }
+  const logs = await getApiCallLogs({ apiKeyId: apiKeyRecord.id, userId: apiKeyRecord.user_id, limit }, c.env);
   return c.json({ object: "list", data: logs });
 });
 

@@ -36,6 +36,7 @@ export interface AuditEvent {
 
 export interface ApiCallLogRecord {
   id: string;
+  userId?: string;
   apiKeyId: string; // API Key ID (not user ID, org-compatible)
   apiKeyPrefix: string; // e.g. spg_live_97e4d...
   model: string; // e.g. gpt-4o, openai/gpt-oss-120b
@@ -121,6 +122,7 @@ export function recordAuditEvent(
 export function recordApiCallLog(
   log: Omit<ApiCallLogRecord, "id" | "timestamp" | "statusCode" | "latencyMs"> & {
     id?: string;
+    userId?: string;
     timestamp?: string;
     statusCode?: number;
     latencyMs?: number;
@@ -130,6 +132,7 @@ export function recordApiCallLog(
 ): ApiCallLogRecord {
   const fullLog: ApiCallLogRecord = {
     id: log.id || `log_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`,
+    userId: log.userId,
     apiKeyId: log.apiKeyId || "anonymous",
     apiKeyPrefix: log.apiKeyPrefix || "none",
     model: log.model || "unknown",
@@ -158,11 +161,12 @@ export function recordApiCallLog(
       try {
         await db
           .prepare(
-            `INSERT INTO api_request_logs (id, api_key_id, api_key_prefix, model, prompt_tokens, completion_tokens, total_tokens, protected_entity_count, status_code, latency_ms, timestamp)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+            `INSERT INTO api_request_logs (id, user_id, api_key_id, api_key_prefix, model, prompt_tokens, completion_tokens, total_tokens, protected_entity_count, status_code, latency_ms, timestamp)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
           )
           .bind(
             fullLog.id,
+            fullLog.userId || null,
             fullLog.apiKeyId,
             fullLog.apiKeyPrefix,
             fullLog.model,
@@ -182,6 +186,7 @@ export function recordApiCallLog(
             .prepare(
               `CREATE TABLE IF NOT EXISTS api_request_logs (
                  id TEXT PRIMARY KEY,
+                 user_id TEXT,
                  api_key_id TEXT NOT NULL,
                  api_key_prefix TEXT NOT NULL,
                  model TEXT NOT NULL,
@@ -205,11 +210,18 @@ export function recordApiCallLog(
 
           await db
             .prepare(
-              `INSERT INTO api_request_logs (id, api_key_id, api_key_prefix, model, prompt_tokens, completion_tokens, total_tokens, protected_entity_count, status_code, latency_ms, timestamp)
-               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+              `CREATE INDEX IF NOT EXISTS idx_logs_user_id ON api_request_logs(user_id)`
+            )
+            .run();
+
+          await db
+            .prepare(
+              `INSERT INTO api_request_logs (id, user_id, api_key_id, api_key_prefix, model, prompt_tokens, completion_tokens, total_tokens, protected_entity_count, status_code, latency_ms, timestamp)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
             )
             .bind(
               fullLog.id,
+              fullLog.userId || null,
               fullLog.apiKeyId,
               fullLog.apiKeyPrefix,
               fullLog.model,
@@ -239,11 +251,12 @@ export function recordApiCallLog(
 }
 
 /**
- * Retrieves recent API call logs matching optional filters (e.g. by apiKeyId)
+ * Retrieves recent API call logs matching optional filters (e.g. by userId or apiKeyId)
  */
 export async function getApiCallLogs(
   options?: {
     apiKeyId?: string;
+    userId?: string;
     limit?: number;
   },
   env?: any
@@ -254,21 +267,33 @@ export async function getApiCallLogs(
   const db = env?.DB;
   if (db && typeof db.prepare === "function") {
     try {
-      let query = `SELECT id, api_key_id, api_key_prefix, model, prompt_tokens, completion_tokens, total_tokens, protected_entity_count, status_code, latency_ms, timestamp FROM api_request_logs`;
+      let query = `SELECT id, user_id, api_key_id, api_key_prefix, model, prompt_tokens, completion_tokens, total_tokens, protected_entity_count, status_code, latency_ms, timestamp FROM api_request_logs`;
       const params: any[] = [];
+      const whereClauses: string[] = [];
 
-      if (options?.apiKeyId) {
-        query += ` WHERE api_key_id = ?`;
+      if (options?.userId && options?.apiKeyId) {
+        whereClauses.push(`(user_id = ? OR api_key_id = ?)`);
+        params.push(options.userId, options.apiKeyId);
+      } else if (options?.userId) {
+        whereClauses.push(`(user_id = ? OR api_key_id IN (SELECT id FROM api_keys WHERE user_id = ?))`);
+        params.push(options.userId, options.userId);
+      } else if (options?.apiKeyId) {
+        whereClauses.push(`api_key_id = ?`);
         params.push(options.apiKeyId);
+      }
+
+      if (whereClauses.length > 0) {
+        query += ` WHERE ` + whereClauses.join(" AND ");
       }
 
       query += ` ORDER BY timestamp DESC LIMIT ?`;
       params.push(limit);
 
       const res = await db.prepare(query).bind(...params).all();
-      if (res && Array.isArray(res.results) && res.results.length > 0) {
+      if (res && Array.isArray(res.results)) {
         return res.results.map((r: any) => ({
           id: r.id,
+          userId: r.user_id,
           apiKeyId: r.api_key_id,
           apiKeyPrefix: r.api_key_prefix,
           model: r.model,
@@ -288,7 +313,11 @@ export async function getApiCallLogs(
 
   // 2. In-memory buffer fallback
   let logs = [...apiCallLogsRingBuffer].reverse();
-  if (options?.apiKeyId) {
+  if (options?.userId && options?.apiKeyId) {
+    logs = logs.filter((l) => l.userId === options.userId || l.apiKeyId === options.apiKeyId);
+  } else if (options?.userId) {
+    logs = logs.filter((l) => l.userId === options.userId);
+  } else if (options?.apiKeyId) {
     logs = logs.filter((l) => l.apiKeyId === options.apiKeyId);
   }
   return logs.slice(0, limit);
