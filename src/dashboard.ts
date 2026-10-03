@@ -797,131 +797,27 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
           </div>
 
-          <!-- Right Column: Visual Showcases for De-Identify (Image Placeholders) -->
-          <div class="lg:col-span-7">
+          <!-- Right Column: Visual Showcases for De-Identify -->
+          <div class="lg:col-span-7 flex items-center justify-center">
             
-            <!-- Mockup 0: Automatic Data Redaction Showcase Placeholder -->
-            <div class="mockup-inference relative rounded-2xl sm:rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#c8f5f6] via-[#f7f2fb] to-[#ffd2df] border border-gray-200/70 shadow-lg min-h-[260px] sm:min-h-[380px] lg:min-h-[460px] flex items-center justify-center overflow-hidden">
-              <div class="w-full aspect-[16/10] bg-white/95 backdrop-blur-md rounded-xl sm:rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden flex flex-col relative">
-                <div class="h-8 sm:h-9 px-3 sm:px-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0">
-                  <div class="flex items-center gap-1.5 sm:gap-2">
-                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-red-400"></span>
-                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-amber-400"></span>
-                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-emerald-400"></span>
-                    <span class="text-[10px] sm:text-[11px] font-mono text-gray-500 ml-1.5 sm:ml-2">automatic-data-redaction.png</span>
-                  </div>
-                  <span class="text-[9px] sm:text-[10px] text-gray-400 font-medium">16:10</span>
-                </div>
-                <div class="flex-1 relative flex items-center justify-center bg-gray-50/50 p-2 overflow-hidden">
-                  <!-- PLACEHOLDER IMG: Replace src with image URL/path -->
-                  <img id="img-platform-inference-0" src="/images/automatic-data-redaction.png" alt="Automatic Data Redaction" class="w-full h-full object-cover rounded-xl" onload="const fb=document.getElementById('fb-platform-inference-0'); if(fb) fb.classList.add('hidden');" />
-                  <div id="fb-platform-inference-0" class="hidden w-full h-full min-h-[200px] sm:min-h-[320px] border-2 border-dashed border-cyan-300/80 rounded-xl bg-cyan-50/40 flex flex-col items-center justify-center p-4 sm:p-8 text-center">
-                    <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-cyan-100 text-cyan-700 flex items-center justify-center shadow-xs mb-2 sm:mb-3.5">
-                      <i data-lucide="shield-check" class="w-6 h-6 sm:w-8 sm:h-8"></i>
-                    </div>
-                    <h4 class="text-sm sm:text-base font-bold text-gray-900 mb-1">Serverless Inference Image</h4>
-                    <p class="text-[11px] sm:text-xs text-gray-500 max-w-sm mb-3 sm:mb-4">
-                      Drop your screenshot into <code class="text-cyan-800 bg-cyan-100/70 px-1 py-0.5 rounded font-mono text-[10px] sm:text-[11px]">#img-platform-inference-0</code>
-                    </p>
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-gray-200/90 text-gray-700 text-[9px] sm:text-[10px] font-semibold tracking-wide uppercase shadow-2xs">
-                      <i data-lucide="upload-cloud" class="w-3.5 h-3.5 text-cyan-600"></i> Placeholder Image (16:10)
-                    </span>
-                  </div>
-                </div>
-              </div>
+            <!-- Mockup 0: Automatic Data Redaction Showcase -->
+            <div class="mockup-inference relative rounded-2xl sm:rounded-3xl border border-gray-200/90 shadow-xl overflow-hidden aspect-square w-full max-w-[540px] bg-white flex items-center justify-center">
+              <img id="img-platform-inference-0" src="/images/automatic-data-redaction.png" alt="Automatic Data Redaction" class="w-full h-full object-cover" />
             </div>
 
-            <!-- Mockup 1: Context-Preserving Masking Showcase Placeholder -->
-            <div class="mockup-inference hidden relative rounded-2xl sm:rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#99f6e4] via-[#f0f9ff] to-[#fbcfe8] border border-gray-200/70 shadow-lg min-h-[260px] sm:min-h-[380px] lg:min-h-[460px] flex items-center justify-center overflow-hidden">
-              <div class="w-full aspect-[16/10] bg-white/95 backdrop-blur-md rounded-xl sm:rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden flex flex-col relative">
-                <div class="h-8 sm:h-9 px-3 sm:px-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0">
-                  <div class="flex items-center gap-1.5 sm:gap-2">
-                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-red-400"></span>
-                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-amber-400"></span>
-                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-emerald-400"></span>
-                    <span class="text-[10px] sm:text-[11px] font-mono text-gray-500 ml-1.5 sm:ml-2">context-preserving-masking.png</span>
-                  </div>
-                  <span class="text-[9px] sm:text-[10px] text-gray-400 font-medium">16:10</span>
-                </div>
-                <div class="flex-1 relative flex items-center justify-center bg-gray-50/50 p-2 overflow-hidden">
-                  <!-- PLACEHOLDER IMG: Replace src with image URL/path -->
-                  <img id="img-platform-inference-1" src="/images/context-preserving-masking.png" alt="Context-Preserving Masking" class="w-full h-full object-cover rounded-xl" onload="const fb=document.getElementById('fb-platform-inference-1'); if(fb) fb.classList.add('hidden');" />
-                  <div id="fb-platform-inference-1" class="hidden w-full h-full min-h-[200px] sm:min-h-[320px] border-2 border-dashed border-teal-300/80 rounded-xl bg-teal-50/40 flex flex-col items-center justify-center p-4 sm:p-8 text-center">
-                    <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-teal-100 text-teal-700 flex items-center justify-center shadow-xs mb-2 sm:mb-3.5">
-                      <i data-lucide="hash" class="w-6 h-6 sm:w-8 sm:h-8"></i>
-                    </div>
-                    <h4 class="text-sm sm:text-base font-bold text-gray-900 mb-1">Batch Inference Image</h4>
-                    <p class="text-[11px] sm:text-xs text-gray-500 max-w-sm mb-3 sm:mb-4">
-                      Drop your screenshot into <code class="text-teal-800 bg-teal-100/70 px-1 py-0.5 rounded font-mono text-[10px] sm:text-[11px]">#img-platform-inference-1</code>
-                    </p>
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-gray-200/90 text-gray-700 text-[9px] sm:text-[10px] font-semibold tracking-wide uppercase shadow-2xs">
-                      <i data-lucide="upload-cloud" class="w-3.5 h-3.5 text-teal-600"></i> Placeholder Image (16:10)
-                    </span>
-                  </div>
-                </div>
-              </div>
+            <!-- Mockup 1: Context-Preserving Masking Showcase -->
+            <div class="mockup-inference hidden relative rounded-2xl sm:rounded-3xl border border-gray-200/90 shadow-xl overflow-hidden aspect-square w-full max-w-[540px] bg-white flex items-center justify-center">
+              <img id="img-platform-inference-1" src="/images/context-preserving-masking.png" alt="Context-Preserving Masking" class="w-full h-full object-cover" />
             </div>
 
-            <!-- Mockup 2: Global Privacy Scanner Showcase Placeholder -->
-            <div class="mockup-inference hidden relative rounded-2xl sm:rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#bae6fd] via-[#f0f9ff] to-[#e0e7ff] border border-gray-200/70 shadow-lg min-h-[260px] sm:min-h-[380px] lg:min-h-[460px] flex items-center justify-center overflow-hidden">
-              <div class="w-full aspect-[16/10] bg-white/95 backdrop-blur-md rounded-xl sm:rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden flex flex-col relative">
-                <div class="h-8 sm:h-9 px-3 sm:px-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0">
-                  <div class="flex items-center gap-1.5 sm:gap-2">
-                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-red-400"></span>
-                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-amber-400"></span>
-                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-emerald-400"></span>
-                    <span class="text-[10px] sm:text-[11px] font-mono text-gray-500 ml-1.5 sm:ml-2">global-privacy-scanner.png</span>
-                  </div>
-                  <span class="text-[9px] sm:text-[10px] text-gray-400 font-medium">16:10</span>
-                </div>
-                <div class="flex-1 relative flex items-center justify-center bg-gray-50/50 p-2 overflow-hidden">
-                  <!-- PLACEHOLDER IMG: Replace src with image URL/path -->
-                  <img id="img-platform-inference-2" src="/images/global-privacy-scanner.png" alt="Global Privacy Scanner" class="w-full h-full object-cover rounded-xl" onload="const fb=document.getElementById('fb-platform-inference-2'); if(fb) fb.classList.add('hidden');" />
-                  <div id="fb-platform-inference-2" class="hidden w-full h-full min-h-[200px] sm:min-h-[320px] border-2 border-dashed border-sky-300/80 rounded-xl bg-sky-50/40 flex flex-col items-center justify-center p-4 sm:p-8 text-center">
-                    <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-sky-100 text-sky-700 flex items-center justify-center shadow-xs mb-2 sm:mb-3.5">
-                      <i data-lucide="scan" class="w-6 h-6 sm:w-8 sm:h-8"></i>
-                    </div>
-                    <h4 class="text-sm sm:text-base font-bold text-gray-900 mb-1">Provisioned Throughput Image</h4>
-                    <p class="text-[11px] sm:text-xs text-gray-500 max-w-sm mb-3 sm:mb-4">
-                      Drop your screenshot into <code class="text-sky-800 bg-sky-100/70 px-1 py-0.5 rounded font-mono text-[10px] sm:text-[11px]">#img-platform-inference-2</code>
-                    </p>
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-gray-200/90 text-gray-700 text-[9px] sm:text-[10px] font-semibold tracking-wide uppercase shadow-2xs">
-                      <i data-lucide="upload-cloud" class="w-3.5 h-3.5 text-sky-600"></i> Placeholder Image (16:10)
-                    </span>
-                  </div>
-                </div>
-              </div>
+            <!-- Mockup 2: Global Privacy Scanner Showcase -->
+            <div class="mockup-inference hidden relative rounded-2xl sm:rounded-3xl border border-gray-200/90 shadow-xl overflow-hidden aspect-square w-full max-w-[540px] bg-white flex items-center justify-center">
+              <img id="img-platform-inference-2" src="/images/global-privacy-scanner.png" alt="Global Privacy Scanner" class="w-full h-full object-cover" />
             </div>
 
-            <!-- Mockup 3: Secure Enterprise Vault Architecture Placeholder -->
-            <div class="mockup-inference hidden relative rounded-2xl sm:rounded-3xl p-3 sm:p-5 bg-gradient-to-tr from-[#c7d2fe] via-[#f0fdfa] to-[#bfdbfe] border border-gray-200/70 shadow-lg min-h-[260px] sm:min-h-[380px] lg:min-h-[460px] flex items-center justify-center overflow-hidden">
-              <div class="w-full aspect-[16/10] bg-white/95 backdrop-blur-md rounded-xl sm:rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden flex flex-col relative">
-                <div class="h-8 sm:h-9 px-3 sm:px-4 border-b border-gray-100 flex items-center justify-between bg-white shrink-0">
-                  <div class="flex items-center gap-1.5 sm:gap-2">
-                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-red-400"></span>
-                    <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
-                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
-                    <span class="text-[11px] font-mono text-gray-500 ml-2">secure-enterprise-vault.png</span>
-                  </div>
-                  <span class="text-[10px] text-gray-400 font-medium">1200 × 750 (16:10)</span>
-                </div>
-                <div class="flex-1 relative flex items-center justify-center bg-gray-50/50 p-2 overflow-hidden">
-                  <!-- PLACEHOLDER IMG: Replace src with image URL/path -->
-                  <img id="img-platform-inference-3" src="/images/secure-enterprise-vault.png" alt="Secure Enterprise Vault" class="w-full h-full object-cover rounded-xl" onload="const fb=document.getElementById('fb-platform-inference-3'); if(fb) fb.classList.add('hidden');" />
-                  <div id="fb-platform-inference-3" class="hidden w-full h-full min-h-[340px] border-2 border-dashed border-indigo-300/80 rounded-xl bg-indigo-50/40 flex flex-col items-center justify-center p-8 text-center">
-                    <div class="w-16 h-16 rounded-2xl bg-indigo-100 text-indigo-700 flex items-center justify-center shadow-xs mb-3.5">
-                      <i data-lucide="database" class="w-8 h-8"></i>
-                    </div>
-                    <h4 class="text-base font-bold text-gray-900 mb-1">Dedicated Model Inference Image</h4>
-                    <p class="text-xs text-gray-500 max-w-sm mb-4">
-                      Drop your screenshot into <code class="text-indigo-800 bg-indigo-100/70 px-1.5 py-0.5 rounded font-mono text-[11px]">#img-platform-inference-3</code>
-                    </p>
-                    <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white border border-gray-200/90 text-gray-700 text-[10px] font-semibold tracking-wide uppercase shadow-2xs">
-                      <i data-lucide="upload-cloud" class="w-3.5 h-3.5 text-indigo-600"></i> Placeholder Image (16:10)
-                    </span>
-                  </div>
-                </div>
-              </div>
+            <!-- Mockup 3: Secure Enterprise Vault Showcase -->
+            <div class="mockup-inference hidden relative rounded-2xl sm:rounded-3xl border border-gray-200/90 shadow-xl overflow-hidden aspect-square w-full max-w-[540px] bg-white flex items-center justify-center">
+              <img id="img-platform-inference-3" src="/images/secure-enterprise-vault.png" alt="Secure Enterprise Vault" class="w-full h-full object-cover" />
             </div>
 
           </div>
