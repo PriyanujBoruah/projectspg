@@ -358,6 +358,10 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           <button onclick="switchView('keys')" id="nav-keys" class="nav-item text-groq-textMuted hover:text-groq-dark transition whitespace-nowrap cursor-pointer">API Keys</button>
           <button onclick="switchView('dashboard')" id="nav-dashboard" class="nav-item text-[#f0523d] font-semibold transition whitespace-nowrap cursor-pointer">Dashboard</button>
           <button onclick="switchView('docs')" id="nav-docs" class="nav-item text-groq-textMuted hover:text-groq-dark transition whitespace-nowrap cursor-pointer">Docs</button>
+          <button onclick="switchView('admin-invites')" id="nav-admin-invites" class="nav-item hidden text-purple-600 font-semibold hover:text-purple-800 transition whitespace-nowrap cursor-pointer flex items-center gap-1.5 px-2 py-0.5 rounded-lg hover:bg-purple-50">
+            <i data-lucide="ticket" class="w-3.5 h-3.5 text-purple-600"></i>
+            <span>Admin Invites</span>
+          </button>
         </nav>
       </div>
 
@@ -405,6 +409,10 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                 <span class="flex items-center gap-2"><i data-lucide="ticket" class="w-3.5 h-3.5"></i> Invitation & Org Profile</span>
                 <i data-lucide="chevron-right" class="w-3 h-3 text-gray-400"></i>
               </button>
+              <button id="user-menu-admin-btn" onclick="switchView('admin-invites')" class="w-full text-left px-3 py-2 rounded-lg hover:bg-purple-50 text-purple-700 font-semibold hidden flex items-center justify-between transition">
+                <span class="flex items-center gap-2"><i data-lucide="shield-check" class="w-3.5 h-3.5 text-purple-600"></i> Invitation Code Manager</span>
+                <i data-lucide="chevron-right" class="w-3 h-3 text-purple-400"></i>
+              </button>
             </div>
             <div class="pt-1 border-t border-gray-100">
               <button onclick="handleSignOut()" class="w-full text-left px-3 py-2 rounded-lg hover:bg-[#fff5f3] text-[#f0523d] font-medium flex items-center gap-2 transition">
@@ -422,6 +430,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       <button onclick="switchView('keys')" id="nav-mobile-keys" class="nav-mobile-item flex-1 py-1.5 px-2 text-center rounded-lg text-xs font-medium whitespace-nowrap transition cursor-pointer text-groq-textMuted bg-white border border-gray-200/70 shadow-2xs">API Keys</button>
       <button onclick="switchView('dashboard')" id="nav-mobile-dashboard" class="nav-mobile-item flex-1 py-1.5 px-2 text-center rounded-lg text-xs font-semibold whitespace-nowrap transition cursor-pointer text-[#f0523d] bg-orange-50 border border-[#f0523d]/30 shadow-2xs">Dashboard</button>
       <button onclick="switchView('docs')" id="nav-mobile-docs" class="nav-mobile-item flex-1 py-1.5 px-2 text-center rounded-lg text-xs font-medium whitespace-nowrap transition cursor-pointer text-groq-textMuted bg-white border border-gray-200/70 shadow-2xs">Docs</button>
+      <button onclick="switchView('admin-invites')" id="nav-mobile-admin-invites" class="nav-mobile-item hidden flex-1 py-1.5 px-2 text-center rounded-lg text-xs font-semibold whitespace-nowrap transition cursor-pointer text-purple-700 bg-purple-50 border border-purple-200 shadow-2xs">Admin Invites</button>
     </div>
 
   </header>
@@ -2599,6 +2608,135 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       </div>
     </div>
 
+    <!-- ======================================================================= -->
+    <!-- VIEW 5: ADMIN INVITATION CODE MANAGER (Restricted to Developer/Admin)     -->
+    <!-- ======================================================================= -->
+    <div id="view-admin-invites" class="view-panel hidden border-t border-l border-r border-groq-grayBorder rounded-t-2xl bg-white mx-0 sm:mx-2 lg:mx-3 flex-1 p-3.5 sm:p-6 md:p-8 max-w-[1440px] w-full overflow-visible md:overflow-y-auto shadow-xs">
+      
+      <!-- Admin Header Banner -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-gray-100 gap-4">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <h1 class="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">Invitation Code Manager</h1>
+            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold tracking-wide uppercase bg-purple-100 text-purple-800 border border-purple-200 flex items-center gap-1">
+              <i data-lucide="shield-check" class="w-3 h-3 text-purple-700"></i> Admin Console
+            </span>
+          </div>
+          <p class="text-xs sm:text-sm text-gray-500">
+            Create, allocate, and monitor secure invitation codes for partners and enterprise clients to unlock Full Access.
+          </p>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button onclick="loadAdminInvitations()" class="px-3 py-1.5 rounded-lg border border-gray-200 hover:bg-gray-50 text-gray-700 text-xs font-medium flex items-center gap-1.5 transition cursor-pointer">
+            <i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-gray-500"></i>
+            <span>Refresh</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Metrics Counters -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-4 my-6">
+        <div class="p-4 rounded-xl border border-gray-200/80 bg-[#fbfbfe] shadow-2xs">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-medium text-gray-500">Active Codes</span>
+            <span class="w-7 h-7 rounded-lg bg-purple-50 text-purple-700 flex items-center justify-center"><i data-lucide="ticket" class="w-4 h-4"></i></span>
+          </div>
+          <div id="admin-stat-active-codes" class="text-2xl font-bold text-gray-900 mt-2">0</div>
+          <span class="text-[11px] text-gray-400">Ready for redemption</span>
+        </div>
+
+        <div class="p-4 rounded-xl border border-gray-200/80 bg-[#fbfbfe] shadow-2xs">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-medium text-gray-500">Total Redemptions</span>
+            <span class="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center"><i data-lucide="users" class="w-4 h-4"></i></span>
+          </div>
+          <div id="admin-stat-total-uses" class="text-2xl font-bold text-emerald-700 mt-2">0</div>
+          <span class="text-[11px] text-gray-400">Full Access upgrades granted</span>
+        </div>
+
+        <div class="p-4 rounded-xl border border-gray-200/80 bg-[#fbfbfe] shadow-2xs">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-medium text-gray-500">Admin Account</span>
+            <span class="w-7 h-7 rounded-lg bg-blue-50 text-blue-700 flex items-center justify-center"><i data-lucide="user-check" class="w-4 h-4"></i></span>
+          </div>
+          <div class="text-xs font-semibold text-gray-900 mt-2.5 truncate font-mono">boruahpriyanuj2004@gmail.com</div>
+          <span class="text-[11px] text-purple-600 font-medium">Root Developer Access</span>
+        </div>
+      </div>
+
+      <!-- Create New Code Card -->
+      <div class="p-5 rounded-2xl border border-purple-200/70 bg-gradient-to-br from-purple-50/40 via-white to-orange-50/20 shadow-2xs mb-8">
+        <div class="flex items-center gap-2 mb-3">
+          <div class="w-6 h-6 rounded-md bg-purple-600 text-white flex items-center justify-center text-xs">
+            <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+          </div>
+          <h2 class="text-sm font-bold text-gray-900">Generate New Invitation Code</h2>
+        </div>
+
+        <form onsubmit="handleAdminCreateInvitation(event)" class="grid grid-cols-1 sm:grid-cols-12 gap-3 items-end">
+          <div class="sm:col-span-4">
+            <label class="block text-xs font-semibold text-gray-700 mb-1">Custom Code (Optional)</label>
+            <input type="text" id="admin-new-code" placeholder="Leave blank to auto-generate" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2 text-xs font-mono uppercase tracking-wider text-gray-900 focus:outline-none focus:border-purple-500 shadow-2xs">
+          </div>
+
+          <div class="sm:col-span-5">
+            <label class="block text-xs font-semibold text-gray-700 mb-1">Recipient / Partner Notes</label>
+            <input type="text" id="admin-new-desc" placeholder="e.g. Acme Corp AI Security Team" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2 text-xs text-gray-900 focus:outline-none focus:border-purple-500 shadow-2xs" required>
+          </div>
+
+          <div class="sm:col-span-2">
+            <label class="block text-xs font-semibold text-gray-700 mb-1">Usage Limit</label>
+            <select id="admin-new-max-uses" class="w-full bg-white border border-gray-300 rounded-xl px-2.5 py-2 text-xs text-gray-900 focus:outline-none focus:border-purple-500 shadow-2xs cursor-pointer">
+              <option value="1">1 (Single-Use)</option>
+              <option value="5">5 Uses</option>
+              <option value="10">10 Uses</option>
+              <option value="25">25 Uses</option>
+              <option value="100">100 Uses</option>
+              <option value="-1">Unlimited</option>
+            </select>
+          </div>
+
+          <div class="sm:col-span-1">
+            <button type="submit" id="btn-admin-create-code" class="w-full py-2 px-3 rounded-xl bg-purple-700 hover:bg-purple-800 text-white font-semibold text-xs tracking-wide shadow-xs transition flex items-center justify-center gap-1 cursor-pointer">
+              <span>Create</span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Generated Codes List Table -->
+      <div class="border border-gray-200 rounded-2xl bg-white shadow-2xs overflow-hidden">
+        <div class="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
+          <h3 class="text-sm font-bold text-gray-900 flex items-center gap-2">
+            <i data-lucide="list" class="w-4 h-4 text-purple-600"></i> Issued Invitation Codes
+          </h3>
+          <span id="admin-codes-count" class="text-xs text-gray-500">0 codes total</span>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="bg-gray-50/70 border-b border-gray-100 text-gray-500 uppercase tracking-wider font-semibold text-[10px]">
+                <th class="py-3 px-4">Code</th>
+                <th class="py-3 px-4">Recipient / Notes</th>
+                <th class="py-3 px-4">Redemptions</th>
+                <th class="py-3 px-4">Status</th>
+                <th class="py-3 px-4">Created Date</th>
+                <th class="py-3 px-4 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="admin-invitations-tbody" class="divide-y divide-gray-100">
+              <tr>
+                <td colspan="6" class="py-8 text-center text-gray-400">Loading invitation codes...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
   </main>
 
   <!-- MODALS -->
@@ -3072,8 +3210,14 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     ];
 
     window.addEventListener('DOMContentLoaded', () => {
-      const hash = window.location.hash.replace('#', '');
-      if (['landing', 'playground', 'keys', 'dashboard', 'docs'].includes(hash)) {
+      const urlParams = new URLSearchParams(window.location.search);
+      const inviteParam = urlParams.get('invite') || (window.location.hash.includes('invite=') ? window.location.hash.split('invite=')[1]?.split('&')[0] : '');
+      if (inviteParam) {
+        sessionStorage.setItem('pendingInviteCode', decodeURIComponent(inviteParam).trim().toUpperCase());
+      }
+
+      const hash = window.location.hash.replace('#', '').split('?')[0];
+      if (['landing', 'playground', 'keys', 'dashboard', 'docs', 'admin-invites'].includes(hash)) {
         activeView = hash;
       } else {
         activeView = 'landing';
@@ -3196,6 +3340,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
       if (viewName === 'keys') fetchApiKeys();
       if (viewName === 'dashboard') switchDashTab(activeDashTab);
+      if (viewName === 'admin-invites') loadAdminInvitations();
       if (typeof lucide !== 'undefined') {
         setTimeout(() => lucide.createIcons(), 10);
       }
@@ -5454,10 +5599,34 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
         console.warn('Backend profile fetch warning:', e);
       }
 
+      // 3. Admin automatic Full Access
+      const userEmail = (user.email || '').toLowerCase().trim();
+      const isAdmin = userEmail === 'boruahpriyanuj2004@gmail.com';
+      if (isAdmin) {
+        if (!profile) {
+          profile = {
+            userId: user.uid,
+            name: user.displayName || 'Priyanuj Boruah (Admin)',
+            email: user.email,
+            org: 'ProjectSPG Admin',
+            orgWebsite: 'https://projectspg.info',
+            invitationCode: 'ADMIN-ROOT',
+            accessLevel: 'Full Access',
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+          };
+          try {
+            localStorage.setItem(storageKey, JSON.stringify(profile));
+          } catch (e) {}
+        } else {
+          profile.accessLevel = 'Full Access';
+        }
+      }
+
       currentUserProfile = profile;
 
-      // 3. If no profile exists yet, user hasn't completed onboarding -> prompt them!
-      if (!profile) {
+      // 4. If no profile exists yet and not admin, user hasn't completed onboarding -> prompt them!
+      if (!profile && !isAdmin) {
         openInvitationModal(false);
       }
     }
@@ -5497,7 +5666,13 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
       if (emailInput) emailInput.value = defaultEmail;
       if (orgInput) orgInput.value = (currentUserProfile && currentUserProfile.org) ? currentUserProfile.org : '';
       if (websiteInput) websiteInput.value = (currentUserProfile && currentUserProfile.orgWebsite) ? currentUserProfile.orgWebsite : '';
-      if (codeInput) codeInput.value = (currentUserProfile && currentUserProfile.invitationCode) ? currentUserProfile.invitationCode : '';
+      if (codeInput) {
+        codeInput.value = (currentUserProfile && currentUserProfile.invitationCode) ? currentUserProfile.invitationCode : '';
+        const pendingCode = sessionStorage.getItem('pendingInviteCode');
+        if (!codeInput.value && pendingCode) {
+          codeInput.value = pendingCode;
+        }
+      }
 
       if (isManualEdit && currentUserProfile) {
         if (titleEl) titleEl.textContent = 'Organization Profile & Invitation';
@@ -5727,8 +5902,24 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
         }
 
         // Access Level Tagging
-        const accessLevel = (currentUserProfile && currentUserProfile.accessLevel)
-          ? currentUserProfile.accessLevel
+        const userEmail = (user && user.email) ? user.email.toLowerCase().trim() : '';
+        const isAdmin = userEmail === 'boruahpriyanuj2004@gmail.com';
+        const adminNav = document.getElementById('nav-admin-invites');
+        const adminMobileNav = document.getElementById('nav-mobile-admin-invites');
+        const adminMenuBtn = document.getElementById('user-menu-admin-btn');
+
+        if (isAdmin) {
+          if (adminNav) adminNav.classList.remove('hidden');
+          if (adminMobileNav) adminMobileNav.classList.remove('hidden');
+          if (adminMenuBtn) adminMenuBtn.classList.remove('hidden');
+        } else {
+          if (adminNav) adminNav.classList.add('hidden');
+          if (adminMobileNav) adminMobileNav.classList.add('hidden');
+          if (adminMenuBtn) adminMenuBtn.classList.add('hidden');
+        }
+
+        const accessLevel = (isAdmin || (currentUserProfile && currentUserProfile.accessLevel === 'Full Access'))
+          ? 'Full Access'
           : 'Limited Access';
         const isFull = accessLevel === 'Full Access';
 
@@ -5736,14 +5927,14 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
           accessTagEl.className = isFull
             ? 'hidden sm:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-wide transition shadow-2xs bg-emerald-50 text-emerald-700 border border-emerald-300'
             : 'hidden sm:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-wide transition shadow-2xs bg-amber-50 text-amber-700 border border-amber-300';
-          accessTagEl.innerHTML = '<span class="w-1.5 h-1.5 rounded-full ' + (isFull ? 'bg-emerald-500' : 'bg-amber-500') + '"></span>' + (isFull ? 'Full Access' : 'Limited Access');
+          accessTagEl.innerHTML = '<span class="w-1.5 h-1.5 rounded-full ' + (isFull ? 'bg-emerald-500' : 'bg-amber-500') + '"></span>' + (isFull ? (isAdmin ? 'Admin (Full Access)' : 'Full Access') : 'Limited Access');
         }
 
         if (menuBadgeEl) {
           menuBadgeEl.className = isFull
             ? 'px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider shrink-0 bg-emerald-100 text-emerald-800'
             : 'px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider shrink-0 bg-amber-100 text-amber-800';
-          menuBadgeEl.textContent = isFull ? 'Full Access' : 'Limited Access';
+          menuBadgeEl.textContent = isFull ? (isAdmin ? 'Admin' : 'Full Access') : 'Limited Access';
         }
 
         if (menuOrgEl && menuOrgTextEl) {
@@ -5791,6 +5982,13 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
           renderPlaygroundModelDropdown(FREE_TIER_MODELS);
         }
       } else {
+        const adminNav = document.getElementById('nav-admin-invites');
+        const adminMobileNav = document.getElementById('nav-mobile-admin-invites');
+        const adminMenuBtn = document.getElementById('user-menu-admin-btn');
+        if (adminNav) adminNav.classList.add('hidden');
+        if (adminMobileNav) adminMobileNav.classList.add('hidden');
+        if (adminMenuBtn) adminMenuBtn.classList.add('hidden');
+
         if (loginBtn) loginBtn.classList.remove('hidden');
         if (userMenu) userMenu.classList.add('hidden');
         if (landingBtnText) landingBtnText.textContent = 'Sign In';
@@ -5950,6 +6148,242 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
       }, 1800);
 
       if (typeof lucide !== 'undefined') lucide.createIcons();
+    }
+
+    // =========================================================================
+    // ADMIN INVITATION CODE MANAGER (Restricted to boruahpriyanuj2004@gmail.com)
+    // =========================================================================
+    let adminInvitationsList = [];
+
+    async function loadAdminInvitations() {
+      const tbody = document.getElementById('admin-invitations-tbody');
+      const countEl = document.getElementById('admin-codes-count');
+      const activeCountEl = document.getElementById('admin-stat-active-codes');
+      const usesCountEl = document.getElementById('admin-stat-total-uses');
+
+      if (!currentFirebaseUser || (currentFirebaseUser.email || '').toLowerCase().trim() !== 'boruahpriyanuj2004@gmail.com') {
+        if (tbody) {
+          tbody.innerHTML = '<tr><td colspan="6" class="py-8 text-center text-red-500 font-medium">Access Restricted: Only the platform administrator (boruahpriyanuj2004@gmail.com) can access this console.</td></tr>';
+        }
+        return;
+      }
+
+      if (tbody) {
+        tbody.innerHTML = '<tr><td colspan="6" class="py-8 text-center text-gray-400">Loading invitation codes...</td></tr>';
+      }
+
+      try {
+        let token = currentIdToken;
+        if (!token && currentFirebaseUser) {
+          token = await currentFirebaseUser.getIdToken();
+          currentIdToken = token;
+        }
+
+        const res = await fetch('/api/admin/invitations', {
+          headers: {
+            'Authorization': 'Bearer ' + token
+          }
+        });
+
+        if (!res.ok) {
+          throw new Error('Failed to fetch invitation codes (HTTP ' + res.status + ')');
+        }
+
+        const data = await res.json();
+        adminInvitationsList = (data && Array.isArray(data.codes)) ? data.codes : [];
+
+        renderAdminInvitations();
+      } catch (err) {
+        console.error('Error loading admin invitations:', err);
+        if (tbody) {
+          tbody.innerHTML = '<tr><td colspan="6" class="py-8 text-center text-red-500 font-medium">Failed to load codes: ' + escapeHtml(err.message) + '</td></tr>';
+        }
+      }
+    }
+
+    function renderAdminInvitations() {
+      const tbody = document.getElementById('admin-invitations-tbody');
+      const countEl = document.getElementById('admin-codes-count');
+      const activeCountEl = document.getElementById('admin-stat-active-codes');
+      const usesCountEl = document.getElementById('admin-stat-total-uses');
+
+      if (!tbody) return;
+
+      if (adminInvitationsList.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" class="py-8 text-center text-gray-400">No invitation codes created yet. Use the generator above to issue your first partner code!</td></tr>';
+        if (countEl) countEl.textContent = '0 codes total';
+        if (activeCountEl) activeCountEl.textContent = '0';
+        if (usesCountEl) usesCountEl.textContent = '0';
+        return;
+      }
+
+      let activeCount = 0;
+      let totalUses = 0;
+
+      const rowsHtml = adminInvitationsList.map(item => {
+        const isRevoked = !item.isActive;
+        const isExhausted = item.maxUses > 0 && item.usesCount >= item.maxUses;
+        const isActive = !isRevoked && !isExhausted;
+
+        if (isActive) activeCount++;
+        totalUses += (item.usesCount || 0);
+
+        let statusBadge = '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Active</span>';
+        if (isRevoked) {
+          statusBadge = '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-red-50 text-red-700 border border-red-200"><span class="w-1.5 h-1.5 rounded-full bg-red-500"></span> Revoked</span>';
+        } else if (isExhausted) {
+          statusBadge = '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-700 border border-amber-200"><span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> Exhausted</span>';
+        }
+
+        const usesText = item.maxUses <= 0 ? (item.usesCount + ' / Unlimited') : (item.usesCount + ' / ' + item.maxUses);
+        const createdDate = item.createdAt ? new Date(item.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' }) : 'Recent';
+
+        return '<tr class="hover:bg-gray-50/50 transition border-b border-gray-100">' +
+          '<td class="py-3 px-4">' +
+            '<span class="font-mono font-bold text-purple-700 bg-purple-50/80 px-2 py-1 rounded-md border border-purple-200/80 select-all tracking-wider">' + escapeHtml(item.code) + '</span>' +
+          '</td>' +
+          '<td class="py-3 px-4 font-medium text-gray-800 max-w-[200px] truncate" title="' + escapeHtml(item.description || '') + '">' +
+            escapeHtml(item.description || 'General Invite') +
+          '</td>' +
+          '<td class="py-3 px-4 font-semibold text-gray-700 font-mono">' +
+            usesText +
+          '</td>' +
+          '<td class="py-3 px-4">' +
+            statusBadge +
+          '</td>' +
+          '<td class="py-3 px-4 text-gray-500">' +
+            createdDate +
+          '</td>' +
+          '<td class="py-3 px-4 text-right whitespace-nowrap">' +
+            '<div class="flex items-center justify-end gap-1.5">' +
+              '<button type="button" onclick="copyAdminInviteCode(\'' + escapeHtml(item.code) + '\')" class="px-2 py-1 rounded bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium text-[11px] transition cursor-pointer" title="Copy code">' +
+                'Copy Code' +
+              '</button>' +
+              '<button type="button" onclick="copyAdminInviteLink(\'' + escapeHtml(item.code) + '\')" class="px-2 py-1 rounded bg-purple-50 hover:bg-purple-100 text-purple-700 font-medium text-[11px] border border-purple-200/60 transition cursor-pointer" title="Copy direct onboarding URL">' +
+                'Copy Link' +
+              '</button>' +
+              (!isRevoked ? (
+                '<button type="button" onclick="handleAdminRevokeInvitation(\'' + escapeHtml(item.code) + '\')" class="px-2 py-1 rounded hover:bg-red-50 text-red-600 font-medium text-[11px] transition cursor-pointer" title="Revoke code">' +
+                  'Revoke' +
+                '</button>'
+              ) : '') +
+            '</div>' +
+          '</td>' +
+        '</tr>';
+      }).join('');
+
+      tbody.innerHTML = rowsHtml;
+      if (countEl) countEl.textContent = adminInvitationsList.length + ' codes total';
+      if (activeCountEl) activeCountEl.textContent = String(activeCount);
+      if (usesCountEl) usesCountEl.textContent = String(totalUses);
+    }
+
+    async function handleAdminCreateInvitation(e) {
+      if (e) e.preventDefault();
+      const codeInput = document.getElementById('admin-new-code');
+      const descInput = document.getElementById('admin-new-desc');
+      const maxUsesSelect = document.getElementById('admin-new-max-uses');
+      const submitBtn = document.getElementById('btn-admin-create-code');
+
+      const customCode = (codeInput?.value || '').trim();
+      const description = (descInput?.value || '').trim();
+      const maxUses = parseInt(maxUsesSelect?.value || '1', 10);
+
+      const origBtn = submitBtn?.innerHTML || '';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span>Creating...</span>';
+      }
+
+      try {
+        let token = currentIdToken;
+        if (!token && currentFirebaseUser) {
+          token = await currentFirebaseUser.getIdToken();
+          currentIdToken = token;
+        }
+
+        const res = await fetch('/api/admin/invitations', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+          },
+          body: JSON.stringify({
+            code: customCode,
+            description,
+            maxUses
+          })
+        });
+
+        if (!res.ok) {
+          const errData = await res.json().catch(() => ({}));
+          throw new Error(errData.error || 'Failed to create code');
+        }
+
+        const result = await res.json();
+        if (codeInput) codeInput.value = '';
+        if (descInput) descInput.value = '';
+
+        await loadAdminInvitations();
+        showNotificationToast('✓ Invitation code created: ' + (result?.invitation?.code || ''));
+      } catch (err) {
+        alert('Failed to create invitation code: ' + err.message);
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = origBtn;
+        }
+      }
+    }
+
+    async function handleAdminRevokeInvitation(code) {
+      if (!confirm('Are you sure you want to revoke invitation code ' + code + '?')) return;
+
+      try {
+        let token = currentIdToken;
+        if (!token && currentFirebaseUser) {
+          token = await currentFirebaseUser.getIdToken();
+          currentIdToken = token;
+        }
+
+        const res = await fetch('/api/admin/invitations/' + encodeURIComponent(code), {
+          method: 'DELETE',
+          headers: {
+            'Authorization': 'Bearer ' + token
+          }
+        });
+
+        if (!res.ok) {
+          throw new Error('Failed to revoke code');
+        }
+
+        await loadAdminInvitations();
+        showNotificationToast('Invitation code revoked.');
+      } catch (err) {
+        alert('Failed to revoke invitation code: ' + err.message);
+      }
+    }
+
+    function copyAdminInviteCode(code) {
+      navigator.clipboard.writeText(code);
+      showNotificationToast('✓ Copied code ' + code + ' to clipboard!');
+    }
+
+    function copyAdminInviteLink(code) {
+      const link = window.location.origin + '/?invite=' + encodeURIComponent(code);
+      navigator.clipboard.writeText(link);
+      showNotificationToast('✓ Copied invitation link to clipboard!');
+    }
+
+    function showNotificationToast(msg) {
+      const toast = document.createElement('div');
+      toast.className = 'fixed bottom-5 right-5 bg-gray-900 text-white text-xs px-4 py-2.5 rounded-xl shadow-xl z-50 transition-opacity duration-300 font-medium flex items-center gap-2 border border-gray-700';
+      toast.innerHTML = '<span class="text-emerald-400 font-bold">✓</span> ' + escapeHtml(msg);
+      document.body.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 350);
+      }, 3000);
     }
   </script>
 </body>

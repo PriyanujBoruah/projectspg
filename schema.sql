@@ -34,3 +34,36 @@ CREATE TABLE IF NOT EXISTS api_keys (
 
 CREATE INDEX IF NOT EXISTS idx_api_keys_hash ON api_keys(key_hash);
 
+-- =========================================================================
+-- User Profiles & Enterprise Access Level Table
+-- =========================================================================
+CREATE TABLE IF NOT EXISTS user_profiles (
+    user_id TEXT PRIMARY KEY,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    org TEXT,
+    org_website TEXT,
+    invitation_code TEXT,
+    access_level TEXT DEFAULT 'Limited Access',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS idx_user_profiles_email ON user_profiles(email);
+
+-- =========================================================================
+-- Admin Invitation Codes Table
+-- =========================================================================
+CREATE TABLE IF NOT EXISTS invitation_codes (
+    code TEXT PRIMARY KEY,
+    description TEXT,
+    max_uses INTEGER DEFAULT 1,
+    uses_count INTEGER DEFAULT 0,
+    is_active INTEGER DEFAULT 1,
+    created_by TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS idx_invitation_codes_active ON invitation_codes(is_active);
+

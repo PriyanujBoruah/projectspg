@@ -15,7 +15,14 @@ import {
 } from "./auth/keys";
 import { getApiCallLogs } from "./audit/logger";
 import { verifyFirebaseIdToken, FIREBASE_CONFIG } from "./auth/firebase";
-import { getUserProfile, saveUserProfile } from "./auth/profile";
+import {
+  getUserProfile,
+  saveUserProfile,
+  createInvitationCode,
+  listInvitationCodes,
+  revokeInvitationCode,
+  isAdminEmail,
+} from "./auth/profile";
 import { LOGO_DATA_URIS, LOGO_FILES } from "./assets/logos";
 import { BLOG_IMAGE_DATA_URIS, BLOG_IMAGE_FILES } from "./assets/images";
 
@@ -162,6 +169,58 @@ app.post("/api/user/profile", async (c) => {
     invitationCode: body.invitationCode || body.invitation_code,
   });
   return c.json({ success: true, profile });
+});
+
+// =========================================================================
+// Admin Invitation Management Routes (Restricted to boruahpriyanuj2004@gmail.com)
+// =========================================================================
+async function getAdminUserFromRequest(c: Context) {
+  const authHeader = c.req.header("Authorization") || "";
+  if (authHeader.startsWith("Bearer ") && !authHeader.toLowerCase().startsWith("bearer spg_")) {
+    const token = authHeader.slice(7).trim();
+    const user = await verifyFirebaseIdToken(token);
+    if (user && isAdminEmail(user.email)) {
+      return user;
+    }
+  }
+  return null;
+}
+
+app.get("/api/admin/invitations", async (c) => {
+  const admin = await getAdminUserFromRequest(c);
+  if (!admin) {
+    return c.json({ error: "Unauthorized: Admin access required." }, 403);
+  }
+  const codes = await listInvitationCodes(c.env);
+  return c.json({ codes });
+});
+
+app.post("/api/admin/invitations", async (c) => {
+  const admin = await getAdminUserFromRequest(c);
+  if (!admin) {
+    return c.json({ error: "Unauthorized: Admin access required." }, 403);
+  }
+  let body: any = {};
+  try {
+    body = await c.req.json();
+  } catch {}
+  const record = await createInvitationCode(c.env, {
+    code: body.code,
+    description: body.description,
+    maxUses: typeof body.maxUses === "number" ? body.maxUses : (parseInt(body.maxUses, 10) || 1),
+    createdBy: admin.email || "admin",
+  });
+  return c.json({ success: true, invitation: record }, 201);
+});
+
+app.delete("/api/admin/invitations/:code", async (c) => {
+  const admin = await getAdminUserFromRequest(c);
+  if (!admin) {
+    return c.json({ error: "Unauthorized: Admin access required." }, 403);
+  }
+  const code = c.req.param("code");
+  await revokeInvitationCode(c.env, code);
+  return c.json({ success: true, message: `Invitation code ${code} revoked.` });
 });
 
 app.get("/api/keys", async (c) => {
