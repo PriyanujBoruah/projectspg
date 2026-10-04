@@ -377,7 +377,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             <img id="user-avatar-img" class="w-full h-full object-cover hidden" alt="Profile" />
           </button>
           
-          <div id="user-dropdown-menu" class="hidden absolute right-0 mt-2 w-60 bg-white border border-groq-grayBorder rounded-xl shadow-lg p-2 z-50 text-xs font-sans">
+          <div id="user-dropdown-menu" class="hidden absolute right-0 top-full mt-2.5 w-64 bg-white border border-groq-grayBorder rounded-2xl shadow-2xl p-2 z-[60] text-xs font-sans">
             <div class="px-3 py-2 border-b border-gray-100">
               <div class="flex items-center justify-between gap-1.5 mb-1">
                 <p id="user-menu-name" class="font-semibold text-groq-dark truncate">User</p>
