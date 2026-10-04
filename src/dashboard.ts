@@ -1654,9 +1654,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             <div class="bg-white rounded-3xl border border-gray-200/90 p-7 sm:p-9 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative">
               <div>
                 <div class="flex items-center justify-between mb-4">
-                  <span class="text-xs font-bold uppercase tracking-wider text-gray-500 font-mono">TIER 01 • COMMUNITY</span>
+                  <h3 class="text-2xl font-bold text-gray-900">Free</h3>
                 </div>
-                <h3 class="text-2xl font-bold text-gray-900">Free</h3>
                 
                 <div class="mt-6 mb-8 pb-6 border-b border-gray-100">
                   <div class="flex items-baseline gap-1.5">
@@ -1708,12 +1707,11 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
               <div>
                 <div class="flex items-center justify-between mb-4">
-                  <span class="text-xs font-bold uppercase tracking-wider text-[#f0523d] font-mono">TIER 02 • SOVEREIGN PRO</span>
+                  <h3 class="text-2xl font-bold text-gray-900">Pro</h3>
                   <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-amber-50 border border-amber-200 text-[10px] font-bold text-amber-700">
                     <i data-lucide="clock" class="w-3 h-3"></i> 365 Days Active
                   </span>
                 </div>
-                <h3 class="text-2xl font-bold text-gray-900">Pro</h3>
                 
                 <div class="mt-6 mb-8 pb-6 border-b border-gray-200/80">
                   <div class="flex items-baseline gap-1.5">
@@ -1762,9 +1760,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             <div class="bg-white rounded-3xl border border-gray-200/90 p-7 sm:p-9 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative">
               <div>
                 <div class="flex items-center justify-between mb-4">
-                  <span class="text-xs font-bold uppercase tracking-wider text-gray-500 font-mono">TIER 03 • ENTERPRISE</span>
+                  <h3 class="text-2xl font-bold text-gray-900">Custom</h3>
                 </div>
-                <h3 class="text-2xl font-bold text-gray-900">Custom</h3>
                 
                 <div class="mt-6 mb-8 pb-6 border-b border-gray-100">
                   <div class="flex items-baseline gap-1.5">
