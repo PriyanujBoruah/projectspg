@@ -568,10 +568,6 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             <!-- Right Column (3D Isometric Architectural Artwork matching ProjectSPG) -->
             <div class="lg:col-span-5 flex items-center justify-center relative">
               <div class="relative w-full max-w-[460px] sm:max-w-[520px] lg:max-w-[560px] flex items-center justify-center mx-auto">
-                
-                <!-- Ambient Glow underneath 3D graphic -->
-                <div class="absolute inset-0 bg-gradient-to-tr from-cyan-400/25 via-blue-500/20 to-indigo-400/20 rounded-full blur-2xl -z-10"></div>
-
                 <img 
                   src="/images/hero-illustration.png" 
                   alt="ProjectSPG Architecture: Zero-Trust De-Identification, Sub-Millisecond Latency, 10+ Sovereign Regulatory Packs, Tested Across 1.94 Billion Tokens" 
