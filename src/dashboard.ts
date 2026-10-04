@@ -341,12 +341,10 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           <span class="font-extrabold text-[20px] sm:text-[22px] tracking-tight text-groq-dark">project<span class="text-[#f0523d]">spg</span></span>
         </a>
 
-        <!-- Workspace / Tier Pill Dropdown -->
-        <div id="top-tier-pill" onclick="handleTopTierClick()" class="hidden md:flex items-center gap-1.5 text-[11px] font-semibold cursor-pointer transition-all duration-200 ml-2.5 px-2.5 py-1 rounded-full border shadow-2xs hover:shadow-xs group select-none bg-amber-50/90 hover:bg-amber-100/90 border-amber-200/90 text-amber-900" title="Free Trial Active • Click to upgrade to Professional">
+        <!-- Workspace / Tier Pill -->
+        <div id="top-tier-pill" class="hidden md:flex items-center gap-1.5 text-[11px] font-semibold select-none ml-2.5 px-2.5 py-1 rounded-full border shadow-2xs bg-amber-50/90 border-amber-200/90 text-amber-900" title="Free Trial">
           <span id="top-tier-dot" class="w-2 h-2 rounded-full bg-amber-500 ring-2 ring-amber-200/60 shrink-0"></span>
           <span id="top-tier-label" class="tracking-tight font-semibold text-amber-900">Free Trial</span>
-          <span id="top-tier-badge" class="px-1.5 py-0.2 rounded text-[9px] font-bold tracking-wider uppercase bg-amber-200/80 text-amber-800">TRIAL</span>
-          <i id="top-tier-icon" data-lucide="chevrons-up-down" class="w-3 h-3 text-amber-600/70 group-hover:text-amber-800 transition shrink-0 ml-0.5"></i>
         </div>
       </div>
 
@@ -379,9 +377,6 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
         <!-- User Profile Dropdown (Shown when logged in) -->
         <div id="user-profile-menu-container" class="relative hidden flex items-center gap-2">
-          <!-- Access Tag Badge Pill -->
-          <span id="user-access-tag" class="hidden sm:inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-wide uppercase transition shadow-2xs"></span>
-          
           <button onclick="toggleUserDropdown(event)" id="btn-user-avatar" class="w-7 h-7 rounded-full overflow-hidden border border-groq-grayBorder bg-groq-avatar text-white flex items-center justify-center text-xs font-semibold shadow-xs hover:ring-2 hover:ring-[#f0523d]/30 transition focus:outline-none cursor-pointer">
             <span id="user-avatar-initials">P</span>
             <img id="user-avatar-img" class="w-full h-full object-cover hidden" alt="Profile" />
@@ -6620,37 +6615,21 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
       const pill = document.getElementById('top-tier-pill');
       const dot = document.getElementById('top-tier-dot');
       const label = document.getElementById('top-tier-label');
-      const badge = document.getElementById('top-tier-badge');
-      const icon = document.getElementById('top-tier-icon');
 
       if (!pill || !label) return;
 
       if (isFull) {
-        pill.className = 'hidden md:flex items-center gap-1.5 text-[11px] font-semibold cursor-pointer transition-all duration-200 ml-2.5 px-2.5 py-1 rounded-full border shadow-2xs hover:shadow-xs group select-none bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-50 hover:from-emerald-100 hover:to-teal-100 border-emerald-300 text-emerald-950';
-        pill.title = 'Professional Tier Active • Click to view organization details';
+        pill.className = 'hidden md:flex items-center gap-1.5 text-[11px] font-semibold select-none ml-2.5 px-2.5 py-1 rounded-full border shadow-2xs bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-50 border-emerald-300 text-emerald-950';
+        pill.title = 'Professional Tier';
         if (dot) dot.className = 'w-2 h-2 rounded-full bg-emerald-500 ring-2 ring-emerald-200 shrink-0';
         label.textContent = 'Professional';
         label.className = 'tracking-tight font-semibold text-emerald-900';
-        if (badge) {
-          badge.textContent = 'PRO';
-          badge.className = 'px-1.5 py-0.2 rounded text-[9px] font-bold tracking-wider uppercase bg-emerald-600 text-white shadow-2xs';
-        }
-        if (icon) {
-          icon.className = 'w-3 h-3 text-emerald-600 group-hover:text-emerald-800 transition shrink-0 ml-0.5';
-        }
       } else {
-        pill.className = 'hidden md:flex items-center gap-1.5 text-[11px] font-semibold cursor-pointer transition-all duration-200 ml-2.5 px-2.5 py-1 rounded-full border shadow-2xs hover:shadow-xs group select-none bg-amber-50/90 hover:bg-amber-100/90 border-amber-200/90 text-amber-900';
-        pill.title = 'Free Trial Active • Click to upgrade to Professional';
+        pill.className = 'hidden md:flex items-center gap-1.5 text-[11px] font-semibold select-none ml-2.5 px-2.5 py-1 rounded-full border shadow-2xs bg-amber-50/90 border-amber-200/90 text-amber-900';
+        pill.title = 'Free Trial';
         if (dot) dot.className = 'w-2 h-2 rounded-full bg-amber-500 ring-2 ring-amber-200/60 shrink-0';
         label.textContent = 'Free Trial';
         label.className = 'tracking-tight font-semibold text-amber-900';
-        if (badge) {
-          badge.textContent = 'TRIAL';
-          badge.className = 'px-1.5 py-0.2 rounded text-[9px] font-bold tracking-wider uppercase bg-amber-200/80 text-amber-800';
-        }
-        if (icon) {
-          icon.className = 'w-3 h-3 text-amber-600/70 group-hover:text-amber-800 transition shrink-0 ml-0.5';
-        }
       }
     }
 
@@ -6889,7 +6868,6 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
       const initialsEl = document.getElementById('user-avatar-initials');
       const imgEl = document.getElementById('user-avatar-img');
 
-      const accessTagEl = document.getElementById('user-access-tag');
       const menuBadgeEl = document.getElementById('user-menu-badge');
       const menuOrgEl = document.getElementById('user-menu-org');
       const menuOrgTextEl = document.getElementById('user-menu-org-text');
@@ -6943,13 +6921,6 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
 
         const isFull = isUserFullyInvited();
         const accessLevel = isFull ? 'Pro' : 'Free';
-
-        if (accessTagEl) {
-          accessTagEl.className = isFull
-            ? 'hidden sm:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-wide transition shadow-2xs bg-emerald-50 text-emerald-700 border border-emerald-300'
-            : 'hidden sm:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-wide transition shadow-2xs bg-amber-50 text-amber-700 border border-amber-300';
-          accessTagEl.innerHTML = '<span class="w-1.5 h-1.5 rounded-full ' + (isFull ? 'bg-emerald-500' : 'bg-amber-500') + '"></span>' + (isFull ? (isAdmin ? 'Admin (Pro)' : 'Pro') : 'Free');
-        }
 
         if (menuBadgeEl) {
           menuBadgeEl.className = isFull
