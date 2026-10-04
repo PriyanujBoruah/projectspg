@@ -323,6 +323,21 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       -ms-overflow-style: none;
       scrollbar-width: none;
     }
+
+    /* Top Tier Pill Theme Pulse & Glow Animation */
+    @keyframes theme-pill-pulse {
+      0%, 100% {
+        box-shadow: 0 0 0 0 rgba(240, 82, 61, 0.22);
+        border-color: rgba(240, 82, 61, 0.45);
+      }
+      50% {
+        box-shadow: 0 0 9px 2px rgba(240, 82, 61, 0.3);
+        border-color: rgba(240, 82, 61, 0.75);
+      }
+    }
+    .theme-pill-active {
+      animation: theme-pill-pulse 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
   </style>
 </head>
 
@@ -342,8 +357,11 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         </a>
 
         <!-- Workspace / Tier Pill -->
-        <div id="top-tier-pill" class="hidden md:flex items-center gap-1.5 text-[11px] font-semibold select-none ml-2.5 px-2.5 py-1 rounded-full border shadow-2xs bg-amber-50/90 border-amber-200/90 text-amber-900" title="Free Trial">
-          <span id="top-tier-dot" class="w-2 h-2 rounded-full bg-amber-500 ring-2 ring-amber-200/60 shrink-0"></span>
+        <div id="top-tier-pill" class="hidden md:flex items-center gap-1.5 text-[11px] font-semibold select-none ml-2.5 px-2.5 py-1 rounded-full border shadow-2xs transition-all duration-300" title="Free Trial">
+          <span id="top-tier-dot-container" class="relative flex h-2 w-2 shrink-0">
+            <span id="top-tier-ping" class="hidden animate-ping absolute inline-flex h-full w-full rounded-full bg-[#f0523d] opacity-75"></span>
+            <span id="top-tier-dot" class="relative inline-flex rounded-full h-2 w-2 bg-amber-500 ring-2 ring-amber-200/60 shrink-0"></span>
+          </span>
           <span id="top-tier-label" class="tracking-tight font-semibold text-amber-900">Free Trial</span>
         </div>
       </div>
@@ -6846,21 +6864,31 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
     function updateTopTierPill(isFull) {
       const pill = document.getElementById('top-tier-pill');
       const dot = document.getElementById('top-tier-dot');
+      const ping = document.getElementById('top-tier-ping');
       const label = document.getElementById('top-tier-label');
 
       if (!pill || !label) return;
 
       if (isFull) {
         const expText = getSubscriptionExpiryText(currentUserProfile);
-        pill.className = 'hidden md:flex items-center gap-1.5 text-[11px] font-semibold select-none ml-2.5 px-2.5 py-1 rounded-full border shadow-2xs bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-50 border-emerald-300 text-emerald-950';
+        pill.className = 'hidden md:flex items-center gap-1.5 text-[11px] font-semibold select-none ml-2.5 px-2.5 py-1 rounded-full border shadow-2xs bg-gradient-to-r from-orange-50/90 via-[#fff8f6] to-orange-50/90 border-[#f0523d]/50 text-[#d93822] theme-pill-active transition-all duration-300';
         pill.title = expText ? ('Professional Tier (' + expText + ')') : 'Professional Tier';
-        if (dot) dot.className = 'w-2 h-2 rounded-full bg-emerald-500 ring-2 ring-emerald-200 shrink-0';
+        if (ping) {
+          ping.className = 'animate-ping absolute inline-flex h-full w-full rounded-full bg-[#f0523d] opacity-75';
+          ping.classList.remove('hidden');
+        }
+        if (dot) {
+          dot.className = 'relative inline-flex rounded-full h-2 w-2 bg-[#f0523d] ring-2 ring-[#f0523d]/25 shrink-0';
+        }
         label.textContent = 'Professional';
-        label.className = 'tracking-tight font-semibold text-emerald-900';
+        label.className = 'tracking-tight font-bold text-[#d93822]';
       } else {
-        pill.className = 'hidden md:flex items-center gap-1.5 text-[11px] font-semibold select-none ml-2.5 px-2.5 py-1 rounded-full border shadow-2xs bg-amber-50/90 border-amber-200/90 text-amber-900';
+        pill.className = 'hidden md:flex items-center gap-1.5 text-[11px] font-semibold select-none ml-2.5 px-2.5 py-1 rounded-full border shadow-2xs bg-amber-50/90 border-amber-200/90 text-amber-900 transition-all duration-300';
         pill.title = 'Free Trial';
-        if (dot) dot.className = 'w-2 h-2 rounded-full bg-amber-500 ring-2 ring-amber-200/60 shrink-0';
+        if (ping) ping.classList.add('hidden');
+        if (dot) {
+          dot.className = 'relative inline-flex rounded-full h-2 w-2 bg-amber-500 ring-2 ring-amber-200/60 shrink-0';
+        }
         label.textContent = 'Free Trial';
         label.className = 'tracking-tight font-semibold text-amber-900';
       }
