@@ -390,15 +390,19 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               </div>
             </div>
             <div class="py-1">
-              <button onclick="copyUserId()" class="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-50 flex items-center justify-between text-groq-textMuted hover:text-groq-dark transition">
+              <button onclick="openUserSettingsModal()" class="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-50 flex items-center justify-between text-groq-dark font-medium transition cursor-pointer">
+                <span class="flex items-center gap-2"><i data-lucide="settings" class="w-3.5 h-3.5 text-groq-textMuted"></i> Settings</span>
+                <i data-lucide="chevron-right" class="w-3 h-3 text-gray-400"></i>
+              </button>
+              <button onclick="copyUserId()" class="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-50 flex items-center justify-between text-groq-textMuted hover:text-groq-dark transition cursor-pointer">
                 <span class="flex items-center gap-2"><i data-lucide="fingerprint" class="w-3.5 h-3.5"></i> Copy User ID</span>
                 <i data-lucide="copy" class="w-3 h-3 text-gray-400"></i>
               </button>
-              <button onclick="openInvitationModal(true)" class="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-50 flex items-center justify-between text-groq-textMuted hover:text-groq-dark transition">
+              <button onclick="openInvitationModal(true)" class="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-50 flex items-center justify-between text-groq-textMuted hover:text-groq-dark transition cursor-pointer">
                 <span class="flex items-center gap-2"><i data-lucide="ticket" class="w-3.5 h-3.5"></i> Invitation & Org Profile</span>
                 <i data-lucide="chevron-right" class="w-3 h-3 text-gray-400"></i>
               </button>
-              <button id="user-menu-admin-btn" onclick="switchView('admin-invites')" class="w-full text-left px-3 py-2 rounded-lg hover:bg-purple-50 text-purple-700 font-semibold hidden flex items-center justify-between transition">
+              <button id="user-menu-admin-btn" onclick="switchView('admin-invites')" class="w-full text-left px-3 py-2 rounded-lg hover:bg-purple-50 text-purple-700 font-semibold hidden flex items-center justify-between transition cursor-pointer">
                 <span class="flex items-center gap-2"><i data-lucide="shield-check" class="w-3.5 h-3.5 text-purple-600"></i> Invitation Code Manager</span>
                 <i data-lucide="chevron-right" class="w-3 h-3 text-purple-400"></i>
               </button>
@@ -3863,6 +3867,108 @@ console.log(data.choices[0].message.content);</div>
   </div>
 
   <!-- ========================================================================= -->
+  <!-- MODAL: USER ACCOUNT & SECURITY SETTINGS                                   -->
+  <!-- ========================================================================= -->
+  <div id="modal-user-settings" onclick="if(event.target === this) closeUserSettingsModal()" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white border border-groq-grayBorder rounded-2xl max-w-lg w-full p-5 sm:p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto touch-scroll">
+      <button onclick="closeUserSettingsModal()" class="absolute top-4 right-4 text-groq-textMuted hover:text-groq-dark transition p-1.5 rounded-lg hover:bg-gray-100 cursor-pointer" title="Close">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+
+      <div class="flex items-center gap-3 mb-5 pb-4 border-b border-gray-100">
+        <div class="w-10 h-10 rounded-xl bg-orange-50 border border-orange-200/60 flex items-center justify-center text-[#f0523d] shrink-0">
+          <i data-lucide="settings" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <h3 class="text-base font-bold text-groq-dark">User Account Settings</h3>
+          <p class="text-xs text-groq-textMuted">Profile identity, security keys, and account preferences</p>
+        </div>
+      </div>
+
+      <div id="settings-status-banner" class="hidden mb-4 p-2.5 rounded-xl border text-xs"></div>
+
+      <!-- Settings Tabs -->
+      <div class="space-y-4 text-xs">
+        
+        <!-- Account Info Section -->
+        <div class="p-4 rounded-xl bg-gray-50/80 border border-gray-200/70 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="font-semibold text-groq-dark flex items-center gap-1.5">
+              <i data-lucide="user" class="w-3.5 h-3.5 text-groq-textMuted"></i> Account Profile
+            </span>
+            <span id="settings-tier-pill" class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-amber-100 text-amber-800">Free</span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+            <div>
+              <label class="block text-gray-500 font-medium mb-1">Display Name</label>
+              <input type="text" id="settings-name" class="w-full bg-white border border-groq-grayBorder rounded-lg px-3 py-2 text-groq-dark text-xs focus:outline-none focus:border-gray-400">
+            </div>
+            <div>
+              <label class="block text-gray-500 font-medium mb-1">Primary Email</label>
+              <input type="email" id="settings-email" disabled class="w-full bg-gray-100 border border-groq-grayBorder rounded-lg px-3 py-2 text-gray-500 text-xs cursor-not-allowed">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+            <div>
+              <label class="block text-gray-500 font-medium mb-1">Organization</label>
+              <input type="text" id="settings-org" placeholder="e.g. Acme Inc" class="w-full bg-white border border-groq-grayBorder rounded-lg px-3 py-2 text-groq-dark text-xs focus:outline-none focus:border-gray-400">
+            </div>
+            <div>
+              <label class="block text-gray-500 font-medium mb-1">Org Website</label>
+              <input type="url" id="settings-website" placeholder="https://..." class="w-full bg-white border border-groq-grayBorder rounded-lg px-3 py-2 text-groq-dark text-xs focus:outline-none focus:border-gray-400">
+            </div>
+          </div>
+        </div>
+
+        <!-- Security & BYOK Quick Link -->
+        <div class="p-4 rounded-xl bg-gray-50/80 border border-gray-200/70 space-y-3">
+          <span class="font-semibold text-groq-dark flex items-center gap-1.5">
+            <i data-lucide="shield-check" class="w-3.5 h-3.5 text-blue-600"></i> Security & BYOK Keys
+          </span>
+          <p class="text-gray-500 text-[11px] leading-relaxed">
+            Manage your personal cryptographic API credentials for Google AI Studio, Mistral AI, and Groq Cloud.
+          </p>
+          <div class="flex items-center justify-between pt-1">
+            <button type="button" onclick="closeUserSettingsModal(); openByokKeysModal()" class="px-3 py-1.5 rounded-lg border border-groq-grayBorder bg-white hover:bg-gray-50 text-groq-dark font-medium transition flex items-center gap-1.5 cursor-pointer shadow-2xs">
+              <i data-lucide="key" class="w-3.5 h-3.5 text-blue-600"></i>
+              <span>Manage BYOK Provider Keys</span>
+            </button>
+            <button type="button" onclick="closeUserSettingsModal(); openInvitationModal(true)" class="px-3 py-1.5 rounded-lg border border-orange-200 bg-orange-50/60 hover:bg-orange-100 text-[#f0523d] font-medium transition flex items-center gap-1 cursor-pointer">
+              <i data-lucide="ticket" class="w-3.5 h-3.5"></i>
+              <span>Upgrade / Redeem Code</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- User ID & Session -->
+        <div class="p-4 rounded-xl bg-gray-50/80 border border-gray-200/70 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="font-semibold text-groq-dark flex items-center gap-1.5">
+              <i data-lucide="fingerprint" class="w-3.5 h-3.5 text-purple-600"></i> Unique Account ID
+            </span>
+            <button type="button" onclick="copyUserId()" class="text-[#f0523d] hover:underline font-medium cursor-pointer flex items-center gap-1 text-[11px]">
+              <i data-lucide="copy" class="w-3 h-3"></i> Copy ID
+            </button>
+          </div>
+          <p id="settings-uid-display" class="font-mono text-[11px] text-gray-600 bg-white px-2.5 py-1.5 rounded-lg border border-gray-200 break-all select-all"></p>
+        </div>
+
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="mt-6 pt-4 border-t border-gray-100 flex items-center justify-end gap-2 text-xs">
+        <button type="button" onclick="closeUserSettingsModal()" class="px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100 transition cursor-pointer font-medium">Cancel</button>
+        <button type="button" onclick="saveUserSettings()" id="btn-save-settings" class="px-5 py-2 rounded-lg bg-[#f0523d] hover:bg-[#e0422d] text-white font-semibold transition cursor-pointer shadow-xs flex items-center gap-1.5">
+          <i data-lucide="check" class="w-3.5 h-3.5"></i>
+          <span>Save Settings</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
   <!-- TOASTER NOTIFICATION: INVITATION PROMPT -->
   <!-- Appears when switching between playground, dashboard, keys, docs, etc.   -->
   <!-- Only shown if user does not already have (Pro Access)                   -->
@@ -6502,6 +6608,140 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
       if (currentFirebaseUser && currentFirebaseUser.uid) {
         navigator.clipboard.writeText(currentFirebaseUser.uid);
         alert('User ID copied to clipboard: ' + currentFirebaseUser.uid);
+      }
+    }
+
+    // =========================================================================
+    // User Settings Modal Handlers
+    // =========================================================================
+    function openUserSettingsModal() {
+      const menu = document.getElementById('user-dropdown-menu');
+      if (menu) menu.classList.add('hidden');
+
+      if (!currentFirebaseUser) {
+        openAuthModal();
+        return;
+      }
+
+      const modal = document.getElementById('modal-user-settings');
+      if (!modal) return;
+
+      const user = currentFirebaseUser;
+      const profile = currentUserProfile;
+
+      const nameInput = document.getElementById('settings-name');
+      const emailInput = document.getElementById('settings-email');
+      const orgInput = document.getElementById('settings-org');
+      const websiteInput = document.getElementById('settings-website');
+      const uidDisplay = document.getElementById('settings-uid-display');
+      const tierPill = document.getElementById('settings-tier-pill');
+      const banner = document.getElementById('settings-status-banner');
+
+      if (banner) banner.classList.add('hidden');
+
+      if (nameInput) {
+        nameInput.value = (profile && profile.name) ? profile.name : (user.displayName || (user.email ? user.email.split('@')[0] : 'User'));
+      }
+      if (emailInput) {
+        emailInput.value = (profile && profile.email) ? profile.email : (user.email || '');
+      }
+      if (orgInput) {
+        orgInput.value = (profile && profile.org) ? profile.org : '';
+      }
+      if (websiteInput) {
+        websiteInput.value = (profile && profile.orgWebsite) ? profile.orgWebsite : '';
+      }
+      if (uidDisplay) {
+        uidDisplay.textContent = user.uid || '';
+      }
+
+      if (tierPill) {
+        const isFull = isUserFullyInvited();
+        tierPill.textContent = isFull ? 'Pro' : 'Free';
+        tierPill.className = isFull
+          ? 'px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800'
+          : 'px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-amber-100 text-amber-800';
+      }
+
+      modal.classList.remove('hidden');
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+    }
+
+    function closeUserSettingsModal() {
+      const modal = document.getElementById('modal-user-settings');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    async function saveUserSettings() {
+      if (!currentFirebaseUser) return;
+
+      const name = (document.getElementById('settings-name')?.value || '').trim();
+      const org = (document.getElementById('settings-org')?.value || '').trim();
+      const orgWebsite = (document.getElementById('settings-website')?.value || '').trim();
+      const banner = document.getElementById('settings-status-banner');
+      const saveBtn = document.getElementById('btn-save-settings');
+
+      const originalText = saveBtn ? saveBtn.innerHTML : '';
+      if (saveBtn) {
+        saveBtn.disabled = true;
+        saveBtn.innerHTML = '<span>Saving...</span>';
+      }
+
+      const user = currentFirebaseUser;
+      const isFull = isUserFullyInvited();
+      const existingLevel = (currentUserProfile && currentUserProfile.accessLevel) ? currentUserProfile.accessLevel : (isFull ? 'Pro' : 'Free');
+
+      const payload = {
+        userId: user.uid,
+        name: name || (user.displayName || user.email?.split('@')[0] || 'User'),
+        email: user.email || '',
+        org,
+        orgWebsite,
+        invitationCode: (currentUserProfile && currentUserProfile.invitationCode) ? currentUserProfile.invitationCode : '',
+        accessLevel: existingLevel
+      };
+
+      try {
+        const headers = { 'Content-Type': 'application/json' };
+        if (currentIdToken) {
+          headers['Authorization'] = 'Bearer ' + currentIdToken;
+        }
+
+        const res = await fetch('/api/user/profile', {
+          method: 'POST',
+          headers,
+          body: JSON.stringify(payload)
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          currentUserProfile = (data && data.profile) ? data.profile : payload;
+        } else {
+          currentUserProfile = payload;
+        }
+      } catch (e) {
+        currentUserProfile = payload;
+      } finally {
+        if (saveBtn) {
+          saveBtn.disabled = false;
+          saveBtn.innerHTML = originalText;
+        }
+      }
+
+      try {
+        localStorage.setItem('projectspg_profile_' + user.uid, JSON.stringify(currentUserProfile));
+      } catch (e) {}
+
+      updateUserUI(user);
+
+      if (banner) {
+        banner.textContent = 'Settings updated successfully.';
+        banner.className = 'mb-4 p-2.5 rounded-xl border text-xs bg-emerald-50 border-emerald-200 text-emerald-800 block';
+        setTimeout(() => {
+          closeUserSettingsModal();
+        }, 800);
+      } else {
+        closeUserSettingsModal();
       }
     }
 
