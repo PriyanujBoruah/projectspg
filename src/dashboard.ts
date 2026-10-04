@@ -1657,7 +1657,6 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                   <span class="text-xs font-bold uppercase tracking-wider text-gray-500 font-mono">TIER 01 • COMMUNITY</span>
                 </div>
                 <h3 class="text-2xl font-bold text-gray-900">Free</h3>
-                <p class="text-sm text-gray-500 mt-2 min-h-[40px]">Essential privacy gateway for local experimentation and community development.</p>
                 
                 <div class="mt-6 mb-8 pb-6 border-b border-gray-100">
                   <div class="flex items-baseline gap-1.5">
@@ -1715,7 +1714,6 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                   </span>
                 </div>
                 <h3 class="text-2xl font-bold text-gray-900">Pro</h3>
-                <p class="text-sm text-gray-600 mt-2 min-h-[40px]">Production-grade throughput with multi-provider BYOK orchestration and hardware envelope KMS.</p>
                 
                 <div class="mt-6 mb-8 pb-6 border-b border-gray-200/80">
                   <div class="flex items-baseline gap-1.5">
@@ -1772,7 +1770,6 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                   <span class="text-xs font-bold uppercase tracking-wider text-gray-500 font-mono">TIER 03 • ENTERPRISE</span>
                 </div>
                 <h3 class="text-2xl font-bold text-gray-900">Custom</h3>
-                <p class="text-sm text-gray-500 mt-2 min-h-[40px]">Dedicated sovereign enclaves and custom cryptographic governance for regulated institutions.</p>
                 
                 <div class="mt-6 mb-8 pb-6 border-b border-gray-100">
                   <div class="flex items-baseline gap-1.5">
