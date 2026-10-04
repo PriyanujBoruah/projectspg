@@ -1706,9 +1706,13 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                 
                 <div class="mt-6 mb-8 pb-6 border-b border-gray-200/80">
                   <div class="flex items-baseline gap-1.5">
-                    <span class="text-4xl sm:text-5xl font-black text-gray-900 tracking-tight">$0</span>
-                    <span class="text-xs font-semibold uppercase text-gray-500">/ 1-Yr Full Sovereign Pass</span>
+                    <span class="text-4xl sm:text-5xl font-black text-gray-900 tracking-tight">$59</span>
+                    <span class="text-xs font-semibold uppercase text-gray-500">/ mo</span>
                   </div>
+                  <p class="text-xs font-semibold text-gray-800 mt-1.5">
+                    $59/mo or <span class="text-[#f0523d] font-bold">$49/mo</span> if billed yearly
+                    <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 ml-1">Save 17%</span>
+                  </p>
                   <p class="text-[11.5px] text-[#f0523d] font-semibold mt-1">Avail via exclusive invitation key (Active for 1 year from activation)</p>
                 </div>
 
