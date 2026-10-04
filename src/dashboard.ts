@@ -1729,7 +1729,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                 <div class="space-y-3.5 text-xs text-gray-800 font-medium">
                   <div class="flex items-start gap-3">
                     <i data-lucide="check-circle-2" class="w-4 h-4 text-[#f0523d] shrink-0 mt-0.5"></i>
-                    <span><strong>All LLM Providers Unlocked:</strong> Mistral, Gemini 2.5/Pro &amp; Groq Llama 3.3</span>
+                    <span><strong>All LLM Providers Unlocked:</strong> Mistral, Google Gemini &amp; Groq</span>
                   </div>
                   <div class="flex items-start gap-3">
                     <i data-lucide="check-circle-2" class="w-4 h-4 text-[#f0523d] shrink-0 mt-0.5"></i>
