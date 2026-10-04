@@ -388,10 +388,6 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                 <i data-lucide="building-2" class="w-3 h-3 text-gray-400 shrink-0"></i>
                 <span id="user-menu-org-text" class="truncate"></span>
               </div>
-              <div id="user-menu-expiry" class="text-emerald-700 text-[10px] truncate mt-1 hidden flex items-center gap-1">
-                <i data-lucide="clock" class="w-3 h-3 shrink-0 text-emerald-600"></i>
-                <span id="user-menu-expiry-text" class="truncate font-medium"></span>
-              </div>
             </div>
             <div class="py-1">
               <button onclick="openUserSettingsModal()" class="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-50 flex items-center justify-between text-groq-dark font-medium transition cursor-pointer">
@@ -7179,18 +7175,6 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
             menuOrgEl.classList.remove('hidden');
           } else {
             menuOrgEl.classList.add('hidden');
-          }
-        }
-
-        const menuExpiryEl = document.getElementById('user-menu-expiry');
-        const menuExpiryTextEl = document.getElementById('user-menu-expiry-text');
-        if (menuExpiryEl && menuExpiryTextEl) {
-          const expText = getSubscriptionExpiryText(currentUserProfile);
-          if (expText && isFull) {
-            menuExpiryTextEl.textContent = expText;
-            menuExpiryEl.classList.remove('hidden');
-          } else {
-            menuExpiryEl.classList.add('hidden');
           }
         }
 
