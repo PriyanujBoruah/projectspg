@@ -403,7 +403,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                 <i data-lucide="copy" class="w-3 h-3 text-gray-400"></i>
               </button>
               <button onclick="openInvitationModal(true)" class="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-50 flex items-center justify-between text-groq-textMuted hover:text-groq-dark transition cursor-pointer">
-                <span class="flex items-center gap-2"><i data-lucide="ticket" class="w-3.5 h-3.5"></i> Subscription & Org Profile</span>
+                <span class="flex items-center gap-2"><i data-lucide="ticket" class="w-3.5 h-3.5"></i> Subscription</span>
                 <i data-lucide="chevron-right" class="w-3 h-3 text-gray-400"></i>
               </button>
               <button id="user-menu-admin-btn" onclick="switchView('admin-invites')" class="w-full text-left px-3 py-2 rounded-lg hover:bg-purple-50 text-purple-700 font-semibold hidden flex items-center justify-between transition cursor-pointer">
@@ -3825,30 +3825,9 @@ console.log(data.choices[0].message.content);</div>
       <div id="inv-error-banner" class="hidden mb-3 p-2.5 bg-red-50 border border-red-200 rounded-lg text-red-600 text-xs text-left leading-tight"></div>
       <div id="inv-success-banner" class="hidden mb-3 p-2.5 bg-emerald-50 border border-emerald-200 rounded-lg text-emerald-700 text-xs text-left leading-tight"></div>
 
-      <!-- Invitation & Org Form -->
+      <!-- Invitation Code Form -->
       <form onsubmit="handleInvitationSubmit(event)" class="space-y-3.5 text-xs text-left">
         <div>
-          <label class="block text-groq-dark font-medium mb-1">Full Name <span class="text-red-500">*</span></label>
-          <input type="text" id="inv-name" required placeholder="e.g. Elena Rostova" class="w-full bg-[#f9fafb] border border-groq-grayBorder rounded-lg px-3 py-2 text-groq-dark focus:outline-none focus:border-gray-400 font-sans">
-        </div>
-
-        <div>
-          <label class="block text-groq-dark font-medium mb-1">Work / Primary Email <span class="text-red-500">*</span></label>
-          <input type="email" id="inv-email" required placeholder="name@company.com" class="w-full bg-[#f9fafb] border border-groq-grayBorder rounded-lg px-3 py-2 text-groq-dark focus:outline-none focus:border-gray-400 font-sans">
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div>
-            <label class="block text-groq-dark font-medium mb-1">Organization</label>
-            <input type="text" id="inv-org" placeholder="e.g. Acme Corp / Lab" class="w-full bg-[#f9fafb] border border-groq-grayBorder rounded-lg px-3 py-2 text-groq-dark focus:outline-none focus:border-gray-400 font-sans">
-          </div>
-          <div>
-            <label class="block text-groq-dark font-medium mb-1">Org Website</label>
-            <input type="url" id="inv-website" placeholder="https://example.com" class="w-full bg-[#f9fafb] border border-groq-grayBorder rounded-lg px-3 py-2 text-groq-dark focus:outline-none focus:border-gray-400 font-sans">
-          </div>
-        </div>
-
-        <div class="pt-1">
           <div class="flex items-center justify-between mb-1">
             <label class="block text-groq-dark font-medium">Invitation / Referral Code</label>
             <span class="text-[10px] text-gray-400">Optional for Free users</span>
@@ -6913,26 +6892,8 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
       if (errorBanner) errorBanner.classList.add('hidden');
       if (successBanner) successBanner.classList.add('hidden');
 
-      const nameInput = document.getElementById('inv-name');
-      const emailInput = document.getElementById('inv-email');
-      const orgInput = document.getElementById('inv-org');
-      const websiteInput = document.getElementById('inv-website');
       const codeInput = document.getElementById('inv-code');
 
-      // Pre-fill Name & Email if available from login or existing profile
-      const user = currentFirebaseUser;
-      const defaultName = (currentUserProfile && currentUserProfile.name)
-        ? currentUserProfile.name
-        : (user ? (user.displayName || (user.email ? user.email.split('@')[0] : '')) : '');
-
-      const defaultEmail = (currentUserProfile && currentUserProfile.email)
-        ? currentUserProfile.email
-        : (user ? (user.email || '') : '');
-
-      if (nameInput) nameInput.value = defaultName;
-      if (emailInput) emailInput.value = defaultEmail;
-      if (orgInput) orgInput.value = (currentUserProfile && currentUserProfile.org) ? currentUserProfile.org : '';
-      if (websiteInput) websiteInput.value = (currentUserProfile && currentUserProfile.orgWebsite) ? currentUserProfile.orgWebsite : '';
       if (codeInput) {
         codeInput.value = (currentUserProfile && currentUserProfile.invitationCode) ? currentUserProfile.invitationCode : '';
         const pendingCode = sessionStorage.getItem('pendingInviteCode');
@@ -6941,63 +6902,60 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
         }
       }
 
-      if (isManualEdit && currentUserProfile) {
-        if (titleEl) titleEl.textContent = 'Subscription & Organization Profile';
-        if (subtitleEl) subtitleEl.textContent = 'Manage your subscription, organization details, or enter an invitation code.';
-        if (submitBtn) {
-          const btnSpan = submitBtn.querySelector('span');
-          if (btnSpan) btnSpan.textContent = 'Save Changes';
-        }
-        if (statusBanner && statusBadge) {
-          statusBanner.classList.remove('hidden');
-          const isFull = isUserFullyInvited();
-          const userEmail = (user && user.email) ? user.email.toLowerCase().trim() : '';
-          const isAdmin = userEmail === 'boruahpriyanuj2004@gmail.com';
+      const isFull = isUserFullyInvited();
+      const user = currentFirebaseUser;
+      const userEmail = (user && user.email) ? user.email.toLowerCase().trim() : '';
+      const isAdmin = userEmail === 'boruahpriyanuj2004@gmail.com';
 
-          statusBadge.className = isFull
-            ? 'font-bold uppercase tracking-wider px-2 py-0.5 rounded text-[10px] bg-emerald-100 text-emerald-800'
-            : 'font-bold uppercase tracking-wider px-2 py-0.5 rounded text-[10px] bg-amber-100 text-amber-800';
-          statusBadge.textContent = isFull ? (isAdmin ? 'Admin' : 'PRO') : 'FREE';
+      if (titleEl) titleEl.textContent = 'Subscription';
+      if (subtitleEl) {
+        subtitleEl.textContent = isFull
+          ? 'Manage your subscription tier or enter a new invitation code.'
+          : 'Enter an invitation code to activate 1-Year Pro Access, or continue as a Free user.';
+      }
 
-          const validTillDateEl = document.getElementById('inv-valid-till-date');
-          const validTillRowEl = document.getElementById('inv-valid-till-row');
-          if (validTillDateEl && validTillRowEl) {
-            if (isAdmin) {
-              validTillDateEl.textContent = 'Permanent (Admin)';
-              validTillDateEl.className = 'font-semibold text-purple-700';
-              validTillRowEl.classList.remove('hidden');
-            } else if (isFull) {
-              let expDateString = '';
-              if (currentUserProfile && currentUserProfile.subscriptionExpiresAt) {
-                const expDate = new Date(currentUserProfile.subscriptionExpiresAt);
-                if (!isNaN(expDate.getTime())) {
-                  expDateString = expDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-                }
+      if (submitBtn) {
+        const btnSpan = submitBtn.querySelector('span');
+        if (btnSpan) btnSpan.textContent = isFull ? 'Update Invitation Code' : 'Activate 1-Year Pro Access';
+      }
+
+      if (statusBanner && statusBadge) {
+        statusBanner.classList.remove('hidden');
+        statusBadge.className = isFull
+          ? 'font-bold uppercase tracking-wider px-2 py-0.5 rounded text-[10px] bg-emerald-100 text-emerald-800'
+          : 'font-bold uppercase tracking-wider px-2 py-0.5 rounded text-[10px] bg-amber-100 text-amber-800';
+        statusBadge.textContent = isFull ? (isAdmin ? 'Admin' : 'PRO') : 'FREE';
+
+        const validTillDateEl = document.getElementById('inv-valid-till-date');
+        const validTillRowEl = document.getElementById('inv-valid-till-row');
+        if (validTillDateEl && validTillRowEl) {
+          if (isAdmin) {
+            validTillDateEl.textContent = 'Permanent (Admin)';
+            validTillDateEl.className = 'font-semibold text-purple-700';
+            validTillRowEl.classList.remove('hidden');
+          } else if (isFull) {
+            let expDateString = '';
+            if (currentUserProfile && currentUserProfile.subscriptionExpiresAt) {
+              const expDate = new Date(currentUserProfile.subscriptionExpiresAt);
+              if (!isNaN(expDate.getTime())) {
+                expDateString = expDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
               }
-              if (!expDateString) {
-                const start = currentUserProfile?.createdAt ? new Date(currentUserProfile.createdAt) : new Date();
-                const exp = new Date(start.getTime());
-                exp.setFullYear(exp.getFullYear() + 1);
-                expDateString = exp.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-              }
-              validTillDateEl.textContent = expDateString;
-              validTillDateEl.className = 'font-semibold text-emerald-800';
-              validTillRowEl.classList.remove('hidden');
-            } else {
-              validTillDateEl.textContent = 'Free Trial';
-              validTillDateEl.className = 'font-semibold text-amber-800';
-              validTillRowEl.classList.remove('hidden');
             }
+            if (!expDateString) {
+              const start = currentUserProfile?.createdAt ? new Date(currentUserProfile.createdAt) : new Date();
+              const exp = new Date(start.getTime());
+              exp.setFullYear(exp.getFullYear() + 1);
+              expDateString = exp.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+            }
+            validTillDateEl.textContent = expDateString;
+            validTillDateEl.className = 'font-semibold text-emerald-800';
+            validTillRowEl.classList.remove('hidden');
+          } else {
+            validTillDateEl.textContent = 'Free Trial';
+            validTillDateEl.className = 'font-semibold text-amber-800';
+            validTillRowEl.classList.remove('hidden');
           }
         }
-      } else {
-        if (titleEl) titleEl.textContent = 'Welcome to ProjectSPG';
-        if (subtitleEl) subtitleEl.textContent = 'Access is currently invitation-only. Please confirm your organization details and enter your invitation code to unlock full platform capabilities.';
-        if (submitBtn) {
-          const btnSpan = submitBtn.querySelector('span');
-          if (btnSpan) btnSpan.textContent = 'Confirm & Enter Platform';
-        }
-        if (statusBanner) statusBanner.classList.add('hidden');
       }
 
       modal.classList.remove('hidden');
@@ -7022,19 +6980,18 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
       if (errorBanner) errorBanner.classList.add('hidden');
       if (successBanner) successBanner.classList.add('hidden');
 
-      const name = (document.getElementById('inv-name').value || '').trim();
-      const email = (document.getElementById('inv-email').value || '').trim();
-      const org = (document.getElementById('inv-org').value || '').trim();
-      const orgWebsite = (document.getElementById('inv-website').value || '').trim();
-      const invitationCode = (document.getElementById('inv-code').value || '').trim();
-
       const user = currentFirebaseUser;
       const userId = user ? user.uid : ('anon_' + Date.now());
+      const name = (currentUserProfile && currentUserProfile.name) || (user ? (user.displayName || user.email?.split('@')[0]) : 'User');
+      const email = (currentUserProfile && currentUserProfile.email) || (user ? (user.email || '') : '');
+      const org = (currentUserProfile && currentUserProfile.org) || '';
+      const orgWebsite = (currentUserProfile && currentUserProfile.orgWebsite) || '';
+      const invitationCode = (document.getElementById('inv-code')?.value || '').trim();
 
       const originalBtnHtml = submitBtn ? submitBtn.innerHTML : '';
       if (submitBtn) {
         submitBtn.disabled = true;
-        submitBtn.innerHTML = '<span>Saving...</span>';
+        submitBtn.innerHTML = '<span>Activating...</span>';
       }
 
       const hasCode = invitationCode.length >= 3;
@@ -7042,8 +6999,8 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
 
       const payload = {
         userId,
-        name: name || (user?.displayName || 'User'),
-        email: email || (user?.email || ''),
+        name,
+        email,
         org,
         orgWebsite,
         invitationCode,
@@ -7098,18 +7055,13 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
     }
 
     async function continueWithLimitedAccess() {
-      const nameInput = document.getElementById('inv-name');
-      const emailInput = document.getElementById('inv-email');
-      const orgInput = document.getElementById('inv-org');
-      const websiteInput = document.getElementById('inv-website');
-
       const user = currentFirebaseUser;
       const userId = user ? user.uid : ('anon_' + Date.now());
 
-      const name = (nameInput?.value || '').trim() || (user ? (user.displayName || user.email?.split('@')[0]) : 'User');
-      const email = (emailInput?.value || '').trim() || (user ? (user.email || '') : '');
-      const org = (orgInput?.value || '').trim();
-      const orgWebsite = (websiteInput?.value || '').trim();
+      const name = (currentUserProfile && currentUserProfile.name) || (user ? (user.displayName || user.email?.split('@')[0]) : 'User');
+      const email = (currentUserProfile && currentUserProfile.email) || (user ? (user.email || '') : '');
+      const org = (currentUserProfile && currentUserProfile.org) || '';
+      const orgWebsite = (currentUserProfile && currentUserProfile.orgWebsite) || '';
 
       const payload = {
         userId,
