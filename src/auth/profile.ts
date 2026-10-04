@@ -331,8 +331,24 @@ export async function getUserProfile(
 
       if (row) {
         const isUserAdmin = isAdminEmail(row.email);
-        const isExpActive = isSubscriptionActive(row.subscription_expires_at, row.email);
         const rawPro = isUserAdmin || row.access_level === "Pro" || row.access_level === "Full Access";
+        let subStarted = row.subscription_started_at || undefined;
+        let subExpires = row.subscription_expires_at || undefined;
+
+        if (rawPro && !isUserAdmin && !subExpires) {
+          const startDate = row.created_at ? new Date(row.created_at) : new Date();
+          const expireDate = new Date(startDate.getTime());
+          expireDate.setFullYear(expireDate.getFullYear() + 1);
+          subStarted = startDate.toISOString();
+          subExpires = expireDate.toISOString();
+          try {
+            env.DB.prepare(
+              `UPDATE user_profiles SET subscription_started_at = ?, subscription_expires_at = ? WHERE user_id = ?`
+            ).bind(subStarted, subExpires, row.user_id).run().catch(() => {});
+          } catch (_) {}
+        }
+
+        const isExpActive = isSubscriptionActive(subExpires, row.email);
         const isPro = rawPro && isExpActive;
 
         const profile: UserProfile = {
@@ -343,8 +359,8 @@ export async function getUserProfile(
           orgWebsite: row.org_website || "",
           invitationCode: row.invitation_code || "",
           accessLevel: isPro ? "Pro" : "Free",
-          subscriptionStartedAt: row.subscription_started_at || undefined,
-          subscriptionExpiresAt: row.subscription_expires_at || undefined,
+          subscriptionStartedAt: subStarted,
+          subscriptionExpiresAt: subExpires,
           createdAt: row.created_at,
           updatedAt: row.updated_at,
         };
