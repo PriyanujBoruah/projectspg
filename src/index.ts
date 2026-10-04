@@ -259,8 +259,8 @@ app.post("/api/keys", async (c) => {
   const tier = body.tier || "free";
   if (tier === "byok") {
     const profile = await getUserProfile(c.env, userId);
-    if (!profile || profile.accessLevel !== "Full Access") {
-      return c.json({ error: "BYOK tier requires Full Access (valid invitation code required)" }, 403);
+    if (!profile || profile.accessLevel !== "Pro") {
+      return c.json({ error: "BYOK tier requires Pro Access. Upgrade with an invitation code to unlock." }, 403);
     }
   }
   const quota = tier === "byok" ? 1_000_000 : (body.monthlyQuota || 10_000);

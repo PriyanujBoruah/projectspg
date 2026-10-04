@@ -11,6 +11,8 @@ export function isAdminEmail(email?: string): boolean {
   return ADMIN_EMAILS.has(email.toLowerCase().trim());
 }
 
+export type AccessLevel = "Pro" | "Free";
+
 export interface UserProfile {
   userId: string;
   name: string;
@@ -18,7 +20,7 @@ export interface UserProfile {
   org: string;
   orgWebsite: string;
   invitationCode: string;
-  accessLevel: "Full Access" | "Limited Access";
+  accessLevel: AccessLevel;
   createdAt: string;
   updatedAt: string;
 }
@@ -60,7 +62,7 @@ async function ensureTable(d1: any) {
           org TEXT,
           org_website TEXT,
           invitation_code TEXT,
-          access_level TEXT DEFAULT 'Limited Access',
+          access_level TEXT DEFAULT 'Free',
           created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
           updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
         );`
@@ -305,6 +307,7 @@ export async function getUserProfile(
 
       if (row) {
         const isUserAdmin = isAdminEmail(row.email);
+        const isPro = isUserAdmin || row.access_level === "Pro" || row.access_level === "Full Access";
         const profile: UserProfile = {
           userId: row.user_id,
           name: row.name,
@@ -312,7 +315,7 @@ export async function getUserProfile(
           org: row.org || "",
           orgWebsite: row.org_website || "",
           invitationCode: row.invitation_code || "",
-          accessLevel: (isUserAdmin || row.access_level === "Full Access") ? "Full Access" : "Limited Access",
+          accessLevel: isPro ? "Pro" : "Free",
           createdAt: row.created_at,
           updatedAt: row.updated_at,
         };
@@ -326,7 +329,7 @@ export async function getUserProfile(
 
   const cached = localProfileStore.get(userId) || null;
   if (cached && isAdminEmail(cached.email)) {
-    cached.accessLevel = "Full Access";
+    cached.accessLevel = "Pro";
   }
   return cached;
 }
@@ -352,7 +355,7 @@ export async function saveUserProfile(
   const orgWebsite = data.orgWebsite?.trim() || "";
   const invitationCode = data.invitationCode?.trim() || "";
 
-  // 1. Admin email automatically receives Full Access
+  // 1. Admin email automatically receives Pro Access
   const isUserAdmin = isAdminEmail(email);
 
   // 2. Otherwise check and redeem code if provided
@@ -362,9 +365,9 @@ export async function saveUserProfile(
     hasValidCode = redeemRes.valid;
   }
 
-  const accessLevel: "Full Access" | "Limited Access" = (isUserAdmin || hasValidCode)
-    ? "Full Access"
-    : "Limited Access";
+  const accessLevel: AccessLevel = (isUserAdmin || hasValidCode)
+    ? "Pro"
+    : "Free";
 
   const now = new Date().toISOString();
 

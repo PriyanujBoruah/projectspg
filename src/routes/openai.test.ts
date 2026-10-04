@@ -662,12 +662,12 @@ describe("OpenAI Drop-In Wire-Compatible Proxy (/v1/chat/completions)", () => {
     }
   });
 
-  it("should restrict limited access accounts to only the 3 Mistral models", async () => {
+  it("should restrict free accounts to only the 3 Mistral models", async () => {
     await saveUserProfile({}, {
       userId: "test_limited_user_restrict",
       name: "Limited User",
       email: "limited@example.com",
-      invitationCode: "", // Tags with Limited Access
+      invitationCode: "", // Tags with Free
     });
 
     const testApp = new Hono();

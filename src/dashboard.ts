@@ -1827,7 +1827,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
           <div class="relative max-w-[115px] xs:max-w-[130px] sm:max-w-none shrink min-w-0">
             <select id="playground-model" onchange="onModelChange()" class="appearance-none bg-white border border-groq-grayBorder text-groq-dark text-xs font-sans font-medium rounded-lg pl-2 sm:pl-3 pr-5 sm:pr-8 py-1.5 focus:border-gray-400 focus:outline-none cursor-pointer w-full truncate">
-              <optgroup label="Mistral AI (Limited Access)">
+              <optgroup label="Mistral AI (Free & Pro)">
                 <option value="codestral-2508" data-provider="mistral" selected>codestral-2508</option>
                 <option value="ministral-8b-2512" data-provider="mistral">ministral-8b-2512</option>
                 <option value="ministral-14b-2512" data-provider="mistral">ministral-14b-2512</option>
@@ -3405,7 +3405,7 @@ console.log(data.choices[0].message.content);</div>
             </span>
           </div>
           <p class="text-xs sm:text-sm text-gray-500">
-            Create, allocate, and monitor secure invitation codes for partners and enterprise clients to unlock Full Access.
+            Create, allocate, and monitor secure invitation codes for partners and enterprise clients to unlock Pro Access.
           </p>
         </div>
 
@@ -3434,7 +3434,7 @@ console.log(data.choices[0].message.content);</div>
             <span class="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center"><i data-lucide="users" class="w-4 h-4"></i></span>
           </div>
           <div id="admin-stat-total-uses" class="text-2xl font-bold text-emerald-700 mt-2">0</div>
-          <span class="text-[11px] text-gray-400">Full Access upgrades granted</span>
+          <span class="text-[11px] text-gray-400">Pro upgrades granted</span>
         </div>
 
         <div class="p-4 rounded-xl border border-gray-200/80 bg-[#fbfbfe] shadow-2xs">
@@ -3861,14 +3861,14 @@ console.log(data.choices[0].message.content);</div>
         <div class="pt-1">
           <div class="flex items-center justify-between mb-1">
             <label class="block text-groq-dark font-medium">Invitation / Referral Code</label>
-            <span class="text-[10px] text-gray-400">Optional for limited access</span>
+            <span class="text-[10px] text-gray-400">Optional for Free users</span>
           </div>
           <div class="relative">
             <input type="text" id="inv-code" placeholder="e.g. SPG-BETA-2026" class="w-full bg-[#f9fafb] border border-groq-grayBorder rounded-lg pl-3 pr-8 py-2 text-groq-dark uppercase tracking-wider font-mono text-xs focus:outline-none focus:border-[#f0523d]">
             <i data-lucide="ticket" class="w-3.5 h-3.5 text-gray-400 absolute right-2.5 top-2.5 pointer-events-none"></i>
           </div>
           <p class="text-[11px] text-gray-500 mt-1 leading-normal">
-            Entering an invitation code unlocks <strong class="text-emerald-700 font-semibold">(Full Access)</strong>. If you do not have a code, you will continue with <strong class="text-amber-700 font-semibold">(Limited Access)</strong>.
+            Entering an invitation code unlocks <strong class="text-emerald-700 font-semibold">(Pro Access)</strong>. If you do not have a code, you will continue as a <strong class="text-amber-700 font-semibold">(Free User)</strong>.
           </p>
         </div>
 
@@ -3879,7 +3879,7 @@ console.log(data.choices[0].message.content);</div>
           </button>
 
           <button type="button" onclick="continueWithLimitedAccess()" id="btn-inv-limited" class="w-full py-2.5 px-4 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium transition text-xs cursor-pointer flex items-center justify-center gap-1.5">
-            <span>Continue with (Limited Access)</span>
+            <span>Continue as (Free User)</span>
           </button>
         </div>
       </form>
@@ -3889,7 +3889,7 @@ console.log(data.choices[0].message.content);</div>
   <!-- ========================================================================= -->
   <!-- TOASTER NOTIFICATION: INVITATION PROMPT -->
   <!-- Appears when switching between playground, dashboard, keys, docs, etc.   -->
-  <!-- Only shown if user does not already have (Full Access)                   -->
+  <!-- Only shown if user does not already have (Pro Access)                   -->
   <!-- ========================================================================= -->
   <div id="toast-invitation" class="fixed bottom-5 right-5 z-50 max-w-sm sm:max-w-md w-[calc(100%-2.5rem)] hidden transition-all duration-300 transform translate-y-4 opacity-0 pointer-events-auto">
     <div class="bg-white/95 backdrop-blur-md border border-orange-200/90 rounded-2xl p-4 sm:p-5 shadow-2xl shadow-orange-950/10 text-left font-sans relative overflow-hidden">
@@ -3904,7 +3904,7 @@ console.log(data.choices[0].message.content);</div>
           <div>
             <div class="flex items-center gap-2">
               <h4 class="text-xs font-bold text-gray-900 tracking-tight">Private Invitation Preview</h4>
-              <span class="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider bg-amber-50 text-amber-700 border border-amber-200/80">Limited Access</span>
+              <span class="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider bg-amber-50 text-amber-700 border border-amber-200/80">Free</span>
             </div>
             <p class="text-[11px] text-gray-500 mt-0.5">Unlock sovereign compliance & enterprise routing</p>
           </div>
@@ -3921,7 +3921,7 @@ console.log(data.choices[0].message.content);</div>
       <!-- Form Body -->
       <div id="toast-inv-form" class="mt-3">
         <p class="text-xs text-gray-600 mb-2 leading-relaxed">
-          ProjectSPG is invitation-only. Enter your invitation key below to unlock <strong class="text-emerald-700 font-semibold">(Full Access)</strong>:
+          Enter your Pro invitation or access key below to unlock <strong class="text-emerald-700 font-semibold">(Pro Access)</strong>:
         </p>
 
         <form onsubmit="handleToastInvitationSubmit(event)" class="space-y-2">
@@ -4744,7 +4744,7 @@ console.log(data.choices[0].message.content);</div>
         { label: 'Google AI Studio', provider: 'google', items: catalog?.google || [] },
         { label: 'Mistral AI', provider: 'mistral', items: catalog?.mistral || [] }
       ] : [
-        { label: 'Mistral AI (Limited Access)', provider: 'mistral', items: FREE_TIER_MODELS.mistral }
+        { label: 'Mistral AI (Free & Pro)', provider: 'mistral', items: FREE_TIER_MODELS.mistral }
       ];
 
       let found = false;
@@ -4877,7 +4877,7 @@ console.log(data.choices[0].message.content);</div>
         showInvitationToast(true);
         const feedback = document.getElementById('toast-inv-feedback');
         if (feedback) {
-          feedback.textContent = 'BYOK Mode is an enterprise feature requiring Full Access. Enter an invitation code to unlock.';
+          feedback.textContent = 'BYOK Mode is an enterprise feature requiring Pro Access. Enter an invitation code to unlock.';
           feedback.className = 'my-2.5 p-2 rounded-lg text-[11px] leading-tight font-medium bg-amber-50 text-amber-800 border border-amber-200 block';
         }
         return;
@@ -4934,7 +4934,7 @@ console.log(data.choices[0].message.content);</div>
       if (!isFull) {
         const allowedMistral = ['codestral-2508', 'ministral-8b-2512', 'ministral-14b-2512'];
         if (!allowedMistral.includes(model)) {
-          alert('Limited accounts are restricted to the 3 Mistral AI models (codestral-2508, ministral-8b-2512, ministral-14b-2512). Please redeem an invitation key for Full Access.');
+          alert('Free accounts are restricted to the 3 Mistral AI models (codestral-2508, ministral-8b-2512, ministral-14b-2512). Please redeem an invitation code for Pro Access.');
           showInvitationToast(true);
           renderPlaygroundModelDropdown(FREE_TIER_MODELS, 'codestral-2508');
           return;
@@ -5480,7 +5480,7 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
         showInvitationToast(true);
         const feedback = document.getElementById('toast-inv-feedback');
         if (feedback) {
-          feedback.textContent = 'Creating BYOK Keys requires Full Access. Enter an invitation code to unlock.';
+          feedback.textContent = 'Creating BYOK Keys requires Pro Access. Enter an invitation code to unlock.';
           feedback.className = 'my-2.5 p-2 rounded-lg text-[11px] leading-tight font-medium bg-amber-50 text-amber-800 border border-amber-200 block';
         }
         return;
@@ -5532,7 +5532,7 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
         showInvitationToast(true);
         const feedback = document.getElementById('toast-inv-feedback');
         if (feedback) {
-          feedback.textContent = 'Creating BYOK Keys requires Full Access. Enter an invitation code to unlock.';
+          feedback.textContent = 'Creating BYOK Keys requires Pro Access. Enter an invitation code to unlock.';
           feedback.className = 'my-2.5 p-2 rounded-lg text-[11px] leading-tight font-medium bg-amber-50 text-amber-800 border border-amber-200 block';
         }
         return;
@@ -6297,7 +6297,7 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
         showInvitationToast(true);
         const feedback = document.getElementById('toast-inv-feedback');
         if (feedback) {
-          feedback.textContent = 'BYOK Mode is an enterprise feature requiring Full Access. Enter an invitation code to unlock.';
+          feedback.textContent = 'BYOK Mode is an enterprise feature requiring Pro Access. Enter an invitation code to unlock.';
           feedback.className = 'my-2.5 p-2 rounded-lg text-[11px] leading-tight font-medium bg-amber-50 text-amber-800 border border-amber-200 block';
         }
         return;
@@ -6577,7 +6577,7 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
         console.warn('Backend profile fetch warning:', e);
       }
 
-      // 3. Admin automatic Full Access
+      // 3. Admin automatic Pro Access
       const userEmail = (user.email || '').toLowerCase().trim();
       const isAdmin = userEmail === 'boruahpriyanuj2004@gmail.com';
       if (isAdmin) {
@@ -6589,7 +6589,7 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
             org: 'ProjectSPG Admin',
             orgWebsite: 'https://projectspg.info',
             invitationCode: 'ADMIN-ROOT',
-            accessLevel: 'Full Access',
+            accessLevel: 'Pro',
             createdAt: new Date().toISOString(),
             updatedAt: new Date().toISOString()
           };
@@ -6597,7 +6597,7 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
             localStorage.setItem(storageKey, JSON.stringify(profile));
           } catch (e) {}
         } else {
-          profile.accessLevel = 'Full Access';
+          profile.accessLevel = 'Pro';
         }
       }
 
@@ -6661,11 +6661,11 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
         }
         if (statusBanner && statusBadge) {
           statusBanner.classList.remove('hidden');
-          const isFull = currentUserProfile.accessLevel === 'Full Access';
+          const isFull = currentUserProfile.accessLevel === 'Pro' || currentUserProfile.accessLevel === 'Full Access';
           statusBadge.className = isFull
             ? 'font-bold uppercase tracking-wider px-2 py-0.5 rounded text-[10px] bg-emerald-100 text-emerald-800'
             : 'font-bold uppercase tracking-wider px-2 py-0.5 rounded text-[10px] bg-amber-100 text-amber-800';
-          statusBadge.textContent = isFull ? 'Full Access' : 'Limited Access';
+          statusBadge.textContent = isFull ? 'Pro' : 'Free';
         }
       } else {
         if (titleEl) titleEl.textContent = 'Welcome to ProjectSPG';
@@ -6684,7 +6684,7 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
     function closeInvitationModal() {
       const modal = document.getElementById('modal-invitation');
       if (modal) modal.classList.add('hidden');
-      // If closing on initial login without having a profile, assign limited access
+      // If closing on initial login without having a profile, assign free access
       if (currentFirebaseUser && !currentUserProfile) {
         continueWithLimitedAccess();
       }
@@ -6715,7 +6715,7 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
       }
 
       const hasCode = invitationCode.length >= 3;
-      const accessLevel = hasCode ? 'Full Access' : 'Limited Access';
+      const accessLevel = hasCode ? 'Pro' : 'Free';
 
       const payload = {
         userId,
@@ -6795,7 +6795,7 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
         org,
         orgWebsite,
         invitationCode: '',
-        accessLevel: 'Limited Access'
+        accessLevel: 'Free'
       };
 
       try {
@@ -6896,23 +6896,21 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
           if (adminMenuBtn) adminMenuBtn.classList.add('hidden');
         }
 
-        const accessLevel = (isAdmin || (currentUserProfile && currentUserProfile.accessLevel === 'Full Access'))
-          ? 'Full Access'
-          : 'Limited Access';
-        const isFull = accessLevel === 'Full Access';
+        const isFull = isUserFullyInvited();
+        const accessLevel = isFull ? 'Pro' : 'Free';
 
         if (accessTagEl) {
           accessTagEl.className = isFull
             ? 'hidden sm:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-wide transition shadow-2xs bg-emerald-50 text-emerald-700 border border-emerald-300'
             : 'hidden sm:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-wide transition shadow-2xs bg-amber-50 text-amber-700 border border-amber-300';
-          accessTagEl.innerHTML = '<span class="w-1.5 h-1.5 rounded-full ' + (isFull ? 'bg-emerald-500' : 'bg-amber-500') + '"></span>' + (isFull ? (isAdmin ? 'Admin (Full Access)' : 'Full Access') : 'Limited Access');
+          accessTagEl.innerHTML = '<span class="w-1.5 h-1.5 rounded-full ' + (isFull ? 'bg-emerald-500' : 'bg-amber-500') + '"></span>' + (isFull ? (isAdmin ? 'Admin (Pro)' : 'Pro') : 'Free');
         }
 
         if (menuBadgeEl) {
           menuBadgeEl.className = isFull
             ? 'px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider shrink-0 bg-emerald-100 text-emerald-800'
             : 'px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider shrink-0 bg-amber-100 text-amber-800';
-          menuBadgeEl.textContent = isFull ? (isAdmin ? 'Admin' : 'Full Access') : 'Limited Access';
+          menuBadgeEl.textContent = isFull ? (isAdmin ? 'Admin' : 'Pro') : 'Free';
         }
 
         if (menuOrgEl && menuOrgTextEl) {
@@ -6925,10 +6923,10 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
         }
 
         if (landingBtnText) {
-          landingBtnText.textContent = 'Console (' + (isFull ? 'Full' : 'Limited') + ')';
+          landingBtnText.textContent = 'Console (' + (isFull ? 'Pro' : 'Free') + ')';
         }
         if (landingMobileBtnText) {
-          landingMobileBtnText.textContent = 'Console (' + (isFull ? 'Full' : 'Limited') + ')';
+          landingMobileBtnText.textContent = 'Console (' + (isFull ? 'Pro' : 'Free') + ')';
         }
 
         const byokBtn = document.getElementById('btn-tier-byok');
@@ -6941,12 +6939,12 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
             switchPlaygroundTier('free');
           }
           if (byokBtn) {
-            byokBtn.title = "BYOK Mode requires Full Access (Invitation Only)";
+            byokBtn.title = "BYOK Mode requires Pro Access (Invitation/Upgrade Code)";
             byokBtn.classList.add('opacity-75');
           }
           if (byokLock) byokLock.classList.remove('hidden');
           if (createByokLock) createByokLock.classList.remove('hidden');
-          if (createByokTab) createByokTab.title = "BYOK Tier requires Full Access (Invitation Only)";
+          if (createByokTab) createByokTab.title = "BYOK Tier requires Pro Access (Invitation/Upgrade Code)";
           renderPlaygroundModelDropdown(FREE_TIER_MODELS, 'codestral-2508');
         } else {
           if (byokBtn) {
@@ -6980,12 +6978,12 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
         const createByokTab = document.getElementById('tier-tab-byok');
         const createByokLock = document.getElementById('tier-tab-byok-lock');
         if (byokBtn) {
-          byokBtn.title = "BYOK Mode requires Full Access (Invitation Only)";
+          byokBtn.title = "BYOK Mode requires Pro Access (Invitation/Upgrade Code)";
           byokBtn.classList.add('opacity-75');
         }
         if (byokLock) byokLock.classList.remove('hidden');
         if (createByokLock) createByokLock.classList.remove('hidden');
-        if (createByokTab) createByokTab.title = "BYOK Tier requires Full Access (Invitation Only)";
+        if (createByokTab) createByokTab.title = "BYOK Tier requires Pro Access (Invitation/Upgrade Code)";
         renderPlaygroundModelDropdown(FREE_TIER_MODELS, 'codestral-2508');
       }
       lucide.createIcons();
@@ -6997,7 +6995,8 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
     let toastDismissedUntil = 0;
 
     function isUserFullyInvited() {
-      return !!(currentUserProfile && currentUserProfile.accessLevel === 'Full Access');
+      const level = currentUserProfile && currentUserProfile.accessLevel;
+      return level === 'Pro' || level === 'Full Access';
     }
 
     function showInvitationToast(force = false) {
@@ -7076,7 +7075,7 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
         org,
         orgWebsite,
         invitationCode: code,
-        accessLevel: 'Full Access'
+        accessLevel: 'Pro'
       };
 
       try {
@@ -7117,7 +7116,7 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
       updateUserUI(currentFirebaseUser);
 
       if (feedback) {
-        feedback.textContent = '✓ Invitation Verified! Full Access Granted.';
+        feedback.textContent = '✓ Invitation Verified! Pro Access Granted.';
         feedback.className = 'my-2.5 p-2 rounded-lg text-[11px] leading-tight font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 block';
       }
 

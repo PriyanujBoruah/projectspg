@@ -14,7 +14,7 @@ describe("User Profile & Invitation Access Module", () => {
     expect(validateInvitationCode("VIP")).toBe(true);
   });
 
-  it("should tag user with Limited Access if no invitation code is provided", async () => {
+  it("should tag user with Free if no invitation code is provided", async () => {
     const profile = await saveUserProfile({}, {
       userId: "user_test_no_code",
       name: "John Doe",
@@ -24,17 +24,17 @@ describe("User Profile & Invitation Access Module", () => {
       invitationCode: "",
     });
 
-    expect(profile.accessLevel).toBe("Limited Access");
+    expect(profile.accessLevel).toBe("Free");
     expect(profile.name).toBe("John Doe");
     expect(profile.org).toBe("Acme Corp");
     expect(profile.invitationCode).toBe("");
 
     const fetched = await getUserProfile({}, "user_test_no_code");
     expect(fetched).not.toBeNull();
-    expect(fetched?.accessLevel).toBe("Limited Access");
+    expect(fetched?.accessLevel).toBe("Free");
   });
 
-  it("should tag user with Full Access if a valid invitation code is provided", async () => {
+  it("should tag user with Pro if a valid invitation code is provided", async () => {
     const profile = await saveUserProfile({}, {
       userId: "user_test_with_code",
       name: "Alice Smith",
@@ -44,15 +44,15 @@ describe("User Profile & Invitation Access Module", () => {
       invitationCode: "SPG-BETA-ACCESS",
     });
 
-    expect(profile.accessLevel).toBe("Full Access");
+    expect(profile.accessLevel).toBe("Pro");
     expect(profile.invitationCode).toBe("SPG-BETA-ACCESS");
 
     const fetched = await getUserProfile({}, "user_test_with_code");
     expect(fetched).not.toBeNull();
-    expect(fetched?.accessLevel).toBe("Full Access");
+    expect(fetched?.accessLevel).toBe("Pro");
   });
 
-  it("should allow upgrading from Limited Access to Full Access by submitting a code later", async () => {
+  it("should allow upgrading from Free to Pro by submitting a code later", async () => {
     await saveUserProfile({}, {
       userId: "user_upgrade_test",
       name: "Bob Builder",
@@ -61,7 +61,7 @@ describe("User Profile & Invitation Access Module", () => {
     });
 
     let fetched = await getUserProfile({}, "user_upgrade_test");
-    expect(fetched?.accessLevel).toBe("Limited Access");
+    expect(fetched?.accessLevel).toBe("Free");
 
     await saveUserProfile({}, {
       userId: "user_upgrade_test",
@@ -72,11 +72,11 @@ describe("User Profile & Invitation Access Module", () => {
     });
 
     fetched = await getUserProfile({}, "user_upgrade_test");
-    expect(fetched?.accessLevel).toBe("Full Access");
+    expect(fetched?.accessLevel).toBe("Pro");
     expect(fetched?.org).toBe("Builder Inc");
   });
 
-  it("should recognize boruahpriyanuj2004@gmail.com as admin and grant Full Access automatically", async () => {
+  it("should recognize boruahpriyanuj2004@gmail.com as admin and grant Pro access automatically", async () => {
     const adminProfile = await saveUserProfile({}, {
       userId: "admin_test_uid",
       name: "Priyanuj Boruah",
@@ -84,10 +84,10 @@ describe("User Profile & Invitation Access Module", () => {
       invitationCode: "", // No code provided!
     });
 
-    expect(adminProfile.accessLevel).toBe("Full Access");
+    expect(adminProfile.accessLevel).toBe("Pro");
 
     const fetched = await getUserProfile({}, "admin_test_uid");
-    expect(fetched?.accessLevel).toBe("Full Access");
+    expect(fetched?.accessLevel).toBe("Pro");
   });
 
   it("should create, list, redeem, exhaust, and revoke invitation codes", async () => {
@@ -111,16 +111,16 @@ describe("User Profile & Invitation Access Module", () => {
       email: "one@partner.com",
       invitationCode: "SPG-TEST-SINGLE",
     });
-    expect(user1.accessLevel).toBe("Full Access");
+    expect(user1.accessLevel).toBe("Pro");
 
-    // 3. Second redemption of single-use code should fail (exhausted) and tag as Limited Access
+    // 3. Second redemption of single-use code should fail (exhausted) and tag as Free
     const user2 = await saveUserProfile({}, {
       userId: "usr_partner_2",
       name: "Partner Two",
       email: "two@partner.com",
       invitationCode: "SPG-TEST-SINGLE",
     });
-    expect(user2.accessLevel).toBe("Limited Access");
+    expect(user2.accessLevel).toBe("Free");
 
     // 4. Revocation should prevent any redemptions
     await createInvitationCode({}, {
@@ -135,7 +135,7 @@ describe("User Profile & Invitation Access Module", () => {
       email: "three@partner.com",
       invitationCode: "SPG-REVOKE-ME",
     });
-    expect(user3.accessLevel).toBe("Limited Access");
+    expect(user3.accessLevel).toBe("Free");
 
     // 5. List codes includes created codes
     const codes = await listInvitationCodes({});

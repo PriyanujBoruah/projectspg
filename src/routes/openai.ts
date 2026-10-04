@@ -552,11 +552,11 @@ openaiApp.post("/chat/completions", async (c) => {
 
   if (clientUserId) {
     const profile = await getUserProfile(c.env, clientUserId);
-    if (profile && profile.accessLevel === "Limited Access") {
+    if (profile && profile.accessLevel === "Free") {
       const reqModelNorm = (requestedModel || "").toLowerCase().trim();
       if (!LIMITED_ALLOWED_MISTRAL_MODELS.has(reqModelNorm)) {
         const err = createOpenAIError(
-          `Limited accounts are restricted to the 3 Mistral AI models (codestral-2508, ministral-8b-2512, ministral-14b-2512). Model '${requestedModel}' requires Full Access.`,
+          `Free accounts are restricted to the 3 Mistral AI models (codestral-2508, ministral-8b-2512, ministral-14b-2512). Model '${requestedModel}' requires Pro Access.`,
           "permission_denied",
           "model",
           "model_access_restricted",
@@ -1109,10 +1109,10 @@ openaiApp.post("/v1beta/models/:action{.+}", async (c) => {
   }
   if (clientUserId) {
     const profile = await getUserProfile(c.env, clientUserId);
-    if (profile && profile.accessLevel === "Limited Access") {
+    if (profile && profile.accessLevel === "Free") {
       return c.json({
         error: {
-          message: "Limited accounts are restricted to the 3 Mistral AI models (codestral-2508, ministral-8b-2512, ministral-14b-2512). Google AI Studio models require Full Access.",
+          message: "Free accounts are restricted to the 3 Mistral AI models (codestral-2508, ministral-8b-2512, ministral-14b-2512). Google AI Studio models require Pro Access.",
           code: 403
         }
       }, 403);

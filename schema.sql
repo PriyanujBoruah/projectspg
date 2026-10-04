@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS user_profiles (
     org TEXT,
     org_website TEXT,
     invitation_code TEXT,
-    access_level TEXT DEFAULT 'Limited Access',
+    access_level TEXT DEFAULT 'Free',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
