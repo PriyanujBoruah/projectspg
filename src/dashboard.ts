@@ -2008,11 +2008,6 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
             <div id="code-snippet-box" class="font-mono text-[11px] leading-[1.65] text-groq-dark select-all overflow-x-auto whitespace-pre max-h-none lg:max-h-80 touch-scroll w-full min-w-0 max-w-full"></div>
           </div>
-
-          <div class="pt-4 border-t border-groq-grayBorder text-[11px] text-groq-textSubtle flex items-center justify-between font-mono">
-            <span>Target: Cloudflare Edge</span>
-            <span class="text-emerald-600 font-medium">SSL Encrypted</span>
-          </div>
         </div>
 
         <!-- Parameters Drawer Backdrop for mobile -->
