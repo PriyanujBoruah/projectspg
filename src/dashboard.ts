@@ -1759,8 +1759,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
               <div class="mt-8 pt-4">
                 <button onclick="handlePricingProClick()" class="w-full py-3.5 px-4 rounded-xl bg-[#f0523d] hover:bg-[#d94432] text-white text-xs font-bold uppercase tracking-wider transition shadow-md hover:shadow-lg cursor-pointer flex items-center justify-center gap-2">
-                  <span>Redeem Pro Invite Key</span>
-                  <i data-lucide="key" class="w-4 h-4"></i>
+                  <span>Contact Sales</span>
+                  <i data-lucide="arrow-right" class="w-4 h-4"></i>
                 </button>
               </div>
             </div>
@@ -1812,8 +1812,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
               <div class="mt-8 pt-4">
                 <button onclick="handlePricingCustomClick()" class="w-full py-3.5 px-4 rounded-xl bg-gray-900 hover:bg-black text-white text-xs font-bold uppercase tracking-wider transition shadow-xs cursor-pointer flex items-center justify-center gap-2">
-                  <span>Request Sovereign Enclave</span>
-                  <i data-lucide="shield-check" class="w-4 h-4"></i>
+                  <span>Contact Sales</span>
+                  <i data-lucide="arrow-right" class="w-4 h-4"></i>
                 </button>
               </div>
             </div>
@@ -7009,11 +7009,7 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
     }
 
     function handlePricingProClick() {
-      if (currentFirebaseUser) {
-        openInvitationModal(true);
-      } else {
-        switchAccessView('redeem');
-      }
+      switchAccessView('request');
     }
 
     function handlePricingCustomClick() {
