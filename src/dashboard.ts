@@ -1724,7 +1724,6 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                     $67/mo or <span class="text-[#f0523d] font-bold">$49/mo</span> if billed yearly
                     <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 ml-1">Save 27%</span>
                   </p>
-                  <p class="text-[11.5px] text-[#f0523d] font-semibold mt-1">Avail via exclusive invitation key (Active for 1 year from activation)</p>
                 </div>
 
                 <div class="space-y-3.5 text-xs text-gray-800 font-medium">
