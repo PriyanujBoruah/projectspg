@@ -1989,25 +1989,23 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         </div>
 
         <!-- Col 3: Code -->
-        <div id="col-code" class="w-full lg:w-[33%] lg:min-w-[320px] lg:max-w-[440px] p-2.5 sm:p-6 flex flex-col justify-between overflow-x-hidden overflow-y-visible lg:overflow-y-auto bg-white lg:shrink-0 min-w-0 max-w-full">
-          <div class="min-w-0 max-w-full">
-            <div class="flex items-center justify-between mb-4">
-              <div class="relative">
-                <select id="code-lang-select" onchange="updateCodeViewer()" class="appearance-none bg-transparent text-xs font-medium text-groq-textSubtle hover:text-groq-dark pr-4 focus:outline-none cursor-pointer">
-                  <option value="python">Python</option>
-                  <option value="curl">cURL</option>
-                  <option value="langchain">LangChain</option>
-                </select>
-                <i data-lucide="chevrons-up-down" class="w-3 h-3 text-groq-textSubtle absolute right-0 top-0.5 pointer-events-none"></i>
-              </div>
-
-              <button onclick="copySnippet()" class="text-xs text-groq-textSubtle hover:text-groq-dark flex items-center gap-1 font-medium transition cursor-pointer">
-                <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy
-              </button>
+        <div id="col-code" class="w-full lg:w-[33%] lg:min-w-[320px] lg:max-w-[440px] p-2.5 sm:p-6 flex flex-col lg:h-full bg-white lg:shrink-0 min-w-0 max-w-full overflow-x-hidden lg:overflow-hidden">
+          <div class="flex items-center justify-between mb-4 shrink-0">
+            <div class="relative">
+              <select id="code-lang-select" onchange="updateCodeViewer()" class="appearance-none bg-transparent text-xs font-medium text-groq-textSubtle hover:text-groq-dark pr-4 focus:outline-none cursor-pointer">
+                <option value="python">Python</option>
+                <option value="curl">cURL</option>
+                <option value="langchain">LangChain</option>
+              </select>
+              <i data-lucide="chevrons-up-down" class="w-3 h-3 text-groq-textSubtle absolute right-0 top-0.5 pointer-events-none"></i>
             </div>
 
-            <div id="code-snippet-box" class="font-mono text-[11px] leading-[1.65] text-groq-dark select-all overflow-x-auto whitespace-pre max-h-none lg:max-h-80 touch-scroll w-full min-w-0 max-w-full"></div>
+            <button onclick="copySnippet()" class="text-xs text-groq-textSubtle hover:text-groq-dark flex items-center gap-1 font-medium transition cursor-pointer">
+              <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy
+            </button>
           </div>
+
+          <div id="code-snippet-box" class="font-mono text-[11px] leading-[1.65] text-groq-dark select-all overflow-x-auto lg:overflow-y-auto whitespace-pre touch-scroll w-full min-w-0 max-w-full lg:flex-1 lg:min-h-0 pb-4"></div>
         </div>
 
         <!-- Parameters Drawer Backdrop for mobile -->
