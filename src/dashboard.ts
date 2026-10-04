@@ -1747,10 +1747,6 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                     <i data-lucide="check-circle-2" class="w-4 h-4 text-[#f0523d] shrink-0 mt-0.5"></i>
                     <span><strong>Global Edge Network:</strong> Sub-millisecond routing across 300+ edge PoPs</span>
                   </div>
-                  <div class="flex items-start gap-3">
-                    <i data-lucide="check-circle-2" class="w-4 h-4 text-[#f0523d] shrink-0 mt-0.5"></i>
-                    <span><strong>Live Validity Duration Tracker:</strong> Automated renewal &amp; subscription panel</span>
-                  </div>
                 </div>
               </div>
 
