@@ -341,9 +341,9 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           <span class="font-extrabold text-[20px] sm:text-[22px] tracking-tight text-groq-dark">project<span class="text-[#f0523d]">spg</span></span>
         </a>
 
-        <!-- Project Selector Pill Dropdown -->
-        <div class="hidden md:flex items-center gap-1.5 text-xs text-groq-textMuted cursor-pointer hover:text-groq-dark transition ml-2">
-          <span class="font-normal text-groq-textMuted">Personal</span>
+        <!-- Workspace / Tier Pill Dropdown -->
+        <div id="top-tier-pill" onclick="handleTopTierClick()" class="hidden md:flex items-center gap-1.5 text-xs text-groq-textMuted cursor-pointer hover:text-groq-dark transition ml-2 py-0.5 px-1 rounded hover:bg-gray-100" title="Switch or view plan">
+          <span id="top-tier-label" class="font-normal text-groq-textMuted">Free Trial</span>
           <i data-lucide="chevrons-up-down" class="w-3 h-3 text-groq-textSubtle"></i>
         </div>
       </div>
@@ -6606,6 +6606,14 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
       }
     }
 
+    function handleTopTierClick() {
+      if (!currentFirebaseUser) {
+        openAuthModal();
+        return;
+      }
+      openInvitationModal(true);
+    }
+
     function openInvitationModal(isManualEdit = false) {
       const modal = document.getElementById('modal-invitation');
       if (!modal) return;
@@ -6919,6 +6927,14 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
           }
         }
 
+        const topTierLabel = document.getElementById('top-tier-label');
+        if (topTierLabel) {
+          topTierLabel.textContent = isFull ? 'Professional' : 'Free Trial';
+          topTierLabel.className = isFull
+            ? 'font-medium text-emerald-700'
+            : 'font-normal text-groq-textMuted';
+        }
+
         if (landingBtnText) {
           landingBtnText.textContent = 'Console (' + (isFull ? 'Pro' : 'Free') + ')';
         }
@@ -6966,6 +6982,12 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
         if (userMenu) userMenu.classList.add('hidden');
         if (landingBtnText) landingBtnText.textContent = 'Sign In';
         if (landingMobileBtnText) landingMobileBtnText.textContent = 'Sign In';
+
+        const topTierLabel = document.getElementById('top-tier-label');
+        if (topTierLabel) {
+          topTierLabel.textContent = 'Free Trial';
+          topTierLabel.className = 'font-normal text-groq-textMuted';
+        }
 
         if (playgroundTierMode === 'byok') {
           switchPlaygroundTier('free');
