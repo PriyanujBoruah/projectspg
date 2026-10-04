@@ -1642,7 +1642,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               </button>
               <button id="billing-btn-yearly" onclick="setPricingBillingCycle('yearly')" type="button" class="px-4 sm:px-5 py-2 rounded-full text-xs font-bold transition-all cursor-pointer text-gray-500 hover:text-gray-900 flex items-center gap-1.5">
                 <span>Yearly</span>
-                <span class="px-2 py-0.5 rounded-full text-[10px] font-black uppercase bg-[#f0523d] text-white tracking-wide shadow-2xs">Save 17%</span>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-black uppercase bg-[#f0523d] text-white tracking-wide shadow-2xs">Save 27%</span>
               </button>
             </div>
           </div>
@@ -1719,12 +1719,12 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                 
                 <div class="mt-6 mb-8 pb-6 border-b border-gray-200/80">
                   <div class="flex items-baseline gap-1.5">
-                    <span id="pricing-pro-amount" class="text-4xl sm:text-5xl font-black text-gray-900 tracking-tight transition-all duration-200">$59</span>
+                    <span id="pricing-pro-amount" class="text-4xl sm:text-5xl font-black text-gray-900 tracking-tight transition-all duration-200">$67</span>
                     <span id="pricing-pro-period" class="text-xs font-semibold uppercase text-gray-500">/ mo</span>
                   </div>
                   <p id="pricing-pro-sub" class="text-xs font-semibold text-gray-800 mt-1.5">
-                    $59/mo or <span class="text-[#f0523d] font-bold">$49/mo</span> if billed yearly
-                    <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 ml-1">Save 17%</span>
+                    $67/mo or <span class="text-[#f0523d] font-bold">$49/mo</span> if billed yearly
+                    <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 ml-1">Save 27%</span>
                   </p>
                   <p class="text-[11.5px] text-[#f0523d] font-semibold mt-1">Avail via exclusive invitation key (Active for 1 year from activation)</p>
                 </div>
@@ -7038,15 +7038,15 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
         if (proAmount) proAmount.textContent = '$49';
         if (proPeriod) proPeriod.textContent = '/ mo';
         if (proSub) {
-          proSub.innerHTML = 'Billed annually ($588/yr) <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 ml-1">Save $120/yr (17%)</span>';
+          proSub.innerHTML = 'Billed annually ($588/yr) <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 ml-1">Save $216/yr (27%)</span>';
         }
       } else {
         btnMonthly.className = 'px-4 sm:px-5 py-2 rounded-full text-xs font-bold transition-all cursor-pointer bg-white text-gray-900 shadow-xs';
         btnYearly.className = 'px-4 sm:px-5 py-2 rounded-full text-xs font-bold transition-all cursor-pointer text-gray-500 hover:text-gray-900 flex items-center gap-1.5';
-        if (proAmount) proAmount.textContent = '$59';
+        if (proAmount) proAmount.textContent = '$67';
         if (proPeriod) proPeriod.textContent = '/ mo';
         if (proSub) {
-          proSub.innerHTML = '$59/mo or <span class="text-[#f0523d] font-bold">$49/mo</span> if billed yearly <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 ml-1">Save 17%</span>';
+          proSub.innerHTML = '$67/mo or <span class="text-[#f0523d] font-bold">$49/mo</span> if billed yearly <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 ml-1">Save 27%</span>';
         }
       }
     }
