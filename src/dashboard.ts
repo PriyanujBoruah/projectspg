@@ -2076,6 +2076,21 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               </label>
             </div>
 
+            <!-- Tokenization Mode -->
+            <div class="flex items-center justify-between pt-1">
+              <div>
+                <label class="text-xs font-semibold text-groq-dark block">Tokenization Mode</label>
+                <span class="text-[10px] text-gray-400">PII Redaction Strategy</span>
+              </div>
+              <div class="relative">
+                <select id="param-mode" onchange="onParamChange()" class="appearance-none bg-gray-50 hover:bg-gray-100 border border-transparent text-groq-dark text-xs font-medium rounded-xl pl-3 pr-8 py-1.5 focus:outline-none cursor-pointer">
+                  <option value="structural" selected>Structural (Mask)</option>
+                  <option value="fpe">Format-Preserving (FPE)</option>
+                </select>
+                <i data-lucide="chevrons-up-down" class="w-3.5 h-3.5 text-groq-textSubtle absolute right-2.5 top-2 pointer-events-none"></i>
+              </div>
+            </div>
+
             <!-- Built-in tools Section -->
             <div class="pt-4 border-t border-gray-100">
               <span class="text-[11px] font-semibold text-gray-400 block mb-3.5">Built-in tools</span>
@@ -4943,7 +4958,8 @@ console.log(data.choices[0].message.content);</div>
         }
       }
 
-      const mode = document.getElementById('cfg-mode') ? document.getElementById('cfg-mode').value : 'mask';
+      const modeEl = document.getElementById('param-mode') || document.getElementById('cfg-mode');
+      const mode = modeEl ? modeEl.value : 'structural';
 
       const btn = document.getElementById('btn-submit');
       if (btn) {
@@ -5195,7 +5211,7 @@ console.log(data.choices[0].message.content);</div>
       const streamChecked = document.getElementById('param-stream') ? document.getElementById('param-stream').checked : true;
       const streamVal = streamChecked ? 'True' : 'False';
       const stopInput = document.getElementById('param-stop') ? document.getElementById('param-stop').value.trim() : '';
-      const stopVal = stopInput ? ('"' + stopInput + '"') : 'None';
+      const modeVal = document.getElementById('param-mode') ? document.getElementById('param-mode').value : 'structural';
 
       if (lang === 'python') {
         box.innerHTML = \`<span class="syn-keyword">from</span> openai <span class="syn-keyword">import</span> OpenAI
@@ -5226,6 +5242,7 @@ completion = client.chat.completions.create(
         box.innerHTML = \`curl https://api.projectspg.info/v1/chat/completions \\\\
   -H <span class="syn-string">"Content-Type: application/json"</span> \\\\
   -H <span class="syn-string">"Authorization: Bearer spg_live_your_key"</span> \\\\
+  -H <span class="syn-string">"x-tokenization-mode: \${modeVal}"</span> \\\\
   -d '{
     <span class="syn-string">"model"</span>: <span class="syn-string">"\${model}"</span>,
     <span class="syn-string">"messages"</span>: [
