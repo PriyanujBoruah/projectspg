@@ -345,9 +345,6 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         <div class="hidden md:flex items-center gap-1.5 text-xs text-groq-textMuted cursor-pointer hover:text-groq-dark transition ml-2">
           <span class="font-normal text-groq-textMuted">Personal</span>
           <i data-lucide="chevrons-up-down" class="w-3 h-3 text-groq-textSubtle"></i>
-          <span class="mx-1 text-gray-300 font-light">/</span>
-          <span class="text-groq-dark font-medium">Default Project</span>
-          <i data-lucide="chevrons-up-down" class="w-3 h-3 text-groq-textSubtle"></i>
         </div>
       </div>
 
