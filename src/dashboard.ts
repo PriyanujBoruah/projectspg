@@ -1667,26 +1667,26 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                   <p class="text-[11.5px] text-gray-400 mt-1">No credit card or invitation code required</p>
                 </div>
 
-                <div class="space-y-3.5 text-xs text-gray-700">
+                <div class="space-y-3.5 text-xs text-gray-700 font-medium">
                   <div class="flex items-start gap-3">
                     <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i>
-                    <span><strong>Standard Mistral Models:</strong> Codestral-2508, Ministral-8B &amp; 14B</span>
+                    <span>Limited AI Providers &amp; Models</span>
                   </div>
                   <div class="flex items-start gap-3">
                     <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i>
-                    <span><strong>Real-time PII Redaction:</strong> Automated anonymization &amp; rehydration</span>
+                    <span>Real-time PII Redaction</span>
                   </div>
                   <div class="flex items-start gap-3">
                     <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i>
-                    <span><strong>Shared Edge Gateway:</strong> 60 requests/min rate limit</span>
+                    <span>Interactive Playground</span>
                   </div>
                   <div class="flex items-start gap-3">
                     <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i>
-                    <span><strong>Interactive Playground:</strong> Live side-by-side terminal &amp; code export</span>
+                    <span>Rate-limited Testing</span>
                   </div>
                   <div class="flex items-start gap-3">
                     <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i>
-                    <span><strong>Community Support:</strong> Discord &amp; GitHub Open-Source Core</span>
+                    <span>API Suite</span>
                   </div>
                 </div>
               </div>
