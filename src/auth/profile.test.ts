@@ -142,4 +142,31 @@ describe("User Profile & Invitation Access Module", () => {
     expect(codes.some((c) => c.code === "SPG-TEST-SINGLE")).toBe(true);
     expect(codes.some((c) => c.code === "SPG-REVOKE-ME")).toBe(true);
   });
+
+  it("should set pro subscription valid for exactly 1 year from redemption and expire to Free thereafter", async () => {
+    const userSub = await saveUserProfile({}, {
+      userId: "usr_timed_sub",
+      name: "Yearly Subscriber",
+      email: "subscriber@partner.com",
+      invitationCode: "VIP",
+    });
+
+    expect(userSub.accessLevel).toBe("Pro");
+    expect(userSub.subscriptionStartedAt).toBeDefined();
+    expect(userSub.subscriptionExpiresAt).toBeDefined();
+
+    const start = new Date(userSub.subscriptionStartedAt!).getTime();
+    const expiry = new Date(userSub.subscriptionExpiresAt!).getTime();
+    const diffDays = Math.round((expiry - start) / (1000 * 60 * 60 * 24));
+    // Approximately 365 or 366 days depending on leap years
+    expect(diffDays).toBeGreaterThanOrEqual(365);
+    expect(diffDays).toBeLessThanOrEqual(366);
+
+    // If subscriptionExpiresAt is manually simulated into the past, getUserProfile should revert accessLevel to Free
+    const pastDate = new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(); // 1 day ago
+    userSub.subscriptionExpiresAt = pastDate;
+
+    const fetched = await getUserProfile({}, "usr_timed_sub");
+    expect(fetched?.accessLevel).toBe("Free");
+  });
 });

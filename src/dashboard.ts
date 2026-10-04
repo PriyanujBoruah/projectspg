@@ -388,6 +388,10 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                 <i data-lucide="building-2" class="w-3 h-3 text-gray-400 shrink-0"></i>
                 <span id="user-menu-org-text" class="truncate"></span>
               </div>
+              <div id="user-menu-expiry" class="text-emerald-700 text-[10px] truncate mt-1 hidden flex items-center gap-1">
+                <i data-lucide="clock" class="w-3 h-3 shrink-0 text-emerald-600"></i>
+                <span id="user-menu-expiry-text" class="truncate font-medium"></span>
+              </div>
             </div>
             <div class="py-1">
               <button onclick="openUserSettingsModal()" class="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-50 flex items-center justify-between text-groq-dark font-medium transition cursor-pointer">
@@ -3848,7 +3852,7 @@ console.log(data.choices[0].message.content);</div>
             <i data-lucide="ticket" class="w-3.5 h-3.5 text-gray-400 absolute right-2.5 top-2.5 pointer-events-none"></i>
           </div>
           <p class="text-[11px] text-gray-500 mt-1 leading-normal">
-            Entering an invitation code unlocks <strong class="text-emerald-700 font-semibold">(Pro Access)</strong>. If you do not have a code, you will continue as a <strong class="text-amber-700 font-semibold">(Free User)</strong>.
+            Entering an invitation code unlocks <strong class="text-emerald-700 font-semibold">1-Year Pro Access</strong>. If you do not have a code, you will continue as a <strong class="text-amber-700 font-semibold">(Free User)</strong>.
           </p>
         </div>
 
@@ -3896,7 +3900,10 @@ console.log(data.choices[0].message.content);</div>
             <span class="font-semibold text-groq-dark flex items-center gap-1.5">
               <i data-lucide="user" class="w-3.5 h-3.5 text-groq-textMuted"></i> Account Profile
             </span>
-            <span id="settings-tier-pill" class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-amber-100 text-amber-800">Free</span>
+            <div class="flex items-center gap-2">
+              <span id="settings-tier-expiry" class="text-[10.5px] font-medium text-emerald-700 hidden"></span>
+              <span id="settings-tier-pill" class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-amber-100 text-amber-800">Free</span>
+            </div>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
@@ -6663,6 +6670,18 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
           : 'px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-amber-100 text-amber-800';
       }
 
+      const tierExpiry = document.getElementById('settings-tier-expiry');
+      if (tierExpiry) {
+        const isFull = isUserFullyInvited();
+        const expText = getSubscriptionExpiryText(profile);
+        if (expText && isFull) {
+          tierExpiry.textContent = expText;
+          tierExpiry.classList.remove('hidden');
+        } else {
+          tierExpiry.classList.add('hidden');
+        }
+      }
+
       modal.classList.remove('hidden');
       if (typeof lucide !== 'undefined') lucide.createIcons();
     }
@@ -6836,6 +6855,20 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
       openInvitationModal(true);
     }
 
+    function getSubscriptionExpiryText(profile) {
+      if (!profile) return '';
+      const user = currentFirebaseUser;
+      if (user && user.email && user.email.toLowerCase().trim() === 'boruahpriyanuj2004@gmail.com') {
+        return 'Permanent (Admin)';
+      }
+      if (!profile.subscriptionExpiresAt) return '';
+      const expDate = new Date(profile.subscriptionExpiresAt);
+      if (isNaN(expDate.getTime())) return '';
+      const formatted = expDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      const isExpired = Date.now() >= expDate.getTime();
+      return isExpired ? ('Expired (' + formatted + ')') : ('Valid until ' + formatted);
+    }
+
     function updateTopTierPill(isFull) {
       const pill = document.getElementById('top-tier-pill');
       const dot = document.getElementById('top-tier-dot');
@@ -6844,8 +6877,9 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
       if (!pill || !label) return;
 
       if (isFull) {
+        const expText = getSubscriptionExpiryText(currentUserProfile);
         pill.className = 'hidden md:flex items-center gap-1.5 text-[11px] font-semibold select-none ml-2.5 px-2.5 py-1 rounded-full border shadow-2xs bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-50 border-emerald-300 text-emerald-950';
-        pill.title = 'Professional Tier';
+        pill.title = expText ? ('Professional Tier (' + expText + ')') : 'Professional Tier';
         if (dot) dot.className = 'w-2 h-2 rounded-full bg-emerald-500 ring-2 ring-emerald-200 shrink-0';
         label.textContent = 'Professional';
         label.className = 'tracking-tight font-semibold text-emerald-900';
@@ -6910,11 +6944,12 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
         }
         if (statusBanner && statusBadge) {
           statusBanner.classList.remove('hidden');
-          const isFull = currentUserProfile.accessLevel === 'Pro' || currentUserProfile.accessLevel === 'Full Access';
+          const isFull = isUserFullyInvited();
           statusBadge.className = isFull
             ? 'font-bold uppercase tracking-wider px-2 py-0.5 rounded text-[10px] bg-emerald-100 text-emerald-800'
             : 'font-bold uppercase tracking-wider px-2 py-0.5 rounded text-[10px] bg-amber-100 text-amber-800';
-          statusBadge.textContent = isFull ? 'Pro' : 'Free';
+          const expText = getSubscriptionExpiryText(currentUserProfile);
+          statusBadge.textContent = isFull ? (expText ? ('Pro (' + expText + ')') : 'Pro') : 'Free';
         }
       } else {
         if (titleEl) titleEl.textContent = 'Welcome to ProjectSPG';
@@ -7163,6 +7198,18 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
           }
         }
 
+        const menuExpiryEl = document.getElementById('user-menu-expiry');
+        const menuExpiryTextEl = document.getElementById('user-menu-expiry-text');
+        if (menuExpiryEl && menuExpiryTextEl) {
+          const expText = getSubscriptionExpiryText(currentUserProfile);
+          if (expText && isFull) {
+            menuExpiryTextEl.textContent = expText;
+            menuExpiryEl.classList.remove('hidden');
+          } else {
+            menuExpiryEl.classList.add('hidden');
+          }
+        }
+
         updateTopTierPill(isFull);
 
         if (landingBtnText) {
@@ -7240,8 +7287,18 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
     let toastDismissedUntil = 0;
 
     function isUserFullyInvited() {
-      const level = currentUserProfile && currentUserProfile.accessLevel;
-      return level === 'Pro' || level === 'Full Access';
+      const user = currentFirebaseUser;
+      if (user && user.email && user.email.toLowerCase().trim() === 'boruahpriyanuj2004@gmail.com') return true;
+      const p = currentUserProfile;
+      if (!p) return false;
+      const level = p.accessLevel;
+      const isPro = level === 'Pro' || level === 'Full Access';
+      if (!isPro) return false;
+      if (p.subscriptionExpiresAt) {
+        const exp = new Date(p.subscriptionExpiresAt).getTime();
+        if (!isNaN(exp) && Date.now() >= exp) return false;
+      }
+      return true;
     }
 
     function showInvitationToast(force = false) {
@@ -7361,7 +7418,7 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
       updateUserUI(currentFirebaseUser);
 
       if (feedback) {
-        feedback.textContent = '✓ Invitation Verified! Pro Access Granted.';
+        feedback.textContent = '✓ Invitation Verified! 1-Year Pro Access Activated.';
         feedback.className = 'my-2.5 p-2 rounded-lg text-[11px] leading-tight font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 block';
       }
 

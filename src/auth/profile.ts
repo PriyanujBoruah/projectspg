@@ -21,8 +21,22 @@ export interface UserProfile {
   orgWebsite: string;
   invitationCode: string;
   accessLevel: AccessLevel;
+  subscriptionStartedAt?: string;
+  subscriptionExpiresAt?: string;
   createdAt: string;
   updatedAt: string;
+}
+
+/**
+ * Checks whether a given subscription timestamp is still active.
+ * Admin emails never expire.
+ */
+export function isSubscriptionActive(expiresAt?: string, email?: string): boolean {
+  if (isAdminEmail(email)) return true;
+  if (!expiresAt) return true; // Backward compatibility for legacy active pro records without explicit expiration
+  const expTime = new Date(expiresAt).getTime();
+  if (isNaN(expTime)) return true;
+  return Date.now() < expTime;
 }
 
 export interface InvitationCodeRecord {
@@ -63,11 +77,21 @@ async function ensureTable(d1: any) {
           org_website TEXT,
           invitation_code TEXT,
           access_level TEXT DEFAULT 'Free',
+          subscription_started_at DATETIME,
+          subscription_expires_at DATETIME,
           created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
           updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
         );`
       )
       .run();
+
+    // Safely apply schema migrations for existing tables if columns are missing
+    try {
+      await d1.prepare("ALTER TABLE user_profiles ADD COLUMN subscription_started_at DATETIME;").run();
+    } catch (_) {}
+    try {
+      await d1.prepare("ALTER TABLE user_profiles ADD COLUMN subscription_expires_at DATETIME;").run();
+    } catch (_) {}
 
     await d1
       .prepare(
@@ -299,7 +323,7 @@ export async function getUserProfile(
     try {
       await ensureTable(env.DB);
       const row: any = await env.DB.prepare(
-        `SELECT user_id, name, email, org, org_website, invitation_code, access_level, created_at, updated_at
+        `SELECT user_id, name, email, org, org_website, invitation_code, access_level, subscription_started_at, subscription_expires_at, created_at, updated_at
          FROM user_profiles WHERE user_id = ?`
       )
         .bind(userId)
@@ -307,7 +331,10 @@ export async function getUserProfile(
 
       if (row) {
         const isUserAdmin = isAdminEmail(row.email);
-        const isPro = isUserAdmin || row.access_level === "Pro" || row.access_level === "Full Access";
+        const isExpActive = isSubscriptionActive(row.subscription_expires_at, row.email);
+        const rawPro = isUserAdmin || row.access_level === "Pro" || row.access_level === "Full Access";
+        const isPro = rawPro && isExpActive;
+
         const profile: UserProfile = {
           userId: row.user_id,
           name: row.name,
@@ -316,6 +343,8 @@ export async function getUserProfile(
           orgWebsite: row.org_website || "",
           invitationCode: row.invitation_code || "",
           accessLevel: isPro ? "Pro" : "Free",
+          subscriptionStartedAt: row.subscription_started_at || undefined,
+          subscriptionExpiresAt: row.subscription_expires_at || undefined,
           createdAt: row.created_at,
           updatedAt: row.updated_at,
         };
@@ -328,8 +357,12 @@ export async function getUserProfile(
   }
 
   const cached = localProfileStore.get(userId) || null;
-  if (cached && isAdminEmail(cached.email)) {
-    cached.accessLevel = "Pro";
+  if (cached) {
+    if (isAdminEmail(cached.email)) {
+      cached.accessLevel = "Pro";
+    } else if (cached.accessLevel === "Pro" && !isSubscriptionActive(cached.subscriptionExpiresAt, cached.email)) {
+      cached.accessLevel = "Free";
+    }
   }
   return cached;
 }
@@ -365,9 +398,26 @@ export async function saveUserProfile(
     hasValidCode = redeemRes.valid;
   }
 
-  const accessLevel: AccessLevel = (isUserAdmin || hasValidCode)
-    ? "Pro"
-    : "Free";
+  // Fetch existing profile to preserve existing active subscription dates if merely updating name/org
+  const existingProfile = await getUserProfile(env, userId);
+
+  let subscriptionStartedAt = existingProfile?.subscriptionStartedAt;
+  let subscriptionExpiresAt = existingProfile?.subscriptionExpiresAt;
+
+  if (hasValidCode) {
+    // When availing or upgrading with an invitation code: 1 year from the date of availing it
+    const startDate = new Date();
+    const expireDate = new Date(startDate.getTime());
+    expireDate.setFullYear(expireDate.getFullYear() + 1);
+
+    subscriptionStartedAt = startDate.toISOString();
+    subscriptionExpiresAt = expireDate.toISOString();
+  }
+
+  // Check if Pro subscription has expired (except admin)
+  const isExpActive = isSubscriptionActive(subscriptionExpiresAt, email);
+  const isPro = (isUserAdmin || (hasValidCode || (existingProfile?.accessLevel === "Pro" && !invitationCode))) && isExpActive;
+  const accessLevel: AccessLevel = isPro ? "Pro" : "Free";
 
   const now = new Date().toISOString();
 
@@ -377,9 +427,11 @@ export async function saveUserProfile(
     email,
     org,
     orgWebsite,
-    invitationCode,
+    invitationCode: invitationCode || existingProfile?.invitationCode || "",
     accessLevel,
-    createdAt: now,
+    subscriptionStartedAt,
+    subscriptionExpiresAt,
+    createdAt: existingProfile?.createdAt || now,
     updatedAt: now,
   };
 
@@ -387,8 +439,8 @@ export async function saveUserProfile(
     try {
       await ensureTable(env.DB);
       await env.DB.prepare(
-        `INSERT INTO user_profiles (user_id, name, email, org, org_website, invitation_code, access_level, created_at, updated_at)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `INSERT INTO user_profiles (user_id, name, email, org, org_website, invitation_code, access_level, subscription_started_at, subscription_expires_at, created_at, updated_at)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
          ON CONFLICT(user_id) DO UPDATE SET
            name = excluded.name,
            email = excluded.email,
@@ -396,6 +448,8 @@ export async function saveUserProfile(
            org_website = excluded.org_website,
            invitation_code = excluded.invitation_code,
            access_level = excluded.access_level,
+           subscription_started_at = excluded.subscription_started_at,
+           subscription_expires_at = excluded.subscription_expires_at,
            updated_at = excluded.updated_at;`
       )
         .bind(
@@ -404,9 +458,11 @@ export async function saveUserProfile(
           email,
           org,
           orgWebsite,
-          invitationCode,
+          profile.invitationCode,
           accessLevel,
-          now,
+          subscriptionStartedAt || null,
+          subscriptionExpiresAt || null,
+          profile.createdAt,
           now
         )
         .run();
