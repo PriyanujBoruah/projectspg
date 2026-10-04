@@ -921,7 +921,7 @@ node scripts/multicore_benchmark.mjs --workers 8</pre>
         We understand that this is an empirical overview, but at its core we've seen this architecture unlock production LLM deployments without compromising privacy or incurring perceptible latency penalties.
       </p>
       <p class="prose-p">
-        If you're evaluating a sovereign privacy layer for your enterprise or building multi-tenant AI pipelines, we encourage you to follow future benchmark blogs, test the playground, or reach out to <a href="mailto:support@projectspg.info" style="color:#111827; text-decoration:underline; font-weight:600;">support@projectspg.info</a>. And we'd love any feedback on what may be missing here. Happy building!
+        If you're evaluating a sovereign privacy layer for your enterprise or building multi-tenant AI pipelines, we encourage you to follow future benchmark blogs, test the playground, or reach out to <a href="mailto:priyanujboruah@outlook.com" style="color:#111827; text-decoration:underline; font-weight:600;">priyanujboruah@outlook.com</a>. And we'd love any feedback on what may be missing here. Happy building!
       </p>
 
     </div>
@@ -1147,7 +1147,7 @@ node scripts/multicore_benchmark.mjs --workers 8</pre>
               <ul class="space-y-2.5 font-medium text-gray-600">
                 <li><a href="/blog/benchmark" class="hover:text-gray-950 transition">Blog &amp; Benchmarks</a></li>
                 <li><a href="/" class="hover:text-gray-950 transition">About ProjectSPG</a></li>
-                <li><a href="mailto:support@projectspg.info" class="hover:text-gray-950 transition">Support</a></li>
+                <li><a href="mailto:priyanujboruah@outlook.com" class="hover:text-gray-950 transition">Support</a></li>
               </ul>
             </div>
 

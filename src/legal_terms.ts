@@ -208,8 +208,8 @@ export const TERMS_OF_SERVICE_HTML = `<!DOCTYPE html>
         </h2>
         <p>For inquiries, enterprise MSA negotiations, or legal notices regarding these Terms, contact our legal counsel:</p>
         <div class="p-4 rounded-xl bg-gray-50 border border-gray-200 text-xs sm:text-sm font-mono space-y-1">
-          <div><span class="text-gray-400">Legal Counsel:</span> <a href="mailto:legal@projectspg.info" class="text-[#f0523d] font-bold hover:underline">legal@projectspg.info</a></div>
-          <div><span class="text-gray-400">Enterprise Enquiries:</span> <a href="mailto:support@projectspg.info" class="text-gray-800 hover:underline">support@projectspg.info</a></div>
+          <div><span class="text-gray-400">Direct &amp; Legal:</span> <a href="mailto:priyanujboruah@outlook.com" class="text-[#f0523d] font-bold hover:underline">priyanujboruah@outlook.com</a></div>
+          <div><span class="text-gray-400">Enterprise Enquiries:</span> <a href="mailto:priyanujboruah@outlook.com" class="text-gray-800 hover:underline">priyanujboruah@outlook.com</a></div>
           <div><span class="text-gray-400">Website:</span> <a href="https://projectspg.info" class="text-gray-800 hover:underline">https://projectspg.info</a></div>
         </div>
       </section>

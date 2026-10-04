@@ -1248,7 +1248,7 @@ print(response.choices[0].message.content)
                 <li><a href="/blog/benchmark" class="hover:text-gray-950 transition">Blog &amp; Benchmarks</a></li>
                 <li><a href="/blog/countries" class="hover:text-gray-950 transition">109 Countries Matrix</a></li>
                 <li><a href="/" class="hover:text-gray-950 transition">About ProjectSPG</a></li>
-                <li><a href="mailto:support@projectspg.info" class="hover:text-gray-950 transition">Support</a></li>
+                <li><a href="mailto:priyanujboruah@outlook.com" class="hover:text-gray-950 transition">Support</a></li>
               </ul>
             </div>
 

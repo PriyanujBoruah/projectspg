@@ -249,7 +249,7 @@ export const PRIVACY_POLICY_HTML = `<!DOCTYPE html>
         <ul class="list-disc list-inside space-y-1 text-xs sm:text-sm text-gray-600">
           <li><strong>Right to Know &amp; Access:</strong> You can review your account profile and inspect generated API keys at any time via the dashboard.</li>
           <li><strong>Right to Rectification:</strong> Update organization or contact information instantly through your User Settings modal.</li>
-          <li><strong>Right to Erasure ("Right to be Forgotten"):</strong> Request immediate and complete purging of your account and hashed API keys by emailing <a href="mailto:privacy@projectspg.info" class="text-[#f0523d] hover:underline font-medium">privacy@projectspg.info</a>.</li>
+          <li><strong>Right to Erasure ("Right to be Forgotten"):</strong> Request immediate and complete purging of your account and hashed API keys by emailing <a href="mailto:priyanujboruah@outlook.com" class="text-[#f0523d] hover:underline font-medium">priyanujboruah@outlook.com</a>.</li>
           <li><strong>Right to Restrict or Object:</strong> Configure your telemetry settings at any time via our Consent Preferences panel.</li>
         </ul>
       </section>
@@ -273,8 +273,8 @@ export const PRIVACY_POLICY_HTML = `<!DOCTYPE html>
           If you have questions, regulatory audit inquiries, or wish to exercise your data subject rights under GDPR, HIPAA, or DPDP, please reach out to our dedicated privacy security team:
         </p>
         <div class="p-4 rounded-xl bg-gray-50 border border-gray-200 text-xs sm:text-sm font-mono space-y-1">
-          <div><span class="text-gray-400">Email:</span> <a href="mailto:privacy@projectspg.info" class="text-[#f0523d] font-bold hover:underline">privacy@projectspg.info</a></div>
-          <div><span class="text-gray-400">Security Office:</span> <a href="mailto:security@projectspg.info" class="text-gray-800 hover:underline">security@projectspg.info</a></div>
+          <div><span class="text-gray-400">Email:</span> <a href="mailto:priyanujboruah@outlook.com" class="text-[#f0523d] font-bold hover:underline">priyanujboruah@outlook.com</a></div>
+          <div><span class="text-gray-400">Security Office:</span> <a href="mailto:priyanujboruah@outlook.com" class="text-gray-800 hover:underline">priyanujboruah@outlook.com</a></div>
           <div><span class="text-gray-400">Official URL:</span> <a href="https://projectspg.info" class="text-gray-800 hover:underline">https://projectspg.info</a></div>
         </div>
       </section>
