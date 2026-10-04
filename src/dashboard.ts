@@ -342,9 +342,11 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         </a>
 
         <!-- Workspace / Tier Pill Dropdown -->
-        <div id="top-tier-pill" onclick="handleTopTierClick()" class="hidden md:flex items-center gap-1.5 text-xs text-groq-textMuted cursor-pointer hover:text-groq-dark transition ml-2 py-0.5 px-1 rounded hover:bg-gray-100" title="Switch or view plan">
-          <span id="top-tier-label" class="font-normal text-groq-textMuted">Free Trial</span>
-          <i data-lucide="chevrons-up-down" class="w-3 h-3 text-groq-textSubtle"></i>
+        <div id="top-tier-pill" onclick="handleTopTierClick()" class="hidden md:flex items-center gap-1.5 text-[11px] font-semibold cursor-pointer transition-all duration-200 ml-2.5 px-2.5 py-1 rounded-full border shadow-2xs hover:shadow-xs group select-none bg-amber-50/90 hover:bg-amber-100/90 border-amber-200/90 text-amber-900" title="Free Trial Active • Click to upgrade to Professional">
+          <span id="top-tier-dot" class="w-2 h-2 rounded-full bg-amber-500 ring-2 ring-amber-200/60 shrink-0"></span>
+          <span id="top-tier-label" class="tracking-tight font-semibold text-amber-900">Free Trial</span>
+          <span id="top-tier-badge" class="px-1.5 py-0.2 rounded text-[9px] font-bold tracking-wider uppercase bg-amber-200/80 text-amber-800">TRIAL</span>
+          <i id="top-tier-icon" data-lucide="chevrons-up-down" class="w-3 h-3 text-amber-600/70 group-hover:text-amber-800 transition shrink-0 ml-0.5"></i>
         </div>
       </div>
 
@@ -6614,6 +6616,44 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
       openInvitationModal(true);
     }
 
+    function updateTopTierPill(isFull) {
+      const pill = document.getElementById('top-tier-pill');
+      const dot = document.getElementById('top-tier-dot');
+      const label = document.getElementById('top-tier-label');
+      const badge = document.getElementById('top-tier-badge');
+      const icon = document.getElementById('top-tier-icon');
+
+      if (!pill || !label) return;
+
+      if (isFull) {
+        pill.className = 'hidden md:flex items-center gap-1.5 text-[11px] font-semibold cursor-pointer transition-all duration-200 ml-2.5 px-2.5 py-1 rounded-full border shadow-2xs hover:shadow-xs group select-none bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-50 hover:from-emerald-100 hover:to-teal-100 border-emerald-300 text-emerald-950';
+        pill.title = 'Professional Tier Active • Click to view organization details';
+        if (dot) dot.className = 'w-2 h-2 rounded-full bg-emerald-500 ring-2 ring-emerald-200 shrink-0';
+        label.textContent = 'Professional';
+        label.className = 'tracking-tight font-semibold text-emerald-900';
+        if (badge) {
+          badge.textContent = 'PRO';
+          badge.className = 'px-1.5 py-0.2 rounded text-[9px] font-bold tracking-wider uppercase bg-emerald-600 text-white shadow-2xs';
+        }
+        if (icon) {
+          icon.className = 'w-3 h-3 text-emerald-600 group-hover:text-emerald-800 transition shrink-0 ml-0.5';
+        }
+      } else {
+        pill.className = 'hidden md:flex items-center gap-1.5 text-[11px] font-semibold cursor-pointer transition-all duration-200 ml-2.5 px-2.5 py-1 rounded-full border shadow-2xs hover:shadow-xs group select-none bg-amber-50/90 hover:bg-amber-100/90 border-amber-200/90 text-amber-900';
+        pill.title = 'Free Trial Active • Click to upgrade to Professional';
+        if (dot) dot.className = 'w-2 h-2 rounded-full bg-amber-500 ring-2 ring-amber-200/60 shrink-0';
+        label.textContent = 'Free Trial';
+        label.className = 'tracking-tight font-semibold text-amber-900';
+        if (badge) {
+          badge.textContent = 'TRIAL';
+          badge.className = 'px-1.5 py-0.2 rounded text-[9px] font-bold tracking-wider uppercase bg-amber-200/80 text-amber-800';
+        }
+        if (icon) {
+          icon.className = 'w-3 h-3 text-amber-600/70 group-hover:text-amber-800 transition shrink-0 ml-0.5';
+        }
+      }
+    }
+
     function openInvitationModal(isManualEdit = false) {
       const modal = document.getElementById('modal-invitation');
       if (!modal) return;
@@ -6927,13 +6967,7 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
           }
         }
 
-        const topTierLabel = document.getElementById('top-tier-label');
-        if (topTierLabel) {
-          topTierLabel.textContent = isFull ? 'Professional' : 'Free Trial';
-          topTierLabel.className = isFull
-            ? 'font-medium text-emerald-700'
-            : 'font-normal text-groq-textMuted';
-        }
+        updateTopTierPill(isFull);
 
         if (landingBtnText) {
           landingBtnText.textContent = 'Console (' + (isFull ? 'Pro' : 'Free') + ')';
@@ -6983,11 +7017,7 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
         if (landingBtnText) landingBtnText.textContent = 'Sign In';
         if (landingMobileBtnText) landingMobileBtnText.textContent = 'Sign In';
 
-        const topTierLabel = document.getElementById('top-tier-label');
-        if (topTierLabel) {
-          topTierLabel.textContent = 'Free Trial';
-          topTierLabel.className = 'font-normal text-groq-textMuted';
-        }
+        updateTopTierPill(false);
 
         if (playgroundTierMode === 'byok') {
           switchPlaygroundTier('free');
