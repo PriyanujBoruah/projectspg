@@ -1621,7 +1621,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         <div class="max-w-[1440px] mx-auto px-2.5 sm:px-4 lg:px-6 relative z-10">
           
           <!-- Section Header -->
-          <div class="text-center max-w-3xl mx-auto mb-16">
+          <div class="text-center max-w-3xl mx-auto mb-10">
             <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#f0523d]/10 border border-[#f0523d]/30 text-[#f0523d] text-[10.5px] font-bold tracking-widest uppercase mb-4 shadow-2xs">
               <i data-lucide="tag" class="w-3.5 h-3.5"></i>
               <span>TRANSPARENT &amp; SOVEREIGN PRICING</span>
@@ -1632,6 +1632,19 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             <p class="text-base sm:text-lg text-gray-500 font-normal mt-3.5 leading-relaxed">
               From independent security researchers to multinational sovereign enclaves, ProjectSPG guarantees zero data leakage with mathematically verified privacy boundaries.
             </p>
+          </div>
+
+          <!-- Billing Cycle Toggle (Monthly vs Yearly) -->
+          <div class="flex items-center justify-center mb-12 sm:mb-14">
+            <div class="bg-gray-100/90 p-1 rounded-full border border-gray-200/90 inline-flex items-center shadow-xs">
+              <button id="billing-btn-monthly" onclick="setPricingBillingCycle('monthly')" type="button" class="px-4 sm:px-5 py-2 rounded-full text-xs font-bold transition-all cursor-pointer bg-white text-gray-900 shadow-xs">
+                Monthly
+              </button>
+              <button id="billing-btn-yearly" onclick="setPricingBillingCycle('yearly')" type="button" class="px-4 sm:px-5 py-2 rounded-full text-xs font-bold transition-all cursor-pointer text-gray-500 hover:text-gray-900 flex items-center gap-1.5">
+                <span>Yearly</span>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-black uppercase bg-[#f0523d] text-white tracking-wide shadow-2xs">Save 17%</span>
+              </button>
+            </div>
           </div>
 
           <!-- Pricing Cards Grid (3 Tiers: Free, Pro, Custom) -->
@@ -1706,10 +1719,10 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                 
                 <div class="mt-6 mb-8 pb-6 border-b border-gray-200/80">
                   <div class="flex items-baseline gap-1.5">
-                    <span class="text-4xl sm:text-5xl font-black text-gray-900 tracking-tight">$59</span>
-                    <span class="text-xs font-semibold uppercase text-gray-500">/ mo</span>
+                    <span id="pricing-pro-amount" class="text-4xl sm:text-5xl font-black text-gray-900 tracking-tight transition-all duration-200">$59</span>
+                    <span id="pricing-pro-period" class="text-xs font-semibold uppercase text-gray-500">/ mo</span>
                   </div>
-                  <p class="text-xs font-semibold text-gray-800 mt-1.5">
+                  <p id="pricing-pro-sub" class="text-xs font-semibold text-gray-800 mt-1.5">
                     $59/mo or <span class="text-[#f0523d] font-bold">$49/mo</span> if billed yearly
                     <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 ml-1">Save 17%</span>
                   </p>
@@ -7005,6 +7018,37 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
 
     function handlePricingCustomClick() {
       switchAccessView('request');
+    }
+
+    let currentPricingCycle = 'monthly';
+
+    function setPricingBillingCycle(cycle) {
+      currentPricingCycle = cycle;
+      const btnMonthly = document.getElementById('billing-btn-monthly');
+      const btnYearly = document.getElementById('billing-btn-yearly');
+      const proAmount = document.getElementById('pricing-pro-amount');
+      const proPeriod = document.getElementById('pricing-pro-period');
+      const proSub = document.getElementById('pricing-pro-sub');
+
+      if (!btnMonthly || !btnYearly) return;
+
+      if (cycle === 'yearly') {
+        btnMonthly.className = 'px-4 sm:px-5 py-2 rounded-full text-xs font-bold transition-all cursor-pointer text-gray-500 hover:text-gray-900';
+        btnYearly.className = 'px-4 sm:px-5 py-2 rounded-full text-xs font-bold transition-all cursor-pointer bg-white text-gray-900 shadow-xs flex items-center gap-1.5';
+        if (proAmount) proAmount.textContent = '$49';
+        if (proPeriod) proPeriod.textContent = '/ mo';
+        if (proSub) {
+          proSub.innerHTML = 'Billed annually ($588/yr) <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 ml-1">Save $120/yr (17%)</span>';
+        }
+      } else {
+        btnMonthly.className = 'px-4 sm:px-5 py-2 rounded-full text-xs font-bold transition-all cursor-pointer bg-white text-gray-900 shadow-xs';
+        btnYearly.className = 'px-4 sm:px-5 py-2 rounded-full text-xs font-bold transition-all cursor-pointer text-gray-500 hover:text-gray-900 flex items-center gap-1.5';
+        if (proAmount) proAmount.textContent = '$59';
+        if (proPeriod) proPeriod.textContent = '/ mo';
+        if (proSub) {
+          proSub.innerHTML = '$59/mo or <span class="text-[#f0523d] font-bold">$49/mo</span> if billed yearly <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 ml-1">Save 17%</span>';
+        }
+      }
     }
 
     async function checkUserInvitationStatus(user) {
