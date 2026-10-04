@@ -7,6 +7,8 @@ import { BENCHMARK_BLOG_HTML } from "./blog_benchmark";
 import { COUNTRIES_BLOG_HTML } from "./blog_countries";
 import { INDUSTRIES_BLOG_HTML } from "./blog_industries";
 import { STACK_BLOG_HTML } from "./blog_stack";
+import { PRIVACY_POLICY_HTML } from "./legal_privacy";
+import { TERMS_OF_SERVICE_HTML } from "./legal_terms";
 import {
   createApiKey,
   listApiKeys,
@@ -93,6 +95,12 @@ app.get("/blog/comparison", (c) => c.html(STACK_BLOG_HTML));
 app.get("/blog/best-ai-privacy", (c) => c.html(STACK_BLOG_HTML));
 app.get("/stack", (c) => c.html(STACK_BLOG_HTML));
 app.get("/comparison", (c) => c.html(STACK_BLOG_HTML));
+
+// Serve Legal & Compliance Pages (Privacy Policy, Terms of Service)
+app.get("/privacy", (c) => c.html(PRIVACY_POLICY_HTML));
+app.get("/privacy-policy", (c) => c.html(PRIVACY_POLICY_HTML));
+app.get("/terms", (c) => c.html(TERMS_OF_SERVICE_HTML));
+app.get("/terms-of-service", (c) => c.html(TERMS_OF_SERVICE_HTML));
 
 // Mount API Key Authentication Middleware on /v1 routes
 app.use("/v1/*", createAuthMiddleware());

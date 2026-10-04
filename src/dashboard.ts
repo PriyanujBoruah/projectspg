@@ -1995,10 +1995,9 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
               <!-- Center Legal Links -->
               <div class="flex flex-wrap items-center justify-center gap-5 sm:gap-7 text-xs text-gray-600">
-                <a href="#docs" onclick="switchView('docs')" class="hover:text-gray-950 transition">Privacy Policy</a>
-                <a href="#docs" onclick="switchView('docs')" class="hover:text-gray-950 transition">Terms of service</a>
-                <a href="#docs" onclick="switchView('docs')" class="hover:text-gray-950 transition">Cookie Policy</a>
-                <a href="#docs" onclick="switchView('docs')" class="hover:text-gray-950 transition">Consent Preferences</a>
+                <a href="/privacy" class="hover:text-gray-950 transition">Privacy Policy</a>
+                <a href="/terms" class="hover:text-gray-950 transition">Terms of Service</a>
+                <button type="button" onclick="openConsentPreferencesModal()" class="hover:text-gray-950 transition cursor-pointer text-xs text-gray-600 font-normal">Consent Preferences</button>
               </div>
 
               <!-- Right Social Icons -->
@@ -4189,6 +4188,141 @@ console.log(data.choices[0].message.content);</div>
           <span>Save Settings</span>
         </button>
       </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: CONSENT PREFERENCES (Sovereign Privacy & Telemetry Settings)       -->
+  <!-- ========================================================================= -->
+  <div id="modal-consent-preferences" onclick="if(event.target === this) closeConsentPreferencesModal()" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white border border-groq-grayBorder rounded-2xl max-w-xl w-full p-5 sm:p-7 shadow-2xl relative max-h-[90vh] overflow-y-auto touch-scroll">
+      
+      <!-- Modal Header -->
+      <div class="flex items-start justify-between pb-4 border-b border-gray-100">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl bg-[#f0523d]/10 text-[#f0523d] flex items-center justify-center">
+            <i data-lucide="sliders" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 class="text-base sm:text-lg font-bold text-gray-950">Consent Preferences</h3>
+            <p class="text-xs text-gray-500 mt-0.5">Manage sovereign privacy, security telemetry, and edge caching rules</p>
+          </div>
+        </div>
+        <button type="button" onclick="closeConsentPreferencesModal()" class="text-gray-400 hover:text-gray-600 p-1.5 rounded-lg hover:bg-gray-100 transition cursor-pointer">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Overview Info Callout -->
+      <div class="my-4 p-3.5 rounded-xl bg-blue-50/70 border border-blue-200/80 text-xs text-blue-900 leading-relaxed flex items-start gap-2.5">
+        <i data-lucide="shield-alert" class="w-4 h-4 text-blue-600 shrink-0 mt-0.5"></i>
+        <span>
+          ProjectSPG does <strong>not use third-party advertising or tracking cookies</strong>. All selections are stored locally in your browser to maintain your privacy boundaries across sessions.
+        </span>
+      </div>
+
+      <!-- Categories Cards List -->
+      <div class="space-y-3.5 my-5 text-xs">
+
+        <!-- Category 1: Strictly Necessary (Locked) -->
+        <div class="p-4 rounded-xl border border-gray-200 bg-gray-50/70">
+          <div class="flex items-start justify-between gap-4">
+            <div class="space-y-1">
+              <div class="flex items-center gap-2">
+                <span class="font-bold text-gray-900 text-[13px]">Strictly Necessary (Core Security Gateway)</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-gray-200 text-gray-700 uppercase">Always Active</span>
+              </div>
+              <p class="text-gray-500 text-[11.5px] leading-relaxed">
+                Essential for running cryptographic token masking in memory, Cloudflare Anycast DDoS protection, and secure Firebase authentication session tokens. Cannot be disabled.
+              </p>
+            </div>
+            <div class="pt-1">
+              <input type="checkbox" checked disabled class="w-4 h-4 accent-[#f0523d] cursor-not-allowed opacity-80" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Category 2: SIEM Audit Telemetry (Toggleable) -->
+        <div class="p-4 rounded-xl border border-gray-200 bg-white hover:border-gray-300 transition">
+          <div class="flex items-start justify-between gap-4">
+            <div class="space-y-1">
+              <div class="flex items-center gap-2">
+                <span class="font-bold text-gray-900 text-[13px]">SIEM Audit &amp; Rule Matching Telemetry</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 uppercase">Zero-Plaintext</span>
+              </div>
+              <p class="text-gray-500 text-[11.5px] leading-relaxed">
+                Records non-plaintext SHA-256 entity hashes, rule IDs (e.g. GDPR, HIPAA), and microsecond execution latencies in a short-lived circular ring buffer for compliance verification.
+              </p>
+            </div>
+            <div class="pt-1">
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" id="consent-toggle-audit" class="sr-only peer" checked>
+                <div class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#f0523d]"></div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category 3: Edge Performance & Latency Analytics (Toggleable) -->
+        <div class="p-4 rounded-xl border border-gray-200 bg-white hover:border-gray-300 transition">
+          <div class="flex items-start justify-between gap-4">
+            <div class="space-y-1">
+              <div class="flex items-center gap-2">
+                <span class="font-bold text-gray-900 text-[13px]">Edge Routing &amp; Latency Analytics</span>
+              </div>
+              <p class="text-gray-500 text-[11.5px] leading-relaxed">
+                Measures multi-jurisdiction edge latency across 300+ PoPs to optimize closest sovereign enclave routing and memory throughput. Contains zero personal data.
+              </p>
+            </div>
+            <div class="pt-1">
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" id="consent-toggle-performance" class="sr-only peer" checked>
+                <div class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#f0523d]"></div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category 4: BYOK Upstream Pass-Through (Toggleable) -->
+        <div class="p-4 rounded-xl border border-gray-200 bg-white hover:border-gray-300 transition">
+          <div class="flex items-start justify-between gap-4">
+            <div class="space-y-1">
+              <div class="flex items-center gap-2">
+                <span class="font-bold text-gray-900 text-[13px]">Third-Party Model Provider BYOK Pass-Through</span>
+              </div>
+              <p class="text-gray-500 text-[11.5px] leading-relaxed">
+                Allows passing encrypted client API authorization headers directly to upstream foundation models (Mistral AI, Google AI Studio, Groq Cloud).
+              </p>
+            </div>
+            <div class="pt-1">
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" id="consent-toggle-byok" class="sr-only peer" checked>
+                <div class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#f0523d]"></div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Feedback status indicator -->
+      <div id="consent-feedback" class="text-xs text-center font-medium min-h-[20px] mb-4"></div>
+
+      <!-- Action Buttons Row -->
+      <div class="pt-4 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+        <button type="button" onclick="saveConsentPreferences('reject')" class="w-full sm:w-auto px-4 py-2 rounded-xl border border-gray-300 text-gray-700 hover:bg-gray-50 transition cursor-pointer font-medium">
+          Reject Non-Essential
+        </button>
+        <div class="flex items-center gap-2 w-full sm:w-auto">
+          <button type="button" onclick="saveConsentPreferences('custom')" class="flex-1 sm:flex-initial px-4 py-2 rounded-xl bg-gray-900 hover:bg-black text-white font-semibold transition cursor-pointer shadow-xs">
+            Save Preferences
+          </button>
+          <button type="button" onclick="saveConsentPreferences('accept_all')" class="flex-1 sm:flex-initial px-4 py-2 rounded-xl bg-[#f0523d] hover:bg-[#d94432] text-white font-semibold transition cursor-pointer shadow-xs">
+            Accept All
+          </button>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -7033,6 +7167,88 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
         if (proSub) {
           proSub.innerHTML = '$67/mo or <span class="text-[#f0523d] font-bold">$49/mo</span> if billed yearly <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 ml-1">Save 27%</span>';
         }
+      }
+    }
+
+    const CONSENT_STORAGE_KEY = 'projectspg_consent_preferences';
+
+    function openConsentPreferencesModal() {
+      const modal = document.getElementById('modal-consent-preferences');
+      if (!modal) return;
+      loadConsentPreferences();
+      modal.classList.remove('hidden');
+      if (window.lucide) window.lucide.createIcons();
+    }
+
+    function closeConsentPreferencesModal() {
+      const modal = document.getElementById('modal-consent-preferences');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function loadConsentPreferences() {
+      try {
+        const raw = localStorage.getItem(CONSENT_STORAGE_KEY);
+        if (raw) {
+          const pref = JSON.parse(raw);
+          const tAudit = document.getElementById('consent-toggle-audit');
+          const tPerf = document.getElementById('consent-toggle-performance');
+          const tByok = document.getElementById('consent-toggle-byok');
+          if (tAudit) tAudit.checked = pref.auditTelemetry !== false;
+          if (tPerf) tPerf.checked = pref.performanceAnalytics !== false;
+          if (tByok) tByok.checked = pref.byokPassThrough !== false;
+        }
+      } catch (e) {
+        console.warn('Consent read warning:', e);
+      }
+    }
+
+    function saveConsentPreferences(mode) {
+      const tAudit = document.getElementById('consent-toggle-audit');
+      const tPerf = document.getElementById('consent-toggle-performance');
+      const tByok = document.getElementById('consent-toggle-byok');
+      const feedback = document.getElementById('consent-feedback');
+
+      let pref = {
+        strictlyNecessary: true,
+        auditTelemetry: true,
+        performanceAnalytics: true,
+        byokPassThrough: true,
+        savedAt: new Date().toISOString()
+      };
+
+      if (mode === 'reject') {
+        pref.auditTelemetry = false;
+        pref.performanceAnalytics = false;
+        pref.byokPassThrough = false;
+        if (tAudit) tAudit.checked = false;
+        if (tPerf) tPerf.checked = false;
+        if (tByok) tByok.checked = false;
+      } else if (mode === 'accept_all') {
+        pref.auditTelemetry = true;
+        pref.performanceAnalytics = true;
+        pref.byokPassThrough = true;
+        if (tAudit) tAudit.checked = true;
+        if (tPerf) tPerf.checked = true;
+        if (tByok) tByok.checked = true;
+      } else {
+        pref.auditTelemetry = tAudit ? tAudit.checked : true;
+        pref.performanceAnalytics = tPerf ? tPerf.checked : true;
+        pref.byokPassThrough = tByok ? tByok.checked : true;
+      }
+
+      try {
+        localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify(pref));
+      } catch (e) {}
+
+      if (feedback) {
+        feedback.className = 'text-xs text-center font-medium min-h-[20px] mb-4 text-emerald-600 block';
+        feedback.textContent = '✓ Preferences saved successfully!';
+        setTimeout(() => {
+          feedback.textContent = '';
+          closeConsentPreferencesModal();
+        }, 500);
+      } else {
+        closeConsentPreferencesModal();
       }
     }
 
