@@ -362,13 +362,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         </nav>
       </div>
 
-      <!-- Right: Settings + Sign In / User Profile -->
+      <!-- Right: Sign In / User Profile -->
       <div class="flex items-center gap-2 sm:gap-3.5">
-        <!-- Settings Gear Icon -->
-        <button onclick="openConfigModal()" class="text-groq-textMuted hover:text-groq-dark transition p-1.5 rounded-lg hover:bg-gray-100 cursor-pointer" title="Settings">
-          <i data-lucide="settings" class="w-4 h-4"></i>
-        </button>
-
         <!-- Sign In Button (Shown when logged out) -->
         <button id="btn-login-trigger" onclick="openAuthModal()" class="px-3 py-1.5 rounded-lg bg-[#f0523d] hover:bg-[#e0422d] text-white font-medium text-xs shadow-xs transition flex items-center gap-1.5 cursor-pointer">
           <i data-lucide="log-in" class="w-3.5 h-3.5"></i>
@@ -3631,34 +3626,6 @@ console.log(data.choices[0].message.content);</div>
     </div>
   </div>
 
-  <div id="modal-config" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-white border border-groq-grayBorder rounded-2xl max-w-md w-full p-5 sm:p-6 shadow-2xl max-h-[90vh] overflow-y-auto touch-scroll">
-      <h3 class="text-base font-bold text-groq-dark mb-1 flex items-center gap-2">
-        <i data-lucide="sliders-horizontal" class="w-4 h-4 text-[#f0523d]"></i> Gateway Parameters
-      </h3>
-      <div class="mt-4 space-y-3 text-xs">
-        <div>
-          <label class="block text-groq-dark font-medium mb-1">Customer BYOK KMS Passphrase</label>
-          <input type="password" id="cfg-kms" placeholder="Passphrase for AES-256-GCM" class="w-full bg-[#f9fafb] border border-groq-grayBorder rounded-lg px-3 py-2 text-groq-dark focus:outline-none font-mono">
-        </div>
-        <div>
-          <label class="block text-groq-dark font-medium mb-1">Upstream Provider API Key</label>
-          <input type="password" id="cfg-apikey" placeholder="Optional raw provider API key" class="w-full bg-[#f9fafb] border border-groq-grayBorder rounded-lg px-3 py-2 text-groq-dark focus:outline-none font-mono">
-        </div>
-        <div>
-          <label class="block text-groq-dark font-medium mb-1">Tokenization Mode</label>
-          <select id="cfg-mode" class="w-full bg-[#f9fafb] border border-groq-grayBorder rounded-lg px-3 py-2 text-groq-dark focus:outline-none font-mono">
-            <option value="structural">Structural (CARD_1, SSN_1, EMAIL_1)</option>
-            <option value="fpe">Format-Preserving (Synthetic Valid Mocks)</option>
-          </select>
-        </div>
-      </div>
-      <div class="mt-6 flex justify-end text-xs">
-        <button onclick="closeConfigModal()" class="px-5 py-2 rounded-lg border border-[#f0523d] bg-white hover:bg-[#fff5f3] text-groq-dark font-semibold cursor-pointer">Save Settings</button>
-      </div>
-    </div>
-  </div>
-
   <!-- ========================================================================= -->
   <!-- MODAL: BYOK PROVIDER API KEYS (Google, Mistral, Groq)                     -->
   <!-- ========================================================================= -->
@@ -4921,7 +4888,8 @@ console.log(data.choices[0].message.content);</div>
       const model = select ? select.value : '';
       const selectedOption = select && select.selectedIndex >= 0 ? select.options[select.selectedIndex] : null;
       const optProvider = selectedOption ? selectedOption.getAttribute('data-provider') : '';
-      const kmsKey = document.getElementById('cfg-kms').value.trim();
+      const kmsInput = document.getElementById('cfg-kms');
+      const kmsKey = kmsInput ? kmsInput.value.trim() : '';
       let apiKey = '';
 
       const isFull = isUserFullyInvited();
@@ -6238,8 +6206,8 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
       if (window.lucide) lucide.createIcons();
     }
 
-    function openConfigModal() { document.getElementById('modal-config').classList.remove('hidden'); }
-    function closeConfigModal() { document.getElementById('modal-config').classList.add('hidden'); }
+    function openConfigModal() { const el = document.getElementById('modal-config'); if (el) el.classList.remove('hidden'); }
+    function closeConfigModal() { const el = document.getElementById('modal-config'); if (el) el.classList.add('hidden'); }
 
     // =========================================================================
     // Account-Scoped BYOK Provider Key Storage Helpers
