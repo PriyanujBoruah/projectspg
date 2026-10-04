@@ -1702,7 +1702,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               <!-- Highlight Pill -->
               <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#f0523d] text-white px-4 py-1 rounded-full text-[10.5px] font-bold tracking-widest uppercase shadow-md flex items-center gap-1.5 whitespace-nowrap">
                 <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
-                <span>MOST POPULAR • 1-YEAR INVITATION GRANT</span>
+                <span>MOST POPULAR</span>
               </div>
 
               <div>
