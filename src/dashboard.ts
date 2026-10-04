@@ -476,6 +476,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             <a href="#platform-section" class="hover:text-gray-950 transition">Platform</a>
             <a href="#research-section" class="hover:text-gray-950 transition">Research</a>
             <a href="#news-section" class="hover:text-gray-950 transition">Blog</a>
+            <a href="#pricing-section" class="hover:text-gray-950 transition">Pricing</a>
             <a href="#access-section" onclick="switchAccessView('request')" class="hover:text-gray-950 transition">Request Access</a>
           </nav>
 
@@ -505,6 +506,10 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             </a>
             <a href="#news-section" onclick="closeLandingMobileMenu()" class="flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-gray-50 hover:text-[#f0523d] transition">
               <span class="flex items-center gap-2.5"><i data-lucide="newspaper" class="w-4 h-4 text-gray-400"></i> Blog</span>
+              <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400"></i>
+            </a>
+            <a href="#pricing-section" onclick="closeLandingMobileMenu()" class="flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-gray-50 hover:text-[#f0523d] transition">
+              <span class="flex items-center gap-2.5"><i data-lucide="tag" class="w-4 h-4 text-gray-400"></i> Pricing</span>
               <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400"></i>
             </a>
             <a href="#access-section" onclick="closeLandingMobileMenu(); switchAccessView('request')" class="flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-gray-50 hover:text-[#f0523d] transition">
@@ -1479,9 +1484,6 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       <!-- SECTION 5: PRIVATE ACCESS & EXCLUSIVE ONBOARDING (By Invitation Only)   -->
       <!-- ======================================================================= -->
       <section id="access-section" class="w-full bg-[#f8fafc] text-gray-900 py-20 sm:py-28 border-t border-gray-200/60 relative overflow-hidden scroll-mt-20 sm:scroll-mt-24">
-        <!-- Legacy Anchor for backward compatibility -->
-        <span id="pricing-section" class="absolute -top-20"></span>
-        
         <!-- Ambient background glow -->
         <div class="absolute top-1/3 left-1/2 -translate-x-1/2 w-[750px] h-[380px] bg-gradient-to-r from-amber-100/40 via-sky-100/30 to-purple-100/30 blur-3xl pointer-events-none -z-0"></div>
 
@@ -1609,6 +1611,222 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       </section>
 
       <!-- ======================================================================= -->
+      <!-- SECTION: PRICING TIERS (Free, Pro, Custom)                              -->
+      <!-- ======================================================================= -->
+      <section id="pricing-section" class="w-full bg-white text-gray-900 py-20 sm:py-28 border-t border-gray-200/60 relative overflow-hidden scroll-mt-20 sm:scroll-mt-24">
+        
+        <!-- Ambient subtle background glow -->
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-r from-orange-100/30 via-red-100/20 to-blue-100/25 blur-3xl pointer-events-none -z-0"></div>
+
+        <div class="max-w-[1440px] mx-auto px-2.5 sm:px-4 lg:px-6 relative z-10">
+          
+          <!-- Section Header -->
+          <div class="text-center max-w-3xl mx-auto mb-16">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#f0523d]/10 border border-[#f0523d]/30 text-[#f0523d] text-[10.5px] font-bold tracking-widest uppercase mb-4 shadow-2xs">
+              <i data-lucide="tag" class="w-3.5 h-3.5"></i>
+              <span>TRANSPARENT &amp; SOVEREIGN PRICING</span>
+            </div>
+            <h2 class="text-3xl sm:text-4xl lg:text-[44px] font-bold tracking-tight text-gray-950 font-sans leading-tight">
+              Predictable Architecture for Every Workload
+            </h2>
+            <p class="text-base sm:text-lg text-gray-500 font-normal mt-3.5 leading-relaxed">
+              From independent security researchers to multinational sovereign enclaves, ProjectSPG guarantees zero data leakage with mathematically verified privacy boundaries.
+            </p>
+          </div>
+
+          <!-- Pricing Cards Grid (3 Tiers: Free, Pro, Custom) -->
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch max-w-6xl mx-auto">
+            
+            <!-- TIER 1: FREE -->
+            <div class="bg-white rounded-3xl border border-gray-200/90 p-7 sm:p-9 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative">
+              <div>
+                <div class="flex items-center justify-between mb-4">
+                  <span class="text-xs font-bold uppercase tracking-wider text-gray-500 font-mono">TIER 01 • COMMUNITY</span>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900">Free</h3>
+                <p class="text-sm text-gray-500 mt-2 min-h-[40px]">Essential privacy gateway for local experimentation and community development.</p>
+                
+                <div class="mt-6 mb-8 pb-6 border-b border-gray-100">
+                  <div class="flex items-baseline gap-1.5">
+                    <span class="text-4xl sm:text-5xl font-black text-gray-900 tracking-tight">$0</span>
+                    <span class="text-xs font-semibold uppercase text-gray-400">/ forever</span>
+                  </div>
+                  <p class="text-[11.5px] text-gray-400 mt-1">No credit card or invitation code required</p>
+                </div>
+
+                <div class="space-y-3.5 text-xs text-gray-700">
+                  <div class="flex items-start gap-3">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i>
+                    <span><strong>Standard Mistral Models:</strong> Codestral-2508, Ministral-8B &amp; 14B</span>
+                  </div>
+                  <div class="flex items-start gap-3">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i>
+                    <span><strong>Real-time PII Redaction:</strong> Automated anonymization &amp; rehydration</span>
+                  </div>
+                  <div class="flex items-start gap-3">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i>
+                    <span><strong>Shared Edge Gateway:</strong> 60 requests/min rate limit</span>
+                  </div>
+                  <div class="flex items-start gap-3">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i>
+                    <span><strong>Interactive Playground:</strong> Live side-by-side terminal &amp; code export</span>
+                  </div>
+                  <div class="flex items-start gap-3">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i>
+                    <span><strong>Community Support:</strong> Discord &amp; GitHub Open-Source Core</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-8 pt-4">
+                <button onclick="handleStartBuildingClick()" class="w-full py-3.5 px-4 rounded-xl border border-gray-300 hover:border-gray-900 bg-white hover:bg-gray-50 text-gray-900 text-xs font-bold uppercase tracking-wider transition cursor-pointer flex items-center justify-center gap-2">
+                  <span>Start Building Free</span>
+                  <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- TIER 2: PRO (Featured) -->
+            <div class="bg-gradient-to-b from-[#f0523d]/[0.03] to-white rounded-3xl border-2 border-[#f0523d] p-7 sm:p-9 flex flex-col justify-between shadow-xl relative scale-100 lg:-translate-y-2">
+              <!-- Highlight Pill -->
+              <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#f0523d] text-white px-4 py-1 rounded-full text-[10.5px] font-bold tracking-widest uppercase shadow-md flex items-center gap-1.5 whitespace-nowrap">
+                <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
+                <span>MOST POPULAR • 1-YEAR INVITATION GRANT</span>
+              </div>
+
+              <div>
+                <div class="flex items-center justify-between mb-4">
+                  <span class="text-xs font-bold uppercase tracking-wider text-[#f0523d] font-mono">TIER 02 • SOVEREIGN PRO</span>
+                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-amber-50 border border-amber-200 text-[10px] font-bold text-amber-700">
+                    <i data-lucide="clock" class="w-3 h-3"></i> 365 Days Active
+                  </span>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900">Pro</h3>
+                <p class="text-sm text-gray-600 mt-2 min-h-[40px]">Production-grade throughput with multi-provider BYOK orchestration and hardware envelope KMS.</p>
+                
+                <div class="mt-6 mb-8 pb-6 border-b border-gray-200/80">
+                  <div class="flex items-baseline gap-1.5">
+                    <span class="text-4xl sm:text-5xl font-black text-gray-900 tracking-tight">$0</span>
+                    <span class="text-xs font-semibold uppercase text-gray-500">/ 1-Yr Full Sovereign Pass</span>
+                  </div>
+                  <p class="text-[11.5px] text-[#f0523d] font-semibold mt-1">Avail via exclusive invitation key (Active for 1 year from activation)</p>
+                </div>
+
+                <div class="space-y-3.5 text-xs text-gray-800 font-medium">
+                  <div class="flex items-start gap-3">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-[#f0523d] shrink-0 mt-0.5"></i>
+                    <span><strong>All LLM Providers Unlocked:</strong> Mistral, Gemini 2.5/Pro &amp; Groq Llama 3.3</span>
+                  </div>
+                  <div class="flex items-start gap-3">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-[#f0523d] shrink-0 mt-0.5"></i>
+                    <span><strong>Zero Rate-Limiting BYOK Mode:</strong> Bring your own keys with zero gateway caps</span>
+                  </div>
+                  <div class="flex items-start gap-3">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-[#f0523d] shrink-0 mt-0.5"></i>
+                    <span><strong>All 10 Canonical Compliance Packs:</strong> GDPR, HIPAA, DPDP, CCPA, PCI-DSS</span>
+                  </div>
+                  <div class="flex items-start gap-3">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-[#f0523d] shrink-0 mt-0.5"></i>
+                    <span><strong>Hardware KMS Envelope Vault:</strong> Isolated token masking with zero key retention</span>
+                  </div>
+                  <div class="flex items-start gap-3">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-[#f0523d] shrink-0 mt-0.5"></i>
+                    <span><strong>Global Edge Network:</strong> Sub-millisecond routing across 300+ edge PoPs</span>
+                  </div>
+                  <div class="flex items-start gap-3">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-[#f0523d] shrink-0 mt-0.5"></i>
+                    <span><strong>Live Validity Duration Tracker:</strong> Automated renewal &amp; subscription panel</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-8 pt-4">
+                <button onclick="handlePricingProClick()" class="w-full py-3.5 px-4 rounded-xl bg-[#f0523d] hover:bg-[#d94432] text-white text-xs font-bold uppercase tracking-wider transition shadow-md hover:shadow-lg cursor-pointer flex items-center justify-center gap-2">
+                  <span>Redeem Pro Invite Key</span>
+                  <i data-lucide="key" class="w-4 h-4"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- TIER 3: CUSTOM (Enterprise / Sovereign) -->
+            <div class="bg-white rounded-3xl border border-gray-200/90 p-7 sm:p-9 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative">
+              <div>
+                <div class="flex items-center justify-between mb-4">
+                  <span class="text-xs font-bold uppercase tracking-wider text-gray-500 font-mono">TIER 03 • ENTERPRISE</span>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900">Custom</h3>
+                <p class="text-sm text-gray-500 mt-2 min-h-[40px]">Dedicated sovereign enclaves and custom cryptographic governance for regulated institutions.</p>
+                
+                <div class="mt-6 mb-8 pb-6 border-b border-gray-100">
+                  <div class="flex items-baseline gap-1.5">
+                    <span class="text-4xl sm:text-5xl font-black text-gray-900 tracking-tight">Custom</span>
+                    <span class="text-xs font-semibold uppercase text-gray-400">/ bespoke enclave</span>
+                  </div>
+                  <p class="text-[11.5px] text-gray-400 mt-1">Tailored for defense, healthcare, fintech &amp; government</p>
+                </div>
+
+                <div class="space-y-3.5 text-xs text-gray-700">
+                  <div class="flex items-start gap-3">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i>
+                    <span><strong>Dedicated VPC &amp; On-Prem Enclaves:</strong> AWS Nitro, GCP Confidential, Azure</span>
+                  </div>
+                  <div class="flex items-start gap-3">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i>
+                    <span><strong>Custom Proprietary NER Dictionaries:</strong> Bespoke industry-specific taxonomy</span>
+                  </div>
+                  <div class="flex items-start gap-3">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i>
+                    <span><strong>109-Country Sovereign Routing:</strong> Strict national geo-fencing &amp; residency locks</span>
+                  </div>
+                  <div class="flex items-start gap-3">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i>
+                    <span><strong>Hardware HSM Integration:</strong> FIPS 140-2 Level 3 customer-managed keys</span>
+                  </div>
+                  <div class="flex items-start gap-3">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i>
+                    <span><strong>99.99% Guaranteed SLA:</strong> 24/7 dedicated sovereign engineering team</span>
+                  </div>
+                  <div class="flex items-start gap-3">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i>
+                    <span><strong>Legal Compliance Attestations:</strong> Signed BAA, SOC 2 Type II, ISO 27001</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-8 pt-4">
+                <button onclick="handlePricingCustomClick()" class="w-full py-3.5 px-4 rounded-xl bg-gray-900 hover:bg-black text-white text-xs font-bold uppercase tracking-wider transition shadow-xs cursor-pointer flex items-center justify-center gap-2">
+                  <span>Request Sovereign Enclave</span>
+                  <i data-lucide="shield-check" class="w-4 h-4"></i>
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Bottom Security Trust Assurance Bar -->
+          <div class="mt-14 pt-8 border-t border-gray-100 flex flex-wrap items-center justify-center gap-6 sm:gap-12 text-xs text-gray-500 font-medium">
+            <div class="flex items-center gap-2">
+              <i data-lucide="shield" class="w-4 h-4 text-[#f0523d]"></i>
+              <span>Zero-Log Ephemeral Architecture</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <i data-lucide="lock" class="w-4 h-4 text-blue-600"></i>
+              <span>Hardware-Isolated KMS Envelopes</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <i data-lucide="globe-2" class="w-4 h-4 text-emerald-600"></i>
+              <span>109 Sovereign Jurisdictions Supported</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <i data-lucide="zap" class="w-4 h-4 text-amber-500"></i>
+              <span>Sub-millisecond Edge Latency</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ======================================================================= -->
       <!-- SECTION 6: CALL TO ACTION ("Start building on ProjectSPG")            -->
       <!-- Matches uploaded media: 1790542040866.png                               -->
       <!-- ======================================================================= -->
@@ -1716,11 +1934,12 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
                 <!-- Col 3: DEVELOPERS & PRICING -->
                 <div>
-                  <!-- Subgroup 1: DEVELOPERS -->
+                  <!-- Subgroup 1: DEVELOPERS & PRICING -->
                   <div class="border-t border-gray-200/90 pt-3 mb-3.5">
-                    <span class="text-[10px] font-bold tracking-widest uppercase text-gray-900 font-mono">DEVELOPERS</span>
+                    <span class="text-[10px] font-bold tracking-widest uppercase text-gray-900 font-mono">DEVELOPERS &amp; PRICING</span>
                   </div>
                   <ul class="space-y-2.5 font-medium text-gray-600 mb-6">
+                    <li><a href="#pricing-section" class="hover:text-gray-950 transition">Pricing Tiers (Free, Pro, Custom)</a></li>
                     <li><a href="/blog/benchmark" class="hover:text-gray-950 transition">Research &amp; Benchmark</a></li>
                     <li><a href="/blog/countries" class="hover:text-gray-950 transition">Supported Countries</a></li>
                     <li><a href="https://github.com/PriyanujBoruah/AI-Privacy-Core" target="_blank" class="hover:text-gray-950 transition">Open-Source Core</a></li>
@@ -6770,6 +6989,18 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
       } else {
         openAuthModal();
       }
+    }
+
+    function handlePricingProClick() {
+      if (currentFirebaseUser) {
+        openInvitationModal(true);
+      } else {
+        switchAccessView('redeem');
+      }
+    }
+
+    function handlePricingCustomClick() {
+      switchAccessView('request');
     }
 
     async function checkUserInvitationStatus(user) {
