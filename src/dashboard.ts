@@ -1882,11 +1882,11 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           <!-- Main White Footer Card with Full Curved Corners & Border -->
           <div class="w-full bg-white rounded-[28px] sm:rounded-[44px] border border-gray-200/80 shadow-[0_15px_45px_rgba(0,0,0,0.04)] pt-10 sm:pt-16 pb-8 sm:pb-12 px-4 sm:px-8 lg:px-10 relative overflow-hidden mb-6 sm:mb-10">
             
-            <!-- Top Grid: Brand Logo + 4 Category Columns -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-start">
+            <!-- Top Grid: Brand Logo + Category Columns -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
               
               <!-- Brand Logo (Left Column) -->
-              <div class="lg:col-span-3">
+              <div class="lg:col-span-4 sm:col-span-6">
                 <a href="#landing" onclick="switchView('landing')" class="inline-flex items-center gap-2 group cursor-pointer" title="ProjectSPG">
                   <!-- ProjectSPG Brand Emblem -->
                   <div class="relative w-8 h-8 flex items-center justify-center">
@@ -1898,43 +1898,10 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                 </a>
               </div>
 
-              <!-- 4 Columns of Links -->
-              <div class="lg:col-span-9 grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-6 text-xs">
+              <!-- Remaining Columns of Links -->
+              <div class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12 text-xs">
                 
-                <!-- Col 1: PRODUCTS -->
-                <div>
-                  <div class="border-t border-gray-200/90 pt-3 mb-3.5">
-                    <span class="text-[10px] font-bold tracking-widest uppercase text-gray-900 font-mono">PRODUCTS</span>
-                  </div>
-                  <ul class="space-y-2.5 font-medium text-gray-600">
-                    <li><a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">Data Redaction</a></li>
-                    <li><a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">Context Masking</a></li>
-                    <li><a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">One-Click AI Gateway</a></li>
-                    <li><a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">Multi-Model Freedom</a></li>
-                    <li><a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">Live Rehydration</a></li>
-                    <li><a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">Audit & Security Logs</a></li>
-                    <li><a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">Turnkey Compliance</a></li>
-                  </ul>
-                </div>
-
-                <!-- Col 2: MODELS -->
-                <div>
-                  <div class="border-t border-gray-200/90 pt-3 mb-3.5">
-                    <span class="text-[10px] font-bold tracking-widest uppercase text-gray-900 font-mono">MODELS</span>
-                  </div>
-                  <ul class="space-y-2.5 font-medium text-gray-600">
-                    <li><a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">See all models</a></li>
-                    <li><a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">DeepSeek</a></li>
-                    <li><a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">Meta</a></li>
-                    <li><a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">Qwen</a></li>
-                    <li><a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">Google</a></li>
-                    <li><a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">OpenAI</a></li>
-                    <li><a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">Mistral AI</a></li>
-                    <li><a href="#playground" onclick="switchView('playground')" class="hover:text-gray-950 transition">Custom models</a></li>
-                  </ul>
-                </div>
-
-                <!-- Col 3: DEVELOPERS & PRICING -->
+                <!-- Col 1: DEVELOPERS & PRICING -->
                 <div>
                   <!-- Subgroup 1: DEVELOPERS & PRICING -->
                   <div class="border-t border-gray-200/90 pt-3 mb-3.5">
@@ -1958,7 +1925,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                   </ul>
                 </div>
 
-                <!-- Col 4: RESOURCES -->
+                <!-- Col 2: RESOURCES -->
                 <div>
                   <div class="border-t border-gray-200/90 pt-3 mb-3.5">
                     <span class="text-[10px] font-bold tracking-widest uppercase text-gray-900 font-mono">RESOURCES</span>
