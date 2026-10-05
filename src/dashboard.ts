@@ -1944,7 +1944,6 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                     <li><a href="#pricing-section" class="hover:text-gray-950 transition">Pricing Tiers (Free, Pro, Custom)</a></li>
                     <li><a href="/blog/benchmark" class="hover:text-gray-950 transition">Research &amp; Benchmark</a></li>
                     <li><a href="/blog/countries" class="hover:text-gray-950 transition">Supported Countries</a></li>
-                    <li><a href="https://github.com/PriyanujBoruah/AI-Privacy-Core" target="_blank" class="hover:text-gray-950 transition">Open-Source Core</a></li>
                     <li><a href="#docs" onclick="switchView('docs')" class="hover:text-gray-950 transition">API Documentation</a></li>
                   </ul>
 
@@ -1956,7 +1955,6 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                     <li><a href="#access-section" onclick="switchAccessView('request')" class="hover:text-gray-950 transition">Request Invitation</a></li>
                     <li><a href="#access-section" onclick="switchAccessView('verify')" class="hover:text-gray-950 transition">Redeem Invite Key</a></li>
                     <li><a href="#docs" onclick="switchView('docs')" class="hover:text-gray-950 transition">Enterprise Onboarding</a></li>
-                    <li><a href="#access-section" class="hover:text-gray-950 transition">Sovereign Enclaves</a></li>
                   </ul>
                 </div>
 

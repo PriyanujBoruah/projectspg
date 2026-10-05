@@ -1225,7 +1225,6 @@ print(response.choices[0].message.content)
                 <li><a href="/blog/benchmark" class="hover:text-gray-950 transition">Research &amp; Benchmark</a></li>
                 <li><a href="/blog/countries" class="hover:text-gray-950 transition">Supported Countries</a></li>
                 <li><a href="/dashboard" class="hover:text-gray-950 transition">API Documentation</a></li>
-                <li><a href="https://github.com/PriyanujBoruah/AI-Privacy-Core" target="_blank" class="hover:text-gray-950 transition">Open-Source Core</a></li>
                 <li><a href="/dashboard" class="hover:text-gray-950 transition">Live Playground</a></li>
               </ul>
 
