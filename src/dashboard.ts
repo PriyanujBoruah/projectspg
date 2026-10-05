@@ -2433,12 +2433,24 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     <!-- ======================================================================= -->
     <div id="view-dashboard" class="view-panel flex-1 flex flex-col md:flex-row overflow-visible md:overflow-hidden">
       
-      <!-- STANDALONE LEFT PANEL (Matching Groq Dashboard Left Sidebar with mobile responsive pill strip) -->
-      <aside class="w-full md:w-44 shrink-0 px-3 sm:px-4 md:pl-8 py-2.5 md:py-8 flex flex-row md:flex-col gap-2 md:gap-0 md:space-y-7 text-xs font-medium border-b md:border-b-0 border-groq-grayBorder overflow-x-auto no-scrollbar bg-white touch-scroll">
-        <button onclick="switchDashTab('metrics')" id="dash-tab-btn-metrics" class="dash-tab-btn whitespace-nowrap px-3 py-1.5 md:px-0 md:py-0 rounded-lg md:rounded-none text-center md:text-left text-groq-textMuted hover:text-groq-dark transition cursor-pointer shrink-0">Metrics</button>
-        <button onclick="switchDashTab('usage')" id="dash-tab-btn-usage" class="dash-tab-btn whitespace-nowrap px-3 py-1.5 md:px-0 md:py-0 rounded-lg md:rounded-none text-center md:text-left text-groq-textMuted hover:text-groq-dark transition cursor-pointer shrink-0">Usage</button>
-        <button onclick="switchDashTab('logs')" id="dash-tab-btn-logs" class="dash-tab-btn whitespace-nowrap px-3 py-1.5 md:px-0 md:py-0 rounded-lg md:rounded-none text-center md:text-left text-[#f0523d] font-semibold transition cursor-pointer shrink-0">Logs</button>
-        <button onclick="switchDashTab('batch')" id="dash-tab-btn-batch" class="dash-tab-btn whitespace-nowrap px-3 py-1.5 md:px-0 md:py-0 rounded-lg md:rounded-none text-center md:text-left text-groq-textMuted hover:text-groq-dark transition cursor-pointer shrink-0">Batch</button>
+      <!-- STANDALONE LEFT PANEL (Modern Dashboard Left Sidebar with mobile responsive pill strip) -->
+      <aside class="w-full md:w-48 shrink-0 p-3 sm:px-4 md:py-6 md:px-3 flex flex-row md:flex-col gap-1.5 md:space-y-1.5 text-xs font-medium border-b md:border-b-0 border-groq-grayBorder overflow-x-auto no-scrollbar bg-white touch-scroll">
+        <button onclick="switchDashTab('metrics')" id="dash-tab-btn-metrics" class="dash-tab-btn group w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs transition-all duration-150 cursor-pointer border-l-[3px] text-groq-textMuted border-transparent hover:text-groq-dark hover:bg-gray-50 whitespace-nowrap shrink-0">
+          <i data-lucide="activity" class="tab-icon w-3.5 h-3.5 shrink-0 text-gray-400 group-hover:text-gray-600 transition-colors"></i>
+          <span>Metrics</span>
+        </button>
+        <button onclick="switchDashTab('usage')" id="dash-tab-btn-usage" class="dash-tab-btn group w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs transition-all duration-150 cursor-pointer border-l-[3px] text-groq-textMuted border-transparent hover:text-groq-dark hover:bg-gray-50 whitespace-nowrap shrink-0">
+          <i data-lucide="cpu" class="tab-icon w-3.5 h-3.5 shrink-0 text-gray-400 group-hover:text-gray-600 transition-colors"></i>
+          <span>Usage</span>
+        </button>
+        <button onclick="switchDashTab('logs')" id="dash-tab-btn-logs" class="dash-tab-btn group w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs transition-all duration-150 cursor-pointer border-l-[3px] bg-[#fff5f3] text-[#f0523d] font-bold border-[#f0523d] shadow-2xs whitespace-nowrap shrink-0">
+          <i data-lucide="terminal" class="tab-icon w-3.5 h-3.5 shrink-0 text-[#f0523d] transition-colors"></i>
+          <span>Logs</span>
+        </button>
+        <button onclick="switchDashTab('batch')" id="dash-tab-btn-batch" class="dash-tab-btn group w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs transition-all duration-150 cursor-pointer border-l-[3px] text-groq-textMuted border-transparent hover:text-groq-dark hover:bg-gray-50 whitespace-nowrap shrink-0">
+          <i data-lucide="layers" class="tab-icon w-3.5 h-3.5 shrink-0 text-gray-400 group-hover:text-gray-600 transition-colors"></i>
+          <span>Batch</span>
+        </button>
       </aside>
 
       <!-- MAIN CARD CONTAINER (Rounded top-left & top-right border matching images) -->
@@ -4885,19 +4897,29 @@ console.log(data.choices[0].message.content);</div>
       if (target) target.classList.remove('hidden');
 
       document.querySelectorAll('.dash-tab-btn').forEach(btn => {
-        btn.classList.remove('text-[#f0523d]', 'font-semibold', 'bg-orange-50', 'border', 'border-[#f0523d]/20');
-        btn.classList.add('text-groq-textMuted');
+        btn.classList.remove('bg-[#fff5f3]', 'text-[#f0523d]', 'font-bold', 'border-[#f0523d]', 'shadow-2xs');
+        btn.classList.add('text-groq-textMuted', 'border-transparent');
+        const icon = btn.querySelector('.tab-icon');
+        if (icon) {
+          icon.classList.remove('text-[#f0523d]');
+          icon.classList.add('text-gray-400');
+        }
       });
 
       const activeBtn = document.getElementById('dash-tab-btn-' + tabName);
       if (activeBtn) {
-        activeBtn.classList.remove('text-groq-textMuted');
-        activeBtn.classList.add('text-[#f0523d]', 'font-semibold', 'bg-orange-50', 'border', 'border-[#f0523d]/20');
+        activeBtn.classList.remove('text-groq-textMuted', 'border-transparent');
+        activeBtn.classList.add('bg-[#fff5f3]', 'text-[#f0523d]', 'font-bold', 'border-[#f0523d]', 'shadow-2xs');
+        const icon = activeBtn.querySelector('.tab-icon');
+        if (icon) {
+          icon.classList.remove('text-gray-400');
+          icon.classList.add('text-[#f0523d]');
+        }
       }
       if (tabName === 'logs' || tabName === 'usage' || tabName === 'metrics') fetchApiLogs();
       if (tabName === 'usage') updateUsageStats();
       if (tabName === 'metrics') renderMetricsChart();
-      lucide.createIcons();
+      if (typeof lucide !== 'undefined') lucide.createIcons();
       showInvitationToast();
     }
 
