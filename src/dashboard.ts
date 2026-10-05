@@ -1732,6 +1732,10 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                   </div>
                   <div class="flex items-start gap-3">
                     <i data-lucide="check-circle-2" class="w-4 h-4 text-[#f0523d] shrink-0 mt-0.5"></i>
+                    <span><strong>109 Countries PII Support:</strong> National IDs, tax numbers, passports &amp; banking formats</span>
+                  </div>
+                  <div class="flex items-start gap-3">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-[#f0523d] shrink-0 mt-0.5"></i>
                     <span><strong>Hardware KMS Envelope Vault:</strong> Isolated token masking with zero key retention</span>
                   </div>
                   <div class="flex items-start gap-3">
