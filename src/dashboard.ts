@@ -1704,9 +1704,6 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               <div>
                 <div class="flex items-center justify-between mb-4">
                   <h3 class="text-2xl font-bold text-gray-900">Pro</h3>
-                  <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-amber-50 border border-amber-200 text-[10px] font-bold text-amber-700">
-                    <i data-lucide="clock" class="w-3 h-3"></i> 365 Days Active
-                  </span>
                 </div>
                 
                 <div class="mt-6 mb-8 pb-6 border-b border-gray-200/80">
