@@ -2877,7 +2877,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       <div id="docs-main-scroll" class="flex-1 p-4 sm:p-8 md:p-10 overflow-visible md:overflow-y-auto space-y-16 bg-white">
         
         <!-- SECTION 1: QUICKSTART -->
-        <section id="docs-quickstart" class="space-y-6 pt-2">
+        <section id="docs-quickstart" class="space-y-6 pt-2 scroll-mt-16 md:scroll-mt-6">
           <div>
             <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-orange-50 border border-orange-200/60 text-[#f0523d] text-[11px] font-semibold mb-3">
               <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> Zero-Code Drop-In Privacy Layer
@@ -2935,7 +2935,7 @@ print(response.choices[0].message.content)</div>
         </section>
 
         <!-- SECTION 2: AUTHENTICATION & HEADERS -->
-        <section id="docs-auth-headers" class="space-y-4 pt-4 border-t border-gray-100">
+        <section id="docs-auth-headers" class="space-y-4 pt-4 border-t border-gray-100 scroll-mt-16 md:scroll-mt-6">
           <div>
             <h2 class="text-lg sm:text-xl font-bold text-groq-dark flex items-center gap-2">
               <i data-lucide="lock" class="w-4 h-4 text-purple-600"></i>
@@ -2997,7 +2997,7 @@ print(response.choices[0].message.content)</div>
         </section>
 
         <!-- SECTION 3: POST /v1/chat/completions -->
-        <section id="docs-chat-completions" class="space-y-5 pt-4 border-t border-gray-100">
+        <section id="docs-chat-completions" class="space-y-5 pt-4 border-t border-gray-100 scroll-mt-16 md:scroll-mt-6">
           <div class="space-y-1.5">
             <div class="flex items-center gap-2">
               <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold font-mono text-xs">POST</span>
@@ -3217,7 +3217,7 @@ console.log(data.choices[0].message.content);</div>
         </section>
 
         <!-- SECTION 4: POST /v1/embeddings -->
-        <section id="docs-embeddings" class="space-y-5 pt-4 border-t border-gray-100">
+        <section id="docs-embeddings" class="space-y-5 pt-4 border-t border-gray-100 scroll-mt-16 md:scroll-mt-6">
           <div class="space-y-1.5">
             <div class="flex items-center gap-2">
               <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold font-mono text-xs">POST</span>
@@ -3273,7 +3273,7 @@ console.log(data.choices[0].message.content);</div>
         </section>
 
         <!-- SECTION 5: GET /v1/models -->
-        <section id="docs-models" class="space-y-5 pt-4 border-t border-gray-100">
+        <section id="docs-models" class="space-y-5 pt-4 border-t border-gray-100 scroll-mt-16 md:scroll-mt-6">
           <div class="space-y-1.5">
             <div class="flex items-center gap-2">
               <span class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-bold font-mono text-xs">GET</span>
@@ -3326,7 +3326,7 @@ console.log(data.choices[0].message.content);</div>
         </section>
 
         <!-- SECTION 6: GET /v1/models/{model} -->
-        <section id="docs-models-get" class="space-y-5 pt-4 border-t border-gray-100">
+        <section id="docs-models-get" class="space-y-5 pt-4 border-t border-gray-100 scroll-mt-16 md:scroll-mt-6">
           <div class="space-y-1.5">
             <div class="flex items-center gap-2">
               <span class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-bold font-mono text-xs">GET</span>
@@ -3342,7 +3342,7 @@ console.log(data.choices[0].message.content);</div>
         </section>
 
         <!-- SECTION 7: POST /api/tokenize -->
-        <section id="docs-tokenize" class="space-y-5 pt-4 border-t border-gray-100">
+        <section id="docs-tokenize" class="space-y-5 pt-4 border-t border-gray-100 scroll-mt-16 md:scroll-mt-6">
           <div class="space-y-1.5">
             <div class="flex items-center gap-2">
               <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold font-mono text-xs">POST</span>
@@ -3433,7 +3433,7 @@ console.log(data.choices[0].message.content);</div>
         </section>
 
         <!-- SECTION 8: POST /api/detokenize -->
-        <section id="docs-detokenize" class="space-y-5 pt-4 border-t border-gray-100">
+        <section id="docs-detokenize" class="space-y-5 pt-4 border-t border-gray-100 scroll-mt-16 md:scroll-mt-6">
           <div class="space-y-1.5">
             <div class="flex items-center gap-2">
               <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold font-mono text-xs">POST</span>
@@ -3468,7 +3468,7 @@ console.log(data.choices[0].message.content);</div>
         </section>
 
         <!-- SECTION 9: GET /v1/logs -->
-        <section id="docs-logs" class="space-y-5 pt-4 border-t border-gray-100">
+        <section id="docs-logs" class="space-y-5 pt-4 border-t border-gray-100 scroll-mt-16 md:scroll-mt-6">
           <div class="space-y-1.5">
             <div class="flex items-center gap-2">
               <span class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-bold font-mono text-xs">GET</span>
@@ -3508,7 +3508,7 @@ console.log(data.choices[0].message.content);</div>
         </section>
 
         <!-- SECTION 10: GET /v1/audit/events -->
-        <section id="docs-audit-events" class="space-y-5 pt-4 border-t border-gray-100">
+        <section id="docs-audit-events" class="space-y-5 pt-4 border-t border-gray-100 scroll-mt-16 md:scroll-mt-6">
           <div class="space-y-1.5">
             <div class="flex items-center gap-2">
               <span class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-bold font-mono text-xs">GET</span>
@@ -3524,7 +3524,7 @@ console.log(data.choices[0].message.content);</div>
         </section>
 
         <!-- SECTION 11: KEYS MANAGEMENT -->
-        <section id="docs-keys-list" class="space-y-5 pt-4 border-t border-gray-100">
+        <section id="docs-keys-list" class="space-y-5 pt-4 border-t border-gray-100 scroll-mt-16 md:scroll-mt-6">
           <div class="space-y-1.5">
             <div class="flex items-center gap-2">
               <span class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-bold font-mono text-xs">GET</span>
@@ -3553,7 +3553,7 @@ console.log(data.choices[0].message.content);</div>
             </div>
 
             <!-- 2. Create Key -->
-            <div id="docs-keys-create" class="p-4 rounded-xl border border-groq-grayBorder bg-slate-50/60 space-y-2">
+            <div id="docs-keys-create" class="p-4 rounded-xl border border-groq-grayBorder bg-slate-50/60 space-y-2 scroll-mt-16 md:scroll-mt-6">
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap-2 font-mono text-xs font-semibold text-groq-dark">
                   <span class="px-1.5 py-0.5 rounded text-[10px] bg-emerald-100 text-emerald-800 font-bold">POST</span>
@@ -3572,7 +3572,7 @@ console.log(data.choices[0].message.content);</div>
             </div>
 
             <!-- 3. Delete Key -->
-            <div id="docs-keys-delete" class="p-4 rounded-xl border border-groq-grayBorder bg-slate-50/60 space-y-2">
+            <div id="docs-keys-delete" class="p-4 rounded-xl border border-groq-grayBorder bg-slate-50/60 space-y-2 scroll-mt-16 md:scroll-mt-6">
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap-2 font-mono text-xs font-semibold text-groq-dark">
                   <span class="px-1.5 py-0.5 rounded text-[10px] bg-rose-100 text-rose-800 font-bold">DELETE</span>
@@ -3587,7 +3587,7 @@ console.log(data.choices[0].message.content);</div>
         </section>
 
         <!-- SECTION 12: GET /health -->
-        <section id="docs-health" class="space-y-4 pt-4 border-t border-gray-100 pb-16">
+        <section id="docs-health" class="space-y-4 pt-4 border-t border-gray-100 pb-16 scroll-mt-16 md:scroll-mt-6">
           <div class="space-y-1.5">
             <div class="flex items-center gap-2">
               <span class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-bold font-mono text-xs">GET</span>
@@ -4624,6 +4624,9 @@ console.log(data.choices[0].message.content);</div>
         loadAdminUsers();
         loadAdminInvitations();
       }
+      if (viewName === 'docs') {
+        setTimeout(initDocsScrollSpy, 50);
+      }
       if (typeof lucide !== 'undefined') {
         setTimeout(() => lucide.createIcons(), 10);
       }
@@ -4899,20 +4902,148 @@ console.log(data.choices[0].message.content);</div>
     }
 
     
-    function switchDocsEndpoint(id) {
-      const target = document.getElementById(id);
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
+    // =========================================================================
+    // DOCS SCROLLSPY & SIDEBAR AUTO-HIGHLIGHT
+    // =========================================================================
+    const docsEndpointIds = [
+      'docs-quickstart',
+      'docs-auth-headers',
+      'docs-chat-completions',
+      'docs-embeddings',
+      'docs-models',
+      'docs-models-get',
+      'docs-tokenize',
+      'docs-detokenize',
+      'docs-logs',
+      'docs-audit-events',
+      'docs-keys-list',
+      'docs-keys-create',
+      'docs-keys-delete',
+      'docs-health'
+    ];
+
+    let isDocsManualClick = false;
+    let docsManualClickTimer = null;
+    let docsScrollRaf = null;
+
+    function highlightDocsSidebar(activeId) {
+      if (!activeId) return;
+      const targetLink = document.getElementById('docs-nav-' + activeId);
+      if (!targetLink) return;
+
+      if (targetLink.classList.contains('border-[#f0523d]')) return;
+
       document.querySelectorAll('.docs-nav-link').forEach(link => {
         link.classList.remove('bg-[#fff5f3]', 'text-[#f0523d]', 'font-semibold', 'border-l-2', 'border-[#f0523d]');
         link.classList.add('text-groq-textMuted');
       });
-      const activeLink = document.getElementById('docs-nav-' + id);
-      if (activeLink) {
-        activeLink.classList.remove('text-groq-textMuted');
-        activeLink.classList.add('bg-[#fff5f3]', 'text-[#f0523d]', 'font-semibold', 'border-l-2', 'border-[#f0523d]');
+
+      targetLink.classList.remove('text-groq-textMuted');
+      targetLink.classList.add('bg-[#fff5f3]', 'text-[#f0523d]', 'font-semibold', 'border-l-2', 'border-[#f0523d]');
+
+      // Auto-scroll sidebar navigation to keep active item in view
+      const aside = targetLink.closest('aside');
+      if (aside && aside.scrollHeight > aside.clientHeight) {
+        const asideRect = aside.getBoundingClientRect();
+        const linkRect = targetLink.getBoundingClientRect();
+        if (linkRect.top < asideRect.top + 30 || linkRect.bottom > asideRect.bottom - 30) {
+          targetLink.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
       }
+    }
+
+    function updateDocsActiveSectionOnScroll() {
+      if (activeView !== 'docs' || isDocsManualClick) return;
+
+      const scrollContainer = document.getElementById('docs-main-scroll');
+      if (!scrollContainer) return;
+
+      const isContainerScrollable = scrollContainer.scrollHeight > scrollContainer.clientHeight &&
+        (window.getComputedStyle(scrollContainer).overflowY === 'auto' ||
+         window.getComputedStyle(scrollContainer).overflowY === 'scroll');
+
+      // 1. Boundary check: Scrolled to bottom
+      if (isContainerScrollable) {
+        if (scrollContainer.scrollTop + scrollContainer.clientHeight >= scrollContainer.scrollHeight - 35) {
+          highlightDocsSidebar(docsEndpointIds[docsEndpointIds.length - 1]);
+          return;
+        }
+        if (scrollContainer.scrollTop <= 15) {
+          highlightDocsSidebar(docsEndpointIds[0]);
+          return;
+        }
+      } else {
+        const scrollBottom = window.innerHeight + window.scrollY;
+        const docHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+        if (scrollBottom >= docHeight - 45) {
+          highlightDocsSidebar(docsEndpointIds[docsEndpointIds.length - 1]);
+          return;
+        }
+        if (window.scrollY <= 15) {
+          highlightDocsSidebar(docsEndpointIds[0]);
+          return;
+        }
+      }
+
+      // 2. Active section detection using viewport reading threshold
+      const containerTop = isContainerScrollable ? scrollContainer.getBoundingClientRect().top : 0;
+      const threshold = containerTop + (isContainerScrollable ? 90 : 130);
+
+      let currentActiveId = docsEndpointIds[0];
+
+      for (let i = 0; i < docsEndpointIds.length; i++) {
+        const id = docsEndpointIds[i];
+        const el = document.getElementById(id);
+        if (!el) continue;
+
+        const rect = el.getBoundingClientRect();
+        if (rect.top <= threshold) {
+          currentActiveId = id;
+        } else {
+          break;
+        }
+      }
+
+      highlightDocsSidebar(currentActiveId);
+    }
+
+    function handleDocsScroll() {
+      if (activeView !== 'docs' || isDocsManualClick) return;
+      if (docsScrollRaf) cancelAnimationFrame(docsScrollRaf);
+      docsScrollRaf = requestAnimationFrame(updateDocsActiveSectionOnScroll);
+    }
+
+    function initDocsScrollSpy() {
+      const scrollContainer = document.getElementById('docs-main-scroll');
+      if (scrollContainer && !scrollContainer.dataset.scrollSpyAttached) {
+        scrollContainer.dataset.scrollSpyAttached = 'true';
+        scrollContainer.addEventListener('scroll', handleDocsScroll, { passive: true });
+      }
+
+      if (!window.docsWindowScrollSpyAttached) {
+        window.docsWindowScrollSpyAttached = true;
+        window.addEventListener('scroll', handleDocsScroll, { passive: true });
+        window.addEventListener('resize', handleDocsScroll, { passive: true });
+      }
+
+      updateDocsActiveSectionOnScroll();
+    }
+
+    function switchDocsEndpoint(id) {
+      isDocsManualClick = true;
+      if (docsManualClickTimer) clearTimeout(docsManualClickTimer);
+      docsManualClickTimer = setTimeout(() => {
+        isDocsManualClick = false;
+        updateDocsActiveSectionOnScroll();
+      }, 750);
+
+      const target = document.getElementById(id);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      highlightDocsSidebar(id);
+
       if (window.innerWidth < 768) {
         const content = document.getElementById('docs-sidebar-content');
         if (content && !content.classList.contains('hidden')) {
