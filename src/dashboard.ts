@@ -531,7 +531,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center my-auto py-2 sm:py-4">
             
             <!-- Left Column (Text & CTAs) -->
-            <div class="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left pr-0 lg:pr-6">
+            <div class="lg:col-span-6 flex flex-col items-center lg:items-start text-center lg:text-left pr-0 lg:pr-4">
               
               <!-- Tech Badge Pill -->
               <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/90 border border-blue-200/80 text-blue-700 text-[10.5px] sm:text-[11px] font-semibold tracking-wide uppercase mb-5 sm:mb-6 shadow-2xs">
@@ -540,13 +540,13 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               </div>
 
               <!-- Main Headline matching ProjectSPG -->
-              <h1 class="text-3xl sm:text-5xl lg:text-[62px] leading-[1.12] sm:leading-[1.08] font-medium tracking-tight text-gray-950 mb-5 sm:mb-6 font-sans" style="font-weight: 500;">
+              <h1 class="text-3xl sm:text-5xl lg:text-[54px] xl:text-[62px] leading-[1.12] sm:leading-[1.08] font-medium tracking-tight text-gray-950 mb-5 sm:mb-6 font-sans" style="font-weight: 500;">
                 Build what's next <br/>
                 <span class="text-slate-500 font-medium" style="font-weight: 500;">on the Private Cloud</span>
               </h1>
 
               <!-- Subtitle -->
-              <p class="text-sm sm:text-base lg:text-lg text-slate-700 font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0 mb-7 sm:mb-8" style="font-weight: 400;">
+              <p class="text-sm sm:text-base lg:text-lg text-slate-700 font-normal leading-relaxed max-w-xl mx-auto lg:mx-0 mb-7 sm:mb-8" style="font-weight: 400;">
                 The high-performance AI privacy and routing layer. Real-time zero-knowledge de-identification, 10 sovereign regulatory compliance packs, and instant multi-provider LLM orchestration with sub-millisecond overhead.
               </p>
 
@@ -566,12 +566,12 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             </div>
 
             <!-- Right Column (3D Isometric Architectural Artwork matching ProjectSPG) -->
-            <div class="lg:col-span-5 flex items-center justify-center relative">
-              <div class="relative w-full max-w-[460px] sm:max-w-[520px] lg:max-w-[560px] flex items-center justify-center mx-auto">
+            <div class="lg:col-span-6 flex items-center justify-center lg:justify-end relative w-full">
+              <div class="relative w-full max-w-full flex items-center justify-center lg:justify-end mx-auto">
                 <img 
                   src="/images/hero-illustration.png" 
                   alt="ProjectSPG Architecture: Zero-Trust De-Identification, Sub-Millisecond Latency, 10+ Sovereign Regulatory Packs, Tested Across 1.94 Billion Tokens" 
-                  class="w-full h-auto object-contain drop-shadow-2xl select-none transition-transform duration-300 hover:scale-[1.02]"
+                  class="w-full max-w-full h-auto object-contain drop-shadow-2xl select-none" 
                   loading="eager"
                 />
               </div>
