@@ -567,14 +567,14 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
               <!-- CTA Button Group -->
               <div class="flex flex-row items-center justify-center lg:justify-start gap-2.5 sm:gap-3 w-full sm:w-auto max-w-sm sm:max-w-none mx-auto lg:mx-0 mb-4 sm:mb-0">
-                <button onclick="handleStartBuildingClick()" class="flex-1 sm:flex-none px-4 sm:px-6 py-3 sm:py-3.5 rounded-full bg-black hover:bg-gray-800 text-white text-[11px] sm:text-xs font-bold tracking-wider uppercase transition shadow-md hover:shadow-lg flex items-center justify-center gap-1.5 sm:gap-2 group cursor-pointer whitespace-nowrap">
-                  <span>Start Building</span>
+                <button onclick="switchView('playground')" class="flex-1 sm:flex-none px-4 sm:px-6 py-3 sm:py-3.5 rounded-full bg-black hover:bg-gray-800 text-white text-[11px] sm:text-xs font-bold tracking-wider uppercase transition shadow-md hover:shadow-lg flex items-center justify-center gap-1.5 sm:gap-2 group cursor-pointer whitespace-nowrap">
+                  <span>Try Playground</span>
                   <i data-lucide="arrow-right" class="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-0.5 transition-transform"></i>
                 </button>
                 
-                <button onclick="switchView('playground')" class="flex-1 sm:flex-none px-4 sm:px-6 py-3 sm:py-3.5 rounded-full bg-white hover:bg-slate-50 text-gray-800 text-[11px] sm:text-xs font-bold tracking-wider uppercase transition border border-blue-200/80 shadow-2xs flex items-center justify-center gap-1.5 sm:gap-2 cursor-pointer whitespace-nowrap">
-                  <span>Try Playground</span>
-                  <i data-lucide="terminal" class="w-3.5 h-3.5 text-gray-500"></i>
+                <button onclick="switchAccessView('request')" class="flex-1 sm:flex-none px-4 sm:px-6 py-3 sm:py-3.5 rounded-full bg-white hover:bg-slate-50 text-gray-800 text-[11px] sm:text-xs font-bold tracking-wider uppercase transition border border-blue-200/80 shadow-2xs flex items-center justify-center gap-1.5 sm:gap-2 cursor-pointer whitespace-nowrap">
+                  <span>Request Access</span>
+                  <i data-lucide="key" class="w-3.5 h-3.5 text-gray-500"></i>
                 </button>
               </div>
 
