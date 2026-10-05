@@ -1830,53 +1830,52 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       </section>
 
       <!-- ======================================================================= -->
-      <!-- SECTION 6: CALL TO ACTION ("Start building on ProjectSPG")            -->
-      <!-- Matches uploaded media: 1790542040866.png                               -->
+      <!-- UNIFIED WRAPPER: CALL TO ACTION + FOOTER WITH CONTINUOUS 3D BACKDROP      -->
+      <!-- Matches uploaded media: 1790542040866.png & 1791193690709.png             -->
       <!-- ======================================================================= -->
-      <section class="w-full relative pt-20 pb-28 sm:pt-32 sm:pb-48 overflow-hidden bg-white text-center">
+      <div class="w-full relative overflow-hidden bg-gradient-to-b from-white via-[#f1f6fc]/80 to-[#e8edf7]">
         
-        <!-- 3D Geometric Atmospheric Backdrop -->
-        <div class="absolute inset-0 pointer-events-none overflow-hidden flex items-end justify-center">
-          <!-- Left Warm Coral Glow -->
-          <div class="absolute -left-24 bottom-0 w-[420px] h-[340px] bg-gradient-to-tr from-rose-500/25 via-red-400/20 to-transparent blur-3xl rounded-full"></div>
-          
-          <!-- Center Frosted Glass 3D Arc / Semi-Circle -->
-          <div class="absolute bottom-[-140px] left-1/2 -translate-x-1/2 w-[700px] sm:w-[900px] h-[380px] rounded-t-full bg-gradient-to-b from-sky-100/40 via-blue-50/20 to-transparent border-t-2 border-l border-r border-white/80 backdrop-blur-xl shadow-2xl">
+        <!-- Continuous 3D Geometric Atmospheric Backdrop extending across CTA and Footer -->
+        <div class="absolute inset-0 pointer-events-none overflow-hidden">
+          <!-- Left Warm Coral Glow extending all the way down through footer -->
+          <div class="absolute -left-24 top-20 sm:top-28 w-[460px] h-[520px] bg-gradient-to-tr from-rose-500/25 via-red-400/20 to-transparent blur-3xl rounded-full"></div>
+          <div class="absolute -left-28 top-[38%] w-[520px] h-[650px] bg-gradient-to-tr from-rose-400/20 via-pink-400/15 to-transparent blur-3xl rounded-full"></div>
+          <div class="absolute -left-20 bottom-10 w-[440px] h-[500px] bg-gradient-to-tr from-rose-300/20 via-pink-300/10 to-transparent blur-3xl rounded-full"></div>
+
+          <!-- Center Frosted Glass 3D Arc / Semi-Circle bridging CTA and floating footer card -->
+          <div class="absolute top-[260px] sm:top-[300px] left-1/2 -translate-x-1/2 w-[720px] sm:w-[960px] h-[440px] rounded-t-full bg-gradient-to-b from-sky-100/40 via-blue-50/20 to-transparent border-t-2 border-l border-r border-white/80 backdrop-blur-xl shadow-2xl">
             <!-- Inner Glass Highlights -->
             <div class="absolute top-4 left-1/4 right-1/4 h-0.5 bg-gradient-to-r from-transparent via-white/80 to-transparent"></div>
           </div>
 
-          <!-- Right Deep Royal Blue 3D Disc -->
-          <div class="absolute -right-16 bottom-[-60px] w-72 sm:w-96 h-72 sm:h-96 rounded-[50px] sm:rounded-[64px] bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-900 shadow-[0_25px_60px_rgba(29,78,216,0.45)] transform rotate-[18deg] -skew-x-6 border-t-2 border-l-2 border-sky-300/40"></div>
+          <!-- Right Deep Royal Blue 3D Disc extending gracefully behind the white footer card -->
+          <div class="absolute -right-16 top-[240px] sm:top-[280px] w-72 sm:w-[420px] h-72 sm:h-[420px] rounded-[50px] sm:rounded-[68px] bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-900 shadow-[0_25px_60px_rgba(29,78,216,0.45)] transform rotate-[18deg] -skew-x-6 border-t-2 border-l-2 border-sky-300/40"></div>
 
-          <!-- Far Right Blue/Purple Atmosphere -->
-          <div class="absolute -right-20 bottom-0 w-[480px] h-[400px] bg-gradient-to-tl from-indigo-600/25 via-blue-500/15 to-transparent blur-3xl rounded-full"></div>
+          <!-- Far Right Blue/Purple Atmosphere continuing down through the footer -->
+          <div class="absolute -right-20 top-20 sm:top-28 w-[500px] h-[550px] bg-gradient-to-tl from-indigo-600/25 via-blue-500/15 to-transparent blur-3xl rounded-full"></div>
+          <div class="absolute -right-24 top-[40%] w-[550px] h-[680px] bg-gradient-to-tl from-blue-600/25 via-indigo-600/20 to-transparent blur-3xl rounded-full"></div>
+          <div class="absolute -right-20 bottom-10 w-[480px] h-[550px] bg-gradient-to-tl from-indigo-500/20 via-blue-500/15 to-transparent blur-3xl rounded-full"></div>
         </div>
 
-        <div class="max-w-5xl mx-auto px-2.5 sm:px-4 lg:px-6 relative z-10">
-          <h2 class="text-3xl sm:text-5xl lg:text-[54px] font-bold text-gray-950 tracking-tight leading-tight">
-            Start building on ProjectSPG
-          </h2>
-          <p class="text-sm sm:text-lg lg:text-xl text-gray-500 font-normal mt-4 max-w-2xl mx-auto leading-relaxed">
-            From real-time prompt de-identification to enterprise-grade privacy compliance
-          </p>
-          <div class="mt-8 flex justify-center">
-            <button onclick="handleStartBuildingClick()" class="px-7 py-3.5 rounded-xl bg-black hover:bg-gray-800 text-white text-xs font-bold tracking-wider uppercase transition shadow-md hover:shadow-lg cursor-pointer transform hover:-translate-y-0.5">
-              GET STARTED NOW
-            </button>
+        <!-- SECTION 6: CALL TO ACTION ("Start building on ProjectSPG") -->
+        <section class="w-full relative pt-20 pb-20 sm:pt-32 sm:pb-28 text-center z-10">
+          <div class="max-w-5xl mx-auto px-2.5 sm:px-4 lg:px-6 relative z-10">
+            <h2 class="text-3xl sm:text-5xl lg:text-[54px] font-bold text-gray-950 tracking-tight leading-tight">
+              Start building on ProjectSPG
+            </h2>
+            <p class="text-sm sm:text-lg lg:text-xl text-gray-500 font-normal mt-4 max-w-2xl mx-auto leading-relaxed">
+              From real-time prompt de-identification to enterprise-grade privacy compliance
+            </p>
+            <div class="mt-8 flex justify-center">
+              <button onclick="handleStartBuildingClick()" class="px-7 py-3.5 rounded-xl bg-black hover:bg-gray-800 text-white text-xs font-bold tracking-wider uppercase transition shadow-md hover:shadow-lg cursor-pointer transform hover:-translate-y-0.5">
+                GET STARTED NOW
+              </button>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- ======================================================================= -->
-      <!-- SECTION 6: FOOTER                                                       -->
-      <!-- Matches uploaded media: 1790542042470.png                               -->
-      <!-- ======================================================================= -->
-      <footer class="w-full relative overflow-hidden bg-gradient-to-b from-[#eaf2fc]/60 via-[#f1f6fc] to-[#e8edf7] pt-8 sm:pt-12">
-        
-        <!-- Ambient Edge Colors behind the white card -->
-        <div class="absolute -left-20 top-0 w-80 h-96 bg-rose-400/25 blur-3xl pointer-events-none"></div>
-        <div class="absolute -right-20 top-0 w-96 h-96 bg-blue-500/25 blur-3xl pointer-events-none"></div>
+        <!-- SECTION 7: FOOTER -->
+        <footer class="w-full relative z-10 pt-4 sm:pt-6 pb-8 sm:pb-12">
 
         <div class="max-w-[1440px] mx-auto px-2 sm:px-4 lg:px-6 relative z-10">
           
@@ -2028,6 +2027,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         </div>
 
       </footer>
+      </div>
 
     </div>
 
