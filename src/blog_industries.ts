@@ -1302,21 +1302,24 @@ print(response.choices[0].message.content)
             </a>
           </div>
 
-          <!-- Remaining Columns of Links -->
-          <div class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12 text-xs">
+          <!-- Remaining Columns of Links (3 Columns) -->
+          <div class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-8 lg:gap-10 text-xs">
 
-            <!-- Col 3: DEVELOPERS & PRICING -->
+            <!-- Col 1: DEVELOPERS & PRICING -->
             <div>
               <div class="border-t border-gray-200/90 pt-3 mb-3.5">
-                <span class="text-[10px] font-bold tracking-widest uppercase text-gray-900 font-mono">DEVELOPERS</span>
+                <span class="text-[10px] font-bold tracking-widest uppercase text-gray-900 font-mono">DEVELOPERS &amp; PRICING</span>
               </div>
-              <ul class="space-y-2.5 font-medium text-gray-600 mb-6">
+              <ul class="space-y-2.5 font-medium text-gray-600">
+                <li><a href="/#pricing-section" class="hover:text-gray-950 transition">Pricing Tiers (Free, Pro, Custom)</a></li>
                 <li><a href="/blog/benchmark" class="hover:text-gray-950 transition">Research &amp; Benchmark</a></li>
                 <li><a href="/blog/countries" class="hover:text-gray-950 transition">Supported Countries</a></li>
                 <li><a href="/dashboard" class="hover:text-gray-950 transition">API Documentation</a></li>
-                <li><a href="/dashboard" class="hover:text-gray-950 transition">Live Playground</a></li>
               </ul>
+            </div>
 
+            <!-- Col 2: PRIVATE ACCESS -->
+            <div>
               <div class="border-t border-gray-200/90 pt-3 mb-3.5">
                 <span class="text-[10px] font-bold tracking-widest uppercase text-gray-900 font-mono">PRIVATE ACCESS</span>
               </div>
@@ -1327,13 +1330,14 @@ print(response.choices[0].message.content)
               </ul>
             </div>
 
-            <!-- Col 4: RESOURCES -->
+            <!-- Col 3: RESOURCES -->
             <div>
               <div class="border-t border-gray-200/90 pt-3 mb-3.5">
                 <span class="text-[10px] font-bold tracking-widest uppercase text-gray-900 font-mono">RESOURCES</span>
               </div>
               <ul class="space-y-2.5 font-medium text-gray-600">
                 <li><a href="/blog/benchmark" class="hover:text-gray-950 transition">Blog &amp; Benchmarks</a></li>
+                <li><a href="/blog/countries" class="hover:text-gray-950 transition">109 Countries Matrix</a></li>
                 <li><a href="/" class="hover:text-gray-950 transition">About ProjectSPG</a></li>
                 <li><a href="mailto:priyanujboruah@outlook.com" class="hover:text-gray-950 transition">Support</a></li>
               </ul>
