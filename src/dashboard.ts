@@ -1875,12 +1875,12 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         </section>
 
         <!-- SECTION 7: FOOTER -->
-        <footer class="w-full relative z-10 pt-4 sm:pt-6 pb-8 sm:pb-12">
+        <footer class="w-full relative z-10 pt-4 sm:pt-6 pb-10 sm:pb-16">
 
         <div class="max-w-[1440px] mx-auto px-2 sm:px-4 lg:px-6 relative z-10">
           
-          <!-- Main White Footer Card with Curved Top -->
-          <div class="w-full bg-white rounded-t-[28px] sm:rounded-t-[44px] border-t border-l border-r border-gray-100 shadow-[0_-10px_35px_rgba(0,0,0,0.02)] pt-10 sm:pt-16 pb-10 px-4 sm:px-8 lg:px-10 relative overflow-hidden">
+          <!-- Main White Footer Card with Full Curved Corners & Border -->
+          <div class="w-full bg-white rounded-[28px] sm:rounded-[44px] border border-gray-200/80 shadow-[0_15px_45px_rgba(0,0,0,0.04)] pt-10 sm:pt-16 pb-8 sm:pb-12 px-4 sm:px-8 lg:px-10 relative overflow-hidden mb-6 sm:mb-10">
             
             <!-- Top Grid: Brand Logo + 4 Category Columns -->
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-start">
@@ -1978,8 +1978,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             </div>
 
             <!-- Giant Watermark Brand Name (ProjectSPG Signature) -->
-            <div class="select-none pointer-events-none text-center text-[44px] sm:text-[90px] md:text-[135px] lg:text-[180px] font-bold tracking-tight text-gray-100/90 leading-none my-6 sm:my-10 overflow-hidden font-sans truncate">
-              project<span class="text-[#f0523d]">spg</span>
+            <div class="select-none pointer-events-none w-full flex items-center justify-center text-center text-[44px] sm:text-[90px] md:text-[135px] lg:text-[180px] font-bold tracking-tight text-gray-100/90 leading-[1.15] py-2 sm:py-4 my-4 sm:my-8 overflow-visible font-sans">
+              <span class="whitespace-nowrap inline-block px-1">project<span class="text-[#f0523d]">spg</span></span>
             </div>
 
             <!-- Bottom Legal & Social Row -->
