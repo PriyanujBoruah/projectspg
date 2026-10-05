@@ -9,6 +9,7 @@ import {
   resolveClientIdentifier,
   isFreeTierRequest,
   checkFreeTierRateLimit,
+  checkRateLimit,
   createRateLimitErrorPayload,
   getRateLimitHeaders,
 } from "../auth/rate_limiter";
@@ -550,8 +551,9 @@ openaiApp.post("/chat/completions", async (c) => {
     }
   }
 
+  let profile: any = null;
   if (clientUserId) {
-    const profile = await getUserProfile(c.env, clientUserId);
+    profile = await getUserProfile(c.env, clientUserId);
     if (profile && profile.accessLevel === "Free") {
       const reqModelNorm = (requestedModel || "").toLowerCase().trim();
       if (!LIMITED_ALLOWED_MISTRAL_MODELS.has(reqModelNorm)) {
@@ -629,19 +631,26 @@ openaiApp.post("/chat/completions", async (c) => {
   const upstreamUrl = `${upstreamBaseUrl}/chat/completions`;
   const upstreamAuth = resolveUpstreamAuth(c, requestedModel, upstreamBaseUrl);
 
-  // Enforce Free Tier Rate Limit: 1 protected request per 15 seconds
-  const isFreeTier = isFreeTierRequest(c, apiKeyRecord, upstreamAuth?.isUserKey);
+  // Enforce Rate Limiting for platform infrastructure:
+  // - If user brought their own direct upstream key (BYOK mode), zero platform throttling applies.
+  // - Otherwise:
+  //   - Pro Tier: 1 request per 5 seconds
+  //   - Free Tier: 1 request per 15 seconds
+  const isCustomUpstream = Boolean(upstreamAuth?.isUserKey);
 
-  if (isFreeTier) {
-    const clientId = resolveClientIdentifier(c, apiKeyRecord);
-    const rateLimit = await checkFreeTierRateLimit(clientId, c.env, {
+  if (!isCustomUpstream) {
+    const isPro = apiKeyRecord?.tier === "pro" || profile?.accessLevel === "Pro";
+    const tier = isPro ? "pro" : "free";
+    const clientId = resolveClientIdentifier(c, apiKeyRecord, clientUserId);
+    const rateLimit = await checkRateLimit(clientId, c.env, {
+      tier,
       bypassTest: c.req.header("x-test-bypass-rate-limit") === "true",
     });
     if (!rateLimit.allowed) {
       return c.json(
-        createRateLimitErrorPayload(rateLimit.retryAfterSec),
+        createRateLimitErrorPayload(rateLimit.retryAfterSec, tier),
         429,
-        getRateLimitHeaders(rateLimit.retryAfterSec)
+        getRateLimitHeaders(rateLimit.retryAfterSec, tier)
       );
     }
   }
@@ -923,20 +932,42 @@ openaiApp.post("/embeddings", async (c) => {
   const upstreamUrl = `${upstreamBaseUrl}/embeddings`;
   const upstreamAuth = resolveUpstreamAuth(c, body.model, upstreamBaseUrl);
 
-  // Enforce Free Tier Rate Limit: 1 protected request per 15 seconds
+  // Enforce Rate Limiting for platform infrastructure:
   const apiKeyRecord = (c as any).get("apiKeyRecord");
-  const isFreeTier = isFreeTierRequest(c, apiKeyRecord, upstreamAuth?.isUserKey);
+  const authHeader = c.req.header("Authorization") || "";
+  let clientUserId = apiKeyRecord?.user_id;
+  if (!clientUserId && authHeader.startsWith("Bearer ") && !authHeader.toLowerCase().startsWith("bearer spg_")) {
+    const token = authHeader.slice(7).trim();
+    const fbUser = await verifyFirebaseIdToken(token);
+    if (fbUser) clientUserId = fbUser.uid;
+  }
+  if (!clientUserId) {
+    const userTokenHeader = c.req.header("x-user-token") || "";
+    if (userTokenHeader) {
+      const fbUser = await verifyFirebaseIdToken(userTokenHeader.replace(/^Bearer /i, "").trim());
+      if (fbUser) clientUserId = fbUser.uid;
+    }
+  }
 
-  if (isFreeTier) {
-    const clientId = resolveClientIdentifier(c, apiKeyRecord);
-    const rateLimit = await checkFreeTierRateLimit(clientId, c.env, {
+  let profile: any = null;
+  if (clientUserId) {
+    profile = await getUserProfile(c.env, clientUserId);
+  }
+
+  const isCustomUpstream = Boolean(upstreamAuth?.isUserKey);
+  if (!isCustomUpstream) {
+    const isPro = apiKeyRecord?.tier === "pro" || profile?.accessLevel === "Pro";
+    const tier = isPro ? "pro" : "free";
+    const clientId = resolveClientIdentifier(c, apiKeyRecord, clientUserId);
+    const rateLimit = await checkRateLimit(clientId, c.env, {
+      tier,
       bypassTest: c.req.header("x-test-bypass-rate-limit") === "true",
     });
     if (!rateLimit.allowed) {
       return c.json(
-        createRateLimitErrorPayload(rateLimit.retryAfterSec),
+        createRateLimitErrorPayload(rateLimit.retryAfterSec, tier),
         429,
-        getRateLimitHeaders(rateLimit.retryAfterSec)
+        getRateLimitHeaders(rateLimit.retryAfterSec, tier)
       );
     }
   }
@@ -1107,8 +1138,9 @@ openaiApp.post("/v1beta/models/:action{.+}", async (c) => {
     const fbUser = await verifyFirebaseIdToken(token);
     if (fbUser) clientUserId = fbUser.uid;
   }
+  let profile: any = null;
   if (clientUserId) {
-    const profile = await getUserProfile(c.env, clientUserId);
+    profile = await getUserProfile(c.env, clientUserId);
     if (profile && profile.accessLevel === "Free") {
       return c.json({
         error: {
@@ -1164,19 +1196,19 @@ openaiApp.post("/v1beta/models/:action{.+}", async (c) => {
   const byokGoogleKey = apiKeyRecord?.byok_google_key;
   const isUserKey = Boolean(authHeader || googKey || byokGoogleKey);
 
-  // Enforce Free Tier Rate Limit: 1 protected request per 15 seconds
-  const isFreeTier = isFreeTierRequest(c, apiKeyRecord, isUserKey);
-
-  if (isFreeTier) {
-    const clientId = resolveClientIdentifier(c, apiKeyRecord);
-    const rateLimit = await checkFreeTierRateLimit(clientId, c.env, {
+  if (!isUserKey) {
+    const isPro = apiKeyRecord?.tier === "pro" || profile?.accessLevel === "Pro";
+    const tier = isPro ? "pro" : "free";
+    const clientId = resolveClientIdentifier(c, apiKeyRecord, clientUserId);
+    const rateLimit = await checkRateLimit(clientId, c.env, {
+      tier,
       bypassTest: c.req.header("x-test-bypass-rate-limit") === "true",
     });
     if (!rateLimit.allowed) {
       return c.json(
-        createRateLimitErrorPayload(rateLimit.retryAfterSec),
+        createRateLimitErrorPayload(rateLimit.retryAfterSec, tier),
         429,
-        getRateLimitHeaders(rateLimit.retryAfterSec)
+        getRateLimitHeaders(rateLimit.retryAfterSec, tier)
       );
     }
   }

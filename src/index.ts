@@ -301,14 +301,22 @@ app.post("/api/keys", async (c) => {
     return c.json({ error: "Authentication required to generate an API key. Please sign in." }, 401);
   }
   const name = body.name || "Default Key";
-  const tier = body.tier || "free";
+  const profile = await getUserProfile(c.env, userId);
+  const isPro = profile?.accessLevel === "Pro";
+
+  let tier = body.tier || (isPro ? "pro" : "free");
+  if (isPro && tier === "free") {
+    tier = "pro";
+  }
+
   if (tier === "byok") {
-    const profile = await getUserProfile(c.env, userId);
-    if (!profile || profile.accessLevel !== "Pro") {
+    if (!isPro) {
       return c.json({ error: "BYOK tier requires Pro Access. Upgrade with an invitation code to unlock." }, 403);
     }
   }
-  const quota = tier === "byok" ? 1_000_000 : (body.monthlyQuota || 10_000);
+
+  const defaultQuota = tier === "byok" ? 1_000_000 : (tier === "pro" || isPro ? 100_000 : 10_000);
+  const quota = typeof body.monthlyQuota === "number" ? body.monthlyQuota : defaultQuota;
   const byokKeys = {
     googleKey: body.byokGoogleKey || body.byok_google_key || "",
     mistralKey: body.byokMistralKey || body.byok_mistral_key || "",

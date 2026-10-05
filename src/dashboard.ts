@@ -1684,11 +1684,11 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                   </div>
                   <div class="flex items-start gap-3">
                     <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i>
-                    <span>Rate-limited Testing</span>
+                    <span><strong>10,000</strong> API Requests / mo</span>
                   </div>
                   <div class="flex items-start gap-3">
                     <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i>
-                    <span>API Suite</span>
+                    <span>Community Playground (1 req / 15s)</span>
                   </div>
                 </div>
               </div>
@@ -1726,6 +1726,10 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                 </div>
 
                 <div class="space-y-3.5 text-xs text-gray-800 font-medium">
+                  <div class="flex items-start gap-3">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-[#f0523d] shrink-0 mt-0.5"></i>
+                    <span><strong>100,000</strong> API Requests / mo &amp; 1 req / 5s Playground</span>
+                  </div>
                   <div class="flex items-start gap-3">
                     <i data-lucide="check-circle-2" class="w-4 h-4 text-[#f0523d] shrink-0 mt-0.5"></i>
                     <span><strong>All LLM Providers Unlocked:</strong> Mistral, Google Gemini &amp; Groq</span>
@@ -3854,7 +3858,7 @@ console.log(data.choices[0].message.content);</div>
           <label class="block text-groq-dark font-medium mb-1.5">Access Tier</label>
           <div class="grid grid-cols-2 gap-2 bg-[#f3f4f6] p-1 rounded-xl">
             <button type="button" id="tier-tab-free" onclick="selectCreateKeyTier('free')" class="py-2 px-3 rounded-lg text-xs font-semibold transition cursor-pointer bg-white text-groq-dark shadow-xs flex items-center justify-center gap-1.5">
-              <span>Free Tier</span>
+              <span id="tier-tab-standard-label">Standard Tier</span>
             </button>
             <button type="button" id="tier-tab-byok" onclick="selectCreateKeyTier('byok')" class="py-2 px-3 rounded-lg text-xs font-semibold transition cursor-pointer text-groq-textMuted hover:text-groq-dark flex items-center justify-center gap-1.5">
               <i data-lucide="sparkles" class="w-3.5 h-3.5 text-blue-600"></i>
@@ -3865,10 +3869,10 @@ console.log(data.choices[0].message.content);</div>
           <input type="hidden" id="new-key-tier" value="free">
         </div>
 
-        <!-- Free Tier Info Banner -->
+        <!-- Free / Pro Tier Info Banner -->
         <div id="tier-info-free" class="p-3 rounded-xl bg-gray-50 border border-gray-200/80 text-[11px] text-gray-600 leading-relaxed">
-          <div class="font-semibold text-gray-900 mb-0.5">Free Platform Quota</div>
-          Uses ProjectSPG community infrastructure (1 req / 15s rate limit, 10,000 req/mo). No AI provider API keys required.
+          <div id="tier-info-free-title" class="font-semibold text-gray-900 mb-0.5">Platform Quota</div>
+          <span id="tier-info-free-desc">Uses ProjectSPG community infrastructure (1 req / 15s rate limit, 10,000 req/mo). No AI provider API keys required.</span>
         </div>
 
         <!-- BYOK Tier Credentials Section (Collapsible) -->
@@ -5756,7 +5760,13 @@ console.log(data.choices[0].message.content);</div>
           });
           fetchApiLogs();
         } else if (res.status === 429) {
-          const retrySec = (data.error && data.error.retry_after) || 15;
+          const isPro = (data.error && data.error.tier === 'pro') || isUserFullyInvited();
+          const retrySec = (data.error && data.error.retry_after) || (isPro ? 5 : 15);
+          const limitSec = isPro ? 5 : 15;
+          const tierLabel = isPro ? 'Pro Tier Rate Limit (1 request / 5s)' : 'Free Tier Rate Limit (1 request / 15s)';
+          const tierDesc = isPro
+            ? 'To ensure fair distribution of GPU compute, Pro playground requests are rate limited to 1 protected request per 5 seconds.'
+            : 'To keep free inference available for everyone, free tier requests are rate limited to 1 protected request per 15 seconds.';
           document.getElementById('welcome-message').classList.add('hidden');
           const protBox = document.getElementById('output-protected-container');
           if (protBox) protBox.classList.add('hidden');
@@ -5764,15 +5774,15 @@ console.log(data.choices[0].message.content);</div>
           if (rehydBox) rehydBox.classList.remove('hidden');
           document.getElementById('rehydrated-text').innerHTML =
             '<div class="p-3.5 bg-amber-50 border border-amber-200 rounded-xl text-amber-900 text-xs leading-relaxed">' +
-            '<strong>Free Tier Rate Limit (1 request / 15s)</strong><br/>' +
-            'To keep free inference available for everyone, free tier requests are rate limited to 1 protected request per 15 seconds.<br/>' +
+            '<strong>' + tierLabel + '</strong><br/>' +
+            tierDesc + '<br/>' +
             'Please retry in <strong class="text-[#f0523d]">' + retrySec + 's</strong>, or switch to BYOK mode for unlimited requests.' +
             '</div>';
           localLogs.unshift({
             time: new Date().toLocaleTimeString(),
             timestamp: new Date().toISOString(),
             model: model,
-            key: 'ProjectSPG Free',
+            key: isPro ? 'ProjectSPG Pro' : 'ProjectSPG Free',
             code: 429,
             ttft: '0.000',
             latency: elapsedSec,
@@ -6140,6 +6150,18 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
         }
         return;
       }
+      const isPro = isUserFullyInvited();
+      const tabLabel = document.getElementById('tier-tab-standard-label');
+      if (tabLabel) tabLabel.textContent = isPro ? 'Pro Tier' : 'Free Tier';
+      const freeTitle = document.getElementById('tier-info-free-title');
+      if (freeTitle) freeTitle.textContent = isPro ? 'Pro Platform Quota' : 'Free Platform Quota';
+      const freeDesc = document.getElementById('tier-info-free-desc');
+      if (freeDesc) {
+        freeDesc.textContent = isPro
+          ? 'Uses ProjectSPG Pro infrastructure (1 req / 5s playground rate limit, 100,000 req/mo). Full multi-provider routing included.'
+          : 'Uses ProjectSPG community infrastructure (1 req / 15s rate limit, 10,000 req/mo). No AI provider API keys required.';
+      }
+
       const tierInput = document.getElementById('new-key-tier');
       if (tierInput) tierInput.value = tier;
       const freeTab = document.getElementById('tier-tab-free');
@@ -6181,9 +6203,13 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
         openAuthModal();
         return;
       }
-      const tier = document.getElementById('new-key-tier') ? document.getElementById('new-key-tier').value : 'free';
-      const name = document.getElementById('new-key-name').value.trim() || (tier === 'free' ? 'ProjectSPG Free' : 'ProjectSPG Key');
-      if (tier === 'byok' && !isUserFullyInvited()) {
+      const isPro = isUserFullyInvited();
+      let tier = document.getElementById('new-key-tier') ? document.getElementById('new-key-tier').value : 'free';
+      if (tier === 'free' && isPro) {
+        tier = 'pro';
+      }
+      const name = document.getElementById('new-key-name').value.trim() || (tier === 'free' ? 'ProjectSPG Free' : (tier === 'pro' ? 'ProjectSPG Pro' : 'ProjectSPG Key'));
+      if (tier === 'byok' && !isPro) {
         showInvitationToast(true);
         const feedback = document.getElementById('toast-inv-feedback');
         if (feedback) {
@@ -6192,7 +6218,7 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
         }
         return;
       }
-      const quota = tier === 'byok' ? 1000000 : 10000;
+      const quota = tier === 'byok' ? 1000000 : (isPro || tier === 'pro' ? 100000 : 10000);
       const byokGoogleKey = document.getElementById('new-byok-google') ? document.getElementById('new-byok-google').value.trim() : '';
       const byokMistralKey = document.getElementById('new-byok-mistral') ? document.getElementById('new-byok-mistral').value.trim() : '';
       const byokGroqKey = document.getElementById('new-byok-groq') ? document.getElementById('new-byok-groq').value.trim() : '';

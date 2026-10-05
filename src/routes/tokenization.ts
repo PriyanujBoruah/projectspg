@@ -6,9 +6,12 @@ import { recordAuditEvent, recordApiCallLog, AuditEntitySummary } from "../audit
 import {
   resolveClientIdentifier,
   checkFreeTierRateLimit,
+  checkRateLimit,
   createRateLimitErrorPayload,
   getRateLimitHeaders,
 } from "../auth/rate_limiter";
+import { verifyFirebaseIdToken } from "../auth/firebase";
+import { getUserProfile } from "../auth/profile";
 
 export interface Env {
   DB?: D1Database;
@@ -104,20 +107,42 @@ tokenizationApp.post("/tokenize", async (c) => {
       );
     }
 
-    // Enforce Free Tier Rate Limit: 1 protected request per 15 seconds
+    // Enforce Rate Limiting: Pro Tier (1 req / 5s) vs Free Tier (1 req / 15s)
     const apiKeyRecord = (c as any).get("apiKeyRecord");
-    const isFreeTier = !apiKeyRecord || apiKeyRecord.tier === "free";
+    const authHeader = c.req.header("Authorization") || "";
+    let clientUserId = apiKeyRecord?.user_id;
+    if (!clientUserId && authHeader.startsWith("Bearer ") && !authHeader.toLowerCase().startsWith("bearer spg_")) {
+      const token = authHeader.slice(7).trim();
+      const fbUser = await verifyFirebaseIdToken(token);
+      if (fbUser) clientUserId = fbUser.uid;
+    }
+    if (!clientUserId) {
+      const userTokenHeader = c.req.header("x-user-token") || "";
+      if (userTokenHeader) {
+        const fbUser = await verifyFirebaseIdToken(userTokenHeader.replace(/^Bearer /i, "").trim());
+        if (fbUser) clientUserId = fbUser.uid;
+      }
+    }
 
-    if (isFreeTier) {
-      const clientId = resolveClientIdentifier(c, apiKeyRecord);
-      const rateLimit = await checkFreeTierRateLimit(clientId, c.env, {
+    let profile: any = null;
+    if (clientUserId) {
+      profile = await getUserProfile(c.env, clientUserId);
+    }
+
+    const isEnterpriseOrByok = apiKeyRecord && (apiKeyRecord.tier === "enterprise" || apiKeyRecord.tier === "byok");
+    if (!isEnterpriseOrByok) {
+      const isPro = apiKeyRecord?.tier === "pro" || profile?.accessLevel === "Pro";
+      const tier = isPro ? "pro" : "free";
+      const clientId = resolveClientIdentifier(c, apiKeyRecord, clientUserId);
+      const rateLimit = await checkRateLimit(clientId, c.env, {
+        tier,
         bypassTest: c.req.header("x-test-bypass-rate-limit") === "true",
       });
       if (!rateLimit.allowed) {
         return c.json(
-          createRateLimitErrorPayload(rateLimit.retryAfterSec),
+          createRateLimitErrorPayload(rateLimit.retryAfterSec, tier),
           429,
-          getRateLimitHeaders(rateLimit.retryAfterSec)
+          getRateLimitHeaders(rateLimit.retryAfterSec, tier)
         );
       }
     }

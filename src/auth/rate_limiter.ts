@@ -14,12 +14,18 @@ export const DEFAULT_PLATFORM_KEYS = {
 export const FREE_TIER_INTERVAL_MS = 15_000; // 15 seconds
 export const FREE_TIER_MAX_REQUESTS = 1;
 
+export const PRO_TIER_INTERVAL_MS = 5_000; // 5 seconds
+export const PRO_TIER_MAX_REQUESTS = 1;
+
+export type TierLevel = "free" | "pro";
+
 export interface RateLimitResult {
   allowed: boolean;
   retryAfterSec: number;
   remainingRequests: number;
   resetSec: number;
   isFreeTier: boolean;
+  tier?: TierLevel;
 }
 
 // In-memory sliding timestamp store (per edge isolate L1 cache)
@@ -27,11 +33,14 @@ const inMemoryTimestamps = new Map<string, number>();
 
 /**
  * Resolves a unique client identifier for rate limiting:
- * Priority: API Key ID > CF-Connecting-IP > X-Forwarded-For > anonymous
+ * Priority: API Key ID > User ID > CF-Connecting-IP > X-Forwarded-For > anonymous
  */
-export function resolveClientIdentifier(c: Context, apiKeyRecord?: any): string {
+export function resolveClientIdentifier(c: Context, apiKeyRecord?: any, userId?: string): string {
   if (apiKeyRecord?.id) {
     return `key_${apiKeyRecord.id}`;
+  }
+  if (userId && userId !== "anonymous") {
+    return `user_${userId}`;
   }
   const cfIp = c.req.header("cf-connecting-ip");
   if (cfIp) return `ip_${cfIp.trim()}`;
@@ -61,14 +70,18 @@ export function isFreeTierRequest(c: Context, apiKeyRecord?: any, hasCustomUpstr
 }
 
 /**
- * Checks if the client is within the free tier rate limit:
- * Allows 1 request per 15 seconds.
+ * Generalized Rate Limit checker:
+ * - Free tier: 1 request per 15 seconds
+ * - Pro tier: 1 request per 5 seconds
  */
-export async function checkFreeTierRateLimit(
+export async function checkRateLimit(
   clientId: string,
   env?: any,
-  options?: { bypassTest?: boolean }
+  options?: { tier?: TierLevel; bypassTest?: boolean }
 ): Promise<RateLimitResult> {
+  const tier: TierLevel = options?.tier || "free";
+  const intervalMs = tier === "pro" ? PRO_TIER_INTERVAL_MS : FREE_TIER_INTERVAL_MS;
+
   // Allow test suites to bypass if explicitly requested
   if (options?.bypassTest || (globalThis as any).__DISABLE_RATE_LIMIT__ === true) {
     return {
@@ -76,7 +89,8 @@ export async function checkFreeTierRateLimit(
       retryAfterSec: 0,
       remainingRequests: 1,
       resetSec: 0,
-      isFreeTier: true,
+      isFreeTier: tier === "free",
+      tier,
     };
   }
 
@@ -86,14 +100,15 @@ export async function checkFreeTierRateLimit(
   const lastRequest = inMemoryTimestamps.get(clientId) || 0;
   const elapsed = now - lastRequest;
 
-  if (elapsed < FREE_TIER_INTERVAL_MS) {
-    const retryAfterSec = Math.max(1, Math.ceil((FREE_TIER_INTERVAL_MS - elapsed) / 1000));
+  if (elapsed < intervalMs) {
+    const retryAfterSec = Math.max(1, Math.ceil((intervalMs - elapsed) / 1000));
     return {
       allowed: false,
       retryAfterSec,
       remainingRequests: 0,
       resetSec: retryAfterSec,
-      isFreeTier: true,
+      isFreeTier: tier === "free",
+      tier,
     };
   }
 
@@ -108,15 +123,16 @@ export async function checkFreeTierRateLimit(
 
       if (res && res.last_request_time) {
         const d1Elapsed = now - Number(res.last_request_time);
-        if (d1Elapsed < FREE_TIER_INTERVAL_MS) {
-          const retryAfterSec = Math.max(1, Math.ceil((FREE_TIER_INTERVAL_MS - d1Elapsed) / 1000));
+        if (d1Elapsed < intervalMs) {
+          const retryAfterSec = Math.max(1, Math.ceil((intervalMs - d1Elapsed) / 1000));
           inMemoryTimestamps.set(clientId, Number(res.last_request_time));
           return {
             allowed: false,
             retryAfterSec,
             remainingRequests: 0,
             resetSec: retryAfterSec,
-            isFreeTier: true,
+            isFreeTier: tier === "free",
+            tier,
           };
         }
       }
@@ -169,22 +185,55 @@ export async function checkFreeTierRateLimit(
     allowed: true,
     retryAfterSec: 0,
     remainingRequests: 1,
-    resetSec: 15,
-    isFreeTier: true,
+    resetSec: Math.ceil(intervalMs / 1000),
+    isFreeTier: tier === "free",
+    tier,
   };
+}
+
+/**
+ * Checks if the client is within the free tier rate limit:
+ * Allows 1 request per 15 seconds.
+ */
+export async function checkFreeTierRateLimit(
+  clientId: string,
+  env?: any,
+  options?: { bypassTest?: boolean }
+): Promise<RateLimitResult> {
+  return checkRateLimit(clientId, env, { ...options, tier: "free" });
+}
+
+/**
+ * Checks if the client is within the pro tier rate limit:
+ * Allows 1 request per 5 seconds.
+ */
+export async function checkProTierRateLimit(
+  clientId: string,
+  env?: any,
+  options?: { bypassTest?: boolean }
+): Promise<RateLimitResult> {
+  return checkRateLimit(clientId, env, { ...options, tier: "pro" });
 }
 
 /**
  * Generate wire-compatible Rate Limit Error response payload
  */
-export function createRateLimitErrorPayload(retryAfterSec: number) {
+export function createRateLimitErrorPayload(retryAfterSec: number, tier: TierLevel = "free") {
+  const isPro = tier === "pro";
+  const limitSec = isPro ? 5 : 15;
+  const tierName = isPro ? "Pro" : "Free";
+  const suggestion = isPro
+    ? "or switch to BYOK mode for direct upstream zero-throttling routing."
+    : "or add your own API key for unlimited access.";
+
   return {
     error: {
-      message: `Free tier rate limit exceeded: 1 protected request per 15 seconds. Please retry in ${retryAfterSec}s or add your own API key for unlimited access.`,
+      message: `${tierName} tier rate limit exceeded: 1 protected request per ${limitSec} seconds. Please retry in ${retryAfterSec}s ${suggestion}`,
       type: "rate_limit_error",
       param: null,
       code: "rate_limit_exceeded",
       retry_after: retryAfterSec,
+      tier,
     },
   };
 }
@@ -192,11 +241,12 @@ export function createRateLimitErrorPayload(retryAfterSec: number) {
 /**
  * Standard Rate Limit response headers
  */
-export function getRateLimitHeaders(retryAfterSec: number): Record<string, string> {
+export function getRateLimitHeaders(retryAfterSec: number, tier: TierLevel = "free"): Record<string, string> {
+  const period = tier === "pro" ? "5s" : "15s";
   return {
     "Retry-After": String(retryAfterSec),
     "x-ratelimit-limit": "1",
-    "x-ratelimit-period": "15s",
+    "x-ratelimit-period": period,
     "x-ratelimit-reset": String(retryAfterSec),
   };
 }

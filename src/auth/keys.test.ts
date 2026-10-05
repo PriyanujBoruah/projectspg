@@ -148,4 +148,18 @@ describe("API Key Authentication & Metering", () => {
     const listAlphaAfterAuthorizedRevoke = await listApiKeys(mockEnv, "user_alpha");
     expect(listAlphaAfterAuthorizedRevoke.some((k) => k.id === keyAlpha.id)).toBe(false);
   });
+
+  it("should assign 100,000 requests per month quota to Pro tier keys by default", async () => {
+    const { record: proKey } = await createApiKey("Pro Quota Test", "pro", undefined, mockEnv, "user_pro");
+    expect(proKey.tier).toBe("pro");
+    expect(proKey.monthly_quota).toBe(100_000);
+
+    const { record: freeKey } = await createApiKey("Free Quota Test", "free", undefined, mockEnv, "user_free");
+    expect(freeKey.tier).toBe("free");
+    expect(freeKey.monthly_quota).toBe(10_000);
+
+    const { record: byokKey } = await createApiKey("BYOK Quota Test", "byok", undefined, mockEnv, "user_byok");
+    expect(byokKey.tier).toBe("byok");
+    expect(byokKey.monthly_quota).toBe(1_000_000);
+  });
 });

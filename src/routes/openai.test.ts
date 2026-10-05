@@ -616,6 +616,53 @@ describe("OpenAI Drop-In Wire-Compatible Proxy (/v1/chat/completions)", () => {
     expect(errData.error.message).toContain("1 protected request per 15 seconds");
   });
 
+  it("should enforce 1 request per 5 seconds rate limit on Pro tier when enabled", async () => {
+    (globalThis as any).__DISABLE_RATE_LIMIT__ = false;
+
+    const testApp = new Hono();
+    testApp.use("*", async (c, next) => {
+      (c as any).set("apiKeyRecord", { id: "test_pro_key_rl", user_id: "test_pro_user_rl", tier: "pro" });
+      await next();
+    });
+    testApp.route("/v1", openaiApp);
+
+    globalThis.fetch = vi.fn().mockImplementation(async () => {
+      return new Response(
+        JSON.stringify({ choices: [{ message: { content: "OK" } }] }),
+        { status: 200, headers: { "Content-Type": "application/json" } }
+      );
+    });
+
+    // 1st request -> 200 OK
+    const res1 = await testApp.request("/v1/chat/completions", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "llama-3.3-70b-versatile",
+        messages: [{ role: "user", content: "Pro call 1" }],
+      }),
+    });
+    expect(res1.status).toBe(200);
+
+    // 2nd request immediately -> 429 Too Many Requests
+    const res2 = await testApp.request("/v1/chat/completions", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "llama-3.3-70b-versatile",
+        messages: [{ role: "user", content: "Pro call 2" }],
+      }),
+    });
+    expect(res2.status).toBe(429);
+    expect(res2.headers.get("Retry-After")).toBeDefined();
+    expect(res2.headers.get("x-ratelimit-period")).toBe("5s");
+
+    const errData: any = await res2.json();
+    expect(errData.error.code).toBe("rate_limit_exceeded");
+    expect(errData.error.tier).toBe("pro");
+    expect(errData.error.message).toContain("1 protected request per 5 seconds");
+  });
+
   it("should correctly route specific playground models to Groq, Google AI Studio, and Mistral AI", async () => {
     let capturedUrl = "";
     let capturedBody: any = null;

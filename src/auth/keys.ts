@@ -69,8 +69,8 @@ export function generateRawKey(isTest = false): string {
 export async function createApiKey(
   name: string,
   tier: "free" | "pro" | "enterprise" | "byok" = "free",
-  monthlyQuota: number = 10_000,
-  env: any,
+  monthlyQuota?: number,
+  env?: any,
   userId: string = "anonymous",
   byokKeys?: {
     googleKey?: string;
@@ -93,12 +93,23 @@ export async function createApiKey(
   if (mistralKey) providers.push("Mistral");
   if (groqKey) providers.push("Groq");
 
+  let effectiveQuota: number;
+  if (tier === "byok") {
+    effectiveQuota = monthlyQuota && monthlyQuota > 1_000_000 ? monthlyQuota : 1_000_000;
+  } else if (tier === "pro") {
+    effectiveQuota = monthlyQuota !== undefined ? monthlyQuota : 100_000;
+  } else if (tier === "enterprise") {
+    effectiveQuota = monthlyQuota !== undefined ? monthlyQuota : 10_000_000;
+  } else {
+    effectiveQuota = monthlyQuota !== undefined ? monthlyQuota : 10_000;
+  }
+
   const record: ApiKeyRecord = {
     id,
     key_prefix: keyPrefix,
     name: name.trim() || "Default Key",
     tier,
-    monthly_quota: tier === "byok" ? 1_000_000 : monthlyQuota,
+    monthly_quota: effectiveQuota,
     requests_used: 0,
     is_active: 1,
     created_at: createdAt,
@@ -210,7 +221,7 @@ export async function validateApiKey(rawKey: string, env: any): Promise<ApiKeyVa
           key_prefix: res.key_prefix,
           name: res.name,
           tier: res.tier,
-          monthly_quota: res.monthly_quota,
+          monthly_quota: res.tier === "pro" && res.monthly_quota < 100_000 ? 100_000 : res.monthly_quota,
           requests_used: res.requests_used,
           is_active: res.is_active,
           created_at: res.created_at,
@@ -281,6 +292,7 @@ export async function listApiKeys(env: any, userId?: string): Promise<ApiKeyReco
           if (row.byok_groq_key) providers.push("Groq");
           return {
             ...row,
+            monthly_quota: row.tier === "pro" && row.monthly_quota < 100_000 ? 100_000 : row.monthly_quota,
             byok_providers: providers,
             byok_google_key: row.byok_google_key ? (row.byok_google_key.slice(0, 4) + "••••••••") : null,
             byok_mistral_key: row.byok_mistral_key ? (row.byok_mistral_key.slice(0, 4) + "••••••••") : null,
