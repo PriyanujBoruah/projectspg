@@ -15,6 +15,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ProjectSPG Console</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" href="/logo.png">
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons CDN -->
@@ -352,7 +354,16 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     <div class="h-[52px] px-3 sm:px-4 lg:px-6 flex items-center justify-between">
       <!-- Left: Brand Logo + Project Selector -->
       <div class="flex items-center gap-2 sm:gap-3.5">
-        <a href="#landing" onclick="switchView('landing')" class="flex items-center gap-1 group" title="Return to Landing Page">
+        <a href="#landing" onclick="switchView('landing')" class="flex items-center gap-2 group cursor-pointer" title="Return to Landing Page">
+          <div class="w-6 h-6 shrink-0 flex items-center justify-center">
+            <svg viewBox="0 0 1024 1024" fill="none" class="w-full h-full">
+              <rect x="307" y="486" width="410" height="52" rx="26" fill="#000000" />
+              <rect x="16" y="233" width="441" height="557" rx="80" fill="#F0523D" />
+              <rect x="567" y="233" width="441" height="557" rx="80" fill="#2663EA" />
+              <circle cx="236.5" cy="511.5" r="68.5" fill="#2663EA" />
+              <circle cx="787.5" cy="511.5" r="68.5" fill="#F0523D" />
+            </svg>
+          </div>
           <span class="font-extrabold text-[20px] sm:text-[22px] tracking-tight text-groq-dark">project<span class="text-[#f0523d]">spg</span></span>
         </a>
 
@@ -463,9 +474,13 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           
           <!-- Left: Brand Emblem + Name -->
           <div class="flex items-center gap-2 sm:gap-2.5 cursor-pointer" onclick="switchView('landing')">
-            <div class="w-7 h-7 rounded-lg bg-black flex items-center justify-center text-white shadow-xs">
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <div class="w-7 h-7 shrink-0 flex items-center justify-center">
+              <svg viewBox="0 0 1024 1024" fill="none" class="w-full h-full">
+                <rect x="307" y="486" width="410" height="52" rx="26" fill="#000000" />
+                <rect x="16" y="233" width="441" height="557" rx="80" fill="#F0523D" />
+                <rect x="567" y="233" width="441" height="557" rx="80" fill="#2663EA" />
+                <circle cx="236.5" cy="511.5" r="68.5" fill="#2663EA" />
+                <circle cx="787.5" cy="511.5" r="68.5" fill="#F0523D" />
               </svg>
             </div>
             <span class="font-bold text-[17px] tracking-tight text-gray-900">project<span class="text-[#f0523d]">spg</span></span>
@@ -1887,12 +1902,16 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               
               <!-- Brand Logo (Left Column) -->
               <div class="lg:col-span-4 sm:col-span-6">
-                <a href="#landing" onclick="switchView('landing')" class="inline-flex items-center gap-2 group cursor-pointer" title="ProjectSPG">
-                  <!-- ProjectSPG Brand Emblem -->
-                  <div class="relative w-8 h-8 flex items-center justify-center">
-                    <span class="absolute top-0 left-1 w-3.5 h-3.5 rounded-full bg-purple-400/90 shadow-2xs"></span>
-                    <span class="absolute top-0 right-1 w-3.5 h-3.5 rounded-full bg-pink-500/90 shadow-2xs"></span>
-                    <span class="absolute bottom-0 left-2.5 w-3.5 h-3.5 rounded-full bg-[#f0523d] shadow-2xs"></span>
+                <a href="#landing" onclick="switchView('landing')" class="inline-flex items-center gap-2.5 group cursor-pointer" title="ProjectSPG">
+                  <!-- ProjectSPG Official Brand Logo -->
+                  <div class="w-8 h-8 shrink-0 flex items-center justify-center">
+                    <svg viewBox="0 0 1024 1024" fill="none" class="w-full h-full">
+                      <rect x="307" y="486" width="410" height="52" rx="26" fill="#000000" />
+                      <rect x="16" y="233" width="441" height="557" rx="80" fill="#F0523D" />
+                      <rect x="567" y="233" width="441" height="557" rx="80" fill="#2663EA" />
+                      <circle cx="236.5" cy="511.5" r="68.5" fill="#2663EA" />
+                      <circle cx="787.5" cy="511.5" r="68.5" fill="#F0523D" />
+                    </svg>
                   </div>
                   <span class="font-extrabold text-[20px] tracking-tight text-gray-950">project<span class="text-[#f0523d]">spg</span></span>
                 </a>

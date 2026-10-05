@@ -27,6 +27,7 @@ import {
 } from "./auth/profile";
 import { LOGO_DATA_URIS, LOGO_FILES } from "./assets/logos";
 import { BLOG_IMAGE_DATA_URIS, BLOG_IMAGE_FILES } from "./assets/images";
+import { PROJECTSPG_LOGO_SVG } from "./assets/brand";
 
 const app = new Hono();
 
@@ -101,6 +102,32 @@ app.get("/privacy", (c) => c.html(PRIVACY_POLICY_HTML));
 app.get("/privacy-policy", (c) => c.html(PRIVACY_POLICY_HTML));
 app.get("/terms", (c) => c.html(TERMS_OF_SERVICE_HTML));
 app.get("/terms-of-service", (c) => c.html(TERMS_OF_SERVICE_HTML));
+
+// Official Brand Logo & Favicon Endpoints
+app.get("/favicon.ico", (c) => {
+  return new Response(PROJECTSPG_LOGO_SVG, {
+    headers: {
+      "Content-Type": "image/svg+xml",
+      "Cache-Control": "public, max-age=86400",
+    },
+  });
+});
+app.get("/favicon.svg", (c) => {
+  return new Response(PROJECTSPG_LOGO_SVG, {
+    headers: {
+      "Content-Type": "image/svg+xml",
+      "Cache-Control": "public, max-age=86400",
+    },
+  });
+});
+app.get("/logo.svg", (c) => {
+  return new Response(PROJECTSPG_LOGO_SVG, {
+    headers: {
+      "Content-Type": "image/svg+xml",
+      "Cache-Control": "public, max-age=86400",
+    },
+  });
+});
 
 // Mount API Key Authentication Middleware on /v1 routes
 app.use("/v1/*", createAuthMiddleware());

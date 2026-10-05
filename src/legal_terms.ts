@@ -17,6 +17,8 @@ export const TERMS_OF_SERVICE_HTML = `<!DOCTYPE html>
   <meta property="og:title" content="Terms of Service | ProjectSPG Sovereign AI Privacy Gateway">
   <meta property="og:description" content="Terms governing the use of ProjectSPG AI Security Layer, wire-compatible proxy APIs, and sovereign enclaves.">
 
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" href="/logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -35,9 +37,13 @@ export const TERMS_OF_SERVICE_HTML = `<!DOCTYPE html>
   <header class="sticky top-0 w-full bg-white/90 backdrop-blur-md border-b border-gray-200/80 z-50">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
       <a href="/" class="flex items-center gap-2.5">
-        <div class="w-7 h-7 rounded-lg bg-black flex items-center justify-center text-white shadow-xs">
-          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        <div class="w-7 h-7 shrink-0 flex items-center justify-center">
+          <svg viewBox="0 0 1024 1024" fill="none" class="w-full h-full">
+            <rect x="307" y="486" width="410" height="52" rx="26" fill="#000000" />
+            <rect x="16" y="233" width="441" height="557" rx="80" fill="#F0523D" />
+            <rect x="567" y="233" width="441" height="557" rx="80" fill="#2663EA" />
+            <circle cx="236.5" cy="511.5" r="68.5" fill="#2663EA" />
+            <circle cx="787.5" cy="511.5" r="68.5" fill="#F0523D" />
           </svg>
         </div>
         <span class="font-bold text-[17px] tracking-tight text-gray-900">project<span class="text-[#f0523d]">spg</span></span>

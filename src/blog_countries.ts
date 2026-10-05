@@ -48,6 +48,8 @@ export const COUNTRIES_BLOG_HTML = `<!DOCTYPE html>
   }
   </script>
 
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" href="/logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -571,10 +573,14 @@ export const COUNTRIES_BLOG_HTML = `<!DOCTYPE html>
   <!-- Top Clean Navigation Bar -->
   <nav class="site-nav">
     <a href="/" class="nav-brand">
-      <div class="brand-dots">
-        <span class="dot dot-pink"></span>
-        <span class="dot dot-orange"></span>
-        <span class="dot dot-purple"></span>
+      <div style="width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+        <svg viewBox="0 0 1024 1024" fill="none" style="width: 100%; height: 100%;">
+          <rect x="307" y="486" width="410" height="52" rx="26" fill="#000000" />
+          <rect x="16" y="233" width="441" height="557" rx="80" fill="#F0523D" />
+          <rect x="567" y="233" width="441" height="557" rx="80" fill="#2663EA" />
+          <circle cx="236.5" cy="511.5" r="68.5" fill="#2663EA" />
+          <circle cx="787.5" cy="511.5" r="68.5" fill="#F0523D" />
+        </svg>
       </div>
       <span>project<span style="color:#f0523d;">spg</span></span>
     </a>
@@ -1170,11 +1176,16 @@ print(response.choices[0].message.content)
           
           <!-- Brand Logo (Left Column) -->
           <div class="lg:col-span-3">
-            <a href="/" class="inline-flex items-center gap-2 group cursor-pointer" title="ProjectSPG">
-              <div class="relative w-8 h-8 flex items-center justify-center">
-                <span class="absolute top-0 left-1 w-3.5 h-3.5 rounded-full bg-purple-400/90 shadow-2xs"></span>
-                <span class="absolute top-0 right-1 w-3.5 h-3.5 rounded-full bg-pink-500/90 shadow-2xs"></span>
-                <span class="absolute bottom-0 left-2.5 w-3.5 h-3.5 rounded-full bg-[#f0523d] shadow-2xs"></span>
+            <a href="/" class="inline-flex items-center gap-2.5 group cursor-pointer" title="ProjectSPG">
+              <!-- ProjectSPG Official Brand Logo -->
+              <div class="w-8 h-8 shrink-0 flex items-center justify-center">
+                <svg viewBox="0 0 1024 1024" fill="none" class="w-full h-full">
+                  <rect x="307" y="486" width="410" height="52" rx="26" fill="#000000" />
+                  <rect x="16" y="233" width="441" height="557" rx="80" fill="#F0523D" />
+                  <rect x="567" y="233" width="441" height="557" rx="80" fill="#2663EA" />
+                  <circle cx="236.5" cy="511.5" r="68.5" fill="#2663EA" />
+                  <circle cx="787.5" cy="511.5" r="68.5" fill="#F0523D" />
+                </svg>
               </div>
               <span class="font-extrabold text-[20px] tracking-tight text-gray-950">project<span class="text-[#f0523d]">spg</span></span>
             </a>
