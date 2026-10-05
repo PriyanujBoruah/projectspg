@@ -1504,7 +1504,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           <div class="text-center max-w-3xl mx-auto mb-14">
             <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-700 text-[10.5px] font-bold tracking-widest uppercase mb-4 shadow-2xs">
               <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
-              <span>PRIVATE BETA • BY INVITATION ONLY</span>
+              <span>PRIVATE INFRASTRUCTURE • BY INVITATION ONLY</span>
             </div>
             <h2 class="text-3xl sm:text-4xl lg:text-[44px] font-bold tracking-tight text-gray-950 font-sans leading-tight">
               Exclusive Sovereign Access
