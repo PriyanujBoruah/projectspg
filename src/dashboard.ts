@@ -4043,7 +4043,7 @@ console.log(data.choices[0].message.content);</div>
 
       <div class="text-center mb-5">
         <span class="font-extrabold text-[22px] tracking-tight text-groq-dark">project<span class="text-[#f0523d]">spg</span></span>
-        <h3 id="auth-modal-title" class="text-sm font-semibold text-groq-dark mt-1">Sign in to your account</h3>
+        <h3 id="auth-modal-title" class="text-sm font-semibold text-groq-dark mt-1">Sign in or create account</h3>
         <p class="text-xs text-groq-textMuted mt-0.5">Manage your API keys, rate limits, and enterprise vault</p>
       </div>
 
@@ -4067,11 +4067,14 @@ console.log(data.choices[0].message.content);</div>
       <!-- Auth Error Banner -->
       <div id="auth-error-banner" class="hidden mb-3 p-2.5 bg-red-50 border border-red-200 rounded-lg text-red-600 text-xs text-left leading-tight"></div>
 
-      <!-- Email / Password Form -->
+      <!-- Email / Password Form (Auto-Detects Existing vs New Accounts) -->
       <form onsubmit="handleEmailAuth(event)" class="space-y-3 text-xs text-left">
         <div>
-          <label class="block text-groq-dark font-medium mb-1">Email</label>
-          <input type="email" id="auth-email" required placeholder="name@example.com" class="w-full bg-[#f9fafb] border border-groq-grayBorder rounded-lg px-3 py-2 text-groq-dark focus:outline-none focus:border-gray-400 font-sans">
+          <div class="flex items-center justify-between mb-1">
+            <label class="block text-groq-dark font-medium">Email</label>
+            <span id="auth-email-badge" class="hidden text-[10px] font-semibold px-2 py-0.5 rounded-full"></span>
+          </div>
+          <input type="email" id="auth-email" required onblur="checkEmailAccountExists()" oninput="onAuthEmailInput()" placeholder="name@example.com" class="w-full bg-[#f9fafb] border border-groq-grayBorder rounded-lg px-3 py-2 text-groq-dark focus:outline-none focus:border-gray-400 font-sans">
         </div>
         <div>
           <label class="block text-groq-dark font-medium mb-1">Password</label>
@@ -4079,13 +4082,12 @@ console.log(data.choices[0].message.content);</div>
         </div>
 
         <button type="submit" id="btn-auth-submit" class="w-full py-2.5 px-4 rounded-xl bg-[#f0523d] hover:bg-[#e0422d] text-white font-semibold transition text-xs shadow-xs cursor-pointer">
-          Sign In
+          Continue
         </button>
       </form>
 
       <div class="mt-4 text-center text-xs text-groq-textMuted">
-        <span id="auth-switch-text">Don't have an account?</span>
-        <button onclick="toggleAuthMode()" id="auth-switch-btn" class="ml-1 text-[#f0523d] font-semibold hover:underline cursor-pointer">Sign up</button>
+        <span id="auth-switch-text">New users will be registered automatically.</span>
       </div>
     </div>
   </div>
@@ -7124,36 +7126,82 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
     // =========================================================================
     // Firebase Authentication Frontend Handlers
     // =========================================================================
+    let detectedAccountState = null; // 'existing' | 'new' | null
+    let emailCheckDebounce = null;
+
+    function resetAuthDetection() {
+      detectedAccountState = null;
+      const badge = document.getElementById('auth-email-badge');
+      if (badge) {
+        badge.textContent = '';
+        badge.className = 'hidden';
+      }
+      const title = document.getElementById('auth-modal-title');
+      if (title) title.textContent = 'Sign in or create account';
+      const submitBtn = document.getElementById('btn-auth-submit');
+      if (submitBtn) submitBtn.textContent = 'Continue';
+      const hint = document.getElementById('auth-switch-text');
+      if (hint) hint.textContent = "New users will be registered automatically.";
+    }
+
+    function onAuthEmailInput() {
+      clearTimeout(emailCheckDebounce);
+      emailCheckDebounce = setTimeout(() => {
+        checkEmailAccountExists();
+      }, 400);
+    }
+
+    async function checkEmailAccountExists() {
+      const emailInput = document.getElementById('auth-email');
+      const badge = document.getElementById('auth-email-badge');
+      const submitBtn = document.getElementById('btn-auth-submit');
+      const title = document.getElementById('auth-modal-title');
+      const hint = document.getElementById('auth-switch-text');
+      if (!emailInput || !badge) return;
+
+      const email = emailInput.value.trim();
+      if (!email || !email.includes('@') || !email.includes('.')) {
+        resetAuthDetection();
+        return;
+      }
+
+      if (firebaseAuth && typeof firebaseAuth.fetchSignInMethodsForEmail === 'function') {
+        try {
+          const methods = await firebaseAuth.fetchSignInMethodsForEmail(email);
+          if (methods && methods.length > 0) {
+            detectedAccountState = 'existing';
+            badge.textContent = 'Existing User';
+            badge.className = 'text-[10px] font-semibold px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200';
+            if (title) title.textContent = 'Welcome back!';
+            if (submitBtn) submitBtn.textContent = 'Sign In';
+            if (hint) hint.textContent = 'Account found. Enter your password to sign in.';
+          } else {
+            detectedAccountState = 'new';
+            badge.textContent = 'New User';
+            badge.className = 'text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200';
+            if (title) title.textContent = 'Create your account';
+            if (submitBtn) submitBtn.textContent = 'Create Account & Continue';
+            if (hint) hint.textContent = 'No account found. We will create your account automatically.';
+          }
+        } catch (e) {
+          // If fetchSignInMethodsForEmail is restricted by Firebase, fallback to neutral
+          badge.className = 'hidden';
+          detectedAccountState = null;
+        }
+      }
+    }
+
     function openAuthModal() {
       document.getElementById('modal-auth').classList.remove('hidden');
       clearAuthErrors();
+      resetAuthDetection();
       lucide.createIcons();
     }
 
     function closeAuthModal() {
       document.getElementById('modal-auth').classList.add('hidden');
       clearAuthErrors();
-    }
-
-    function toggleAuthMode() {
-      authMode = authMode === 'signin' ? 'signup' : 'signin';
-      const title = document.getElementById('auth-modal-title');
-      const submitBtn = document.getElementById('btn-auth-submit');
-      const switchText = document.getElementById('auth-switch-text');
-      const switchBtn = document.getElementById('auth-switch-btn');
-      clearAuthErrors();
-
-      if (authMode === 'signup') {
-        title.textContent = 'Create your account';
-        submitBtn.textContent = 'Create Account';
-        switchText.textContent = 'Already have an account?';
-        switchBtn.textContent = 'Sign in';
-      } else {
-        title.textContent = 'Sign in to your account';
-        submitBtn.textContent = 'Sign In';
-        switchText.textContent = "Don't have an account?";
-        switchBtn.textContent = 'Sign up';
-      }
+      resetAuthDetection();
     }
 
     function showAuthError(msg) {
@@ -7205,17 +7253,63 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
       submitBtn.textContent = 'Processing...';
 
       try {
-        if (authMode === 'signup') {
-          await firebaseAuth.createUserWithEmailAndPassword(email, password);
+        // If already detected as new user, create account directly
+        if (detectedAccountState === 'new') {
+          try {
+            await firebaseAuth.createUserWithEmailAndPassword(email, password);
+          } catch (signUpErr) {
+            if (signUpErr.code === 'auth/email-already-in-use') {
+              await firebaseAuth.signInWithEmailAndPassword(email, password);
+            } else {
+              throw signUpErr;
+            }
+          }
         } else {
-          await firebaseAuth.signInWithEmailAndPassword(email, password);
+          // Attempt sign in first
+          try {
+            await firebaseAuth.signInWithEmailAndPassword(email, password);
+          } catch (signInErr) {
+            const code = signInErr.code || '';
+            const msg = (signInErr.message || '').toLowerCase();
+
+            // 1. User not found -> automatically register!
+            if (code === 'auth/user-not-found' || msg.includes('user-not-found') || msg.includes('no user record')) {
+              await firebaseAuth.createUserWithEmailAndPassword(email, password);
+            } 
+            // 2. Firebase enumeration protection masks user-not-found as invalid credential
+            else if (code === 'auth/invalid-credential' || code === 'auth/invalid-login-credentials') {
+              try {
+                await firebaseAuth.createUserWithEmailAndPassword(email, password);
+              } catch (signUpErr) {
+                if (signUpErr.code === 'auth/email-already-in-use') {
+                  throw new Error('Incorrect password for this account. Please try again.');
+                }
+                throw signUpErr;
+              }
+            } 
+            // 3. Explicit wrong password
+            else if (code === 'auth/wrong-password') {
+              throw new Error('Incorrect password for this account. Please try again.');
+            } else {
+              throw signInErr;
+            }
+          }
         }
+
         closeAuthModal();
         if (activeView === 'landing') {
           switchView('playground');
         }
       } catch (err) {
-        showAuthError(err.message || 'Authentication failed');
+        let userMsg = err.message || 'Authentication failed';
+        if (err.code === 'auth/weak-password') {
+          userMsg = 'Password must be at least 6 characters.';
+        } else if (err.code === 'auth/invalid-email') {
+          userMsg = 'Please enter a valid email address.';
+        } else if (err.code === 'auth/too-many-requests') {
+          userMsg = 'Too many failed login attempts. Please wait a moment or try again later.';
+        }
+        showAuthError(userMsg);
       } finally {
         submitBtn.disabled = false;
         submitBtn.textContent = originalText;
