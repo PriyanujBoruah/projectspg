@@ -562,7 +562,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
               <!-- Subtitle -->
               <p class="text-sm sm:text-base lg:text-lg text-slate-700 font-normal leading-relaxed max-w-xl mx-auto lg:mx-0 mb-7 sm:mb-8" style="font-weight: 400;">
-                The high-performance AI privacy and routing layer. Real-time zero-knowledge de-identification, 10 sovereign regulatory compliance packs, and instant multi-provider LLM orchestration with sub-millisecond overhead.
+                Zero-knowledge AI privacy routing with instant multi-provider compliance orchestration.
               </p>
 
               <!-- CTA Button Group -->
