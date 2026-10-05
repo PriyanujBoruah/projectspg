@@ -1638,11 +1638,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               <span>TRANSPARENT &amp; SOVEREIGN PRICING</span>
             </div>
             <h2 class="text-3xl sm:text-4xl lg:text-[44px] font-bold tracking-tight text-gray-950 font-sans leading-tight">
-              Predictable Architecture for Every Workload
+              Pricing
             </h2>
-            <p class="text-base sm:text-lg text-gray-500 font-normal mt-3.5 leading-relaxed">
-              From independent security researchers to multinational sovereign enclaves, ProjectSPG guarantees zero data leakage with mathematically verified privacy boundaries.
-            </p>
           </div>
 
           <!-- Billing Cycle Toggle (Monthly vs Yearly) -->
