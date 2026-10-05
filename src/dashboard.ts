@@ -556,8 +556,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
               <!-- Main Headline matching ProjectSPG -->
               <h1 class="text-3xl sm:text-5xl lg:text-[54px] xl:text-[62px] leading-[1.12] sm:leading-[1.08] font-medium tracking-tight text-gray-950 mb-5 sm:mb-6 font-sans" style="font-weight: 500;">
-                Build what's next <br/>
-                <span class="text-slate-500 font-medium" style="font-weight: 500;">on the Private Cloud</span>
+                Deploy private AI <br/>
+                <span class="text-slate-500 font-medium" style="font-weight: 500;">with zero data footprint</span>
               </h1>
 
               <!-- Subtitle -->
