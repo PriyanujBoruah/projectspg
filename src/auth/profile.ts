@@ -490,3 +490,107 @@ export async function saveUserProfile(
   localProfileStore.set(userId, profile);
   return profile;
 }
+
+/**
+ * Admin: List all registered user profiles with their organization, referral code, validity, and usage stats
+ */
+export async function listAllUserProfiles(env: any): Promise<any[]> {
+  await ensureTable(env?.DB);
+
+  if (env?.DB) {
+    try {
+      // Query profiles along with aggregated usage telemetry (total requests, total tokens, protected entities)
+      const rows: any = await env.DB.prepare(
+        `SELECT 
+           u.user_id,
+           u.name,
+           u.email,
+           u.org,
+           u.org_website,
+           u.invitation_code,
+           u.access_level,
+           u.subscription_started_at,
+           u.subscription_expires_at,
+           u.created_at,
+           u.updated_at,
+           COALESCE(k_stats.total_keys, 0) AS total_api_keys,
+           COALESCE(k_stats.total_key_requests, 0) AS total_key_requests,
+           COALESCE(l_stats.total_requests, 0) AS total_requests,
+           COALESCE(l_stats.total_tokens, 0) AS total_tokens,
+           COALESCE(l_stats.total_protected_entities, 0) AS total_protected_entities,
+           l_stats.last_active_at
+         FROM user_profiles u
+         LEFT JOIN (
+           SELECT 
+             user_id,
+             COUNT(id) AS total_keys,
+             SUM(requests_used) AS total_key_requests
+           FROM api_keys
+           GROUP BY user_id
+         ) k_stats ON u.user_id = k_stats.user_id
+         LEFT JOIN (
+           SELECT 
+             user_id,
+             COUNT(id) AS total_requests,
+             SUM(total_tokens) AS total_tokens,
+             SUM(protected_entity_count) AS total_protected_entities,
+             MAX(timestamp) AS last_active_at
+           FROM api_request_logs
+           GROUP BY user_id
+         ) l_stats ON u.user_id = l_stats.user_id
+         ORDER BY u.created_at DESC`
+      ).all();
+
+      if (rows && Array.isArray(rows.results)) {
+        return rows.results.map((r: any) => {
+          const isUserAdmin = isAdminEmail(r.email);
+          const rawPro = isUserAdmin || r.access_level === "Pro" || r.access_level === "Full Access";
+          const isExpActive = isSubscriptionActive(r.subscription_expires_at, r.email);
+          const isPro = rawPro && isExpActive;
+
+          return {
+            userId: r.user_id,
+            name: r.name,
+            email: r.email,
+            org: r.org || "",
+            orgWebsite: r.org_website || "",
+            invitationCode: r.invitation_code || "",
+            accessLevel: isPro ? "Pro" : "Free",
+            subscriptionStartedAt: r.subscription_started_at,
+            subscriptionExpiresAt: r.subscription_expires_at,
+            createdAt: r.created_at,
+            updatedAt: r.updated_at,
+            totalApiKeys: r.total_api_keys || 0,
+            totalRequests: Math.max(r.total_requests || 0, r.total_key_requests || 0),
+            totalTokens: r.total_tokens || 0,
+            totalProtectedEntities: r.total_protected_entities || 0,
+            lastActiveAt: r.last_active_at || null,
+          };
+        });
+      }
+    } catch (err) {
+      console.warn("D1 query for listAllUserProfiles failed, fallback to local store:", err);
+    }
+  }
+
+  // Fallback for in-memory store
+  return Array.from(localProfileStore.values()).map((p) => ({
+    userId: p.userId,
+    name: p.name,
+    email: p.email,
+    org: p.org || "",
+    orgWebsite: p.orgWebsite || "",
+    invitationCode: p.invitationCode || "",
+    accessLevel: p.accessLevel,
+    subscriptionStartedAt: p.subscriptionStartedAt,
+    subscriptionExpiresAt: p.subscriptionExpiresAt,
+    createdAt: p.createdAt,
+    updatedAt: p.updatedAt,
+    totalApiKeys: 0,
+    totalRequests: 0,
+    totalTokens: 0,
+    totalProtectedEntities: 0,
+    lastActiveAt: null,
+  }));
+}
+

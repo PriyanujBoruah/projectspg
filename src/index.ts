@@ -23,6 +23,7 @@ import {
   createInvitationCode,
   listInvitationCodes,
   revokeInvitationCode,
+  listAllUserProfiles,
   isAdminEmail,
 } from "./auth/profile";
 import { LOGO_DATA_URIS, LOGO_FILES } from "./assets/logos";
@@ -228,6 +229,15 @@ app.get("/api/admin/invitations", async (c) => {
   }
   const codes = await listInvitationCodes(c.env);
   return c.json({ codes });
+});
+
+app.get("/api/admin/users", async (c) => {
+  const admin = await getAdminUserFromRequest(c);
+  if (!admin) {
+    return c.json({ error: "Unauthorized: Admin access required." }, 403);
+  }
+  const users = await listAllUserProfiles(c.env);
+  return c.json({ users });
 });
 
 app.post("/api/admin/invitations", async (c) => {
