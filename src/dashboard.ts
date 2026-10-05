@@ -4498,9 +4498,6 @@ console.log(data.choices[0].message.content);</div>
     window.addEventListener('DOMContentLoaded', () => {
       const urlParams = new URLSearchParams(window.location.search);
       const inviteParam = urlParams.get('invite') || (window.location.hash.includes('invite=') ? window.location.hash.split('invite=')[1]?.split('&')[0] : '');
-      if (inviteParam) {
-        sessionStorage.setItem('pendingInviteCode', decodeURIComponent(inviteParam).trim().toUpperCase());
-      }
 
       const hash = window.location.hash.replace('#', '').split('?')[0];
       if (['landing', 'playground', 'keys', 'dashboard', 'docs', 'admin-invites'].includes(hash)) {
@@ -4515,6 +4512,41 @@ console.log(data.choices[0].message.content);</div>
       fetchApiKeys();
       initByokKeys();
       renderMetricsChart();
+
+      if (inviteParam) {
+        const cleanCode = decodeURIComponent(inviteParam).trim().toUpperCase();
+        sessionStorage.setItem('pendingInviteCode', cleanCode);
+
+        // Pre-fill all invitation code inputs
+        const landingCodeInput = document.getElementById('inviteCodeInput');
+        if (landingCodeInput) landingCodeInput.value = cleanCode;
+        const toastCodeInput = document.getElementById('toast-inv-code-input');
+        if (toastCodeInput) toastCodeInput.value = cleanCode;
+        const invCode = document.getElementById('inv-code');
+        if (invCode) invCode.value = cleanCode;
+
+        // Switch gatekeeper console to redeem mode
+        toggleGateMode('redeem');
+
+        // Smoothly scroll to the access/invite section
+        setTimeout(() => {
+          const accessSection = document.getElementById('access-section') || document.getElementById('access-form-container');
+          if (accessSection) {
+            accessSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            setTimeout(() => {
+              if (landingCodeInput) {
+                landingCodeInput.focus();
+                landingCodeInput.select();
+              }
+            }, 600);
+          }
+        }, 200);
+      } else if (hash && ['access-section', 'pricing-section', 'news-section'].includes(hash)) {
+        setTimeout(() => {
+          const el = document.getElementById(hash);
+          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 200);
+      }
 
       // Initialize parameter slider fills
       updateSliderFill(document.getElementById('param-temp-slider'));
@@ -4591,7 +4623,11 @@ console.log(data.choices[0].message.content);</div>
 
     function switchView(viewName) {
       activeView = viewName;
-      window.location.hash = viewName;
+      const urlParams = new URLSearchParams(window.location.search);
+      const hasInvite = urlParams.has('invite');
+      if (!hasInvite && !window.location.hash.includes('section')) {
+        window.location.hash = viewName;
+      }
 
       const globalHeader = document.getElementById('global-header');
 
@@ -4799,12 +4835,9 @@ console.log(data.choices[0].message.content);</div>
     document.addEventListener('scroll', onMobileResearchScroll, { passive: true });
 
     function switchAccessView(view) {
-      if (view === 'verify' || view === 'redeem') {
-        toggleGateMode('redeem');
-      } else {
-        toggleGateMode('request');
-      }
-      scrollToAccessForm();
+      const mode = (view === 'verify' || view === 'redeem') ? 'redeem' : 'request';
+      toggleGateMode(mode);
+      scrollToAccessForm(null, mode);
     }
 
     function toggleGateMode(mode) {
@@ -4826,11 +4859,15 @@ console.log(data.choices[0].message.content);</div>
       }
     }
 
-    function scrollToAccessForm(cohort) {
-      toggleGateMode('request');
-      const form = document.getElementById('access-form-container');
+    function scrollToAccessForm(cohort, forceMode) {
+      if (forceMode) {
+        toggleGateMode(forceMode);
+      } else if (cohort) {
+        toggleGateMode('request');
+      }
+      const form = document.getElementById('access-section') || document.getElementById('access-form-container');
       if (form) {
-        form.scrollIntoView({ behavior: 'smooth' });
+        form.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
       if (cohort && document.getElementById('inviteCompliance')) {
         if (cohort === 'research') document.getElementById('inviteCompliance').value = 'multi';
