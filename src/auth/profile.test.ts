@@ -14,7 +14,7 @@ describe("User Profile & Invitation Access Module", () => {
     expect(validateInvitationCode("VIP")).toBe(true);
   });
 
-  it("should tag user with Free if no invitation code is provided", async () => {
+  it("should tag user with Pro if no invitation code is provided", async () => {
     const profile = await saveUserProfile({}, {
       userId: "user_test_no_code",
       name: "John Doe",
@@ -24,14 +24,14 @@ describe("User Profile & Invitation Access Module", () => {
       invitationCode: "",
     });
 
-    expect(profile.accessLevel).toBe("Free");
+    expect(profile.accessLevel).toBe("Pro");
     expect(profile.name).toBe("John Doe");
     expect(profile.org).toBe("Acme Corp");
     expect(profile.invitationCode).toBe("");
 
     const fetched = await getUserProfile({}, "user_test_no_code");
     expect(fetched).not.toBeNull();
-    expect(fetched?.accessLevel).toBe("Free");
+    expect(fetched?.accessLevel).toBe("Pro");
   });
 
   it("should tag user with Pro if a valid invitation code is provided", async () => {
@@ -52,7 +52,7 @@ describe("User Profile & Invitation Access Module", () => {
     expect(fetched?.accessLevel).toBe("Pro");
   });
 
-  it("should allow upgrading from Free to Pro by submitting a code later", async () => {
+  it("should allow upgrading profile details by submitting a code later", async () => {
     await saveUserProfile({}, {
       userId: "user_upgrade_test",
       name: "Bob Builder",
@@ -61,7 +61,7 @@ describe("User Profile & Invitation Access Module", () => {
     });
 
     let fetched = await getUserProfile({}, "user_upgrade_test");
-    expect(fetched?.accessLevel).toBe("Free");
+    expect(fetched?.accessLevel).toBe("Pro");
 
     await saveUserProfile({}, {
       userId: "user_upgrade_test",
@@ -113,14 +113,14 @@ describe("User Profile & Invitation Access Module", () => {
     });
     expect(user1.accessLevel).toBe("Pro");
 
-    // 3. Second redemption of single-use code should fail (exhausted) and tag as Free
+    // 3. Second redemption of single-use code should fail (exhausted) but user retains default Pro access
     const user2 = await saveUserProfile({}, {
       userId: "usr_partner_2",
       name: "Partner Two",
       email: "two@partner.com",
       invitationCode: "SPG-TEST-SINGLE",
     });
-    expect(user2.accessLevel).toBe("Free");
+    expect(user2.accessLevel).toBe("Pro");
 
     // 4. Revocation should prevent any redemptions
     await createInvitationCode({}, {
@@ -135,7 +135,7 @@ describe("User Profile & Invitation Access Module", () => {
       email: "three@partner.com",
       invitationCode: "SPG-REVOKE-ME",
     });
-    expect(user3.accessLevel).toBe("Free");
+    expect(user3.accessLevel).toBe("Pro");
 
     // 5. List codes includes created codes
     const codes = await listInvitationCodes({});
@@ -162,11 +162,11 @@ describe("User Profile & Invitation Access Module", () => {
     expect(diffDays).toBeGreaterThanOrEqual(365);
     expect(diffDays).toBeLessThanOrEqual(366);
 
-    // If subscriptionExpiresAt is manually simulated into the past, getUserProfile should revert accessLevel to Free
+    // With universal Pro access, accounts retain Pro access
     const pastDate = new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(); // 1 day ago
     userSub.subscriptionExpiresAt = pastDate;
 
     const fetched = await getUserProfile({}, "usr_timed_sub");
-    expect(fetched?.accessLevel).toBe("Free");
+    expect(fetched?.accessLevel).toBe("Pro");
   });
 });

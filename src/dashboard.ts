@@ -491,7 +491,6 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             <a href="#platform-section" class="hover:text-gray-950 transition">Platform</a>
             <a href="#research-section" class="hover:text-gray-950 transition">Research</a>
             <a href="#news-section" class="hover:text-gray-950 transition">Blog</a>
-            <a href="#access-section" onclick="switchAccessView('request')" class="hover:text-gray-950 transition">Request Access</a>
           </nav>
 
           <!-- Right: Actions -->
@@ -520,10 +519,6 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
             </a>
             <a href="#news-section" onclick="closeLandingMobileMenu()" class="flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-gray-50 hover:text-[#f0523d] transition">
               <span class="flex items-center gap-2.5"><i data-lucide="newspaper" class="w-4 h-4 text-gray-400"></i> Blog</span>
-              <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400"></i>
-            </a>
-            <a href="#access-section" onclick="closeLandingMobileMenu(); switchAccessView('request')" class="flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-gray-50 hover:text-[#f0523d] transition">
-              <span class="flex items-center gap-2.5"><i data-lucide="key" class="w-4 h-4 text-gray-400"></i> Request Access</span>
               <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400"></i>
             </a>
             <div class="pt-2 flex flex-col gap-2">
@@ -567,9 +562,9 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                   <i data-lucide="arrow-right" class="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-0.5 transition-transform"></i>
                 </button>
                 
-                <button onclick="switchAccessView('request')" class="flex-1 sm:flex-none px-4 sm:px-6 py-3 sm:py-3.5 rounded-full bg-white hover:bg-slate-50 text-gray-800 text-[11px] sm:text-xs font-bold tracking-wider uppercase transition border border-blue-200/80 shadow-2xs flex items-center justify-center gap-1.5 sm:gap-2 cursor-pointer whitespace-nowrap">
-                  <span>Request Access</span>
-                  <i data-lucide="key" class="w-3.5 h-3.5 text-gray-500"></i>
+                <button onclick="handleLandingAuthClick()" class="flex-1 sm:flex-none px-4 sm:px-6 py-3 sm:py-3.5 rounded-full bg-white hover:bg-slate-50 text-gray-800 text-[11px] sm:text-xs font-bold tracking-wider uppercase transition border border-gray-300 shadow-2xs flex items-center justify-center gap-1.5 sm:gap-2 cursor-pointer whitespace-nowrap">
+                  <span>Get Started Free</span>
+                  <i data-lucide="sparkles" class="w-3.5 h-3.5 text-[#f0523d]"></i>
                 </button>
               </div>
 
@@ -1486,131 +1481,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
       </section>
 
-      <!-- ======================================================================= -->
-      <!-- SECTION 5: PRIVATE ACCESS & EXCLUSIVE ONBOARDING (By Invitation Only)   -->
-      <!-- ======================================================================= -->
-      <section id="access-section" class="w-full bg-[#f8fafc] text-gray-900 py-20 sm:py-28 border-t border-gray-200/60 relative overflow-hidden scroll-mt-20 sm:scroll-mt-24">
-        <!-- Ambient background glow -->
-        <div class="absolute top-1/3 left-1/2 -translate-x-1/2 w-[750px] h-[380px] bg-gradient-to-r from-amber-100/40 via-sky-100/30 to-purple-100/30 blur-3xl pointer-events-none -z-0"></div>
 
-        <div class="max-w-[1440px] mx-auto px-2.5 sm:px-4 lg:px-6 relative z-10">
-          
-          <!-- Section Header -->
-          <div class="text-center max-w-3xl mx-auto mb-14">
-            <h2 class="text-3xl sm:text-4xl lg:text-[44px] font-bold tracking-tight text-gray-950 font-sans leading-tight">
-              Exclusive Sovereign Access
-            </h2>
-            <p class="text-base sm:text-lg text-gray-500 font-normal mt-3.5 leading-relaxed">
-              To guarantee zero-latency throughput, dedicated KMS hardware envelope isolation, and sovereign compliance oversight across our 109 supported jurisdictions, ProjectSPG is currently accessible on an invitation-only basis.
-            </p>
-
-          </div>
-
-          <!-- Dual-Mode Interactive Gatekeeper Console: Request Invite vs Redeem Code -->
-          <div id="access-form-container" class="bg-white rounded-3xl p-6 sm:p-10 border border-gray-200/90 shadow-md mb-14 max-w-4xl mx-auto">
-            
-            <!-- Tab Headers -->
-            <div class="flex items-center justify-center gap-3 mb-8 border-b border-gray-100 pb-5">
-              <button id="gate-tab-request" onclick="toggleGateMode('request')" class="px-5 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition bg-gray-900 text-white cursor-pointer shadow-xs">
-                Request Invitation
-              </button>
-              <button id="gate-tab-redeem" onclick="toggleGateMode('redeem')" class="px-5 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition bg-gray-100 hover:bg-gray-200 text-gray-700 cursor-pointer">
-                Redeem Invite Key
-              </button>
-            </div>
-
-            <!-- Panel 1: Request Invitation Form -->
-            <div id="gate-panel-request">
-              <div class="text-center max-w-xl mx-auto mb-6">
-                <h3 class="text-xl sm:text-2xl font-bold text-gray-950">Apply for Private Access</h3>
-                <p class="text-xs sm:text-sm text-gray-500 mt-1">
-                  We review requests daily to maintain isolated compute capacity. Approved organizations receive an invitation token within 24 hours.
-                </p>
-              </div>
-
-              <form id="inviteRequestForm" onsubmit="handleInviteRequest(event)" class="space-y-4 max-w-2xl mx-auto">
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label class="block text-[11px] font-bold uppercase tracking-wider text-gray-700 mb-1.5 font-mono">Work / Corporate Email *</label>
-                    <input type="email" id="inviteEmail" required placeholder="alex@enterprise.com" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 text-xs sm:text-sm focus:border-black focus:ring-1 focus:ring-black outline-none transition font-sans">
-                  </div>
-                  <div>
-                    <label class="block text-[11px] font-bold uppercase tracking-wider text-gray-700 mb-1.5 font-mono">Company / Organization Website *</label>
-                    <input type="text" id="inviteOrg" required placeholder="https://acme.com" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 text-xs sm:text-sm focus:border-black focus:ring-1 focus:ring-black outline-none transition font-sans">
-                  </div>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label class="block text-[11px] font-bold uppercase tracking-wider text-gray-700 mb-1.5 font-mono">Primary Compliance Mandate</label>
-                    <select id="inviteCompliance" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 text-xs sm:text-sm focus:border-black focus:ring-1 focus:ring-black outline-none transition font-sans bg-white">
-                      <option value="gdpr">EU GDPR &amp; EU AI Act</option>
-                      <option value="dpdp">India DPDP Act 2023</option>
-                      <option value="pdpa">Singapore PDPA &amp; ASEAN</option>
-                      <option value="hipaa">US HIPAA Safe Harbor</option>
-                      <option value="multi">Global Multi-Jurisdiction (109 Countries)</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label class="block text-[11px] font-bold uppercase tracking-wider text-gray-700 mb-1.5 font-mono">Estimated Monthly Token Volume</label>
-                    <select id="inviteVolume" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 text-xs sm:text-sm focus:border-black focus:ring-1 focus:ring-black outline-none transition font-sans bg-white">
-                      <option value="100m">&lt; 100M Tokens / Month</option>
-                      <option value="1b">100M - 1B Tokens / Month</option>
-                      <option value="10b">1B - 10B Tokens / Month</option>
-                      <option value="10b+">10B+ Tokens / Month (Dedicated Cluster)</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="pt-2">
-                  <button type="submit" id="btnSubmitInvite" class="w-full py-3.5 rounded-xl bg-black hover:bg-gray-800 text-white font-bold text-xs sm:text-sm uppercase tracking-wider transition shadow-md hover:shadow-lg cursor-pointer flex items-center justify-center gap-2">
-                    <span>SUBMIT ACCESS APPLICATION</span>
-                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                  </button>
-                </div>
-              </form>
-
-              <!-- Success Alert (Hidden by default) -->
-              <div id="inviteSuccessMessage" class="hidden mt-6 p-4 sm:p-5 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 max-w-2xl mx-auto text-center">
-                <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-2.5">
-                  <i data-lucide="check" class="w-5 h-5"></i>
-                </div>
-                <h4 class="font-bold text-sm sm:text-base">Invitation Request Received</h4>
-                <p class="text-xs sm:text-sm text-emerald-800 mt-1 leading-relaxed">
-                  Your application has been prioritized. Our infrastructure team verifies incoming organizations within 24 hours. Your access credentials and dedicated gateway keys will be delivered to <span id="confirmedInviteEmail" class="font-bold font-mono"></span>.
-                </p>
-              </div>
-            </div>
-
-            <!-- Panel 2: Redeem Invite Code -->
-            <div id="gate-panel-redeem" class="hidden">
-              <div class="text-center max-w-xl mx-auto mb-6">
-                <h3 class="text-xl sm:text-2xl font-bold text-gray-950">Redeem Access Token</h3>
-                <p class="text-xs sm:text-sm text-gray-500 mt-1">
-                  Received an invitation token from the ProjectSPG core team or an enterprise sponsor? Enter it below to unlock the console.
-                </p>
-              </div>
-
-              <div class="max-w-md mx-auto space-y-4">
-                <div>
-                  <label class="block text-[11px] font-bold uppercase tracking-wider text-gray-700 mb-1.5 font-mono">Invitation Key</label>
-                  <input type="text" id="inviteCodeInput" placeholder="SPG-INVITE-XXXX-XXXX" class="w-full px-4 py-3 rounded-xl border border-gray-300 text-sm font-mono tracking-widest text-center uppercase focus:border-black focus:ring-1 focus:ring-black outline-none transition">
-                </div>
-
-                <button onclick="handleRedeemCode()" class="w-full py-3.5 rounded-xl bg-black hover:bg-gray-800 text-white font-bold text-xs sm:text-sm uppercase tracking-wider transition shadow-md hover:shadow-lg cursor-pointer flex items-center justify-center gap-2">
-                  <i data-lucide="unlock" class="w-4 h-4"></i>
-                  <span>VERIFY &amp; ENTER PLATFORM</span>
-                </button>
-
-                <p id="redeemFeedback" class="text-xs text-center font-medium mt-2 min-h-[20px]"></p>
-              </div>
-            </div>
-
-          </div>
-
-
-        </div>
-      </section>
 
 
 
@@ -1702,15 +1573,15 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                   </ul>
                 </div>
 
-                <!-- Col 2: PRIVATE ACCESS -->
+                <!-- Col 2: GET STARTED -->
                 <div>
                   <div class="border-t border-gray-200/90 pt-3 mb-3.5">
-                    <span class="text-[10px] font-bold tracking-widest uppercase text-gray-900 font-mono">PRIVATE ACCESS</span>
+                    <span class="text-[10px] font-bold tracking-widest uppercase text-gray-900 font-mono">GET STARTED</span>
                   </div>
                   <ul class="space-y-2.5 font-medium text-gray-600">
-                    <li><a href="#access-section" onclick="switchAccessView('request')" class="hover:text-gray-950 transition">Request Invitation</a></li>
-                    <li><a href="#access-section" onclick="switchAccessView('verify')" class="hover:text-gray-950 transition">Redeem Invite Key</a></li>
-                    <li><a href="#docs" onclick="switchView('docs')" class="hover:text-gray-950 transition">Enterprise Onboarding</a></li>
+                    <li><a href="#" onclick="switchView('playground')" class="hover:text-gray-950 transition">Interactive Playground</a></li>
+                    <li><a href="#" onclick="handleLandingAuthClick()" class="hover:text-gray-950 transition">Sign Up / Sign In</a></li>
+                    <li><a href="#docs" onclick="switchView('docs')" class="hover:text-gray-950 transition">API Documentation</a></li>
                   </ul>
                 </div>
 
@@ -3630,7 +3501,7 @@ console.log(data.choices[0].message.content);</div>
           <label class="block text-groq-dark font-medium mb-1.5">Access Tier</label>
           <div class="grid grid-cols-2 gap-2 bg-[#f3f4f6] p-1 rounded-xl">
             <button type="button" id="tier-tab-free" onclick="selectCreateKeyTier('free')" class="py-2 px-3 rounded-lg text-xs font-semibold transition cursor-pointer bg-white text-groq-dark shadow-xs flex items-center justify-center gap-1.5">
-              <span id="tier-tab-standard-label">Free Tier</span>
+              <span id="tier-tab-standard-label">Standard Key</span>
             </button>
             <button type="button" id="tier-tab-byok" onclick="selectCreateKeyTier('byok')" class="py-2 px-3 rounded-lg text-xs font-semibold transition cursor-pointer text-groq-textMuted hover:text-groq-dark flex items-center justify-center gap-1.5">
               <i data-lucide="sparkles" class="w-3.5 h-3.5 text-blue-600"></i>
@@ -3643,8 +3514,8 @@ console.log(data.choices[0].message.content);</div>
 
         <!-- Free Tier Info Banner -->
         <div id="tier-info-free" class="p-3 rounded-xl bg-gray-50 border border-gray-200/80 text-[11px] text-gray-600 leading-relaxed">
-          <div id="tier-info-free-title" class="font-semibold text-gray-900 mb-0.5">Free Platform Quota</div>
-          <span id="tier-info-free-desc">Uses ProjectSPG community infrastructure (1 req / 15s rate limit, 10,000 req/mo). No AI provider API keys required.</span>
+          <div id="tier-info-free-title" class="font-semibold text-gray-900 mb-0.5">Platform Quota</div>
+          <span id="tier-info-free-desc">Uses ProjectSPG Pro infrastructure (1 req / 5s rate limit, 100,000 req/mo). Full multi-provider routing included.</span>
         </div>
 
         <!-- BYOK Tier Credentials Section (Collapsible) -->
@@ -5952,22 +5823,13 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
     }
 
     function selectCreateKeyTier(tier) {
-      if (tier === 'byok' && !isUserFullyInvited()) {
-        showInvitationToast(true);
-        const feedback = document.getElementById('toast-inv-feedback');
-        if (feedback) {
-          feedback.textContent = 'Creating BYOK Keys requires Pro Access. Enter an invitation code to unlock.';
-          feedback.className = 'my-2.5 p-2 rounded-lg text-[11px] leading-tight font-medium bg-amber-50 text-amber-800 border border-amber-200 block';
-        }
-        return;
-      }
       const tabLabel = document.getElementById('tier-tab-standard-label');
-      if (tabLabel) tabLabel.textContent = 'Free Tier';
+      if (tabLabel) tabLabel.textContent = 'Standard Key';
       const freeTitle = document.getElementById('tier-info-free-title');
-      if (freeTitle) freeTitle.textContent = 'Free Platform Quota';
+      if (freeTitle) freeTitle.textContent = 'Platform Quota';
       const freeDesc = document.getElementById('tier-info-free-desc');
       if (freeDesc) {
-        freeDesc.textContent = 'Uses ProjectSPG community infrastructure (1 req / 15s rate limit, 10,000 req/mo). No AI provider API keys required.';
+        freeDesc.textContent = 'Uses ProjectSPG Pro infrastructure (1 req / 5s rate limit, 100,000 req/mo). Full multi-provider routing included.';
       }
 
       const tierInput = document.getElementById('new-key-tier');
@@ -6011,22 +5873,12 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
         openAuthModal();
         return;
       }
-      const isPro = isUserFullyInvited();
       let tier = document.getElementById('new-key-tier') ? document.getElementById('new-key-tier').value : 'free';
       if (tier !== 'byok') {
         tier = 'free';
       }
-      const name = document.getElementById('new-key-name').value.trim() || (tier === 'free' ? 'ProjectSPG Free Key' : 'ProjectSPG BYOK Key');
-      if (tier === 'byok' && !isPro) {
-        showInvitationToast(true);
-        const feedback = document.getElementById('toast-inv-feedback');
-        if (feedback) {
-          feedback.textContent = 'Creating BYOK Keys requires Pro Access. Enter an invitation code to unlock.';
-          feedback.className = 'my-2.5 p-2 rounded-lg text-[11px] leading-tight font-medium bg-amber-50 text-amber-800 border border-amber-200 block';
-        }
-        return;
-      }
-      const quota = tier === 'byok' ? 1000000 : 10000;
+      const name = document.getElementById('new-key-name').value.trim() || (tier === 'free' ? 'ProjectSPG Key' : 'ProjectSPG BYOK Key');
+      const quota = tier === 'byok' ? 1000000 : 100000;
       const byokGoogleKey = document.getElementById('new-byok-google') ? document.getElementById('new-byok-google').value.trim() : '';
       const byokMistralKey = document.getElementById('new-byok-mistral') ? document.getElementById('new-byok-mistral').value.trim() : '';
       const byokGroqKey = document.getElementById('new-byok-groq') ? document.getElementById('new-byok-groq').value.trim() : '';
@@ -7801,29 +7653,15 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
         const createByokTab = document.getElementById('tier-tab-byok');
         const createByokLock = document.getElementById('tier-tab-byok-lock');
 
-        if (!isFull) {
-          if (playgroundTierMode === 'byok') {
-            switchPlaygroundTier('free');
-          }
-          if (byokBtn) {
-            byokBtn.title = "BYOK Mode requires Pro Access (Invitation/Upgrade Code)";
-            byokBtn.classList.add('opacity-75');
-          }
-          if (byokLock) byokLock.classList.remove('hidden');
-          if (createByokLock) createByokLock.classList.remove('hidden');
-          if (createByokTab) createByokTab.title = "BYOK Tier requires Pro Access (Invitation/Upgrade Code)";
-          renderPlaygroundModelDropdown(FREE_TIER_MODELS, 'codestral-2508');
-        } else {
-          if (byokBtn) {
-            byokBtn.title = "BYOK Mode (Zero Rate-Limiting)";
-            byokBtn.classList.remove('opacity-75');
-          }
-          if (byokLock) byokLock.classList.add('hidden');
-          if (createByokLock) createByokLock.classList.add('hidden');
-          if (createByokTab) createByokTab.title = "BYOK Tier";
-          dismissInvitationToast(true);
-          renderPlaygroundModelDropdown(FREE_TIER_MODELS);
+        if (byokBtn) {
+          byokBtn.title = "BYOK Mode (Zero Rate-Limiting)";
+          byokBtn.classList.remove('opacity-75');
         }
+        if (byokLock) byokLock.classList.add('hidden');
+        if (createByokLock) createByokLock.classList.add('hidden');
+        if (createByokTab) createByokTab.title = "BYOK Tier";
+        dismissInvitationToast(true);
+        renderPlaygroundModelDropdown(FREE_TIER_MODELS);
       } else {
         const adminNav = document.getElementById('nav-admin-invites');
         const adminMobileNav = document.getElementById('nav-mobile-admin-invites');
@@ -7837,23 +7675,24 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
         if (landingBtnText) landingBtnText.textContent = 'Sign In';
         if (landingMobileBtnText) landingMobileBtnText.textContent = 'Sign In';
 
-        updateTopTierPill(false);
-
-        if (playgroundTierMode === 'byok') {
-          switchPlaygroundTier('free');
+        const pill = document.getElementById('top-tier-pill');
+        if (pill) {
+          pill.classList.add('hidden');
+          pill.classList.remove('md:flex');
         }
+
         const byokBtn = document.getElementById('btn-tier-byok');
         const byokLock = document.getElementById('btn-tier-byok-lock');
         const createByokTab = document.getElementById('tier-tab-byok');
         const createByokLock = document.getElementById('tier-tab-byok-lock');
         if (byokBtn) {
-          byokBtn.title = "BYOK Mode requires Pro Access (Invitation/Upgrade Code)";
-          byokBtn.classList.add('opacity-75');
+          byokBtn.title = "BYOK Mode (Zero Rate-Limiting)";
+          byokBtn.classList.remove('opacity-75');
         }
-        if (byokLock) byokLock.classList.remove('hidden');
-        if (createByokLock) createByokLock.classList.remove('hidden');
-        if (createByokTab) createByokTab.title = "BYOK Tier requires Pro Access (Invitation/Upgrade Code)";
-        renderPlaygroundModelDropdown(FREE_TIER_MODELS, 'codestral-2508');
+        if (byokLock) byokLock.classList.add('hidden');
+        if (createByokLock) createByokLock.classList.add('hidden');
+        if (createByokTab) createByokTab.title = "BYOK Tier";
+        renderPlaygroundModelDropdown(FREE_TIER_MODELS);
       }
       lucide.createIcons();
     }
@@ -7864,37 +7703,12 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
     let toastDismissedUntil = 0;
 
     function isUserFullyInvited() {
-      const user = currentFirebaseUser;
-      if (user && user.email && user.email.toLowerCase().trim() === 'boruahpriyanuj2004@gmail.com') return true;
-      const p = currentUserProfile;
-      if (!p) return false;
-      const level = p.accessLevel;
-      const isPro = level === 'Pro' || level === 'Full Access';
-      if (!isPro) return false;
-      if (p.subscriptionExpiresAt) {
-        const exp = new Date(p.subscriptionExpiresAt).getTime();
-        if (!isNaN(exp) && Date.now() >= exp) return false;
-      }
       return true;
     }
 
     function showInvitationToast(force = false) {
-      if (isUserFullyInvited()) {
-        dismissInvitationToast(true);
-        return;
-      }
-      if (!force && Date.now() < toastDismissedUntil) {
-        return;
-      }
-      const toast = document.getElementById('toast-invitation');
-      if (!toast) return;
-
-      toast.classList.remove('hidden');
-      requestAnimationFrame(() => {
-        toast.classList.remove('translate-y-4', 'opacity-0');
-        toast.classList.add('translate-y-0', 'opacity-100');
-      });
-      if (typeof lucide !== 'undefined') lucide.createIcons();
+      dismissInvitationToast(true);
+      return;
     }
 
     function dismissInvitationToast(silent = false) {

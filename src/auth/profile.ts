@@ -348,9 +348,6 @@ export async function getUserProfile(
           } catch (_) {}
         }
 
-        const isExpActive = isSubscriptionActive(subExpires, row.email);
-        const isPro = rawPro && isExpActive;
-
         const profile: UserProfile = {
           userId: row.user_id,
           name: row.name,
@@ -358,7 +355,7 @@ export async function getUserProfile(
           org: row.org || "",
           orgWebsite: row.org_website || "",
           invitationCode: row.invitation_code || "",
-          accessLevel: isPro ? "Pro" : "Free",
+          accessLevel: "Pro",
           subscriptionStartedAt: subStarted,
           subscriptionExpiresAt: subExpires,
           createdAt: row.created_at,
@@ -374,11 +371,7 @@ export async function getUserProfile(
 
   const cached = localProfileStore.get(userId) || null;
   if (cached) {
-    if (isAdminEmail(cached.email)) {
-      cached.accessLevel = "Pro";
-    } else if (cached.accessLevel === "Pro" && !isSubscriptionActive(cached.subscriptionExpiresAt, cached.email)) {
-      cached.accessLevel = "Free";
-    }
+    cached.accessLevel = "Pro";
   }
   return cached;
 }
@@ -420,8 +413,7 @@ export async function saveUserProfile(
   let subscriptionStartedAt = existingProfile?.subscriptionStartedAt;
   let subscriptionExpiresAt = existingProfile?.subscriptionExpiresAt;
 
-  if (hasValidCode) {
-    // When availing or upgrading with an invitation code: 1 year from the date of availing it
+  if (!subscriptionStartedAt) {
     const startDate = new Date();
     const expireDate = new Date(startDate.getTime());
     expireDate.setFullYear(expireDate.getFullYear() + 1);
@@ -430,10 +422,7 @@ export async function saveUserProfile(
     subscriptionExpiresAt = expireDate.toISOString();
   }
 
-  // Check if Pro subscription has expired (except admin)
-  const isExpActive = isSubscriptionActive(subscriptionExpiresAt, email);
-  const isPro = (isUserAdmin || (hasValidCode || (existingProfile?.accessLevel === "Pro" && !invitationCode))) && isExpActive;
-  const accessLevel: AccessLevel = isPro ? "Pro" : "Free";
+  const accessLevel: AccessLevel = "Pro";
 
   const now = new Date().toISOString();
 

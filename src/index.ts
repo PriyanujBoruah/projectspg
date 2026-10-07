@@ -304,15 +304,8 @@ app.post("/api/keys", async (c) => {
   const profile = await getUserProfile(c.env, userId);
   const isPro = profile?.accessLevel === "Pro";
 
-  const tier: "free" | "byok" = body.tier === "byok" ? "byok" : "free";
-
-  if (tier === "byok") {
-    if (!isPro) {
-      return c.json({ error: "BYOK tier requires Pro Access. Upgrade with an invitation code to unlock." }, 403);
-    }
-  }
-
-  const defaultQuota = tier === "byok" ? 1_000_000 : 10_000;
+  const tier: "pro" | "byok" = body.tier === "byok" ? "byok" : "pro";
+  const defaultQuota = tier === "byok" ? 1_000_000 : 100_000;
   const quota = typeof body.monthlyQuota === "number" ? body.monthlyQuota : defaultQuota;
   const byokKeys = {
     googleKey: body.byokGoogleKey || body.byok_google_key || "",

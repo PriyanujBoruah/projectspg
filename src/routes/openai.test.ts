@@ -709,17 +709,17 @@ describe("OpenAI Drop-In Wire-Compatible Proxy (/v1/chat/completions)", () => {
     }
   });
 
-  it("should restrict free accounts to only the 3 Mistral models", async () => {
+  it("should allow accounts full access to all models without restriction", async () => {
     await saveUserProfile({}, {
-      userId: "test_limited_user_restrict",
-      name: "Limited User",
-      email: "limited@example.com",
-      invitationCode: "", // Tags with Free
+      userId: "test_unrestricted_user",
+      name: "Standard User",
+      email: "standard@example.com",
+      invitationCode: "",
     });
 
     const testApp = new Hono();
     testApp.use("*", async (c, next) => {
-      (c as any).set("apiKeyRecord", { user_id: "test_limited_user_restrict", tier: "free" });
+      (c as any).set("apiKeyRecord", { user_id: "test_unrestricted_user", tier: "free" });
       await next();
     });
     testApp.route("/v1", openaiApp);
@@ -733,8 +733,8 @@ describe("OpenAI Drop-In Wire-Compatible Proxy (/v1/chat/completions)", () => {
       )
     );
 
-    // 1. Allowed Mistral models: codestral-2508, ministral-8b-2512, ministral-14b-2512
-    for (const model of ["codestral-2508", "ministral-8b-2512", "ministral-14b-2512"]) {
+    // All models succeed without gating
+    for (const model of ["codestral-2508", "ministral-8b-2512", "ministral-14b-2512", "mistral-large-2512", "openai/gpt-oss-120b", "gemma-4-31b-it"]) {
       const res = await testApp.request("/v1/chat/completions", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -743,24 +743,12 @@ describe("OpenAI Drop-In Wire-Compatible Proxy (/v1/chat/completions)", () => {
       expect(res.status).toBe(200);
     }
 
-    // 2. Disallowed models: mistral-large-2512, openai/gpt-oss-120b, gemma-4-31b-it, gpt-4o
-    for (const model of ["mistral-large-2512", "openai/gpt-oss-120b", "gemma-4-31b-it", "gpt-4o"]) {
-      const res = await testApp.request("/v1/chat/completions", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ model, messages: [{ role: "user", content: "hello" }] }),
-      });
-      expect(res.status).toBe(403);
-      const data: any = await res.json();
-      expect(data.error.code).toBe("model_access_restricted");
-    }
-
-    // 3. Native Gemini route should also block limited accounts
+    // Native Gemini route also succeeds
     const geminiRes = await testApp.request("/v1/v1beta/models/gemini-1.5-flash:generateContent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ contents: [{ parts: [{ text: "hello" }] }] }),
     });
-    expect(geminiRes.status).toBe(403);
+    expect(geminiRes.status).toBe(200);
   });
 });

@@ -1206,15 +1206,15 @@ print(response.choices[0].message.content)
               </ul>
             </div>
 
-            <!-- Col 2: PRIVATE ACCESS -->
+            <!-- Col 2: GET STARTED -->
             <div>
               <div class="border-t border-gray-200/90 pt-3 mb-3.5">
-                <span class="text-[10px] font-bold tracking-widest uppercase text-gray-900 font-mono">PRIVATE ACCESS</span>
+                <span class="text-[10px] font-bold tracking-widest uppercase text-gray-900 font-mono">GET STARTED</span>
               </div>
               <ul class="space-y-2.5 font-medium text-gray-600">
-                <li><a href="/#access-section" class="hover:text-gray-950 transition">Request Invitation</a></li>
-                <li><a href="/#access-section" class="hover:text-gray-950 transition">Redeem Invite Key</a></li>
-                <li><a href="/dashboard" class="hover:text-gray-950 transition">Enterprise Onboarding</a></li>
+                <li><a href="/dashboard" class="hover:text-gray-950 transition">Interactive Playground</a></li>
+                <li><a href="/dashboard" class="hover:text-gray-950 transition">Sign Up / Sign In</a></li>
+                <li><a href="/dashboard" class="hover:text-gray-950 transition">API Documentation</a></li>
               </ul>
             </div>
 

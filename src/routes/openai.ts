@@ -554,19 +554,6 @@ openaiApp.post("/chat/completions", async (c) => {
   let profile: any = null;
   if (clientUserId) {
     profile = await getUserProfile(c.env, clientUserId);
-    if (profile && profile.accessLevel === "Free") {
-      const reqModelNorm = (requestedModel || "").toLowerCase().trim();
-      if (!LIMITED_ALLOWED_MISTRAL_MODELS.has(reqModelNorm)) {
-        const err = createOpenAIError(
-          `Free accounts are restricted to the 3 Mistral AI models (codestral-2508, ministral-8b-2512, ministral-14b-2512). Model '${requestedModel}' requires Pro Access.`,
-          "permission_denied",
-          "model",
-          "model_access_restricted",
-          403
-        );
-        return c.json(err, 403);
-      }
-    }
   }
 
   // Step 1: Intercept & Sanitize All Prompt Messages at Sub-Millisecond Speed
@@ -1141,14 +1128,6 @@ openaiApp.post("/v1beta/models/:action{.+}", async (c) => {
   let profile: any = null;
   if (clientUserId) {
     profile = await getUserProfile(c.env, clientUserId);
-    if (profile && profile.accessLevel === "Free") {
-      return c.json({
-        error: {
-          message: "Free accounts are restricted to the 3 Mistral AI models (codestral-2508, ministral-8b-2512, ministral-14b-2512). Google AI Studio models require Pro Access.",
-          code: 403
-        }
-      }, 403);
-    }
   }
 
   const customKeywords = resolveCustomKeywords(c);
