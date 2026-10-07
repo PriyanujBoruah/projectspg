@@ -7338,36 +7338,42 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
         console.warn('Backend profile fetch warning:', e);
       }
 
-      // 3. Admin automatic Pro Access
+      // 3. Admin & User Automatic Pro Access
       const userEmail = (user.email || '').toLowerCase().trim();
       const isAdmin = userEmail === 'boruahpriyanuj2004@gmail.com';
-      if (isAdmin) {
-        if (!profile) {
-          profile = {
-            userId: user.uid,
-            name: user.displayName || 'Priyanuj Boruah (Admin)',
-            email: user.email,
-            org: 'ProjectSPG Admin',
-            orgWebsite: 'https://projectspg.info',
-            invitationCode: 'ADMIN-ROOT',
-            accessLevel: 'Pro',
-            createdAt: new Date().toISOString(),
-            updatedAt: new Date().toISOString()
-          };
-          try {
-            localStorage.setItem(storageKey, JSON.stringify(profile));
-          } catch (e) {}
-        } else {
-          profile.accessLevel = 'Pro';
-        }
+      if (!profile) {
+        profile = {
+          userId: user.uid,
+          name: user.displayName || (user.email ? user.email.split('@')[0] : 'User'),
+          email: user.email || '',
+          org: isAdmin ? 'ProjectSPG Admin' : '',
+          orgWebsite: isAdmin ? 'https://projectspg.info' : '',
+          invitationCode: isAdmin ? 'ADMIN-ROOT' : '',
+          accessLevel: 'Pro',
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString()
+        };
+        try {
+          localStorage.setItem(storageKey, JSON.stringify(profile));
+        } catch (e) {}
+
+        // Persist profile to D1 backend in background
+        try {
+          const headers = { 'Content-Type': 'application/json' };
+          if (currentIdToken) {
+            headers['Authorization'] = 'Bearer ' + currentIdToken;
+          }
+          fetch('/api/user/profile', {
+            method: 'POST',
+            headers,
+            body: JSON.stringify(profile)
+          }).catch(() => {});
+        } catch (e) {}
+      } else {
+        profile.accessLevel = 'Pro';
       }
 
       currentUserProfile = profile;
-
-      // 4. If no profile exists yet and not admin, user hasn't completed onboarding -> prompt them!
-      if (!profile && !isAdmin) {
-        openInvitationModal(false);
-      }
     }
 
     function handleTopTierClick() {
