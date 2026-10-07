@@ -1063,26 +1063,14 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
         <div class="max-w-[1440px] mx-auto px-2.5 sm:px-4 lg:px-6 relative z-10">
           
-          <!-- Header Row (Title & Navigation Arrows) -->
-          <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6 sm:mb-10 lg:mb-14">
-            <div>
-              <h2 class="text-2xl sm:text-4xl lg:text-[44px] font-bold tracking-tight text-white mb-2 sm:mb-3 font-sans">
-                How ProjectSPG Works
-              </h2>
-              <p class="text-sm sm:text-base lg:text-lg text-gray-400 font-normal">
-                The 4-step sovereign privacy pipeline — from prompt interception to real-time rehydration.
-              </p>
-            </div>
-
-            <!-- Carousel Navigation Arrows (shown on desktop, hidden on mobile) -->
-            <div class="hidden lg:flex items-center gap-2">
-              <button onclick="scrollResearchCards('left')" class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-gray-300 hover:text-white flex items-center justify-center transition shadow-xs cursor-pointer" aria-label="Previous step">
-                <i data-lucide="chevron-left" class="w-4 h-4"></i>
-              </button>
-              <button onclick="scrollResearchCards('right')" class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-gray-300 hover:text-white flex items-center justify-center transition shadow-xs cursor-pointer" aria-label="Next step">
-                <i data-lucide="chevron-right" class="w-4 h-4"></i>
-              </button>
-            </div>
+          <!-- Header Row -->
+          <div class="mb-6 sm:mb-10 lg:mb-14">
+            <h2 class="text-2xl sm:text-4xl lg:text-[44px] font-bold tracking-tight text-white mb-2 sm:mb-3 font-sans">
+              How ProjectSPG Works
+            </h2>
+            <p class="text-sm sm:text-base lg:text-lg text-gray-400 font-normal">
+              The 4-step sovereign privacy pipeline — from prompt interception to real-time rehydration.
+            </p>
           </div>
 
           <!-- Cards Carousel Container with Horizontal Connector Line -->
@@ -4412,12 +4400,6 @@ console.log(data.choices[0].message.content);</div>
       }
     }
 
-    function scrollResearchCards(direction) {
-      const track = document.getElementById('research-cards-track');
-      if (!track) return;
-      const scrollAmount = 350;
-      track.scrollBy({ left: direction === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' });
-    }
 
     // Auto-highlight research cards on mobile scroll (replaces hover effect for mobile users)
     let isResearchScrollTicking = false;
