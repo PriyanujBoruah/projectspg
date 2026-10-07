@@ -5560,7 +5560,7 @@ console.log(data.choices[0].message.content);</div>
               '</div>' +
               '<span>Daily Request Limit Reached (150 req/day)</span>' +
             '</div>' +
-            '<button onclick="dismissRateLimitToast()" class="text-gray-400 hover:text-gray-700 p-1 rounded-lg hover:bg-gray-100 transition cursor-pointer" aria-label="Close">' +
+            '<button class="toast-close-btn text-gray-400 hover:text-gray-700 p-1 rounded-lg hover:bg-gray-100 transition cursor-pointer" aria-label="Close">' +
               '<i data-lucide="x" class="w-3.5 h-3.5"></i>' +
             '</button>' +
           '</div>' +
@@ -5568,11 +5568,11 @@ console.log(data.choices[0].message.content);</div>
             'You have reached the free platform quota of 150 requests per day (including playground and API calls). Limit resets at midnight UTC.' +
           '</p>' +
           '<div class="pl-8 pt-1 flex items-center gap-2">' +
-            '<button onclick="switchPlaygroundTier(\'byok\'); dismissRateLimitToast()" class="px-3 py-1.5 rounded-lg bg-[#f0523d] hover:bg-[#e0422d] text-white font-semibold text-xs transition cursor-pointer flex items-center gap-1 shadow-2xs">' +
+            '<button id="toast-btn-switch-byok" class="px-3 py-1.5 rounded-lg bg-[#f0523d] hover:bg-[#e0422d] text-white font-semibold text-xs transition cursor-pointer flex items-center gap-1 shadow-2xs">' +
               '<i data-lucide="sparkles" class="w-3 h-3"></i>' +
               '<span>Switch to BYOK (10,000 req/day)</span>' +
             '</button>' +
-            '<button onclick="dismissRateLimitToast()" class="px-3 py-1.5 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium text-xs transition cursor-pointer">' +
+            '<button class="toast-close-btn px-3 py-1.5 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium text-xs transition cursor-pointer">' +
               'Dismiss' +
             '</button>' +
           '</div>';
@@ -5585,7 +5585,7 @@ console.log(data.choices[0].message.content);</div>
               '</div>' +
               '<span>Pro Tier Rate Limit (1 request / 5s)</span>' +
             '</div>' +
-            '<button onclick="dismissRateLimitToast()" class="text-gray-400 hover:text-gray-700 p-1 rounded-lg hover:bg-gray-100 transition cursor-pointer" aria-label="Close">' +
+            '<button class="toast-close-btn text-gray-400 hover:text-gray-700 p-1 rounded-lg hover:bg-gray-100 transition cursor-pointer" aria-label="Close">' +
               '<i data-lucide="x" class="w-3.5 h-3.5"></i>' +
             '</button>' +
           '</div>' +
@@ -5594,11 +5594,11 @@ console.log(data.choices[0].message.content);</div>
             'Please retry in <strong class="text-[#f0523d] font-bold" id="rate-toast-countdown">' + remainingSec + 's</strong>, or switch to BYOK mode for unlimited requests.' +
           '</p>' +
           '<div class="pl-8 pt-1 flex items-center gap-2">' +
-            '<button onclick="switchPlaygroundTier(\'byok\'); dismissRateLimitToast()" class="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-white font-semibold text-xs transition cursor-pointer flex items-center gap-1 shadow-2xs">' +
+            '<button id="toast-btn-switch-byok" class="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-white font-semibold text-xs transition cursor-pointer flex items-center gap-1 shadow-2xs">' +
               '<i data-lucide="sparkles" class="w-3 h-3"></i>' +
               '<span>Switch to BYOK Mode</span>' +
             '</button>' +
-            '<button onclick="dismissRateLimitToast()" class="px-3 py-1.5 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium text-xs transition cursor-pointer">' +
+            '<button class="toast-close-btn px-3 py-1.5 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium text-xs transition cursor-pointer">' +
               'Dismiss' +
             '</button>' +
           '</div>';
@@ -5606,6 +5606,18 @@ console.log(data.choices[0].message.content);</div>
 
       document.body.appendChild(toast);
       if (window.lucide) lucide.createIcons();
+
+      const byokBtn = toast.querySelector('#toast-btn-switch-byok');
+      if (byokBtn) {
+        byokBtn.addEventListener('click', function() {
+          switchPlaygroundTier('byok');
+          dismissRateLimitToast();
+        });
+      }
+
+      toast.querySelectorAll('.toast-close-btn').forEach(function(btn) {
+        btn.addEventListener('click', dismissRateLimitToast);
+      });
 
       requestAnimationFrame(() => {
         toast.classList.remove('translate-y-4', 'opacity-0');
