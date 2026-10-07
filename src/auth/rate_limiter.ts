@@ -36,11 +36,19 @@ const inMemoryTimestamps = new Map<string, number>();
  * Priority: API Key ID > User ID > CF-Connecting-IP > X-Forwarded-For > anonymous
  */
 export function resolveClientIdentifier(c: Context, apiKeyRecord?: any, userId?: string): string {
+  // Priority: User ID (unifies playground + API key usage for that user) > API Key ID > CF-Connecting-IP > X-Forwarded-For > anonymous
+  const effectiveUserId =
+    apiKeyRecord?.user_id && apiKeyRecord.user_id !== "anonymous"
+      ? apiKeyRecord.user_id
+      : userId && userId !== "anonymous"
+      ? userId
+      : undefined;
+
+  if (effectiveUserId) {
+    return effectiveUserId.startsWith("user_") ? effectiveUserId : `user_${effectiveUserId}`;
+  }
   if (apiKeyRecord?.id) {
     return `key_${apiKeyRecord.id}`;
-  }
-  if (userId && userId !== "anonymous") {
-    return `user_${userId}`;
   }
   const cfIp = c.req.header("cf-connecting-ip");
   if (cfIp) return `ip_${cfIp.trim()}`;
@@ -256,4 +264,186 @@ export function getRateLimitHeaders(retryAfterSec: number, tier: TierLevel = "fr
  */
 export function clearRateLimits(): void {
   inMemoryTimestamps.clear();
+  inMemoryDailyUsage.clear();
+}
+
+export const DAILY_PLATFORM_LIMIT = 150; // max 150 requests per day for platform-managed models
+export const DAILY_BYOK_LIMIT = 10_000;  // max 10,000 requests per day for BYOK
+
+export interface DailyLimitResult {
+  allowed: boolean;
+  limit: number;
+  used: number;
+  remaining: number;
+  resetsInSeconds: number;
+  dayDate: string;
+}
+
+const inMemoryDailyUsage = new Map<string, number>();
+
+export function getTodayUtcString(): string {
+  return new Date().toISOString().slice(0, 10);
+}
+
+export function getSecondsUntilMidnightUtc(): number {
+  const now = new Date();
+  const nextMidnightUtc = new Date(Date.UTC(
+    now.getUTCFullYear(),
+    now.getUTCMonth(),
+    now.getUTCDate() + 1,
+    0, 0, 0, 0
+  ));
+  return Math.max(1, Math.ceil((nextMidnightUtc.getTime() - now.getTime()) / 1000));
+}
+
+/**
+ * Checks and increments the client's daily request count.
+ * - Platform models: max 150 requests per day (including both playground and API calls).
+ * - BYOK models: max 10,000 requests per day.
+ */
+export async function checkDailyLimit(
+  clientId: string,
+  env?: any,
+  options?: { isByok?: boolean; bypassTest?: boolean }
+): Promise<DailyLimitResult> {
+  const isByok = Boolean(options?.isByok);
+  const limit = isByok ? DAILY_BYOK_LIMIT : DAILY_PLATFORM_LIMIT;
+  const dayDate = getTodayUtcString();
+  const usageKey = `${isByok ? "byok" : "plat"}_${clientId}_${dayDate}`;
+  const resetsInSeconds = getSecondsUntilMidnightUtc();
+
+  if (options?.bypassTest || (globalThis as any).__DISABLE_RATE_LIMIT__ === true) {
+    return {
+      allowed: true,
+      limit,
+      used: 0,
+      remaining: limit,
+      resetsInSeconds,
+      dayDate,
+    };
+  }
+
+  const now = Date.now();
+  let currentUsed = inMemoryDailyUsage.get(usageKey) || 0;
+
+  const db = env?.DB;
+  if (db && typeof db.prepare === "function") {
+    try {
+      const res: any = await db
+        .prepare(`SELECT request_count FROM daily_usage_limits WHERE usage_key = ?`)
+        .bind(usageKey)
+        .first();
+      if (res && typeof res.request_count === "number") {
+        currentUsed = Math.max(currentUsed, res.request_count);
+        inMemoryDailyUsage.set(usageKey, currentUsed);
+      }
+    } catch {
+      // Table will be created on upsert if missing
+    }
+  }
+
+  if (currentUsed >= limit) {
+    return {
+      allowed: false,
+      limit,
+      used: currentUsed,
+      remaining: 0,
+      resetsInSeconds,
+      dayDate,
+    };
+  }
+
+  const newUsed = currentUsed + 1;
+  inMemoryDailyUsage.set(usageKey, newUsed);
+
+  if (db && typeof db.prepare === "function") {
+    (async () => {
+      try {
+        await db
+          .prepare(
+            `INSERT INTO daily_usage_limits (usage_key, client_id, day_date, request_count, updated_at)
+             VALUES (?, ?, ?, 1, ?)
+             ON CONFLICT(usage_key) DO UPDATE SET
+               request_count = request_count + 1,
+               updated_at = excluded.updated_at`
+          )
+          .bind(usageKey, clientId, dayDate, now)
+          .run();
+      } catch {
+        try {
+          await db
+            .prepare(
+              `CREATE TABLE IF NOT EXISTS daily_usage_limits (
+                 usage_key TEXT PRIMARY KEY,
+                 client_id TEXT NOT NULL,
+                 day_date TEXT NOT NULL,
+                 request_count INTEGER NOT NULL DEFAULT 0,
+                 updated_at INTEGER NOT NULL
+               )`
+            )
+            .run();
+          await db
+            .prepare(
+              `INSERT INTO daily_usage_limits (usage_key, client_id, day_date, request_count, updated_at)
+               VALUES (?, ?, ?, 1, ?)
+               ON CONFLICT(usage_key) DO UPDATE SET
+                 request_count = request_count + 1,
+                 updated_at = excluded.updated_at`
+            )
+            .bind(usageKey, clientId, dayDate, now)
+            .run();
+        } catch (err) {
+          console.error("Failed to update daily_usage_limits in D1", err);
+        }
+      }
+    })().catch(() => {});
+  }
+
+  return {
+    allowed: true,
+    limit,
+    used: newUsed,
+    remaining: Math.max(0, limit - newUsed),
+    resetsInSeconds,
+    dayDate,
+  };
+}
+
+export function createDailyLimitErrorPayload(
+  dailyLimit: number,
+  used: number,
+  resetsInSeconds: number,
+  isByok: boolean
+) {
+  const modeText = isByok
+    ? "BYOK mode"
+    : "platform-managed model calls (including playground and API calls)";
+  const suggestion = isByok
+    ? "Limit resets at midnight UTC."
+    : "To increase your limit to 10,000 requests/day with no rate limits, switch to BYOK mode in the dashboard or API key settings.";
+
+  return {
+    error: {
+      message: `Daily request limit exceeded: maximum ${dailyLimit.toLocaleString()} requests per day for ${modeText}. ${suggestion}`,
+      type: "rate_limit_error",
+      param: null,
+      code: "daily_limit_exceeded",
+      daily_limit: dailyLimit,
+      daily_used: used,
+      resets_in_seconds: resetsInSeconds,
+    },
+  };
+}
+
+export function getDailyLimitHeaders(
+  dailyLimit: number,
+  remaining: number,
+  resetsInSeconds: number
+): Record<string, string> {
+  return {
+    "Retry-After": String(resetsInSeconds),
+    "x-ratelimit-limit-daily": String(dailyLimit),
+    "x-ratelimit-remaining-daily": String(Math.max(0, remaining)),
+    "x-ratelimit-reset-daily": String(resetsInSeconds),
+  };
 }

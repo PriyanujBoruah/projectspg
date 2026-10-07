@@ -10,8 +10,11 @@ import {
   isFreeTierRequest,
   checkFreeTierRateLimit,
   checkRateLimit,
+  checkDailyLimit,
   createRateLimitErrorPayload,
+  createDailyLimitErrorPayload,
   getRateLimitHeaders,
+  getDailyLimitHeaders,
 } from "../auth/rate_limiter";
 import { getUserProfile } from "../auth/profile";
 import { verifyFirebaseIdToken } from "../auth/firebase";
@@ -624,14 +627,15 @@ openaiApp.post("/chat/completions", async (c) => {
   //   - Pro Tier: 1 request per 5 seconds
   //   - Free Tier: 1 request per 15 seconds
   const isCustomUpstream = Boolean(upstreamAuth?.isUserKey);
+  const clientId = resolveClientIdentifier(c, apiKeyRecord, clientUserId);
+  const bypassTest = c.req.header("x-test-bypass-rate-limit") === "true";
 
   if (!isCustomUpstream) {
     const isPro = apiKeyRecord?.tier === "pro" || profile?.accessLevel === "Pro";
     const tier = isPro ? "pro" : "free";
-    const clientId = resolveClientIdentifier(c, apiKeyRecord, clientUserId);
     const rateLimit = await checkRateLimit(clientId, c.env, {
       tier,
-      bypassTest: c.req.header("x-test-bypass-rate-limit") === "true",
+      bypassTest,
     });
     if (!rateLimit.allowed) {
       return c.json(
@@ -640,6 +644,19 @@ openaiApp.post("/chat/completions", async (c) => {
         getRateLimitHeaders(rateLimit.retryAfterSec, tier)
       );
     }
+  }
+
+  // Enforce daily request limits (150 req/day for platform keys, 10,000 req/day for BYOK)
+  const dailyLimit = await checkDailyLimit(clientId, c.env, {
+    isByok: isCustomUpstream,
+    bypassTest,
+  });
+  if (!dailyLimit.allowed) {
+    return c.json(
+      createDailyLimitErrorPayload(dailyLimit.limit, dailyLimit.used, dailyLimit.resetsInSeconds, isCustomUpstream),
+      429,
+      getDailyLimitHeaders(dailyLimit.limit, dailyLimit.remaining, dailyLimit.resetsInSeconds)
+    );
   }
 
   // Emit structured SIEM compliance audit event
@@ -942,13 +959,15 @@ openaiApp.post("/embeddings", async (c) => {
   }
 
   const isCustomUpstream = Boolean(upstreamAuth?.isUserKey);
+  const clientId = resolveClientIdentifier(c, apiKeyRecord, clientUserId);
+  const bypassTest = c.req.header("x-test-bypass-rate-limit") === "true";
+
   if (!isCustomUpstream) {
     const isPro = apiKeyRecord?.tier === "pro" || profile?.accessLevel === "Pro";
     const tier = isPro ? "pro" : "free";
-    const clientId = resolveClientIdentifier(c, apiKeyRecord, clientUserId);
     const rateLimit = await checkRateLimit(clientId, c.env, {
       tier,
-      bypassTest: c.req.header("x-test-bypass-rate-limit") === "true",
+      bypassTest,
     });
     if (!rateLimit.allowed) {
       return c.json(
@@ -957,6 +976,19 @@ openaiApp.post("/embeddings", async (c) => {
         getRateLimitHeaders(rateLimit.retryAfterSec, tier)
       );
     }
+  }
+
+  // Enforce daily request limits (150 req/day for platform keys, 10,000 req/day for BYOK)
+  const dailyLimit = await checkDailyLimit(clientId, c.env, {
+    isByok: isCustomUpstream,
+    bypassTest,
+  });
+  if (!dailyLimit.allowed) {
+    return c.json(
+      createDailyLimitErrorPayload(dailyLimit.limit, dailyLimit.used, dailyLimit.resetsInSeconds, isCustomUpstream),
+      429,
+      getDailyLimitHeaders(dailyLimit.limit, dailyLimit.remaining, dailyLimit.resetsInSeconds)
+    );
   }
 
   const upstreamHeaders: Record<string, string> = {
@@ -1174,14 +1206,15 @@ openaiApp.post("/v1beta/models/:action{.+}", async (c) => {
   const googKey = c.req.header("x-goog-api-key");
   const byokGoogleKey = apiKeyRecord?.byok_google_key;
   const isUserKey = Boolean(authHeader || googKey || byokGoogleKey);
+  const clientId = resolveClientIdentifier(c, apiKeyRecord, clientUserId);
+  const bypassTest = c.req.header("x-test-bypass-rate-limit") === "true";
 
   if (!isUserKey) {
     const isPro = apiKeyRecord?.tier === "pro" || profile?.accessLevel === "Pro";
     const tier = isPro ? "pro" : "free";
-    const clientId = resolveClientIdentifier(c, apiKeyRecord, clientUserId);
     const rateLimit = await checkRateLimit(clientId, c.env, {
       tier,
-      bypassTest: c.req.header("x-test-bypass-rate-limit") === "true",
+      bypassTest,
     });
     if (!rateLimit.allowed) {
       return c.json(
@@ -1190,6 +1223,19 @@ openaiApp.post("/v1beta/models/:action{.+}", async (c) => {
         getRateLimitHeaders(rateLimit.retryAfterSec, tier)
       );
     }
+  }
+
+  // Enforce daily request limits (150 req/day for platform keys, 10,000 req/day for BYOK)
+  const dailyLimit = await checkDailyLimit(clientId, c.env, {
+    isByok: isUserKey,
+    bypassTest,
+  });
+  if (!dailyLimit.allowed) {
+    return c.json(
+      createDailyLimitErrorPayload(dailyLimit.limit, dailyLimit.used, dailyLimit.resetsInSeconds, isUserKey),
+      429,
+      getDailyLimitHeaders(dailyLimit.limit, dailyLimit.remaining, dailyLimit.resetsInSeconds)
+    );
   }
 
   const forwardHeaders: Record<string, string> = {

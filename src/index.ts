@@ -305,7 +305,7 @@ app.post("/api/keys", async (c) => {
   const isPro = profile?.accessLevel === "Pro";
 
   const tier: "pro" | "byok" = body.tier === "byok" ? "byok" : "pro";
-  const defaultQuota = tier === "byok" ? 1_000_000 : 100_000;
+  const defaultQuota = tier === "byok" ? 300_000 : 4_500;
   const quota = typeof body.monthlyQuota === "number" ? body.monthlyQuota : defaultQuota;
   const byokKeys = {
     googleKey: body.byokGoogleKey || body.byok_google_key || "",

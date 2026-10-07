@@ -7,8 +7,11 @@ import {
   resolveClientIdentifier,
   checkFreeTierRateLimit,
   checkRateLimit,
+  checkDailyLimit,
   createRateLimitErrorPayload,
+  createDailyLimitErrorPayload,
   getRateLimitHeaders,
+  getDailyLimitHeaders,
 } from "../auth/rate_limiter";
 import { verifyFirebaseIdToken } from "../auth/firebase";
 import { getUserProfile } from "../auth/profile";
@@ -130,13 +133,15 @@ tokenizationApp.post("/tokenize", async (c) => {
     }
 
     const isEnterpriseOrByok = apiKeyRecord && (apiKeyRecord.tier === "enterprise" || apiKeyRecord.tier === "byok");
+    const clientId = resolveClientIdentifier(c, apiKeyRecord, clientUserId);
+    const bypassTest = c.req.header("x-test-bypass-rate-limit") === "true";
+
     if (!isEnterpriseOrByok) {
       const isPro = apiKeyRecord?.tier === "pro" || profile?.accessLevel === "Pro";
       const tier = isPro ? "pro" : "free";
-      const clientId = resolveClientIdentifier(c, apiKeyRecord, clientUserId);
       const rateLimit = await checkRateLimit(clientId, c.env, {
         tier,
-        bypassTest: c.req.header("x-test-bypass-rate-limit") === "true",
+        bypassTest,
       });
       if (!rateLimit.allowed) {
         return c.json(
@@ -145,6 +150,19 @@ tokenizationApp.post("/tokenize", async (c) => {
           getRateLimitHeaders(rateLimit.retryAfterSec, tier)
         );
       }
+    }
+
+    // Enforce daily request limits (150 req/day for platform keys, 10,000 req/day for BYOK)
+    const dailyLimit = await checkDailyLimit(clientId, c.env, {
+      isByok: isEnterpriseOrByok,
+      bypassTest,
+    });
+    if (!dailyLimit.allowed) {
+      return c.json(
+        createDailyLimitErrorPayload(dailyLimit.limit, dailyLimit.used, dailyLimit.resetsInSeconds, isEnterpriseOrByok),
+        429,
+        getDailyLimitHeaders(dailyLimit.limit, dailyLimit.remaining, dailyLimit.resetsInSeconds)
+      );
     }
 
     const categories = resolveCategories(c, body.categories);

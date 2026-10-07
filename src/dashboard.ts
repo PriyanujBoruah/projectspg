@@ -3515,7 +3515,7 @@ console.log(data.choices[0].message.content);</div>
         <!-- Free Tier Info Banner -->
         <div id="tier-info-free" class="p-3 rounded-xl bg-gray-50 border border-gray-200/80 text-[11px] text-gray-600 leading-relaxed">
           <div id="tier-info-free-title" class="font-semibold text-gray-900 mb-0.5">Platform Quota</div>
-          <span id="tier-info-free-desc">Uses ProjectSPG Pro infrastructure (1 req / 5s rate limit, 100,000 req/mo). Full multi-provider routing included.</span>
+          <span id="tier-info-free-desc">Uses ProjectSPG platform infrastructure (1 req / 5s rate limit, 150 req/day). Full multi-provider routing included.</span>
         </div>
 
         <!-- BYOK Tier Credentials Section (Collapsible) -->
@@ -3525,7 +3525,7 @@ console.log(data.choices[0].message.content);</div>
               <i data-lucide="shield-check" class="w-3.5 h-3.5 text-blue-600"></i>
               Direct Upstream Zero-Throttling Routing
             </div>
-            Associate your AI provider keys with this API key. When your backend or OpenAI SDK calls ProjectSPG with <code>spg_live_...</code>, requests are proxied directly using your accounts with zero platform rate limits.
+            Associate your AI provider keys with this API key. When your backend or OpenAI SDK calls ProjectSPG with <code>spg_live_...</code>, requests are proxied directly using your accounts with zero platform rate limits (up to 10,000 req/day).
           </div>
 
           <!-- Google AI Studio Key -->
@@ -5829,7 +5829,7 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
       if (freeTitle) freeTitle.textContent = 'Platform Quota';
       const freeDesc = document.getElementById('tier-info-free-desc');
       if (freeDesc) {
-        freeDesc.textContent = 'Uses ProjectSPG Pro infrastructure (1 req / 5s rate limit, 100,000 req/mo). Full multi-provider routing included.';
+        freeDesc.textContent = 'Uses ProjectSPG platform infrastructure (1 req / 5s rate limit, 150 req/day). Full multi-provider routing included.';
       }
 
       const tierInput = document.getElementById('new-key-tier');
@@ -5878,7 +5878,7 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
         tier = 'free';
       }
       const name = document.getElementById('new-key-name').value.trim() || (tier === 'free' ? 'ProjectSPG Key' : 'ProjectSPG BYOK Key');
-      const quota = tier === 'byok' ? 1000000 : 100000;
+      const quota = tier === 'byok' ? 300000 : 4500;
       const byokGoogleKey = document.getElementById('new-byok-google') ? document.getElementById('new-byok-google').value.trim() : '';
       const byokMistralKey = document.getElementById('new-byok-mistral') ? document.getElementById('new-byok-mistral').value.trim() : '';
       const byokGroqKey = document.getElementById('new-byok-groq') ? document.getElementById('new-byok-groq').value.trim() : '';
