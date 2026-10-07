@@ -47,7 +47,9 @@ CREATE TABLE IF NOT EXISTS user_profiles (
     invitation_code TEXT,
     access_level TEXT DEFAULT 'Free',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    subscription_started_at DATETIME,
+    subscription_expires_at DATETIME
 );
 
 CREATE INDEX IF NOT EXISTS idx_user_profiles_email ON user_profiles(email);
@@ -89,4 +91,23 @@ CREATE TABLE IF NOT EXISTS api_request_logs (
 
 CREATE INDEX IF NOT EXISTS idx_logs_api_key_id ON api_request_logs(api_key_id);
 CREATE INDEX IF NOT EXISTS idx_logs_user_id ON api_request_logs(user_id);
+
+-- =========================================================================
+-- Free Tier Sliding Window Rate Limits
+-- =========================================================================
+CREATE TABLE IF NOT EXISTS free_tier_rate_limits (
+    client_id TEXT PRIMARY KEY,
+    last_request_time INTEGER NOT NULL
+);
+
+-- =========================================================================
+-- Daily Quota Usage Metering Table
+-- =========================================================================
+CREATE TABLE IF NOT EXISTS daily_usage_limits (
+    usage_key TEXT PRIMARY KEY,
+    client_id TEXT NOT NULL,
+    day_date TEXT NOT NULL,
+    request_count INTEGER NOT NULL DEFAULT 0,
+    updated_at INTEGER NOT NULL
+);
 
