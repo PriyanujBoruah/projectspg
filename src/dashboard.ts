@@ -5442,24 +5442,19 @@ console.log(data.choices[0].message.content);</div>
           });
           fetchApiLogs();
         } else if (res.status === 429) {
+          const isDaily = Boolean(data.error && data.error.code === 'daily_limit_exceeded');
           const isPro = (data.error && data.error.tier === 'pro') || isUserFullyInvited();
-          const retrySec = (data.error && data.error.retry_after) || (isPro ? 5 : 15);
+          const retrySec = (data.error && (data.error.retry_after || data.error.resets_in_seconds)) || (isPro ? 5 : 15);
           const limitSec = isPro ? 5 : 15;
-          const tierLabel = isPro ? 'Pro Tier Rate Limit (1 request / 5s)' : 'Free Tier Rate Limit (1 request / 15s)';
-          const tierDesc = isPro
-            ? 'To ensure fair distribution of GPU compute, Pro playground requests are rate limited to 1 protected request per 5 seconds.'
-            : 'To keep free inference available for everyone, free tier requests are rate limited to 1 protected request per 15 seconds.';
-          document.getElementById('welcome-message').classList.add('hidden');
-          const protBox = document.getElementById('output-protected-container');
-          if (protBox) protBox.classList.add('hidden');
-          const rehydBox = document.getElementById('output-rehydrated-container');
-          if (rehydBox) rehydBox.classList.remove('hidden');
-          document.getElementById('rehydrated-text').innerHTML =
-            '<div class="p-3.5 bg-amber-50 border border-amber-200 rounded-xl text-amber-900 text-xs leading-relaxed">' +
-            '<strong>' + tierLabel + '</strong><br/>' +
-            tierDesc + '<br/>' +
-            'Please retry in <strong class="text-[#f0523d]">' + retrySec + 's</strong>, or switch to BYOK mode for unlimited requests.' +
-            '</div>';
+
+          // Display floating toaster notification without modifying or covering previous prompt output
+          showRateLimitToast({
+            isDaily,
+            retrySec: isDaily ? 0 : retrySec,
+            limitSec,
+            dailyLimit: (data.error && data.error.daily_limit) || 150
+          });
+
           localLogs.unshift({
             time: new Date().toLocaleTimeString(),
             timestamp: new Date().toISOString(),
@@ -5472,12 +5467,14 @@ console.log(data.choices[0].message.content);</div>
             outTokens: 0,
             audio: '-',
             reqId: 'req_' + Math.random().toString(36).slice(2, 7) + '...',
-            error: 'rate_limited',
+            error: isDaily ? 'daily_limit_exceeded' : 'rate_limited',
             protectedEntities: 0
           });
           renderLogsTable();
           renderMetricsChart();
-          startCooldown(retrySec);
+          if (!isDaily) {
+            startCooldown(retrySec);
+          }
         } else if (!res.ok || data.error) {
           document.getElementById('welcome-message').classList.add('hidden');
           const protBox = document.getElementById('output-protected-container');
@@ -5525,6 +5522,113 @@ console.log(data.choices[0].message.content);</div>
           }
         }
         if (window.lucide) lucide.createIcons();
+      }
+    }
+
+    let rateToastCountdownInterval = null;
+
+    function dismissRateLimitToast() {
+      if (rateToastCountdownInterval) {
+        clearInterval(rateToastCountdownInterval);
+        rateToastCountdownInterval = null;
+      }
+      const toast = document.getElementById('toast-rate-limit');
+      if (!toast) return;
+      toast.classList.remove('translate-y-0', 'opacity-100');
+      toast.classList.add('translate-y-4', 'opacity-0');
+      setTimeout(() => {
+        if (toast.parentNode) toast.parentNode.removeChild(toast);
+      }, 300);
+    }
+
+    function showRateLimitToast(opts) {
+      dismissRateLimitToast();
+
+      const isDaily = Boolean(opts && opts.isDaily);
+      let remainingSec = (opts && opts.retrySec) ? opts.retrySec : 5;
+
+      const toast = document.createElement('div');
+      toast.id = 'toast-rate-limit';
+      toast.className = 'fixed bottom-5 right-5 z-50 max-w-md w-[calc(100%-2.5rem)] bg-white border border-amber-300 rounded-2xl shadow-xl p-4 transition-all duration-300 transform translate-y-4 opacity-0 flex flex-col gap-2.5';
+
+      if (isDaily) {
+        toast.innerHTML =
+          '<div class="flex items-start justify-between gap-3">' +
+            '<div class="flex items-center gap-2 text-amber-900 font-bold text-xs">' +
+              '<div class="w-6 h-6 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center shrink-0">' +
+                '<i data-lucide="alert-triangle" class="w-3.5 h-3.5"></i>' +
+              '</div>' +
+              '<span>Daily Request Limit Reached (150 req/day)</span>' +
+            '</div>' +
+            '<button onclick="dismissRateLimitToast()" class="text-gray-400 hover:text-gray-700 p-1 rounded-lg hover:bg-gray-100 transition cursor-pointer" aria-label="Close">' +
+              '<i data-lucide="x" class="w-3.5 h-3.5"></i>' +
+            '</button>' +
+          '</div>' +
+          '<p class="text-xs text-amber-950/80 leading-relaxed pl-8">' +
+            'You have reached the free platform quota of 150 requests per day (including playground and API calls). Limit resets at midnight UTC.' +
+          '</p>' +
+          '<div class="pl-8 pt-1 flex items-center gap-2">' +
+            '<button onclick="switchPlaygroundTier(\'byok\'); dismissRateLimitToast()" class="px-3 py-1.5 rounded-lg bg-[#f0523d] hover:bg-[#e0422d] text-white font-semibold text-xs transition cursor-pointer flex items-center gap-1 shadow-2xs">' +
+              '<i data-lucide="sparkles" class="w-3 h-3"></i>' +
+              '<span>Switch to BYOK (10,000 req/day)</span>' +
+            '</button>' +
+            '<button onclick="dismissRateLimitToast()" class="px-3 py-1.5 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium text-xs transition cursor-pointer">' +
+              'Dismiss' +
+            '</button>' +
+          '</div>';
+      } else {
+        toast.innerHTML =
+          '<div class="flex items-start justify-between gap-3">' +
+            '<div class="flex items-center gap-2 text-amber-900 font-bold text-xs">' +
+              '<div class="w-6 h-6 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center shrink-0">' +
+                '<i data-lucide="clock" class="w-3.5 h-3.5"></i>' +
+              '</div>' +
+              '<span>Pro Tier Rate Limit (1 request / 5s)</span>' +
+            '</div>' +
+            '<button onclick="dismissRateLimitToast()" class="text-gray-400 hover:text-gray-700 p-1 rounded-lg hover:bg-gray-100 transition cursor-pointer" aria-label="Close">' +
+              '<i data-lucide="x" class="w-3.5 h-3.5"></i>' +
+            '</button>' +
+          '</div>' +
+          '<p class="text-xs text-amber-950/80 leading-relaxed pl-8">' +
+            'To ensure fair distribution of GPU compute, Pro playground requests are rate limited to 1 protected request per 5 seconds. ' +
+            'Please retry in <strong class="text-[#f0523d] font-bold" id="rate-toast-countdown">' + remainingSec + 's</strong>, or switch to BYOK mode for unlimited requests.' +
+          '</p>' +
+          '<div class="pl-8 pt-1 flex items-center gap-2">' +
+            '<button onclick="switchPlaygroundTier(\'byok\'); dismissRateLimitToast()" class="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-white font-semibold text-xs transition cursor-pointer flex items-center gap-1 shadow-2xs">' +
+              '<i data-lucide="sparkles" class="w-3 h-3"></i>' +
+              '<span>Switch to BYOK Mode</span>' +
+            '</button>' +
+            '<button onclick="dismissRateLimitToast()" class="px-3 py-1.5 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium text-xs transition cursor-pointer">' +
+              'Dismiss' +
+            '</button>' +
+          '</div>';
+      }
+
+      document.body.appendChild(toast);
+      if (window.lucide) lucide.createIcons();
+
+      requestAnimationFrame(() => {
+        toast.classList.remove('translate-y-4', 'opacity-0');
+        toast.classList.add('translate-y-0', 'opacity-100');
+      });
+
+      if (!isDaily) {
+        rateToastCountdownInterval = setInterval(() => {
+          remainingSec--;
+          const cdEl = document.getElementById('rate-toast-countdown');
+          if (cdEl) cdEl.textContent = remainingSec + 's';
+          if (remainingSec <= 0) {
+            clearInterval(rateToastCountdownInterval);
+            rateToastCountdownInterval = null;
+            setTimeout(() => {
+              dismissRateLimitToast();
+            }, 600);
+          }
+        }, 1000);
+      } else {
+        setTimeout(() => {
+          dismissRateLimitToast();
+        }, 8000);
       }
     }
 
