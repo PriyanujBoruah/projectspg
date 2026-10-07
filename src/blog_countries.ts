@@ -1194,13 +1194,12 @@ print(response.choices[0].message.content)
           <!-- Remaining Columns of Links (3 Columns) -->
           <div class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-8 lg:gap-10 text-xs">
             
-            <!-- Col 1: DEVELOPERS & PRICING -->
+            <!-- Col 1: DEVELOPERS & PLATFORM -->
             <div>
               <div class="border-t border-gray-200/90 pt-3 mb-3.5">
-                <span class="text-[10px] font-bold tracking-widest uppercase text-gray-900 font-mono">DEVELOPERS &amp; PRICING</span>
+                <span class="text-[10px] font-bold tracking-widest uppercase text-gray-900 font-mono">DEVELOPERS &amp; PLATFORM</span>
               </div>
               <ul class="space-y-2.5 font-medium text-gray-600">
-                <li><a href="/#pricing-section" class="hover:text-gray-950 transition">Pricing Tiers (Free, Pro, Custom)</a></li>
                 <li><a href="/blog/benchmark" class="hover:text-gray-950 transition">Research &amp; Benchmark</a></li>
                 <li><a href="/blog/countries" class="hover:text-gray-950 transition">Supported Countries</a></li>
                 <li><a href="/dashboard" class="hover:text-gray-950 transition">API Documentation</a></li>
