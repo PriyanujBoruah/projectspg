@@ -391,12 +391,12 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
         </nav>
       </div>
 
-      <!-- Right: Sign In / User Profile -->
+      <!-- Right: Live Public Access Badge / User Profile -->
       <div class="flex items-center gap-2 sm:gap-3.5">
-        <!-- Sign In Button (Shown when logged out) -->
-        <button id="btn-login-trigger" onclick="openAuthModal()" class="px-3 py-1.5 rounded-lg bg-[#f0523d] hover:bg-[#e0422d] text-white font-medium text-xs shadow-xs transition flex items-center gap-1.5 cursor-pointer">
-          <i data-lucide="log-in" class="w-3.5 h-3.5"></i>
-          <span>Sign In</span>
+        <!-- Live Public Access Badge (Shown when logged out) -->
+        <button id="btn-login-trigger" onclick="switchView('playground')" class="px-2.5 sm:px-3 py-1.5 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-800 font-medium text-xs shadow-2xs transition flex items-center gap-1.5 cursor-pointer" title="Zero-friction public access enabled">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span>Free Public Access</span>
         </button>
 
         <!-- User Profile Dropdown (Shown when logged in) -->
@@ -495,8 +495,9 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
           <!-- Right: Actions -->
           <div class="flex items-center gap-2.5 sm:gap-4 text-xs font-semibold">
-            <button onclick="handleLandingAuthClick()" class="px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase transition shadow-xs cursor-pointer flex items-center gap-1.5">
-              <span id="btn-landing-signin-text">Sign In</span>
+            <button onclick="switchView('playground')" class="px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full bg-black hover:bg-gray-800 text-white text-[11px] font-bold tracking-wider uppercase transition shadow-xs cursor-pointer flex items-center gap-1.5">
+              <span id="btn-landing-signin-text">Open Console</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
             </button>
             <!-- Mobile Menu Hamburger Button -->
             <button onclick="toggleLandingMobileMenu()" id="btn-landing-mobile-menu" class="md:hidden p-1.5 rounded-full hover:bg-gray-100 text-gray-700 hover:text-gray-950 transition cursor-pointer flex items-center justify-center" aria-label="Toggle navigation menu">
@@ -522,8 +523,9 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400"></i>
             </a>
             <div class="pt-2 flex flex-col gap-2">
-              <button onclick="closeLandingMobileMenu(); handleLandingAuthClick()" class="w-full py-2.5 rounded-xl bg-black hover:bg-gray-800 text-white text-xs font-bold uppercase tracking-wider transition shadow-sm">
-                <span id="btn-landing-mobile-signin-text">Sign In</span>
+              <button onclick="closeLandingMobileMenu(); switchView('playground')" class="w-full py-2.5 rounded-xl bg-black hover:bg-gray-800 text-white text-xs font-bold uppercase tracking-wider transition shadow-sm flex items-center justify-center gap-1.5">
+                <span id="btn-landing-mobile-signin-text">Open Console</span>
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
               </button>
             </div>
           </nav>
@@ -562,8 +564,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                   <i data-lucide="arrow-right" class="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-0.5 transition-transform"></i>
                 </button>
                 
-                <button onclick="handleLandingAuthClick()" class="flex-1 sm:flex-none px-4 sm:px-6 py-3 sm:py-3.5 rounded-full bg-white hover:bg-slate-50 text-gray-800 text-[11px] sm:text-xs font-bold tracking-wider uppercase transition border border-gray-300 shadow-2xs flex items-center justify-center gap-1.5 sm:gap-2 cursor-pointer whitespace-nowrap">
-                  <span>Get Started Free</span>
+                <button onclick="switchView('playground')" class="flex-1 sm:flex-none px-4 sm:px-6 py-3 sm:py-3.5 rounded-full bg-white hover:bg-slate-50 text-gray-800 text-[11px] sm:text-xs font-bold tracking-wider uppercase transition border border-gray-300 shadow-2xs flex items-center justify-center gap-1.5 sm:gap-2 cursor-pointer whitespace-nowrap">
+                  <span>Open Console</span>
                   <i data-lucide="sparkles" class="w-3.5 h-3.5 text-[#f0523d]"></i>
                 </button>
               </div>
@@ -1568,7 +1570,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
                   </div>
                   <ul class="space-y-2.5 font-medium text-gray-600">
                     <li><a href="#" onclick="switchView('playground')" class="hover:text-gray-950 transition">Interactive Playground</a></li>
-                    <li><a href="#" onclick="handleLandingAuthClick()" class="hover:text-gray-950 transition">Sign Up / Sign In</a></li>
+                    <li><a href="#" onclick="switchView('keys')" class="hover:text-gray-950 transition">API Keys & Endpoints</a></li>
                     <li><a href="#docs" onclick="switchView('docs')" class="hover:text-gray-950 transition">API Documentation</a></li>
                   </ul>
                 </div>
@@ -7199,19 +7201,11 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
     }
 
     function handleStartBuildingClick() {
-      if (currentFirebaseUser) {
-        switchView('playground');
-      } else {
-        openAuthModal();
-      }
+      switchView('playground');
     }
 
     function handleLandingAuthClick() {
-      if (currentFirebaseUser) {
-        switchView('playground');
-      } else {
-        openAuthModal();
-      }
+      switchView('playground');
     }
 
 
@@ -7771,8 +7765,8 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
 
         if (loginBtn) loginBtn.classList.remove('hidden');
         if (userMenu) userMenu.classList.add('hidden');
-        if (landingBtnText) landingBtnText.textContent = 'Sign In';
-        if (landingMobileBtnText) landingMobileBtnText.textContent = 'Sign In';
+        if (landingBtnText) landingBtnText.textContent = 'Open Console';
+        if (landingMobileBtnText) landingMobileBtnText.textContent = 'Open Console';
 
         const pill = document.getElementById('top-tier-pill');
         if (pill) {
