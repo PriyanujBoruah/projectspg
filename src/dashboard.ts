@@ -1673,9 +1673,9 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           <div class="relative max-w-[115px] xs:max-w-[130px] sm:max-w-none shrink min-w-0">
             <select id="playground-model" onchange="onModelChange()" class="appearance-none bg-white border border-groq-grayBorder text-groq-dark text-xs font-sans font-medium rounded-lg pl-2 sm:pl-3 pr-5 sm:pr-8 py-1.5 focus:border-gray-400 focus:outline-none cursor-pointer w-full truncate">
               <optgroup label="Groq Cloud (Fast & Free)">
-                <option value="llama-3.3-70b-versatile" data-provider="groq" selected>llama-3.3-70b-versatile</option>
-                <option value="llama-3.1-8b-instant" data-provider="groq">llama-3.1-8b-instant</option>
-                <option value="mixtral-8x7b-32768" data-provider="groq">mixtral-8x7b-32768</option>
+                <option value="openai/gpt-oss-120b" data-provider="groq" selected>openai/gpt-oss-120b</option>
+                <option value="openai/gpt-oss-20b" data-provider="groq">openai/gpt-oss-20b</option>
+                <option value="qwen/qwen3.8-27b" data-provider="groq">qwen/qwen3.8-27b</option>
               </optgroup>
               <optgroup label="Google AI Studio (Free)">
                 <option value="gemini-1.5-flash" data-provider="google">gemini-1.5-flash</option>

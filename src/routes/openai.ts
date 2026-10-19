@@ -732,8 +732,8 @@ openaiApp.post("/chat/completions", async (c) => {
   // If routing through Groq on unauthenticated/free tier and an OpenAI model was requested, map to Groq flagship model
   if (upstreamUrl.includes("groq.com")) {
     const m = (upstreamPayload.model || "").toLowerCase();
-    if (!m || m.startsWith("gpt-") || m.startsWith("chatgpt") || m.startsWith("text-") || m === "openai") {
-      upstreamPayload.model = "llama-3.3-70b-versatile";
+    if (!m || m.startsWith("gpt-") || m.startsWith("chatgpt") || m.startsWith("text-") || m === "openai" || m.includes("llama-3.3")) {
+      upstreamPayload.model = "openai/gpt-oss-120b";
     }
   }
 
