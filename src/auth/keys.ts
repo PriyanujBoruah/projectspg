@@ -378,8 +378,21 @@ export function extractApiKey(c: Context): string | null {
   return null;
 }
 
+export const PUBLIC_FREE_TIER_RECORD: ApiKeyRecord = {
+  id: "key_public_free",
+  key_prefix: "spg_free...",
+  name: "Public Free Tier",
+  tier: "free",
+  monthly_quota: 100_000,
+  requests_used: 0,
+  is_active: 1,
+  created_at: "2026-01-01T00:00:00.000Z",
+  user_id: "anonymous",
+};
+
 /**
- * Hono Middleware for Optional or Required API Key verification
+ * Hono Middleware for Optional or Required API Key verification.
+ * By default, permits all unauthenticated and guest developers via Public Free Tier.
  */
 export function createAuthMiddleware(options: { required?: boolean } = {}) {
   return async (c: Context, next: Next) => {
@@ -402,21 +415,27 @@ export function createAuthMiddleware(options: { required?: boolean } = {}) {
           401
         );
       }
+      c.set("apiKeyRecord", PUBLIC_FREE_TIER_RECORD);
       return next();
     }
 
     const validation = await validateApiKey(rawKey, c.env);
     if (!validation.valid) {
-      return c.json(
-        {
-          error: {
-            message: validation.error,
-            type: validation.statusCode === 429 ? "rate_limit_error" : "unauthorized_error",
-            code: validation.statusCode === 429 ? "quota_exceeded" : "invalid_api_key",
+      // If strict authentication is required, block; otherwise gracefully grant Public Free Tier
+      if (requireKey) {
+        return c.json(
+          {
+            error: {
+              message: validation.error,
+              type: validation.statusCode === 429 ? "rate_limit_error" : "unauthorized_error",
+              code: validation.statusCode === 429 ? "quota_exceeded" : "invalid_api_key",
+            },
           },
-        },
-        validation.statusCode as any || 401
-      );
+          validation.statusCode as any || 401
+        );
+      }
+      c.set("apiKeyRecord", PUBLIC_FREE_TIER_RECORD);
+      return next();
     }
 
     // Attach key record to context for route handlers

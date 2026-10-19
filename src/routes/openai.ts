@@ -181,12 +181,21 @@ export function resolveUpstreamAuth(
   model?: string,
   targetUrl?: string
 ): { headerName: string; headerValue: string; isUserKey: boolean } | null {
-  const authHeader = c.req.header("Authorization");
-  const isSpgKey = authHeader ? authHeader.toLowerCase().startsWith("bearer spg_") : false;
+  const authHeader = c.req.header("Authorization") || "";
+  const isSpgKey = authHeader.toLowerCase().startsWith("bearer spg_");
+  const isPlaceholderKey =
+    authHeader.includes("YOUR_SPG_KEY") ||
+    authHeader.toLowerCase().includes("bearer demo") ||
+    authHeader.toLowerCase().includes("bearer test") ||
+    authHeader.toLowerCase().includes("bearer free");
 
-  // 1. If user supplied their own direct upstream provider key
-  if (authHeader && !isSpgKey) {
-    return { headerName: "Authorization", headerValue: authHeader, isUserKey: true };
+  const url = targetUrl || resolveUpstreamBaseUrl(c, model);
+
+  // 1. If user supplied their own direct upstream provider key (e.g. sk-... for OpenAI, or direct provider key)
+  if (authHeader && !isSpgKey && !isPlaceholderKey) {
+    if (!url.includes("api.openai.com") || authHeader.startsWith("Bearer sk-")) {
+      return { headerName: "Authorization", headerValue: authHeader, isUserKey: true };
+    }
   }
 
   const googKey = c.req.header("x-goog-api-key");
@@ -201,7 +210,6 @@ export function resolveUpstreamAuth(
 
   // 2. Check if the authenticated API key record has BYOK provider keys attached
   const apiKeyRecord: any = (c as any).get("apiKeyRecord");
-  const url = targetUrl || resolveUpstreamBaseUrl(c, model);
   const modelLower = (model || "").toLowerCase();
 
   if (apiKeyRecord && (apiKeyRecord.tier === "byok" || apiKeyRecord.byok_google_key || apiKeyRecord.byok_mistral_key || apiKeyRecord.byok_groq_key)) {
@@ -319,12 +327,15 @@ export function resolveUpstreamAuth(
     }
   }
 
-  // Fallback to OpenAI env or default Groq platform key
-  const envOpenAiKey = (c.env as any)?.OPENAI_API_KEY || (globalThis as any).process?.env?.OPENAI_API_KEY;
-  if (envOpenAiKey) {
-    return { headerName: "Authorization", headerValue: `Bearer ${envOpenAiKey}`, isUserKey: false };
+  // Fallback to OpenAI env if targeting OpenAI
+  if (url.includes("api.openai.com")) {
+    const envOpenAiKey = (c.env as any)?.OPENAI_API_KEY || (globalThis as any).process?.env?.OPENAI_API_KEY;
+    if (envOpenAiKey) {
+      return { headerName: "Authorization", headerValue: `Bearer ${envOpenAiKey}`, isUserKey: false };
+    }
   }
 
+  // Safe default platform fallback for Groq and general LLM proxy calls
   const defaultKey = (c.env as any)?.GROQ_API_KEY || DEFAULT_PLATFORM_KEYS.groq;
   return { headerName: "Authorization", headerValue: `Bearer ${defaultKey}`, isUserKey: false };
 }
@@ -617,7 +628,18 @@ openaiApp.post("/chat/completions", async (c) => {
   }
 
   // Step 2: Resolve Upstream Destination & Forward Sanitized Prompt
-  const upstreamBaseUrl = resolveUpstreamBaseUrl(c, requestedModel);
+  let upstreamBaseUrl = resolveUpstreamBaseUrl(c, requestedModel);
+
+  // If targeting OpenAI but user provided no OpenAI key and server has no OPENAI_API_KEY,
+  // gracefully route unauthenticated/free requests to Groq Cloud so they succeed with 200 OK
+  const hasUserOpenAiKey = authHeader.startsWith("Bearer sk-");
+  const hasServerOpenAiKey = Boolean(
+    (c.env as any)?.OPENAI_API_KEY || (globalThis as any).process?.env?.OPENAI_API_KEY
+  );
+  if (upstreamBaseUrl === "https://api.openai.com/v1" && !hasUserOpenAiKey && !hasServerOpenAiKey) {
+    upstreamBaseUrl = "https://api.groq.com/openai/v1";
+  }
+
   const upstreamUrl = `${upstreamBaseUrl}/chat/completions`;
   const upstreamAuth = resolveUpstreamAuth(c, requestedModel, upstreamBaseUrl);
 
@@ -705,6 +727,14 @@ openaiApp.post("/chat/completions", async (c) => {
   // Normalize model aliases for upstream providers (Google AI Studio Gemma 4)
   if (upstreamPayload.model === "gemma-4-26b-it") {
     upstreamPayload.model = "gemma-4-26b-a4b-it";
+  }
+
+  // If routing through Groq on unauthenticated/free tier and an OpenAI model was requested, map to Groq flagship model
+  if (upstreamUrl.includes("groq.com")) {
+    const m = (upstreamPayload.model || "").toLowerCase();
+    if (!m || m.startsWith("gpt-") || m.startsWith("chatgpt") || m.startsWith("text-") || m === "openai") {
+      upstreamPayload.model = "llama-3.3-70b-versatile";
+    }
   }
 
   let upstreamRes: Response;
@@ -1067,7 +1097,7 @@ openaiApp.get("/models", async (c) => {
   const upstreamBaseUrl = resolveUpstreamBaseUrl(c);
   const upstreamAuth = resolveUpstreamAuth(c);
 
-  if (upstreamAuth) {
+  if (upstreamAuth && upstreamAuth.isUserKey) {
     try {
       const upstreamRes = await fetch(`${upstreamBaseUrl}/models`, {
         method: "GET",

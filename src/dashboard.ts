@@ -1672,10 +1672,18 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
           <div class="relative max-w-[115px] xs:max-w-[130px] sm:max-w-none shrink min-w-0">
             <select id="playground-model" onchange="onModelChange()" class="appearance-none bg-white border border-groq-grayBorder text-groq-dark text-xs font-sans font-medium rounded-lg pl-2 sm:pl-3 pr-5 sm:pr-8 py-1.5 focus:border-gray-400 focus:outline-none cursor-pointer w-full truncate">
-              <optgroup label="Mistral AI (Free & Pro)">
-                <option value="codestral-2508" data-provider="mistral" selected>codestral-2508</option>
+              <optgroup label="Groq Cloud (Fast & Free)">
+                <option value="llama-3.3-70b-versatile" data-provider="groq" selected>llama-3.3-70b-versatile</option>
+                <option value="llama-3.1-8b-instant" data-provider="groq">llama-3.1-8b-instant</option>
+                <option value="mixtral-8x7b-32768" data-provider="groq">mixtral-8x7b-32768</option>
+              </optgroup>
+              <optgroup label="Google AI Studio (Free)">
+                <option value="gemini-1.5-flash" data-provider="google">gemini-1.5-flash</option>
+                <option value="gemini-2.0-flash" data-provider="google">gemini-2.0-flash</option>
+              </optgroup>
+              <optgroup label="Mistral AI (Free)">
+                <option value="codestral-2508" data-provider="mistral">codestral-2508</option>
                 <option value="ministral-8b-2512" data-provider="mistral">ministral-8b-2512</option>
-                <option value="ministral-14b-2512" data-provider="mistral">ministral-14b-2512</option>
               </optgroup>
             </select>
             <i data-lucide="chevrons-up-down" class="w-3.5 h-3.5 text-groq-textSubtle absolute right-1.5 sm:right-2 top-2 pointer-events-none"></i>
@@ -5057,14 +5065,10 @@ console.log(data.choices[0].message.content);</div>
       const targetVal = preferredSelected || select.value;
       select.innerHTML = '';
 
-      const isFull = isUserFullyInvited();
-
-      const groups = isFull ? [
-        { label: 'Groq Cloud', provider: 'groq', items: catalog?.groq || [] },
-        { label: 'Google AI Studio', provider: 'google', items: catalog?.google || [] },
-        { label: 'Mistral AI', provider: 'mistral', items: catalog?.mistral || [] }
-      ] : [
-        { label: 'Mistral AI (Free & Pro)', provider: 'mistral', items: FREE_TIER_MODELS.mistral }
+      const groups = [
+        { label: 'Groq Cloud (Ultra-Fast & Free)', provider: 'groq', items: catalog?.groq?.length ? catalog.groq : EXPANDED_FALLBACK_MODELS.groq },
+        { label: 'Google AI Studio (Free)', provider: 'google', items: catalog?.google?.length ? catalog.google : EXPANDED_FALLBACK_MODELS.google },
+        { label: 'Mistral AI (Free & Pro)', provider: 'mistral', items: catalog?.mistral?.length ? catalog.mistral : EXPANDED_FALLBACK_MODELS.mistral }
       ];
 
       let found = false;
@@ -5251,16 +5255,7 @@ console.log(data.choices[0].message.content);</div>
       const kmsKey = kmsInput ? kmsInput.value.trim() : '';
       let apiKey = '';
 
-      const isFull = isUserFullyInvited();
-      if (!isFull) {
-        const allowedMistral = ['codestral-2508', 'ministral-8b-2512', 'ministral-14b-2512'];
-        if (!allowedMistral.includes(model)) {
-          alert('Free accounts are restricted to the 3 Mistral AI models (codestral-2508, ministral-8b-2512, ministral-14b-2512). Please redeem an invitation code for Pro Access.');
-          showInvitationToast(true);
-          renderPlaygroundModelDropdown(FREE_TIER_MODELS, 'codestral-2508');
-          return;
-        }
-      }
+      // Free public access: all free provider models are freely executable without invitation codes
 
       let targetProvider = optProvider;
       if (!targetProvider) {
