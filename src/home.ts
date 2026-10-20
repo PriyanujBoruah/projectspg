@@ -82,7 +82,7 @@ export const HOME_HTML = `<!DOCTYPE html>
     }
     /* Keyhole Edge-Hugging Beam Sweep Animation */
     @keyframes keyholeEdgeSweep {
-      0% { stroke-dashoffset: 660; }
+      0% { stroke-dashoffset: 600; }
       100% { stroke-dashoffset: 0; }
     }
     .animate-keyhole-edge-sweep {
@@ -178,9 +178,9 @@ export const HOME_HTML = `<!DOCTYPE html>
                   <stop offset="100%" stop-color="transparent" stop-opacity="0" />
                 </linearGradient>
 
-                <!-- Exact Keyhole Silhouette Path -->
+                <!-- Perfectly Circular Top Keyhole Silhouette Path -->
                 <path id="keyholeShape"
-                  d="M 130 52 A 44 44 0 0 1 158 135 L 180 250 Q 180 260 170 260 L 90 260 Q 80 260 80 250 L 102 135 A 44 44 0 0 1 130 52 Z"
+                  d="M 103.5 135 A 48 48 0 1 1 156.5 135 L 178 248 Q 178 258 168 258 L 92 258 Q 82 258 82 248 Z"
                 />
               </defs>
 
