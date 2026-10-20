@@ -1248,37 +1248,55 @@ export const HOME_HTML = `<!DOCTYPE html>
                 </h4>
               </div>
 
-              <!-- Context-Preserving Action Capabilities (Matching Screenshot Items) -->
-              <div class="space-y-2 mb-5">
-                <div class="flex items-center gap-2.5 p-2 rounded-lg bg-slate-900/60 border border-slate-800/80 text-xs text-slate-300">
-                  <i data-lucide="languages" class="w-3.5 h-3.5 text-cyan-400"></i>
-                  <span>Deterministic semantic de-identification</span>
+              <!-- Comparison Showcase: Unprotected Prompt -> Protected Prompt Below It -->
+              <div class="space-y-3">
+                
+                <!-- 1. Unprotected User Prompt -->
+                <div class="rounded-xl bg-slate-950/90 border border-slate-800/80 p-3.5 space-y-2">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                      <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
+                      <span>Unprotected User Prompt</span>
+                    </div>
+                    <span class="text-[9px] font-semibold px-2 py-0.5 rounded-full bg-rose-950/60 text-rose-300 border border-rose-800/60">
+                      Raw PII Exposed
+                    </span>
+                  </div>
+                  <p class="text-[11px] font-mono text-slate-300 leading-relaxed">
+                    "Audit compensation for <span class="bg-rose-950/80 text-rose-200 border border-rose-800/80 px-1.5 py-0.2 rounded font-medium">Alice Walker</span> (SSN: <span class="bg-rose-950/80 text-rose-200 border border-rose-800/80 px-1.5 py-0.2 rounded font-medium">82-9102834</span>, <span class="bg-rose-950/80 text-rose-200 border border-rose-800/80 px-1.5 py-0.2 rounded font-medium">alice@megacorp.io</span>), verify base salary of <span class="bg-rose-950/80 text-rose-200 border border-rose-800/80 px-1.5 py-0.2 rounded font-medium">$185,000</span>."
+                  </p>
                 </div>
-                <div class="flex items-center gap-2.5 p-2 rounded-lg bg-slate-900/60 border border-slate-800/80 text-xs text-slate-300">
-                  <i data-lucide="scan-search" class="w-3.5 h-3.5 text-[#f0523d]"></i>
-                  <span>Zero-leakage reasoning context intact</span>
-                </div>
-                <div class="flex items-center gap-2.5 p-2 rounded-lg bg-slate-900/60 border border-slate-800/80 text-xs text-slate-300">
-                  <i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-400"></i>
-                  <span>100% reversible response rehydration</span>
-                </div>
-              </div>
 
-              <!-- Input Area with Embedded Protected Payload (Matching Screenshot Bottom Form) -->
-              <div class="rounded-xl bg-slate-950 border border-slate-800 p-3.5 space-y-2">
-                <!-- Pill badge -->
-                <div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-cyan-950/80 border border-cyan-800/60 text-[10px] text-cyan-300 font-mono">
-                  <i data-lucide="shield-check" class="w-3 h-3 text-cyan-400"></i>
-                  <span>Protected by ProjectSPG</span>
+                <!-- Sub-20ms Interception Divider -->
+                <div class="flex items-center justify-center gap-2 py-0.5">
+                  <div class="h-px bg-slate-800 flex-1"></div>
+                  <div class="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-slate-900 border border-slate-800 text-[10px] text-cyan-400 font-medium">
+                    <i data-lucide="shield-check" class="w-3 h-3 text-cyan-400"></i>
+                    <span>ProjectSPG Sub-20ms Edge Sanitization</span>
+                  </div>
+                  <div class="h-px bg-slate-800 flex-1"></div>
                 </div>
-                <!-- Sanitized Prompt Text -->
-                <p class="text-[11px] font-mono text-slate-300 leading-relaxed">
-                  "Audit payroll for <span class="bg-cyan-950 text-cyan-300 border border-cyan-700/80 px-1 py-0.2 rounded">[PERSON_1]</span> (SSN: <span class="bg-amber-950 text-amber-300 border border-amber-700/80 px-1 py-0.2 rounded">[SSN_1]</span>, salary <span class="bg-emerald-950 text-emerald-300 border border-emerald-700/80 px-1 py-0.2 rounded">[COMP_1]</span>)..."
-                </p>
-                <div class="flex items-center justify-between pt-1 border-t border-slate-900 text-[10px] text-slate-500 font-sans">
-                  <span>Context fully preserved for LLM reasoning</span>
-                  <span class="text-emerald-400 font-medium">0 bytes stored</span>
+
+                <!-- 2. Protected Prompt Below It (Sent to AI) -->
+                <div class="rounded-xl bg-cyan-950/20 border border-cyan-800/60 p-3.5 space-y-2 shadow-inner">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-cyan-400">
+                      <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+                      <span>Protected Prompt (Sent to AI)</span>
+                    </div>
+                    <span class="text-[9px] font-semibold px-2 py-0.5 rounded-full bg-cyan-950 text-cyan-300 border border-cyan-700/80">
+                      Context Preserved
+                    </span>
+                  </div>
+                  <p class="text-[11px] font-mono text-slate-200 leading-relaxed">
+                    "Audit compensation for <span class="bg-cyan-900/60 text-cyan-300 border border-cyan-700/80 px-1.5 py-0.2 rounded font-medium">[PERSON_1]</span> (SSN: <span class="bg-amber-900/60 text-amber-300 border border-amber-700/80 px-1.5 py-0.2 rounded font-medium">[SSN_1]</span>, <span class="bg-purple-900/60 text-purple-300 border border-purple-700/80 px-1.5 py-0.2 rounded font-medium">[EMAIL_1]</span>), verify base salary of <span class="bg-emerald-900/60 text-emerald-300 border border-emerald-700/80 px-1.5 py-0.2 rounded font-medium">[COMP_1]</span>."
+                  </p>
+                  <div class="flex items-center justify-between pt-1 border-t border-cyan-900/40 text-[10px] text-slate-400 font-sans">
+                    <span>Reversible semantic placeholders</span>
+                    <span class="text-emerald-400 font-medium">0 bytes stored</span>
+                  </div>
                 </div>
+
               </div>
 
             </div>
