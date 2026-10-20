@@ -3,6 +3,7 @@ import { cors } from "hono/cors";
 import tokenizationApp from "./routes/tokenization";
 import openaiApp from "./routes/openai";
 import { DASHBOARD_HTML } from "./dashboard";
+import { HOME_HTML } from "./home";
 import { BENCHMARK_BLOG_HTML } from "./blog_benchmark";
 import { COUNTRIES_BLOG_HTML } from "./blog_countries";
 import { INDUSTRIES_BLOG_HTML } from "./blog_industries";
@@ -74,6 +75,9 @@ app.options("*", (c) => c.body(null, 204));
 // Serve Single-File Enterprise Landing Page & Console
 app.get("/", (c) => c.html(DASHBOARD_HTML));
 app.get("/dashboard", (c) => c.html(DASHBOARD_HTML));
+
+// Serve Modern Developer-First Home Landing Page (Interactive Hero Demo & Lead Capture)
+app.get("/home", (c) => c.html(HOME_HTML));
 
 // Serve Technical Benchmark & Empirical Reliability Blog
 app.get("/blog", (c) => c.redirect("/blog/benchmark"));
@@ -335,6 +339,53 @@ app.delete("/api/keys/:id", async (c) => {
   const isAdmin = userEmail && isAdminEmail(userEmail);
   await revokeApiKey(id, c.env, isAdmin ? undefined : userId);
   return c.json({ success: true, message: `API key ${id} revoked.` });
+});
+
+// =========================================================================
+// Developer Lead Capture Endpoint (/api/leads)
+// Persists work emails and company ASNs captured via the Home hero demo
+// =========================================================================
+app.post("/api/leads", async (c) => {
+  try {
+    const body: any = await c.req.json().catch(() => ({}));
+    const email = (body.email || "").toLowerCase().trim();
+    if (!email) return c.json({ error: "Email is required" }, 400);
+
+    const ip = c.req.header("CF-Connecting-IP") || c.req.header("X-Forwarded-For") || "anonymous";
+    const cf = (c.req.raw as any)?.cf || {};
+    const companyAsn = cf.asOrganization || "Unknown";
+    const country = cf.country || "Unknown";
+
+    console.log(`[LEAD_CAPTURED] email="${email}" company="${companyAsn}" country="${country}" ip="${ip}" source="${body.source || "home"}"`);
+
+    const db = c.env?.DB;
+    if (db && typeof db.prepare === "function") {
+      try {
+        await db.prepare(
+          `CREATE TABLE IF NOT EXISTS leads (
+             id TEXT PRIMARY KEY,
+             email TEXT NOT NULL,
+             company_asn TEXT,
+             country TEXT,
+             ip TEXT,
+             source TEXT,
+             created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+           )`
+        ).run();
+
+        const leadId = `lead_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
+        await db.prepare(
+          `INSERT INTO leads (id, email, company_asn, country, ip, source) VALUES (?, ?, ?, ?, ?, ?)`
+        ).bind(leadId, email, companyAsn, country, ip, body.source || "home").run();
+      } catch (dbErr) {
+        console.warn("D1 lead persistence warning:", dbErr);
+      }
+    }
+
+    return c.json({ status: "success", message: "Free tier access unlocked" });
+  } catch (err: any) {
+    return c.json({ error: err?.message || "Internal error" }, 500);
+  }
 });
 
 // =========================================================================
