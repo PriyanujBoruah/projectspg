@@ -127,10 +127,12 @@ export const HOME_HTML = `<!DOCTYPE html>
     </div>
   </header>
 
-  <!-- ========================================================================= -->
-  <!-- HERO SECTION: Agentic Infrastructure (Light Themed with Glowing Keyhole)  -->
-  <!-- ========================================================================= -->
-  <section id="agentic-hero-section" class="relative overflow-hidden py-16 sm:py-20 lg:py-24 border-b border-gray-200/80 bg-white">
+  <main class="flex-1 bg-grid">
+
+    <!-- ========================================================================= -->
+    <!-- HERO SECTION: Agentic Infrastructure (with Grid Background & Glowing Keyhole) -->
+    <!-- ========================================================================= -->
+    <section id="agentic-hero-section" class="relative overflow-hidden py-16 sm:py-20 lg:py-24 border-b border-gray-200/60">
     
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
@@ -239,10 +241,9 @@ export const HOME_HTML = `<!DOCTYPE html>
   </section>
 
   <!-- ========================================================================= -->
-  <!-- HERO SECTION (v0-Style Input Bar in Light Theme)                         -->
+  <!-- HERO DEMO SECTION (v0-Style Input Bar in Light Theme)                     -->
   <!-- ========================================================================= -->
-  <main class="flex-1 bg-grid">
-    <section class="max-w-4xl mx-auto px-4 sm:px-6 pt-12 pb-16 text-center">
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 pt-12 pb-16 text-center">
       
       <!-- Top Announcement Pill (Matching v0 style) -->
       <a href="/#docs" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-gray-200/90 hover:border-gray-300 text-slate-700 text-xs font-medium mb-8 shadow-2xs transition group">
