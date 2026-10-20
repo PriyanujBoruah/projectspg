@@ -877,189 +877,322 @@ export const HOME_HTML = `<!DOCTYPE html>
         </p>
       </div>
 
-        <!-- 3x2 Grid (3 Columns, 2 Rows) -->
+        <!-- 3x2 Grid (3 Columns, 2 Rows in Architectural Sketch Style) -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           
           <!-- Card 1: Automatic Data Redaction (De-Identify) -->
-          <div class="relative rounded-3xl bg-[#09090b] border border-zinc-800/80 hover:border-zinc-700 transition-all duration-300 p-6 sm:p-8 flex flex-col justify-between overflow-hidden group min-h-[360px] sm:min-h-[390px]">
-            <div class="absolute -top-20 -right-20 w-44 h-44 bg-rose-500/10 rounded-full blur-3xl pointer-events-none group-hover:bg-rose-500/20 transition-colors duration-500"></div>
-            <div>
-              <div class="text-[11px] font-mono font-semibold uppercase tracking-wider text-rose-400 mb-2">De-Identify</div>
-              <h3 class="text-lg sm:text-xl font-bold text-white tracking-tight">Automatic Data Redaction</h3>
-              <p class="text-xs sm:text-sm text-zinc-400 mt-2 leading-relaxed">
-                Instantly strips customer names, passwords, credit cards, and confidential records before prompts leave your network.
-              </p>
-            </div>
+          <div class="relative group select-none">
+            <!-- Sharp Hatch Shadow Layer -->
+            <div class="absolute inset-0 rounded-3xl transform translate-x-2 translate-y-2 z-0 pointer-events-none border border-slate-700/60"
+                 style="background: repeating-linear-gradient(45deg, #475569, #475569 1.3px, transparent 1.3px, transparent 7px); opacity: 0.35;"></div>
             
-            <div class="flex-1 flex items-center justify-center pt-8 pb-2 relative z-10">
-              <div class="w-full max-w-[310px] rounded-2xl bg-zinc-950 border border-zinc-800/80 p-3.5 space-y-2.5 font-mono text-[11px] shadow-xl">
-                <div class="flex items-center justify-between pb-2 border-b border-zinc-800/80">
-                  <span class="text-zinc-500 text-[10px] uppercase font-sans">Prompt Stream</span>
-                  <span class="text-rose-400 text-[9px] bg-rose-950/60 border border-rose-800/60 px-2 py-0.5 rounded-full font-sans font-medium">PII Blocked</span>
-                </div>
-                <div class="text-zinc-400 text-[11px] leading-relaxed">
-                  "Transfer bonus for <span class="text-rose-300 bg-rose-950/80 border border-rose-900 px-1 py-0.5 rounded line-through">Alice Walker</span> (SSN: <span class="text-rose-300 bg-rose-950/80 border border-rose-900 px-1 py-0.5 rounded line-through">82-9102834</span>)"
-                </div>
-                <div class="flex items-center gap-1.5 text-emerald-400 text-[10px] pt-1 border-t border-zinc-800/60 font-sans">
-                  <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400 shrink-0"></i>
-                  <span>Zero sensitive data reaches upstream model</span>
+            <!-- Card Body -->
+            <div class="relative z-10 rounded-3xl bg-[#09090b] border-2 border-slate-700/80 p-6 sm:p-7 flex flex-col justify-between overflow-hidden min-h-[380px] sm:min-h-[410px] text-white transition-all duration-200 group-hover:-translate-y-1">
+              <!-- Corner Registration Ticks (+) -->
+              <div class="absolute top-2.5 left-2.5 text-slate-500 font-mono text-[10px] select-none leading-none opacity-60">+</div>
+              <div class="absolute top-2.5 right-2.5 text-slate-500 font-mono text-[10px] select-none leading-none opacity-60">+</div>
+              <div class="absolute bottom-2.5 left-2.5 text-slate-500 font-mono text-[10px] select-none leading-none opacity-60">+</div>
+              <div class="absolute bottom-2.5 right-2.5 text-slate-500 font-mono text-[10px] select-none leading-none opacity-60">+</div>
+
+              <!-- Inset Dashed Drafting Contour -->
+              <div class="absolute inset-1.5 sm:inset-2 rounded-[20px] border border-dashed border-slate-800/80 pointer-events-none"></div>
+
+              <!-- Faint Sketch Texture -->
+              <div class="absolute inset-0 rounded-3xl pointer-events-none opacity-15"
+                   style="background: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05) 1.2px, transparent 1.2px, transparent 8px);"></div>
+
+              <div class="relative z-10">
+                <div class="text-[11px] font-mono font-semibold uppercase tracking-wider text-rose-400 mb-2">De-Identify</div>
+                <h3 class="text-lg sm:text-xl font-bold text-white tracking-tight">Automatic Data Redaction</h3>
+                <p class="text-xs sm:text-sm text-zinc-400 mt-2 leading-relaxed">
+                  Instantly strips customer names, passwords, credit cards, and confidential records before prompts leave your network.
+                </p>
+              </div>
+              
+              <div class="flex-1 flex items-center justify-center pt-6 pb-2 relative z-10">
+                <div class="w-full max-w-[310px] rounded-2xl bg-zinc-950 border border-slate-800 p-3.5 space-y-2.5 font-mono text-[11px] shadow-lg"
+                     style="box-shadow: 3px 3px 0px 0px rgba(30, 41, 59, 0.8);">
+                  <div class="flex items-center justify-between pb-2 border-b border-zinc-800/80">
+                    <span class="text-zinc-500 text-[10px] uppercase font-sans">Prompt Stream</span>
+                    <span class="text-rose-400 text-[9px] bg-rose-950/60 border border-rose-800/60 px-2 py-0.5 rounded-full font-sans font-medium">PII Blocked</span>
+                  </div>
+                  <div class="text-zinc-400 text-[11px] leading-relaxed">
+                    "Transfer bonus for <span class="text-rose-300 bg-rose-950/80 border border-rose-900 px-1 py-0.5 rounded line-through">Alice Walker</span> (SSN: <span class="text-rose-300 bg-rose-950/80 border border-rose-900 px-1 py-0.5 rounded line-through">82-9102834</span>)"
+                  </div>
+                  <div class="flex items-center gap-1.5 text-emerald-400 text-[10px] pt-1 border-t border-zinc-800/60 font-sans">
+                    <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400 shrink-0"></i>
+                    <span>Zero sensitive data reaches upstream model</span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
           <!-- Card 2: Context-Preserving Masking (De-Identify) -->
-          <div class="relative rounded-3xl bg-[#09090b] border border-zinc-800/80 hover:border-zinc-700 transition-all duration-300 p-6 sm:p-8 flex flex-col justify-between overflow-hidden group min-h-[360px] sm:min-h-[390px]">
-            <div class="absolute -top-20 -right-20 w-44 h-44 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none group-hover:bg-cyan-500/20 transition-colors duration-500"></div>
-            <div>
-              <div class="text-[11px] font-mono font-semibold uppercase tracking-wider text-cyan-400 mb-2">De-Identify</div>
-              <h3 class="text-lg sm:text-xl font-bold text-white tracking-tight">Context-Preserving Masking</h3>
-              <p class="text-xs sm:text-sm text-zinc-400 mt-2 leading-relaxed">
-                Replaces sensitive items with smart placeholders so AI stays accurate, then restores original values on output.
-              </p>
-            </div>
+          <div class="relative group select-none">
+            <!-- Sharp Hatch Shadow Layer -->
+            <div class="absolute inset-0 rounded-3xl transform translate-x-2 translate-y-2 z-0 pointer-events-none border border-slate-700/60"
+                 style="background: repeating-linear-gradient(45deg, #475569, #475569 1.3px, transparent 1.3px, transparent 7px); opacity: 0.35;"></div>
             
-            <div class="flex-1 flex items-center justify-center pt-8 pb-2 relative z-10">
-              <div class="w-full max-w-[310px] space-y-2 font-mono text-[11px]">
-                <div class="rounded-xl bg-cyan-950/40 border border-cyan-800/60 p-2.5 text-cyan-200 flex items-center justify-between">
-                  <span class="text-[10px] text-cyan-400 font-sans font-medium">To AI Model:</span>
-                  <span class="bg-cyan-900/70 text-cyan-200 px-2 py-0.5 rounded border border-cyan-700 font-bold">[PERSON_1]</span>
-                </div>
-                <div class="flex items-center justify-center gap-1.5 text-zinc-400 text-[10px] py-0.5 font-sans">
-                  <i data-lucide="refresh-cw" class="w-3 h-3 text-emerald-400"></i>
-                  <span class="text-emerald-400 font-semibold">Two-Way Live Rehydration</span>
-                </div>
-                <div class="rounded-xl bg-emerald-950/40 border border-emerald-800/60 p-2.5 text-emerald-200 flex items-center justify-between">
-                  <span class="text-[10px] text-emerald-400 font-sans font-medium">To Your App:</span>
-                  <span class="bg-emerald-900/70 text-emerald-200 px-2 py-0.5 rounded border border-emerald-700 font-bold">Alice Walker</span>
+            <!-- Card Body -->
+            <div class="relative z-10 rounded-3xl bg-[#09090b] border-2 border-slate-700/80 p-6 sm:p-7 flex flex-col justify-between overflow-hidden min-h-[380px] sm:min-h-[410px] text-white transition-all duration-200 group-hover:-translate-y-1">
+              <!-- Corner Registration Ticks (+) -->
+              <div class="absolute top-2.5 left-2.5 text-slate-500 font-mono text-[10px] select-none leading-none opacity-60">+</div>
+              <div class="absolute top-2.5 right-2.5 text-slate-500 font-mono text-[10px] select-none leading-none opacity-60">+</div>
+              <div class="absolute bottom-2.5 left-2.5 text-slate-500 font-mono text-[10px] select-none leading-none opacity-60">+</div>
+              <div class="absolute bottom-2.5 right-2.5 text-slate-500 font-mono text-[10px] select-none leading-none opacity-60">+</div>
+
+              <!-- Inset Dashed Drafting Contour -->
+              <div class="absolute inset-1.5 sm:inset-2 rounded-[20px] border border-dashed border-slate-800/80 pointer-events-none"></div>
+
+              <!-- Faint Sketch Texture -->
+              <div class="absolute inset-0 rounded-3xl pointer-events-none opacity-15"
+                   style="background: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05) 1.2px, transparent 1.2px, transparent 8px);"></div>
+
+              <div class="relative z-10">
+                <div class="text-[11px] font-mono font-semibold uppercase tracking-wider text-cyan-400 mb-2">De-Identify</div>
+                <h3 class="text-lg sm:text-xl font-bold text-white tracking-tight">Context-Preserving Masking</h3>
+                <p class="text-xs sm:text-sm text-zinc-400 mt-2 leading-relaxed">
+                  Replaces sensitive items with smart placeholders so AI stays accurate, then restores original values on output.
+                </p>
+              </div>
+              
+              <div class="flex-1 flex items-center justify-center pt-6 pb-2 relative z-10">
+                <div class="w-full max-w-[310px] space-y-2 font-mono text-[11px]">
+                  <div class="rounded-xl bg-cyan-950/40 border border-cyan-800/60 p-2.5 text-cyan-200 flex items-center justify-between"
+                       style="box-shadow: 2px 2px 0px 0px rgba(8, 145, 178, 0.4);">
+                    <span class="text-[10px] text-cyan-400 font-sans font-medium">To AI Model:</span>
+                    <span class="bg-cyan-900/70 text-cyan-200 px-2 py-0.5 rounded border border-cyan-700 font-bold">[PERSON_1]</span>
+                  </div>
+                  <div class="flex items-center justify-center gap-1.5 text-zinc-400 text-[10px] py-0.5 font-sans">
+                    <i data-lucide="refresh-cw" class="w-3 h-3 text-emerald-400"></i>
+                    <span class="text-emerald-400 font-semibold">Two-Way Live Rehydration</span>
+                  </div>
+                  <div class="rounded-xl bg-emerald-950/40 border border-emerald-800/60 p-2.5 text-emerald-200 flex items-center justify-between"
+                       style="box-shadow: 2px 2px 0px 0px rgba(16, 185, 129, 0.4);">
+                    <span class="text-[10px] text-emerald-400 font-sans font-medium">To Your App:</span>
+                    <span class="bg-emerald-900/70 text-emerald-200 px-2 py-0.5 rounded border border-emerald-700 font-bold">Alice Walker</span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
           <!-- Card 3: Zero-Retention Routing (Privacy) -->
-          <div class="relative rounded-3xl bg-[#09090b] border border-zinc-800/80 hover:border-zinc-700 transition-all duration-300 p-6 sm:p-8 flex flex-col justify-between overflow-hidden group min-h-[360px] sm:min-h-[390px]">
-            <div class="absolute -top-20 -right-20 w-44 h-44 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none group-hover:bg-emerald-500/20 transition-colors duration-500"></div>
-            <div>
-              <div class="text-[11px] font-mono font-semibold uppercase tracking-wider text-emerald-400 mb-2">Privacy</div>
-              <h3 class="text-lg sm:text-xl font-bold text-white tracking-tight">Zero-Retention Routing</h3>
-              <p class="text-xs sm:text-sm text-zinc-400 mt-2 leading-relaxed">
-                Prompts and keys live only in volatile RAM for milliseconds. Never written to disk, stored in databases, or trained on.
-              </p>
-            </div>
+          <div class="relative group select-none">
+            <!-- Sharp Hatch Shadow Layer -->
+            <div class="absolute inset-0 rounded-3xl transform translate-x-2 translate-y-2 z-0 pointer-events-none border border-slate-700/60"
+                 style="background: repeating-linear-gradient(45deg, #475569, #475569 1.3px, transparent 1.3px, transparent 7px); opacity: 0.35;"></div>
             
-            <div class="flex-1 flex items-center justify-center pt-8 pb-2 relative z-10">
-              <div class="w-full max-w-[310px] rounded-2xl bg-zinc-950 border border-zinc-800/80 p-3.5 space-y-2.5 font-mono text-[11px] shadow-xl">
-                <div class="flex items-center justify-between p-2 rounded-xl bg-zinc-900/90 border border-zinc-800">
-                  <div class="flex items-center gap-2">
-                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                    <span class="text-zinc-300 font-sans text-xs">Volatile Memory</span>
+            <!-- Card Body -->
+            <div class="relative z-10 rounded-3xl bg-[#09090b] border-2 border-slate-700/80 p-6 sm:p-7 flex flex-col justify-between overflow-hidden min-h-[380px] sm:min-h-[410px] text-white transition-all duration-200 group-hover:-translate-y-1">
+              <!-- Corner Registration Ticks (+) -->
+              <div class="absolute top-2.5 left-2.5 text-slate-500 font-mono text-[10px] select-none leading-none opacity-60">+</div>
+              <div class="absolute top-2.5 right-2.5 text-slate-500 font-mono text-[10px] select-none leading-none opacity-60">+</div>
+              <div class="absolute bottom-2.5 left-2.5 text-slate-500 font-mono text-[10px] select-none leading-none opacity-60">+</div>
+              <div class="absolute bottom-2.5 right-2.5 text-slate-500 font-mono text-[10px] select-none leading-none opacity-60">+</div>
+
+              <!-- Inset Dashed Drafting Contour -->
+              <div class="absolute inset-1.5 sm:inset-2 rounded-[20px] border border-dashed border-slate-800/80 pointer-events-none"></div>
+
+              <!-- Faint Sketch Texture -->
+              <div class="absolute inset-0 rounded-3xl pointer-events-none opacity-15"
+                   style="background: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05) 1.2px, transparent 1.2px, transparent 8px);"></div>
+
+              <div class="relative z-10">
+                <div class="text-[11px] font-mono font-semibold uppercase tracking-wider text-emerald-400 mb-2">Privacy</div>
+                <h3 class="text-lg sm:text-xl font-bold text-white tracking-tight">Zero-Retention Routing</h3>
+                <p class="text-xs sm:text-sm text-zinc-400 mt-2 leading-relaxed">
+                  Prompts and keys live only in volatile RAM for milliseconds. Never written to disk, stored in databases, or trained on.
+                </p>
+              </div>
+              
+              <div class="flex-1 flex items-center justify-center pt-6 pb-2 relative z-10">
+                <div class="w-full max-w-[310px] rounded-2xl bg-zinc-950 border border-slate-800 p-3.5 space-y-2.5 font-mono text-[11px] shadow-lg"
+                     style="box-shadow: 3px 3px 0px 0px rgba(30, 41, 59, 0.8);">
+                  <div class="flex items-center justify-between p-2 rounded-xl bg-zinc-900/90 border border-zinc-800">
+                    <div class="flex items-center gap-2">
+                      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                      <span class="text-zinc-300 font-sans text-xs">Volatile Memory</span>
+                    </div>
+                    <span class="text-emerald-400 font-mono text-[10px] font-semibold bg-emerald-950/60 px-1.5 py-0.5 rounded border border-emerald-800">Purged on EOF</span>
                   </div>
-                  <span class="text-emerald-400 font-mono text-[10px] font-semibold bg-emerald-950/60 px-1.5 py-0.5 rounded border border-emerald-800">Purged on EOF</span>
-                </div>
-                <div class="flex items-center justify-between p-2 rounded-xl bg-zinc-900/90 border border-zinc-800">
-                  <div class="flex items-center gap-2">
-                    <i data-lucide="hard-drive" class="w-3.5 h-3.5 text-zinc-500"></i>
-                    <span class="text-zinc-300 font-sans text-xs">Persistent Storage</span>
+                  <div class="flex items-center justify-between p-2 rounded-xl bg-zinc-900/90 border border-zinc-800">
+                    <div class="flex items-center gap-2">
+                      <i data-lucide="hard-drive" class="w-3.5 h-3.5 text-zinc-500"></i>
+                      <span class="text-zinc-300 font-sans text-xs">Persistent Storage</span>
+                    </div>
+                    <span class="text-zinc-400 font-mono text-[10px] font-semibold bg-zinc-800/80 px-1.5 py-0.5 rounded border border-zinc-700">0 B Written</span>
                   </div>
-                  <span class="text-zinc-400 font-mono text-[10px] font-semibold bg-zinc-800/80 px-1.5 py-0.5 rounded border border-zinc-700">0 B Written</span>
                 </div>
               </div>
             </div>
           </div>
 
           <!-- Card 4: Bring Your Own Key (Privacy) -->
-          <div class="relative rounded-3xl bg-[#09090b] border border-zinc-800/80 hover:border-zinc-700 transition-all duration-300 p-6 sm:p-8 flex flex-col justify-between overflow-hidden group min-h-[360px] sm:min-h-[390px]">
-            <div class="absolute -top-20 -right-20 w-44 h-44 bg-purple-500/10 rounded-full blur-3xl pointer-events-none group-hover:bg-purple-500/20 transition-colors duration-500"></div>
-            <div>
-              <div class="text-[11px] font-mono font-semibold uppercase tracking-wider text-purple-400 mb-2">Privacy</div>
-              <h3 class="text-lg sm:text-xl font-bold text-white tracking-tight">Drop-in BYOK Proxy</h3>
-              <p class="text-xs sm:text-sm text-zinc-400 mt-2 leading-relaxed">
-                Connect directly with OpenAI, Anthropic, Gemini, Mistral, and Groq with your accounts and zero token markup.
-              </p>
-            </div>
+          <div class="relative group select-none">
+            <!-- Sharp Hatch Shadow Layer -->
+            <div class="absolute inset-0 rounded-3xl transform translate-x-2 translate-y-2 z-0 pointer-events-none border border-slate-700/60"
+                 style="background: repeating-linear-gradient(45deg, #475569, #475569 1.3px, transparent 1.3px, transparent 7px); opacity: 0.35;"></div>
             
-            <div class="flex-1 flex flex-col items-center justify-center pt-8 pb-2 relative z-10">
-              <div class="flex items-center justify-center gap-2.5 sm:gap-3 py-1">
-                <div class="w-11 h-11 rounded-2xl bg-zinc-900 border border-zinc-700/80 flex items-center justify-center shadow-lg text-white font-bold text-xs" title="OpenAI">
-                  AI
-                </div>
-                <div class="w-13 h-13 rounded-2xl bg-[#0d1824] border-2 border-cyan-400/50 flex items-center justify-center shadow-xl shadow-cyan-500/10" title="ProjectSPG">
-                  <i data-lucide="shield" class="w-6 h-6 text-cyan-400"></i>
-                </div>
-                <div class="w-11 h-11 rounded-2xl bg-zinc-900 border border-zinc-700/80 flex items-center justify-center shadow-lg text-amber-300 font-bold text-xs" title="Claude">
-                  Cl
-                </div>
+            <!-- Card Body -->
+            <div class="relative z-10 rounded-3xl bg-[#09090b] border-2 border-slate-700/80 p-6 sm:p-7 flex flex-col justify-between overflow-hidden min-h-[380px] sm:min-h-[410px] text-white transition-all duration-200 group-hover:-translate-y-1">
+              <!-- Corner Registration Ticks (+) -->
+              <div class="absolute top-2.5 left-2.5 text-slate-500 font-mono text-[10px] select-none leading-none opacity-60">+</div>
+              <div class="absolute top-2.5 right-2.5 text-slate-500 font-mono text-[10px] select-none leading-none opacity-60">+</div>
+              <div class="absolute bottom-2.5 left-2.5 text-slate-500 font-mono text-[10px] select-none leading-none opacity-60">+</div>
+              <div class="absolute bottom-2.5 right-2.5 text-slate-500 font-mono text-[10px] select-none leading-none opacity-60">+</div>
+
+              <!-- Inset Dashed Drafting Contour -->
+              <div class="absolute inset-1.5 sm:inset-2 rounded-[20px] border border-dashed border-slate-800/80 pointer-events-none"></div>
+
+              <!-- Faint Sketch Texture -->
+              <div class="absolute inset-0 rounded-3xl pointer-events-none opacity-15"
+                   style="background: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05) 1.2px, transparent 1.2px, transparent 8px);"></div>
+
+              <div class="relative z-10">
+                <div class="text-[11px] font-mono font-semibold uppercase tracking-wider text-purple-400 mb-2">Privacy</div>
+                <h3 class="text-lg sm:text-xl font-bold text-white tracking-tight">Drop-in BYOK Proxy</h3>
+                <p class="text-xs sm:text-sm text-zinc-400 mt-2 leading-relaxed">
+                  Connect directly with OpenAI, Anthropic, Gemini, Mistral, and Groq with your accounts and zero token markup.
+                </p>
               </div>
-              <div class="flex items-center justify-center gap-2 mt-3">
-                <span class="text-[10px] font-mono text-zinc-400 bg-zinc-900 px-2 py-0.5 rounded-md border border-zinc-800">1-Line baseURL</span>
-                <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded-md border border-emerald-800">0% Markup</span>
+              
+              <div class="flex-1 flex flex-col items-center justify-center pt-6 pb-2 relative z-10">
+                <div class="flex items-center justify-center gap-2.5 sm:gap-3 py-1">
+                  <div class="w-11 h-11 rounded-2xl bg-zinc-900 border-2 border-slate-700/80 flex items-center justify-center shadow-lg text-white font-bold text-xs"
+                       style="box-shadow: 2px 2px 0px 0px rgba(51, 65, 85, 0.5);" title="OpenAI">
+                    AI
+                  </div>
+                  <div class="w-13 h-13 rounded-2xl bg-[#0d1824] border-2 border-cyan-400/70 flex items-center justify-center shadow-xl shadow-cyan-500/10"
+                       style="box-shadow: 3px 3px 0px 0px rgba(6, 182, 212, 0.4);" title="ProjectSPG">
+                    <i data-lucide="shield" class="w-6 h-6 text-cyan-400"></i>
+                  </div>
+                  <div class="w-11 h-11 rounded-2xl bg-zinc-900 border-2 border-slate-700/80 flex items-center justify-center shadow-lg text-amber-300 font-bold text-xs"
+                       style="box-shadow: 2px 2px 0px 0px rgba(51, 65, 85, 0.5);" title="Claude">
+                    Cl
+                  </div>
+                </div>
+                <div class="flex items-center justify-center gap-2 mt-3 font-mono text-[10px]">
+                  <span class="text-zinc-300 bg-zinc-900 px-2 py-0.5 rounded-md border border-slate-700">1-Line baseURL</span>
+                  <span class="text-emerald-300 bg-emerald-950/70 px-2 py-0.5 rounded-md border border-emerald-800">0% Markup</span>
+                </div>
               </div>
             </div>
           </div>
 
           <!-- Card 5: Turnkey Regulatory Compliance (Compliance) -->
-          <div class="relative rounded-3xl bg-[#09090b] border border-zinc-800/80 hover:border-zinc-700 transition-all duration-300 p-6 sm:p-8 flex flex-col justify-between overflow-hidden group min-h-[360px] sm:min-h-[390px]">
-            <div class="absolute -top-20 -right-20 w-44 h-44 bg-blue-500/10 rounded-full blur-3xl pointer-events-none group-hover:bg-blue-500/20 transition-colors duration-500"></div>
-            <div>
-              <div class="text-[11px] font-mono font-semibold uppercase tracking-wider text-blue-400 mb-2">Compliance</div>
-              <h3 class="text-lg sm:text-xl font-bold text-white tracking-tight">Turnkey Compliance</h3>
-              <p class="text-xs sm:text-sm text-zinc-400 mt-2 leading-relaxed">
-                Automated turnkey guardrails mapping directly to HIPAA Title II, GDPR Art. 9, PCI-DSS v4.0, and CCPA out of the box.
-              </p>
-            </div>
+          <div class="relative group select-none">
+            <!-- Sharp Hatch Shadow Layer -->
+            <div class="absolute inset-0 rounded-3xl transform translate-x-2 translate-y-2 z-0 pointer-events-none border border-slate-700/60"
+                 style="background: repeating-linear-gradient(45deg, #475569, #475569 1.3px, transparent 1.3px, transparent 7px); opacity: 0.35;"></div>
             
-            <div class="flex-1 flex items-center justify-center pt-8 pb-2 relative z-10">
-              <div class="w-full max-w-[310px] grid grid-cols-2 gap-2 text-[11px] font-sans">
-                <div class="flex items-center gap-1.5 p-2 rounded-xl bg-blue-950/40 border border-blue-800/50 text-blue-200">
-                  <i data-lucide="check-circle" class="w-3.5 h-3.5 text-blue-400 shrink-0"></i>
-                  <span class="font-semibold text-xs">HIPAA Ready</span>
-                </div>
-                <div class="flex items-center gap-1.5 p-2 rounded-xl bg-emerald-950/40 border border-emerald-800/50 text-emerald-200">
-                  <i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-400 shrink-0"></i>
-                  <span class="font-semibold text-xs">GDPR Art. 9</span>
-                </div>
-                <div class="flex items-center gap-1.5 p-2 rounded-xl bg-purple-950/40 border border-purple-800/50 text-purple-200">
-                  <i data-lucide="check-circle" class="w-3.5 h-3.5 text-purple-400 shrink-0"></i>
-                  <span class="font-semibold text-xs">PCI-DSS v4</span>
-                </div>
-                <div class="flex items-center gap-1.5 p-2 rounded-xl bg-cyan-950/40 border border-cyan-800/50 text-cyan-200">
-                  <i data-lucide="check-circle" class="w-3.5 h-3.5 text-cyan-400 shrink-0"></i>
-                  <span class="font-semibold text-xs">SOC 2 Proof</span>
+            <!-- Card Body -->
+            <div class="relative z-10 rounded-3xl bg-[#09090b] border-2 border-slate-700/80 p-6 sm:p-7 flex flex-col justify-between overflow-hidden min-h-[380px] sm:min-h-[410px] text-white transition-all duration-200 group-hover:-translate-y-1">
+              <!-- Corner Registration Ticks (+) -->
+              <div class="absolute top-2.5 left-2.5 text-slate-500 font-mono text-[10px] select-none leading-none opacity-60">+</div>
+              <div class="absolute top-2.5 right-2.5 text-slate-500 font-mono text-[10px] select-none leading-none opacity-60">+</div>
+              <div class="absolute bottom-2.5 left-2.5 text-slate-500 font-mono text-[10px] select-none leading-none opacity-60">+</div>
+              <div class="absolute bottom-2.5 right-2.5 text-slate-500 font-mono text-[10px] select-none leading-none opacity-60">+</div>
+
+              <!-- Inset Dashed Drafting Contour -->
+              <div class="absolute inset-1.5 sm:inset-2 rounded-[20px] border border-dashed border-slate-800/80 pointer-events-none"></div>
+
+              <!-- Faint Sketch Texture -->
+              <div class="absolute inset-0 rounded-3xl pointer-events-none opacity-15"
+                   style="background: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05) 1.2px, transparent 1.2px, transparent 8px);"></div>
+
+              <div class="relative z-10">
+                <div class="text-[11px] font-mono font-semibold uppercase tracking-wider text-blue-400 mb-2">Compliance</div>
+                <h3 class="text-lg sm:text-xl font-bold text-white tracking-tight">Turnkey Compliance</h3>
+                <p class="text-xs sm:text-sm text-zinc-400 mt-2 leading-relaxed">
+                  Automated turnkey guardrails mapping directly to HIPAA Title II, GDPR Art. 9, PCI-DSS v4.0, and CCPA out of the box.
+                </p>
+              </div>
+              
+              <div class="flex-1 flex items-center justify-center pt-6 pb-2 relative z-10">
+                <div class="w-full max-w-[310px] grid grid-cols-2 gap-2 text-[11px] font-sans">
+                  <div class="flex items-center gap-1.5 p-2 rounded-xl bg-blue-950/40 border border-blue-800/60 text-blue-200"
+                       style="box-shadow: 2px 2px 0px 0px rgba(59, 130, 246, 0.3);">
+                    <i data-lucide="check-circle" class="w-3.5 h-3.5 text-blue-400 shrink-0"></i>
+                    <span class="font-semibold text-xs">HIPAA Ready</span>
+                  </div>
+                  <div class="flex items-center gap-1.5 p-2 rounded-xl bg-emerald-950/40 border border-emerald-800/60 text-emerald-200"
+                       style="box-shadow: 2px 2px 0px 0px rgba(16, 185, 129, 0.3);">
+                    <i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-400 shrink-0"></i>
+                    <span class="font-semibold text-xs">GDPR Art. 9</span>
+                  </div>
+                  <div class="flex items-center gap-1.5 p-2 rounded-xl bg-purple-950/40 border border-purple-800/60 text-purple-200"
+                       style="box-shadow: 2px 2px 0px 0px rgba(168, 85, 247, 0.3);">
+                    <i data-lucide="check-circle" class="w-3.5 h-3.5 text-purple-400 shrink-0"></i>
+                    <span class="font-semibold text-xs">PCI-DSS v4</span>
+                  </div>
+                  <div class="flex items-center gap-1.5 p-2 rounded-xl bg-cyan-950/40 border border-cyan-800/60 text-cyan-200"
+                       style="box-shadow: 2px 2px 0px 0px rgba(6, 182, 212, 0.3);">
+                    <i data-lucide="check-circle" class="w-3.5 h-3.5 text-cyan-400 shrink-0"></i>
+                    <span class="font-semibold text-xs">SOC 2 Proof</span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
           <!-- Card 6: Tamper-Proof Audit Trails (Compliance) -->
-          <div class="relative rounded-3xl bg-[#09090b] border border-zinc-800/80 hover:border-zinc-700 transition-all duration-300 p-6 sm:p-8 flex flex-col justify-between overflow-hidden group min-h-[360px] sm:min-h-[390px]">
-            <div class="absolute -top-20 -right-20 w-44 h-44 bg-amber-500/10 rounded-full blur-3xl pointer-events-none group-hover:bg-amber-500/20 transition-colors duration-500"></div>
-            <div>
-              <div class="text-[11px] font-mono font-semibold uppercase tracking-wider text-amber-400 mb-2">Compliance</div>
-              <h3 class="text-lg sm:text-xl font-bold text-white tracking-tight">Tamper-Proof Audit Trails</h3>
-              <p class="text-xs sm:text-sm text-zinc-400 mt-2 leading-relaxed">
-                Cryptographic SHA-256 event fingerprints and real-time SIEM streaming to Datadog, Splunk, and CloudWatch.
-              </p>
-            </div>
+          <div class="relative group select-none">
+            <!-- Sharp Hatch Shadow Layer -->
+            <div class="absolute inset-0 rounded-3xl transform translate-x-2 translate-y-2 z-0 pointer-events-none border border-slate-700/60"
+                 style="background: repeating-linear-gradient(45deg, #475569, #475569 1.3px, transparent 1.3px, transparent 7px); opacity: 0.35;"></div>
             
-            <div class="flex-1 flex flex-col items-center justify-center pt-8 pb-2 relative z-10">
-              <div class="w-full max-w-[310px] space-y-2">
-                <div class="px-3 py-1.5 rounded-xl bg-zinc-900 border border-zinc-700/80 text-[11px] font-mono text-zinc-200 font-semibold flex items-center justify-between shadow-md">
-                  <div class="flex items-center gap-1.5">
-                    <i data-lucide="file-check-2" class="w-3.5 h-3.5 text-amber-400"></i>
-                    <span>SHA-256 Fingerprint</span>
+            <!-- Card Body -->
+            <div class="relative z-10 rounded-3xl bg-[#09090b] border-2 border-slate-700/80 p-6 sm:p-7 flex flex-col justify-between overflow-hidden min-h-[380px] sm:min-h-[410px] text-white transition-all duration-200 group-hover:-translate-y-1">
+              <!-- Corner Registration Ticks (+) -->
+              <div class="absolute top-2.5 left-2.5 text-slate-500 font-mono text-[10px] select-none leading-none opacity-60">+</div>
+              <div class="absolute top-2.5 right-2.5 text-slate-500 font-mono text-[10px] select-none leading-none opacity-60">+</div>
+              <div class="absolute bottom-2.5 left-2.5 text-slate-500 font-mono text-[10px] select-none leading-none opacity-60">+</div>
+              <div class="absolute bottom-2.5 right-2.5 text-slate-500 font-mono text-[10px] select-none leading-none opacity-60">+</div>
+
+              <!-- Inset Dashed Drafting Contour -->
+              <div class="absolute inset-1.5 sm:inset-2 rounded-[20px] border border-dashed border-slate-800/80 pointer-events-none"></div>
+
+              <!-- Faint Sketch Texture -->
+              <div class="absolute inset-0 rounded-3xl pointer-events-none opacity-15"
+                   style="background: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05) 1.2px, transparent 1.2px, transparent 8px);"></div>
+
+              <div class="relative z-10">
+                <div class="text-[11px] font-mono font-semibold uppercase tracking-wider text-amber-400 mb-2">Compliance</div>
+                <h3 class="text-lg sm:text-xl font-bold text-white tracking-tight">Tamper-Proof Audit Trails</h3>
+                <p class="text-xs sm:text-sm text-zinc-400 mt-2 leading-relaxed">
+                  Cryptographic SHA-256 event fingerprints and real-time SIEM streaming to Datadog, Splunk, and CloudWatch.
+                </p>
+              </div>
+              
+              <div class="flex-1 flex flex-col items-center justify-center pt-6 pb-2 relative z-10">
+                <div class="w-full max-w-[310px] space-y-2">
+                  <div class="px-3 py-1.5 rounded-xl bg-zinc-900 border border-slate-700/80 text-[11px] font-mono text-zinc-200 font-semibold flex items-center justify-between shadow-md"
+                       style="box-shadow: 2px 2px 0px 0px rgba(51, 65, 85, 0.5);">
+                    <div class="flex items-center gap-1.5">
+                      <i data-lucide="file-check-2" class="w-3.5 h-3.5 text-amber-400"></i>
+                      <span>SHA-256 Fingerprint</span>
+                    </div>
+                    <span class="text-[9px] text-emerald-400 bg-emerald-950 px-1.5 py-0.5 rounded border border-emerald-800">Verified</span>
                   </div>
-                  <span class="text-[9px] text-emerald-400 bg-emerald-950 px-1.5 py-0.5 rounded border border-emerald-800">Verified</span>
-                </div>
-                <div class="flex items-center justify-center gap-2 pt-1 font-mono text-[10px]">
-                  <span class="px-2.5 py-1 rounded-lg bg-zinc-950 border border-zinc-800 text-zinc-400">Datadog</span>
-                  <span class="px-2.5 py-1 rounded-lg bg-zinc-950 border border-zinc-800 text-zinc-400">Splunk</span>
-                  <span class="px-2.5 py-1 rounded-lg bg-zinc-950 border border-zinc-800 text-zinc-400">CloudWatch</span>
+                  <div class="flex items-center justify-center gap-2 pt-1 font-mono text-[10px]">
+                    <span class="px-2.5 py-1 rounded-lg bg-zinc-950 border border-slate-800 text-zinc-400" style="box-shadow: 1px 1px 0px 0px rgba(51, 65, 85, 0.4);">Datadog</span>
+                    <span class="px-2.5 py-1 rounded-lg bg-zinc-950 border border-slate-800 text-zinc-400" style="box-shadow: 1px 1px 0px 0px rgba(51, 65, 85, 0.4);">Splunk</span>
+                    <span class="px-2.5 py-1 rounded-lg bg-zinc-950 border border-slate-800 text-zinc-400" style="box-shadow: 1px 1px 0px 0px rgba(51, 65, 85, 0.4);">CloudWatch</span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
+        </div>
+
+        <!-- Architectural Drafting Ground Lines beneath the Grid -->
+        <div class="mt-12 flex flex-col items-center justify-center space-y-1.5 opacity-60">
+          <div class="w-1/2 h-[1.6px] bg-slate-400 rounded-full"></div>
+          <div class="w-1/3 h-[1.2px] bg-slate-300 rounded-full"></div>
+          <div class="w-1/5 h-[1.0px] bg-slate-200 rounded-full"></div>
         </div>
 
     </section>
