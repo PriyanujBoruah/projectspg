@@ -1143,23 +1143,14 @@ openaiApp.get("/models", async (c) => {
     }
   }
 
-  // Default standard catalog
+  // Default standard catalog for Free Tier (Mistral models)
   return c.json({
     object: "list",
     data: [
-      { id: "openai/gpt-oss-120b", object: "model", created: 1721235600, owned_by: "groq" },
-      { id: "openai/gpt-oss-20b", object: "model", created: 1721235600, owned_by: "groq" },
-      { id: "qwen/qwen3.8-27b", object: "model", created: 1721235600, owned_by: "groq" },
-      { id: "gemma-4-26b-it", object: "model", created: 1721235600, owned_by: "google" },
-      { id: "gemma-4-26b-a4b-it", object: "model", created: 1721235600, owned_by: "google" },
-      { id: "gemma-4-31b-it", object: "model", created: 1721235600, owned_by: "google" },
       { id: "ministral-3b-2512", object: "model", created: 1721235600, owned_by: "mistral" },
       { id: "ministral-8b-2512", object: "model", created: 1721235600, owned_by: "mistral" },
       { id: "codestral-2508", object: "model", created: 1721235600, owned_by: "mistral" },
       { id: "mistral-large-2512", object: "model", created: 1721235600, owned_by: "mistral" },
-      { id: "gpt-4o", object: "model", created: 1715368132, owned_by: "system" },
-      { id: "gpt-4o-mini", object: "model", created: 1721235600, owned_by: "system" },
-      { id: "text-embedding-3-small", object: "model", created: 1705948997, owned_by: "system" },
     ],
   });
 });

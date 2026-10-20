@@ -352,7 +352,8 @@ describe("OpenAI Drop-In Wire-Compatible Proxy (/v1/chat/completions)", () => {
     expect(res.status).toBe(200);
     const data: any = await res.json();
     expect(data.object).toBe("list");
-    expect(data.data.some((m: any) => m.id === "gpt-4o")).toBe(true);
+    expect(data.data.some((m: any) => m.id === "ministral-3b-2512")).toBe(true);
+    expect(data.data.some((m: any) => m.id === "codestral-2508")).toBe(true);
   });
 
   it("should work on root /chat/completions without /v1 prefix", async () => {
