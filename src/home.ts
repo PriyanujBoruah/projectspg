@@ -887,7 +887,7 @@ export const HOME_HTML = `<!DOCTYPE html>
                  style="background: repeating-linear-gradient(45deg, #475569, #475569 1.3px, transparent 1.3px, transparent 7px); opacity: 0.35;"></div>
             
             <!-- Card Body -->
-            <div class="relative z-10 rounded-3xl bg-[#09090b] border-2 border-slate-700/80 p-6 sm:p-7 flex flex-col justify-between overflow-hidden min-h-[380px] sm:min-h-[410px] text-white transition-all duration-200 group-hover:-translate-y-1">
+            <div class="relative z-10 rounded-3xl bg-[#09090b] border-2 border-slate-700/80 p-6 sm:p-7 flex flex-col justify-between overflow-hidden min-h-[390px] sm:min-h-[420px] text-white transition-all duration-200 group-hover:-translate-y-1">
               <!-- Corner Registration Ticks (+) -->
               <div class="absolute top-2.5 left-2.5 text-slate-500 font-mono text-[10px] select-none leading-none opacity-60">+</div>
               <div class="absolute top-2.5 right-2.5 text-slate-500 font-mono text-[10px] select-none leading-none opacity-60">+</div>
@@ -902,26 +902,54 @@ export const HOME_HTML = `<!DOCTYPE html>
                    style="background: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05) 1.2px, transparent 1.2px, transparent 8px);"></div>
 
               <div class="relative z-10">
-                <div class="text-[11px] font-mono font-semibold uppercase tracking-wider text-rose-400 mb-2">De-Identify</div>
+                <div class="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase tracking-wider text-rose-400 bg-rose-950/40 px-2 py-0.5 rounded border border-rose-800/60 mb-2.5"
+                     style="box-shadow: 2px 2px 0px 0px rgba(244, 63, 94, 0.3);">
+                  <span>§ 01</span>
+                  <span>//</span>
+                  <span>DE-IDENTIFY</span>
+                </div>
                 <h3 class="text-lg sm:text-xl font-bold text-white tracking-tight">Automatic Data Redaction</h3>
                 <p class="text-xs sm:text-sm text-zinc-400 mt-2 leading-relaxed">
                   Instantly strips customer names, passwords, credit cards, and confidential records before prompts leave your network.
                 </p>
               </div>
               
+              <!-- Inner Sketch Architectural Illustration -->
               <div class="flex-1 flex items-center justify-center pt-6 pb-2 relative z-10">
-                <div class="w-full max-w-[310px] rounded-2xl bg-zinc-950 border border-slate-800 p-3.5 space-y-2.5 font-mono text-[11px] shadow-lg"
-                     style="box-shadow: 3px 3px 0px 0px rgba(30, 41, 59, 0.8);">
-                  <div class="flex items-center justify-between pb-2 border-b border-zinc-800/80">
-                    <span class="text-zinc-500 text-[10px] uppercase font-sans">Prompt Stream</span>
-                    <span class="text-rose-400 text-[9px] bg-rose-950/60 border border-rose-800/60 px-2 py-0.5 rounded-full font-sans font-medium">PII Blocked</span>
-                  </div>
-                  <div class="text-zinc-400 text-[11px] leading-relaxed">
-                    "Transfer bonus for <span class="text-rose-300 bg-rose-950/80 border border-rose-900 px-1 py-0.5 rounded line-through">Alice Walker</span> (SSN: <span class="text-rose-300 bg-rose-950/80 border border-rose-900 px-1 py-0.5 rounded line-through">82-9102834</span>)"
-                  </div>
-                  <div class="flex items-center gap-1.5 text-emerald-400 text-[10px] pt-1 border-t border-zinc-800/60 font-sans">
-                    <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400 shrink-0"></i>
-                    <span>Zero sensitive data reaches upstream model</span>
+                <div class="w-full max-w-[310px] relative">
+                  <!-- Hatch shadow behind inner snippet -->
+                  <div class="absolute inset-0 rounded-xl transform translate-x-1.5 translate-y-1.5 z-0 border border-rose-900/60 pointer-events-none"
+                       style="background: repeating-linear-gradient(45deg, #f43f5e, #f43f5e 1.2px, transparent 1.2px, transparent 6px); opacity: 0.25;"></div>
+                  
+                  <div class="relative z-10 rounded-xl bg-zinc-950 border-2 border-slate-700 p-3.5 space-y-2.5 font-mono text-[11px]">
+                    <div class="flex items-center justify-between pb-2 border-b border-dashed border-slate-800 text-[10px]">
+                      <div class="flex items-center gap-1.5 text-slate-400">
+                        <span class="text-rose-400 font-bold">§</span>
+                        <span class="uppercase tracking-wider font-semibold">STREAM_INTERCEPT</span>
+                      </div>
+                      <span class="text-rose-300 bg-rose-950/90 border border-rose-700/80 px-1.5 py-0.5 rounded text-[9px] font-bold"
+                            style="box-shadow: 1.5px 1.5px 0px 0px rgba(244, 63, 94, 0.5);">REDACTED</span>
+                    </div>
+
+                    <div class="text-slate-300 text-[11px] leading-relaxed">
+                      Bonus to 
+                      <span class="relative inline-block px-1 py-0.5 mx-0.5 text-rose-200 border border-rose-600/70 rounded text-[10px] font-bold overflow-hidden"
+                            style="background: repeating-linear-gradient(45deg, rgba(244,63,94,0.35), rgba(244,63,94,0.35) 1.5px, #1c0508 1.5px, #1c0508 5px);">
+                        Alice Walker
+                      </span>
+                      (SSN: 
+                      <span class="relative inline-block px-1 py-0.5 mx-0.5 text-rose-200 border border-rose-600/70 rounded text-[10px] font-bold overflow-hidden"
+                            style="background: repeating-linear-gradient(45deg, rgba(244,63,94,0.35), rgba(244,63,94,0.35) 1.5px, #1c0508 1.5px, #1c0508 5px);">
+                        82-9102834
+                      </span>)
+                    </div>
+
+                    <div class="flex items-center justify-between pt-1.5 border-t border-dashed border-slate-800 text-[9px] text-slate-400">
+                      <span class="flex items-center gap-1 text-emerald-400 font-semibold">
+                        <span class="font-mono">✓</span> 0 B raw PII leaked
+                      </span>
+                      <span class="font-mono text-slate-500">|← 18.2ms →|</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -935,7 +963,7 @@ export const HOME_HTML = `<!DOCTYPE html>
                  style="background: repeating-linear-gradient(45deg, #475569, #475569 1.3px, transparent 1.3px, transparent 7px); opacity: 0.35;"></div>
             
             <!-- Card Body -->
-            <div class="relative z-10 rounded-3xl bg-[#09090b] border-2 border-slate-700/80 p-6 sm:p-7 flex flex-col justify-between overflow-hidden min-h-[380px] sm:min-h-[410px] text-white transition-all duration-200 group-hover:-translate-y-1">
+            <div class="relative z-10 rounded-3xl bg-[#09090b] border-2 border-slate-700/80 p-6 sm:p-7 flex flex-col justify-between overflow-hidden min-h-[390px] sm:min-h-[420px] text-white transition-all duration-200 group-hover:-translate-y-1">
               <!-- Corner Registration Ticks (+) -->
               <div class="absolute top-2.5 left-2.5 text-slate-500 font-mono text-[10px] select-none leading-none opacity-60">+</div>
               <div class="absolute top-2.5 right-2.5 text-slate-500 font-mono text-[10px] select-none leading-none opacity-60">+</div>
@@ -950,28 +978,58 @@ export const HOME_HTML = `<!DOCTYPE html>
                    style="background: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05) 1.2px, transparent 1.2px, transparent 8px);"></div>
 
               <div class="relative z-10">
-                <div class="text-[11px] font-mono font-semibold uppercase tracking-wider text-cyan-400 mb-2">De-Identify</div>
+                <div class="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase tracking-wider text-cyan-400 bg-cyan-950/40 px-2 py-0.5 rounded border border-cyan-800/60 mb-2.5"
+                     style="box-shadow: 2px 2px 0px 0px rgba(6, 182, 212, 0.3);">
+                  <span>§ 02</span>
+                  <span>//</span>
+                  <span>DE-IDENTIFY</span>
+                </div>
                 <h3 class="text-lg sm:text-xl font-bold text-white tracking-tight">Context-Preserving Masking</h3>
                 <p class="text-xs sm:text-sm text-zinc-400 mt-2 leading-relaxed">
                   Replaces sensitive items with smart placeholders so AI stays accurate, then restores original values on output.
                 </p>
               </div>
               
+              <!-- Inner Sketch Architectural Illustration -->
               <div class="flex-1 flex items-center justify-center pt-6 pb-2 relative z-10">
-                <div class="w-full max-w-[310px] space-y-2 font-mono text-[11px]">
-                  <div class="rounded-xl bg-cyan-950/40 border border-cyan-800/60 p-2.5 text-cyan-200 flex items-center justify-between"
-                       style="box-shadow: 2px 2px 0px 0px rgba(8, 145, 178, 0.4);">
-                    <span class="text-[10px] text-cyan-400 font-sans font-medium">To AI Model:</span>
-                    <span class="bg-cyan-900/70 text-cyan-200 px-2 py-0.5 rounded border border-cyan-700 font-bold">[PERSON_1]</span>
+                <div class="w-full max-w-[310px] relative space-y-2 font-mono text-[11px]">
+                  <!-- Block 1: Masked Token -->
+                  <div class="relative">
+                    <div class="absolute inset-0 rounded-xl transform translate-x-1 translate-y-1 border border-cyan-800/50 pointer-events-none"
+                         style="background: repeating-linear-gradient(45deg, #06b6d4, #06b6d4 1.2px, transparent 1.2px, transparent 6px); opacity: 0.2;"></div>
+                    <div class="relative z-10 rounded-xl bg-cyan-950/50 border-2 border-cyan-700/80 p-2.5 flex items-center justify-between text-cyan-200"
+                         style="box-shadow: 2px 2px 0px 0px rgba(8, 145, 178, 0.4);">
+                      <div class="flex items-center gap-2">
+                        <span class="text-[9px] font-mono text-cyan-400 font-bold uppercase tracking-wider">Masked In:</span>
+                        <span class="bg-cyan-900/80 text-cyan-100 px-2 py-0.5 rounded border border-cyan-500 font-bold text-xs">[PERSON_1]</span>
+                      </div>
+                      <span class="text-[9px] text-cyan-400 font-mono">TYPE: NAME</span>
+                    </div>
                   </div>
-                  <div class="flex items-center justify-center gap-1.5 text-zinc-400 text-[10px] py-0.5 font-sans">
-                    <i data-lucide="refresh-cw" class="w-3 h-3 text-emerald-400"></i>
-                    <span class="text-emerald-400 font-semibold">Two-Way Live Rehydration</span>
+
+                  <!-- Technical Schematic Arrow with Crosshairs -->
+                  <div class="flex items-center justify-center gap-2 text-slate-400 text-[10px] py-0.5">
+                    <div class="w-10 h-px border-t border-dashed border-slate-700"></div>
+                    <div class="flex items-center gap-1 text-emerald-400 bg-zinc-950 border border-slate-700 px-2 py-0.5 rounded-full text-[9px] font-bold"
+                         style="box-shadow: 2px 2px 0px 0px rgba(16, 185, 129, 0.4);">
+                      <span>⇄</span>
+                      <span>2-WAY REHYDRATION</span>
+                    </div>
+                    <div class="w-10 h-px border-t border-dashed border-slate-700"></div>
                   </div>
-                  <div class="rounded-xl bg-emerald-950/40 border border-emerald-800/60 p-2.5 text-emerald-200 flex items-center justify-between"
-                       style="box-shadow: 2px 2px 0px 0px rgba(16, 185, 129, 0.4);">
-                    <span class="text-[10px] text-emerald-400 font-sans font-medium">To Your App:</span>
-                    <span class="bg-emerald-900/70 text-emerald-200 px-2 py-0.5 rounded border border-emerald-700 font-bold">Alice Walker</span>
+
+                  <!-- Block 2: Restored Value -->
+                  <div class="relative">
+                    <div class="absolute inset-0 rounded-xl transform translate-x-1 translate-y-1 border border-emerald-800/50 pointer-events-none"
+                         style="background: repeating-linear-gradient(45deg, #10b981, #10b981 1.2px, transparent 1.2px, transparent 6px); opacity: 0.2;"></div>
+                    <div class="relative z-10 rounded-xl bg-emerald-950/50 border-2 border-emerald-600/80 p-2.5 flex items-center justify-between text-emerald-200"
+                         style="box-shadow: 2px 2px 0px 0px rgba(16, 185, 129, 0.4);">
+                      <div class="flex items-center gap-2">
+                        <span class="text-[9px] font-mono text-emerald-400 font-bold uppercase tracking-wider">Restored Out:</span>
+                        <span class="bg-emerald-900/80 text-emerald-100 px-2 py-0.5 rounded border border-emerald-400 font-bold text-xs">Alice Walker</span>
+                      </div>
+                      <span class="text-[9px] text-emerald-400 font-mono font-bold">✓ 100% MATCH</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -985,7 +1043,7 @@ export const HOME_HTML = `<!DOCTYPE html>
                  style="background: repeating-linear-gradient(45deg, #475569, #475569 1.3px, transparent 1.3px, transparent 7px); opacity: 0.35;"></div>
             
             <!-- Card Body -->
-            <div class="relative z-10 rounded-3xl bg-[#09090b] border-2 border-slate-700/80 p-6 sm:p-7 flex flex-col justify-between overflow-hidden min-h-[380px] sm:min-h-[410px] text-white transition-all duration-200 group-hover:-translate-y-1">
+            <div class="relative z-10 rounded-3xl bg-[#09090b] border-2 border-slate-700/80 p-6 sm:p-7 flex flex-col justify-between overflow-hidden min-h-[390px] sm:min-h-[420px] text-white transition-all duration-200 group-hover:-translate-y-1">
               <!-- Corner Registration Ticks (+) -->
               <div class="absolute top-2.5 left-2.5 text-slate-500 font-mono text-[10px] select-none leading-none opacity-60">+</div>
               <div class="absolute top-2.5 right-2.5 text-slate-500 font-mono text-[10px] select-none leading-none opacity-60">+</div>
@@ -1000,29 +1058,56 @@ export const HOME_HTML = `<!DOCTYPE html>
                    style="background: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05) 1.2px, transparent 1.2px, transparent 8px);"></div>
 
               <div class="relative z-10">
-                <div class="text-[11px] font-mono font-semibold uppercase tracking-wider text-emerald-400 mb-2">Privacy</div>
+                <div class="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase tracking-wider text-emerald-400 bg-emerald-950/40 px-2 py-0.5 rounded border border-emerald-800/60 mb-2.5"
+                     style="box-shadow: 2px 2px 0px 0px rgba(16, 185, 129, 0.3);">
+                  <span>§ 03</span>
+                  <span>//</span>
+                  <span>PRIVACY</span>
+                </div>
                 <h3 class="text-lg sm:text-xl font-bold text-white tracking-tight">Zero-Retention Routing</h3>
                 <p class="text-xs sm:text-sm text-zinc-400 mt-2 leading-relaxed">
                   Prompts and keys live only in volatile RAM for milliseconds. Never written to disk, stored in databases, or trained on.
                 </p>
               </div>
               
+              <!-- Inner Sketch Architectural Illustration -->
               <div class="flex-1 flex items-center justify-center pt-6 pb-2 relative z-10">
-                <div class="w-full max-w-[310px] rounded-2xl bg-zinc-950 border border-slate-800 p-3.5 space-y-2.5 font-mono text-[11px] shadow-lg"
-                     style="box-shadow: 3px 3px 0px 0px rgba(30, 41, 59, 0.8);">
-                  <div class="flex items-center justify-between p-2 rounded-xl bg-zinc-900/90 border border-zinc-800">
-                    <div class="flex items-center gap-2">
-                      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                      <span class="text-zinc-300 font-sans text-xs">Volatile Memory</span>
+                <div class="w-full max-w-[310px] relative">
+                  <!-- Hatch shadow behind inner snippet -->
+                  <div class="absolute inset-0 rounded-xl transform translate-x-1.5 translate-y-1.5 z-0 border border-emerald-900/60 pointer-events-none"
+                       style="background: repeating-linear-gradient(45deg, #10b981, #10b981 1.2px, transparent 1.2px, transparent 6px); opacity: 0.25;"></div>
+
+                  <div class="relative z-10 rounded-xl bg-zinc-950 border-2 border-slate-700 p-3 space-y-2.5 font-mono text-[11px]">
+                    <!-- Hardware Schematic Block 1: Ephemeral RAM -->
+                    <div class="p-2.5 rounded-lg bg-emerald-950/30 border border-emerald-700/60 relative overflow-hidden"
+                         style="box-shadow: 2px 2px 0px 0px rgba(16, 185, 129, 0.3);">
+                      <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                          <span class="text-[9px] font-bold text-emerald-400 bg-emerald-950 px-1.5 py-0.5 rounded border border-emerald-700">RAM_VOLATILE</span>
+                          <span class="text-xs text-slate-200 font-semibold font-sans">Transient Buffer</span>
+                        </div>
+                        <span class="text-[9px] font-bold text-emerald-400 bg-emerald-900/80 px-1.5 py-0.5 rounded border border-emerald-600">PURGED ON EOF</span>
+                      </div>
+                      <div class="mt-1 flex gap-1 text-[8px] text-emerald-500 font-mono opacity-80">
+                        <span>[0x7F2A]</span><span>---►</span><span>[CLEARED: 0 B]</span>
+                      </div>
                     </div>
-                    <span class="text-emerald-400 font-mono text-[10px] font-semibold bg-emerald-950/60 px-1.5 py-0.5 rounded border border-emerald-800">Purged on EOF</span>
-                  </div>
-                  <div class="flex items-center justify-between p-2 rounded-xl bg-zinc-900/90 border border-zinc-800">
-                    <div class="flex items-center gap-2">
-                      <i data-lucide="hard-drive" class="w-3.5 h-3.5 text-zinc-500"></i>
-                      <span class="text-zinc-300 font-sans text-xs">Persistent Storage</span>
+
+                    <!-- Hardware Schematic Block 2: Persistent Storage Blocked -->
+                    <div class="p-2.5 rounded-lg bg-slate-900/80 border border-slate-700 relative overflow-hidden"
+                         style="box-shadow: 2px 2px 0px 0px rgba(51, 65, 85, 0.5);">
+                      <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                          <span class="text-[9px] font-bold text-slate-400 bg-slate-800 px-1.5 py-0.5 rounded border border-slate-600">DISK_STORAGE</span>
+                          <span class="text-xs text-slate-300 font-semibold font-sans">Hard Disk Write</span>
+                        </div>
+                        <span class="text-[9px] font-bold text-rose-400 bg-rose-950/80 px-1.5 py-0.5 rounded border border-rose-800">BLOCKED (0 B)</span>
+                      </div>
+                      <div class="mt-1 flex items-center justify-between text-[8px] text-slate-500 font-mono">
+                        <span>NO LOGS • NO DB WRITES</span>
+                        <span class="text-rose-400 font-bold">HARDWARE ENFORCED</span>
+                      </div>
                     </div>
-                    <span class="text-zinc-400 font-mono text-[10px] font-semibold bg-zinc-800/80 px-1.5 py-0.5 rounded border border-zinc-700">0 B Written</span>
                   </div>
                 </div>
               </div>
@@ -1036,7 +1121,7 @@ export const HOME_HTML = `<!DOCTYPE html>
                  style="background: repeating-linear-gradient(45deg, #475569, #475569 1.3px, transparent 1.3px, transparent 7px); opacity: 0.35;"></div>
             
             <!-- Card Body -->
-            <div class="relative z-10 rounded-3xl bg-[#09090b] border-2 border-slate-700/80 p-6 sm:p-7 flex flex-col justify-between overflow-hidden min-h-[380px] sm:min-h-[410px] text-white transition-all duration-200 group-hover:-translate-y-1">
+            <div class="relative z-10 rounded-3xl bg-[#09090b] border-2 border-slate-700/80 p-6 sm:p-7 flex flex-col justify-between overflow-hidden min-h-[390px] sm:min-h-[420px] text-white transition-all duration-200 group-hover:-translate-y-1">
               <!-- Corner Registration Ticks (+) -->
               <div class="absolute top-2.5 left-2.5 text-slate-500 font-mono text-[10px] select-none leading-none opacity-60">+</div>
               <div class="absolute top-2.5 right-2.5 text-slate-500 font-mono text-[10px] select-none leading-none opacity-60">+</div>
@@ -1051,31 +1136,57 @@ export const HOME_HTML = `<!DOCTYPE html>
                    style="background: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05) 1.2px, transparent 1.2px, transparent 8px);"></div>
 
               <div class="relative z-10">
-                <div class="text-[11px] font-mono font-semibold uppercase tracking-wider text-purple-400 mb-2">Privacy</div>
+                <div class="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase tracking-wider text-purple-400 bg-purple-950/40 px-2 py-0.5 rounded border border-purple-800/60 mb-2.5"
+                     style="box-shadow: 2px 2px 0px 0px rgba(168, 85, 247, 0.3);">
+                  <span>§ 04</span>
+                  <span>//</span>
+                  <span>PRIVACY</span>
+                </div>
                 <h3 class="text-lg sm:text-xl font-bold text-white tracking-tight">Drop-in BYOK Proxy</h3>
                 <p class="text-xs sm:text-sm text-zinc-400 mt-2 leading-relaxed">
                   Connect directly with OpenAI, Anthropic, Gemini, Mistral, and Groq with your accounts and zero token markup.
                 </p>
               </div>
               
-              <div class="flex-1 flex flex-col items-center justify-center pt-6 pb-2 relative z-10">
-                <div class="flex items-center justify-center gap-2.5 sm:gap-3 py-1">
-                  <div class="w-11 h-11 rounded-2xl bg-zinc-900 border-2 border-slate-700/80 flex items-center justify-center shadow-lg text-white font-bold text-xs"
-                       style="box-shadow: 2px 2px 0px 0px rgba(51, 65, 85, 0.5);" title="OpenAI">
-                    AI
+              <!-- Inner Sketch Architectural Illustration -->
+              <div class="flex-1 flex flex-col items-center justify-center pt-6 pb-2 relative z-10 font-mono">
+                <!-- Top Node Cluster -->
+                <div class="flex items-center gap-2">
+                  <div class="px-2.5 py-1 rounded-lg bg-zinc-900 border-2 border-slate-700 text-slate-200 text-[10px] font-bold flex items-center gap-1"
+                       style="box-shadow: 2px 2px 0px 0px rgba(51, 65, 85, 0.6);" title="OpenAI">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                    <span>OpenAI</span>
                   </div>
-                  <div class="w-13 h-13 rounded-2xl bg-[#0d1824] border-2 border-cyan-400/70 flex items-center justify-center shadow-xl shadow-cyan-500/10"
-                       style="box-shadow: 3px 3px 0px 0px rgba(6, 182, 212, 0.4);" title="ProjectSPG">
-                    <i data-lucide="shield" class="w-6 h-6 text-cyan-400"></i>
+                  <div class="px-2.5 py-1 rounded-lg bg-zinc-900 border-2 border-slate-700 text-slate-200 text-[10px] font-bold flex items-center gap-1"
+                       style="box-shadow: 2px 2px 0px 0px rgba(51, 65, 85, 0.6);" title="Claude">
+                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                    <span>Claude</span>
                   </div>
-                  <div class="w-11 h-11 rounded-2xl bg-zinc-900 border-2 border-slate-700/80 flex items-center justify-center shadow-lg text-amber-300 font-bold text-xs"
-                       style="box-shadow: 2px 2px 0px 0px rgba(51, 65, 85, 0.5);" title="Claude">
-                    Cl
+                  <div class="px-2.5 py-1 rounded-lg bg-zinc-900 border-2 border-slate-700 text-slate-200 text-[10px] font-bold flex items-center gap-1"
+                       style="box-shadow: 2px 2px 0px 0px rgba(51, 65, 85, 0.6);" title="Gemini">
+                    <span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
+                    <span>Gemini</span>
                   </div>
                 </div>
-                <div class="flex items-center justify-center gap-2 mt-3 font-mono text-[10px]">
-                  <span class="text-zinc-300 bg-zinc-900 px-2 py-0.5 rounded-md border border-slate-700">1-Line baseURL</span>
-                  <span class="text-emerald-300 bg-emerald-950/70 px-2 py-0.5 rounded-md border border-emerald-800">0% Markup</span>
+
+                <!-- Blueprint Stepped Connecting Lines -->
+                <div class="w-28 h-3 border-b-2 border-x-2 border-dashed border-slate-600 my-0.5"></div>
+                <div class="w-px h-1.5 bg-slate-600 mb-0.5"></div>
+
+                <!-- Center Hub: ProjectSPG Gateway -->
+                <div class="px-3 py-1 rounded-xl bg-[#0d1824] border-2 border-cyan-400/80 text-cyan-200 text-[11px] font-bold flex items-center gap-2"
+                     style="box-shadow: 3px 3px 0px 0px rgba(6, 182, 212, 0.5);">
+                  <i data-lucide="shield" class="w-3.5 h-3.5 text-cyan-400"></i>
+                  <span>ProjectSPG Gateway (BYOK)</span>
+                </div>
+
+                <div class="w-px h-1.5 bg-slate-600 mt-0.5"></div>
+
+                <!-- Bottom: 1-Line SDK Integration -->
+                <div class="mt-1 text-[9px] text-slate-400 bg-zinc-950 border border-slate-800 px-2 py-0.5 rounded-md flex items-center gap-1.5"
+                     style="box-shadow: 1.5px 1.5px 0px 0px rgba(51, 65, 85, 0.4);">
+                  <span class="text-emerald-400 font-bold">baseURL:</span>
+                  <span class="text-slate-300">"https://api.projectspg.info/v1"</span>
                 </div>
               </div>
             </div>
@@ -1088,7 +1199,7 @@ export const HOME_HTML = `<!DOCTYPE html>
                  style="background: repeating-linear-gradient(45deg, #475569, #475569 1.3px, transparent 1.3px, transparent 7px); opacity: 0.35;"></div>
             
             <!-- Card Body -->
-            <div class="relative z-10 rounded-3xl bg-[#09090b] border-2 border-slate-700/80 p-6 sm:p-7 flex flex-col justify-between overflow-hidden min-h-[380px] sm:min-h-[410px] text-white transition-all duration-200 group-hover:-translate-y-1">
+            <div class="relative z-10 rounded-3xl bg-[#09090b] border-2 border-slate-700/80 p-6 sm:p-7 flex flex-col justify-between overflow-hidden min-h-[390px] sm:min-h-[420px] text-white transition-all duration-200 group-hover:-translate-y-1">
               <!-- Corner Registration Ticks (+) -->
               <div class="absolute top-2.5 left-2.5 text-slate-500 font-mono text-[10px] select-none leading-none opacity-60">+</div>
               <div class="absolute top-2.5 right-2.5 text-slate-500 font-mono text-[10px] select-none leading-none opacity-60">+</div>
@@ -1103,34 +1214,63 @@ export const HOME_HTML = `<!DOCTYPE html>
                    style="background: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05) 1.2px, transparent 1.2px, transparent 8px);"></div>
 
               <div class="relative z-10">
-                <div class="text-[11px] font-mono font-semibold uppercase tracking-wider text-blue-400 mb-2">Compliance</div>
+                <div class="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase tracking-wider text-blue-400 bg-blue-950/40 px-2 py-0.5 rounded border border-blue-800/60 mb-2.5"
+                     style="box-shadow: 2px 2px 0px 0px rgba(59, 130, 246, 0.3);">
+                  <span>§ 05</span>
+                  <span>//</span>
+                  <span>COMPLIANCE</span>
+                </div>
                 <h3 class="text-lg sm:text-xl font-bold text-white tracking-tight">Turnkey Compliance</h3>
                 <p class="text-xs sm:text-sm text-zinc-400 mt-2 leading-relaxed">
                   Automated turnkey guardrails mapping directly to HIPAA Title II, GDPR Art. 9, PCI-DSS v4.0, and CCPA out of the box.
                 </p>
               </div>
               
-              <div class="flex-1 flex items-center justify-center pt-6 pb-2 relative z-10">
-                <div class="w-full max-w-[310px] grid grid-cols-2 gap-2 text-[11px] font-sans">
-                  <div class="flex items-center gap-1.5 p-2 rounded-xl bg-blue-950/40 border border-blue-800/60 text-blue-200"
-                       style="box-shadow: 2px 2px 0px 0px rgba(59, 130, 246, 0.3);">
-                    <i data-lucide="check-circle" class="w-3.5 h-3.5 text-blue-400 shrink-0"></i>
-                    <span class="font-semibold text-xs">HIPAA Ready</span>
+              <!-- Inner Sketch Architectural Illustration (4 Compliance Seals) -->
+              <div class="flex-1 flex items-center justify-center pt-6 pb-2 relative z-10 font-mono">
+                <div class="w-full max-w-[310px] grid grid-cols-2 gap-2 text-left">
+                  <!-- Seal 1: HIPAA -->
+                  <div class="p-2 rounded-xl bg-blue-950/30 border-2 border-blue-600/70 relative overflow-hidden"
+                       style="box-shadow: 2.5px 2.5px 0px 0px rgba(37, 99, 235, 0.4);">
+                    <div class="flex items-center justify-between mb-1">
+                      <span class="text-[9px] font-bold text-blue-300">HIPAA</span>
+                      <span class="text-[8px] text-blue-400 bg-blue-900/60 px-1 rounded border border-blue-700">§164.514</span>
+                    </div>
+                    <div class="text-[10px] font-semibold text-slate-200 font-sans">Safe Harbor</div>
+                    <div class="text-[8px] text-emerald-400 pt-1 font-bold">✓ 18 IDs Masked</div>
                   </div>
-                  <div class="flex items-center gap-1.5 p-2 rounded-xl bg-emerald-950/40 border border-emerald-800/60 text-emerald-200"
-                       style="box-shadow: 2px 2px 0px 0px rgba(16, 185, 129, 0.3);">
-                    <i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-400 shrink-0"></i>
-                    <span class="font-semibold text-xs">GDPR Art. 9</span>
+
+                  <!-- Seal 2: GDPR -->
+                  <div class="p-2 rounded-xl bg-emerald-950/30 border-2 border-emerald-600/70 relative overflow-hidden"
+                       style="box-shadow: 2.5px 2.5px 0px 0px rgba(16, 185, 129, 0.4);">
+                    <div class="flex items-center justify-between mb-1">
+                      <span class="text-[9px] font-bold text-emerald-300">GDPR</span>
+                      <span class="text-[8px] text-emerald-400 bg-emerald-900/60 px-1 rounded border border-emerald-700">Art. 9(2)</span>
+                    </div>
+                    <div class="text-[10px] font-semibold text-slate-200 font-sans">Sovereign Data</div>
+                    <div class="text-[8px] text-emerald-400 pt-1 font-bold">✓ Zero Transit</div>
                   </div>
-                  <div class="flex items-center gap-1.5 p-2 rounded-xl bg-purple-950/40 border border-purple-800/60 text-purple-200"
-                       style="box-shadow: 2px 2px 0px 0px rgba(168, 85, 247, 0.3);">
-                    <i data-lucide="check-circle" class="w-3.5 h-3.5 text-purple-400 shrink-0"></i>
-                    <span class="font-semibold text-xs">PCI-DSS v4</span>
+
+                  <!-- Seal 3: PCI-DSS -->
+                  <div class="p-2 rounded-xl bg-purple-950/30 border-2 border-purple-600/70 relative overflow-hidden"
+                       style="box-shadow: 2.5px 2.5px 0px 0px rgba(168, 85, 247, 0.4);">
+                    <div class="flex items-center justify-between mb-1">
+                      <span class="text-[9px] font-bold text-purple-300">PCI-DSS</span>
+                      <span class="text-[8px] text-purple-400 bg-purple-900/60 px-1 rounded border border-purple-700">v4.0.1</span>
+                    </div>
+                    <div class="text-[10px] font-semibold text-slate-200 font-sans">PAN Masking</div>
+                    <div class="text-[8px] text-emerald-400 pt-1 font-bold">✓ Scope Reduced</div>
                   </div>
-                  <div class="flex items-center gap-1.5 p-2 rounded-xl bg-cyan-950/40 border border-cyan-800/60 text-cyan-200"
-                       style="box-shadow: 2px 2px 0px 0px rgba(6, 182, 212, 0.3);">
-                    <i data-lucide="check-circle" class="w-3.5 h-3.5 text-cyan-400 shrink-0"></i>
-                    <span class="font-semibold text-xs">SOC 2 Proof</span>
+
+                  <!-- Seal 4: SOC 2 -->
+                  <div class="p-2 rounded-xl bg-cyan-950/30 border-2 border-cyan-600/70 relative overflow-hidden"
+                       style="box-shadow: 2.5px 2.5px 0px 0px rgba(6, 182, 212, 0.4);">
+                    <div class="flex items-center justify-between mb-1">
+                      <span class="text-[9px] font-bold text-cyan-300">SOC 2</span>
+                      <span class="text-[8px] text-cyan-400 bg-cyan-900/60 px-1 rounded border border-cyan-700">Type II</span>
+                    </div>
+                    <div class="text-[10px] font-semibold text-slate-200 font-sans">Continuous Proof</div>
+                    <div class="text-[8px] text-emerald-400 pt-1 font-bold">✓ Attestation</div>
                   </div>
                 </div>
               </div>
@@ -1144,7 +1284,7 @@ export const HOME_HTML = `<!DOCTYPE html>
                  style="background: repeating-linear-gradient(45deg, #475569, #475569 1.3px, transparent 1.3px, transparent 7px); opacity: 0.35;"></div>
             
             <!-- Card Body -->
-            <div class="relative z-10 rounded-3xl bg-[#09090b] border-2 border-slate-700/80 p-6 sm:p-7 flex flex-col justify-between overflow-hidden min-h-[380px] sm:min-h-[410px] text-white transition-all duration-200 group-hover:-translate-y-1">
+            <div class="relative z-10 rounded-3xl bg-[#09090b] border-2 border-slate-700/80 p-6 sm:p-7 flex flex-col justify-between overflow-hidden min-h-[390px] sm:min-h-[420px] text-white transition-all duration-200 group-hover:-translate-y-1">
               <!-- Corner Registration Ticks (+) -->
               <div class="absolute top-2.5 left-2.5 text-slate-500 font-mono text-[10px] select-none leading-none opacity-60">+</div>
               <div class="absolute top-2.5 right-2.5 text-slate-500 font-mono text-[10px] select-none leading-none opacity-60">+</div>
@@ -1159,27 +1299,60 @@ export const HOME_HTML = `<!DOCTYPE html>
                    style="background: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05) 1.2px, transparent 1.2px, transparent 8px);"></div>
 
               <div class="relative z-10">
-                <div class="text-[11px] font-mono font-semibold uppercase tracking-wider text-amber-400 mb-2">Compliance</div>
+                <div class="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase tracking-wider text-amber-400 bg-amber-950/40 px-2 py-0.5 rounded border border-amber-800/60 mb-2.5"
+                     style="box-shadow: 2px 2px 0px 0px rgba(245, 158, 11, 0.3);">
+                  <span>§ 06</span>
+                  <span>//</span>
+                  <span>COMPLIANCE</span>
+                </div>
                 <h3 class="text-lg sm:text-xl font-bold text-white tracking-tight">Tamper-Proof Audit Trails</h3>
                 <p class="text-xs sm:text-sm text-zinc-400 mt-2 leading-relaxed">
                   Cryptographic SHA-256 event fingerprints and real-time SIEM streaming to Datadog, Splunk, and CloudWatch.
                 </p>
               </div>
               
-              <div class="flex-1 flex flex-col items-center justify-center pt-6 pb-2 relative z-10">
+              <!-- Inner Sketch Architectural Illustration -->
+              <div class="flex-1 flex flex-col items-center justify-center pt-6 pb-2 relative z-10 font-mono">
                 <div class="w-full max-w-[310px] space-y-2">
-                  <div class="px-3 py-1.5 rounded-xl bg-zinc-900 border border-slate-700/80 text-[11px] font-mono text-zinc-200 font-semibold flex items-center justify-between shadow-md"
-                       style="box-shadow: 2px 2px 0px 0px rgba(51, 65, 85, 0.5);">
-                    <div class="flex items-center gap-1.5">
-                      <i data-lucide="file-check-2" class="w-3.5 h-3.5 text-amber-400"></i>
-                      <span>SHA-256 Fingerprint</span>
+                  <!-- Hash Proof Block with Hatch Shadow -->
+                  <div class="relative">
+                    <div class="absolute inset-0 rounded-xl transform translate-x-1 translate-y-1 border border-amber-700/50 pointer-events-none"
+                         style="background: repeating-linear-gradient(45deg, #f59e0b, #f59e0b 1.2px, transparent 1.2px, transparent 6px); opacity: 0.2;"></div>
+                    <div class="relative z-10 rounded-xl bg-zinc-950 border-2 border-amber-600/70 p-2.5 space-y-1">
+                      <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-1.5 text-amber-300 font-bold text-[10px]">
+                          <i data-lucide="hash" class="w-3 h-3 text-amber-400"></i>
+                          <span>SHA-256 PROOF HASH</span>
+                        </div>
+                        <span class="text-[9px] bg-emerald-950 text-emerald-300 border border-emerald-700 px-1.5 py-0.2 rounded font-bold">VERIFIED</span>
+                      </div>
+                      <div class="text-[9px] text-slate-400 truncate font-mono">
+                        hash: e3b0c44298fc1c149afbf4c8996fb92427ae41e4...
+                      </div>
                     </div>
-                    <span class="text-[9px] text-emerald-400 bg-emerald-950 px-1.5 py-0.5 rounded border border-emerald-800">Verified</span>
                   </div>
-                  <div class="flex items-center justify-center gap-2 pt-1 font-mono text-[10px]">
-                    <span class="px-2.5 py-1 rounded-lg bg-zinc-950 border border-slate-800 text-zinc-400" style="box-shadow: 1px 1px 0px 0px rgba(51, 65, 85, 0.4);">Datadog</span>
-                    <span class="px-2.5 py-1 rounded-lg bg-zinc-950 border border-slate-800 text-zinc-400" style="box-shadow: 1px 1px 0px 0px rgba(51, 65, 85, 0.4);">Splunk</span>
-                    <span class="px-2.5 py-1 rounded-lg bg-zinc-950 border border-slate-800 text-zinc-400" style="box-shadow: 1px 1px 0px 0px rgba(51, 65, 85, 0.4);">CloudWatch</span>
+
+                  <!-- Stepped Connector Line -->
+                  <div class="flex items-center justify-center gap-1.5 text-[9px] text-slate-500 py-0.5">
+                    <div class="w-6 h-px bg-slate-700"></div>
+                    <span class="text-slate-400 font-semibold">STREAM TO SECOPS</span>
+                    <div class="w-6 h-px bg-slate-700"></div>
+                  </div>
+
+                  <!-- SIEM Target Pills with Sharp Shadows -->
+                  <div class="flex items-center justify-center gap-2">
+                    <span class="px-2 py-0.5 rounded-md bg-zinc-950 border-2 border-slate-700 text-slate-300 text-[9px] font-bold"
+                          style="box-shadow: 2px 2px 0px 0px rgba(51, 65, 85, 0.5);">
+                      Datadog
+                    </span>
+                    <span class="px-2 py-0.5 rounded-md bg-zinc-950 border-2 border-slate-700 text-slate-300 text-[9px] font-bold"
+                          style="box-shadow: 2px 2px 0px 0px rgba(51, 65, 85, 0.5);">
+                      Splunk
+                    </span>
+                    <span class="px-2 py-0.5 rounded-md bg-zinc-950 border-2 border-slate-700 text-slate-300 text-[9px] font-bold"
+                          style="box-shadow: 2px 2px 0px 0px rgba(51, 65, 85, 0.5);">
+                      CloudWatch
+                    </span>
                   </div>
                 </div>
               </div>
