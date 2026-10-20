@@ -156,9 +156,9 @@ export const HOME_HTML = `<!DOCTYPE html>
 
         <!-- Center Column: Artistic Sketch-Styled Keyhole with Sharp Shadows & Sharp Rotating Line -->
         <div class="lg:col-span-4 flex items-center justify-center py-6 lg:py-0">
-          <div id="keyhole-stage" class="relative flex flex-col items-center justify-center select-none transition-transform duration-200">
+          <div id="keyhole-stage" class="relative flex flex-col items-center justify-center select-none">
             
-            <svg viewBox="0 0 260 320" class="w-56 h-68 sm:w-64 sm:h-76 overflow-visible">
+            <svg viewBox="0 0 260 320" class="w-64 h-[315px] sm:w-80 sm:h-[394px] lg:w-[330px] lg:h-[406px] xl:w-[360px] xl:h-[443px] overflow-visible">
               <defs>
                 <!-- Sharp Diagonal Cross-Hatching Pattern for Sketch Shadows (No blur) -->
                 <pattern id="sketchHatch" width="6" height="6" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
@@ -999,23 +999,6 @@ print(response.choices[0].message.content)</pre>
 
     document.addEventListener('DOMContentLoaded', () => {
       if (window.lucide) lucide.createIcons();
-
-      // Subtle interactive keyhole stage tracking (matching video interaction)
-      const heroSection = document.getElementById('agentic-hero-section');
-      const keyholeStage = document.getElementById('keyhole-stage');
-      if (heroSection && keyholeStage) {
-        heroSection.addEventListener('mousemove', (e) => {
-          const rect = keyholeStage.getBoundingClientRect();
-          const cx = rect.left + rect.width / 2;
-          const cy = rect.top + rect.height / 2;
-          const dx = (e.clientX - cx) / (window.innerWidth / 2);
-          const dy = (e.clientY - cy) / (window.innerHeight / 2);
-          keyholeStage.style.transform = 'translate3d(' + (dx * 10).toFixed(1) + 'px, ' + (dy * 10).toFixed(1) + 'px, 0)';
-        });
-        heroSection.addEventListener('mouseleave', () => {
-          keyholeStage.style.transform = 'translate3d(0, 0, 0)';
-        });
-      }
     });
   </script>
 
