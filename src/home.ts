@@ -555,34 +555,59 @@ print(response.choices[0].message.content)</pre>
     // --- Markdown Parser Helper ---
     function renderMarkdown(content) {
       if (!content) return '';
-      if (window.marked && typeof window.marked.parse === 'function') {
-        try {
-          return window.marked.parse(content);
-        } catch (e) {
-          console.warn('marked parse error:', e);
+      try {
+        if (window.marked) {
+          if (typeof window.marked.parse === 'function') return window.marked.parse(content);
+          if (typeof window.marked === 'function') return window.marked(content);
+        }
+      } catch (e) {
+        console.warn('marked parse error:', e);
+      }
+
+      // Safe string-based fallback parser (no template string escape conflicts)
+      let escaped = String(content)
+        .split('&').join('&amp;')
+        .split('<').join('&lt;')
+        .split('>').join('&gt;');
+
+      // Handle bold **text**
+      let boldParts = escaped.split('**');
+      if (boldParts.length > 1) {
+        escaped = boldParts.map((part, i) => (i % 2 === 1 ? ('<strong>' + part + '</strong>') : part)).join('');
+      }
+
+      let lines = escaped.split(/\\r?\\n/);
+      let inList = false;
+      let result = [];
+
+      for (let i = 0; i < lines.length; i++) {
+        let line = lines[i];
+        let trimmed = line.trim();
+
+        if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+          if (!inList) {
+            result.push('<ul>');
+            inList = true;
+          }
+          result.push('<li>' + trimmed.slice(2) + '</li>');
+        } else {
+          if (inList) {
+            result.push('</ul>');
+            inList = false;
+          }
+          if (trimmed.startsWith('### ')) {
+            result.push('<h3>' + trimmed.slice(4) + '</h3>');
+          } else if (trimmed.startsWith('## ')) {
+            result.push('<h2>' + trimmed.slice(3) + '</h2>');
+          } else if (trimmed.startsWith('# ')) {
+            result.push('<h1>' + trimmed.slice(2) + '</h1>');
+          } else if (trimmed.length > 0) {
+            result.push('<p>' + line + '</p>');
+          }
         }
       }
-      // Fallback markdown parsing
-      let escaped = content
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;');
-      
-      escaped = escaped.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-      escaped = escaped.replace(/(?<!\*)\*(?!\*)(.*?)(?<!\*)\*(?!\*)/g, '<em>$1</em>');
-      escaped = escaped.replace(/^### (.*$)/gim, '<h3>$1</h3>');
-      escaped = escaped.replace(/^## (.*$)/gim, '<h2>$1</h2>');
-      escaped = escaped.replace(/^# (.*$)/gim, '<h1>$1</h1>');
-      escaped = escaped.replace(/^\s*-\s+(.*$)/gim, '<li>$1</li>');
-      escaped = escaped.replace(/(<li>[\s\S]*?<\/li>)/g, '<ul>$1</ul>');
-      
-      const paragraphs = escaped.split(/\n\n+/).map(p => {
-        p = p.trim();
-        if (!p) return '';
-        if (p.startsWith('<h') || p.startsWith('<ul') || p.startsWith('<hr')) return p;
-        return '<p>' + p.replace(/\n/g, '<br/>') + '</p>';
-      });
-      return paragraphs.join('');
+      if (inList) result.push('</ul>');
+      return result.join('');
     }
 
     // --- Dropdown Menu Logic (v0-style) ---
