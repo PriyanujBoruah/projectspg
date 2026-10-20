@@ -121,7 +121,6 @@ export const HOME_HTML = `<!DOCTYPE html>
           <a href="#demo" class="hover:text-slate-900 transition">Live Demo</a>
           <a href="#features" class="hover:text-slate-900 transition">Architecture</a>
           <a href="#platform" class="hover:text-slate-900 transition">Platform</a>
-          <a href="#code" class="hover:text-slate-900 transition">Code Examples</a>
           <a href="/#docs" class="hover:text-slate-900 transition">API Docs</a>
         </nav>
       </div>
@@ -1370,42 +1369,6 @@ export const HOME_HTML = `<!DOCTYPE html>
 
     </section>
 
-    <!-- ======================================================================= -->
-    <!-- 1-LINE CODE INTEGRATION SECTION                                         -->
-    <!-- ======================================================================= -->
-    <section id="code" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-gray-200/80">
-      <div class="max-w-4xl mx-auto bg-slate-900 rounded-2xl border border-slate-800 shadow-xl overflow-hidden">
-        <div class="px-6 py-4 border-b border-slate-800 flex items-center justify-between">
-          <div class="flex items-center gap-2">
-            <i data-lucide="code" class="w-4 h-4 text-[#f0523d]"></i>
-            <span class="text-xs font-semibold text-slate-200">1-Line Drop-in Integration (Python OpenAI SDK)</span>
-          </div>
-          <button onclick="copyHeroCode()" class="text-xs text-slate-400 hover:text-white flex items-center gap-1 cursor-pointer">
-            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-            <span id="copy-code-text">Copy</span>
-          </button>
-        </div>
-        <div class="p-6 text-xs font-mono leading-relaxed text-slate-300 overflow-x-auto">
-<pre id="hero-code-block"><span class="text-purple-400">from</span> openai <span class="text-purple-400">import</span> OpenAI
-
-<span class="text-slate-500"># Point the standard OpenAI SDK to ProjectSPG's privacy edge</span>
-client = OpenAI(
-    <span class="text-emerald-400">base_url</span>=<span class="text-amber-300">"https://api.projectspg.info/v1"</span>,
-    <span class="text-emerald-400">api_key</span>=<span class="text-amber-300">"spg_free"</span>  <span class="text-slate-500"># or your personal spg_live_... key</span>
-)
-
-<span class="text-slate-500"># PII in prompts is automatically masked before reaching Mistral/OpenAI</span>
-response = client.chat.completions.create(
-    <span class="text-emerald-400">model</span>=<span class="text-amber-300">"spg-pro"</span>,  <span class="text-slate-500"># or "spg-mini", "spg-code", "spg-max"</span>
-    <span class="text-emerald-400">messages</span>=[{<span class="text-amber-300">"role"</span>: <span class="text-amber-300">"user"</span>, <span class="text-amber-300">"content"</span>: <span class="text-amber-300">"Patient Alice Smith SSN 000-11-2222 order confirmation."</span>}]
-)
-
-<span class="text-slate-500"># Response arrives back to your client 100% rehydrated and clean</span>
-print(response.choices[0].message.content)</pre>
-        </div>
-      </div>
-    </section>
-
   </main>
 
   <!-- ========================================================================= -->
@@ -1793,16 +1756,6 @@ print(response.choices[0].message.content)</pre>
 
       // Redirect immediately to full playground console
       window.location.href = '/';
-    }
-
-    function copyHeroCode() {
-      const code = document.getElementById('hero-code-block').innerText;
-      navigator.clipboard.writeText(code);
-      const text = document.getElementById('copy-code-text');
-      if (text) {
-        text.textContent = 'Copied!';
-        setTimeout(() => { text.textContent = 'Copy'; }, 2000);
-      }
     }
 
     document.addEventListener('DOMContentLoaded', () => {
