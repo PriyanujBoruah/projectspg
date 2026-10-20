@@ -11,6 +11,7 @@ export const HOME_HTML = `<!DOCTYPE html>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <style>
     body { font-family: 'Inter', sans-serif; }
     pre, code, .font-mono { font-family: 'JetBrains Mono', monospace; }
@@ -29,6 +30,55 @@ export const HOME_HTML = `<!DOCTYPE html>
     .custom-scrollbar::-webkit-scrollbar-thumb {
       background: rgba(148, 163, 184, 0.4);
       border-radius: 9999px;
+    }
+    /* Markdown Output Styling */
+    #demo-rehydrated-output p {
+      margin-bottom: 0.5rem;
+    }
+    #demo-rehydrated-output p:last-child {
+      margin-bottom: 0;
+    }
+    #demo-rehydrated-output strong {
+      font-weight: 600;
+      color: #0f172a;
+    }
+    #demo-rehydrated-output ul, #demo-rehydrated-output ol {
+      margin-top: 0.35rem;
+      margin-bottom: 0.5rem;
+      padding-left: 1.25rem;
+    }
+    #demo-rehydrated-output ul {
+      list-style-type: disc;
+    }
+    #demo-rehydrated-output ol {
+      list-style-type: decimal;
+    }
+    #demo-rehydrated-output li {
+      margin-bottom: 0.2rem;
+      line-height: 1.5;
+    }
+    #demo-rehydrated-output h1, #demo-rehydrated-output h2, #demo-rehydrated-output h3, #demo-rehydrated-output h4 {
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 0.75rem;
+      margin-bottom: 0.35rem;
+      line-height: 1.3;
+    }
+    #demo-rehydrated-output h1 { font-size: 1rem; }
+    #demo-rehydrated-output h2 { font-size: 0.925rem; }
+    #demo-rehydrated-output h3 { font-size: 0.85rem; }
+    #demo-rehydrated-output code {
+      background-color: #f1f5f9;
+      color: #0f172a;
+      padding: 0.1rem 0.3rem;
+      border-radius: 0.25rem;
+      font-size: 0.9em;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    #demo-rehydrated-output hr {
+      border: 0;
+      border-top: 1px solid #e2e8f0;
+      margin: 0.6rem 0;
     }
   </style>
 </head>
@@ -318,7 +368,7 @@ export const HOME_HTML = `<!DOCTYPE html>
               </span>
               <span class="text-slate-500 text-[10px]">100% Rehydrated</span>
             </div>
-            <div id="demo-rehydrated-output" class="text-[11.5px] leading-relaxed text-slate-700 font-sans whitespace-pre-wrap max-h-72 overflow-y-auto pr-2 custom-scrollbar"></div>
+            <div id="demo-rehydrated-output" class="text-[12px] leading-relaxed text-slate-800 font-sans max-h-72 overflow-y-auto pr-2 custom-scrollbar"></div>
           </div>
 
         </div>
@@ -502,6 +552,39 @@ print(response.choices[0].message.content)</pre>
     let currentPresetIdx = 0;
     let demoRunCount = 0;
 
+    // --- Markdown Parser Helper ---
+    function renderMarkdown(content) {
+      if (!content) return '';
+      if (window.marked && typeof window.marked.parse === 'function') {
+        try {
+          return window.marked.parse(content);
+        } catch (e) {
+          console.warn('marked parse error:', e);
+        }
+      }
+      // Fallback markdown parsing
+      let escaped = content
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+      
+      escaped = escaped.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      escaped = escaped.replace(/(?<!\*)\*(?!\*)(.*?)(?<!\*)\*(?!\*)/g, '<em>$1</em>');
+      escaped = escaped.replace(/^### (.*$)/gim, '<h3>$1</h3>');
+      escaped = escaped.replace(/^## (.*$)/gim, '<h2>$1</h2>');
+      escaped = escaped.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+      escaped = escaped.replace(/^\s*-\s+(.*$)/gim, '<li>$1</li>');
+      escaped = escaped.replace(/(<li>[\s\S]*?<\/li>)/g, '<ul>$1</ul>');
+      
+      const paragraphs = escaped.split(/\n\n+/).map(p => {
+        p = p.trim();
+        if (!p) return '';
+        if (p.startsWith('<h') || p.startsWith('<ul') || p.startsWith('<hr')) return p;
+        return '<p>' + p.replace(/\n/g, '<br/>') + '</p>';
+      });
+      return paragraphs.join('');
+    }
+
     // --- Dropdown Menu Logic (v0-style) ---
     function toggleModelDropdown(event) {
       if (event) event.stopPropagation();
@@ -675,7 +758,7 @@ print(response.choices[0].message.content)</pre>
         if (sanitizedEl) sanitizedEl.textContent = sanitizedPrompt;
 
         const rehydratedEl = document.getElementById('demo-rehydrated-output');
-        if (rehydratedEl) rehydratedEl.textContent = reply;
+        if (rehydratedEl) rehydratedEl.innerHTML = renderMarkdown(reply);
 
         const latencyEl = document.getElementById('demo-metric-latency');
         if (latencyEl) latencyEl.textContent = durationMs + ' ms';
