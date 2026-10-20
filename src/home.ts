@@ -859,607 +859,211 @@ export const HOME_HTML = `<!DOCTYPE html>
     </section>
 
     <!-- ======================================================================= -->
-    <!-- THE PROJECTSPG PLATFORM SECTION                                         -->
+    <!-- THE PROJECTSPG PLATFORM SECTION (3x2 Dark Bento Grid Showcase)            -->
     <!-- ======================================================================= -->
-    <section id="platform" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 border-t border-gray-200/80">
-      
-      <!-- Section Header -->
-      <div class="text-center max-w-3xl mx-auto mb-10">
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-3">
-          The ProjectSPG Platform
-        </h2>
-        <p class="text-sm sm:text-base text-slate-600 leading-relaxed">
-          End-to-end data de-identification, zero-retention privacy routing, and continuous enterprise compliance.
-        </p>
-      </div>
+    <section id="platform" class="bg-black text-white py-20 sm:py-28 border-t border-zinc-900">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Section Header -->
+        <div class="text-center max-w-3xl mx-auto mb-14 sm:mb-20">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300 text-xs font-semibold uppercase tracking-wider mb-4 shadow-sm">
+            <span class="w-2 h-2 rounded-full bg-[#f0523d]"></span>
+            <span>Platform Capabilities</span>
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-4">
+            Enterprise Security in Six Core Layers
+          </h2>
+          <p class="text-sm sm:text-base text-zinc-400 leading-relaxed max-w-2xl mx-auto">
+            Everything your security, legal, and engineering teams need to deploy LLMs and autonomous agents with complete privacy.
+          </p>
+        </div>
 
-      <!-- Platform Pill Tabs (De-Identify, Privacy, Compliance) -->
-      <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-12">
-        <button
-          onclick="selectPlatformTab('deidentify')"
-          id="tab-btn-deidentify"
-          class="platform-tab-btn px-7 sm:px-9 py-2.5 sm:py-3 rounded-2xl text-xs sm:text-sm font-semibold transition cursor-pointer bg-[#d6f5f0] text-slate-900 border border-[#b2ebe1] shadow-2xs"
-        >
-          De-Identify
-        </button>
-        <button
-          onclick="selectPlatformTab('privacy')"
-          id="tab-btn-privacy"
-          class="platform-tab-btn px-7 sm:px-9 py-2.5 sm:py-3 rounded-2xl text-xs sm:text-sm font-medium transition cursor-pointer bg-white hover:bg-slate-50 text-slate-700 border border-gray-200 shadow-2xs"
-        >
-          Privacy
-        </button>
-        <button
-          onclick="selectPlatformTab('compliance')"
-          id="tab-btn-compliance"
-          class="platform-tab-btn px-7 sm:px-9 py-2.5 sm:py-3 rounded-2xl text-xs sm:text-sm font-medium transition cursor-pointer bg-white hover:bg-slate-50 text-slate-700 border border-gray-200 shadow-2xs"
-        >
-          Compliance
-        </button>
-      </div>
-
-      <!-- ==================== PANEL 1: DE-IDENTIFY ==================== -->
-      <div id="panel-deidentify" class="platform-tab-panel">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <!-- 3x2 Grid (3 Columns, 2 Rows) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           
-          <!-- Left: Accordion / Feature List -->
-          <div class="lg:col-span-5 space-y-3">
+          <!-- Card 1: Automatic Data Redaction (De-Identify) -->
+          <div class="relative rounded-3xl bg-[#09090b] border border-zinc-800/80 hover:border-zinc-700 transition-all duration-300 p-6 sm:p-8 flex flex-col justify-between overflow-hidden group min-h-[360px] sm:min-h-[390px]">
+            <div class="absolute -top-20 -right-20 w-44 h-44 bg-rose-500/10 rounded-full blur-3xl pointer-events-none group-hover:bg-rose-500/20 transition-colors duration-500"></div>
+            <div>
+              <div class="text-[11px] font-mono font-semibold uppercase tracking-wider text-rose-400 mb-2">De-Identify</div>
+              <h3 class="text-lg sm:text-xl font-bold text-white tracking-tight">Automatic Data Redaction</h3>
+              <p class="text-xs sm:text-sm text-zinc-400 mt-2 leading-relaxed">
+                Instantly strips customer names, passwords, credit cards, and confidential records before prompts leave your network.
+              </p>
+            </div>
             
-            <!-- Item 1: Automatic Data Redaction (Active) -->
-            <div
-              id="feat-deidentify-1"
-              onclick="selectPlatformFeature('deidentify', 1)"
-              class="platform-feature-card p-6 bg-white rounded-2xl border border-gray-200 shadow-2xs cursor-pointer transition-all duration-200"
-            >
-              <div class="flex items-center gap-3">
-                <div class="w-8 h-8 rounded-lg bg-cyan-50 border border-cyan-200/60 flex items-center justify-center text-cyan-600 shrink-0">
-                  <i data-lucide="shield-check" class="w-4 h-4"></i>
+            <div class="flex-1 flex items-center justify-center pt-8 pb-2 relative z-10">
+              <div class="w-full max-w-[310px] rounded-2xl bg-zinc-950 border border-zinc-800/80 p-3.5 space-y-2.5 font-mono text-[11px] shadow-xl">
+                <div class="flex items-center justify-between pb-2 border-b border-zinc-800/80">
+                  <span class="text-zinc-500 text-[10px] uppercase font-sans">Prompt Stream</span>
+                  <span class="text-rose-400 text-[9px] bg-rose-950/60 border border-rose-800/60 px-2 py-0.5 rounded-full font-sans font-medium">PII Blocked</span>
                 </div>
-                <h3 class="text-base font-bold text-slate-900">Automatic Data Redaction</h3>
-              </div>
-              <div id="feat-content-deidentify-1" class="pt-3">
-                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                  Automatically redact customer PII and confidential records before prompts reach AI models, preventing data leaks without slowing development.
-                </p>
-                <div class="pt-4">
-                  <a href="#demo" class="inline-flex items-center px-4 py-2 bg-black hover:bg-slate-800 text-white text-[11px] font-bold tracking-wider rounded-md uppercase transition cursor-pointer shadow-2xs">
-                    TRY IN PLAYGROUND
-                  </a>
+                <div class="text-zinc-400 text-[11px] leading-relaxed">
+                  "Transfer bonus for <span class="text-rose-300 bg-rose-950/80 border border-rose-900 px-1 py-0.5 rounded line-through">Alice Walker</span> (SSN: <span class="text-rose-300 bg-rose-950/80 border border-rose-900 px-1 py-0.5 rounded line-through">82-9102834</span>)"
+                </div>
+                <div class="flex items-center gap-1.5 text-emerald-400 text-[10px] pt-1 border-t border-zinc-800/60 font-sans">
+                  <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400 shrink-0"></i>
+                  <span>Zero sensitive data reaches upstream model</span>
                 </div>
               </div>
             </div>
-
-            <!-- Item 2: Context-Preserving Masking -->
-            <div
-              id="feat-deidentify-2"
-              onclick="selectPlatformFeature('deidentify', 2)"
-              class="platform-feature-card p-5 bg-white/70 hover:bg-white rounded-2xl border border-gray-200/80 shadow-2xs cursor-pointer transition-all duration-200"
-            >
-              <div class="flex items-center gap-3">
-                <div class="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center text-slate-500 shrink-0">
-                  <i data-lucide="hash" class="w-4 h-4"></i>
-                </div>
-                <h3 class="text-base font-bold text-slate-800">Context-Preserving Masking</h3>
-              </div>
-              <div id="feat-content-deidentify-2" class="hidden pt-3">
-                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                  Synthesizes grammatically-typed placeholders (e.g. PERSON_1, EMAIL_1) preserving syntactic role and meaning so downstream LLMs maintain optimal reasoning and code accuracy.
-                </p>
-                <div class="pt-4">
-                  <a href="#demo" class="inline-flex items-center px-4 py-2 bg-black hover:bg-slate-800 text-white text-[11px] font-bold tracking-wider rounded-md uppercase transition cursor-pointer shadow-2xs">
-                    TRY IN PLAYGROUND
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <!-- Item 3: Global Privacy Scanner -->
-            <div
-              id="feat-deidentify-3"
-              onclick="selectPlatformFeature('deidentify', 3)"
-              class="platform-feature-card p-5 bg-white/70 hover:bg-white rounded-2xl border border-gray-200/80 shadow-2xs cursor-pointer transition-all duration-200"
-            >
-              <div class="flex items-center gap-3">
-                <div class="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center text-slate-500 shrink-0">
-                  <i data-lucide="scan" class="w-4 h-4"></i>
-                </div>
-                <h3 class="text-base font-bold text-slate-800">Global Privacy Scanner</h3>
-              </div>
-              <div id="feat-content-deidentify-3" class="hidden pt-3">
-                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                  Zero-configuration multi-jurisdictional detection engine covering 109 countries: HIPAA identifiers, GDPR national IDs, PCI-DSS cards, IBANs, and custom enterprise rules.
-                </p>
-                <div class="pt-4">
-                  <a href="#demo" class="inline-flex items-center px-4 py-2 bg-black hover:bg-slate-800 text-white text-[11px] font-bold tracking-wider rounded-md uppercase transition cursor-pointer shadow-2xs">
-                    TRY IN PLAYGROUND
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <!-- Item 4: Secure Enterprise Vault -->
-            <div
-              id="feat-deidentify-4"
-              onclick="selectPlatformFeature('deidentify', 4)"
-              class="platform-feature-card p-5 bg-white/70 hover:bg-white rounded-2xl border border-gray-200/80 shadow-2xs cursor-pointer transition-all duration-200"
-            >
-              <div class="flex items-center gap-3">
-                <div class="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center text-slate-500 shrink-0">
-                  <i data-lucide="database" class="w-4 h-4"></i>
-                </div>
-                <h3 class="text-base font-bold text-slate-800">Secure Enterprise Vault</h3>
-              </div>
-              <div id="feat-content-deidentify-4" class="hidden pt-3">
-                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                  In-memory, zero-retention AES-256-GCM token storage with optional Cloud KMS key envelopes. Ephemeral rehydration mappings never touch persistent disk.
-                </p>
-                <div class="pt-4">
-                  <a href="#demo" class="inline-flex items-center px-4 py-2 bg-black hover:bg-slate-800 text-white text-[11px] font-bold tracking-wider rounded-md uppercase transition cursor-pointer shadow-2xs">
-                    TRY IN PLAYGROUND
-                  </a>
-                </div>
-              </div>
-            </div>
-
           </div>
 
-          <!-- Right: Vibrant Mesh Backdrop + Overlapping Mockup Windows -->
-          <div class="lg:col-span-7">
-            <div
-              class="relative rounded-3xl p-4 sm:p-7 lg:p-8 overflow-hidden shadow-2xl min-h-[460px] sm:min-h-[500px] flex items-center justify-center"
-              style="background: radial-gradient(circle at 10% 45%, #f43f5e 0%, rgba(244, 63, 94, 0.45) 30%, transparent 60%), radial-gradient(circle at 85% 20%, #06b6d4 0%, rgba(14, 165, 233, 0.6) 35%, transparent 65%), linear-gradient(135deg, #0f172a 0%, #090d16 100%);"
-            >
-              <!-- Background Decorative Lighting Accents -->
-              <div class="absolute -top-12 -right-12 w-64 h-64 bg-cyan-400/20 rounded-full blur-3xl pointer-events-none"></div>
-              <div class="absolute -bottom-12 -left-12 w-64 h-64 bg-rose-500/20 rounded-full blur-3xl pointer-events-none"></div>
+          <!-- Card 2: Context-Preserving Masking (De-Identify) -->
+          <div class="relative rounded-3xl bg-[#09090b] border border-zinc-800/80 hover:border-zinc-700 transition-all duration-300 p-6 sm:p-8 flex flex-col justify-between overflow-hidden group min-h-[360px] sm:min-h-[390px]">
+            <div class="absolute -top-20 -right-20 w-44 h-44 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none group-hover:bg-cyan-500/20 transition-colors duration-500"></div>
+            <div>
+              <div class="text-[11px] font-mono font-semibold uppercase tracking-wider text-cyan-400 mb-2">De-Identify</div>
+              <h3 class="text-lg sm:text-xl font-bold text-white tracking-tight">Context-Preserving Masking</h3>
+              <p class="text-xs sm:text-sm text-zinc-400 mt-2 leading-relaxed">
+                Replaces sensitive items with smart placeholders so AI stays accurate, then restores original values on output.
+              </p>
+            </div>
+            
+            <div class="flex-1 flex items-center justify-center pt-8 pb-2 relative z-10">
+              <div class="w-full max-w-[310px] space-y-2 font-mono text-[11px]">
+                <div class="rounded-xl bg-cyan-950/40 border border-cyan-800/60 p-2.5 text-cyan-200 flex items-center justify-between">
+                  <span class="text-[10px] text-cyan-400 font-sans font-medium">To AI Model:</span>
+                  <span class="bg-cyan-900/70 text-cyan-200 px-2 py-0.5 rounded border border-cyan-700 font-bold">[PERSON_1]</span>
+                </div>
+                <div class="flex items-center justify-center gap-1.5 text-zinc-400 text-[10px] py-0.5 font-sans">
+                  <i data-lucide="refresh-cw" class="w-3 h-3 text-emerald-400"></i>
+                  <span class="text-emerald-400 font-semibold">Two-Way Live Rehydration</span>
+                </div>
+                <div class="rounded-xl bg-emerald-950/40 border border-emerald-800/60 p-2.5 text-emerald-200 flex items-center justify-between">
+                  <span class="text-[10px] text-emerald-400 font-sans font-medium">To Your App:</span>
+                  <span class="bg-emerald-900/70 text-emerald-200 px-2 py-0.5 rounded border border-emerald-700 font-bold">Alice Walker</span>
+                </div>
+              </div>
+            </div>
+          </div>
 
-              <!-- Main Behind Window: Playground Console Mockup -->
-              <div class="w-full max-w-lg bg-white rounded-2xl shadow-2xl border border-white/40 overflow-hidden transform translate-x-2 -translate-y-6 sm:translate-x-6 sm:-translate-y-8">
-                
-                <!-- Console Top Header -->
-                <div class="px-4 py-2.5 border-b border-gray-100 flex items-center justify-between bg-slate-50/60">
+          <!-- Card 3: Zero-Retention Routing (Privacy) -->
+          <div class="relative rounded-3xl bg-[#09090b] border border-zinc-800/80 hover:border-zinc-700 transition-all duration-300 p-6 sm:p-8 flex flex-col justify-between overflow-hidden group min-h-[360px] sm:min-h-[390px]">
+            <div class="absolute -top-20 -right-20 w-44 h-44 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none group-hover:bg-emerald-500/20 transition-colors duration-500"></div>
+            <div>
+              <div class="text-[11px] font-mono font-semibold uppercase tracking-wider text-emerald-400 mb-2">Privacy</div>
+              <h3 class="text-lg sm:text-xl font-bold text-white tracking-tight">Zero-Retention Routing</h3>
+              <p class="text-xs sm:text-sm text-zinc-400 mt-2 leading-relaxed">
+                Prompts and keys live only in volatile RAM for milliseconds. Never written to disk, stored in databases, or trained on.
+              </p>
+            </div>
+            
+            <div class="flex-1 flex items-center justify-center pt-8 pb-2 relative z-10">
+              <div class="w-full max-w-[310px] rounded-2xl bg-zinc-950 border border-zinc-800/80 p-3.5 space-y-2.5 font-mono text-[11px] shadow-xl">
+                <div class="flex items-center justify-between p-2 rounded-xl bg-zinc-900/90 border border-zinc-800">
                   <div class="flex items-center gap-2">
-                    <span class="font-bold text-xs text-slate-900 tracking-tight">projectspg</span>
-                    <span class="text-[10px] text-slate-400 font-medium">Personal / Default Project</span>
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span class="text-zinc-300 font-sans text-xs">Volatile Memory</span>
                   </div>
+                  <span class="text-emerald-400 font-mono text-[10px] font-semibold bg-emerald-950/60 px-1.5 py-0.5 rounded border border-emerald-800">Purged on EOF</span>
+                </div>
+                <div class="flex items-center justify-between p-2 rounded-xl bg-zinc-900/90 border border-zinc-800">
+                  <div class="flex items-center gap-2">
+                    <i data-lucide="hard-drive" class="w-3.5 h-3.5 text-zinc-500"></i>
+                    <span class="text-zinc-300 font-sans text-xs">Persistent Storage</span>
+                  </div>
+                  <span class="text-zinc-400 font-mono text-[10px] font-semibold bg-zinc-800/80 px-1.5 py-0.5 rounded border border-zinc-700">0 B Written</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4: Bring Your Own Key (Privacy) -->
+          <div class="relative rounded-3xl bg-[#09090b] border border-zinc-800/80 hover:border-zinc-700 transition-all duration-300 p-6 sm:p-8 flex flex-col justify-between overflow-hidden group min-h-[360px] sm:min-h-[390px]">
+            <div class="absolute -top-20 -right-20 w-44 h-44 bg-purple-500/10 rounded-full blur-3xl pointer-events-none group-hover:bg-purple-500/20 transition-colors duration-500"></div>
+            <div>
+              <div class="text-[11px] font-mono font-semibold uppercase tracking-wider text-purple-400 mb-2">Privacy</div>
+              <h3 class="text-lg sm:text-xl font-bold text-white tracking-tight">Drop-in BYOK Proxy</h3>
+              <p class="text-xs sm:text-sm text-zinc-400 mt-2 leading-relaxed">
+                Connect directly with OpenAI, Anthropic, Gemini, Mistral, and Groq with your accounts and zero token markup.
+              </p>
+            </div>
+            
+            <div class="flex-1 flex flex-col items-center justify-center pt-8 pb-2 relative z-10">
+              <div class="flex items-center justify-center gap-2.5 sm:gap-3 py-1">
+                <div class="w-11 h-11 rounded-2xl bg-zinc-900 border border-zinc-700/80 flex items-center justify-center shadow-lg text-white font-bold text-xs" title="OpenAI">
+                  AI
+                </div>
+                <div class="w-13 h-13 rounded-2xl bg-[#0d1824] border-2 border-cyan-400/50 flex items-center justify-center shadow-xl shadow-cyan-500/10" title="ProjectSPG">
+                  <i data-lucide="shield" class="w-6 h-6 text-cyan-400"></i>
+                </div>
+                <div class="w-11 h-11 rounded-2xl bg-zinc-900 border border-zinc-700/80 flex items-center justify-center shadow-lg text-amber-300 font-bold text-xs" title="Claude">
+                  Cl
+                </div>
+              </div>
+              <div class="flex items-center justify-center gap-2 mt-3">
+                <span class="text-[10px] font-mono text-zinc-400 bg-zinc-900 px-2 py-0.5 rounded-md border border-zinc-800">1-Line baseURL</span>
+                <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded-md border border-emerald-800">0% Markup</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 5: Turnkey Regulatory Compliance (Compliance) -->
+          <div class="relative rounded-3xl bg-[#09090b] border border-zinc-800/80 hover:border-zinc-700 transition-all duration-300 p-6 sm:p-8 flex flex-col justify-between overflow-hidden group min-h-[360px] sm:min-h-[390px]">
+            <div class="absolute -top-20 -right-20 w-44 h-44 bg-blue-500/10 rounded-full blur-3xl pointer-events-none group-hover:bg-blue-500/20 transition-colors duration-500"></div>
+            <div>
+              <div class="text-[11px] font-mono font-semibold uppercase tracking-wider text-blue-400 mb-2">Compliance</div>
+              <h3 class="text-lg sm:text-xl font-bold text-white tracking-tight">Turnkey Compliance</h3>
+              <p class="text-xs sm:text-sm text-zinc-400 mt-2 leading-relaxed">
+                Automated turnkey guardrails mapping directly to HIPAA Title II, GDPR Art. 9, PCI-DSS v4.0, and CCPA out of the box.
+              </p>
+            </div>
+            
+            <div class="flex-1 flex items-center justify-center pt-8 pb-2 relative z-10">
+              <div class="w-full max-w-[310px] grid grid-cols-2 gap-2 text-[11px] font-sans">
+                <div class="flex items-center gap-1.5 p-2 rounded-xl bg-blue-950/40 border border-blue-800/50 text-blue-200">
+                  <i data-lucide="check-circle" class="w-3.5 h-3.5 text-blue-400 shrink-0"></i>
+                  <span class="font-semibold text-xs">HIPAA Ready</span>
+                </div>
+                <div class="flex items-center gap-1.5 p-2 rounded-xl bg-emerald-950/40 border border-emerald-800/50 text-emerald-200">
+                  <i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-400 shrink-0"></i>
+                  <span class="font-semibold text-xs">GDPR Art. 9</span>
+                </div>
+                <div class="flex items-center gap-1.5 p-2 rounded-xl bg-purple-950/40 border border-purple-800/50 text-purple-200">
+                  <i data-lucide="check-circle" class="w-3.5 h-3.5 text-purple-400 shrink-0"></i>
+                  <span class="font-semibold text-xs">PCI-DSS v4</span>
+                </div>
+                <div class="flex items-center gap-1.5 p-2 rounded-xl bg-cyan-950/40 border border-cyan-800/50 text-cyan-200">
+                  <i data-lucide="check-circle" class="w-3.5 h-3.5 text-cyan-400 shrink-0"></i>
+                  <span class="font-semibold text-xs">SOC 2 Proof</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 6: Tamper-Proof Audit Trails (Compliance) -->
+          <div class="relative rounded-3xl bg-[#09090b] border border-zinc-800/80 hover:border-zinc-700 transition-all duration-300 p-6 sm:p-8 flex flex-col justify-between overflow-hidden group min-h-[360px] sm:min-h-[390px]">
+            <div class="absolute -top-20 -right-20 w-44 h-44 bg-amber-500/10 rounded-full blur-3xl pointer-events-none group-hover:bg-amber-500/20 transition-colors duration-500"></div>
+            <div>
+              <div class="text-[11px] font-mono font-semibold uppercase tracking-wider text-amber-400 mb-2">Compliance</div>
+              <h3 class="text-lg sm:text-xl font-bold text-white tracking-tight">Tamper-Proof Audit Trails</h3>
+              <p class="text-xs sm:text-sm text-zinc-400 mt-2 leading-relaxed">
+                Cryptographic SHA-256 event fingerprints and real-time SIEM streaming to Datadog, Splunk, and CloudWatch.
+              </p>
+            </div>
+            
+            <div class="flex-1 flex flex-col items-center justify-center pt-8 pb-2 relative z-10">
+              <div class="w-full max-w-[310px] space-y-2">
+                <div class="px-3 py-1.5 rounded-xl bg-zinc-900 border border-zinc-700/80 text-[11px] font-mono text-zinc-200 font-semibold flex items-center justify-between shadow-md">
                   <div class="flex items-center gap-1.5">
-                    <span class="w-2 h-2 rounded-full bg-slate-300"></span>
-                    <span class="w-2 h-2 rounded-full bg-slate-300"></span>
-                    <span class="w-2 h-2 rounded-full bg-slate-300"></span>
+                    <i data-lucide="file-check-2" class="w-3.5 h-3.5 text-amber-400"></i>
+                    <span>SHA-256 Fingerprint</span>
                   </div>
+                  <span class="text-[9px] text-emerald-400 bg-emerald-950 px-1.5 py-0.5 rounded border border-emerald-800">Verified</span>
                 </div>
-
-                <!-- Navigation Sub-Pills inside Console -->
-                <div class="px-4 py-2 border-b border-gray-100 flex items-center gap-4 text-xs font-semibold">
-                  <span class="text-slate-900 border-b-2 border-slate-900 pb-1 -mb-2.5">Playground</span>
-                  <span class="text-slate-400 font-medium">Free</span>
-                  <span class="text-slate-400 font-medium">BYOK</span>
-                </div>
-
-                <!-- Console Body Input Form -->
-                <div class="p-4 space-y-3 text-left">
-                  <div>
-                    <div class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1">SYSTEM</div>
-                    <div class="text-[11px] text-slate-400 italic bg-slate-50 border border-slate-100 rounded-lg p-2">
-                      Enter system message (Optional)
-                    </div>
-                  </div>
-                  <div>
-                    <div class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1">USER</div>
-                    <div class="text-[11px] text-slate-700 bg-slate-50/80 border border-slate-200/80 rounded-lg p-2.5 leading-relaxed font-sans select-none">
-                      Draft a formal account confirmation email for Dr. Elena Rostova (SSN: 942-81-6720, phone: +1-415-555-0184, elena.rostova@biotech.org). Summarize her recent wire transfer of $14,850 to credit account 4829-1039-5582 on October 14, and ask her to review all listed contact and payment records before our compliance audit team approves the release.
-                    </div>
-                  </div>
+                <div class="flex items-center justify-center gap-2 pt-1 font-mono text-[10px]">
+                  <span class="px-2.5 py-1 rounded-lg bg-zinc-950 border border-zinc-800 text-zinc-400">Datadog</span>
+                  <span class="px-2.5 py-1 rounded-lg bg-zinc-950 border border-zinc-800 text-zinc-400">Splunk</span>
+                  <span class="px-2.5 py-1 rounded-lg bg-zinc-950 border border-zinc-800 text-zinc-400">CloudWatch</span>
                 </div>
               </div>
-
-              <!-- Foreground Overlapping Card: Protected Prompt -->
-              <div class="absolute bottom-4 left-3 sm:left-6 max-w-md w-[92%] sm:w-[86%] bg-white/95 backdrop-blur-md rounded-2xl border border-cyan-200/90 shadow-2xl p-4 sm:p-5 text-left">
-                <div class="flex items-center justify-between pb-2 mb-2.5 border-b border-slate-100">
-                  <div class="flex items-center gap-2 min-w-0">
-                    <div class="w-4 h-4 rounded-full bg-cyan-50 flex items-center justify-center text-cyan-600 shrink-0">
-                      <i data-lucide="shield" class="w-3 h-3"></i>
-                    </div>
-                    <span class="text-[10px] font-bold tracking-wider text-slate-800 uppercase truncate">
-                      PROTECTED PROMPT (SENT TO AI)
-                    </span>
-                    <span class="text-[9px] font-semibold px-2 py-0.5 rounded-full bg-sky-50 text-sky-600 border border-sky-200/80 shrink-0">
-                      4 Entities Masked
-                    </span>
-                  </div>
-                  <div class="flex items-center gap-1 text-[10px] text-slate-400 hover:text-slate-600 cursor-pointer shrink-0">
-                    <i data-lucide="copy" class="w-3 h-3"></i>
-                    <span>Copy</span>
-                  </div>
-                </div>
-                <p class="text-[11px] sm:text-xs text-slate-700 leading-relaxed font-sans">
-                  Draft a formal account confirmation email for Dr.
-                  <span class="inline-flex items-center gap-0.5 px-1.5 py-0.2 rounded bg-amber-50 text-amber-900 border border-amber-200 font-mono text-[10px]">
-                    <i data-lucide="lock" class="w-2.5 h-2.5 text-amber-600"></i>PERSON_1
-                  </span>
-                  (SSN:
-                  <span class="inline-flex items-center gap-0.5 px-1.5 py-0.2 rounded bg-sky-50 text-sky-900 border border-sky-200 font-mono text-[10px]">
-                    <i data-lucide="lock" class="w-2.5 h-2.5 text-sky-600"></i>ITIN_1
-                  </span>, phone:
-                  <span class="inline-flex items-center gap-0.5 px-1.5 py-0.2 rounded bg-emerald-50 text-emerald-900 border border-emerald-200 font-mono text-[10px]">
-                    <i data-lucide="lock" class="w-2.5 h-2.5 text-emerald-600"></i>PHONE_1
-                  </span>,
-                  <span class="inline-flex items-center gap-0.5 px-1.5 py-0.2 rounded bg-purple-50 text-purple-900 border border-purple-200 font-mono text-[10px]">
-                    <i data-lucide="lock" class="w-2.5 h-2.5 text-purple-600"></i>EMAIL_1
-                  </span>). Summarize her recent wire transfer of $14,850 to credit account 4829-1039-5582 on October 14, and ask her to review all listed contact and payment records before our compliance audit team approves the release.
-                </p>
-              </div>
-
             </div>
           </div>
 
         </div>
+
       </div>
-
-      <!-- ==================== PANEL 2: PRIVACY ==================== -->
-      <div id="panel-privacy" class="platform-tab-panel hidden">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          
-          <!-- Left: Accordion / Feature List -->
-          <div class="lg:col-span-5 space-y-3">
-            
-            <!-- Item 1: Zero-Retention Routing (Active) -->
-            <div
-              id="feat-privacy-1"
-              onclick="selectPlatformFeature('privacy', 1)"
-              class="platform-feature-card p-6 bg-white rounded-2xl border border-gray-200 shadow-2xs cursor-pointer transition-all duration-200"
-            >
-              <div class="flex items-center gap-3">
-                <div class="w-8 h-8 rounded-lg bg-emerald-50 border border-emerald-200/60 flex items-center justify-center text-emerald-600 shrink-0">
-                  <i data-lucide="shield-alert" class="w-4 h-4"></i>
-                </div>
-                <h3 class="text-base font-bold text-slate-900">Zero-Retention Routing</h3>
-              </div>
-              <div id="feat-content-privacy-1" class="pt-3">
-                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                  Neither raw prompts nor sensitive payload records are ever written to disk or logged in databases. Session mappings exist solely in volatile RAM and vanish instantly.
-                </p>
-                <div class="pt-4">
-                  <a href="#demo" class="inline-flex items-center px-4 py-2 bg-black hover:bg-slate-800 text-white text-[11px] font-bold tracking-wider rounded-md uppercase transition cursor-pointer shadow-2xs">
-                    TEST ZERO RETENTION
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <!-- Item 2: Sovereign Edge Isolation -->
-            <div
-              id="feat-privacy-2"
-              onclick="selectPlatformFeature('privacy', 2)"
-              class="platform-feature-card p-5 bg-white/70 hover:bg-white rounded-2xl border border-gray-200/80 shadow-2xs cursor-pointer transition-all duration-200"
-            >
-              <div class="flex items-center gap-3">
-                <div class="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center text-slate-500 shrink-0">
-                  <i data-lucide="globe" class="w-4 h-4"></i>
-                </div>
-                <h3 class="text-base font-bold text-slate-800">Sovereign Edge Isolation</h3>
-              </div>
-              <div id="feat-content-privacy-2" class="hidden pt-3">
-                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                  Pin AI inference processing strictly within GDPR-compliant EU zones, US sovereign federal perimeters, or local data residency zones without cross-border transit.
-                </p>
-                <div class="pt-4">
-                  <a href="#demo" class="inline-flex items-center px-4 py-2 bg-black hover:bg-slate-800 text-white text-[11px] font-bold tracking-wider rounded-md uppercase transition cursor-pointer shadow-2xs">
-                    TEST ZERO RETENTION
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <!-- Item 3: Customer KMS Envelopes -->
-            <div
-              id="feat-privacy-3"
-              onclick="selectPlatformFeature('privacy', 3)"
-              class="platform-feature-card p-5 bg-white/70 hover:bg-white rounded-2xl border border-gray-200/80 shadow-2xs cursor-pointer transition-all duration-200"
-            >
-              <div class="flex items-center gap-3">
-                <div class="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center text-slate-500 shrink-0">
-                  <i data-lucide="key" class="w-4 h-4"></i>
-                </div>
-                <h3 class="text-base font-bold text-slate-800">Customer KMS Envelopes</h3>
-              </div>
-              <div id="feat-content-privacy-3" class="hidden pt-3">
-                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                  Bring your own AWS KMS, Google Cloud KMS, or HashiCorp Vault root keys to seal session tokenization vaults. Nobody—not even the infrastructure—can decrypt without your key.
-                </p>
-                <div class="pt-4">
-                  <a href="#demo" class="inline-flex items-center px-4 py-2 bg-black hover:bg-slate-800 text-white text-[11px] font-bold tracking-wider rounded-md uppercase transition cursor-pointer shadow-2xs">
-                    TEST ZERO RETENTION
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <!-- Item 4: BYOK Direct Upstream Routing -->
-            <div
-              id="feat-privacy-4"
-              onclick="selectPlatformFeature('privacy', 4)"
-              class="platform-feature-card p-5 bg-white/70 hover:bg-white rounded-2xl border border-gray-200/80 shadow-2xs cursor-pointer transition-all duration-200"
-            >
-              <div class="flex items-center gap-3">
-                <div class="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center text-slate-500 shrink-0">
-                  <i data-lucide="lock" class="w-4 h-4"></i>
-                </div>
-                <h3 class="text-base font-bold text-slate-800">Bring Your Own Key (BYOK)</h3>
-              </div>
-              <div id="feat-content-privacy-4" class="hidden pt-3">
-                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                  Supply your own OpenAI, Anthropic, Mistral, or Groq API credentials. Your keys pass directly to verified providers with strict zero-markup and tenant isolation.
-                </p>
-                <div class="pt-4">
-                  <a href="#demo" class="inline-flex items-center px-4 py-2 bg-black hover:bg-slate-800 text-white text-[11px] font-bold tracking-wider rounded-md uppercase transition cursor-pointer shadow-2xs">
-                    TEST ZERO RETENTION
-                  </a>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- Right: Vibrant Mesh Backdrop + Privacy Mockup Windows -->
-          <div class="lg:col-span-7">
-            <div
-              class="relative rounded-3xl p-4 sm:p-7 lg:p-8 overflow-hidden shadow-2xl min-h-[460px] sm:min-h-[500px] flex items-center justify-center"
-              style="background: radial-gradient(circle at 10% 45%, #059669 0%, rgba(5, 150, 105, 0.45) 30%, transparent 60%), radial-gradient(circle at 85% 20%, #0284c7 0%, rgba(2, 132, 199, 0.6) 35%, transparent 65%), linear-gradient(135deg, #022c22 0%, #061e29 100%);"
-            >
-              <div class="absolute -top-12 -right-12 w-64 h-64 bg-emerald-400/20 rounded-full blur-3xl pointer-events-none"></div>
-              <div class="absolute -bottom-12 -left-12 w-64 h-64 bg-cyan-500/20 rounded-full blur-3xl pointer-events-none"></div>
-
-              <!-- Main Behind Window: Privacy Security Pipeline -->
-              <div class="w-full max-w-lg bg-white rounded-2xl shadow-2xl border border-white/40 overflow-hidden transform translate-x-2 -translate-y-6 sm:translate-x-6 sm:-translate-y-8">
-                <div class="px-4 py-2.5 border-b border-gray-100 flex items-center justify-between bg-slate-50/60">
-                  <div class="flex items-center gap-2">
-                    <span class="font-bold text-xs text-slate-900 tracking-tight">projectspg</span>
-                    <span class="text-[10px] text-emerald-600 font-semibold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Zero-Retention Gateway</span>
-                  </div>
-                  <div class="flex items-center gap-1.5">
-                    <span class="w-2 h-2 rounded-full bg-slate-300"></span>
-                    <span class="w-2 h-2 rounded-full bg-slate-300"></span>
-                    <span class="w-2 h-2 rounded-full bg-slate-300"></span>
-                  </div>
-                </div>
-                <div class="px-4 py-2 border-b border-gray-100 flex items-center gap-4 text-xs font-semibold">
-                  <span class="text-slate-900 border-b-2 border-emerald-600 pb-1 -mb-2.5">Gateway Policy</span>
-                  <span class="text-slate-400 font-medium">Residency</span>
-                  <span class="text-slate-400 font-medium">Audit Pipe</span>
-                </div>
-                <div class="p-4 space-y-2.5 text-left font-mono text-[11px]">
-                  <div class="p-2 rounded-lg bg-slate-50 border border-slate-200/70 flex justify-between items-center">
-                    <span class="text-slate-500">Volatile In-Memory Buffer:</span>
-                    <span class="text-emerald-700 font-bold">ACTIVE (Purged on Stream EOF)</span>
-                  </div>
-                  <div class="p-2 rounded-lg bg-slate-50 border border-slate-200/70 flex justify-between items-center">
-                    <span class="text-slate-500">Persistent Disk Write:</span>
-                    <span class="text-rose-600 font-bold">HARDWARE BLOCKED (0 B)</span>
-                  </div>
-                  <div class="p-2 rounded-lg bg-slate-50 border border-slate-200/70 flex justify-between items-center">
-                    <span class="text-slate-500">Edge Transit Region:</span>
-                    <span class="text-slate-800 font-semibold">eu-central-1 (Frankfurt)</span>
-                  </div>
-                  <div class="p-2 rounded-lg bg-slate-50 border border-slate-200/70 flex justify-between items-center">
-                    <span class="text-slate-500">Envelope Cryptography:</span>
-                    <span class="text-slate-800 font-semibold">AES-256-GCM Hardware Enc</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Foreground Overlapping Card: Zero Retention Verification -->
-              <div class="absolute bottom-4 left-3 sm:left-6 max-w-md w-[92%] sm:w-[86%] bg-white/95 backdrop-blur-md rounded-2xl border border-emerald-200/90 shadow-2xl p-4 sm:p-5 text-left">
-                <div class="flex items-center justify-between pb-2 mb-2.5 border-b border-slate-100">
-                  <div class="flex items-center gap-2 min-w-0">
-                    <div class="w-4 h-4 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600 shrink-0">
-                      <i data-lucide="shield-check" class="w-3 h-3"></i>
-                    </div>
-                    <span class="text-[10px] font-bold tracking-wider text-slate-800 uppercase truncate">
-                      CRYPTOGRAPHIC PRIVACY ATTESTATION
-                    </span>
-                    <span class="text-[9px] font-semibold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 shrink-0">
-                      Zero Retention Verified
-                    </span>
-                  </div>
-                  <div class="flex items-center gap-1 text-[10px] text-slate-400 hover:text-slate-600 cursor-pointer shrink-0">
-                    <i data-lucide="check" class="w-3 h-3 text-emerald-600"></i>
-                  </div>
-                </div>
-                <p class="text-[11px] sm:text-xs text-slate-700 leading-relaxed font-sans">
-                  The upstream AI provider received de-identified tokens only. All session rehydration keys were automatically wiped from transient worker memory immediately after stream finalization. Zero customer records persisted.
-                </p>
-              </div>
-
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- ==================== PANEL 3: COMPLIANCE ==================== -->
-      <div id="panel-compliance" class="platform-tab-panel hidden">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          
-          <!-- Left: Accordion / Feature List -->
-          <div class="lg:col-span-5 space-y-3">
-            
-            <!-- Item 1: Automated Regulatory Enforcement (Active) -->
-            <div
-              id="feat-compliance-1"
-              onclick="selectPlatformFeature('compliance', 1)"
-              class="platform-feature-card p-6 bg-white rounded-2xl border border-gray-200 shadow-2xs cursor-pointer transition-all duration-200"
-            >
-              <div class="flex items-center gap-3">
-                <div class="w-8 h-8 rounded-lg bg-blue-50 border border-blue-200/60 flex items-center justify-center text-blue-600 shrink-0">
-                  <i data-lucide="file-check-2" class="w-4 h-4"></i>
-                </div>
-                <h3 class="text-base font-bold text-slate-900">Regulatory Framework Enforcement</h3>
-              </div>
-              <div id="feat-content-compliance-1" class="pt-3">
-                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                  Turnkey compliance mapping across HIPAA Title II, GDPR Art. 9, PCI-DSS v4.0, and CCPA/CPRA. Eliminate costly compliance refactoring across your AI pipeline.
-                </p>
-                <div class="pt-4">
-                  <a href="#demo" class="inline-flex items-center px-4 py-2 bg-black hover:bg-slate-800 text-white text-[11px] font-bold tracking-wider rounded-md uppercase transition cursor-pointer shadow-2xs">
-                    VIEW AUDIT LOGS
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <!-- Item 2: SIEM & Observability Feeds -->
-            <div
-              id="feat-compliance-2"
-              onclick="selectPlatformFeature('compliance', 2)"
-              class="platform-feature-card p-5 bg-white/70 hover:bg-white rounded-2xl border border-gray-200/80 shadow-2xs cursor-pointer transition-all duration-200"
-            >
-              <div class="flex items-center gap-3">
-                <div class="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center text-slate-500 shrink-0">
-                  <i data-lucide="activity" class="w-4 h-4"></i>
-                </div>
-                <h3 class="text-base font-bold text-slate-800">SIEM & Observability Feeds</h3>
-              </div>
-              <div id="feat-content-compliance-2" class="hidden pt-3">
-                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                  Stream structured CEF, JSON, and Syslog audit events directly to Datadog, Splunk, AWS CloudWatch, and Sumo Logic for enterprise SecOps monitoring.
-                </p>
-                <div class="pt-4">
-                  <a href="#demo" class="inline-flex items-center px-4 py-2 bg-black hover:bg-slate-800 text-white text-[11px] font-bold tracking-wider rounded-md uppercase transition cursor-pointer shadow-2xs">
-                    VIEW AUDIT LOGS
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <!-- Item 3: Tamper-Evident Audit Trails -->
-            <div
-              id="feat-compliance-3"
-              onclick="selectPlatformFeature('compliance', 3)"
-              class="platform-feature-card p-5 bg-white/70 hover:bg-white rounded-2xl border border-gray-200/80 shadow-2xs cursor-pointer transition-all duration-200"
-            >
-              <div class="flex items-center gap-3">
-                <div class="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center text-slate-500 shrink-0">
-                  <i data-lucide="clipboard-check" class="w-4 h-4"></i>
-                </div>
-                <h3 class="text-base font-bold text-slate-800">Tamper-Evident Audit Trails</h3>
-              </div>
-              <div id="feat-content-compliance-3" class="hidden pt-3">
-                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                  Every redaction event carries SHA-256 fingerprint hashes without exposing plaintext, producing mathematical proof of compliance for SOC 2 Type II audits.
-                </p>
-                <div class="pt-4">
-                  <a href="#demo" class="inline-flex items-center px-4 py-2 bg-black hover:bg-slate-800 text-white text-[11px] font-bold tracking-wider rounded-md uppercase transition cursor-pointer shadow-2xs">
-                    VIEW AUDIT LOGS
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <!-- Item 4: Policy Drift & Exfiltration Alarms -->
-            <div
-              id="feat-compliance-4"
-              onclick="selectPlatformFeature('compliance', 4)"
-              class="platform-feature-card p-5 bg-white/70 hover:bg-white rounded-2xl border border-gray-200/80 shadow-2xs cursor-pointer transition-all duration-200"
-            >
-              <div class="flex items-center gap-3">
-                <div class="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center text-slate-500 shrink-0">
-                  <i data-lucide="shield-alert" class="w-4 h-4"></i>
-                </div>
-                <h3 class="text-base font-bold text-slate-800">Policy Drift Alarms</h3>
-              </div>
-              <div id="feat-content-compliance-4" class="hidden pt-3">
-                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                  Trigger instant Webhook, PagerDuty, or Slack notifications if an application attempt tries to send unclassified sensitive records through unapproved gateways.
-                </p>
-                <div class="pt-4">
-                  <a href="#demo" class="inline-flex items-center px-4 py-2 bg-black hover:bg-slate-800 text-white text-[11px] font-bold tracking-wider rounded-md uppercase transition cursor-pointer shadow-2xs">
-                    VIEW AUDIT LOGS
-                  </a>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- Right: Vibrant Mesh Backdrop + Compliance Mockup Windows -->
-          <div class="lg:col-span-7">
-            <div
-              class="relative rounded-3xl p-4 sm:p-7 lg:p-8 overflow-hidden shadow-2xl min-h-[460px] sm:min-h-[500px] flex items-center justify-center"
-              style="background: radial-gradient(circle at 10% 45%, #4f46e5 0%, rgba(79, 70, 229, 0.45) 30%, transparent 60%), radial-gradient(circle at 85% 20%, #2563eb 0%, rgba(37, 99, 235, 0.6) 35%, transparent 65%), linear-gradient(135deg, #1e1b4b 0%, #080d1a 100%);"
-            >
-              <div class="absolute -top-12 -right-12 w-64 h-64 bg-indigo-400/20 rounded-full blur-3xl pointer-events-none"></div>
-              <div class="absolute -bottom-12 -left-12 w-64 h-64 bg-blue-500/20 rounded-full blur-3xl pointer-events-none"></div>
-
-              <!-- Main Behind Window: Continuous Compliance Monitor -->
-              <div class="w-full max-w-lg bg-white rounded-2xl shadow-2xl border border-white/40 overflow-hidden transform translate-x-2 -translate-y-6 sm:translate-x-6 sm:-translate-y-8">
-                <div class="px-4 py-2.5 border-b border-gray-100 flex items-center justify-between bg-slate-50/60">
-                  <div class="flex items-center gap-2">
-                    <span class="font-bold text-xs text-slate-900 tracking-tight">projectspg</span>
-                    <span class="text-[10px] text-blue-600 font-semibold bg-blue-50 px-2 py-0.5 rounded border border-blue-200">Compliance Attestation</span>
-                  </div>
-                  <div class="flex items-center gap-1.5">
-                    <span class="w-2 h-2 rounded-full bg-slate-300"></span>
-                    <span class="w-2 h-2 rounded-full bg-slate-300"></span>
-                    <span class="w-2 h-2 rounded-full bg-slate-300"></span>
-                  </div>
-                </div>
-                <div class="px-4 py-2 border-b border-gray-100 flex items-center gap-4 text-xs font-semibold">
-                  <span class="text-slate-900 border-b-2 border-blue-600 pb-1 -mb-2.5">HIPAA</span>
-                  <span class="text-slate-900 border-b-2 border-blue-600 pb-1 -mb-2.5">GDPR</span>
-                  <span class="text-slate-900 border-b-2 border-blue-600 pb-1 -mb-2.5">PCI-DSS</span>
-                  <span class="text-slate-400 font-medium">SOC 2 Type II</span>
-                </div>
-                <div class="p-4 space-y-2.5 text-left font-mono text-[11px]">
-                  <div class="p-2 rounded-lg bg-slate-50 border border-slate-200/70 flex justify-between items-center">
-                    <span class="text-slate-600">HIPAA Safe Harbor (18 Identifiers):</span>
-                    <span class="text-emerald-600 font-bold">100% PASS</span>
-                  </div>
-                  <div class="p-2 rounded-lg bg-slate-50 border border-slate-200/70 flex justify-between items-center">
-                    <span class="text-slate-600">GDPR Art. 9 Special Category PII:</span>
-                    <span class="text-emerald-600 font-bold">100% PASS</span>
-                  </div>
-                  <div class="p-2 rounded-lg bg-slate-50 border border-slate-200/70 flex justify-between items-center">
-                    <span class="text-slate-600">PCI-DSS v4.0 Requirement 3.4:</span>
-                    <span class="text-emerald-600 font-bold">100% PASS</span>
-                  </div>
-                  <div class="p-2 rounded-lg bg-slate-50 border border-slate-200/70 flex justify-between items-center">
-                    <span class="text-slate-600">Cryptographic SHA-256 Signatures:</span>
-                    <span class="text-blue-700 font-bold">VERIFIED</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Foreground Overlapping Card: Continuous Compliance Attestation -->
-              <div class="absolute bottom-4 left-3 sm:left-6 max-w-md w-[92%] sm:w-[86%] bg-white/95 backdrop-blur-md rounded-2xl border border-blue-200/90 shadow-2xl p-4 sm:p-5 text-left">
-                <div class="flex items-center justify-between pb-2 mb-2.5 border-b border-slate-100">
-                  <div class="flex items-center gap-2 min-w-0">
-                    <div class="w-4 h-4 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 shrink-0">
-                      <i data-lucide="check-circle" class="w-3 h-3"></i>
-                    </div>
-                    <span class="text-[10px] font-bold tracking-wider text-slate-800 uppercase truncate">
-                      SOC 2 & REGULATORY ATTESTATION
-                    </span>
-                    <span class="text-[9px] font-semibold px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200 shrink-0">
-                      Audit Certified
-                    </span>
-                  </div>
-                  <div class="flex items-center gap-1 text-[10px] text-slate-400 hover:text-slate-600 cursor-pointer shrink-0">
-                    <i data-lucide="download" class="w-3 h-3 text-blue-600"></i>
-                    <span>Export</span>
-                  </div>
-                </div>
-                <p class="text-[11px] sm:text-xs text-slate-700 leading-relaxed font-sans">
-                  Automated continuous attestation proves zero protected health information, payment card credentials, or GDPR confidential data reached external upstream models. Export audit logs for internal and third-party compliance review.
-                </p>
-              </div>
-
-            </div>
-          </div>
-
-        </div>
-      </div>
-
     </section>
 
     <!-- ======================================================================= -->
@@ -1895,45 +1499,6 @@ print(response.choices[0].message.content)</pre>
         text.textContent = 'Copied!';
         setTimeout(() => { text.textContent = 'Copy'; }, 2000);
       }
-    }
-
-    function selectPlatformTab(tabId) {
-      const tabs = ['deidentify', 'privacy', 'compliance'];
-      tabs.forEach(t => {
-        const btn = document.getElementById('tab-btn-' + t);
-        const panel = document.getElementById('panel-' + t);
-        if (btn) {
-          if (t === tabId) {
-            btn.className = 'platform-tab-btn px-7 sm:px-9 py-2.5 sm:py-3 rounded-2xl text-xs sm:text-sm font-semibold transition cursor-pointer bg-[#d6f5f0] text-slate-900 border border-[#b2ebe1] shadow-2xs';
-          } else {
-            btn.className = 'platform-tab-btn px-7 sm:px-9 py-2.5 sm:py-3 rounded-2xl text-xs sm:text-sm font-medium transition cursor-pointer bg-white hover:bg-slate-50 text-slate-700 border border-gray-200 shadow-2xs';
-          }
-        }
-        if (panel) {
-          if (t === tabId) {
-            panel.classList.remove('hidden');
-          } else {
-            panel.classList.add('hidden');
-          }
-        }
-      });
-      if (window.lucide) lucide.createIcons();
-    }
-
-    function selectPlatformFeature(tab, num) {
-      for (let i = 1; i <= 4; i++) {
-        const card = document.getElementById('feat-' + tab + '-' + i);
-        const content = document.getElementById('feat-content-' + tab + '-' + i);
-        if (!card || !content) continue;
-        if (i === num) {
-          card.className = 'platform-feature-card p-6 bg-white rounded-2xl border border-gray-200 shadow-2xs cursor-pointer transition-all duration-200';
-          content.classList.remove('hidden');
-        } else {
-          card.className = 'platform-feature-card p-5 bg-white/70 hover:bg-white rounded-2xl border border-gray-200/80 shadow-2xs cursor-pointer transition-all duration-200';
-          content.classList.add('hidden');
-        }
-      }
-      if (window.lucide) lucide.createIcons();
     }
 
     document.addEventListener('DOMContentLoaded', () => {
