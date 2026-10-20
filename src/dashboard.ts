@@ -2092,7 +2092,17 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
       </aside>
 
       <!-- MAIN CARD CONTAINER (Rounded top-left & top-right border matching images) -->
-      <div class="border-t border-l border-r border-groq-grayBorder rounded-t-2xl md:rounded-tr-2xl md:rounded-br-none bg-white p-3.5 sm:p-6 md:p-8 mx-0 md:mx-0 mr-0 md:mr-2 flex-1 flex flex-col overflow-visible md:overflow-y-auto shadow-xs">
+      <div class="relative border-t border-l border-r border-groq-grayBorder rounded-t-2xl md:rounded-tr-2xl md:rounded-br-none bg-white p-3.5 sm:p-6 md:p-8 mx-0 md:mx-0 mr-0 md:mr-2 flex-1 flex flex-col overflow-visible md:overflow-y-auto shadow-xs min-h-[350px]">
+        
+        <!-- DASHBOARD AUTH OVERLAY (Shown when user is not signed in) -->
+        <div id="dash-auth-overlay" class="absolute inset-0 bg-white/90 backdrop-blur-xs rounded-t-2xl md:rounded-tr-2xl z-20 flex flex-col items-center justify-center text-center p-6 transition-all duration-150">
+          <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 mb-3 shadow-2xs">
+            <i data-lucide="lock" class="w-5 h-5"></i>
+          </div>
+          <h4 class="text-xs font-semibold text-groq-dark mb-1">Sign in to view Dashboard</h4>
+          <p class="text-[11px] text-groq-textMuted max-w-xs mb-3">API metrics, usage analytics, and request logs are securely tied to your individual account. Please sign in to view your dashboard.</p>
+          <button onclick="openAuthModal()" class="px-3 py-1.5 rounded-lg bg-[#f0523d] hover:bg-[#e0422d] text-white font-medium text-xs shadow-xs transition cursor-pointer">Sign In</button>
+        </div>
         
         <!-- =================================================================== -->
         <!-- SUBVIEW A: METRICS (Exact 1:1 Match to media_1790456964674.png) -->
@@ -4307,7 +4317,14 @@ console.log(data.choices[0].message.content);</div>
       }
 
       if (viewName === 'keys') fetchApiKeys();
-      if (viewName === 'dashboard') switchDashTab(activeDashTab);
+      if (viewName === 'dashboard') {
+        const dashOverlay = document.getElementById('dash-auth-overlay');
+        if (dashOverlay) {
+          if (currentFirebaseUser) dashOverlay.classList.add('hidden');
+          else dashOverlay.classList.remove('hidden');
+        }
+        switchDashTab(activeDashTab);
+      }
       if (viewName === 'admin-invites') {
         loadAdminUsers();
         loadAdminInvitations();
@@ -7723,8 +7740,12 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
         if (createByokLock) createByokLock.classList.add('hidden');
         if (createByokTab) createByokTab.title = "BYOK Tier";
         dismissInvitationToast(true);
+        const dashOverlay = document.getElementById('dash-auth-overlay');
+        if (dashOverlay) dashOverlay.classList.add('hidden');
         renderPlaygroundModelDropdown(FREE_TIER_MODELS);
       } else {
+        const dashOverlay = document.getElementById('dash-auth-overlay');
+        if (dashOverlay) dashOverlay.classList.remove('hidden');
         const adminNav = document.getElementById('nav-admin-invites');
         const adminMobileNav = document.getElementById('nav-mobile-admin-invites');
         const adminMenuBtn = document.getElementById('user-menu-admin-btn');
