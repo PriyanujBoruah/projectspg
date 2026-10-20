@@ -95,28 +95,28 @@ export const HOME_HTML = `<!DOCTYPE html>
   <!-- ========================================================================= -->
   <!-- NAVIGATION BAR                                                            -->
   <!-- ========================================================================= -->
-  <header class="sticky top-0 z-40 bg-black/90 backdrop-blur-md border-b border-zinc-800/80 text-white">
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-gray-200/80">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <div class="flex items-center gap-8">
         <a href="/home" class="flex items-center gap-2.5">
           <div class="w-8 h-8 rounded-lg bg-[#f0523d] flex items-center justify-center text-white shadow-xs">
             <i data-lucide="shield-check" class="w-5 h-5"></i>
           </div>
-          <span class="font-bold text-lg text-white tracking-tight">projectspg</span>
-          <span class="hidden sm:inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold bg-orange-950/70 text-[#f0523d] border border-orange-800/60">Gateway v2.0</span>
+          <span class="font-bold text-lg text-slate-900 tracking-tight">projectspg</span>
+          <span class="hidden sm:inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold bg-orange-50 text-[#f0523d] border border-orange-200">Gateway v2.0</span>
         </a>
 
-        <nav class="hidden md:flex items-center gap-6 text-xs font-medium text-zinc-300">
-          <a href="#demo" class="hover:text-white transition">Live Demo</a>
-          <a href="#features" class="hover:text-white transition">Architecture</a>
-          <a href="#code" class="hover:text-white transition">Code Examples</a>
-          <a href="/#docs" class="hover:text-white transition">API Docs</a>
+        <nav class="hidden md:flex items-center gap-6 text-xs font-medium text-slate-600">
+          <a href="#demo" class="hover:text-slate-900 transition">Live Demo</a>
+          <a href="#features" class="hover:text-slate-900 transition">Architecture</a>
+          <a href="#code" class="hover:text-slate-900 transition">Code Examples</a>
+          <a href="/#docs" class="hover:text-slate-900 transition">API Docs</a>
         </nav>
       </div>
 
       <div class="flex items-center gap-3">
-        <a href="/" class="text-xs font-medium text-zinc-200 hover:text-white px-3 py-1.5 rounded-lg border border-zinc-700 hover:bg-zinc-800 transition flex items-center gap-1.5">
-          <i data-lucide="terminal" class="w-3.5 h-3.5 text-zinc-400"></i>
+        <a href="/" class="text-xs font-medium text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded-lg border border-gray-200 hover:bg-gray-50 transition flex items-center gap-1.5">
+          <i data-lucide="terminal" class="w-3.5 h-3.5 text-slate-500"></i>
           <span>Playground</span>
         </a>
         <a href="/" class="text-xs font-semibold text-white bg-[#f0523d] hover:bg-[#e0422d] px-3.5 py-1.5 rounded-lg shadow-xs transition flex items-center gap-1.5">
@@ -128,28 +128,25 @@ export const HOME_HTML = `<!DOCTYPE html>
   </header>
 
   <!-- ========================================================================= -->
-  <!-- HERO SECTION: Agentic Infrastructure (Dark with Glowing Keyhole)          -->
+  <!-- HERO SECTION: Agentic Infrastructure (Light Themed with Glowing Keyhole)  -->
   <!-- ========================================================================= -->
-  <section id="agentic-hero-section" class="bg-black text-white relative overflow-hidden py-16 sm:py-24 lg:py-28 border-b border-zinc-900">
+  <section id="agentic-hero-section" class="relative overflow-hidden py-16 sm:py-20 lg:py-24 border-b border-gray-200/80 bg-white">
     
-    <!-- Subtle top ambient glow -->
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(168,85,247,0.12),transparent_65%)] pointer-events-none"></div>
-
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
         
         <!-- Left Column: Typography & CTAs -->
         <div class="lg:col-span-5 text-center lg:text-left space-y-6">
-          <h1 class="text-4xl sm:text-6xl lg:text-[64px] font-bold tracking-tight text-white leading-[1.05]">
+          <h1 class="text-4xl sm:text-6xl lg:text-[64px] font-extrabold tracking-tight text-slate-900 leading-[1.05]">
             Agentic<br />
             Infrastructure
           </h1>
 
           <div class="flex items-center justify-center lg:justify-start gap-3 pt-2">
-            <a href="#demo" class="px-5 py-2.5 rounded-full bg-white hover:bg-zinc-100 text-black text-xs font-semibold transition cursor-pointer shadow-xs">
+            <a href="#demo" class="px-5 py-2.5 rounded-full bg-slate-900 hover:bg-black text-white text-xs font-semibold transition cursor-pointer shadow-xs">
               Deploy now
             </a>
-            <a href="/#docs" class="px-5 py-2.5 rounded-full bg-black hover:bg-zinc-900 text-white text-xs font-semibold border border-zinc-700 hover:border-zinc-500 transition cursor-pointer">
+            <a href="/#docs" class="px-5 py-2.5 rounded-full bg-white hover:bg-slate-50 text-slate-800 text-xs font-semibold border border-gray-300 hover:border-gray-400 transition cursor-pointer">
               Talk to sales
             </a>
           </div>
@@ -159,7 +156,7 @@ export const HOME_HTML = `<!DOCTYPE html>
         <div class="lg:col-span-4 flex items-center justify-center py-6 lg:py-0">
           <div id="keyhole-stage" class="relative flex flex-col items-center justify-center select-none transition-transform duration-200">
             
-            <svg viewBox="0 0 260 320" class="w-56 h-68 sm:w-64 sm:h-76 overflow-visible">
+            <svg viewBox="0 0 260 320" class="w-56 h-68 sm:w-64 sm:h-76 overflow-visible drop-shadow-[0_16px_32px_rgba(0,0,0,0.12)]">
               <defs>
                 <!-- Base edge chromatic gradient matching triangle colors -->
                 <!-- Pink (left) -> Violet (peak) -> Electric Cyan (right) -> Faint Teal (bottom) -->
@@ -186,13 +183,13 @@ export const HOME_HTML = `<!DOCTYPE html>
 
               <!-- ================= TIGHT EDGE GLOW (Hugs perimeter strictly) ================= -->
               <!-- Outer edge halo: spreads just ~16-20px outside the edge -->
-              <use href="#keyholeShape" fill="none" stroke="url(#tightEdgeGrad)" stroke-width="24" opacity="0.45" style="filter: blur(10px);" />
+              <use href="#keyholeShape" fill="none" stroke="url(#tightEdgeGrad)" stroke-width="22" opacity="0.5" style="filter: blur(10px);" />
 
               <!-- Mid edge glow: intense color, spreads ~8-10px outside the edge -->
-              <use href="#keyholeShape" fill="none" stroke="url(#tightEdgeGrad)" stroke-width="12" opacity="0.85" style="filter: blur(4px);" />
+              <use href="#keyholeShape" fill="none" stroke="url(#tightEdgeGrad)" stroke-width="11" opacity="0.85" style="filter: blur(4px);" />
 
               <!-- Specular rim: crisp razor-sharp line right at the perimeter -->
-              <use href="#keyholeShape" fill="none" stroke="url(#tightEdgeGrad)" stroke-width="3.5" opacity="1" style="filter: blur(1px);" />
+              <use href="#keyholeShape" fill="none" stroke="url(#tightEdgeGrad)" stroke-width="3" opacity="1" style="filter: blur(1px);" />
 
               <!-- Traveling highlight beam: orbits directly along the edge contour -->
               <use href="#keyholeShape"
@@ -214,15 +211,15 @@ export const HOME_HTML = `<!DOCTYPE html>
                    opacity="0.9"
                    style="filter: blur(1px);" />
 
-              <!-- ================= SOLID BLACK KEYHOLE BODY ================= -->
-              <!-- Pure #000000 pitch-black interior matching background -->
-              <use href="#keyholeShape" fill="#000000" />
+              <!-- ================= SOLID OBSIDIAN KEYHOLE BODY ================= -->
+              <!-- Pure #09090b silhouette that contrasts against the light background -->
+              <use href="#keyholeShape" fill="#09090b" />
             </svg>
 
-            <!-- Subtle floor reflection under base (matching triangle floor reflection) -->
+            <!-- Subtle soft floor contact shadow under base -->
             <div
-              class="w-36 h-2 -mt-1 rounded-full pointer-events-none opacity-40"
-              style="background: radial-gradient(ellipse at 50% 50%, rgba(0,210,255,0.7) 0%, rgba(16,185,129,0.5) 40%, transparent 80%); filter: blur(4px);"
+              class="w-32 h-2.5 -mt-1 rounded-full pointer-events-none opacity-25"
+              style="background: radial-gradient(ellipse at 50% 50%, rgba(0,0,0,0.6) 0%, rgba(0,210,255,0.4) 40%, transparent 80%); filter: blur(3px);"
             ></div>
 
           </div>
@@ -230,7 +227,7 @@ export const HOME_HTML = `<!DOCTYPE html>
 
         <!-- Right Column: 3-line bullet copy (matching screenshot) -->
         <div class="lg:col-span-3 text-center lg:text-left">
-          <div class="text-sm sm:text-base text-zinc-300 font-normal leading-relaxed space-y-2">
+          <div class="text-sm sm:text-base text-slate-600 font-medium leading-relaxed space-y-2">
             <p>For coding agents</p>
             <p>To ship apps and agents</p>
             <p>Automated by agents</p>
