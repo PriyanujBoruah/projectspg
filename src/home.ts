@@ -334,351 +334,182 @@ export const HOME_HTML = `<!DOCTYPE html>
 
     <!-- ======================================================================= -->
     <!-- HOW IT WORKS: DATA FLOW & INTERCEPTION ARCHITECTURE                     -->
-    <!-- Shows how users send private data to LLMs and where ProjectSPG stops it -->
+    <!-- Concise, glanceable side-by-side data flow                              -->
     <!-- ======================================================================= -->
-    <section id="how-it-works" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+    <section id="how-it-works" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
       
       <!-- Section Header -->
-      <div class="text-center max-w-3xl mx-auto space-y-3 mb-12 sm:mb-16">
+      <div class="text-center max-w-2xl mx-auto space-y-2 mb-10 sm:mb-12">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900 border border-slate-700/80 text-[11px] font-mono font-semibold tracking-wide text-slate-300 shadow-xs">
           <span class="w-1.5 h-1.5 rounded-full bg-[#f0523d] animate-pulse"></span>
-          <span>ZERO-TRUST INTERCEPTION ARCHITECTURE</span>
+          <span>HOW IT WORKS</span>
         </div>
-        <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-bold text-slate-900 tracking-tight leading-[1.18]">
-          How Private Data Leaks to AI — And Where ProjectSPG Stops It
+        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight leading-tight">
+          Where ProjectSPG Intercepts Your Data Flow
         </h2>
         <p class="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
-          Every prompt your team sends to an LLM exposes customer PII, confidential contracts, and API keys. Here is how ProjectSPG sits between your infrastructure and external AI models to guarantee zero data leakage.
+          Direct AI requests leak customer data and API keys to third-party logs. ProjectSPG intercepts prompts at the edge so LLMs only ever see anonymous tokens.
         </p>
       </div>
 
       <!-- Main Visual Architecture Blueprint (Dark Obsidian Drafting Canvas) -->
-      <div class="relative rounded-3xl bg-[#09090b] border-2 border-slate-700/80 shadow-2xl p-6 sm:p-10 lg:p-12 overflow-hidden text-white mb-10">
+      <div class="relative rounded-2xl bg-[#09090b] border-2 border-slate-700/80 shadow-2xl p-5 sm:p-7 lg:p-8 text-white mb-6 overflow-hidden">
         
-        <!-- Technical Corner Drafting Registration Marks (+) -->
-        <div class="absolute top-3 left-3 text-slate-600 font-mono text-xs select-none leading-none">+</div>
-        <div class="absolute top-3 right-3 text-slate-600 font-mono text-xs select-none leading-none">+</div>
-        <div class="absolute bottom-3 left-3 text-slate-600 font-mono text-xs select-none leading-none">+</div>
-        <div class="absolute bottom-3 right-3 text-slate-600 font-mono text-xs select-none leading-none">+</div>
+        <!-- Technical Corner Drafting Marks (+) -->
+        <div class="absolute top-2.5 left-2.5 text-slate-600 font-mono text-xs select-none leading-none">+</div>
+        <div class="absolute top-2.5 right-2.5 text-slate-600 font-mono text-xs select-none leading-none">+</div>
+        <div class="absolute bottom-2.5 left-2.5 text-slate-600 font-mono text-xs select-none leading-none">+</div>
+        <div class="absolute bottom-2.5 right-2.5 text-slate-600 font-mono text-xs select-none leading-none">+</div>
 
-        <!-- Inset Dashed Blueprint Frame -->
-        <div class="absolute inset-2 sm:inset-3 rounded-[20px] border border-dashed border-slate-800/90 pointer-events-none"></div>
+        <!-- Inset Dashed Frame -->
+        <div class="absolute inset-2 rounded-xl border border-dashed border-slate-800/90 pointer-events-none"></div>
 
-        <!-- Atmospheric Glows (Rose Hazard for Direct Leak vs Emerald Shield for ProjectSPG) -->
-        <div class="absolute -top-32 -left-32 w-80 h-80 bg-rose-500/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -bottom-32 -right-32 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
-
-        <div class="relative z-10 space-y-10">
+        <div class="relative z-10 space-y-5">
           
-          <!-- ================================================================= -->
-          <!-- PATH 1: THE UNPROTECTED FLOW (How Data Leaks Today)               -->
-          <!-- ================================================================= -->
-          <div class="space-y-4">
-            
-            <!-- Flow 1 Header -->
-            <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-rose-950/80">
+          <!-- FLOW 1: WITHOUT PROJECTSPG (The Hazard) -->
+          <div class="rounded-xl bg-[#12080a] border border-rose-900/70 p-4 relative"
+               style="box-shadow: 3px 3px 0px 0px rgba(159, 18, 57, 0.35);">
+            <div class="flex items-center justify-between pb-2.5 mb-2.5 border-b border-rose-950/80">
               <div class="flex items-center gap-2">
-                <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/40 text-[11px] font-bold">✕</span>
-                <span class="text-xs sm:text-sm font-bold font-mono tracking-tight text-rose-300 uppercase">1. Unprotected Direct Route (How Private Data Leaks Today)</span>
+                <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+                <span class="text-xs font-mono font-bold uppercase tracking-wider text-rose-300">Without ProjectSPG: Direct AI Traffic</span>
               </div>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-rose-950/80 text-rose-400 border border-rose-800">
-                CRITICAL VULNERABILITY: UNENCRYPTED PROMPTS
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-rose-950 text-rose-400 border border-rose-800">
+                ❌ Data Leaked
               </span>
             </div>
 
-            <!-- Path 1 Visual Nodes -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
+            <!-- 3-Node Horizontal Pipeline -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center font-mono text-xs">
+              <!-- Client -->
+              <div class="md:col-span-4 p-2.5 rounded-lg bg-slate-950 border border-slate-800">
+                <div class="text-[10px] text-slate-400 uppercase font-semibold mb-1">Your App / Prompt</div>
+                <div class="text-slate-300 text-[11px] truncate">
+                  "Pay <span class="text-rose-400 font-bold bg-rose-950/90 px-1 rounded">John Doe</span> (SSN: <span class="text-rose-400 font-bold bg-rose-950/90 px-1 rounded">412-88-9012</span>) <span class="text-rose-400 font-bold bg-rose-950/90 px-1 rounded">$14,500</span>"
+                </div>
+              </div>
               
-              <!-- Node 1A: User / Employee Prompt -->
-              <div class="lg:col-span-5 rounded-xl bg-slate-950/90 border-2 border-slate-800 p-4 relative"
-                   style="box-shadow: 4px 4px 0px 0px rgba(30, 41, 59, 0.7);">
-                <div class="flex items-center justify-between pb-2 border-b border-slate-800/80 mb-2.5">
-                  <div class="flex items-center gap-2">
-                    <i data-lucide="terminal" class="w-3.5 h-3.5 text-slate-400"></i>
-                    <span class="text-xs font-semibold text-slate-200 font-mono">User / Enterprise App Prompt</span>
-                  </div>
-                  <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-rose-950 text-rose-300 border border-rose-800">
-                    Raw Secrets
-                  </span>
-                </div>
-                <div class="p-2.5 rounded-lg bg-[#14080a] border border-rose-900/60 font-mono text-[11px] leading-relaxed text-slate-300">
-                  "Audit compensation for VP <span class="bg-rose-950 text-rose-200 border border-rose-600 px-1 py-0.5 rounded font-bold">Sarah Jenkins</span> (SSN: <span class="bg-rose-950 text-rose-200 border border-rose-600 px-1 py-0.5 rounded font-bold">412-88-9012</span>, <span class="bg-rose-950 text-rose-200 border border-rose-600 px-1 py-0.5 rounded font-bold">sarah@acme.com</span>), calculate bonus on <span class="bg-rose-950 text-rose-200 border border-rose-600 px-1 py-0.5 rounded font-bold">$215,000</span> base."
-                </div>
-                <p class="text-[10px] text-slate-400 mt-2 font-mono flex items-center gap-1.5">
-                  <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
-                  <span>Employees query LLMs directly with real customers, code & keys</span>
-                </p>
+              <!-- Red Arrow Wire -->
+              <div class="md:col-span-4 flex items-center justify-center gap-2 text-rose-400 text-[11px] py-1">
+                <div class="hidden md:block flex-1 h-[2px] bg-rose-800/80"></div>
+                <span class="px-2 py-0.5 rounded bg-rose-950/90 border border-rose-800 text-[10px] shrink-0">Raw PII over Internet</span>
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-rose-400 shrink-0"></i>
+                <div class="hidden md:block flex-1 h-[2px] bg-rose-800/80"></div>
               </div>
 
-              <!-- Connecting Leaking Pipe / Wire -->
-              <div class="lg:col-span-2 flex flex-col items-center justify-center py-2 select-none">
-                <div class="hidden lg:flex items-center w-full">
-                  <div class="flex-1 h-[2px] bg-gradient-to-r from-rose-800 to-rose-600"></div>
-                  <div class="px-2 py-1 rounded bg-rose-950 border border-rose-700/80 text-[9px] font-mono font-bold text-rose-300 flex items-center gap-1 shrink-0">
-                    <span>Direct Wire</span>
-                    <i data-lucide="arrow-right" class="w-3 h-3 text-rose-400"></i>
-                  </div>
-                  <div class="flex-1 h-[2px] bg-gradient-to-r from-rose-600 to-rose-800"></div>
-                </div>
-                <div class="lg:hidden flex items-center gap-2 py-1 text-[10px] font-mono text-rose-400">
-                  <i data-lucide="arrow-down" class="w-3.5 h-3.5"></i>
-                  <span>Direct Public Internet Transit</span>
+              <!-- AI Provider -->
+              <div class="md:col-span-4 p-2.5 rounded-lg bg-rose-950/40 border border-rose-900/60">
+                <div class="text-[10px] text-rose-300 uppercase font-semibold mb-1">Cloud AI Provider</div>
+                <div class="text-[11px] text-rose-200">
+                  ⚠️ PII stored in telemetry & model training sets
                 </div>
               </div>
-
-              <!-- Node 1B: Public Cloud AI Provider Datacenter -->
-              <div class="lg:col-span-5 rounded-xl bg-[#14080a] border-2 border-rose-900/80 p-4 relative"
-                   style="box-shadow: 4px 4px 0px 0px rgba(159, 18, 57, 0.4);">
-                
-                <!-- Cross-hatch background overlay -->
-                <div class="absolute inset-0 rounded-xl overflow-hidden pointer-events-none opacity-10"
-                     style="background: repeating-linear-gradient(45deg, #f43f5e, #f43f5e 1.2px, transparent 1.2px, transparent 7px);"></div>
-
-                <div class="relative z-10 flex items-center justify-between pb-2 border-b border-rose-900/80 mb-2.5">
-                  <div class="flex items-center gap-2">
-                    <i data-lucide="server" class="w-3.5 h-3.5 text-rose-400"></i>
-                    <span class="text-xs font-semibold text-rose-200 font-mono">Public AI Provider Servers (OpenAI, Anthropic, Google)</span>
-                  </div>
-                  <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/40">
-                    Data Exposed
-                  </span>
-                </div>
-
-                <ul class="relative z-10 space-y-1.5 text-[10px] font-mono text-rose-300/90">
-                  <li class="flex items-start gap-1.5">
-                    <span class="text-rose-400 font-bold">✕</span>
-                    <span><strong>Permanently Logged:</strong> Prompts stored in cloud telemetry & server logs</span>
-                  </li>
-                  <li class="flex items-start gap-1.5">
-                    <span class="text-rose-400 font-bold">✕</span>
-                    <span><strong>Training Corpus Risk:</strong> Secrets ingested into future model foundation weights</span>
-                  </li>
-                  <li class="flex items-start gap-1.5">
-                    <span class="text-rose-400 font-bold">✕</span>
-                    <span><strong>Compliance Breach:</strong> Violates GDPR (Art. 17 right to be forgotten), HIPAA & SOC 2</span>
-                  </li>
-                </ul>
-              </div>
-
-            </div>
-
-          </div>
-
-          <!-- Divider: Architectural Technical Line -->
-          <div class="relative py-2 flex items-center justify-center">
-            <div class="w-full border-t border-dashed border-slate-700"></div>
-            <div class="absolute px-4 py-1 rounded-full bg-[#0d1520] border border-cyan-800 text-[10px] font-mono font-bold text-cyan-300 flex items-center gap-1.5"
-                 style="box-shadow: 2px 2px 0px 0px rgba(6, 182, 212, 0.4);">
-              <i data-lucide="shield-check" class="w-3.5 h-3.5 text-cyan-400"></i>
-              <span>WHERE PROJECTSPG COMES IN: THE IN-LINE ZERO-TRUST EDGE GATEWAY</span>
             </div>
           </div>
 
-          <!-- ================================================================= -->
-          <!-- PATH 2: THE PROTECTED FLOW (Where ProjectSPG Steps In & Stops It) -->
-          <!-- ================================================================= -->
-          <div class="space-y-4">
-            
-            <!-- Flow 2 Header -->
-            <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-emerald-950/80">
+          <!-- FLOW 2: WITH PROJECTSPG (The Protected Gateway) -->
+          <div class="rounded-xl bg-[#06151f] border-2 border-emerald-500/80 p-4 relative"
+               style="box-shadow: 3px 3px 0px 0px rgba(16, 185, 129, 0.35);">
+            <div class="flex items-center justify-between pb-2.5 mb-2.5 border-b border-emerald-950/80">
               <div class="flex items-center gap-2">
-                <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 text-[11px] font-bold">✓</span>
-                <span class="text-xs sm:text-sm font-bold font-mono tracking-tight text-emerald-300 uppercase">2. Protected Route (Where ProjectSPG Intercepts & Stops The Leak)</span>
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span class="text-xs font-mono font-bold uppercase tracking-wider text-emerald-300">With ProjectSPG: Zero-Trust Interception</span>
               </div>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">
-                ZERO DATA LEAKAGE: 100% REVERSIBLE TOKENIZATION
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-700">
+                ✓ 100% Protected & Reversible
               </span>
             </div>
 
-            <!-- Path 2 Visual 3-Stage Gateway Architecture -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
+            <!-- 3-Node Horizontal Pipeline with ProjectSPG in Middle -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center font-mono text-xs">
               
-              <!-- Stage 2A: User / Client App -->
-              <div class="lg:col-span-3 rounded-xl bg-slate-950/90 border-2 border-slate-800 p-4 flex flex-col justify-between"
-                   style="box-shadow: 4px 4px 0px 0px rgba(30, 41, 59, 0.7);">
-                <div>
-                  <div class="flex items-center justify-between pb-2 border-b border-slate-800/80 mb-2.5">
-                    <span class="text-xs font-semibold text-slate-200 font-mono">1. User / Application</span>
-                    <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-slate-800 text-slate-300">Unchanged</span>
-                  </div>
-                  <div class="p-2 rounded bg-slate-900 border border-slate-800 text-[10px] font-mono text-slate-300 leading-relaxed mb-2">
-                    "Audit compensation for VP Sarah Jenkins..."
-                  </div>
+              <!-- Client -->
+              <div class="md:col-span-3 p-2.5 rounded-lg bg-slate-950 border border-slate-800">
+                <div class="text-[10px] text-slate-400 uppercase font-semibold mb-1">Your App / Prompt</div>
+                <div class="text-slate-300 text-[11px] truncate">
+                  "Pay <span class="text-emerald-400 font-semibold">John Doe</span>..."
                 </div>
-                <div class="pt-2 border-t border-slate-800/80 text-[10px] font-mono text-emerald-400">
-                  <span>✓ 1-Line Setup: Just set base URL to api.projectspg.info</span>
-                </div>
+                <div class="text-[9px] text-emerald-400 mt-1">✓ Receives real data back</div>
               </div>
 
-              <!-- Stage 2B: ProjectSPG Gateway (THE CORE INTERCEPTION LAYER) -->
-              <div class="lg:col-span-6 rounded-xl bg-[#06151f] border-2 border-cyan-500/80 p-4 sm:p-5 relative"
-                   style="box-shadow: 6px 6px 0px 0px rgba(6, 182, 212, 0.35);">
-                
-                <!-- Cross-hatch sketch texture inside ProjectSPG node -->
-                <div class="absolute inset-0 rounded-xl overflow-hidden pointer-events-none opacity-10"
-                     style="background: repeating-linear-gradient(45deg, #06b6d4, #06b6d4 1.2px, transparent 1.2px, transparent 6px);"></div>
-
-                <div class="relative z-10 flex items-center justify-between pb-2 border-b border-cyan-800/80 mb-3">
-                  <div class="flex items-center gap-2">
-                    <div class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping"></div>
-                    <span class="text-xs font-bold text-cyan-200 font-mono tracking-tight">2. ProjectSPG Gateway (Edge / VPC)</span>
-                  </div>
-                  <span class="text-[9px] font-mono font-bold px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-700">
-                    &lt;20ms In-Flight Interception
+              <!-- ProjectSPG Inline Gateway (The Shield) -->
+              <div class="md:col-span-5 p-2.5 rounded-lg bg-[#04202c] border border-cyan-500/60 relative">
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-[10px] text-cyan-300 uppercase font-bold flex items-center gap-1">
+                    <i data-lucide="shield-check" class="w-3.5 h-3.5 text-cyan-400"></i>
+                    <span>ProjectSPG Gateway</span>
                   </span>
+                  <span class="text-[9px] px-1.5 py-0.2 rounded bg-cyan-950 text-cyan-300 border border-cyan-700 font-mono">&lt;20ms</span>
                 </div>
-
-                <!-- Step-by-step internal mechanics of ProjectSPG -->
-                <div class="relative z-10 space-y-2 text-[10px] font-mono">
-                  
-                  <div class="flex items-start gap-2 p-1.5 rounded bg-cyan-950/40 border border-cyan-900/60">
-                    <span class="w-4 h-4 rounded-full bg-cyan-500/20 text-cyan-300 flex items-center justify-center font-bold shrink-0 text-[9px]">A</span>
-                    <div>
-                      <strong class="text-cyan-200">Inspects & Identifies:</strong> Scans 100+ entity classes across 109 sovereign legal jurisdictions before packet exits your perimeter.
-                    </div>
+                <div class="text-[10px] text-slate-300 space-y-0.5">
+                  <div class="flex items-center gap-1.5">
+                    <span class="text-cyan-400 font-bold">1.</span> <span>Strips PII ➔ <code class="text-cyan-300 font-mono">[PERSON_1]</code>, <code class="text-amber-300 font-mono">[SSN_1]</code></span>
                   </div>
-
-                  <div class="flex items-start gap-2 p-1.5 rounded bg-cyan-950/40 border border-cyan-900/60">
-                    <span class="w-4 h-4 rounded-full bg-cyan-500/20 text-cyan-300 flex items-center justify-center font-bold shrink-0 text-[9px]">B</span>
-                    <div>
-                      <strong class="text-cyan-200">Surrogate Tokenization:</strong> Strips PII & swaps in mathematical tokens (<span class="text-cyan-300">[PERSON_1]</span>, <span class="text-amber-300">[SSN_1]</span>, <span class="text-emerald-300">[COMP_1]</span>). Ephemeral mapping sealed via BYOK KMS.
-                    </div>
+                  <div class="flex items-center gap-1.5">
+                    <span class="text-emerald-400 font-bold">2.</span> <span>Rehydrates real values on return</span>
                   </div>
-
-                  <div class="flex items-start gap-2 p-1.5 rounded bg-emerald-950/50 border border-emerald-900/80">
-                    <span class="w-4 h-4 rounded-full bg-emerald-500/20 text-emerald-300 flex items-center justify-center font-bold shrink-0 text-[9px]">C</span>
-                    <div>
-                      <strong class="text-emerald-300">Deterministic Rehydration:</strong> When LLM responds, original values are instantly restored on the fly before reaching the user.
-                    </div>
-                  </div>
-
                 </div>
-
               </div>
 
-              <!-- Stage 2C: AI Model Receives ONLY Tokens -->
-              <div class="lg:col-span-3 rounded-xl bg-[#061c14] border-2 border-emerald-600/80 p-4 flex flex-col justify-between"
-                   style="box-shadow: 4px 4px 0px 0px rgba(16, 185, 129, 0.35);">
-                <div>
-                  <div class="flex items-center justify-between pb-2 border-b border-emerald-900/80 mb-2.5">
-                    <span class="text-xs font-semibold text-emerald-200 font-mono">3. What Cloud LLMs See</span>
-                    <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-700">Zero Leak</span>
-                  </div>
-                  <div class="p-2 rounded bg-emerald-950/80 border border-emerald-800 text-[10px] font-mono text-emerald-200 leading-relaxed mb-2">
-                    "Audit compensation for VP <span class="text-cyan-300 font-bold">[PERSON_1]</span> (SSN: <span class="text-amber-300 font-bold">[SSN_1]</span>)..."
-                  </div>
+              <!-- AI Provider -->
+              <div class="md:col-span-4 p-2.5 rounded-lg bg-emerald-950/40 border border-emerald-800/60">
+                <div class="text-[10px] text-emerald-300 uppercase font-semibold mb-1">Cloud AI Provider (OpenAI / Claude)</div>
+                <div class="text-[11px] text-emerald-100">
+                  "Pay <span class="text-cyan-300 font-bold">[PERSON_1]</span>..."
                 </div>
-                <div class="pt-2 border-t border-emerald-900/80 text-[10px] font-mono text-emerald-300 space-y-1">
-                  <div>✓ Vendor logs contain only tokens</div>
-                  <div>✓ 100% LLM reasoning accuracy intact</div>
-                </div>
+                <div class="text-[9px] text-emerald-400 mt-1">✓ Sees & logs tokens only</div>
               </div>
 
             </div>
-
           </div>
 
         </div>
 
       </div>
 
-      <!-- 3 Explainer Bento Cards: Direct Answers to Business & Security Questions -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- 3 Glanceable Cards: The 3 Core Answers -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
         
-        <!-- Card 1: How Users Send Private Data to AI -->
-        <div class="relative group rounded-2xl bg-[#09090b] border-2 border-slate-700/80 p-6 text-white overflow-hidden"
-             style="box-shadow: 6px 6px 0px 0px rgba(15, 23, 42, 0.8);">
-          
-          <!-- Cross-hatch sketch accent -->
-          <div class="absolute inset-0 rounded-2xl overflow-hidden pointer-events-none opacity-5"
-               style="background: repeating-linear-gradient(45deg, #f43f5e, #f43f5e 1.2px, transparent 1.2px, transparent 8px);"></div>
-
-          <div class="relative z-10 flex items-center justify-between mb-4">
-            <div class="w-10 h-10 rounded-xl bg-rose-500/10 border border-rose-500/30 flex items-center justify-center text-rose-400">
-              <i data-lucide="send" class="w-5 h-5"></i>
+        <!-- Card 1 -->
+        <div class="rounded-xl bg-[#09090b] border-2 border-slate-700/80 p-5 text-white relative"
+             style="box-shadow: 4px 4px 0px 0px rgba(15, 23, 42, 0.7);">
+          <div class="flex items-center gap-2.5 mb-2">
+            <div class="w-7 h-7 rounded-lg bg-rose-500/10 border border-rose-500/30 flex items-center justify-center text-rose-400 shrink-0">
+              <i data-lucide="alert-triangle" class="w-4 h-4"></i>
             </div>
-            <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-rose-950 text-rose-400 border border-rose-800">
-              The Exposure
-            </span>
+            <h3 class="text-sm font-bold text-white tracking-tight">1. How Data Leaks</h3>
           </div>
-
-          <h3 class="relative z-10 text-base font-bold text-white mb-2 tracking-tight">
-            1. How Users Send Private Data
-          </h3>
-          <p class="relative z-10 text-xs text-slate-400 leading-relaxed font-normal mb-4">
-            Employees, copilot agents, and developers routinely paste customer PII, internal medical records, proprietary code, and API keys directly into LLM prompts. Because standard AI clients connect unredacted to external APIs, those secrets get permanently recorded in cloud provider telemetry logs.
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Prompts sent directly to OpenAI, Anthropic, or Google carry customer PII, keys, and financials that get permanently logged and ingested into training sets.
           </p>
-
-          <div class="relative z-10 p-2.5 rounded-lg bg-slate-950 border border-slate-800 font-mono text-[10px] text-slate-400 space-y-1">
-            <div class="text-rose-400 font-semibold">⚠️ Typical Enterprise Leaks:</div>
-            <div>• Customer SSNs, credit cards & emails</div>
-            <div>• Source code with AWS / DB tokens</div>
-            <div>• Patient health records & legal contracts</div>
-          </div>
         </div>
 
-        <!-- Card 2: Where ProjectSPG Comes In -->
-        <div class="relative group rounded-2xl bg-[#09090b] border-2 border-slate-700/80 p-6 text-white overflow-hidden"
-             style="box-shadow: 6px 6px 0px 0px rgba(15, 23, 42, 0.8);">
-          
-          <!-- Cross-hatch sketch accent -->
-          <div class="absolute inset-0 rounded-2xl overflow-hidden pointer-events-none opacity-5"
-               style="background: repeating-linear-gradient(45deg, #06b6d4, #06b6d4 1.2px, transparent 1.2px, transparent 8px);"></div>
-
-          <div class="relative z-10 flex items-center justify-between mb-4">
-            <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
-              <i data-lucide="shield" class="w-5 h-5"></i>
+        <!-- Card 2 -->
+        <div class="rounded-xl bg-[#09090b] border-2 border-slate-700/80 p-5 text-white relative"
+             style="box-shadow: 4px 4px 0px 0px rgba(15, 23, 42, 0.7);">
+          <div class="flex items-center gap-2.5 mb-2">
+            <div class="w-7 h-7 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shrink-0">
+              <i data-lucide="shield" class="w-4 h-4"></i>
             </div>
-            <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-800">
-              The Interception
-            </span>
+            <h3 class="text-sm font-bold text-white tracking-tight">2. Where ProjectSPG Sits</h3>
           </div>
-
-          <h3 class="relative z-10 text-base font-bold text-white mb-2 tracking-tight">
-            2. Where ProjectSPG Comes In
-          </h3>
-          <p class="relative z-10 text-xs text-slate-400 leading-relaxed font-normal mb-4">
-            ProjectSPG operates as a high-performance in-line reverse proxy deployed at the edge (Cloudflare / AWS) or inside your private VPC. You change just one line in your application configuration: swap the vendor base URL for <code class="text-cyan-300 font-mono">api.projectspg.info</code>. Zero code rewrites required.
+          <p class="text-xs text-slate-400 leading-relaxed">
+            ProjectSPG sits inline as an ultra-low latency (&lt;20ms) reverse proxy at the edge. Just change your API base URL to <code class="text-cyan-300 font-mono text-[11px]">api.projectspg.info</code>.
           </p>
-
-          <div class="relative z-10 p-2.5 rounded-lg bg-slate-950 border border-slate-800 font-mono text-[10px] text-slate-400 space-y-1">
-            <div class="text-cyan-400 font-semibold">⚡ Drop-In Integration:</div>
-            <div>• Wire-compatible OpenAI & Anthropic proxy</div>
-            <div>• Operates in &lt;20ms at 300+ global edge nodes</div>
-            <div>• Compatible with LangChain, LlamaIndex, SDKs</div>
-          </div>
         </div>
 
-        <!-- Card 3: How ProjectSPG Stops That -->
-        <div class="relative group rounded-2xl bg-[#09090b] border-2 border-slate-700/80 p-6 text-white overflow-hidden"
-             style="box-shadow: 6px 6px 0px 0px rgba(15, 23, 42, 0.8);">
-          
-          <!-- Cross-hatch sketch accent -->
-          <div class="absolute inset-0 rounded-2xl overflow-hidden pointer-events-none opacity-5"
-               style="background: repeating-linear-gradient(45deg, #10b981, #10b981 1.2px, transparent 1.2px, transparent 8px);"></div>
-
-          <div class="relative z-10 flex items-center justify-between mb-4">
-            <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
-              <i data-lucide="refresh-cw" class="w-5 h-5"></i>
+        <!-- Card 3 -->
+        <div class="rounded-xl bg-[#09090b] border-2 border-slate-700/80 p-5 text-white relative"
+             style="box-shadow: 4px 4px 0px 0px rgba(15, 23, 42, 0.7);">
+          <div class="flex items-center gap-2.5 mb-2">
+            <div class="w-7 h-7 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0">
+              <i data-lucide="refresh-cw" class="w-4 h-4"></i>
             </div>
-            <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">
-              The Defense
-            </span>
+            <h3 class="text-sm font-bold text-white tracking-tight">3. How It Stops It</h3>
           </div>
-
-          <h3 class="relative z-10 text-base font-bold text-white mb-2 tracking-tight">
-            3. How ProjectSPG Stops It
-          </h3>
-          <p class="relative z-10 text-xs text-slate-400 leading-relaxed font-normal mb-4">
-            Before outbound prompts touch the public internet, ProjectSPG replaces private data with mathematical surrogate tokens. The AI provider performs reasoning strictly on anonymous placeholders. When the model responds, ProjectSPG deterministically rehydrates the original data so your app works seamlessly.
+          <p class="text-xs text-slate-400 leading-relaxed">
+            We replace private data with mathematical tokens before requests leave your network, then seamlessly rehydrate original values when the LLM replies.
           </p>
-
-          <div class="relative z-10 p-2.5 rounded-lg bg-slate-950 border border-slate-800 font-mono text-[10px] text-slate-400 space-y-1">
-            <div class="text-emerald-400 font-semibold">🛡️ Zero Upstream Exposure:</div>
-            <div>• Ephemeral in-memory encryption (BYOK KMS)</div>
-            <div>• Real PII never touches vendor training servers</div>
-            <div>• 100% full semantic accuracy restored in outputs</div>
-          </div>
         </div>
 
       </div>
