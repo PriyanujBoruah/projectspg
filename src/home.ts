@@ -152,8 +152,8 @@ export const HOME_HTML = `<!DOCTYPE html>
         <!-- Left Column: Typography & CTAs -->
         <div class="lg:col-span-5 text-center lg:text-left space-y-6">
           <h1 class="text-4xl sm:text-6xl lg:text-[64px] font-extrabold tracking-tight text-slate-900 leading-[1.05]">
-            Agentic<br />
-            Infrastructure
+            Privacy Layer<br />
+            for your Prompts
           </h1>
 
           <div class="flex items-center justify-center lg:justify-start gap-3 pt-2">
