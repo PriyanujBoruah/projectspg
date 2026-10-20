@@ -1674,18 +1674,11 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
 
           <div class="relative max-w-[115px] xs:max-w-[130px] sm:max-w-none shrink min-w-0">
             <select id="playground-model" onchange="onModelChange()" class="appearance-none bg-white border border-groq-grayBorder text-groq-dark text-xs font-sans font-medium rounded-lg pl-2 sm:pl-3 pr-5 sm:pr-8 py-1.5 focus:border-gray-400 focus:outline-none cursor-pointer w-full truncate">
-              <optgroup label="Groq Cloud (Fast & Free)">
-                <option value="openai/gpt-oss-120b" data-provider="groq" selected>openai/gpt-oss-120b</option>
-                <option value="openai/gpt-oss-20b" data-provider="groq">openai/gpt-oss-20b</option>
-                <option value="qwen/qwen3.8-27b" data-provider="groq">qwen/qwen3.8-27b</option>
-              </optgroup>
-              <optgroup label="Google AI Studio (Free)">
-                <option value="gemini-1.5-flash" data-provider="google">gemini-1.5-flash</option>
-                <option value="gemini-2.0-flash" data-provider="google">gemini-2.0-flash</option>
-              </optgroup>
-              <optgroup label="Mistral AI (Free)">
-                <option value="codestral-2508" data-provider="mistral">codestral-2508</option>
+              <optgroup label="Mistral AI (Free Public Access)">
+                <option value="ministral-3b-2512" data-provider="mistral" selected>ministral-3b-2512</option>
                 <option value="ministral-8b-2512" data-provider="mistral">ministral-8b-2512</option>
+                <option value="codestral-2508" data-provider="mistral">codestral-2508</option>
+                <option value="mistral-large-2512" data-provider="mistral">mistral-large-2512</option>
               </optgroup>
             </select>
             <i data-lucide="chevrons-up-down" class="w-3.5 h-3.5 text-groq-textSubtle absolute right-1.5 sm:right-2 top-2 pointer-events-none"></i>
@@ -5029,19 +5022,11 @@ console.log(data.choices[0].message.content);</div>
     }
 
     const FREE_TIER_MODELS = {
-      groq: [
-        { id: 'openai/gpt-oss-120b', name: 'openai/gpt-oss-120b' },
-        { id: 'openai/gpt-oss-20b', name: 'openai/gpt-oss-20b' },
-        { id: 'qwen/qwen3.8-27b', name: 'qwen/qwen3.8-27b' }
-      ],
-      google: [
-        { id: 'gemma-4-26b-a4b-it', name: 'gemma-4-26b-a4b-it' },
-        { id: 'gemma-4-31b-it', name: 'gemma-4-31b-it' }
-      ],
       mistral: [
-        { id: 'codestral-2508', name: 'codestral-2508' },
+        { id: 'ministral-3b-2512', name: 'ministral-3b-2512' },
         { id: 'ministral-8b-2512', name: 'ministral-8b-2512' },
-        { id: 'ministral-14b-2512', name: 'ministral-14b-2512' }
+        { id: 'codestral-2508', name: 'codestral-2508' },
+        { id: 'mistral-large-2512', name: 'mistral-large-2512' }
       ]
     };
 
@@ -5084,11 +5069,16 @@ console.log(data.choices[0].message.content);</div>
       const targetVal = preferredSelected || select.value;
       select.innerHTML = '';
 
-      const groups = [
-        { label: 'Groq Cloud (Ultra-Fast & Free)', provider: 'groq', items: catalog?.groq?.length ? catalog.groq : EXPANDED_FALLBACK_MODELS.groq },
-        { label: 'Google AI Studio (Free)', provider: 'google', items: catalog?.google?.length ? catalog.google : EXPANDED_FALLBACK_MODELS.google },
-        { label: 'Mistral AI (Free & Pro)', provider: 'mistral', items: catalog?.mistral?.length ? catalog.mistral : EXPANDED_FALLBACK_MODELS.mistral }
-      ];
+      const isFreeMode = (typeof playgroundTierMode !== 'undefined' && playgroundTierMode === 'free');
+      const groups = isFreeMode
+        ? [
+            { label: 'Mistral AI (Free Public Access)', provider: 'mistral', items: catalog?.mistral?.length ? catalog.mistral : FREE_TIER_MODELS.mistral }
+          ]
+        : [
+            { label: 'Groq Cloud (Ultra-Fast & Free)', provider: 'groq', items: catalog?.groq?.length ? catalog.groq : EXPANDED_FALLBACK_MODELS.groq },
+            { label: 'Google AI Studio (Free)', provider: 'google', items: catalog?.google?.length ? catalog.google : EXPANDED_FALLBACK_MODELS.google },
+            { label: 'Mistral AI (Free & Pro)', provider: 'mistral', items: catalog?.mistral?.length ? catalog.mistral : EXPANDED_FALLBACK_MODELS.mistral }
+          ];
 
       let found = false;
       groups.forEach(g => {
@@ -5112,13 +5102,9 @@ console.log(data.choices[0].message.content);</div>
       });
 
       if (!found && select.options.length > 0) {
-        if (!isFull) {
-          const codestralOpt = Array.from(select.options).find(o => o.value === 'codestral-2508');
-          if (codestralOpt) codestralOpt.selected = true;
-          else select.selectedIndex = 0;
-        } else {
-          select.selectedIndex = 0;
-        }
+        const defaultOpt = Array.from(select.options).find(o => o.value === 'ministral-3b-2512') || Array.from(select.options).find(o => o.value === 'codestral-2508');
+        if (defaultOpt) defaultOpt.selected = true;
+        else select.selectedIndex = 0;
       }
       if (typeof updateCodeViewer === 'function') {
         updateCodeViewer();
@@ -5231,7 +5217,7 @@ console.log(data.choices[0].message.content);</div>
         if (byokKeysBtn) {
           byokKeysBtn.classList.add('hidden');
         }
-        renderPlaygroundModelDropdown(FREE_TIER_MODELS, 'openai/gpt-oss-120b');
+        renderPlaygroundModelDropdown(FREE_TIER_MODELS, 'ministral-3b-2512');
       } else {
         if (byokBtn) {
           byokBtn.className = 'px-2.5 sm:px-3 py-1 rounded-md bg-white text-groq-dark font-medium shadow-xs text-xs transition cursor-pointer flex items-center gap-1';

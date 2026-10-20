@@ -21,9 +21,10 @@ import { verifyFirebaseIdToken } from "../auth/firebase";
 import { Env } from "./tokenization";
 
 export const LIMITED_ALLOWED_MISTRAL_MODELS = new Set([
-  "codestral-2508",
+  "ministral-3b-2512",
   "ministral-8b-2512",
-  "ministral-14b-2512",
+  "codestral-2508",
+  "mistral-large-2512",
 ]);
 
 const openaiApp = new Hono<{ Bindings: Env }>();
@@ -631,23 +632,50 @@ openaiApp.post("/chat/completions", async (c) => {
   let upstreamBaseUrl = resolveUpstreamBaseUrl(c, requestedModel);
 
   // If targeting OpenAI but user provided no OpenAI key and server has no OPENAI_API_KEY,
-  // gracefully route unauthenticated/free requests to Groq Cloud so they succeed with 200 OK
+  // gracefully route unauthenticated/free requests to Mistral AI so they succeed with 200 OK
   const hasUserOpenAiKey = authHeader.startsWith("Bearer sk-");
   const hasServerOpenAiKey = Boolean(
     (c.env as any)?.OPENAI_API_KEY || (globalThis as any).process?.env?.OPENAI_API_KEY
   );
   if (upstreamBaseUrl === "https://api.openai.com/v1" && !hasUserOpenAiKey && !hasServerOpenAiKey) {
-    upstreamBaseUrl = "https://api.groq.com/openai/v1";
+    upstreamBaseUrl = "https://api.mistral.ai/v1";
   }
 
   const upstreamUrl = `${upstreamBaseUrl}/chat/completions`;
   const upstreamAuth = resolveUpstreamAuth(c, requestedModel, upstreamBaseUrl);
 
+  const upstreamPayload = {
+    ...body,
+    messages: sanitizedMessages,
+  };
+  delete upstreamPayload.categories;
+  delete upstreamPayload.mode;
+  delete upstreamPayload.ttlSeconds;
+
+  // Normalize model aliases for upstream providers (Google AI Studio Gemma 4)
+  if (upstreamPayload.model === "gemma-4-26b-it") {
+    upstreamPayload.model = "gemma-4-26b-a4b-it";
+  }
+
+  // If routing through Mistral on unauthenticated/free tier and generic/OpenAI model was requested, map to default Mistral model
+  if (upstreamBaseUrl.includes("mistral.ai")) {
+    const m = (upstreamPayload.model || "").toLowerCase();
+    if (!m || m.startsWith("gpt-") || m.startsWith("chatgpt") || m.startsWith("text-") || m === "openai") {
+      upstreamPayload.model = "ministral-3b-2512";
+    }
+  }
+
+  // If routing through Groq on unauthenticated/free tier and an OpenAI model was requested, map to Groq flagship model
+  if (upstreamUrl.includes("groq.com")) {
+    const m = (upstreamPayload.model || "").toLowerCase();
+    if (!m || m.startsWith("gpt-") || m.startsWith("chatgpt") || m.startsWith("text-") || m === "openai" || m.includes("llama-3.3")) {
+      upstreamPayload.model = "openai/gpt-oss-120b";
+    }
+  }
+
   // Enforce Rate Limiting for platform infrastructure:
   // - If user brought their own direct upstream key (BYOK mode), zero platform throttling applies.
-  // - Otherwise:
-  //   - Pro Tier: 1 request per 5 seconds
-  //   - Free Tier: 1 request per 15 seconds
+  // - Otherwise: calibrated dynamically to exact Mistral model usage limits (80ms to 1000ms)
   const isCustomUpstream = Boolean(upstreamAuth?.isUserKey);
   const clientId = resolveClientIdentifier(c, apiKeyRecord, clientUserId);
   const bypassTest = c.req.header("x-test-bypass-rate-limit") === "true";
@@ -657,11 +685,12 @@ openaiApp.post("/chat/completions", async (c) => {
     const tier = isPro ? "pro" : "free";
     const rateLimit = await checkRateLimit(clientId, c.env, {
       tier,
+      model: upstreamPayload.model || requestedModel,
       bypassTest,
     });
     if (!rateLimit.allowed) {
       return c.json(
-        createRateLimitErrorPayload(rateLimit.retryAfterSec, tier),
+        createRateLimitErrorPayload(rateLimit.retryAfterSec, tier, upstreamPayload.model || requestedModel),
         429,
         getRateLimitHeaders(rateLimit.retryAfterSec, tier)
       );
@@ -716,43 +745,43 @@ openaiApp.post("/chat/completions", async (c) => {
   const projHeader = c.req.header("OpenAI-Project");
   if (projHeader) upstreamHeaders["OpenAI-Project"] = projHeader;
 
-  const upstreamPayload = {
-    ...body,
-    messages: sanitizedMessages,
-  };
-  delete upstreamPayload.categories;
-  delete upstreamPayload.mode;
-  delete upstreamPayload.ttlSeconds;
-
-  // Normalize model aliases for upstream providers (Google AI Studio Gemma 4)
-  if (upstreamPayload.model === "gemma-4-26b-it") {
-    upstreamPayload.model = "gemma-4-26b-a4b-it";
-  }
-
-  // If routing through Groq on unauthenticated/free tier and an OpenAI model was requested, map to Groq flagship model
-  if (upstreamUrl.includes("groq.com")) {
-    const m = (upstreamPayload.model || "").toLowerCase();
-    if (!m || m.startsWith("gpt-") || m.startsWith("chatgpt") || m.startsWith("text-") || m === "openai" || m.includes("llama-3.3")) {
-      upstreamPayload.model = "openai/gpt-oss-120b";
-    }
-  }
-
   let upstreamRes: Response;
-  try {
-    upstreamRes = await fetch(upstreamUrl, {
-      method: "POST",
-      headers: upstreamHeaders,
-      body: JSON.stringify(upstreamPayload),
-    });
-  } catch (fetchErr: any) {
-    const err = createOpenAIError(
-      `Failed to connect to upstream LLM gateway (${upstreamBaseUrl}): ${fetchErr?.message}`,
-      "api_connection_error",
-      null,
-      null,
-      502
-    );
-    return c.json(err, 502);
+  let attempts = 0;
+  const maxAttempts = 2; // initial attempt + 1 retry on 429
+
+  while (true) {
+    attempts++;
+    try {
+      upstreamRes = await fetch(upstreamUrl, {
+        method: "POST",
+        headers: upstreamHeaders,
+        body: JSON.stringify(upstreamPayload),
+      });
+    } catch (fetchErr: any) {
+      if (attempts < maxAttempts) {
+        await new Promise((resolve) => setTimeout(resolve, 1000 + Math.floor(Math.random() * 200)));
+        continue;
+      }
+      const err = createOpenAIError(
+        `Failed to connect to upstream LLM gateway (${upstreamBaseUrl}): ${fetchErr?.message}`,
+        "api_connection_error",
+        null,
+        null,
+        502
+      );
+      return c.json(err, 502);
+    }
+
+    // Upstream 429 automatic retry with 1s backoff (on demand)
+    if (upstreamRes.status === 429 && attempts < maxAttempts) {
+      const retryAfterHeader = upstreamRes.headers.get("Retry-After");
+      const retryDelayMs = retryAfterHeader
+        ? Math.max(1000, parseInt(retryAfterHeader, 10) * 1000)
+        : 1000 + Math.floor(Math.random() * 250);
+      await new Promise((resolve) => setTimeout(resolve, retryDelayMs));
+      continue;
+    }
+    break;
   }
 
   // If upstream returns an error status (e.g. 401, 403, 429, 500), forward normalized OpenAI response
@@ -1124,9 +1153,9 @@ openaiApp.get("/models", async (c) => {
       { id: "gemma-4-26b-it", object: "model", created: 1721235600, owned_by: "google" },
       { id: "gemma-4-26b-a4b-it", object: "model", created: 1721235600, owned_by: "google" },
       { id: "gemma-4-31b-it", object: "model", created: 1721235600, owned_by: "google" },
-      { id: "codestral-2508", object: "model", created: 1721235600, owned_by: "mistral" },
+      { id: "ministral-3b-2512", object: "model", created: 1721235600, owned_by: "mistral" },
       { id: "ministral-8b-2512", object: "model", created: 1721235600, owned_by: "mistral" },
-      { id: "ministral-14b-2512", object: "model", created: 1721235600, owned_by: "mistral" },
+      { id: "codestral-2508", object: "model", created: 1721235600, owned_by: "mistral" },
       { id: "mistral-large-2512", object: "model", created: 1721235600, owned_by: "mistral" },
       { id: "gpt-4o", object: "model", created: 1715368132, owned_by: "system" },
       { id: "gpt-4o-mini", object: "model", created: 1721235600, owned_by: "system" },

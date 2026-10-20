@@ -17,6 +17,20 @@ export const FREE_TIER_MAX_REQUESTS = 1;
 export const PRO_TIER_INTERVAL_MS = 5_000; // 5 seconds
 export const PRO_TIER_MAX_REQUESTS = 1;
 
+/**
+ * Mistral Console Model Limits (from Mistral dashboard)
+ * - ministral-3b-2512: 1,300,000 TPM | 12.50 RPS -> 80ms min interval
+ * - ministral-8b-2512:   625,000 TPM |  3.13 RPS -> 320ms min interval
+ * - codestral-2508:      625,000 TPM |  2.08 RPS -> 480ms min interval
+ * - mistral-large-2512:  250,000 TPM |  1.00 RPS -> 1000ms min interval
+ */
+export const MISTRAL_USAGE_LIMITS: Record<string, { rps: number; tpm: number; minIntervalMs: number }> = {
+  "ministral-3b-2512": { rps: 12.50, tpm: 1_300_000, minIntervalMs: 80 },
+  "ministral-8b-2512": { rps: 3.13,  tpm: 625_000,   minIntervalMs: 320 },
+  "codestral-2508":    { rps: 2.08,  tpm: 625_000,   minIntervalMs: 480 },
+  "mistral-large-2512": { rps: 1.00,  tpm: 250_000,   minIntervalMs: 1000 },
+};
+
 export type TierLevel = "free" | "pro";
 
 export interface RateLimitResult {
@@ -85,10 +99,15 @@ export function isFreeTierRequest(c: Context, apiKeyRecord?: any, hasCustomUpstr
 export async function checkRateLimit(
   clientId: string,
   env?: any,
-  options?: { tier?: TierLevel; bypassTest?: boolean }
+  options?: { tier?: TierLevel; model?: string; bypassTest?: boolean }
 ): Promise<RateLimitResult> {
   const tier: TierLevel = options?.tier || "free";
-  const intervalMs = tier === "pro" ? PRO_TIER_INTERVAL_MS : FREE_TIER_INTERVAL_MS;
+  let intervalMs = tier === "pro" ? PRO_TIER_INTERVAL_MS : FREE_TIER_INTERVAL_MS;
+
+  // Calibrate interval dynamically to exact Mistral model RPS limits
+  if (tier === "free" && options?.model && MISTRAL_USAGE_LIMITS[options.model]) {
+    intervalMs = MISTRAL_USAGE_LIMITS[options.model].minIntervalMs;
+  }
 
   // Allow test suites to bypass if explicitly requested
   if (options?.bypassTest || (globalThis as any).__DISABLE_RATE_LIMIT__ === true) {
@@ -226,17 +245,19 @@ export async function checkProTierRateLimit(
 /**
  * Generate wire-compatible Rate Limit Error response payload
  */
-export function createRateLimitErrorPayload(retryAfterSec: number, tier: TierLevel = "free") {
+export function createRateLimitErrorPayload(retryAfterSec: number, tier: TierLevel = "free", model?: string) {
   const isPro = tier === "pro";
-  const limitSec = isPro ? 5 : 15;
+  const limitSec = isPro ? 5 : (model && MISTRAL_USAGE_LIMITS[model] ? Math.round((MISTRAL_USAGE_LIMITS[model].minIntervalMs / 1000) * 10) / 10 : 15);
   const tierName = isPro ? "Pro" : "Free";
   const suggestion = isPro
     ? "or switch to BYOK mode for direct upstream zero-throttling routing."
     : "or add your own API key for unlimited access.";
 
+  const limitDescription = limitSec < 1 ? `capacity limit for ${model || "model"}` : `1 protected request per ${limitSec} seconds`;
+
   return {
     error: {
-      message: `${tierName} tier rate limit exceeded: 1 protected request per ${limitSec} seconds. Please retry in ${retryAfterSec}s ${suggestion}`,
+      message: `${tierName} tier rate limit exceeded: ${limitDescription}. Please retry in ${retryAfterSec}s ${suggestion}`,
       type: "rate_limit_error",
       param: null,
       code: "rate_limit_exceeded",
