@@ -1172,166 +1172,169 @@ export const HOME_HTML = `<!DOCTYPE html>
     <!-- ======================================================================= -->
     <section id="security-comparison" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
       
-      <!-- Outer Dark Sleek Card (Matching Dark Studio Layout) -->
-      <div class="relative rounded-3xl bg-[#09090b] border border-slate-800 shadow-2xl p-8 sm:p-12 lg:p-16 overflow-hidden text-white">
+      <!-- Outer Dark Sleek Card -->
+      <div class="relative rounded-3xl bg-[#09090b] border border-slate-800 shadow-2xl p-8 sm:p-12 lg:p-14 overflow-hidden text-white">
         
         <!-- Subtle Atmospheric Background Glows -->
         <div class="absolute -top-24 -left-24 w-96 h-96 bg-[#f0523d]/10 rounded-full blur-3xl pointer-events-none"></div>
         <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
-        <!-- Top-Left Headline (Matching Screenshot Layout) -->
-        <div class="max-w-2xl mb-12 lg:mb-16 text-left">
-          <h2 class="text-3xl sm:text-5xl lg:text-[50px] font-bold tracking-tight text-white leading-[1.1]">
-            Build agents on infrastructure<br />that protects what they know
-          </h2>
-        </div>
-
-        <!-- Main Body: 2 Columns (Left: Overlapping Security Comparison | Right: Impact Copy & Features) -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        <!-- 2-Column Grid: Left (Headline & Features) | Right (End-to-End Rehydration Pipeline) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
           
-          <!-- Left/Center: Layered Illustration (Behind: Raw Direct API Leak | Front: ProjectSPG Protected) -->
-          <div class="lg:col-span-8 relative flex items-center justify-center lg:justify-start py-4">
+          <!-- Left Column: Impact Statement & Features List (Moved to Headline Position) -->
+          <div class="lg:col-span-5 space-y-7 text-left">
             
-            <!-- Behind Card: Other Gateways / Direct API (Exposes Raw Data) -->
-            <div class="absolute left-0 sm:left-4 top-2 sm:top-4 w-[280px] sm:w-[340px] rounded-2xl bg-[#14080a] border border-rose-900/60 p-4 sm:p-5 shadow-2xl transform -translate-x-3 -rotate-2 opacity-85 select-none pointer-events-none">
-              
-              <!-- Back Card Header -->
-              <div class="flex items-center justify-between pb-3 border-b border-rose-900/50 mb-3">
-                <div class="flex items-center gap-2">
-                  <div class="w-6 h-6 rounded-lg bg-rose-950/80 border border-rose-800/80 flex items-center justify-center text-rose-400">
-                    <i data-lucide="shield-alert" class="w-3.5 h-3.5"></i>
-                  </div>
-                  <span class="text-xs font-semibold text-rose-300">Direct AI API</span>
-                </div>
-                <span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30">
-                  Data Fully Exposed
-                </span>
-              </div>
+            <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-white leading-[1.15]">
+              ProjectSPG secures millions of enterprise agent conversations daily.
+            </h2>
 
-              <!-- Back Card Raw Plaintext Leaks -->
-              <div class="space-y-2 text-[11px] font-mono text-rose-200/70 leading-relaxed text-left">
-                <p class="text-rose-400/90 font-sans text-[10px] font-semibold uppercase tracking-wider">Unprotected Prompt Sent to LLM:</p>
-                <div class="p-2 rounded bg-rose-950/40 border border-rose-900/40 text-[10px] text-rose-200">
-                  "Audit payroll for <span class="bg-rose-900/80 text-white px-1 py-0.2 rounded font-bold">Alice Walker</span> (SSN: <span class="bg-rose-900/80 text-white px-1 py-0.2 rounded font-bold">82-9102834</span>, salary <span class="bg-rose-900/80 text-white px-1 py-0.2 rounded font-bold">$185k</span>)..."
-                </div>
-                <div class="flex items-center gap-1.5 text-[10px] text-rose-400 pt-1">
-                  <i data-lucide="alert-triangle" class="w-3 h-3 shrink-0"></i>
-                  <span>Logged to external model training & third-party storage</span>
-                </div>
+            <div class="space-y-4 pt-1">
+              <div class="text-xs font-bold text-slate-400 uppercase tracking-widest">
+                FEATURES
               </div>
-
+              <ul class="space-y-3.5 text-sm sm:text-base font-medium text-slate-300">
+                <li class="flex items-center gap-3 text-slate-200">
+                  <span class="w-2 h-2 rounded-full bg-[#f0523d] shrink-0"></span>
+                  <span>Context-Preserving Masking</span>
+                </li>
+                <li class="flex items-center gap-3 text-slate-200">
+                  <span class="w-2 h-2 rounded-full bg-cyan-400 shrink-0"></span>
+                  <span>Zero Upstream Retention</span>
+                </li>
+                <li class="flex items-center gap-3 text-slate-200">
+                  <span class="w-2 h-2 rounded-full bg-emerald-400 shrink-0"></span>
+                  <span>Sub-20ms Edge Sanitization</span>
+                </li>
+                <li class="flex items-center gap-3 text-slate-200">
+                  <span class="w-2 h-2 rounded-full bg-purple-400 shrink-0"></span>
+                  <span>Hardware Envelope Cryptography</span>
+                </li>
+                <li class="flex items-center gap-3 text-emerald-400 font-semibold">
+                  <span class="w-2 h-2 rounded-full bg-emerald-400 shrink-0"></span>
+                  <span>100% Reversible Response Rehydration</span>
+                </li>
+              </ul>
             </div>
 
-            <!-- Foreground Card: ProjectSPG Protected Agent Window (Sleek Dark Chat UI matching screenshot) -->
-            <div class="relative z-10 w-full max-w-[440px] sm:max-w-[480px] rounded-2xl bg-[#0c0f17] border border-slate-700/80 shadow-[0_20px_50px_rgba(0,0,0,0.8)] p-5 sm:p-6 ml-12 sm:ml-20 text-left">
-              
-              <!-- Front Window Top Bar -->
-              <div class="flex items-center justify-between pb-3.5 border-b border-slate-800 mb-4">
-                <div class="flex items-center gap-2">
-                  <span class="text-xs font-semibold text-slate-200">New Protected Chat</span>
-                  <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400"></i>
-                </div>
-                <div class="flex items-center gap-2 text-slate-400">
-                  <i data-lucide="edit-3" class="w-3.5 h-3.5 hover:text-white cursor-pointer transition"></i>
-                  <i data-lucide="maximize-2" class="w-3.5 h-3.5 hover:text-white cursor-pointer transition"></i>
-                  <i data-lucide="x" class="w-3.5 h-3.5 hover:text-white cursor-pointer transition"></i>
-                </div>
+            <!-- Why Competitors Fail Callout -->
+            <div class="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 text-xs text-slate-400 space-y-1.5 leading-relaxed">
+              <div class="flex items-center gap-1.5 font-semibold text-rose-400">
+                <i data-lucide="alert-circle" class="w-3.5 h-3.5"></i>
+                <span>Where Competitors Fail</span>
               </div>
+              <p>
+                Generic tools redact irreversibly or leave broken tokens like <code class="text-rose-300 bg-rose-950/60 px-1 py-0.5 rounded text-[11px]">[REDACTED]</code> in final answers. ProjectSPG dynamically rehydrates protected placeholders back into the original values before delivering the response to your application.
+              </p>
+            </div>
 
-              <!-- Agent Avatar & Greeting (Matching Screenshot) -->
-              <div class="flex items-center gap-3 mb-4">
-                <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-[#f0523d] to-cyan-400 flex items-center justify-center text-white shadow-xs">
-                  <i data-lucide="sparkles" class="w-4 h-4"></i>
-                </div>
-                <h4 class="text-sm sm:text-base font-bold text-white tracking-tight">
-                  How can I help you today?
-                </h4>
-              </div>
-
-              <!-- Comparison Showcase: Unprotected Prompt -> Protected Prompt Below It -->
-              <div class="space-y-3">
-                
-                <!-- 1. Unprotected User Prompt -->
-                <div class="rounded-xl bg-slate-950/90 border border-slate-800/80 p-3.5 space-y-2">
-                  <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-400">
-                      <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
-                      <span>Unprotected User Prompt</span>
-                    </div>
-                    <span class="text-[9px] font-semibold px-2 py-0.5 rounded-full bg-rose-950/60 text-rose-300 border border-rose-800/60">
-                      Raw PII Exposed
-                    </span>
-                  </div>
-                  <p class="text-[11px] font-mono text-slate-300 leading-relaxed">
-                    "Audit compensation for <span class="bg-rose-950/80 text-rose-200 border border-rose-800/80 px-1.5 py-0.2 rounded font-medium">Alice Walker</span> (SSN: <span class="bg-rose-950/80 text-rose-200 border border-rose-800/80 px-1.5 py-0.2 rounded font-medium">82-9102834</span>, <span class="bg-rose-950/80 text-rose-200 border border-rose-800/80 px-1.5 py-0.2 rounded font-medium">alice@megacorp.io</span>), verify base salary of <span class="bg-rose-950/80 text-rose-200 border border-rose-800/80 px-1.5 py-0.2 rounded font-medium">$185,000</span>."
-                  </p>
-                </div>
-
-                <!-- Sub-20ms Interception Divider -->
-                <div class="flex items-center justify-center gap-2 py-0.5">
-                  <div class="h-px bg-slate-800 flex-1"></div>
-                  <div class="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-slate-900 border border-slate-800 text-[10px] text-cyan-400 font-medium">
-                    <i data-lucide="shield-check" class="w-3 h-3 text-cyan-400"></i>
-                    <span>ProjectSPG Sub-20ms Edge Sanitization</span>
-                  </div>
-                  <div class="h-px bg-slate-800 flex-1"></div>
-                </div>
-
-                <!-- 2. Protected Prompt Below It (Sent to AI) -->
-                <div class="rounded-xl bg-cyan-950/20 border border-cyan-800/60 p-3.5 space-y-2 shadow-inner">
-                  <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-cyan-400">
-                      <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
-                      <span>Protected Prompt (Sent to AI)</span>
-                    </div>
-                    <span class="text-[9px] font-semibold px-2 py-0.5 rounded-full bg-cyan-950 text-cyan-300 border border-cyan-700/80">
-                      Context Preserved
-                    </span>
-                  </div>
-                  <p class="text-[11px] font-mono text-slate-200 leading-relaxed">
-                    "Audit compensation for <span class="bg-cyan-900/60 text-cyan-300 border border-cyan-700/80 px-1.5 py-0.2 rounded font-medium">[PERSON_1]</span> (SSN: <span class="bg-amber-900/60 text-amber-300 border border-amber-700/80 px-1.5 py-0.2 rounded font-medium">[SSN_1]</span>, <span class="bg-purple-900/60 text-purple-300 border border-purple-700/80 px-1.5 py-0.2 rounded font-medium">[EMAIL_1]</span>), verify base salary of <span class="bg-emerald-900/60 text-emerald-300 border border-emerald-700/80 px-1.5 py-0.2 rounded font-medium">[COMP_1]</span>."
-                  </p>
-                  <div class="flex items-center justify-between pt-1 border-t border-cyan-900/40 text-[10px] text-slate-400 font-sans">
-                    <span>Reversible semantic placeholders</span>
-                    <span class="text-emerald-400 font-medium">0 bytes stored</span>
-                  </div>
-                </div>
-
-              </div>
-
+            <div class="pt-1">
+              <a href="#demo" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white hover:bg-slate-100 text-slate-900 text-xs font-semibold shadow-xs transition cursor-pointer">
+                <span>Test Live Rehydration</span>
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </a>
             </div>
 
           </div>
 
-          <!-- Right Column: Statement & Features List (Matching Screenshot Right Side) -->
-          <div class="lg:col-span-4 space-y-8 text-left">
+          <!-- Right Column: Interactive Illustration with Full Rehydration Showcase -->
+          <div class="lg:col-span-7 relative flex items-center justify-center py-2">
             
-            <h3 class="text-xl sm:text-2xl font-bold text-white leading-snug tracking-tight">
-              ProjectSPG secures millions of enterprise agent conversations daily.
-            </h3>
-
-            <div class="space-y-4">
-              <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">
-                Features
+            <!-- Behind Card: Competitors / Direct API (Where Competitors Fail) -->
+            <div class="hidden sm:block absolute -left-6 -top-4 w-[280px] rounded-2xl bg-[#14080a] border border-rose-900/60 p-4 shadow-2xl transform -rotate-2 opacity-75 select-none pointer-events-none">
+              <div class="flex items-center justify-between pb-2 border-b border-rose-900/50 mb-2">
+                <div class="flex items-center gap-1.5">
+                  <i data-lucide="shield-alert" class="w-3.5 h-3.5 text-rose-400"></i>
+                  <span class="text-[11px] font-semibold text-rose-300">Competitors & Direct API</span>
+                </div>
+                <span class="text-[9px] font-bold px-1.5 py-0.2 rounded bg-rose-500/20 text-rose-300 border border-rose-500/30">
+                  Rehydration Fails
+                </span>
               </div>
-              <ul class="space-y-3.5 text-sm font-medium text-slate-300">
-                <li class="flex items-center gap-3 text-slate-200">
-                  <span class="w-1.5 h-1.5 rounded-full bg-[#f0523d] shrink-0"></span>
-                  <span>Context-Preserving Masking</span>
-                </li>
-                <li class="flex items-center gap-3 text-slate-200">
-                  <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0"></span>
-                  <span>Zero Upstream Retention</span>
-                </li>
-                <li class="flex items-center gap-3 text-slate-200">
-                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0"></span>
-                  <span>Sub-20ms Edge Sanitization</span>
-                </li>
-                <li class="flex items-center gap-3 text-slate-200">
-                  <span class="w-1.5 h-1.5 rounded-full bg-purple-400 shrink-0"></span>
-                  <span>Hardware Envelope Cryptography</span>
-                </li>
-              </ul>
+              <div class="text-[10px] font-mono text-rose-300/80 space-y-1.5">
+                <p class="text-[9px] text-rose-400 uppercase font-sans font-semibold">Broken Model Output:</p>
+                <div class="p-2 rounded bg-rose-950/40 border border-rose-900/40 text-rose-200 leading-relaxed">
+                  "Approved salary for <span class="bg-rose-900/80 text-white px-1 py-0.2 rounded font-bold">[PERSON_1]</span>..."
+                  <span class="text-rose-400 text-[9px] block pt-1 font-sans">❌ Tokens never restored. Application code breaks.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Foreground Card: ProjectSPG Complete 3-Stage Pipeline -->
+            <div class="relative z-10 w-full max-w-[500px] rounded-2xl bg-[#0c0f17] border border-slate-700/80 shadow-[0_20px_50px_rgba(0,0,0,0.8)] p-5 sm:p-6 text-left">
+              
+              <!-- Front Window Top Bar -->
+              <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
+                <div class="flex items-center gap-2">
+                  <div class="w-2.5 h-2.5 rounded-full bg-emerald-400"></div>
+                  <span class="text-xs font-semibold text-slate-200">ProjectSPG Reversible Privacy Engine</span>
+                </div>
+                <div class="flex items-center gap-1.5 text-[10px] font-mono text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/60">
+                  <i data-lucide="refresh-cw" class="w-3 h-3"></i>
+                  <span>Two-Way Transit</span>
+                </div>
+              </div>
+
+              <!-- 3-Stage Demonstration -->
+              <div class="space-y-3">
+                
+                <!-- Stage 1: Unprotected User Prompt -->
+                <div class="rounded-xl bg-slate-950/90 border border-slate-800/80 p-3 space-y-1.5">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                      <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
+                      <span>1. Unprotected User Prompt (Client Input)</span>
+                    </div>
+                    <span class="text-[9px] font-semibold px-2 py-0.2 rounded-full bg-rose-950/60 text-rose-300 border border-rose-800/60">
+                      Raw PII
+                    </span>
+                  </div>
+                  <p class="text-[11px] font-mono text-slate-300 leading-relaxed">
+                    "Audit compensation for <span class="bg-rose-950/80 text-rose-200 border border-rose-800/80 px-1 py-0.2 rounded font-medium">Alice Walker</span> (SSN: <span class="bg-rose-950/80 text-rose-200 border border-rose-800/80 px-1 py-0.2 rounded font-medium">82-9102834</span>, <span class="bg-rose-950/80 text-rose-200 border border-rose-800/80 px-1 py-0.2 rounded font-medium">alice@megacorp.io</span>), verify salary of <span class="bg-rose-950/80 text-rose-200 border border-rose-800/80 px-1 py-0.2 rounded font-medium">$185,000</span>."
+                  </p>
+                </div>
+
+                <!-- Stage 2: What AI Model Receives -->
+                <div class="rounded-xl bg-cyan-950/20 border border-cyan-800/50 p-3 space-y-1.5">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-cyan-400">
+                      <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+                      <span>2. What AI Model Receives (Sanitized Payload)</span>
+                    </div>
+                    <span class="text-[9px] font-semibold px-2 py-0.2 rounded-full bg-cyan-950 text-cyan-300 border border-cyan-700/80">
+                      Zero Upstream Leak
+                    </span>
+                  </div>
+                  <p class="text-[11px] font-mono text-slate-200 leading-relaxed">
+                    "Audit compensation for <span class="bg-cyan-900/60 text-cyan-300 border border-cyan-700/80 px-1 py-0.2 rounded font-medium">[PERSON_1]</span> (SSN: <span class="bg-amber-900/60 text-amber-300 border border-amber-700/80 px-1 py-0.2 rounded font-medium">[SSN_1]</span>, <span class="bg-purple-900/60 text-purple-300 border border-purple-700/80 px-1 py-0.2 rounded font-medium">[EMAIL_1]</span>), verify salary of <span class="bg-emerald-900/60 text-emerald-300 border border-emerald-700/80 px-1 py-0.2 rounded font-medium">[COMP_1]</span>."
+                  </p>
+                  <p class="text-[10px] font-sans text-slate-400 italic">
+                    LLM generates: "Confirmed: <span class="text-cyan-300 font-mono">[PERSON_1]</span> compensation of <span class="text-emerald-300 font-mono">[COMP_1]</span> approved."
+                  </p>
+                </div>
+
+                <!-- Stage 3: Rehydrated Output (Application Receives) - WHERE COMPETITORS FAIL -->
+                <div class="rounded-xl bg-emerald-950/30 border-2 border-emerald-500/80 p-3.5 space-y-1.5 shadow-[0_0_25px_rgba(16,185,129,0.2)]">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-emerald-300">
+                      <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                      <span>3. Rehydrated Output (What Your App Receives)</span>
+                    </div>
+                    <span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-emerald-500 text-slate-950 border border-emerald-400">
+                      100% Rehydrated
+                    </span>
+                  </div>
+                  <p class="text-[11px] font-mono text-emerald-100 leading-relaxed">
+                    "Confirmed: <span class="bg-emerald-900/90 text-emerald-200 border border-emerald-500 px-1.5 py-0.2 rounded font-bold">Alice Walker</span> compensation of <span class="bg-emerald-900/90 text-emerald-200 border border-emerald-500 px-1.5 py-0.2 rounded font-bold">$185,000</span> approved."
+                  </p>
+                  <div class="flex items-center justify-between pt-1 border-t border-emerald-900/60 text-[10px] text-emerald-400 font-sans">
+                    <span class="font-medium text-emerald-300">Tokens restored into original PII on the fly</span>
+                    <span class="text-white font-semibold">Sub-1ms Overhead</span>
+                  </div>
+                </div>
+
+              </div>
+
             </div>
 
           </div>
