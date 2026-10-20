@@ -60,142 +60,140 @@ export const HOME_HTML = `<!DOCTYPE html>
   </header>
 
   <!-- ========================================================================= -->
-  <!-- HERO SECTION                                                              -->
+  <!-- HERO SECTION (v0-Style Input Bar in Light Theme)                         -->
   <!-- ========================================================================= -->
   <main class="flex-1 bg-grid">
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-16 text-center">
+    <section class="max-w-4xl mx-auto px-4 sm:px-6 pt-10 pb-16 text-center">
       
-      <!-- Top Announcement Pill -->
-      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-orange-50 border border-orange-200 text-[#f0523d] text-xs font-medium mb-6 shadow-2xs">
-        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-        <span>Sub-20ms Zero-Trust Privacy Layer for Enterprise LLMs</span>
-        <span class="text-gray-300">|</span>
-        <span class="text-slate-600 font-normal">109 Jurisdictions Supported</span>
-      </div>
+      <!-- Top Announcement Pill (Matching v0 style) -->
+      <a href="/#docs" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-gray-200/90 hover:border-gray-300 text-slate-700 text-xs font-medium mb-8 shadow-2xs transition group">
+        <span class="w-4 h-4 rounded-full bg-[#f0523d] flex items-center justify-center text-white text-[9px]">⚡</span>
+        <span>Drop-in OpenAI wire compatibility</span>
+        <span class="text-slate-400 group-hover:translate-x-0.5 transition-transform">›</span>
+      </a>
 
-      <!-- Main Headline -->
-      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight max-w-4xl mx-auto leading-tight sm:leading-none mb-6">
-        Never Leak Customer Data or Secrets to <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#f0523d] to-amber-600">Foreign AI Models.</span>
+      <!-- Main Headline (Matching v0 style) -->
+      <h1 class="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight mb-8">
+        What do you want to protect?
       </h1>
 
-      <!-- Subheadline -->
-      <p class="text-sm sm:text-base lg:text-lg text-slate-600 max-w-2xl mx-auto mb-10 leading-relaxed">
-        ProjectSPG intercepts prompts at the network edge, sanitizes names, SSNs, cards, and medical records in 14ms, and securely rehydrates the model's output on the return trip. 100% wire-compatible with OpenAI.
-      </p>
-
       <!-- ===================================================================== -->
-      <!-- INTERACTIVE HERO DEMO WIDGET                                          -->
+      <!-- v0-STYLE PROMPT CONTAINER CARD                                        -->
       <!-- ===================================================================== -->
-      <div id="demo" class="max-w-4xl mx-auto bg-white rounded-2xl border border-gray-200/90 shadow-xl overflow-hidden text-left scroll-mt-24">
+      <div id="demo" class="w-full bg-white rounded-2xl border border-gray-200 shadow-sm hover:shadow-md focus-within:shadow-md focus-within:border-[#f0523d]/50 transition-all p-3 sm:p-4 text-left scroll-mt-24 mb-4">
         
-        <!-- Demo Header & Sector Tabs -->
-        <div class="bg-slate-50/80 px-4 sm:px-6 py-3 border-b border-gray-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div class="flex items-center gap-2">
-            <div class="flex gap-1.5">
-              <span class="w-3 h-3 rounded-full bg-rose-400 inline-block"></span>
-              <span class="w-3 h-3 rounded-full bg-amber-400 inline-block"></span>
-              <span class="w-3 h-3 rounded-full bg-emerald-400 inline-block"></span>
-            </div>
-            <span class="text-xs font-semibold text-slate-700 ml-2">Live Privacy Gateway Inspector</span>
+        <!-- Textarea input area -->
+        <textarea id="demo-prompt-input" rows="3" placeholder="Enter a prompt with patient data, SSNs, credit cards, or customer PII..." class="w-full text-xs sm:text-sm font-sans p-1 bg-transparent border-0 focus:outline-none text-slate-800 placeholder-slate-400 leading-relaxed resize-none">Patient Eleanor Vance (SSN: 902-48-1229, DOB: 04/18/1972) admitted to St. Jude ICU. Prescribed 50mg Metoprolol. Contact doctor at dr.marcus@hospital.org.</textarea>
+
+        <!-- Bottom action strip inside the prompt container -->
+        <div class="flex items-center justify-between pt-3 border-t border-gray-100 mt-2">
+          
+          <!-- Left: Model selector pill -->
+          <div class="relative inline-flex items-center">
+            <select id="demo-model-select" class="appearance-none bg-slate-50 hover:bg-slate-100 border border-gray-200 text-slate-700 text-xs font-mono font-medium rounded-lg pl-7 pr-7 py-1.5 focus:outline-none focus:border-[#f0523d] cursor-pointer transition">
+              <option value="ministral-8b-2512" selected>ministral-8b-2512</option>
+              <option value="ministral-3b-2512">ministral-3b-2512</option>
+              <option value="codestral-2508">codestral-2508</option>
+              <option value="mistral-large-2512">mistral-large-2512</option>
+            </select>
+            <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-600 absolute left-2 pointer-events-none"></i>
+            <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400 absolute right-2 pointer-events-none"></i>
           </div>
 
-          <!-- Quick Presets -->
-          <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
-            <span class="text-[11px] font-medium text-slate-500 mr-1 hidden md:inline">Presets:</span>
-            <button onclick="setDemoPreset('healthcare')" id="preset-healthcare" class="demo-preset px-2.5 py-1 rounded-md text-[11px] font-semibold bg-orange-100 text-[#f0523d] border border-orange-200 cursor-pointer transition">
-              🏥 Healthcare (HIPAA)
+          <!-- Right: Clear + Submit button -->
+          <div class="flex items-center gap-2">
+            <button onclick="clearDemoPrompt()" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition cursor-pointer" title="Clear prompt">
+              <i data-lucide="eraser" class="w-4 h-4"></i>
             </button>
-            <button onclick="setDemoPreset('fintech')" id="preset-fintech" class="demo-preset px-2.5 py-1 rounded-md text-[11px] font-medium text-slate-600 hover:bg-gray-100 border border-gray-200 cursor-pointer transition">
-              💳 Banking (PCI)
+            <button onclick="runHeroDemo()" id="btn-run-demo" class="w-8 h-8 rounded-lg bg-[#f0523d] hover:bg-[#e0422d] text-white flex items-center justify-center shadow-xs transition cursor-pointer disabled:opacity-50" title="Run Sanitize & Inference">
+              <i data-lucide="arrow-up" class="w-4 h-4 stroke-[2.5]"></i>
             </button>
-            <button onclick="setDemoPreset('hr')" id="preset-hr" class="demo-preset px-2.5 py-1 rounded-md text-[11px] font-medium text-slate-600 hover:bg-gray-100 border border-gray-200 cursor-pointer transition">
-              💼 HR / PII
-            </button>
-            <button onclick="setDemoPreset('devops')" id="preset-devops" class="demo-preset px-2.5 py-1 rounded-md text-[11px] font-medium text-slate-600 hover:bg-gray-100 border border-gray-200 cursor-pointer transition">
-              💻 Secrets (API Keys)
-            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ===================================================================== -->
+      <!-- PRESET SUGGESTION PILLS (v0-Style Pill Strip)                        -->
+      <!-- ===================================================================== -->
+      <div class="flex flex-wrap items-center justify-center gap-2 mb-10">
+        <button onclick="setDemoPreset('healthcare')" class="demo-pill px-3.5 py-1.5 rounded-full bg-white hover:bg-gray-50 border border-gray-200 text-slate-700 text-xs font-medium shadow-2xs flex items-center gap-1.5 transition cursor-pointer">
+          <i data-lucide="heart-pulse" class="w-3.5 h-3.5 text-rose-500"></i>
+          <span>Patient Records (HIPAA)</span>
+        </button>
+
+        <button onclick="setDemoPreset('fintech')" class="demo-pill px-3.5 py-1.5 rounded-full bg-white hover:bg-gray-50 border border-gray-200 text-slate-700 text-xs font-medium shadow-2xs flex items-center gap-1.5 transition cursor-pointer">
+          <i data-lucide="credit-card" class="w-3.5 h-3.5 text-blue-500"></i>
+          <span>Credit Cards (PCI)</span>
+        </button>
+
+        <button onclick="setDemoPreset('hr')" class="demo-pill px-3.5 py-1.5 rounded-full bg-white hover:bg-gray-50 border border-gray-200 text-slate-700 text-xs font-medium shadow-2xs flex items-center gap-1.5 transition cursor-pointer">
+          <i data-lucide="user-check" class="w-3.5 h-3.5 text-amber-500"></i>
+          <span>Employee HR (PII)</span>
+        </button>
+
+        <button onclick="setDemoPreset('devops')" class="demo-pill px-3.5 py-1.5 rounded-full bg-white hover:bg-gray-50 border border-gray-200 text-slate-700 text-xs font-medium shadow-2xs flex items-center gap-1.5 transition cursor-pointer">
+          <i data-lucide="key-round" class="w-3.5 h-3.5 text-purple-500"></i>
+          <span>API Keys & Secrets</span>
+        </button>
+
+        <button onclick="cycleDemoPreset()" class="p-1.5 rounded-full bg-white hover:bg-gray-50 border border-gray-200 text-slate-400 hover:text-slate-700 shadow-2xs transition cursor-pointer" title="Shuffle prompt sample">
+          <i data-lucide="rotate-cw" class="w-3.5 h-3.5"></i>
+        </button>
+      </div>
+
+      <!-- ===================================================================== -->
+      <!-- RESULTS DISPLAY CARD (Revealed when user hits submit)                 -->
+      <!-- ===================================================================== -->
+      <div id="demo-results-container" class="hidden text-left bg-white rounded-2xl border border-gray-200/90 shadow-md p-4 sm:p-6 space-y-4 mb-12">
+        
+        <!-- Status Bar -->
+        <div class="flex flex-wrap items-center justify-between gap-2 p-3 bg-emerald-50/80 border border-emerald-200 rounded-xl text-xs text-emerald-900">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+            <span class="font-semibold">De-identification & Inference Succeeded</span>
+          </div>
+          <div class="flex items-center gap-4 text-[11px] font-mono">
+            <div>Protected Entities: <span id="demo-metric-entities" class="font-bold text-emerald-800">4</span></div>
+            <div>Latency: <span id="demo-metric-latency" class="font-bold text-emerald-800">14 ms</span></div>
+            <div>Model: <span id="demo-metric-model" class="font-bold text-slate-700">ministral-8b-2512</span></div>
           </div>
         </div>
 
-        <!-- Demo Input Body -->
-        <div class="p-4 sm:p-6 bg-white space-y-4">
-          <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-1.5 flex items-center justify-between">
-              <span>Your Prompt (Contains raw sensitive data):</span>
-              <span class="text-[11px] text-slate-400 font-normal">Editable</span>
-            </label>
-            <textarea id="demo-prompt-input" rows="3" class="w-full text-xs font-mono p-3 bg-slate-50 border border-gray-200 rounded-xl focus:outline-none focus:border-[#f0523d] focus:bg-white transition text-slate-800 leading-relaxed resize-none">Patient Eleanor Vance (SSN: 902-48-1229, DOB: 04/18/1972) admitted to St. Jude ICU. Prescribed 50mg Metoprolol. Contact doctor at dr.marcus@hospital.org.</textarea>
-          </div>
-
-          <!-- Controls Bar -->
-          <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-2">
-            <div class="flex items-center gap-2 text-xs text-slate-600">
-              <span class="font-medium text-slate-500">Upstream Model:</span>
-              <span class="px-2 py-0.5 rounded-md bg-slate-100 border border-gray-200 font-mono text-[11px] font-semibold text-slate-800 flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                <span>ministral-8b-2512</span>
+        <!-- Split Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
+          
+          <!-- Left: What Upstream Mistral Received -->
+          <div class="p-4 bg-slate-900 text-slate-100 rounded-xl border border-slate-800 space-y-2">
+            <div class="flex items-center justify-between text-[11px] text-slate-400 border-b border-slate-800 pb-2">
+              <span class="font-semibold text-amber-400 flex items-center gap-1.5">
+                <i data-lucide="eye-off" class="w-3.5 h-3.5"></i>
+                What Mistral AI Saw
               </span>
+              <span class="text-emerald-400 text-[10px] bg-emerald-950/60 px-1.5 py-0.5 rounded border border-emerald-800">Zero PII Leaked</span>
             </div>
-
-            <button onclick="runHeroDemo()" id="btn-run-demo" class="px-5 py-2.5 rounded-xl bg-[#f0523d] hover:bg-[#e0422d] text-white text-xs font-semibold shadow-sm transition flex items-center justify-center gap-2 cursor-pointer">
-              <i data-lucide="play" class="w-4 h-4 fill-white"></i>
-              <span>Sanitize & Run Live Demo</span>
-            </button>
+            <div id="demo-sanitized-output" class="text-[11.5px] leading-relaxed text-slate-300 font-mono whitespace-pre-wrap"></div>
           </div>
 
-          <!-- Results Split View Container (Hidden until first run) -->
-          <div id="demo-results-container" class="hidden pt-4 border-t border-gray-100 space-y-4">
-            
-            <!-- Live Performance Metrics Strip -->
-            <div class="flex flex-wrap items-center justify-between gap-2 p-3 bg-emerald-50/70 border border-emerald-200 rounded-xl text-xs text-emerald-900">
-              <div class="flex items-center gap-2">
-                <i data-lucide="shield-check" class="w-4 h-4 text-emerald-600"></i>
-                <span class="font-semibold" id="demo-metric-status">De-identification Complete</span>
-              </div>
-              <div class="flex items-center gap-4 text-[11px] font-mono">
-                <div>Protected Entities: <span id="demo-metric-entities" class="font-bold text-emerald-800">4</span></div>
-                <div>Engine Latency: <span id="demo-metric-latency" class="font-bold text-emerald-800">14 ms</span></div>
-                <div>Model: <span class="font-bold text-slate-700">ministral-8b-2512</span></div>
-              </div>
+          <!-- Right: What You Received (Rehydrated) -->
+          <div class="p-4 bg-slate-50 text-slate-900 rounded-xl border border-gray-200 space-y-2">
+            <div class="flex items-center justify-between text-[11px] text-slate-500 border-b border-gray-200 pb-2">
+              <span class="font-semibold text-emerald-600 flex items-center gap-1.5">
+                <i data-lucide="check-circle" class="w-3.5 h-3.5"></i>
+                What Your Application Received
+              </span>
+              <span class="text-slate-500 text-[10px]">100% Rehydrated</span>
             </div>
-
-            <!-- Split Comparison Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
-              
-              <!-- Card 1: What Upstream Mistral Saw -->
-              <div class="p-4 bg-slate-900 text-slate-100 rounded-xl border border-slate-800 space-y-2">
-                <div class="flex items-center justify-between text-[11px] text-slate-400 border-b border-slate-800 pb-2">
-                  <span class="font-semibold text-amber-400 flex items-center gap-1.5">
-                    <i data-lucide="eye-off" class="w-3.5 h-3.5"></i>
-                    What Foreign AI Provider Received
-                  </span>
-                  <span>Zero PII Exposed</span>
-                </div>
-                <div id="demo-sanitized-output" class="text-[11.5px] leading-relaxed text-slate-300 font-mono whitespace-pre-wrap"></div>
-              </div>
-
-              <!-- Card 2: What You Receive (Rehydrated) -->
-              <div class="p-4 bg-white text-slate-900 rounded-xl border border-emerald-200 shadow-xs space-y-2">
-                <div class="flex items-center justify-between text-[11px] text-slate-500 border-b border-gray-100 pb-2">
-                  <span class="font-semibold text-emerald-600 flex items-center gap-1.5">
-                    <i data-lucide="check-circle" class="w-3.5 h-3.5"></i>
-                    What Your Application Received
-                  </span>
-                  <span>100% Rehydrated</span>
-                </div>
-                <div id="demo-rehydrated-output" class="text-[11.5px] leading-relaxed text-slate-700 font-sans whitespace-pre-wrap"></div>
-              </div>
-
-            </div>
-
-            <!-- Follow-up action banner -->
-            <div class="text-center pt-2">
-              <button onclick="handleSecondTestTrigger()" class="text-xs font-medium text-[#f0523d] hover:text-[#e0422d] underline cursor-pointer">
-                Want to run another custom prompt or test with your own API? Click here →
-              </button>
-            </div>
+            <div id="demo-rehydrated-output" class="text-[11.5px] leading-relaxed text-slate-700 font-sans whitespace-pre-wrap"></div>
           </div>
 
+        </div>
+
+        <div class="text-center pt-2">
+          <button onclick="handleSecondTestTrigger()" class="text-xs font-medium text-[#f0523d] hover:text-[#e0422d] underline cursor-pointer">
+            Run another prompt or switch to full developer console →
+          </button>
         </div>
 
       </div>
@@ -367,19 +365,29 @@ print(response.choices[0].message.content)</pre>
       devops: "Deployment script failure: AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY for user admin@production.internal. Investigate IAM role."
     };
 
+    const PRESET_KEYS = ['healthcare', 'fintech', 'hr', 'devops'];
+    let currentPresetIdx = 0;
     let demoRunCount = 0;
 
     function setDemoPreset(key) {
-      document.querySelectorAll('.demo-preset').forEach(b => {
-        b.className = 'demo-preset px-2.5 py-1 rounded-md text-[11px] font-medium text-slate-600 hover:bg-gray-100 border border-gray-200 cursor-pointer transition';
-      });
-      const activeBtn = document.getElementById('preset-' + key);
-      if (activeBtn) {
-        activeBtn.className = 'demo-preset px-2.5 py-1 rounded-md text-[11px] font-semibold bg-orange-100 text-[#f0523d] border border-orange-200 cursor-pointer transition';
-      }
+      currentPresetIdx = Math.max(0, PRESET_KEYS.indexOf(key));
       const promptEl = document.getElementById('demo-prompt-input');
       if (promptEl) {
         promptEl.value = DEMO_PRESETS[key] || DEMO_PRESETS.healthcare;
+        promptEl.focus();
+      }
+    }
+
+    function cycleDemoPreset() {
+      currentPresetIdx = (currentPresetIdx + 1) % PRESET_KEYS.length;
+      setDemoPreset(PRESET_KEYS[currentPresetIdx]);
+    }
+
+    function clearDemoPrompt() {
+      const p = document.getElementById('demo-prompt-input');
+      if (p) {
+        p.value = '';
+        p.focus();
       }
     }
 
@@ -396,11 +404,14 @@ print(response.choices[0].message.content)</pre>
       const text = promptInput ? promptInput.value.trim() : '';
       if (!text) return;
 
+      const modelSelect = document.getElementById('demo-model-select');
+      const selectedModel = modelSelect ? modelSelect.value : 'ministral-8b-2512';
+
       const btn = document.getElementById('btn-run-demo');
       const origBtnHtml = btn ? btn.innerHTML : '';
       if (btn) {
         btn.disabled = true;
-        btn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i><span>Intercepting & Sanitizing...</span>';
+        btn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin text-white"></i>';
         if (window.lucide) lucide.createIcons();
       }
 
@@ -414,7 +425,7 @@ print(response.choices[0].message.content)</pre>
             'Authorization': 'Bearer spg_free'
           },
           body: JSON.stringify({
-            model: 'ministral-8b-2512',
+            model: selectedModel,
             messages: [{ role: 'user', content: text }]
           })
         });
@@ -428,7 +439,7 @@ print(response.choices[0].message.content)</pre>
         const entitiesCount = privacy.entities_count !== undefined ? privacy.entities_count : 2;
         const reply = data.choices && data.choices[0] && data.choices[0].message
           ? data.choices[0].message.content
-          : 'Processing complete.';
+          : (data.error ? ('Error: ' + (data.error.message || JSON.stringify(data.error))) : 'Processing complete.');
 
         // Update results display
         const resultsEl = document.getElementById('demo-results-container');
@@ -446,10 +457,22 @@ print(response.choices[0].message.content)</pre>
         const entitiesEl = document.getElementById('demo-metric-entities');
         if (entitiesEl) entitiesEl.textContent = entitiesCount;
 
+        const modelMetricEl = document.getElementById('demo-metric-model');
+        if (modelMetricEl) modelMetricEl.textContent = selectedModel;
+
         if (window.lucide) lucide.createIcons();
 
       } catch (err) {
         console.error('Hero demo error:', err);
+        alert('Demo request encountered an error. Please try again.');
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = origBtnHtml;
+          if (window.lucide) lucide.createIcons();
+        }
+      }
+    }
         alert('Demo request encountered an error. Please try again.');
       } finally {
         if (btn) {
