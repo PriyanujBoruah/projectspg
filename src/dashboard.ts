@@ -5199,15 +5199,6 @@ console.log(data.choices[0].message.content);</div>
     let playgroundTierMode = 'free'; // 'free' or 'byok'
 
     function switchPlaygroundTier(mode) {
-      if (mode === 'byok' && !isUserFullyInvited()) {
-        showInvitationToast(true);
-        const feedback = document.getElementById('toast-inv-feedback');
-        if (feedback) {
-          feedback.textContent = 'BYOK Mode is an enterprise feature requiring Pro Access. Enter an invitation code to unlock.';
-          feedback.className = 'my-2.5 p-2 rounded-lg text-[11px] leading-tight font-medium bg-amber-50 text-amber-800 border border-amber-200 block';
-        }
-        return;
-      }
       playgroundTierMode = mode;
       const freeBtn = document.getElementById('btn-tier-free');
       const byokBtn = document.getElementById('btn-tier-byok');
@@ -5267,11 +5258,6 @@ console.log(data.choices[0].message.content);</div>
       }
 
       if (playgroundTierMode === 'byok') {
-        if (!isUserFullyInvited()) {
-          switchPlaygroundTier('free');
-          showInvitationToast(true);
-          return;
-        }
         const googleKey = (document.getElementById('byok-key-google') ? document.getElementById('byok-key-google').value.trim() : '') || getStoredByokKey('google') || '';
         const mistralKey = (document.getElementById('byok-key-mistral') ? document.getElementById('byok-key-mistral').value.trim() : '') || getStoredByokKey('mistral') || '';
         const groqKey = (document.getElementById('byok-key-groq') ? document.getElementById('byok-key-groq').value.trim() : '') || getStoredByokKey('groq') || '';
@@ -6725,19 +6711,6 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
     // BYOK Provider API Keys Modal Handlers
     // =========================================================================
     function openByokKeysModal() {
-      if (!currentFirebaseUser) {
-        openAuthModal();
-        return;
-      }
-      if (!isUserFullyInvited()) {
-        showInvitationToast(true);
-        const feedback = document.getElementById('toast-inv-feedback');
-        if (feedback) {
-          feedback.textContent = 'BYOK Mode is an enterprise feature requiring Pro Access. Enter an invitation code to unlock.';
-          feedback.className = 'my-2.5 p-2 rounded-lg text-[11px] leading-tight font-medium bg-amber-50 text-amber-800 border border-amber-200 block';
-        }
-        return;
-      }
       const modal = document.getElementById('modal-byok-keys');
       if (!modal) return;
       const gInput = document.getElementById('byok-key-google');
@@ -6756,10 +6729,6 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
     }
 
     function saveByokKeys() {
-      if (!currentFirebaseUser) {
-        openAuthModal();
-        return;
-      }
       const gKey = document.getElementById('byok-key-google') ? document.getElementById('byok-key-google').value.trim() : '';
       const mKey = document.getElementById('byok-key-mistral') ? document.getElementById('byok-key-mistral').value.trim() : '';
       const grKey = document.getElementById('byok-key-groq') ? document.getElementById('byok-key-groq').value.trim() : '';
