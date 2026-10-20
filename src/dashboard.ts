@@ -1675,8 +1675,8 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
           <div class="relative max-w-[115px] xs:max-w-[130px] sm:max-w-none shrink min-w-0">
             <select id="playground-model" onchange="onModelChange()" class="appearance-none bg-white border border-groq-grayBorder text-groq-dark text-xs font-sans font-medium rounded-lg pl-2 sm:pl-3 pr-5 sm:pr-8 py-1.5 focus:border-gray-400 focus:outline-none cursor-pointer w-full truncate">
               <optgroup label="Mistral AI (Free Public Access)">
-                <option value="ministral-3b-2512" data-provider="mistral" selected>ministral-3b-2512</option>
-                <option value="ministral-8b-2512" data-provider="mistral">ministral-8b-2512</option>
+                <option value="ministral-8b-2512" data-provider="mistral" selected>ministral-8b-2512</option>
+                <option value="ministral-3b-2512" data-provider="mistral">ministral-3b-2512</option>
                 <option value="codestral-2508" data-provider="mistral">codestral-2508</option>
                 <option value="mistral-large-2512" data-provider="mistral">mistral-large-2512</option>
               </optgroup>
@@ -5102,7 +5102,7 @@ console.log(data.choices[0].message.content);</div>
       });
 
       if (!found && select.options.length > 0) {
-        const defaultOpt = Array.from(select.options).find(o => o.value === 'ministral-3b-2512') || Array.from(select.options).find(o => o.value === 'codestral-2508');
+        const defaultOpt = Array.from(select.options).find(o => o.value === 'ministral-8b-2512') || Array.from(select.options).find(o => o.value === 'ministral-3b-2512');
         if (defaultOpt) defaultOpt.selected = true;
         else select.selectedIndex = 0;
       }
@@ -5217,7 +5217,7 @@ console.log(data.choices[0].message.content);</div>
         if (byokKeysBtn) {
           byokKeysBtn.classList.add('hidden');
         }
-        renderPlaygroundModelDropdown(FREE_TIER_MODELS, 'ministral-3b-2512');
+        renderPlaygroundModelDropdown(FREE_TIER_MODELS, 'ministral-8b-2512');
       } else {
         if (byokBtn) {
           byokBtn.className = 'px-2.5 sm:px-3 py-1 rounded-md bg-white text-groq-dark font-medium shadow-xs text-xs transition cursor-pointer flex items-center gap-1';

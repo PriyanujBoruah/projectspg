@@ -661,7 +661,7 @@ openaiApp.post("/chat/completions", async (c) => {
   if (upstreamBaseUrl.includes("mistral.ai")) {
     const m = (upstreamPayload.model || "").toLowerCase();
     if (!m || m.startsWith("gpt-") || m.startsWith("chatgpt") || m.startsWith("text-") || m === "openai") {
-      upstreamPayload.model = "ministral-3b-2512";
+      upstreamPayload.model = "ministral-8b-2512";
     }
   }
 
