@@ -82,7 +82,7 @@ export const HOME_HTML = `<!DOCTYPE html>
     }
     /* Keyhole Edge-Hugging Beam Sweep Animation */
     @keyframes keyholeEdgeSweep {
-      0% { stroke-dashoffset: 600; }
+      0% { stroke-dashoffset: 550; }
       100% { stroke-dashoffset: 0; }
     }
     .animate-keyhole-edge-sweep {
@@ -154,27 +154,23 @@ export const HOME_HTML = `<!DOCTYPE html>
           </div>
         </div>
 
-        <!-- Center Column: Glowing Keyhole Silhouette (Tight Edge Glow) -->
+        <!-- Center Column: Artistic Sketch-Styled Keyhole with Sharp Shadows & Sharp Rotating Line -->
         <div class="lg:col-span-4 flex items-center justify-center py-6 lg:py-0">
           <div id="keyhole-stage" class="relative flex flex-col items-center justify-center select-none transition-transform duration-200">
             
-            <svg viewBox="0 0 260 320" class="w-56 h-68 sm:w-64 sm:h-76 overflow-visible drop-shadow-[0_16px_32px_rgba(0,0,0,0.12)]">
+            <svg viewBox="0 0 260 320" class="w-56 h-68 sm:w-64 sm:h-76 overflow-visible">
               <defs>
-                <!-- Base edge chromatic gradient matching triangle colors -->
-                <!-- Pink (left) -> Violet (peak) -> Electric Cyan (right) -> Faint Teal (bottom) -->
-                <linearGradient id="tightEdgeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#ec4899" />
-                  <stop offset="30%" stop-color="#a855f7" />
-                  <stop offset="70%" stop-color="#00d2ff" />
-                  <stop offset="100%" stop-color="#10b981" />
-                </linearGradient>
+                <!-- Sharp Diagonal Cross-Hatching Pattern for Sketch Shadows (No blur) -->
+                <pattern id="sketchHatch" width="6" height="6" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+                  <line x1="0" y1="0" x2="0" y2="6" stroke="#94a3b8" stroke-width="1.3" stroke-linecap="square" />
+                </pattern>
 
-                <!-- High intensity traveling beam gradient -->
-                <linearGradient id="travelingBeamGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#ffffff" stop-opacity="1" />
-                  <stop offset="35%" stop-color="#00d2ff" stop-opacity="0.9" />
-                  <stop offset="70%" stop-color="#a855f7" stop-opacity="0.5" />
-                  <stop offset="100%" stop-color="transparent" stop-opacity="0" />
+                <!-- Razor-Sharp Edge Beam Gradient (Vibrant high-contrast laser edge) -->
+                <linearGradient id="sharpBeamGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#ffffff" />
+                  <stop offset="25%" stop-color="#00d2ff" />
+                  <stop offset="65%" stop-color="#a855f7" />
+                  <stop offset="100%" stop-color="#ec4899" />
                 </linearGradient>
 
                 <!-- Perfectly Circular Top Keyhole Silhouette Path -->
@@ -183,46 +179,61 @@ export const HOME_HTML = `<!DOCTYPE html>
                 />
               </defs>
 
-              <!-- ================= TIGHT EDGE GLOW (Hugs perimeter strictly) ================= -->
-              <!-- Outer edge halo: spreads just ~16-20px outside the edge -->
-              <use href="#keyholeShape" fill="none" stroke="url(#tightEdgeGrad)" stroke-width="22" opacity="0.5" style="filter: blur(10px);" />
+              <!-- ================= SHARP SKETCH CAST SHADOW ================= -->
+              <!-- Offset silhouette filled with crisp architectural hatching and sharp pen perimeter -->
+              <use href="#keyholeShape" fill="url(#sketchHatch)" stroke="#64748b" stroke-width="1.5" transform="translate(10, 10)" />
 
-              <!-- Mid edge glow: intense color, spreads ~8-10px outside the edge -->
-              <use href="#keyholeShape" fill="none" stroke="url(#tightEdgeGrad)" stroke-width="11" opacity="0.85" style="filter: blur(4px);" />
+              <!-- ================= SHARP SKETCH GROUND LINES ================= -->
+              <!-- Architectural drafting ground hatching beneath the base (no blur) -->
+              <g class="sketch-ground-lines" opacity="0.75">
+                <line x1="68" y1="266" x2="202" y2="266" stroke="#475569" stroke-width="1.6" stroke-linecap="round" />
+                <line x1="82" y1="271" x2="188" y2="271" stroke="#64748b" stroke-width="1.2" stroke-linecap="round" />
+                <line x1="98" y1="276" x2="172" y2="276" stroke="#94a3b8" stroke-width="1.0" stroke-linecap="round" />
+                <line x1="116" y1="280" x2="154" y2="280" stroke="#cbd5e1" stroke-width="0.8" stroke-linecap="round" />
+              </g>
 
-              <!-- Specular rim: crisp razor-sharp line right at the perimeter -->
-              <use href="#keyholeShape" fill="none" stroke="url(#tightEdgeGrad)" stroke-width="3" opacity="1" style="filter: blur(1px);" />
+              <!-- ================= SOLID OBSIDIAN KEYHOLE BODY ================= -->
+              <!-- Crisp ink silhouette that punches out cleanly against the grid background -->
+              <use href="#keyholeShape" fill="#09090b" stroke="#09090b" stroke-width="1.5" />
 
-              <!-- Traveling highlight beam: orbits directly along the edge contour -->
+              <!-- Subtle Technical / Architectural Inset Drafting Line -->
+              <path
+                d="M 114 136 A 44 44 0 1 1 146 136 L 168 246 Q 168 252 160 252 L 100 252 Q 92 252 92 246 Z"
+                fill="none"
+                stroke="#27272a"
+                stroke-width="1"
+                stroke-dasharray="5 4"
+              />
+
+              <!-- Architectural Drafting Center Crosshair at Circle Center (130, 95) -->
+              <g stroke="#3f3f46" stroke-width="1" opacity="0.65">
+                <line x1="124" y1="95" x2="136" y2="95" stroke-linecap="round" />
+                <line x1="130" y1="89" x2="130" y2="101" stroke-linecap="round" />
+                <circle cx="130" cy="95" r="3" fill="none" stroke="#3f3f46" stroke-width="0.8" />
+              </g>
+
+              <!-- ================= SHARP ROTATING LINE ================= -->
+              <!-- Static subtle guide ink stroke along the rim -->
+              <use href="#keyholeShape" fill="none" stroke="#27272a" stroke-width="1.5" opacity="0.5" />
+
+              <!-- Primary sharp rotating beam (Zero blur, crisp 3px stroke tracing perimeter) -->
               <use href="#keyholeShape"
                    fill="none"
-                   stroke="url(#travelingBeamGrad)"
-                   stroke-width="14"
-                   stroke-dasharray="120 540"
-                   class="animate-keyhole-edge-sweep"
-                   opacity="0.95"
-                   style="filter: blur(4px); mix-blend-mode: screen;" />
+                   stroke="url(#sharpBeamGrad)"
+                   stroke-width="3"
+                   stroke-dasharray="130 420"
+                   stroke-linecap="round"
+                   class="animate-keyhole-edge-sweep" />
 
-              <!-- Traveling bright specular white core -->
+              <!-- Sharp white leading tip (Zero blur, razor-sharp white focal point) -->
               <use href="#keyholeShape"
                    fill="none"
                    stroke="#ffffff"
                    stroke-width="3"
-                   stroke-dasharray="60 600"
-                   class="animate-keyhole-edge-sweep"
-                   opacity="0.9"
-                   style="filter: blur(1px);" />
-
-              <!-- ================= SOLID OBSIDIAN KEYHOLE BODY ================= -->
-              <!-- Pure #09090b silhouette that contrasts against the light background -->
-              <use href="#keyholeShape" fill="#09090b" />
+                   stroke-dasharray="24 526"
+                   stroke-linecap="round"
+                   class="animate-keyhole-edge-sweep" />
             </svg>
-
-            <!-- Subtle soft floor contact shadow under base -->
-            <div
-              class="w-32 h-2.5 -mt-1 rounded-full pointer-events-none opacity-25"
-              style="background: radial-gradient(ellipse at 50% 50%, rgba(0,0,0,0.6) 0%, rgba(0,210,255,0.4) 40%, transparent 80%); filter: blur(3px);"
-            ></div>
 
           </div>
         </div>
