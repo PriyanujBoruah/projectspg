@@ -1237,102 +1237,143 @@ export const HOME_HTML = `<!DOCTYPE html>
 
           </div>
 
-          <!-- Right Column: Interactive Illustration with Full Rehydration Showcase -->
-          <div class="lg:col-span-7 relative flex items-center justify-center py-2">
+          <!-- Right Column: Interactive Illustration with Full Rehydration Showcase (Architectural Sketch Style) -->
+          <div class="lg:col-span-7 relative flex flex-col items-center justify-center py-4 select-none">
             
-            <!-- Behind Card: Competitors / Direct API (Where Competitors Fail) -->
-            <div class="hidden sm:block absolute -left-6 -top-4 w-[280px] rounded-2xl bg-[#14080a] border border-rose-900/60 p-4 shadow-2xl transform -rotate-2 opacity-75 select-none pointer-events-none">
-              <div class="flex items-center justify-between pb-2 border-b border-rose-900/50 mb-2">
-                <div class="flex items-center gap-1.5">
-                  <i data-lucide="shield-alert" class="w-3.5 h-3.5 text-rose-400"></i>
-                  <span class="text-[11px] font-semibold text-rose-300">Competitors & Direct API</span>
-                </div>
-                <span class="text-[9px] font-bold px-1.5 py-0.2 rounded bg-rose-500/20 text-rose-300 border border-rose-500/30">
-                  Rehydration Fails
-                </span>
-              </div>
-              <div class="text-[10px] font-mono text-rose-300/80 space-y-1.5">
-                <p class="text-[9px] text-rose-400 uppercase font-sans font-semibold">Broken Model Output:</p>
-                <div class="p-2 rounded bg-rose-950/40 border border-rose-900/40 text-rose-200 leading-relaxed">
-                  "Approved salary for <span class="bg-rose-900/80 text-white px-1 py-0.2 rounded font-bold">[PERSON_1]</span>..."
-                  <span class="text-rose-400 text-[9px] block pt-1 font-sans">❌ Tokens never restored. Application code breaks.</span>
-                </div>
-              </div>
-            </div>
+            <!-- Sketch Shadow Wrapper: Sharp Hatch Shadow Layer behind the main stage -->
+            <div class="relative w-full max-w-[510px]">
 
-            <!-- Foreground Card: ProjectSPG Complete 3-Stage Pipeline -->
-            <div class="relative z-10 w-full max-w-[500px] rounded-2xl bg-[#0c0f17] border border-slate-700/80 shadow-[0_20px_50px_rgba(0,0,0,0.8)] p-5 sm:p-6 text-left">
-              
-              <!-- Front Window Top Bar -->
-              <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
-                <div class="flex items-center gap-2">
-                  <div class="w-2.5 h-2.5 rounded-full bg-emerald-400"></div>
-                  <span class="text-xs font-semibold text-slate-200">ProjectSPG Reversible Privacy Engine</span>
-                </div>
-                <div class="flex items-center gap-1.5 text-[10px] font-mono text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/60">
-                  <i data-lucide="refresh-cw" class="w-3 h-3"></i>
-                  <span>Two-Way Transit</span>
-                </div>
-              </div>
-
-              <!-- 3-Stage Demonstration -->
-              <div class="space-y-3">
+              <!-- Behind Card: Competitors / Direct API (Sketch Styled with Red Cast Hatching) -->
+              <div class="hidden sm:block absolute -left-8 -top-6 w-[280px] rounded-xl bg-[#14080a] border-2 border-rose-900/80 p-4 transform -rotate-2 opacity-85 pointer-events-none z-0"
+                   style="box-shadow: 6px 6px 0px 0px rgba(159, 18, 57, 0.45);">
                 
-                <!-- Stage 1: Unprotected User Prompt -->
-                <div class="rounded-xl bg-slate-950/90 border border-slate-800/80 p-3 space-y-1.5">
-                  <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-400">
-                      <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
-                      <span>1. Unprotected User Prompt (Client Input)</span>
-                    </div>
-                    <span class="text-[9px] font-semibold px-2 py-0.2 rounded-full bg-rose-950/60 text-rose-300 border border-rose-800/60">
-                      Raw PII
-                    </span>
-                  </div>
-                  <p class="text-[11px] font-mono text-slate-300 leading-relaxed">
-                    "Audit compensation for <span class="bg-rose-950/80 text-rose-200 border border-rose-800/80 px-1 py-0.2 rounded font-medium">Alice Walker</span> (SSN: <span class="bg-rose-950/80 text-rose-200 border border-rose-800/80 px-1 py-0.2 rounded font-medium">82-9102834</span>, <span class="bg-rose-950/80 text-rose-200 border border-rose-800/80 px-1 py-0.2 rounded font-medium">alice@megacorp.io</span>), verify salary of <span class="bg-rose-950/80 text-rose-200 border border-rose-800/80 px-1 py-0.2 rounded font-medium">$185,000</span>."
-                  </p>
-                </div>
+                <!-- Cross-hatch sketch texture inside competitor card -->
+                <div class="absolute inset-0 rounded-xl overflow-hidden pointer-events-none opacity-15"
+                     style="background: repeating-linear-gradient(45deg, #f43f5e, #f43f5e 1.2px, transparent 1.2px, transparent 7px);"></div>
 
-                <!-- Stage 2: What AI Model Receives -->
-                <div class="rounded-xl bg-cyan-950/20 border border-cyan-800/50 p-3 space-y-1.5">
-                  <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-cyan-400">
-                      <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
-                      <span>2. What AI Model Receives (Sanitized Payload)</span>
-                    </div>
-                    <span class="text-[9px] font-semibold px-2 py-0.2 rounded-full bg-cyan-950 text-cyan-300 border border-cyan-700/80">
-                      Zero Upstream Leak
-                    </span>
+                <div class="relative z-10 flex items-center justify-between pb-2 border-b border-rose-900/60 mb-2">
+                  <div class="flex items-center gap-1.5">
+                    <i data-lucide="shield-alert" class="w-3.5 h-3.5 text-rose-400"></i>
+                    <span class="text-[11px] font-semibold text-rose-300 font-mono">Competitors & Direct API</span>
                   </div>
-                  <p class="text-[11px] font-mono text-slate-200 leading-relaxed">
-                    "Audit compensation for <span class="bg-cyan-900/60 text-cyan-300 border border-cyan-700/80 px-1 py-0.2 rounded font-medium">[PERSON_1]</span> (SSN: <span class="bg-amber-900/60 text-amber-300 border border-amber-700/80 px-1 py-0.2 rounded font-medium">[SSN_1]</span>, <span class="bg-purple-900/60 text-purple-300 border border-purple-700/80 px-1 py-0.2 rounded font-medium">[EMAIL_1]</span>), verify salary of <span class="bg-emerald-900/60 text-emerald-300 border border-emerald-700/80 px-1 py-0.2 rounded font-medium">[COMP_1]</span>."
-                  </p>
-                  <p class="text-[10px] font-sans text-slate-400 italic">
-                    LLM generates: "Confirmed: <span class="text-cyan-300 font-mono">[PERSON_1]</span> compensation of <span class="text-emerald-300 font-mono">[COMP_1]</span> approved."
-                  </p>
+                  <span class="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/40">
+                    Rehydration Fails
+                  </span>
                 </div>
-
-                <!-- Stage 3: Rehydrated Output (Application Receives) - WHERE COMPETITORS FAIL -->
-                <div class="rounded-xl bg-emerald-950/30 border-2 border-emerald-500/80 p-3.5 space-y-1.5 shadow-[0_0_25px_rgba(16,185,129,0.2)]">
-                  <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-emerald-300">
-                      <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                      <span>3. Rehydrated Output (What Your App Receives)</span>
-                    </div>
-                    <span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-emerald-500 text-slate-950 border border-emerald-400">
-                      100% Rehydrated
-                    </span>
+                <div class="relative z-10 text-[10px] font-mono text-rose-300/80 space-y-1.5">
+                  <p class="text-[9px] text-rose-400 uppercase font-sans font-semibold tracking-wider">Broken Model Output:</p>
+                  <div class="p-2 rounded bg-rose-950/60 border border-rose-900/60 text-rose-200 leading-relaxed font-mono">
+                    "Approved salary for <span class="bg-rose-900/90 text-white px-1 py-0.5 rounded font-bold border border-rose-500/60">[PERSON_1]</span>..."
+                    <span class="text-rose-400 text-[9px] block pt-1 font-sans">❌ Tokens never restored. Application code breaks.</span>
                   </div>
-                  <p class="text-[11px] font-mono text-emerald-100 leading-relaxed">
-                    "Confirmed: <span class="bg-emerald-900/90 text-emerald-200 border border-emerald-500 px-1.5 py-0.2 rounded font-bold">Alice Walker</span> compensation of <span class="bg-emerald-900/90 text-emerald-200 border border-emerald-500 px-1.5 py-0.2 rounded font-bold">$185,000</span> approved."
-                  </p>
-                  <div class="flex items-center justify-between pt-1 border-t border-emerald-900/60 text-[10px] text-emerald-400 font-sans">
-                    <span class="font-medium text-emerald-300">Tokens restored into original PII on the fly</span>
-                    <span class="text-white font-semibold">Sub-1ms Overhead</span>
+                </div>
+              </div>
+
+              <!-- Sharp Sketch Cast Shadow (45-degree diagonal ink hatching offset 10px, 10px with crisp border) -->
+              <div class="absolute inset-0 rounded-2xl transform translate-x-2.5 translate-y-2.5 z-0 pointer-events-none border-2 border-slate-600/70"
+                   style="background: repeating-linear-gradient(45deg, #475569, #475569 1.3px, transparent 1.3px, transparent 7px);"></div>
+
+              <!-- Foreground Card: ProjectSPG Complete 3-Stage Pipeline (Solid Obsidian Body) -->
+              <div class="relative z-10 w-full rounded-2xl bg-[#09090b] border-2 border-slate-600 p-5 sm:p-6 text-left">
+                
+                <!-- Technical Corner Registration Ticks (+) for architectural drafting look -->
+                <div class="absolute top-2 left-2 text-slate-600 font-mono text-[10px] select-none leading-none">+</div>
+                <div class="absolute top-2 right-2 text-slate-600 font-mono text-[10px] select-none leading-none">+</div>
+                <div class="absolute bottom-2 left-2 text-slate-600 font-mono text-[10px] select-none leading-none">+</div>
+                <div class="absolute bottom-2 right-2 text-slate-600 font-mono text-[10px] select-none leading-none">+</div>
+
+                <!-- Inset Dashed Drafting Contour -->
+                <div class="absolute inset-1.5 rounded-[12px] border border-dashed border-slate-800/80 pointer-events-none"></div>
+
+                <!-- Front Window Top Bar -->
+                <div class="relative z-10 flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
+                  <div class="flex items-center gap-2">
+                    <div class="w-2.5 h-2.5 rounded-full bg-emerald-400 border border-emerald-300"></div>
+                    <span class="text-xs font-semibold text-slate-100 font-mono tracking-tight">ProjectSPG Reversible Privacy Engine</span>
+                  </div>
+                  <div class="flex items-center gap-1.5 text-[10px] font-mono text-emerald-400 bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-700/80"
+                       style="box-shadow: 2px 2px 0px 0px rgba(16, 185, 129, 0.3);">
+                    <i data-lucide="refresh-cw" class="w-3 h-3"></i>
+                    <span>Two-Way Transit</span>
                   </div>
                 </div>
 
+                <!-- 3-Stage Demonstration -->
+                <div class="relative z-10 space-y-3.5">
+                  
+                  <!-- Stage 1: Unprotected User Prompt -->
+                  <div class="rounded-xl bg-slate-950 border border-slate-800 p-3 space-y-1.5"
+                       style="box-shadow: 3px 3px 0px 0px rgba(30, 41, 59, 0.8);">
+                    <div class="flex items-center justify-between">
+                      <div class="flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400">
+                        <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
+                        <span>1. Unprotected User Prompt (Client Input)</span>
+                      </div>
+                      <span class="text-[9px] font-mono font-semibold px-2 py-0.5 rounded bg-rose-950/80 text-rose-300 border border-rose-800">
+                        Raw PII
+                      </span>
+                    </div>
+                    <p class="text-[11px] font-mono text-slate-300 leading-relaxed">
+                      "Audit compensation for <span class="bg-rose-950 text-rose-200 border border-rose-700 px-1 py-0.5 rounded font-medium">Alice Walker</span> (SSN: <span class="bg-rose-950 text-rose-200 border border-rose-700 px-1 py-0.5 rounded font-medium">82-9102834</span>, <span class="bg-rose-950 text-rose-200 border border-rose-700 px-1 py-0.5 rounded font-medium">alice@megacorp.io</span>), verify salary of <span class="bg-rose-950 text-rose-200 border border-rose-700 px-1 py-0.5 rounded font-medium">$185,000</span>."
+                    </p>
+                  </div>
+
+                  <!-- Stage 2: What AI Model Receives -->
+                  <div class="rounded-xl bg-[#08131e] border border-cyan-800/80 p-3 space-y-1.5"
+                       style="box-shadow: 3px 3px 0px 0px rgba(8, 145, 178, 0.3);">
+                    <div class="flex items-center justify-between">
+                      <div class="flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase tracking-wider text-cyan-400">
+                        <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+                        <span>2. What AI Model Receives (Sanitized Payload)</span>
+                      </div>
+                      <span class="text-[9px] font-mono font-semibold px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-700">
+                        Zero Upstream Leak
+                      </span>
+                    </div>
+                    <p class="text-[11px] font-mono text-slate-200 leading-relaxed">
+                      "Audit compensation for <span class="bg-cyan-950 text-cyan-300 border border-cyan-700 px-1 py-0.5 rounded font-medium">[PERSON_1]</span> (SSN: <span class="bg-amber-950 text-amber-300 border border-amber-700 px-1 py-0.5 rounded font-medium">[SSN_1]</span>, <span class="bg-purple-950 text-purple-300 border border-purple-700 px-1 py-0.5 rounded font-medium">[EMAIL_1]</span>), verify salary of <span class="bg-emerald-950 text-emerald-300 border border-emerald-700 px-1 py-0.5 rounded font-medium">[COMP_1]</span>."
+                    </p>
+                    <p class="text-[10px] font-mono text-slate-400">
+                      LLM output: "Confirmed: <span class="text-cyan-300 font-semibold">[PERSON_1]</span> compensation of <span class="text-emerald-300 font-semibold">[COMP_1]</span> approved."
+                    </p>
+                  </div>
+
+                  <!-- Stage 3: Rehydrated Output (Application Receives) - WHERE COMPETITORS FAIL -->
+                  <div class="rounded-xl bg-[#061c14] border-2 border-emerald-500 p-3.5 space-y-1.5 relative overflow-hidden"
+                       style="box-shadow: 4px 4px 0px 0px rgba(16, 185, 129, 0.5);">
+                    
+                    <!-- Subtle sketch hatching inside highlight frame -->
+                    <div class="absolute -right-4 -bottom-4 w-28 h-28 pointer-events-none opacity-10"
+                         style="background: repeating-linear-gradient(45deg, #10b981, #10b981 1.5px, transparent 1.5px, transparent 6px);"></div>
+
+                    <div class="relative z-10 flex items-center justify-between">
+                      <div class="flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase tracking-wider text-emerald-300">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                        <span>3. Rehydrated Output (What Your App Receives)</span>
+                      </div>
+                      <span class="text-[9px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-500 text-slate-950 border border-emerald-400">
+                        100% Rehydrated
+                      </span>
+                    </div>
+                    <p class="relative z-10 text-[11px] font-mono text-emerald-100 leading-relaxed">
+                      "Confirmed: <span class="bg-emerald-900/90 text-emerald-100 border border-emerald-400 px-1.5 py-0.5 rounded font-bold">Alice Walker</span> compensation of <span class="bg-emerald-900/90 text-emerald-100 border border-emerald-400 px-1.5 py-0.5 rounded font-bold">$185,000</span> approved."
+                    </p>
+                    <div class="relative z-10 flex items-center justify-between pt-1.5 border-t border-emerald-800/80 text-[10px] text-emerald-300 font-mono">
+                      <span>✓ Tokens restored into original PII on the fly</span>
+                      <span class="text-white font-semibold">Sub-1ms Overhead</span>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+
+              <!-- Architectural Drafting Ground Lines beneath the Card (stepped horizontal pen strokes) -->
+              <div class="mt-4 flex flex-col items-center justify-center space-y-1 opacity-70">
+                <div class="w-3/4 h-[1.6px] bg-slate-600 rounded-full"></div>
+                <div class="w-3/5 h-[1.2px] bg-slate-700 rounded-full"></div>
+                <div class="w-2/5 h-[1.0px] bg-slate-800 rounded-full"></div>
+                <div class="w-1/4 h-[0.8px] bg-slate-800/60 rounded-full"></div>
               </div>
 
             </div>
