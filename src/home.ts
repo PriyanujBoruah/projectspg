@@ -80,6 +80,21 @@ export const HOME_HTML = `<!DOCTYPE html>
       border-top: 1px solid #e2e8f0;
       margin: 0.6rem 0;
     }
+    /* Keyhole Dynamic Lighting Animations (Matching recording) */
+    @keyframes keyholeOrbit {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    @keyframes keyholePulse {
+      0%, 100% { transform: scale(1); opacity: 0.82; }
+      50% { transform: scale(1.05); opacity: 1; }
+    }
+    .animate-keyhole-orbit {
+      animation: keyholeOrbit 8.5s linear infinite;
+    }
+    .animate-keyhole-pulse {
+      animation: keyholePulse 4s ease-in-out infinite;
+    }
   </style>
 </head>
 <body class="min-h-full bg-[#fafafa] text-[#1e1e2e] flex flex-col antialiased">
@@ -122,7 +137,7 @@ export const HOME_HTML = `<!DOCTYPE html>
   <!-- ========================================================================= -->
   <!-- HERO SECTION: Agentic Infrastructure (Dark with Glowing Keyhole)          -->
   <!-- ========================================================================= -->
-  <section class="bg-black text-white relative overflow-hidden py-16 sm:py-24 lg:py-28 border-b border-zinc-900">
+  <section id="agentic-hero-section" class="bg-black text-white relative overflow-hidden py-16 sm:py-24 lg:py-28 border-b border-zinc-900">
     
     <!-- Subtle top ambient glow -->
     <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(168,85,247,0.12),transparent_65%)] pointer-events-none"></div>
@@ -147,25 +162,37 @@ export const HOME_HTML = `<!DOCTYPE html>
           </div>
         </div>
 
-        <!-- Center Column: Glowing Keyhole Silhouette -->
-        <div class="lg:col-span-4 flex items-center justify-center py-4 lg:py-0">
-          <div class="relative flex items-center justify-center">
+        <!-- Center Column: Glowing Keyhole Silhouette (Lighting matching recording) -->
+        <div class="lg:col-span-4 flex items-center justify-center py-6 lg:py-0">
+          <div id="keyhole-stage" class="relative w-72 h-80 sm:w-80 sm:h-96 flex items-center justify-center select-none transition-transform duration-200">
             
-            <!-- Multi-colored prismatic neon halo (Pink / Purple / Cyan / Green) -->
+            <!-- Layer 1: Wide Volumetric Atmospheric Haze (Pink left, Cyan right, Purple top) -->
             <div
-              class="absolute w-56 h-56 sm:w-72 sm:h-72 rounded-full pointer-events-none"
-              style="background: conic-gradient(from 225deg at 50% 50%, #f43f5e 0deg, #a855f7 95deg, #00d2ff 185deg, #10b981 270deg, #f43f5e 360deg); filter: blur(42px); opacity: 0.85;"
+              class="absolute -inset-10 pointer-events-none"
+              style="background: radial-gradient(circle at 22% 45%, rgba(244,63,94,0.36) 0%, transparent 60%), radial-gradient(circle at 78% 55%, rgba(0,210,255,0.38) 0%, transparent 60%), radial-gradient(circle at 50% 20%, rgba(168,85,247,0.32) 0%, transparent 55%); filter: blur(52px);"
             ></div>
 
-            <!-- Tighter ambient violet/cyan core glow -->
+            <!-- Layer 2: Static Ambient Chromatic Aura hugging the perimeter -->
             <div
-              class="absolute w-40 h-52 sm:w-52 sm:h-64 pointer-events-none"
-              style="background: radial-gradient(circle at 50% 45%, rgba(168, 85, 247, 0.95), rgba(6, 182, 212, 0.75) 55%, transparent 75%); filter: blur(22px); opacity: 0.9;"
+              class="absolute w-64 h-64 sm:w-76 sm:h-76 rounded-full pointer-events-none animate-keyhole-pulse"
+              style="background: conic-gradient(from 225deg at 50% 50%, #f43f5e 0deg, #a855f7 95deg, #00d2ff 185deg, #10b981 270deg, #f43f5e 360deg); filter: blur(38px); opacity: 0.85;"
             ></div>
 
-            <!-- The Keyhole Silhouette -->
+            <!-- Layer 3: Dynamic Sweeping Spotlight Beam (Traveling flare orbiting keyhole) -->
+            <div
+              class="absolute w-72 h-72 sm:w-84 sm:h-84 pointer-events-none animate-keyhole-orbit"
+              style="background: conic-gradient(from 0deg at 50% 50%, transparent 0deg, transparent 200deg, rgba(244,63,94,0.4) 250deg, rgba(168,85,247,0.85) 300deg, #00d2ff 340deg, #ffffff 355deg, transparent 360deg); filter: blur(28px); mix-blend-mode: screen;"
+            ></div>
+
+            <!-- Layer 4: Concentrated Core Backlight (High intensity rim reflection) -->
+            <div
+              class="absolute w-44 h-56 sm:w-52 sm:h-64 pointer-events-none"
+              style="background: radial-gradient(ellipse at 50% 45%, rgba(255,255,255,0.75) 0%, rgba(168,85,247,0.9) 35%, rgba(0,210,255,0.65) 65%, transparent 80%); filter: blur(20px); opacity: 0.9;"
+            ></div>
+
+            <!-- Layer 5: The Keyhole Silhouette (Solid pitch-black with precision rim line) -->
             <div class="relative z-10 flex items-center justify-center">
-              <svg viewBox="0 0 240 280" class="w-48 h-56 sm:w-56 sm:h-64 filter drop-shadow-[0_0_24px_rgba(168,85,247,0.35)]">
+              <svg viewBox="0 0 260 300" class="w-52 h-60 sm:w-60 sm:h-70 filter drop-shadow-[0_0_24px_rgba(168,85,247,0.45)]">
                 <defs>
                   <linearGradient id="keyholeRimGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                     <stop offset="0%" stop-color="#f43f5e" />
@@ -176,15 +203,15 @@ export const HOME_HTML = `<!DOCTYPE html>
                 </defs>
                 <!-- Subtle glowing rim stroke -->
                 <path
-                  d="M 120 46 A 42 42 0 0 1 146 120 L 160 218 Q 160 228 150 228 L 90 228 Q 80 228 80 218 L 94 120 A 42 42 0 0 1 120 46 Z"
+                  d="M 130 47 A 48 48 0 0 1 161 132 L 180 245 Q 180 258 168 258 L 92 258 Q 80 258 80 245 L 99 132 A 48 48 0 0 1 130 47 Z"
                   fill="none"
                   stroke="url(#keyholeRimGrad)"
                   stroke-width="2"
-                  opacity="0.85"
+                  opacity="0.9"
                 />
-                <!-- Pure black keyhole body -->
+                <!-- Pure pitch-black keyhole body matching section background -->
                 <path
-                  d="M 120 47 A 41 41 0 0 1 145 119 L 159 217 Q 159 226 150 226 L 90 226 Q 81 226 81 217 L 95 119 A 41 41 0 0 1 120 47 Z"
+                  d="M 130 48 A 47 47 0 0 1 160 131 L 179 244 Q 179 256 168 256 L 92 256 Q 81 256 81 244 L 100 131 A 47 47 0 0 1 130 48 Z"
                   fill="#000000"
                 />
               </svg>
@@ -955,6 +982,23 @@ print(response.choices[0].message.content)</pre>
 
     document.addEventListener('DOMContentLoaded', () => {
       if (window.lucide) lucide.createIcons();
+
+      // Subtle interactive keyhole stage tracking (matching video interaction)
+      const heroSection = document.getElementById('agentic-hero-section');
+      const keyholeStage = document.getElementById('keyhole-stage');
+      if (heroSection && keyholeStage) {
+        heroSection.addEventListener('mousemove', (e) => {
+          const rect = keyholeStage.getBoundingClientRect();
+          const cx = rect.left + rect.width / 2;
+          const cy = rect.top + rect.height / 2;
+          const dx = (e.clientX - cx) / (window.innerWidth / 2);
+          const dy = (e.clientY - cy) / (window.innerHeight / 2);
+          keyholeStage.style.transform = 'translate3d(' + (dx * 10).toFixed(1) + 'px, ' + (dy * 10).toFixed(1) + 'px, 0)';
+        });
+        heroSection.addEventListener('mouseleave', () => {
+          keyholeStage.style.transform = 'translate3d(0, 0, 0)';
+        });
+      }
     });
   </script>
 
