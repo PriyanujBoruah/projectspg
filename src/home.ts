@@ -253,9 +253,9 @@ export const HOME_HTML = `<!DOCTYPE html>
         <!-- Right Column: 3-line bullet copy (matching screenshot) -->
         <div class="lg:col-span-3 text-center lg:text-left">
           <div class="text-sm sm:text-base text-slate-600 font-medium leading-relaxed space-y-2">
-            <p>For coding agents</p>
-            <p>To ship apps and agents</p>
-            <p>Automated by agents</p>
+            <p>For enterprise LLMs</p>
+            <p>For autonomous AI agents</p>
+            <p>For mission-critical AI workflows</p>
           </div>
         </div>
 
