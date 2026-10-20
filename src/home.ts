@@ -88,16 +88,139 @@ export const HOME_HTML = `<!DOCTYPE html>
         <!-- Bottom action strip inside the prompt container -->
         <div class="flex items-center justify-between pt-3 border-t border-gray-100 mt-2">
           
-          <!-- Left: Model selector pill -->
-          <div class="relative inline-flex items-center">
-            <select id="demo-model-select" class="appearance-none bg-slate-50 hover:bg-slate-100 border border-gray-200 text-slate-700 text-xs font-mono font-medium rounded-lg pl-7 pr-7 py-1.5 focus:outline-none focus:border-[#f0523d] cursor-pointer transition">
-              <option value="ministral-8b-2512" selected>ministral-8b-2512</option>
-              <option value="ministral-3b-2512">ministral-3b-2512</option>
-              <option value="codestral-2508">codestral-2508</option>
-              <option value="mistral-large-2512">mistral-large-2512</option>
-            </select>
-            <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-600 absolute left-2 pointer-events-none"></i>
-            <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400 absolute right-2 pointer-events-none"></i>
+          <!-- Left: Model selector pill & dropdown (v0-style) -->
+          <div class="relative" id="model-dropdown-container">
+            <!-- Trigger button -->
+            <button
+              type="button"
+              id="model-dropdown-trigger"
+              onclick="toggleModelDropdown(event)"
+              class="flex items-center gap-2 px-2.5 py-1.5 rounded-lg border border-gray-200 bg-slate-50 hover:bg-slate-100 text-slate-800 text-xs font-medium transition cursor-pointer shadow-2xs"
+            >
+              <div class="w-4 h-4 rounded bg-[#f0523d]/10 text-[#f0523d] flex items-center justify-center font-bold text-[10px]">
+                <i data-lucide="cpu" class="w-3 h-3 text-[#f0523d]"></i>
+              </div>
+              <span id="selected-model-name" class="font-semibold text-slate-800">SPG Pro</span>
+              <i data-lucide="chevron-down" id="model-dropdown-chevron" class="w-3.5 h-3.5 text-slate-400 transition-transform duration-150"></i>
+            </button>
+
+            <!-- Dropdown Menu Floating Card (matching uploaded design) -->
+            <div
+              id="model-dropdown-menu"
+              class="hidden absolute left-0 bottom-full mb-2 w-72 sm:w-80 bg-white rounded-xl border border-gray-200 shadow-xl p-2 z-50 text-left"
+            >
+              <!-- Search bar inside menu -->
+              <div class="relative mb-2">
+                <i data-lucide="search" class="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+                <input
+                  type="text"
+                  id="model-search-input"
+                  oninput="filterModelDropdown(this.value)"
+                  placeholder="Search models..."
+                  class="w-full pl-8 pr-3 py-1.5 text-xs bg-slate-50 border border-gray-200 rounded-lg text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#f0523d] focus:bg-white"
+                />
+              </div>
+
+              <!-- Model items list -->
+              <div id="model-items-list" class="space-y-1 max-h-56 overflow-y-auto">
+                
+                <!-- SPG Pro (Default) -->
+                <div
+                  onclick="selectDemoModel('SPG Pro', 'ministral-8b-2512')"
+                  data-model-id="ministral-8b-2512"
+                  data-model-name="SPG Pro"
+                  class="model-option flex items-center justify-between p-2 rounded-lg hover:bg-slate-50 cursor-pointer transition group"
+                >
+                  <div class="flex items-center gap-2.5 min-w-0">
+                    <div class="w-7 h-7 rounded-lg bg-orange-50 border border-orange-200/60 flex items-center justify-center text-[#f0523d] shrink-0">
+                      <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+                    </div>
+                    <div class="min-w-0">
+                      <div class="flex items-center gap-1.5">
+                        <span class="text-xs font-semibold text-slate-800 group-hover:text-[#f0523d] transition">SPG Pro</span>
+                        <span class="text-[9px] font-medium px-1.5 py-0.2 rounded bg-orange-50 text-[#f0523d] border border-orange-200/80">Default</span>
+                      </div>
+                      <p class="text-[11px] text-slate-500 truncate">Balanced reasoning • 8B</p>
+                    </div>
+                  </div>
+                  <i data-lucide="check" class="model-check-icon w-4 h-4 text-[#f0523d]"></i>
+                </div>
+
+                <!-- SPG Mini -->
+                <div
+                  onclick="selectDemoModel('SPG Mini', 'ministral-3b-2512')"
+                  data-model-id="ministral-3b-2512"
+                  data-model-name="SPG Mini"
+                  class="model-option flex items-center justify-between p-2 rounded-lg hover:bg-slate-50 cursor-pointer transition group"
+                >
+                  <div class="flex items-center gap-2.5 min-w-0">
+                    <div class="w-7 h-7 rounded-lg bg-blue-50 border border-blue-200/60 flex items-center justify-center text-blue-600 shrink-0">
+                      <i data-lucide="zap" class="w-3.5 h-3.5"></i>
+                    </div>
+                    <div class="min-w-0">
+                      <div class="flex items-center gap-1.5">
+                        <span class="text-xs font-semibold text-slate-800 group-hover:text-[#f0523d] transition">SPG Mini</span>
+                        <span class="text-[9px] font-medium px-1.5 py-0.2 rounded bg-blue-50 text-blue-600 border border-blue-200/80">Fast</span>
+                      </div>
+                      <p class="text-[11px] text-slate-500 truncate">Fastest latency • 3B</p>
+                    </div>
+                  </div>
+                  <i data-lucide="check" class="model-check-icon hidden w-4 h-4 text-[#f0523d]"></i>
+                </div>
+
+                <!-- SPG Code -->
+                <div
+                  onclick="selectDemoModel('SPG Code', 'codestral-2508')"
+                  data-model-id="codestral-2508"
+                  data-model-name="SPG Code"
+                  class="model-option flex items-center justify-between p-2 rounded-lg hover:bg-slate-50 cursor-pointer transition group"
+                >
+                  <div class="flex items-center gap-2.5 min-w-0">
+                    <div class="w-7 h-7 rounded-lg bg-purple-50 border border-purple-200/60 flex items-center justify-center text-purple-600 shrink-0">
+                      <i data-lucide="code-2" class="w-3.5 h-3.5"></i>
+                    </div>
+                    <div class="min-w-0">
+                      <div class="flex items-center gap-1.5">
+                        <span class="text-xs font-semibold text-slate-800 group-hover:text-[#f0523d] transition">SPG Code</span>
+                      </div>
+                      <p class="text-[11px] text-slate-500 truncate">Specialized coding & agentic</p>
+                    </div>
+                  </div>
+                  <i data-lucide="check" class="model-check-icon hidden w-4 h-4 text-[#f0523d]"></i>
+                </div>
+
+                <!-- SPG Max -->
+                <div
+                  onclick="selectDemoModel('SPG Max', 'mistral-large-2512')"
+                  data-model-id="mistral-large-2512"
+                  data-model-name="SPG Max"
+                  class="model-option flex items-center justify-between p-2 rounded-lg hover:bg-slate-50 cursor-pointer transition group"
+                >
+                  <div class="flex items-center gap-2.5 min-w-0">
+                    <div class="w-7 h-7 rounded-lg bg-emerald-50 border border-emerald-200/60 flex items-center justify-center text-emerald-600 shrink-0">
+                      <i data-lucide="brain-circuit" class="w-3.5 h-3.5"></i>
+                    </div>
+                    <div class="min-w-0">
+                      <div class="flex items-center gap-1.5">
+                        <span class="text-xs font-semibold text-slate-800 group-hover:text-[#f0523d] transition">SPG Max</span>
+                        <span class="text-[9px] font-medium px-1.5 py-0.2 rounded bg-emerald-50 text-emerald-600 border border-emerald-200/80">Flagship</span>
+                      </div>
+                      <p class="text-[11px] text-slate-500 truncate">Deep reasoning • Large</p>
+                    </div>
+                  </div>
+                  <i data-lucide="check" class="model-check-icon hidden w-4 h-4 text-[#f0523d]"></i>
+                </div>
+
+              </div>
+
+              <!-- No results state -->
+              <div id="model-no-results" class="hidden text-center py-4 text-xs text-slate-400">
+                No matching models
+              </div>
+            </div>
+
+            <!-- Hidden input to store chosen model id -->
+            <input type="hidden" id="demo-model-value" value="ministral-8b-2512" />
           </div>
 
           <!-- Right: Clear + Submit button -->
@@ -274,7 +397,7 @@ client = OpenAI(
 
 <span class="text-slate-500"># PII in prompts is automatically masked before reaching Mistral/OpenAI</span>
 response = client.chat.completions.create(
-    <span class="text-emerald-400">model</span>=<span class="text-amber-300">"ministral-8b-2512"</span>,
+    <span class="text-emerald-400">model</span>=<span class="text-amber-300">"spg-pro"</span>,  <span class="text-slate-500"># or "spg-mini", "spg-code", "spg-max"</span>
     <span class="text-emerald-400">messages</span>=[{<span class="text-amber-300">"role"</span>: <span class="text-amber-300">"user"</span>, <span class="text-amber-300">"content"</span>: <span class="text-amber-300">"Patient Alice Smith SSN 000-11-2222 order confirmation."</span>}]
 )
 
@@ -369,6 +492,86 @@ print(response.choices[0].message.content)</pre>
     let currentPresetIdx = 0;
     let demoRunCount = 0;
 
+    // --- Dropdown Menu Logic (v0-style) ---
+    function toggleModelDropdown(event) {
+      if (event) event.stopPropagation();
+      const menu = document.getElementById('model-dropdown-menu');
+      const chevron = document.getElementById('model-dropdown-chevron');
+      if (!menu) return;
+
+      const isHidden = menu.classList.contains('hidden');
+      if (isHidden) {
+        menu.classList.remove('hidden');
+        if (chevron) chevron.classList.add('rotate-180');
+        const searchInput = document.getElementById('model-search-input');
+        if (searchInput) {
+          searchInput.value = '';
+          filterModelDropdown('');
+          setTimeout(() => searchInput.focus(), 50);
+        }
+      } else {
+        closeModelDropdown();
+      }
+    }
+
+    function closeModelDropdown() {
+      const menu = document.getElementById('model-dropdown-menu');
+      const chevron = document.getElementById('model-dropdown-chevron');
+      if (menu) menu.classList.add('hidden');
+      if (chevron) chevron.classList.remove('rotate-180');
+    }
+
+    function selectDemoModel(modelName, modelId) {
+      const nameEl = document.getElementById('selected-model-name');
+      const valueEl = document.getElementById('demo-model-value');
+      if (nameEl) nameEl.textContent = modelName;
+      if (valueEl) valueEl.value = modelId;
+
+      // Update checkmarks
+      const options = document.querySelectorAll('.model-option');
+      options.forEach(opt => {
+        const checkIcon = opt.querySelector('.model-check-icon');
+        if (opt.getAttribute('data-model-id') === modelId) {
+          if (checkIcon) checkIcon.classList.remove('hidden');
+        } else {
+          if (checkIcon) checkIcon.classList.add('hidden');
+        }
+      });
+
+      closeModelDropdown();
+    }
+
+    function filterModelDropdown(query) {
+      const q = (query || '').toLowerCase().trim();
+      const options = document.querySelectorAll('.model-option');
+      let visibleCount = 0;
+
+      options.forEach(opt => {
+        const text = (opt.textContent || '').toLowerCase();
+        if (!q || text.includes(q)) {
+          opt.classList.remove('hidden');
+          visibleCount++;
+        } else {
+          opt.classList.add('hidden');
+        }
+      });
+
+      const noResults = document.getElementById('model-no-results');
+      if (noResults) {
+        if (visibleCount === 0) noResults.classList.remove('hidden');
+        else noResults.classList.add('hidden');
+      }
+    }
+
+    // Close dropdown on outside click
+    document.addEventListener('click', (e) => {
+      const container = document.getElementById('model-dropdown-container');
+      if (container && !container.contains(e.target)) {
+        closeModelDropdown();
+      }
+    });
+
+    // --- Preset & Prompt Management ---
     function setDemoPreset(key) {
       currentPresetIdx = Math.max(0, PRESET_KEYS.indexOf(key));
       const promptEl = document.getElementById('demo-prompt-input');
@@ -391,6 +594,7 @@ print(response.choices[0].message.content)</pre>
       }
     }
 
+    // --- Hero Demo Execution ---
     async function runHeroDemo() {
       demoRunCount++;
       
@@ -404,8 +608,10 @@ print(response.choices[0].message.content)</pre>
       const text = promptInput ? promptInput.value.trim() : '';
       if (!text) return;
 
-      const modelSelect = document.getElementById('demo-model-select');
-      const selectedModel = modelSelect ? modelSelect.value : 'ministral-8b-2512';
+      const modelValEl = document.getElementById('demo-model-value');
+      const modelNameEl = document.getElementById('selected-model-name');
+      const selectedModel = modelValEl ? modelValEl.value : 'ministral-8b-2512';
+      const selectedModelName = modelNameEl ? modelNameEl.textContent : 'SPG Pro';
 
       const btn = document.getElementById('btn-run-demo');
       const origBtnHtml = btn ? btn.innerHTML : '';
@@ -458,21 +664,12 @@ print(response.choices[0].message.content)</pre>
         if (entitiesEl) entitiesEl.textContent = entitiesCount;
 
         const modelMetricEl = document.getElementById('demo-metric-model');
-        if (modelMetricEl) modelMetricEl.textContent = selectedModel;
+        if (modelMetricEl) modelMetricEl.textContent = selectedModelName + ' (' + selectedModel + ')';
 
         if (window.lucide) lucide.createIcons();
 
       } catch (err) {
         console.error('Hero demo error:', err);
-        alert('Demo request encountered an error. Please try again.');
-      } finally {
-        if (btn) {
-          btn.disabled = false;
-          btn.innerHTML = origBtnHtml;
-          if (window.lucide) lucide.createIcons();
-        }
-      }
-    }
         alert('Demo request encountered an error. Please try again.');
       } finally {
         if (btn) {

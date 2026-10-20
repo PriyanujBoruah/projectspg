@@ -26,9 +26,13 @@ export const PRO_TIER_MAX_REQUESTS = 1;
  */
 export const MISTRAL_USAGE_LIMITS: Record<string, { rps: number; tpm: number; minIntervalMs: number }> = {
   "ministral-3b-2512": { rps: 12.50, tpm: 1_300_000, minIntervalMs: 80 },
+  "spg-mini":          { rps: 12.50, tpm: 1_300_000, minIntervalMs: 80 },
   "ministral-8b-2512": { rps: 3.13,  tpm: 625_000,   minIntervalMs: 320 },
+  "spg-pro":           { rps: 3.13,  tpm: 625_000,   minIntervalMs: 320 },
   "codestral-2508":    { rps: 2.08,  tpm: 625_000,   minIntervalMs: 480 },
+  "spg-code":          { rps: 2.08,  tpm: 625_000,   minIntervalMs: 480 },
   "mistral-large-2512": { rps: 1.00,  tpm: 250_000,   minIntervalMs: 1000 },
+  "spg-max":           { rps: 1.00,  tpm: 250_000,   minIntervalMs: 1000 },
 };
 
 export type TierLevel = "free" | "pro";

@@ -25,6 +25,10 @@ export const LIMITED_ALLOWED_MISTRAL_MODELS = new Set([
   "ministral-8b-2512",
   "codestral-2508",
   "mistral-large-2512",
+  "spg-mini",
+  "spg-pro",
+  "spg-code",
+  "spg-max",
 ]);
 
 const openaiApp = new Hono<{ Bindings: Env }>();
@@ -139,14 +143,16 @@ export function resolveUpstreamBaseUrl(c: Context, model?: string): string {
     return "https://generativelanguage.googleapis.com/v1beta/openai";
   }
 
-  // 2. Mistral AI (mistral, codestral, ministral, pixtral)
+  // 2. Mistral AI (mistral, codestral, ministral, pixtral, spg-*)
   if (
     modelLower.startsWith("mistral") ||
     modelLower.startsWith("codestral") ||
     modelLower.startsWith("ministral") ||
     modelLower.startsWith("open-mistral") ||
     modelLower.startsWith("pixtral") ||
-    modelLower.includes("mistral")
+    modelLower.includes("mistral") ||
+    modelLower.startsWith("spg-") ||
+    modelLower.startsWith("spg ")
   ) {
     return "https://api.mistral.ai/v1";
   }
@@ -235,7 +241,9 @@ export function resolveUpstreamAuth(
       modelLower.startsWith("ministral") ||
       modelLower.startsWith("open-mistral") ||
       modelLower.startsWith("pixtral") ||
-      modelLower.includes("mistral")
+      modelLower.includes("mistral") ||
+      modelLower.startsWith("spg-") ||
+      modelLower.startsWith("spg ")
     ) {
       if (apiKeyRecord.byok_mistral_key) {
         return { headerName: "Authorization", headerValue: `Bearer ${apiKeyRecord.byok_mistral_key}`, isUserKey: true };
@@ -278,7 +286,7 @@ export function resolveUpstreamAuth(
     }
   }
 
-  // Mistral AI (mistral, codestral, ministral, pixtral)
+  // Mistral AI (mistral, codestral, ministral, pixtral, spg-*)
   if (
     url.includes("mistral.ai") ||
     modelLower.startsWith("mistral") ||
@@ -286,7 +294,9 @@ export function resolveUpstreamAuth(
     modelLower.startsWith("ministral") ||
     modelLower.startsWith("open-mistral") ||
     modelLower.startsWith("pixtral") ||
-    modelLower.includes("mistral")
+    modelLower.includes("mistral") ||
+    modelLower.startsWith("spg-") ||
+    modelLower.startsWith("spg ")
   ) {
     const key =
       (c.env as any)?.MISTRAL_API_KEY ||
@@ -652,8 +662,13 @@ openaiApp.post("/chat/completions", async (c) => {
   delete upstreamPayload.mode;
   delete upstreamPayload.ttlSeconds;
 
-  // Normalize model aliases for upstream providers (Google AI Studio Gemma 4)
-  if (upstreamPayload.model === "gemma-4-26b-it") {
+  // Normalize model aliases for SPG branded models and upstream providers
+  const mLower = (upstreamPayload.model || "").toLowerCase();
+  if (mLower === "spg-mini" || mLower === "spg mini") upstreamPayload.model = "ministral-3b-2512";
+  else if (mLower === "spg-pro" || mLower === "spg pro") upstreamPayload.model = "ministral-8b-2512";
+  else if (mLower === "spg-code" || mLower === "spg code") upstreamPayload.model = "codestral-2508";
+  else if (mLower === "spg-max" || mLower === "spg max") upstreamPayload.model = "mistral-large-2512";
+  else if (upstreamPayload.model === "gemma-4-26b-it") {
     upstreamPayload.model = "gemma-4-26b-a4b-it";
   }
 
@@ -1143,12 +1158,16 @@ openaiApp.get("/models", async (c) => {
     }
   }
 
-  // Default standard catalog for Free Tier (Mistral models)
+  // Default standard catalog for Free Tier (Mistral models & SPG aliases)
   return c.json({
     object: "list",
     data: [
-      { id: "ministral-3b-2512", object: "model", created: 1721235600, owned_by: "mistral" },
+      { id: "spg-pro", object: "model", created: 1721235600, owned_by: "projectspg" },
+      { id: "spg-mini", object: "model", created: 1721235600, owned_by: "projectspg" },
+      { id: "spg-code", object: "model", created: 1721235600, owned_by: "projectspg" },
+      { id: "spg-max", object: "model", created: 1721235600, owned_by: "projectspg" },
       { id: "ministral-8b-2512", object: "model", created: 1721235600, owned_by: "mistral" },
+      { id: "ministral-3b-2512", object: "model", created: 1721235600, owned_by: "mistral" },
       { id: "codestral-2508", object: "model", created: 1721235600, owned_by: "mistral" },
       { id: "mistral-large-2512", object: "model", created: 1721235600, owned_by: "mistral" },
     ],
