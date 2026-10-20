@@ -859,24 +859,23 @@ export const HOME_HTML = `<!DOCTYPE html>
     </section>
 
     <!-- ======================================================================= -->
-    <!-- THE PROJECTSPG PLATFORM SECTION (3x2 Dark Bento Grid Showcase)            -->
+    <!-- THE PROJECTSPG PLATFORM SECTION (3x2 Dark Bento Grid on Grid Background)   -->
     <!-- ======================================================================= -->
-    <section id="platform" class="bg-black text-white py-20 sm:py-28 border-t border-zinc-900">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <!-- Section Header -->
-        <div class="text-center max-w-3xl mx-auto mb-14 sm:mb-20">
-          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300 text-xs font-semibold uppercase tracking-wider mb-4 shadow-sm">
-            <span class="w-2 h-2 rounded-full bg-[#f0523d]"></span>
-            <span>Platform Capabilities</span>
-          </div>
-          <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-4">
-            Enterprise Security in Six Core Layers
-          </h2>
-          <p class="text-sm sm:text-base text-zinc-400 leading-relaxed max-w-2xl mx-auto">
-            Everything your security, legal, and engineering teams need to deploy LLMs and autonomous agents with complete privacy.
-          </p>
+    <section id="platform" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 border-t border-gray-200/80">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-14 sm:mb-20">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-gray-200 text-slate-700 text-xs font-semibold uppercase tracking-wider mb-4 shadow-2xs">
+          <span class="w-2 h-2 rounded-full bg-[#f0523d]"></span>
+          <span>Platform Capabilities</span>
         </div>
+        <h2 class="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
+          Enterprise Security in Six Core Layers
+        </h2>
+        <p class="text-sm sm:text-base text-slate-600 leading-relaxed max-w-2xl mx-auto">
+          Everything your security, legal, and engineering teams need to deploy LLMs and autonomous agents with complete privacy.
+        </p>
+      </div>
 
         <!-- 3x2 Grid (3 Columns, 2 Rows) -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
@@ -1063,7 +1062,6 @@ export const HOME_HTML = `<!DOCTYPE html>
 
         </div>
 
-      </div>
     </section>
 
     <!-- ======================================================================= -->
