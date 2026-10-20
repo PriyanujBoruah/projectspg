@@ -88,6 +88,19 @@ export const HOME_HTML = `<!DOCTYPE html>
     .animate-keyhole-edge-sweep {
       animation: keyholeEdgeSweep 7s linear infinite;
     }
+    /* Infinite Rotating Logo Marquee */
+    @keyframes logoMarquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .animate-logo-marquee {
+      display: flex;
+      width: max-content;
+      animation: logoMarquee 42s linear infinite;
+    }
+    .animate-logo-marquee:hover {
+      animation-play-state: paused;
+    }
   </style>
 </head>
 <body class="min-h-full bg-[#fafafa] text-[#1e1e2e] flex flex-col antialiased">
@@ -250,44 +263,154 @@ export const HOME_HTML = `<!DOCTYPE html>
 
       </div>
 
-<!-- AI Model Provider Ecosystem Logo Ribbon (Matching reference screenshot) -->
-      <div class="pt-10 sm:pt-14 lg:pt-16 mt-10 sm:mt-14 border-t border-gray-200/60">
-        <div class="flex flex-wrap items-center justify-center sm:justify-between gap-8 sm:gap-6 lg:gap-10 px-2 sm:px-4">
-          
-          <!-- Google DeepMind -->
-          <div class="flex items-center justify-center opacity-60 hover:opacity-100 transition-opacity duration-200 cursor-default select-none" title="Google DeepMind">
-            <img src="data:image/png;base64,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" alt="Google DeepMind" class="h-5 sm:h-5.5 lg:h-6 w-auto object-contain" />
-          </div>
+<!-- AI Model & Gateway Ecosystem Infinite Rotating Marquee Ribbon -->
+      <div class="pt-10 sm:pt-14 lg:pt-16 mt-10 sm:mt-14 border-t border-gray-200/60 relative overflow-hidden">
+        <!-- Edge Gradient Fade Masks for Smooth Continuous Scroll In/Out -->
+        <div class="absolute left-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-r from-[#fafafa] to-transparent z-10 pointer-events-none"></div>
+        <div class="absolute right-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-l from-[#fafafa] to-transparent z-10 pointer-events-none"></div>
 
-          <!-- OpenAI -->
-          <div class="flex items-center justify-center opacity-60 hover:opacity-100 transition-opacity duration-200 cursor-default select-none" title="OpenAI">
-            <img src="data:image/png;base64,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" alt="OpenAI" class="h-5 sm:h-5.5 lg:h-6 w-auto object-contain" />
-          </div>
-
-          <!-- ANTHROP\C -->
-          <div class="flex items-center justify-center opacity-60 hover:opacity-100 transition-opacity duration-200 cursor-default select-none" title="Anthropic">
-            <img src="data:image/png;base64,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" alt="ANTHROP\C" class="h-4 sm:h-4.5 lg:h-5 w-auto object-contain" />
-          </div>
-
-          <!-- Gemini -->
-          <div class="flex items-center justify-center opacity-60 hover:opacity-100 transition-opacity duration-200 cursor-default select-none" title="Google Gemini">
-            <img src="data:image/png;base64,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" alt="Gemini" class="h-5 sm:h-5.5 lg:h-6 w-auto object-contain" />
-          </div>
-
-          <!-- OpenRouter -->
-          <div class="flex items-center justify-center opacity-60 hover:opacity-100 transition-opacity duration-200 cursor-default select-none" title="OpenRouter">
-            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGwAAAARCAYAAAA42knSAAAF2klEQVRYCe3Bf0jViQEA8M/jidKR4CiKgsIjuVhQFNeuKBq1a7ywK3LXw1Y774yc98xyiVK3Og8dbjVDyXWrYSS35i4p6qzlTa6jdpLMo+hYbF21KAoSI5mgJD18sOA78N76cY/q+qvPJxSJxjyBCNahGR1IeOG5CEWiMSl6E6uQjYmYKHACb6PPC9+5UCQa8wjpWIwNWOLxetGAZtyWmkmYjmzEcRNn0ef5CSOCTIFhxHELXyHh2Qkj4SmFItGYh3gFm5CP70lNL5bjS98uF5vxQyOG0YEi9Hg+snAFYyW7gT+gEYOe3kwUoBtHEfeEQpFozP95HY2YJnXHsAUXfbtsHEEOtuCowHpsRiei6PPdy8IVtKIBd5GDJmRiCS54eivQhFZUYsgTCkWisXSMwUQUohhpRgzjKhrQin7kYxf6UYl2JKTmfdSgAVUYFBiNJqzCLNzCEYHrWCPQgDr0IIw52I1ZAg2oQw/eQT1+jWLk4AZ+jpPIxBU0YxviAm1YgLU4jimoxiqBMyjHOYzDIXShBoNYgP34I3pQj0yBbkRxB7nYjhzcww40og/V2IBPkI9urAlForENWINXkSZZLz7E79BvxHS8ig70SN0o1GE9puGiZL9ENd7DMRzELHTjC7yMXNRgB2aiBb04iyzkoQOl2IQqXEM74liHbhThDq5hHz5AHOlow2z8DGdxAtk4hj6sRh/Woh9/w2mUow/52IN2NGMd8nAJB9CM2diPf6MbL2MZmvEefosi/AeHcQ4toUg09ikWI02y8yhDN+KejdGoRxFycFWyd1CPz1GDjzAeS3AB49CCiViKFViPtehEOlqQixkoQBVqsR1D2IVcxNCNr3EPlzGM8ZiGW/gRVmMrGlGLQbyJFpThFD7DaZSjD/nYg3aUYiH24jAqEcdBTMFafIUstGE65qICRdiKRgy6LxSJxj7FYqRJVocG9Hh2RqMeRZiKy5IVow7N2IePkIn5uC3wC9RhLuqwyIPuYj5WYivycBwJVKAE5ejEPzEeA0hHBm7gDVzAx1iFRehEAq/hBFqxD204jXL0IR970I5SvI69OIxygX8gx4MGkIcCFGApOpBwXygSje1CPsZ70Bn8CqcQN+IVjMV5DEldGL9BJVbiEyQEwtiNd7Ec/8IhZGI+biOMClRjLqowD124Y8QgarERVcjDcSRQgRKU4RSu4c+oRQ6aEMZyXMafkI83cBIJvIYTaMYB/AWdKEMfVmM32lGKhWhCKyoFziMTX2DAiH78HlUoxFJ0IOG+UCQaG4ccZGMj5kjWi5OoxUWBzViHbmzDdalbiBb0owhdCGMZdiEDPxBow0T8BF0Yg89wFz/FCmzFKpwWKMZU1GATqpCHdsRRgRKUoRNXsA81SKAaW7AdtViDOhxEOQbxFppQig4cwgQswVVUowKtKMUC7MdRlCGO/ViMKLqQjhKkYS8aUYjl6EDcfaFINOYb0rEJ1ciQuq1owJDU1KMEGRhAOjIE5uBLZOMIZuEuujAPL2ELdmAePsZk/BVjMRsDmIFCVCEPx5HAZpSgDKdxBfvwAeKYgKOYgh/jAr5GDs5iAItwFgW4igpUIw3DSBNoQSlG4e+YjMPYiBk4hEwcQzZm4DyWohaFWI52JNwXikRjHmIZNmMO0qTmDN7GVanJx1sYK3ALO9ElMAltmIR2TBH4HA3oF4igBOMFelGG68hHMbahS2AZVqIRl9CMDjQjIfA+5qEVB5CFekwVuIUGdCGB76MS0zGADszEOXyIIVQgV2AtbiIfhchCAjdRievYgDxU4pz/CUWiMY8wAYUoxmSPN4Bm7MRNqQsjE2H0STYJbcjAYgzhHoY8XBaGMShZOuIeLSyQkCyMhBFhZCIdfUh4UBbuYQhhJCQbhTAGjUhHJu5hULJ0xH1DKBKNeYwwxmA6CjEPY5FpRDfexSUMeXaycQgvYRFue0EoEo15AhtQgJ04jIRnbxTq0I9aDHlBKBKNeQJjEMZtLzxX/wVWUsSbVy2bfwAAAABJRU5ErkJggg==" alt="OpenRouter" class="h-4.5 sm:h-5 lg:h-5.5 w-auto object-contain" />
-          </div>
-
-          <!-- groq -->
-          <div class="flex items-center justify-center opacity-60 hover:opacity-100 transition-opacity duration-200 cursor-default select-none" title="Groq">
-            <img src="data:image/png;base64,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" alt="groq" class="h-5 sm:h-5.5 lg:h-6 w-auto object-contain" />
-          </div>
-
-        </div>
-      </div>
-
+        <!-- Infinite Rotating Track (Pauses on hover) -->
+        <div class="flex animate-logo-marquee select-none items-center py-2">
+          <!-- Primary Track Set -->
+          <div class="flex items-center gap-10 sm:gap-14 lg:gap-16 pr-10 sm:pr-14 lg:pr-16 shrink-0">
+<div class="flex items-center gap-2 text-slate-400 hover:text-slate-800 transition-colors duration-200 cursor-default shrink-0" title="Google DeepMind">
+      <svg viewBox="0 0 24 24" class="w-5 h-5 shrink-0" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 5a5 5 0 100 10 5 5 0 000-10z"/></svg>
+      <span class="text-xs sm:text-[13px] font-bold tracking-tight">Google <span class="font-normal opacity-90">DeepMind</span></span>
     </div>
+<div class="flex items-center gap-2 text-slate-400 hover:text-slate-800 transition-colors duration-200 cursor-default shrink-0" title="OpenAI">
+      <svg viewBox="0 0 24 24" class="w-5 h-5 shrink-0" fill="currentColor"><path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1685a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.872zm16.5963 3.8558L13.1038 8.364 15.1192 7.2a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.407-.6667zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1638a.0804.0804 0 0 1-.038-.0567V6.0742a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.459a.7948.7948 0 0 0-.3927.6813zm1.0976-2.3654l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997Z"/></svg>
+      <span class="text-xs sm:text-[13px] font-bold tracking-tight">OpenAI</span>
+    </div>
+<div class="flex items-center text-slate-400 hover:text-slate-800 transition-colors duration-200 cursor-default shrink-0" title="Anthropic">
+      <span class="text-xs sm:text-[13px] font-black tracking-wider uppercase font-sans">ANTHROP\C</span>
+    </div>
+<div class="flex items-center gap-2 text-slate-400 hover:text-slate-800 transition-colors duration-200 cursor-default shrink-0" title="Google Gemini">
+      <svg viewBox="0 0 24 24" class="w-5 h-5 shrink-0" fill="currentColor"><path d="M12 0C12 6.627 6.627 12 0 12c6.627 0 12 5.373 12 12 0-6.627 5.373-12 12-12-6.627 0-12-5.373-12-12z"/></svg>
+      <span class="text-xs sm:text-[13px] font-bold tracking-tight">Gemini</span>
+    </div>
+<div class="flex items-center gap-2 text-slate-400 hover:text-slate-800 transition-colors duration-200 cursor-default shrink-0" title="Mistral AI">
+      <svg viewBox="0 0 24 24" class="w-5 h-5 shrink-0" fill="currentColor"><path d="M3 3h4v4H3zm14 0h4v4h-4zM3 10h4v4H3zm7 0h4v4h-4zm7 0h4v4h-4zM3 17h4v4H3zm7 0h4v4h-4zm7 0h4v4h-4z"/></svg>
+      <span class="text-xs sm:text-[13px] font-bold tracking-tight">Mistral AI</span>
+    </div>
+<div class="flex items-center text-slate-400 hover:text-slate-800 transition-colors duration-200 cursor-default shrink-0" title="Groq">
+      <span class="text-sm sm:text-[15px] font-extrabold tracking-tight font-sans lowercase">groq</span>
+    </div>
+<div class="flex items-center gap-2 text-slate-400 hover:text-slate-800 transition-colors duration-200 cursor-default shrink-0" title="OpenRouter">
+      <svg viewBox="0 0 24 24" class="w-5 h-5 shrink-0" fill="currentColor"><path d="M17.5 3.5L8.5 12l9 8.5h-4.5L5 12l8-8.5h4.5z"/></svg>
+      <span class="text-xs sm:text-[13px] font-bold tracking-tight">OpenRouter</span>
+    </div>
+<div class="flex items-center gap-2 text-slate-400 hover:text-slate-800 transition-colors duration-200 cursor-default shrink-0" title="Meta Llama">
+      <svg viewBox="0 0 24 24" class="w-5 h-5 shrink-0" fill="currentColor"><path d="M16.634 3.003c-2.029 0-3.666 1.054-4.634 2.378C11.032 4.057 9.395 3.003 7.366 3.003 3.652 3.003.5 6.155.5 10.027c0 4.887 4.544 8.653 10.744 10.84a2.222 2.222 0 0 0 1.512 0c6.2-2.187 10.744-5.953 10.744-10.84 0-3.872-3.152-7.024-6.866-7.024zm-9.268 9.948c-1.636 0-2.96-1.31-2.96-2.924 0-1.613 1.324-2.923 2.96-2.923 1.258 0 2.327.778 2.753 1.879l.061.162c-.672 1.488-1.748 2.827-2.814 3.806zm9.268 0c-1.066-.979-2.142-2.318-2.814-3.806l.061-.162c.426-1.101 1.495-1.879 2.753-1.879 1.636 0 2.96 1.31 2.96 2.923 0 1.614-1.324 2.924-2.96 2.924z"/></svg>
+      <span class="text-xs sm:text-[13px] font-bold tracking-tight">Meta Llama</span>
+    </div>
+<div class="flex items-center gap-2 text-slate-400 hover:text-slate-800 transition-colors duration-200 cursor-default shrink-0" title="DeepSeek">
+      <svg viewBox="0 0 24 24" class="w-5 h-5 shrink-0" fill="currentColor"><path d="M2 13.5C2 7.7 6.7 3 12.5 3c4.1 0 7.7 2.4 9.4 5.9-1.5-.6-3.2-.9-4.9-.9-6.6 0-12 5.4-12 12 0 .5.1 1 .2 1.5C4.3 19.8 2 16.9 2 13.5zm19.8 4.2c-.3 1.8-1.2 3.4-2.5 4.7-1.3 1.3-2.9 2.2-4.7 2.6 1.7-.8 3.1-2.1 4-3.7.9-1.6 1.3-3.4 1.2-5.3 1.2.5 2 1.7 2 3.1 0-.5-.1-.9-.3-1.4z"/></svg>
+      <span class="text-xs sm:text-[13px] font-bold tracking-tight">DeepSeek</span>
+    </div>
+<div class="flex items-center gap-2 text-slate-400 hover:text-slate-800 transition-colors duration-200 cursor-default shrink-0" title="Cohere">
+      <svg viewBox="0 0 24 24" class="w-5 h-5 shrink-0" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c4.18 0 7.76-2.56 9.24-6.22-1.67 1.36-3.8 2.22-6.24 2.22-5.52 0-10-4.48-10-10 0-2.44.86-4.57 2.22-6.24C7.56 2.56 10.18 2 12 2z"/></svg>
+      <span class="text-xs sm:text-[13px] font-bold tracking-tight">Cohere</span>
+    </div>
+<div class="flex items-center gap-2 text-slate-400 hover:text-slate-800 transition-colors duration-200 cursor-default shrink-0" title="Perplexity">
+      <svg viewBox="0 0 24 24" class="w-5 h-5 shrink-0" fill="currentColor"><path d="M12 2L4 7v10l8 5 8-5V7l-8-5zm0 2.5l5.5 3.4-5.5 3.5-5.5-3.5L12 4.5zM6 8.8l5 3.2v6.4l-5-3.1V8.8zm12 6.5l-5 3.1V12l5-3.2v6.5z"/></svg>
+      <span class="text-xs sm:text-[13px] font-bold tracking-tight">Perplexity</span>
+    </div>
+<div class="flex items-center gap-2 text-slate-400 hover:text-slate-800 transition-colors duration-200 cursor-default shrink-0" title="Hugging Face">
+      <svg viewBox="0 0 24 24" class="w-5 h-5 shrink-0" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-3.5 7.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm7 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm-7.9 6.8c.8 1.9 2.6 3.2 4.4 3.2s3.6-1.3 4.4-3.2c.2-.5-.1-1-.6-1h-7.6c-.5 0-.8.5-.6 1z"/></svg>
+      <span class="text-xs sm:text-[13px] font-bold tracking-tight">Hugging Face</span>
+    </div>
+<div class="flex items-center gap-2 text-slate-400 hover:text-slate-800 transition-colors duration-200 cursor-default shrink-0" title="Together AI">
+      <svg viewBox="0 0 24 24" class="w-5 h-5 shrink-0" fill="currentColor"><circle cx="7" cy="12" r="5"/><circle cx="17" cy="12" r="5" opacity="0.75"/></svg>
+      <span class="text-xs sm:text-[13px] font-bold tracking-tight">Together AI</span>
+    </div>
+<div class="flex items-center gap-2 text-slate-400 hover:text-slate-800 transition-colors duration-200 cursor-default shrink-0" title="Fireworks AI">
+      <svg viewBox="0 0 24 24" class="w-5 h-5 shrink-0" fill="currentColor"><path d="M12 2l1.8 5.7L19.5 9l-4.7 3.5 1.8 5.7L12 14.7l-4.6 3.5 1.8-5.7L4.5 9l5.7-1.3L12 2z"/></svg>
+      <span class="text-xs sm:text-[13px] font-bold tracking-tight">Fireworks AI</span>
+    </div>
+<div class="flex items-center gap-2 text-slate-400 hover:text-slate-800 transition-colors duration-200 cursor-default shrink-0" title="Cerebras">
+      <svg viewBox="0 0 24 24" class="w-5 h-5 shrink-0" fill="currentColor"><path d="M12 2L3 7v10l9 5 9-5V7l-9-5zm0 3.2l6 3.3v6.6l-6 3.3-6-3.3V8.5l6-3.3z"/></svg>
+      <span class="text-xs sm:text-[13px] font-bold tracking-tight">Cerebras</span>
+    </div>
+<div class="flex items-center gap-2 text-slate-400 hover:text-slate-800 transition-colors duration-200 cursor-default shrink-0" title="AWS Bedrock">
+      <svg viewBox="0 0 24 24" class="w-5 h-5 shrink-0" fill="currentColor"><path d="M2.5 14.5c4.5 3 10.5 4.5 16 1 .5-.3 1 .2.7.7-5 4-12 3.5-17.5-.7-.4-.3-.1-1 .8-1zm17.8-.3c-.3-.4-1.7-.2-2.6 0-.3.1-.3-.2-.1-.4 1.4-1.1 3-1.1 3.5-.8.5.3.3 2-.9 3.2-.2.2-.4.1-.3-.1.5-.7.6-1.5.4-1.9z"/></svg>
+      <span class="text-xs sm:text-[13px] font-bold tracking-tight">AWS Bedrock</span>
+    </div>
+<div class="flex items-center gap-2 text-slate-400 hover:text-slate-800 transition-colors duration-200 cursor-default shrink-0" title="Azure AI">
+      <svg viewBox="0 0 24 24" class="w-5 h-5 shrink-0" fill="currentColor"><path d="M13.05 2.5L5.7 13.9h6.15l-4.3 7.6L20.3 8.35h-6.1z"/></svg>
+      <span class="text-xs sm:text-[13px] font-bold tracking-tight">Azure AI</span>
+    </div>
+          </div>
+          <!-- Duplicated Track Set for Seamless Infinite 360-Loop -->
+          <div class="flex items-center gap-10 sm:gap-14 lg:gap-16 pr-10 sm:pr-14 lg:pr-16 shrink-0" aria-hidden="true">
+<div class="flex items-center gap-2 text-slate-400 hover:text-slate-800 transition-colors duration-200 cursor-default shrink-0" title="Google DeepMind">
+      <svg viewBox="0 0 24 24" class="w-5 h-5 shrink-0" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 5a5 5 0 100 10 5 5 0 000-10z"/></svg>
+      <span class="text-xs sm:text-[13px] font-bold tracking-tight">Google <span class="font-normal opacity-90">DeepMind</span></span>
+    </div>
+<div class="flex items-center gap-2 text-slate-400 hover:text-slate-800 transition-colors duration-200 cursor-default shrink-0" title="OpenAI">
+      <svg viewBox="0 0 24 24" class="w-5 h-5 shrink-0" fill="currentColor"><path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1685a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.872zm16.5963 3.8558L13.1038 8.364 15.1192 7.2a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.407-.6667zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1638a.0804.0804 0 0 1-.038-.0567V6.0742a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.459a.7948.7948 0 0 0-.3927.6813zm1.0976-2.3654l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997Z"/></svg>
+      <span class="text-xs sm:text-[13px] font-bold tracking-tight">OpenAI</span>
+    </div>
+<div class="flex items-center text-slate-400 hover:text-slate-800 transition-colors duration-200 cursor-default shrink-0" title="Anthropic">
+      <span class="text-xs sm:text-[13px] font-black tracking-wider uppercase font-sans">ANTHROP\C</span>
+    </div>
+<div class="flex items-center gap-2 text-slate-400 hover:text-slate-800 transition-colors duration-200 cursor-default shrink-0" title="Google Gemini">
+      <svg viewBox="0 0 24 24" class="w-5 h-5 shrink-0" fill="currentColor"><path d="M12 0C12 6.627 6.627 12 0 12c6.627 0 12 5.373 12 12 0-6.627 5.373-12 12-12-6.627 0-12-5.373-12-12z"/></svg>
+      <span class="text-xs sm:text-[13px] font-bold tracking-tight">Gemini</span>
+    </div>
+<div class="flex items-center gap-2 text-slate-400 hover:text-slate-800 transition-colors duration-200 cursor-default shrink-0" title="Mistral AI">
+      <svg viewBox="0 0 24 24" class="w-5 h-5 shrink-0" fill="currentColor"><path d="M3 3h4v4H3zm14 0h4v4h-4zM3 10h4v4H3zm7 0h4v4h-4zm7 0h4v4h-4zM3 17h4v4H3zm7 0h4v4h-4zm7 0h4v4h-4z"/></svg>
+      <span class="text-xs sm:text-[13px] font-bold tracking-tight">Mistral AI</span>
+    </div>
+<div class="flex items-center text-slate-400 hover:text-slate-800 transition-colors duration-200 cursor-default shrink-0" title="Groq">
+      <span class="text-sm sm:text-[15px] font-extrabold tracking-tight font-sans lowercase">groq</span>
+    </div>
+<div class="flex items-center gap-2 text-slate-400 hover:text-slate-800 transition-colors duration-200 cursor-default shrink-0" title="OpenRouter">
+      <svg viewBox="0 0 24 24" class="w-5 h-5 shrink-0" fill="currentColor"><path d="M17.5 3.5L8.5 12l9 8.5h-4.5L5 12l8-8.5h4.5z"/></svg>
+      <span class="text-xs sm:text-[13px] font-bold tracking-tight">OpenRouter</span>
+    </div>
+<div class="flex items-center gap-2 text-slate-400 hover:text-slate-800 transition-colors duration-200 cursor-default shrink-0" title="Meta Llama">
+      <svg viewBox="0 0 24 24" class="w-5 h-5 shrink-0" fill="currentColor"><path d="M16.634 3.003c-2.029 0-3.666 1.054-4.634 2.378C11.032 4.057 9.395 3.003 7.366 3.003 3.652 3.003.5 6.155.5 10.027c0 4.887 4.544 8.653 10.744 10.84a2.222 2.222 0 0 0 1.512 0c6.2-2.187 10.744-5.953 10.744-10.84 0-3.872-3.152-7.024-6.866-7.024zm-9.268 9.948c-1.636 0-2.96-1.31-2.96-2.924 0-1.613 1.324-2.923 2.96-2.923 1.258 0 2.327.778 2.753 1.879l.061.162c-.672 1.488-1.748 2.827-2.814 3.806zm9.268 0c-1.066-.979-2.142-2.318-2.814-3.806l.061-.162c.426-1.101 1.495-1.879 2.753-1.879 1.636 0 2.96 1.31 2.96 2.923 0 1.614-1.324 2.924-2.96 2.924z"/></svg>
+      <span class="text-xs sm:text-[13px] font-bold tracking-tight">Meta Llama</span>
+    </div>
+<div class="flex items-center gap-2 text-slate-400 hover:text-slate-800 transition-colors duration-200 cursor-default shrink-0" title="DeepSeek">
+      <svg viewBox="0 0 24 24" class="w-5 h-5 shrink-0" fill="currentColor"><path d="M2 13.5C2 7.7 6.7 3 12.5 3c4.1 0 7.7 2.4 9.4 5.9-1.5-.6-3.2-.9-4.9-.9-6.6 0-12 5.4-12 12 0 .5.1 1 .2 1.5C4.3 19.8 2 16.9 2 13.5zm19.8 4.2c-.3 1.8-1.2 3.4-2.5 4.7-1.3 1.3-2.9 2.2-4.7 2.6 1.7-.8 3.1-2.1 4-3.7.9-1.6 1.3-3.4 1.2-5.3 1.2.5 2 1.7 2 3.1 0-.5-.1-.9-.3-1.4z"/></svg>
+      <span class="text-xs sm:text-[13px] font-bold tracking-tight">DeepSeek</span>
+    </div>
+<div class="flex items-center gap-2 text-slate-400 hover:text-slate-800 transition-colors duration-200 cursor-default shrink-0" title="Cohere">
+      <svg viewBox="0 0 24 24" class="w-5 h-5 shrink-0" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c4.18 0 7.76-2.56 9.24-6.22-1.67 1.36-3.8 2.22-6.24 2.22-5.52 0-10-4.48-10-10 0-2.44.86-4.57 2.22-6.24C7.56 2.56 10.18 2 12 2z"/></svg>
+      <span class="text-xs sm:text-[13px] font-bold tracking-tight">Cohere</span>
+    </div>
+<div class="flex items-center gap-2 text-slate-400 hover:text-slate-800 transition-colors duration-200 cursor-default shrink-0" title="Perplexity">
+      <svg viewBox="0 0 24 24" class="w-5 h-5 shrink-0" fill="currentColor"><path d="M12 2L4 7v10l8 5 8-5V7l-8-5zm0 2.5l5.5 3.4-5.5 3.5-5.5-3.5L12 4.5zM6 8.8l5 3.2v6.4l-5-3.1V8.8zm12 6.5l-5 3.1V12l5-3.2v6.5z"/></svg>
+      <span class="text-xs sm:text-[13px] font-bold tracking-tight">Perplexity</span>
+    </div>
+<div class="flex items-center gap-2 text-slate-400 hover:text-slate-800 transition-colors duration-200 cursor-default shrink-0" title="Hugging Face">
+      <svg viewBox="0 0 24 24" class="w-5 h-5 shrink-0" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-3.5 7.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm7 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm-7.9 6.8c.8 1.9 2.6 3.2 4.4 3.2s3.6-1.3 4.4-3.2c.2-.5-.1-1-.6-1h-7.6c-.5 0-.8.5-.6 1z"/></svg>
+      <span class="text-xs sm:text-[13px] font-bold tracking-tight">Hugging Face</span>
+    </div>
+<div class="flex items-center gap-2 text-slate-400 hover:text-slate-800 transition-colors duration-200 cursor-default shrink-0" title="Together AI">
+      <svg viewBox="0 0 24 24" class="w-5 h-5 shrink-0" fill="currentColor"><circle cx="7" cy="12" r="5"/><circle cx="17" cy="12" r="5" opacity="0.75"/></svg>
+      <span class="text-xs sm:text-[13px] font-bold tracking-tight">Together AI</span>
+    </div>
+<div class="flex items-center gap-2 text-slate-400 hover:text-slate-800 transition-colors duration-200 cursor-default shrink-0" title="Fireworks AI">
+      <svg viewBox="0 0 24 24" class="w-5 h-5 shrink-0" fill="currentColor"><path d="M12 2l1.8 5.7L19.5 9l-4.7 3.5 1.8 5.7L12 14.7l-4.6 3.5 1.8-5.7L4.5 9l5.7-1.3L12 2z"/></svg>
+      <span class="text-xs sm:text-[13px] font-bold tracking-tight">Fireworks AI</span>
+    </div>
+<div class="flex items-center gap-2 text-slate-400 hover:text-slate-800 transition-colors duration-200 cursor-default shrink-0" title="Cerebras">
+      <svg viewBox="0 0 24 24" class="w-5 h-5 shrink-0" fill="currentColor"><path d="M12 2L3 7v10l9 5 9-5V7l-9-5zm0 3.2l6 3.3v6.6l-6 3.3-6-3.3V8.5l6-3.3z"/></svg>
+      <span class="text-xs sm:text-[13px] font-bold tracking-tight">Cerebras</span>
+    </div>
+<div class="flex items-center gap-2 text-slate-400 hover:text-slate-800 transition-colors duration-200 cursor-default shrink-0" title="AWS Bedrock">
+      <svg viewBox="0 0 24 24" class="w-5 h-5 shrink-0" fill="currentColor"><path d="M2.5 14.5c4.5 3 10.5 4.5 16 1 .5-.3 1 .2.7.7-5 4-12 3.5-17.5-.7-.4-.3-.1-1 .8-1zm17.8-.3c-.3-.4-1.7-.2-2.6 0-.3.1-.3-.2-.1-.4 1.4-1.1 3-1.1 3.5-.8.5.3.3 2-.9 3.2-.2.2-.4.1-.3-.1.5-.7.6-1.5.4-1.9z"/></svg>
+      <span class="text-xs sm:text-[13px] font-bold tracking-tight">AWS Bedrock</span>
+    </div>
+<div class="flex items-center gap-2 text-slate-400 hover:text-slate-800 transition-colors duration-200 cursor-default shrink-0" title="Azure AI">
+      <svg viewBox="0 0 24 24" class="w-5 h-5 shrink-0" fill="currentColor"><path d="M13.05 2.5L5.7 13.9h6.15l-4.3 7.6L20.3 8.35h-6.1z"/></svg>
+      <span class="text-xs sm:text-[13px] font-bold tracking-tight">Azure AI</span>
+    </div>
+          </div>
+        </div>
+      </div></div>
   </section>
 
   <!-- ========================================================================= -->
