@@ -80,20 +80,13 @@ export const HOME_HTML = `<!DOCTYPE html>
       border-top: 1px solid #e2e8f0;
       margin: 0.6rem 0;
     }
-    /* Keyhole Dynamic Lighting Animations (Matching recording) */
-    @keyframes keyholeOrbit {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+    /* Keyhole Edge-Hugging Beam Sweep Animation */
+    @keyframes keyholeEdgeSweep {
+      0% { stroke-dashoffset: 660; }
+      100% { stroke-dashoffset: 0; }
     }
-    @keyframes keyholePulse {
-      0%, 100% { transform: scale(1); opacity: 0.82; }
-      50% { transform: scale(1.05); opacity: 1; }
-    }
-    .animate-keyhole-orbit {
-      animation: keyholeOrbit 8.5s linear infinite;
-    }
-    .animate-keyhole-pulse {
-      animation: keyholePulse 4s ease-in-out infinite;
+    .animate-keyhole-edge-sweep {
+      animation: keyholeEdgeSweep 7s linear infinite;
     }
   </style>
 </head>
@@ -162,60 +155,75 @@ export const HOME_HTML = `<!DOCTYPE html>
           </div>
         </div>
 
-        <!-- Center Column: Glowing Keyhole Silhouette (Lighting matching recording) -->
+        <!-- Center Column: Glowing Keyhole Silhouette (Tight Edge Glow) -->
         <div class="lg:col-span-4 flex items-center justify-center py-6 lg:py-0">
-          <div id="keyhole-stage" class="relative w-72 h-80 sm:w-80 sm:h-96 flex items-center justify-center select-none transition-transform duration-200">
+          <div id="keyhole-stage" class="relative flex flex-col items-center justify-center select-none transition-transform duration-200">
             
-            <!-- Layer 1: Wide Volumetric Atmospheric Haze (Pink left, Cyan right, Purple top) -->
-            <div
-              class="absolute -inset-10 pointer-events-none"
-              style="background: radial-gradient(circle at 22% 45%, rgba(244,63,94,0.36) 0%, transparent 60%), radial-gradient(circle at 78% 55%, rgba(0,210,255,0.38) 0%, transparent 60%), radial-gradient(circle at 50% 20%, rgba(168,85,247,0.32) 0%, transparent 55%); filter: blur(52px);"
-            ></div>
+            <svg viewBox="0 0 260 320" class="w-56 h-68 sm:w-64 sm:h-76 overflow-visible">
+              <defs>
+                <!-- Base edge chromatic gradient matching triangle colors -->
+                <!-- Pink (left) -> Violet (peak) -> Electric Cyan (right) -> Faint Teal (bottom) -->
+                <linearGradient id="tightEdgeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#ec4899" />
+                  <stop offset="30%" stop-color="#a855f7" />
+                  <stop offset="70%" stop-color="#00d2ff" />
+                  <stop offset="100%" stop-color="#10b981" />
+                </linearGradient>
 
-            <!-- Layer 2: Static Ambient Chromatic Aura hugging the perimeter -->
-            <div
-              class="absolute w-64 h-64 sm:w-76 sm:h-76 rounded-full pointer-events-none animate-keyhole-pulse"
-              style="background: conic-gradient(from 225deg at 50% 50%, #f43f5e 0deg, #a855f7 95deg, #00d2ff 185deg, #10b981 270deg, #f43f5e 360deg); filter: blur(38px); opacity: 0.85;"
-            ></div>
+                <!-- High intensity traveling beam gradient -->
+                <linearGradient id="travelingBeamGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#ffffff" stop-opacity="1" />
+                  <stop offset="35%" stop-color="#00d2ff" stop-opacity="0.9" />
+                  <stop offset="70%" stop-color="#a855f7" stop-opacity="0.5" />
+                  <stop offset="100%" stop-color="transparent" stop-opacity="0" />
+                </linearGradient>
 
-            <!-- Layer 3: Dynamic Sweeping Spotlight Beam (Traveling flare orbiting keyhole) -->
-            <div
-              class="absolute w-72 h-72 sm:w-84 sm:h-84 pointer-events-none animate-keyhole-orbit"
-              style="background: conic-gradient(from 0deg at 50% 50%, transparent 0deg, transparent 200deg, rgba(244,63,94,0.4) 250deg, rgba(168,85,247,0.85) 300deg, #00d2ff 340deg, #ffffff 355deg, transparent 360deg); filter: blur(28px); mix-blend-mode: screen;"
-            ></div>
-
-            <!-- Layer 4: Concentrated Core Backlight (High intensity rim reflection) -->
-            <div
-              class="absolute w-44 h-56 sm:w-52 sm:h-64 pointer-events-none"
-              style="background: radial-gradient(ellipse at 50% 45%, rgba(255,255,255,0.75) 0%, rgba(168,85,247,0.9) 35%, rgba(0,210,255,0.65) 65%, transparent 80%); filter: blur(20px); opacity: 0.9;"
-            ></div>
-
-            <!-- Layer 5: The Keyhole Silhouette (Solid pitch-black with precision rim line) -->
-            <div class="relative z-10 flex items-center justify-center">
-              <svg viewBox="0 0 260 300" class="w-52 h-60 sm:w-60 sm:h-70 filter drop-shadow-[0_0_24px_rgba(168,85,247,0.45)]">
-                <defs>
-                  <linearGradient id="keyholeRimGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#f43f5e" />
-                    <stop offset="35%" stop-color="#a855f7" />
-                    <stop offset="70%" stop-color="#00d2ff" />
-                    <stop offset="100%" stop-color="#10b981" />
-                  </linearGradient>
-                </defs>
-                <!-- Subtle glowing rim stroke -->
-                <path
-                  d="M 130 47 A 48 48 0 0 1 161 132 L 180 245 Q 180 258 168 258 L 92 258 Q 80 258 80 245 L 99 132 A 48 48 0 0 1 130 47 Z"
-                  fill="none"
-                  stroke="url(#keyholeRimGrad)"
-                  stroke-width="2"
-                  opacity="0.9"
+                <!-- Exact Keyhole Silhouette Path -->
+                <path id="keyholeShape"
+                  d="M 130 52 A 44 44 0 0 1 158 135 L 180 250 Q 180 260 170 260 L 90 260 Q 80 260 80 250 L 102 135 A 44 44 0 0 1 130 52 Z"
                 />
-                <!-- Pure pitch-black keyhole body matching section background -->
-                <path
-                  d="M 130 48 A 47 47 0 0 1 160 131 L 179 244 Q 179 256 168 256 L 92 256 Q 81 256 81 244 L 100 131 A 47 47 0 0 1 130 48 Z"
-                  fill="#000000"
-                />
-              </svg>
-            </div>
+              </defs>
+
+              <!-- ================= TIGHT EDGE GLOW (Hugs perimeter strictly) ================= -->
+              <!-- Outer edge halo: spreads just ~16-20px outside the edge -->
+              <use href="#keyholeShape" fill="none" stroke="url(#tightEdgeGrad)" stroke-width="24" opacity="0.45" style="filter: blur(10px);" />
+
+              <!-- Mid edge glow: intense color, spreads ~8-10px outside the edge -->
+              <use href="#keyholeShape" fill="none" stroke="url(#tightEdgeGrad)" stroke-width="12" opacity="0.85" style="filter: blur(4px);" />
+
+              <!-- Specular rim: crisp razor-sharp line right at the perimeter -->
+              <use href="#keyholeShape" fill="none" stroke="url(#tightEdgeGrad)" stroke-width="3.5" opacity="1" style="filter: blur(1px);" />
+
+              <!-- Traveling highlight beam: orbits directly along the edge contour -->
+              <use href="#keyholeShape"
+                   fill="none"
+                   stroke="url(#travelingBeamGrad)"
+                   stroke-width="14"
+                   stroke-dasharray="120 540"
+                   class="animate-keyhole-edge-sweep"
+                   opacity="0.95"
+                   style="filter: blur(4px); mix-blend-mode: screen;" />
+
+              <!-- Traveling bright specular white core -->
+              <use href="#keyholeShape"
+                   fill="none"
+                   stroke="#ffffff"
+                   stroke-width="3"
+                   stroke-dasharray="60 600"
+                   class="animate-keyhole-edge-sweep"
+                   opacity="0.9"
+                   style="filter: blur(1px);" />
+
+              <!-- ================= SOLID BLACK KEYHOLE BODY ================= -->
+              <!-- Pure #000000 pitch-black interior matching background -->
+              <use href="#keyholeShape" fill="#000000" />
+            </svg>
+
+            <!-- Subtle floor reflection under base (matching triangle floor reflection) -->
+            <div
+              class="w-36 h-2 -mt-1 rounded-full pointer-events-none opacity-40"
+              style="background: radial-gradient(ellipse at 50% 50%, rgba(0,210,255,0.7) 0%, rgba(16,185,129,0.5) 40%, transparent 80%); filter: blur(4px);"
+            ></div>
 
           </div>
         </div>
