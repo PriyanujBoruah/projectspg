@@ -640,17 +640,6 @@ export const HOME_HTML = `<!DOCTYPE html>
               </ul>
             </div>
 
-            <!-- Why Competitors Fail Callout -->
-            <div class="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 text-xs text-slate-400 space-y-1.5 leading-relaxed">
-              <div class="flex items-center gap-1.5 font-semibold text-rose-400">
-                <i data-lucide="alert-circle" class="w-3.5 h-3.5"></i>
-                <span>Where Competitors Fail</span>
-              </div>
-              <p>
-                Generic tools redact irreversibly or leave broken tokens like <code class="text-rose-300 bg-rose-950/60 px-1 py-0.5 rounded text-[11px]">[REDACTED]</code> in final answers. ProjectSPG dynamically rehydrates protected placeholders back into the original values before delivering the response to your application.
-              </p>
-            </div>
-
             <div class="pt-1">
               <a href="#demo" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white hover:bg-slate-100 text-slate-900 text-xs font-semibold shadow-xs transition cursor-pointer">
                 <span>Test Live Rehydration</span>
