@@ -20,6 +20,16 @@ export const HOME_HTML = `<!DOCTYPE html>
         linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
     }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 5px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: rgba(148, 163, 184, 0.4);
+      border-radius: 9999px;
+    }
   </style>
 </head>
 <body class="min-h-full bg-[#fafafa] text-[#1e1e2e] flex flex-col antialiased">
@@ -288,7 +298,7 @@ export const HOME_HTML = `<!DOCTYPE html>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
           
           <!-- Left: What Upstream Mistral Received -->
-          <div class="p-4 bg-slate-900 text-slate-100 rounded-xl border border-slate-800 space-y-2">
+          <div class="p-4 bg-slate-900 text-slate-100 rounded-xl border border-slate-800 space-y-2 flex flex-col">
             <div class="flex items-center justify-between text-[11px] text-slate-400 border-b border-slate-800 pb-2">
               <span class="font-semibold text-amber-400 flex items-center gap-1.5">
                 <i data-lucide="eye-off" class="w-3.5 h-3.5"></i>
@@ -296,11 +306,11 @@ export const HOME_HTML = `<!DOCTYPE html>
               </span>
               <span class="text-emerald-400 text-[10px] bg-emerald-950/60 px-1.5 py-0.5 rounded border border-emerald-800">Zero PII Leaked</span>
             </div>
-            <div id="demo-sanitized-output" class="text-[11.5px] leading-relaxed text-slate-300 font-mono whitespace-pre-wrap"></div>
+            <div id="demo-sanitized-output" class="text-[11.5px] leading-relaxed text-slate-300 font-mono whitespace-pre-wrap max-h-72 overflow-y-auto pr-2 custom-scrollbar"></div>
           </div>
 
           <!-- Right: What You Received (Rehydrated) -->
-          <div class="p-4 bg-slate-50 text-slate-900 rounded-xl border border-gray-200 space-y-2">
+          <div class="p-4 bg-slate-50 text-slate-900 rounded-xl border border-gray-200 space-y-2 flex flex-col">
             <div class="flex items-center justify-between text-[11px] text-slate-500 border-b border-gray-200 pb-2">
               <span class="font-semibold text-emerald-600 flex items-center gap-1.5">
                 <i data-lucide="check-circle" class="w-3.5 h-3.5"></i>
@@ -308,7 +318,7 @@ export const HOME_HTML = `<!DOCTYPE html>
               </span>
               <span class="text-slate-500 text-[10px]">100% Rehydrated</span>
             </div>
-            <div id="demo-rehydrated-output" class="text-[11.5px] leading-relaxed text-slate-700 font-sans whitespace-pre-wrap"></div>
+            <div id="demo-rehydrated-output" class="text-[11.5px] leading-relaxed text-slate-700 font-sans whitespace-pre-wrap max-h-72 overflow-y-auto pr-2 custom-scrollbar"></div>
           </div>
 
         </div>
@@ -482,10 +492,10 @@ print(response.choices[0].message.content)</pre>
   <!-- ========================================================================= -->
   <script>
     const DEMO_PRESETS = {
-      healthcare: "Patient Eleanor Vance (SSN: 902-48-1229, DOB: 04/18/1972) admitted to St. Jude ICU. Prescribed 50mg Metoprolol. Contact doctor at dr.marcus@hospital.org.",
-      fintech: "Authorize transaction of $4,850.00 for cardholder David Chen (Card: 4532-8901-2345-6789, Exp: 09/28, CVV: 842). Billing zip: 94103.",
-      hr: "Employee audit for Alice Walker (Email: alice.walker@megacorp.io, Phone: +1-415-555-0199, Tax ID: 82-9102834). Salary grade: L6 Senior Engineer.",
-      devops: "Deployment script failure: AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY for user admin@production.internal. Investigate IAM role."
+      healthcare: "Patient Eleanor Vance (SSN: 902-48-1229, DOB: 04/18/1972) admitted to St. Jude ICU. Prescribed 50mg Metoprolol. Contact doctor at dr.marcus@hospital.org. Provide a brief care summary.",
+      fintech: "Authorize transaction of $4,850.00 for cardholder David Chen (Card: 4532-8901-2345-6789, Exp: 09/28, CVV: 842). Billing zip: 94103. Confirm transaction status and risk rating.",
+      hr: "Verify employee record: Alice Walker (Email: alice.walker@megacorp.io, Phone: +1-415-555-0199, Tax ID: 82-9102834). Salary grade: L6 Senior Engineer. Summarize profile and onboarding status.",
+      devops: "Deployment script failure: AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY for user admin@production.internal. Provide quick remediation advice."
     };
 
     const PRESET_KEYS = ['healthcare', 'fintech', 'hr', 'devops'];
@@ -632,7 +642,17 @@ print(response.choices[0].message.content)</pre>
           },
           body: JSON.stringify({
             model: selectedModel,
-            messages: [{ role: 'user', content: text }]
+            messages: [
+              {
+                role: 'system',
+                content: 'You are an enterprise AI assistant. Provide a direct, professional, and concise response under 120 words. Avoid excessive boilerplate.'
+              },
+              {
+                role: 'user',
+                content: text
+              }
+            ],
+            max_tokens: 250
           })
         });
 
