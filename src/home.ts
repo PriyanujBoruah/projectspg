@@ -119,7 +119,7 @@ export const HOME_HTML = `<!DOCTYPE html>
 
         <nav class="hidden md:flex items-center gap-6 text-xs font-medium text-slate-600">
           <a href="#demo" class="hover:text-slate-900 transition">Live Demo</a>
-          <a href="#features" class="hover:text-slate-900 transition">Architecture</a>
+          <a href="#security-comparison" class="hover:text-slate-900 transition">Architecture</a>
           <a href="#platform" class="hover:text-slate-900 transition">Platform</a>
           <a href="/#docs" class="hover:text-slate-900 transition">API Docs</a>
         </nav>
@@ -796,54 +796,6 @@ export const HOME_HTML = `<!DOCTYPE html>
 
       </div>
 
-    </section>
-
-    <!-- ======================================================================= -->
-    <!-- VALUE PROPS & ARCHITECTURE SECTION                                      -->
-    <!-- ======================================================================= -->
-    <section id="features" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-gray-200/80">
-      <div class="text-center max-w-3xl mx-auto mb-12">
-        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight mb-3">
-          Enterprise Security without Changing Your Code
-        </h2>
-        <p class="text-sm text-slate-600">
-          Switch one baseURL parameter in your OpenAI SDK to immediately achieve HIPAA, GDPR, and PCI-DSS compliance.
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        
-        <div class="p-6 bg-white rounded-2xl border border-gray-200 shadow-2xs space-y-3">
-          <div class="w-10 h-10 rounded-xl bg-orange-50 border border-orange-100 flex items-center justify-center text-[#f0523d]">
-            <i data-lucide="zap" class="w-5 h-5"></i>
-          </div>
-          <h3 class="text-base font-bold text-slate-900">Sub-20ms Edge Latency</h3>
-          <p class="text-xs text-slate-600 leading-relaxed">
-            Runs natively on Cloudflare Workers across 300+ global edge locations. Intercepts and masks text at lightning speed with zero measurable impact on end-user streaming.
-          </p>
-        </div>
-
-        <div class="p-6 bg-white rounded-2xl border border-gray-200 shadow-2xs space-y-3">
-          <div class="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600">
-            <i data-lucide="globe" class="w-5 h-5"></i>
-          </div>
-          <h3 class="text-base font-bold text-slate-900">109 Sovereign Jurisdictions</h3>
-          <p class="text-xs text-slate-600 leading-relaxed">
-            Recognizes country-specific IDs out-of-the-box: US SSN, UK NHS, German Steuer-ID, Singapore NRIC, Indian PAN/Aadhaar, Brazilian CPF, and European IBANs.
-          </p>
-        </div>
-
-        <div class="p-6 bg-white rounded-2xl border border-gray-200 shadow-2xs space-y-3">
-          <div class="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600">
-            <i data-lucide="key" class="w-5 h-5"></i>
-          </div>
-          <h3 class="text-base font-bold text-slate-900">Bring Your Own Key (BYOK)</h3>
-          <p class="text-xs text-slate-600 leading-relaxed">
-            Supply your own Google AI Studio, Groq, Mistral, or OpenAI API keys directly in standard headers. Enjoy enterprise privacy with zero markup on model tokens.
-          </p>
-        </div>
-
-      </div>
     </section>
 
     <!-- ======================================================================= -->
