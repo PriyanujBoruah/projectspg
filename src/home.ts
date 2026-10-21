@@ -2198,6 +2198,123 @@ export const HOME_HTML = `<!DOCTYPE html>
 
     </section>
 
+    <!-- ======================================================================= -->
+    <!-- RATE LIMIT INCREASE & DEVELOPER UPGRADE (100k/mo CAPTURE SECTION)       -->
+    <!-- ======================================================================= -->
+    <section id="rate-limits" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 border-t border-gray-200/80">
+      
+      <div class="relative select-none">
+        <!-- Sharp Hatch Shadow Layer -->
+        <div class="absolute inset-0 rounded-3xl transform translate-x-3 translate-y-3 z-0 pointer-events-none border-2 border-slate-900"
+             style="background: repeating-linear-gradient(45deg, #475569, #475569 1.3px, transparent 1.3px, transparent 7px); opacity: 0.35;"></div>
+
+        <!-- Main Card Body -->
+        <div class="relative z-10 rounded-3xl bg-white border-2 border-slate-900 p-8 sm:p-12 lg:p-14 text-center overflow-hidden"
+             style="box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.05);">
+          
+          <!-- Corner Registration Marks (+) -->
+          <div class="absolute top-3 left-3 text-slate-500 font-mono text-xs font-black select-none leading-none">+</div>
+          <div class="absolute top-3 right-3 text-slate-500 font-mono text-xs font-black select-none leading-none">+</div>
+          <div class="absolute bottom-3 left-3 text-slate-500 font-mono text-xs font-black select-none leading-none">+</div>
+          <div class="absolute bottom-3 right-3 text-slate-500 font-mono text-xs font-black select-none leading-none">+</div>
+
+          <!-- Inset Dashed Drafting Contour -->
+          <div class="absolute inset-2 sm:inset-2.5 rounded-[22px] border border-dashed border-slate-300 pointer-events-none"></div>
+
+          <!-- Top Status Pill -->
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-orange-50 border-2 border-slate-900 text-xs font-mono font-black text-slate-900 mb-6 shadow-[2px_2px_0px_0px_#0f172a]">
+            <span class="w-2.5 h-2.5 rounded-full bg-[#f0523d] border border-slate-900 animate-pulse"></span>
+            <span>§ 08 // DEVELOPER QUOTA UPGRADE</span>
+            <span class="text-slate-400">•</span>
+            <span class="text-[#f0523d] font-bold">100,000 REQS / MO</span>
+          </div>
+
+          <!-- Main Heading -->
+          <h2 class="text-3xl sm:text-5xl font-extrabold text-slate-950 tracking-tight leading-tight max-w-2xl mx-auto">
+            Need Higher Throughput? Unlock 100k Requests / Month.
+          </h2>
+
+          <!-- Subhead -->
+          <p class="text-sm sm:text-base text-slate-600 font-medium leading-relaxed max-w-xl mx-auto mt-4 mb-8">
+            Upgrade your developer key from standard tier to <strong>100,000 requests/month</strong>. Test frontier LLMs with instant de-identification, &lt;20ms edge latency, and full zero-retention routing.
+          </p>
+
+          <!-- Interactive Form Container -->
+          <div class="max-w-md mx-auto mb-6">
+            <form id="bottom-upgrade-form" onsubmit="handleBottomUpgradeSubmit(event)" class="relative flex flex-col sm:flex-row items-stretch gap-2.5">
+              <div class="relative flex-1">
+                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                  <i data-lucide="mail" class="w-4 h-4"></i>
+                </div>
+                <input
+                  type="email"
+                  id="bottom-upgrade-email"
+                  required
+                  placeholder="Enter your work email..."
+                  class="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-50 border-2 border-slate-900 text-slate-900 placeholder-slate-400 text-xs font-mono font-semibold focus:outline-none focus:bg-white focus:border-[#f0523d] shadow-[2px_2px_0px_0px_#0f172a] transition-all"
+                />
+              </div>
+              <button
+                type="submit"
+                id="btn-bottom-upgrade"
+                class="px-6 py-3 rounded-xl bg-[#f0523d] hover:bg-[#e0422d] text-white text-xs font-mono font-black uppercase tracking-wider border-2 border-slate-900 shadow-[3px_3px_0px_0px_#0f172a] hover:shadow-[1px_1px_0px_0px_#0f172a] hover:translate-x-0.5 hover:translate-y-0.5 transition-all cursor-pointer flex items-center justify-center gap-2 shrink-0 group"
+              >
+                <span>Unlock 100k/mo</span>
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform"></i>
+              </button>
+            </form>
+
+            <!-- Success State Message (Initially Hidden) -->
+            <div id="bottom-upgrade-success" class="hidden mt-3 p-4 rounded-xl bg-emerald-50 border-2 border-emerald-700 text-emerald-950 font-mono text-xs text-left shadow-[2px_2px_0px_0px_#065f46]">
+              <div class="flex items-center gap-2 font-black mb-1 text-emerald-900">
+                <i data-lucide="check-circle" class="w-4 h-4 text-emerald-600 stroke-[2.5]"></i>
+                <span>✓ 100,000 Monthly Quota Unlocked!</span>
+              </div>
+              <p class="text-[11px] text-emerald-800 font-sans leading-relaxed">
+                Your email has been registered for the 100k/mo developer tier. Your upgraded API key is now active.
+              </p>
+              <div class="mt-2.5 flex items-center gap-3">
+                <a href="/" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white font-mono text-[11px] font-bold transition">
+                  <span>Open Console</span>
+                  <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                </a>
+                <span class="text-[10px] text-emerald-700 font-sans">No credit card required.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Feature Checklist Strip -->
+          <div class="pt-6 border-t border-dashed border-slate-200 flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-xs font-mono font-bold text-slate-700">
+            <div class="flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+              <span>100,000 Requests / Mo</span>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-cyan-500"></span>
+              <span>Sub-20ms PII Strip</span>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-[#f0523d]"></span>
+              <span>Zero Upstream Retention</span>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-purple-500"></span>
+              <span>Drop-in OpenAI Wire</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Architectural Ground Drafting Lines beneath the card -->
+      <div class="mt-14 flex flex-col items-center justify-center space-y-1.5 opacity-60">
+        <div class="w-1/2 h-[1.8px] bg-slate-400 rounded-full"></div>
+        <div class="w-1/3 h-[1.2px] bg-slate-300 rounded-full"></div>
+        <div class="w-1/5 h-[1.0px] bg-slate-200 rounded-full"></div>
+      </div>
+
+    </section>
+
   </main>
 
   <!-- ========================================================================= -->
@@ -2585,6 +2702,41 @@ export const HOME_HTML = `<!DOCTYPE html>
 
       // Redirect immediately to full playground console
       window.location.href = '/';
+    }
+
+
+    async function handleBottomUpgradeSubmit(e) {
+      e.preventDefault();
+      const input = document.getElementById('bottom-upgrade-email');
+      const email = input ? input.value.trim() : '';
+      if (!email) return;
+
+      const submitBtn = document.getElementById('btn-bottom-upgrade');
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span>Activating...</span>';
+      }
+
+      try {
+        await fetch('/api/leads', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, source: 'home_bottom_100k_upgrade' })
+        });
+      } catch (err) {
+        console.warn('Lead submit offline:', err);
+      }
+
+      localStorage.setItem('spg_lead_email', email);
+      localStorage.setItem('spg_tier', '100k');
+
+      const form = document.getElementById('bottom-upgrade-form');
+      const successBox = document.getElementById('bottom-upgrade-success');
+      if (form) form.classList.add('hidden');
+      if (successBox) {
+        successBox.classList.remove('hidden');
+        if (window.lucide) lucide.createIcons();
+      }
     }
 
     document.addEventListener('DOMContentLoaded', () => {
