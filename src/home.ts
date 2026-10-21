@@ -374,7 +374,7 @@ export const HOME_HTML = `<!DOCTYPE html>
 
         <!-- Right Column: 3-line bullet copy in architectural sketch style -->
         <div class="lg:col-span-3 text-center lg:text-left">
-          <div class="font-sketch font-bold text-xl sm:text-2xl text-slate-900 leading-snug space-y-2.5 select-none">
+          <div class="font-sketch font-bold text-base sm:text-lg lg:text-xl text-slate-900 leading-snug space-y-2 select-none">
             <p>For enterprise LLMs</p>
             <p>To secure frontier AI intelligence</p>
             <p>Secured across every pipeline</p>
