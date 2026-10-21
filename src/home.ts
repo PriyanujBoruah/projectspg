@@ -292,7 +292,7 @@ export const HOME_HTML = `<!DOCTYPE html>
         <div class="lg:col-span-4 flex items-center justify-center py-6 lg:py-0">
           <div id="keyhole-stage" class="relative flex flex-col items-center justify-center select-none">
             
-            <svg viewBox="0 0 260 320" class="w-64 h-[315px] sm:w-80 sm:h-[394px] lg:w-[330px] lg:h-[406px] xl:w-[360px] xl:h-[443px] overflow-visible">
+            <svg viewBox="0 0 260 320" class="w-[280px] h-[345px] sm:w-[350px] sm:h-[430px] lg:w-[385px] lg:h-[474px] xl:w-[425px] xl:h-[523px] overflow-visible">
               <defs>
                 <!-- Sharp Diagonal Cross-Hatching Pattern for Sketch Shadows (No blur) -->
                 <pattern id="sketchHatch" width="6" height="6" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
