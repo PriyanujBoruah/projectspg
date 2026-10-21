@@ -334,189 +334,410 @@ export const HOME_HTML = `<!DOCTYPE html>
 
     <!-- ======================================================================= -->
     <!-- HOW IT WORKS: DATA FLOW & INTERCEPTION ARCHITECTURE                     -->
-    <!-- Clean, glanceable light-themed architectural blueprint                   -->
+    <!-- Architectural Sketch Light-Themed Blueprint                             -->
     <!-- ======================================================================= -->
-    <section id="how-it-works" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+    <section id="how-it-works" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-22">
       
-      <!-- Section Header -->
+      <!-- Section Header with Technical Sketch Pill -->
       <div class="text-center max-w-2xl mx-auto space-y-2 mb-10 sm:mb-12">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-slate-200/90 text-[11px] font-mono font-semibold tracking-wide text-slate-700 shadow-2xs">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border-2 border-slate-800 text-[11px] font-mono font-bold tracking-wider text-slate-800"
+             style="box-shadow: 2.5px 2.5px 0px 0px #0f172a;">
           <span class="w-1.5 h-1.5 rounded-full bg-[#f0523d] animate-pulse"></span>
-          <span>HOW IT WORKS</span>
+          <span>§ 01 // ARCHITECTURAL DATA FLOW</span>
         </div>
-        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight leading-tight">
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
           Where ProjectSPG Intercepts Your Data Flow
         </h2>
         <p class="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
-          Direct AI requests leak customer data and API keys to third-party logs. ProjectSPG intercepts prompts at the edge so LLMs only ever see anonymous tokens.
+          Direct AI requests leak customer records and secrets to third-party logs. ProjectSPG intercepts prompts at the edge so LLMs only ever see anonymous tokens.
         </p>
       </div>
 
-      <!-- Main Visual Architecture Blueprint (Light Architectural Drafting Canvas) -->
-      <div class="relative rounded-2xl bg-white border-2 border-slate-200/90 p-5 sm:p-7 lg:p-8 text-slate-900 mb-6 overflow-hidden"
-           style="box-shadow: 6px 6px 0px 0px rgba(15, 23, 42, 0.05);">
+      <!-- Main Visual Architecture Blueprint (Light Architectural Sketch Canvas with Hatch Shadow) -->
+      <div class="relative select-none mb-10">
         
-        <!-- Technical Corner Drafting Registration Marks (+) -->
-        <div class="absolute top-2.5 left-2.5 text-slate-400 font-mono text-xs select-none leading-none">+</div>
-        <div class="absolute top-2.5 right-2.5 text-slate-400 font-mono text-xs select-none leading-none">+</div>
-        <div class="absolute bottom-2.5 left-2.5 text-slate-400 font-mono text-xs select-none leading-none">+</div>
-        <div class="absolute bottom-2.5 right-2.5 text-slate-400 font-mono text-xs select-none leading-none">+</div>
+        <!-- Sharp Hatch Shadow Layer (Blueprint Cast Shadow) -->
+        <div class="absolute inset-0 rounded-3xl transform translate-x-2.5 translate-y-2.5 z-0 pointer-events-none border-2 border-slate-700/60"
+             style="background: repeating-linear-gradient(45deg, #94a3b8, #94a3b8 1.3px, transparent 1.3px, transparent 7px); opacity: 0.45;"></div>
 
-        <!-- Inset Dashed Drafting Frame -->
-        <div class="absolute inset-2 rounded-xl border border-dashed border-slate-200 pointer-events-none"></div>
-
-        <div class="relative z-10 space-y-5">
+        <!-- Blueprint Drafting Table Canvas Body -->
+        <div class="relative z-10 rounded-3xl bg-white border-2 border-slate-800 p-5 sm:p-7 lg:p-8 text-slate-900 overflow-hidden">
           
-          <!-- FLOW 1: WITHOUT PROJECTSPG (The Hazard / Leaking Route) -->
-          <div class="rounded-xl bg-rose-50/50 border-2 border-rose-200/80 p-4 relative"
-               style="box-shadow: 3px 3px 0px 0px rgba(225, 29, 72, 0.08);">
+          <!-- Technical Corner Drafting Marks (+) -->
+          <div class="absolute top-2.5 left-2.5 text-slate-800 font-mono text-xs font-bold select-none leading-none">+</div>
+          <div class="absolute top-2.5 right-2.5 text-slate-800 font-mono text-xs font-bold select-none leading-none">+</div>
+          <div class="absolute bottom-2.5 left-2.5 text-slate-800 font-mono text-xs font-bold select-none leading-none">+</div>
+          <div class="absolute bottom-2.5 right-2.5 text-slate-800 font-mono text-xs font-bold select-none leading-none">+</div>
+
+          <!-- Inset Dashed Drafting Contour -->
+          <div class="absolute inset-2 sm:inset-2.5 rounded-[20px] border border-dashed border-slate-300 pointer-events-none"></div>
+
+          <!-- Faint Sketch Background Texture -->
+          <div class="absolute inset-0 rounded-3xl pointer-events-none opacity-5"
+               style="background: repeating-linear-gradient(45deg, #0f172a, #0f172a 1.2px, transparent 1.2px, transparent 8px);"></div>
+
+          <div class="relative z-10 space-y-6">
             
-            <div class="flex items-center justify-between pb-2.5 mb-2.5 border-b border-rose-200/70">
+            <!-- Blueprint Header Metadata Strip -->
+            <div class="flex items-center justify-between pb-2.5 border-b border-dashed border-slate-300 text-[10px] font-mono text-slate-500">
               <div class="flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-rose-500"></span>
-                <span class="text-xs font-mono font-bold uppercase tracking-wider text-rose-900">Without ProjectSPG: Direct AI Traffic</span>
+                <span class="font-bold text-slate-800">FIG. 01</span>
+                <span>//</span>
+                <span>EDGE_INTERCEPTION_MECHANICS</span>
               </div>
-              <span class="text-[10px] font-mono font-semibold px-2 py-0.5 rounded bg-rose-100 text-rose-700 border border-rose-300">
-                ✕ Data Leaked
-              </span>
+              <div class="hidden sm:flex items-center gap-3 text-[9px]">
+                <span>SCALE: 1:1</span>
+                <span>•</span>
+                <span>LATENCY: &lt;20MS</span>
+                <span>•</span>
+                <span class="text-emerald-700 font-bold">ZERO_DATA_LEAKAGE</span>
+              </div>
             </div>
 
-            <!-- 3-Node Horizontal Pipeline -->
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center font-mono text-xs">
+            <!-- =============================================================== -->
+            <!-- FLOW 1: WITHOUT PROJECTSPG (The Hazard / Leaking Route)          -->
+            <!-- =============================================================== -->
+            <div class="relative rounded-2xl bg-rose-50/70 border-2 border-rose-900/80 p-4 sm:p-5 overflow-hidden"
+                 style="box-shadow: 4px 4px 0px 0px rgba(159, 18, 57, 0.25);">
               
-              <!-- Client Prompt Box -->
-              <div class="md:col-span-4 p-2.5 rounded-lg bg-white border border-rose-200/90 shadow-2xs">
-                <div class="text-[10px] text-slate-400 uppercase font-semibold mb-1">Your App / Prompt</div>
-                <div class="text-slate-800 text-[11px] truncate">
-                  "Pay <span class="text-rose-800 font-bold bg-rose-100 border border-rose-300 px-1 py-0.5 rounded">John Doe</span> (SSN: <span class="text-rose-800 font-bold bg-rose-100 border border-rose-300 px-1 py-0.5 rounded">412-88-9012</span>) <span class="text-rose-800 font-bold bg-rose-100 border border-rose-300 px-1 py-0.5 rounded">$14,500</span>"
-                </div>
-              </div>
-              
-              <!-- Red Arrow Connecting Wire -->
-              <div class="md:col-span-4 flex items-center justify-center gap-2 text-rose-600 text-[11px] py-1">
-                <div class="hidden md:block flex-1 h-[2px] bg-rose-300"></div>
-                <span class="px-2 py-0.5 rounded bg-rose-100 border border-rose-300/80 text-rose-700 text-[10px] font-semibold shrink-0">
-                  Raw PII over Internet
-                </span>
-                <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-rose-600 shrink-0"></i>
-                <div class="hidden md:block flex-1 h-[2px] bg-rose-300"></div>
-              </div>
+              <!-- Subtle red cross-hatch accent -->
+              <div class="absolute inset-0 rounded-2xl pointer-events-none opacity-10"
+                   style="background: repeating-linear-gradient(45deg, #f43f5e, #f43f5e 1.2px, transparent 1.2px, transparent 7px);"></div>
 
-              <!-- AI Provider Target -->
-              <div class="md:col-span-4 p-2.5 rounded-lg bg-rose-100/60 border border-rose-300/80 shadow-2xs">
-                <div class="text-[10px] text-rose-900 uppercase font-semibold mb-1">Cloud AI Provider</div>
-                <div class="text-[11px] text-rose-950 font-medium">
-                  ⚠️ PII stored in telemetry & model training sets
-                </div>
-              </div>
-
-            </div>
-          </div>
-
-          <!-- FLOW 2: WITH PROJECTSPG (The Protected Gateway) -->
-          <div class="rounded-xl bg-emerald-50/40 border-2 border-emerald-400/80 p-4 relative"
-               style="box-shadow: 3px 3px 0px 0px rgba(16, 185, 129, 0.12);">
-            
-            <div class="flex items-center justify-between pb-2.5 mb-2.5 border-b border-emerald-200/80">
-              <div class="flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span class="text-xs font-mono font-bold uppercase tracking-wider text-emerald-950">With ProjectSPG: Zero-Trust Interception</span>
-              </div>
-              <span class="text-[10px] font-mono font-semibold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-300">
-                ✓ 100% Protected & Reversible
-              </span>
-            </div>
-
-            <!-- 3-Node Horizontal Pipeline with ProjectSPG in Middle -->
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center font-mono text-xs">
-              
-              <!-- Client -->
-              <div class="md:col-span-3 p-2.5 rounded-lg bg-white border border-emerald-200/90 shadow-2xs">
-                <div class="text-[10px] text-slate-400 uppercase font-semibold mb-1">Your App / Prompt</div>
-                <div class="text-slate-800 text-[11px] truncate">
-                  "Pay <span class="text-emerald-700 font-bold">John Doe</span>..."
-                </div>
-                <div class="text-[9px] text-emerald-600 font-semibold mt-1">✓ Receives real data back</div>
-              </div>
-
-              <!-- ProjectSPG Inline Gateway (The Shield) -->
-              <div class="md:col-span-5 p-2.5 rounded-lg bg-cyan-50/90 border-2 border-cyan-400/90 relative shadow-2xs">
-                <div class="flex items-center justify-between mb-1">
-                  <span class="text-[10px] text-cyan-900 uppercase font-bold flex items-center gap-1">
-                    <i data-lucide="shield-check" class="w-3.5 h-3.5 text-cyan-600"></i>
-                    <span>ProjectSPG Gateway</span>
+              <!-- Flow 1 Top Strip -->
+              <div class="relative z-10 flex items-center justify-between pb-2.5 mb-3 border-b border-rose-300/80">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-rose-500 border border-rose-700"></span>
+                  <span class="text-xs font-mono font-bold uppercase tracking-wider text-rose-950">
+                    § 01 // WITHOUT PROJECTSPG: DIRECT AI TRAFFIC
                   </span>
-                  <span class="text-[9px] px-1.5 py-0.2 rounded bg-cyan-100 text-cyan-800 border border-cyan-300 font-mono font-semibold">&lt;20ms</span>
                 </div>
-                <div class="text-[10px] text-slate-700 space-y-0.5">
-                  <div class="flex items-center gap-1.5">
-                    <span class="text-cyan-700 font-bold">1.</span> <span>Strips PII ➔ <code class="text-cyan-900 bg-cyan-100 border border-cyan-300 px-1 py-0.2 rounded font-mono font-bold">[PERSON_1]</code>, <code class="text-amber-900 bg-amber-100 border border-amber-300 px-1 py-0.2 rounded font-mono font-bold">[SSN_1]</code></span>
-                  </div>
-                  <div class="flex items-center gap-1.5">
-                    <span class="text-emerald-700 font-bold">2.</span> <span>Rehydrates real values on return</span>
-                  </div>
-                </div>
+                <span class="text-[9px] font-mono font-bold px-2 py-0.5 rounded bg-rose-600 text-white border border-rose-800"
+                      style="box-shadow: 1.5px 1.5px 0px 0px rgba(159, 18, 57, 0.4);">
+                  ✕ CRITICAL LEAK
+                </span>
               </div>
 
-              <!-- AI Provider Target -->
-              <div class="md:col-span-4 p-2.5 rounded-lg bg-white border border-emerald-300 shadow-2xs">
-                <div class="text-[10px] text-emerald-900 uppercase font-semibold mb-1">Cloud AI Provider (OpenAI / Claude)</div>
-                <div class="text-[11px] text-slate-700">
-                  "Pay <span class="text-cyan-800 font-bold bg-cyan-50 border border-cyan-200 px-1 rounded">[PERSON_1]</span>..."
+              <!-- 3-Node Horizontal Pipeline in Sketch Style -->
+              <div class="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-3 items-center font-mono text-xs">
+                
+                <!-- Client Prompt Box -->
+                <div class="md:col-span-4 p-3 rounded-xl bg-white border-2 border-slate-800 text-slate-900"
+                     style="box-shadow: 2.5px 2.5px 0px 0px #0f172a;">
+                  <div class="flex items-center justify-between pb-1.5 mb-1.5 border-b border-dashed border-slate-200 text-[10px]">
+                    <span class="text-slate-500 uppercase font-bold tracking-tight">ORIGIN // PROMPT</span>
+                    <span class="text-[9px] text-rose-600 font-bold">UNENCRYPTED</span>
+                  </div>
+                  <div class="text-[11px] leading-relaxed text-slate-800">
+                    "Pay 
+                    <span class="relative inline-block px-1 py-0.5 mx-0.5 text-rose-950 font-bold border border-rose-600 rounded bg-rose-100"
+                          style="box-shadow: 1.5px 1.5px 0px 0px rgba(225, 29, 72, 0.3);">John Doe</span>
+                    (SSN: 
+                    <span class="relative inline-block px-1 py-0.5 mx-0.5 text-rose-950 font-bold border border-rose-600 rounded bg-rose-100"
+                          style="box-shadow: 1.5px 1.5px 0px 0px rgba(225, 29, 72, 0.3);">412-88-9012</span>)
+                    <span class="relative inline-block px-1 py-0.5 mx-0.5 text-rose-950 font-bold border border-rose-600 rounded bg-rose-100"
+                          style="box-shadow: 1.5px 1.5px 0px 0px rgba(225, 29, 72, 0.3);">$14,500</span>"
+                  </div>
                 </div>
-                <div class="text-[9px] text-emerald-700 font-semibold mt-1">✓ Sees & logs tokens only</div>
-              </div>
+                
+                <!-- Red Connecting Wire (Leaking Pipe) with Sketch Arrow -->
+                <div class="md:col-span-4 flex items-center justify-center gap-1.5 text-rose-700 text-[11px] py-1 select-none">
+                  <div class="hidden md:block flex-1 border-t-2 border-dashed border-rose-400"></div>
+                  <div class="px-2 py-1 rounded bg-white border-2 border-rose-700 text-[9px] font-mono font-bold text-rose-800 flex items-center gap-1 shrink-0"
+                       style="box-shadow: 2px 2px 0px 0px rgba(159, 18, 57, 0.3);">
+                    <span>Raw PII over Internet</span>
+                    <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-rose-600"></i>
+                  </div>
+                  <div class="hidden md:block flex-1 border-t-2 border-dashed border-rose-400"></div>
+                </div>
 
+                <!-- AI Provider Target Box -->
+                <div class="md:col-span-4 p-3 rounded-xl bg-white border-2 border-rose-800 text-rose-950"
+                     style="box-shadow: 2.5px 2.5px 0px 0px rgba(159, 18, 57, 0.4);">
+                  <div class="flex items-center justify-between pb-1.5 mb-1.5 border-b border-dashed border-rose-200 text-[10px]">
+                    <span class="text-rose-800 uppercase font-bold tracking-tight">CLOUD AI PROVIDER</span>
+                    <span class="text-[9px] font-bold text-rose-600">UNSECURED</span>
+                  </div>
+                  <div class="text-[11px] text-rose-900 font-medium space-y-1">
+                    <div class="flex items-start gap-1.5">
+                      <span class="text-rose-600 font-bold">✕</span>
+                      <span>PII logged in vendor query databases</span>
+                    </div>
+                    <div class="flex items-start gap-1.5">
+                      <span class="text-rose-600 font-bold">✕</span>
+                      <span>Ingested into future model training</span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
             </div>
+
+            <!-- Architectural Divider: Technical Boundary with Datum Line -->
+            <div class="relative py-1 flex items-center justify-center select-none">
+              <div class="w-full border-t-2 border-dashed border-slate-300"></div>
+              <div class="absolute px-3.5 py-1 rounded-full bg-white border-2 border-slate-800 text-[10px] font-mono font-bold text-slate-800 flex items-center gap-1.5"
+                   style="box-shadow: 2px 2px 0px 0px #0f172a;">
+                <span class="w-2 h-2 rounded-full bg-cyan-500"></span>
+                <span>§ INTERCEPTION PERIMETER // ZERO-TRUST GATEWAY</span>
+              </div>
+            </div>
+
+            <!-- =============================================================== -->
+            <!-- FLOW 2: WITH PROJECTSPG (The Protected Gateway)                 -->
+            <!-- =============================================================== -->
+            <div class="relative rounded-2xl bg-emerald-50/60 border-2 border-emerald-800 p-4 sm:p-5 overflow-hidden"
+                 style="box-shadow: 4px 4px 0px 0px rgba(5, 150, 105, 0.3);">
+              
+              <!-- Subtle green cross-hatch accent -->
+              <div class="absolute inset-0 rounded-2xl pointer-events-none opacity-10"
+                   style="background: repeating-linear-gradient(45deg, #10b981, #10b981 1.2px, transparent 1.2px, transparent 7px);"></div>
+
+              <!-- Flow 2 Top Strip -->
+              <div class="relative z-10 flex items-center justify-between pb-2.5 mb-3 border-b border-emerald-300/80">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 border border-emerald-700 animate-pulse"></span>
+                  <span class="text-xs font-mono font-bold uppercase tracking-wider text-emerald-950">
+                    § 02 // WITH PROJECTSPG: ZERO-TRUST INTERCEPTION
+                  </span>
+                </div>
+                <span class="text-[9px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-600 text-white border border-emerald-800"
+                      style="box-shadow: 1.5px 1.5px 0px 0px rgba(5, 150, 105, 0.4);">
+                  ✓ 100% REVERSIBLE
+                </span>
+              </div>
+
+              <!-- 3-Node Horizontal Pipeline with ProjectSPG in Middle -->
+              <div class="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-3 items-center font-mono text-xs">
+                
+                <!-- Client Prompt Box -->
+                <div class="md:col-span-3 p-3 rounded-xl bg-white border-2 border-slate-800 text-slate-900"
+                     style="box-shadow: 2.5px 2.5px 0px 0px #0f172a;">
+                  <div class="flex items-center justify-between pb-1.5 mb-1.5 border-b border-dashed border-slate-200 text-[10px]">
+                    <span class="text-slate-500 uppercase font-bold tracking-tight">ORIGIN // PROMPT</span>
+                    <span class="text-[9px] text-emerald-700 font-bold">PROTECTED</span>
+                  </div>
+                  <div class="text-[11px] leading-relaxed text-slate-800 truncate">
+                    "Pay <span class="text-emerald-800 font-bold">John Doe</span>..."
+                  </div>
+                  <div class="text-[9px] text-emerald-700 font-bold mt-1.5 pt-1.5 border-t border-dashed border-slate-200 flex items-center gap-1">
+                    <span>✓</span> <span>Receives real data back</span>
+                  </div>
+                </div>
+
+                <!-- ProjectSPG Gateway Box (The Highlighted Architectural Enclave) -->
+                <div class="md:col-span-5 p-3.5 rounded-xl bg-cyan-50/95 border-2 border-cyan-800 text-slate-900 relative"
+                     style="box-shadow: 3.5px 3.5px 0px 0px #0e7490;">
+                  
+                  <!-- Corner ticks (+) on Gateway Node -->
+                  <div class="absolute top-1.5 left-1.5 text-cyan-800 font-mono text-[9px] select-none leading-none">+</div>
+                  <div class="absolute top-1.5 right-1.5 text-cyan-800 font-mono text-[9px] select-none leading-none">+</div>
+
+                  <div class="flex items-center justify-between pb-1.5 mb-2 border-b border-cyan-300 text-[10px]">
+                    <div class="flex items-center gap-1.5 font-bold text-cyan-950">
+                      <i data-lucide="shield-check" class="w-3.5 h-3.5 text-cyan-700"></i>
+                      <span>PROJECTSPG_GATEWAY</span>
+                    </div>
+                    <span class="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded bg-white text-cyan-900 border border-cyan-700"
+                          style="box-shadow: 1px 1px 0px 0px #0e7490;">
+                      &lt;20ms EDGE
+                    </span>
+                  </div>
+
+                  <div class="text-[10px] space-y-1.5 text-slate-800">
+                    <div class="flex items-start gap-1.5">
+                      <span class="text-cyan-800 font-bold shrink-0">1.</span>
+                      <span>Strips PII ➔ 
+                        <code class="text-cyan-950 font-bold bg-cyan-200/90 border border-cyan-700 px-1 py-0.2 rounded text-[10px]">[PERSON_1]</code>, 
+                        <code class="text-amber-950 font-bold bg-amber-200/90 border border-amber-700 px-1 py-0.2 rounded text-[10px]">[SSN_1]</code>
+                      </span>
+                    </div>
+                    <div class="flex items-start gap-1.5">
+                      <span class="text-emerald-800 font-bold shrink-0">2.</span>
+                      <span>Hardware AES-256 seal & on-the-fly rehydration</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- AI Provider Target Box (Clean Transit) -->
+                <div class="md:col-span-4 p-3 rounded-xl bg-white border-2 border-emerald-800 text-slate-900"
+                     style="box-shadow: 2.5px 2.5px 0px 0px rgba(5, 150, 105, 0.4);">
+                  <div class="flex items-center justify-between pb-1.5 mb-1.5 border-b border-dashed border-slate-200 text-[10px]">
+                    <span class="text-emerald-900 uppercase font-bold tracking-tight">CLOUD AI (OPENAI / CLAUDE)</span>
+                    <span class="text-[9px] font-bold text-emerald-700">CLEAN</span>
+                  </div>
+                  <div class="text-[11px] text-slate-800">
+                    "Pay <span class="text-cyan-950 font-bold bg-cyan-100 border border-cyan-400 px-1 rounded">[PERSON_1]</span>..."
+                  </div>
+                  <div class="text-[9px] text-emerald-800 font-bold mt-1.5 pt-1.5 border-t border-dashed border-slate-200 flex items-center gap-1">
+                    <span>✓</span> <span>Sees & logs anonymous tokens only</span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
           </div>
 
+        </div>
+
+        <!-- Architectural Drafting Stepped Ground Lines Beneath Canvas -->
+        <div class="mt-4 flex flex-col items-center justify-center space-y-1 opacity-70 select-none">
+          <div class="w-3/4 h-[1.6px] bg-slate-800 rounded-full"></div>
+          <div class="w-3/5 h-[1.2px] bg-slate-600 rounded-full"></div>
+          <div class="w-2/5 h-[1.0px] bg-slate-400 rounded-full"></div>
+          <div class="w-1/4 h-[0.8px] bg-slate-300 rounded-full"></div>
         </div>
 
       </div>
 
-      <!-- 3 Glanceable Light-Themed Cards: The 3 Core Answers -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
+      <!-- ===================================================================== -->
+      <!-- 3 BENTO CARDS: ARCHITECTURAL SKETCH LIGHT THEME                      -->
+      <!-- ===================================================================== -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         
         <!-- Card 1: How Data Leaks -->
-        <div class="rounded-xl bg-white border-2 border-slate-200/90 hover:border-slate-300 p-5 text-slate-900 relative transition-all"
-             style="box-shadow: 4px 4px 0px 0px rgba(15, 23, 42, 0.05);">
-          <div class="flex items-center gap-2.5 mb-2">
-            <div class="w-7 h-7 rounded-lg bg-rose-50 border border-rose-200 flex items-center justify-center text-rose-600 shrink-0">
-              <i data-lucide="alert-triangle" class="w-4 h-4"></i>
+        <div class="relative group select-none">
+          <!-- Sharp Hatch Shadow Layer (Offset 6px, 6px) -->
+          <div class="absolute inset-0 rounded-2xl transform translate-x-2 translate-y-2 z-0 pointer-events-none border border-slate-700/60"
+               style="background: repeating-linear-gradient(45deg, #f43f5e, #f43f5e 1.3px, transparent 1.3px, transparent 7px); opacity: 0.25;"></div>
+          
+          <!-- Card Body -->
+          <div class="relative z-10 rounded-2xl bg-white border-2 border-slate-800 p-5 sm:p-6 text-slate-900 transition-all duration-200 group-hover:-translate-y-1 overflow-hidden min-h-[260px] flex flex-col justify-between"
+               style="box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.05);">
+            
+            <!-- Technical Corner Registration Ticks (+) -->
+            <div class="absolute top-2 left-2 text-slate-400 font-mono text-[10px] select-none leading-none">+</div>
+            <div class="absolute top-2 right-2 text-slate-400 font-mono text-[10px] select-none leading-none">+</div>
+            <div class="absolute bottom-2 left-2 text-slate-400 font-mono text-[10px] select-none leading-none">+</div>
+            <div class="absolute bottom-2 right-2 text-slate-400 font-mono text-[10px] select-none leading-none">+</div>
+
+            <!-- Inset Dashed Drafting Contour -->
+            <div class="absolute inset-1.5 rounded-xl border border-dashed border-slate-200 pointer-events-none"></div>
+
+            <div class="relative z-10">
+              <div class="flex items-center justify-between mb-3">
+                <div class="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase tracking-wider text-rose-800 bg-rose-50 px-2 py-0.5 rounded border border-rose-600"
+                     style="box-shadow: 1.5px 1.5px 0px 0px rgba(159, 18, 57, 0.3);">
+                  <span>§ 01</span>
+                  <span>//</span>
+                  <span>EXPOSURE</span>
+                </div>
+                <div class="w-6 h-6 rounded-lg bg-rose-50 border border-rose-300 flex items-center justify-center text-rose-600">
+                  <i data-lucide="alert-triangle" class="w-3.5 h-3.5"></i>
+                </div>
+              </div>
+
+              <h3 class="text-base font-bold text-slate-900 tracking-tight mb-1.5">
+                1. How Data Leaks
+              </h3>
+              <p class="text-xs text-slate-600 leading-relaxed font-normal">
+                Prompts sent directly to OpenAI, Anthropic, or Google carry customer PII, keys, and financials that get permanently logged and ingested into training sets.
+              </p>
             </div>
-            <h3 class="text-sm font-bold text-slate-900 tracking-tight">1. How Data Leaks</h3>
+
+            <!-- Sketch Snippet Strip -->
+            <div class="relative z-10 mt-3 pt-2.5 border-t border-dashed border-slate-200 font-mono text-[10px] text-slate-500 flex items-center justify-between">
+              <span class="text-rose-700 font-bold">UNENCRYPTED_PROMPT</span>
+              <span>|← LOGGED →|</span>
+            </div>
           </div>
-          <p class="text-xs text-slate-600 leading-relaxed font-normal">
-            Prompts sent directly to OpenAI, Anthropic, or Google carry customer PII, keys, and financials that get permanently logged and ingested into training sets.
-          </p>
         </div>
 
         <!-- Card 2: Where ProjectSPG Sits -->
-        <div class="rounded-xl bg-white border-2 border-slate-200/90 hover:border-slate-300 p-5 text-slate-900 relative transition-all"
-             style="box-shadow: 4px 4px 0px 0px rgba(15, 23, 42, 0.05);">
-          <div class="flex items-center gap-2.5 mb-2">
-            <div class="w-7 h-7 rounded-lg bg-cyan-50 border border-cyan-200 flex items-center justify-center text-cyan-600 shrink-0">
-              <i data-lucide="shield" class="w-4 h-4"></i>
+        <div class="relative group select-none">
+          <!-- Sharp Hatch Shadow Layer (Offset 6px, 6px) -->
+          <div class="absolute inset-0 rounded-2xl transform translate-x-2 translate-y-2 z-0 pointer-events-none border border-slate-700/60"
+               style="background: repeating-linear-gradient(45deg, #06b6d4, #06b6d4 1.3px, transparent 1.3px, transparent 7px); opacity: 0.25;"></div>
+          
+          <!-- Card Body -->
+          <div class="relative z-10 rounded-2xl bg-white border-2 border-slate-800 p-5 sm:p-6 text-slate-900 transition-all duration-200 group-hover:-translate-y-1 overflow-hidden min-h-[260px] flex flex-col justify-between"
+               style="box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.05);">
+            
+            <!-- Technical Corner Registration Ticks (+) -->
+            <div class="absolute top-2 left-2 text-slate-400 font-mono text-[10px] select-none leading-none">+</div>
+            <div class="absolute top-2 right-2 text-slate-400 font-mono text-[10px] select-none leading-none">+</div>
+            <div class="absolute bottom-2 left-2 text-slate-400 font-mono text-[10px] select-none leading-none">+</div>
+            <div class="absolute bottom-2 right-2 text-slate-400 font-mono text-[10px] select-none leading-none">+</div>
+
+            <!-- Inset Dashed Drafting Contour -->
+            <div class="absolute inset-1.5 rounded-xl border border-dashed border-slate-200 pointer-events-none"></div>
+
+            <div class="relative z-10">
+              <div class="flex items-center justify-between mb-3">
+                <div class="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase tracking-wider text-cyan-800 bg-cyan-50 px-2 py-0.5 rounded border border-cyan-600"
+                     style="box-shadow: 1.5px 1.5px 0px 0px #0e7490;">
+                  <span>§ 02</span>
+                  <span>//</span>
+                  <span>INTERCEPTION</span>
+                </div>
+                <div class="w-6 h-6 rounded-lg bg-cyan-50 border border-cyan-300 flex items-center justify-center text-cyan-600">
+                  <i data-lucide="shield" class="w-3.5 h-3.5"></i>
+                </div>
+              </div>
+
+              <h3 class="text-base font-bold text-slate-900 tracking-tight mb-1.5">
+                2. Where ProjectSPG Sits
+              </h3>
+              <p class="text-xs text-slate-600 leading-relaxed font-normal">
+                ProjectSPG sits inline as an ultra-low latency (&lt;20ms) reverse proxy at the edge. Just change your API base URL to <code class="text-cyan-900 bg-cyan-50 border border-cyan-300 px-1 py-0.5 rounded font-mono text-[11px] font-bold">api.projectspg.info</code>.
+              </p>
             </div>
-            <h3 class="text-sm font-bold text-slate-900 tracking-tight">2. Where ProjectSPG Sits</h3>
+
+            <!-- Sketch Snippet Strip -->
+            <div class="relative z-10 mt-3 pt-2.5 border-t border-dashed border-slate-200 font-mono text-[10px] text-slate-500 flex items-center justify-between">
+              <span class="text-cyan-800 font-bold">IN_LINE_REVERSE_PROXY</span>
+              <span>|← &lt;20ms →|</span>
+            </div>
           </div>
-          <p class="text-xs text-slate-600 leading-relaxed font-normal">
-            ProjectSPG sits inline as an ultra-low latency (&lt;20ms) reverse proxy at the edge. Just change your API base URL to <code class="text-cyan-800 bg-cyan-50 border border-cyan-200 px-1 py-0.5 rounded font-mono text-[11px]">api.projectspg.info</code>.
-          </p>
         </div>
 
         <!-- Card 3: How It Stops It -->
-        <div class="rounded-xl bg-white border-2 border-slate-200/90 hover:border-slate-300 p-5 text-slate-900 relative transition-all"
-             style="box-shadow: 4px 4px 0px 0px rgba(15, 23, 42, 0.05);">
-          <div class="flex items-center gap-2.5 mb-2">
-            <div class="w-7 h-7 rounded-lg bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600 shrink-0">
-              <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+        <div class="relative group select-none">
+          <!-- Sharp Hatch Shadow Layer (Offset 6px, 6px) -->
+          <div class="absolute inset-0 rounded-2xl transform translate-x-2 translate-y-2 z-0 pointer-events-none border border-slate-700/60"
+               style="background: repeating-linear-gradient(45deg, #10b981, #10b981 1.3px, transparent 1.3px, transparent 7px); opacity: 0.25;"></div>
+          
+          <!-- Card Body -->
+          <div class="relative z-10 rounded-2xl bg-white border-2 border-slate-800 p-5 sm:p-6 text-slate-900 transition-all duration-200 group-hover:-translate-y-1 overflow-hidden min-h-[260px] flex flex-col justify-between"
+               style="box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.05);">
+            
+            <!-- Technical Corner Registration Ticks (+) -->
+            <div class="absolute top-2 left-2 text-slate-400 font-mono text-[10px] select-none leading-none">+</div>
+            <div class="absolute top-2 right-2 text-slate-400 font-mono text-[10px] select-none leading-none">+</div>
+            <div class="absolute bottom-2 left-2 text-slate-400 font-mono text-[10px] select-none leading-none">+</div>
+            <div class="absolute bottom-2 right-2 text-slate-400 font-mono text-[10px] select-none leading-none">+</div>
+
+            <!-- Inset Dashed Drafting Contour -->
+            <div class="absolute inset-1.5 rounded-xl border border-dashed border-slate-200 pointer-events-none"></div>
+
+            <div class="relative z-10">
+              <div class="flex items-center justify-between mb-3">
+                <div class="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase tracking-wider text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-600"
+                     style="box-shadow: 1.5px 1.5px 0px 0px rgba(5, 150, 105, 0.3);">
+                  <span>§ 03</span>
+                  <span>//</span>
+                  <span>DEFENSE</span>
+                </div>
+                <div class="w-6 h-6 rounded-lg bg-emerald-50 border border-emerald-300 flex items-center justify-center text-emerald-600">
+                  <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+                </div>
+              </div>
+
+              <h3 class="text-base font-bold text-slate-900 tracking-tight mb-1.5">
+                3. How It Stops It
+              </h3>
+              <p class="text-xs text-slate-600 leading-relaxed font-normal">
+                We replace private data with mathematical tokens before requests leave your network, then seamlessly rehydrate original values when the LLM replies.
+              </p>
             </div>
-            <h3 class="text-sm font-bold text-slate-900 tracking-tight">3. How It Stops It</h3>
+
+            <!-- Sketch Snippet Strip -->
+            <div class="relative z-10 mt-3 pt-2.5 border-t border-dashed border-slate-200 font-mono text-[10px] text-slate-500 flex items-center justify-between">
+              <span class="text-emerald-800 font-bold">[TOKEN] ⇄ [PII]</span>
+              <span>100% REVERSIBLE</span>
+            </div>
           </div>
-          <p class="text-xs text-slate-600 leading-relaxed font-normal">
-            We replace private data with mathematical tokens before requests leave your network, then seamlessly rehydrate original values when the LLM replies.
-          </p>
         </div>
 
       </div>
