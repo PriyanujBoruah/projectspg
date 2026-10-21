@@ -99,6 +99,20 @@ export const HOME_HTML = `<!DOCTYPE html>
       animation: logoMarquee 42s linear infinite;
     }
 
+      /* Critical Leak Warning Heartbeat Pulse & Glow Animation */
+    @keyframes criticalLeakPulse {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow: 2px 2px 0px 0px rgba(159, 18, 57, 0.6), 0 0 0 0 rgba(225, 29, 72, 0);
+      }
+      50% {
+        transform: scale(1.05);
+        box-shadow: 2.5px 2.5px 0px 0px rgba(159, 18, 57, 0.75), 0 0 12px 3px rgba(225, 29, 72, 0.45);
+      }
+    }
+    .animate-critical-leak {
+      animation: criticalLeakPulse 1.8s ease-in-out infinite;
+    }
   </style>
 </head>
 <body class="min-h-full bg-[#fafafa] text-[#1e1e2e] flex flex-col antialiased">
@@ -413,9 +427,10 @@ export const HOME_HTML = `<!DOCTYPE html>
                     § 01 // WITHOUT PROJECTSPG: DIRECT AI TRAFFIC
                   </span>
                 </div>
-                <span class="text-[10px] sm:text-xs font-mono font-black px-2.5 py-1 rounded-md bg-rose-600 text-white border border-rose-800 tracking-wider shadow-xs"
+                <span class="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-mono font-black px-2.5 py-1 rounded-md bg-rose-600 text-white border border-rose-800 tracking-wider shadow-xs animate-critical-leak select-none cursor-default"
                       style="box-shadow: 2px 2px 0px 0px rgba(159, 18, 57, 0.5);">
-                  ✕ CRITICAL LEAK
+                  <span class="text-white font-black animate-pulse leading-none text-xs">✕</span>
+                  <span>CRITICAL LEAK</span>
                 </span>
               </div>
 
