@@ -113,6 +113,84 @@ export const HOME_HTML = `<!DOCTYPE html>
     .animate-critical-leak {
       animation: criticalLeakPulse 1.8s ease-in-out infinite;
     }
+    /* Full Interactive Flow Animations */
+    @keyframes reversiblePulse {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow: 2px 2px 0px 0px rgba(5, 150, 105, 0.6), 0 0 0 0 rgba(16, 185, 129, 0);
+      }
+      50% {
+        transform: scale(1.05);
+        box-shadow: 3px 3px 0px 0px rgba(5, 150, 105, 0.8), 0 0 14px 3px rgba(16, 185, 129, 0.5);
+      }
+    }
+    .animate-reversible {
+      animation: reversiblePulse 2s ease-in-out infinite;
+    }
+
+    @keyframes gatewayGlow {
+      0%, 100% {
+        border-color: #155e75;
+        box-shadow: 4px 4px 0px 0px #0e7490, 0 0 0 0 rgba(6, 182, 212, 0);
+      }
+      50% {
+        border-color: #0891b2;
+        box-shadow: 4px 4px 0px 0px #0e7490, 0 0 16px 3px rgba(6, 182, 212, 0.35);
+      }
+    }
+    .animate-gateway-glow {
+      animation: gatewayGlow 2.5s ease-in-out infinite;
+    }
+
+    @keyframes tokenShimmer {
+      0%, 100% {
+        transform: translateY(0);
+        filter: brightness(1);
+      }
+      50% {
+        transform: translateY(-1.5px);
+        filter: brightness(1.2);
+        box-shadow: 0 0 10px rgba(6, 182, 212, 0.6);
+      }
+    }
+    .animate-token-1 {
+      animation: tokenShimmer 2s ease-in-out infinite;
+    }
+    .animate-token-2 {
+      animation: tokenShimmer 2s ease-in-out infinite 0.6s;
+    }
+
+    @keyframes arrowStream {
+      0%, 100% {
+        transform: translateX(0);
+        opacity: 0.75;
+      }
+      50% {
+        transform: translateX(3px);
+        opacity: 1;
+      }
+    }
+    .animate-arrow-stream {
+      animation: arrowStream 1.2s ease-in-out infinite;
+    }
+
+    @keyframes leakFlicker {
+      0%, 100% {
+        box-shadow: 1.5px 1.5px 0px 0px rgba(159, 18, 57, 0.5);
+      }
+      50% {
+        box-shadow: 1.5px 1.5px 0px 0px rgba(159, 18, 57, 0.7), 0 0 10px 2px rgba(225, 29, 72, 0.45);
+      }
+    }
+    .animate-leak-entity {
+      animation: leakFlicker 1.8s ease-in-out infinite;
+    }
+
+    @keyframes dashedWireMove {
+      to {
+        background-position: 20px 0;
+      }
+    }
   </style>
 </head>
 <body class="min-h-full bg-[#fafafa] text-[#1e1e2e] flex flex-col antialiased">
@@ -348,7 +426,7 @@ export const HOME_HTML = `<!DOCTYPE html>
 
     <!-- ======================================================================= -->
     <!-- HOW IT WORKS: DATA FLOW & INTERCEPTION ARCHITECTURE                     -->
-    <!-- Vibrant, High-Noticeability Architectural Sketch Light-Themed Blueprint -->
+    <!-- Full Live-Animated Architectural Sketch Blueprint                       -->
     <!-- ======================================================================= -->
     <section id="how-it-works" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-22">
       
@@ -367,7 +445,7 @@ export const HOME_HTML = `<!DOCTYPE html>
         </p>
       </div>
 
-      <!-- Main Visual Architecture Blueprint (Vibrant Architectural Sketch Canvas) -->
+      <!-- Main Visual Architecture Blueprint (Fully Animated Live Drafting Canvas) -->
       <div class="relative select-none mb-10">
         
         <!-- Sharp Hatch Shadow Layer (Blueprint Cast Shadow) -->
@@ -405,7 +483,10 @@ export const HOME_HTML = `<!DOCTYPE html>
                 <span>•</span>
                 <span class="font-extrabold text-slate-800">LATENCY: &lt;20MS</span>
                 <span>•</span>
-                <span class="text-emerald-700 font-black">ZERO_DATA_LEAKAGE</span>
+                <span class="text-emerald-700 font-black flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
+                  <span>ZERO_DATA_LEAKAGE</span>
+                </span>
               </div>
             </div>
 
@@ -422,11 +503,12 @@ export const HOME_HTML = `<!DOCTYPE html>
               <!-- Flow 1 Top Strip -->
               <div class="relative z-10 flex items-center justify-between pb-2.5 mb-3 border-b-2 border-rose-200">
                 <div class="flex items-center gap-2.5">
-                  <span class="w-3 h-3 rounded-full bg-rose-600 border border-rose-800 ring-2 ring-rose-300"></span>
+                  <span class="w-3 h-3 rounded-full bg-rose-600 border border-rose-800 ring-2 ring-rose-300 animate-pulse"></span>
                   <span class="text-xs sm:text-sm font-mono font-black uppercase tracking-wider text-rose-900">
                     § 01 // WITHOUT PROJECTSPG: DIRECT AI TRAFFIC
                   </span>
                 </div>
+                <!-- Animated Critical Leak Badge -->
                 <span class="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-mono font-black px-2.5 py-1 rounded-md bg-rose-600 text-white border border-rose-800 tracking-wider shadow-xs animate-critical-leak select-none cursor-default"
                       style="box-shadow: 2px 2px 0px 0px rgba(159, 18, 57, 0.5);">
                   <span class="text-white font-black animate-pulse leading-none text-xs">✕</span>
@@ -442,24 +524,21 @@ export const HOME_HTML = `<!DOCTYPE html>
                      style="box-shadow: 3px 3px 0px 0px #0f172a;">
                   <div class="flex items-center justify-between pb-1.5 mb-1.5 border-b border-dashed border-slate-300 text-[10px]">
                     <span class="text-slate-700 uppercase font-extrabold tracking-wider">ORIGIN // PROMPT</span>
-                    <span class="text-[9px] font-black text-rose-700 bg-rose-100 border border-rose-300 px-1.5 py-0.2 rounded">UNENCRYPTED</span>
+                    <span class="text-[9px] font-black text-rose-700 bg-rose-100 border border-rose-300 px-1.5 py-0.2 rounded animate-pulse">UNENCRYPTED</span>
                   </div>
                   <div class="text-xs sm:text-[13px] font-bold leading-relaxed text-slate-900">
                     "Pay 
-                    <span class="relative inline-block px-1.5 py-0.5 mx-0.5 text-white font-black rounded bg-rose-600 border border-rose-700 shadow-xs"
-                          style="box-shadow: 1.5px 1.5px 0px 0px rgba(159, 18, 57, 0.5);">John Doe</span>
+                    <span class="relative inline-block px-1.5 py-0.5 mx-0.5 text-white font-black rounded bg-rose-600 border border-rose-700 shadow-xs animate-leak-entity">John Doe</span>
                     (SSN: 
-                    <span class="relative inline-block px-1.5 py-0.5 mx-0.5 text-white font-black rounded bg-rose-600 border border-rose-700 shadow-xs"
-                          style="box-shadow: 1.5px 1.5px 0px 0px rgba(159, 18, 57, 0.5);">412-88-9012</span>)
-                    <span class="relative inline-block px-1.5 py-0.5 mx-0.5 text-white font-black rounded bg-rose-600 border border-rose-700 shadow-xs"
-                          style="box-shadow: 1.5px 1.5px 0px 0px rgba(159, 18, 57, 0.5);">$14,500</span>"
+                    <span class="relative inline-block px-1.5 py-0.5 mx-0.5 text-white font-black rounded bg-rose-600 border border-rose-700 shadow-xs animate-leak-entity">412-88-9012</span>)
+                    <span class="relative inline-block px-1.5 py-0.5 mx-0.5 text-white font-black rounded bg-rose-600 border border-rose-700 shadow-xs animate-leak-entity">$14,500</span>"
                   </div>
                 </div>
                 
-                <!-- Red Connecting Wire (Leaking Pipe) with Vibrant Sketch Arrow -->
+                <!-- Red Connecting Wire (Leaking Pipe) with Animated Arrow -->
                 <div class="md:col-span-4 flex items-center justify-center gap-1.5 text-rose-700 py-1 select-none">
                   <div class="hidden md:block flex-1 border-t-2 border-dashed border-rose-500"></div>
-                  <div class="px-3 py-1.5 rounded-lg bg-white border-2 border-rose-600 text-[10px] sm:text-[11px] font-mono font-black text-rose-800 flex items-center gap-1.5 shrink-0"
+                  <div class="px-3 py-1.5 rounded-lg bg-white border-2 border-rose-600 text-[10px] sm:text-[11px] font-mono font-black text-rose-800 flex items-center gap-1.5 shrink-0 animate-arrow-stream"
                        style="box-shadow: 2.5px 2.5px 0px 0px rgba(159, 18, 57, 0.35);">
                     <i data-lucide="alert-circle" class="w-3.5 h-3.5 text-rose-600 stroke-[2.5]"></i>
                     <span>Raw PII over Internet</span>
@@ -473,15 +552,15 @@ export const HOME_HTML = `<!DOCTYPE html>
                      style="box-shadow: 3px 3px 0px 0px rgba(159, 18, 57, 0.45);">
                   <div class="flex items-center justify-between pb-1.5 mb-1.5 border-b border-dashed border-rose-300 text-[10px]">
                     <span class="text-rose-900 uppercase font-black tracking-wider">CLOUD AI PROVIDER</span>
-                    <span class="text-[9px] font-black text-rose-700 bg-rose-100 border border-rose-300 px-1.5 py-0.2 rounded">UNSECURED</span>
+                    <span class="text-[9px] font-black text-rose-700 bg-rose-100 border border-rose-300 px-1.5 py-0.2 rounded animate-pulse">UNSECURED</span>
                   </div>
                   <div class="text-xs sm:text-[12px] text-slate-900 font-bold space-y-1">
                     <div class="flex items-start gap-1.5">
-                      <span class="text-rose-600 font-black text-sm leading-none shrink-0">✕</span>
+                      <span class="text-rose-600 font-black text-sm leading-none shrink-0 animate-pulse">✕</span>
                       <span><strong class="text-rose-800 font-extrabold">PII logged</strong> in vendor query databases</span>
                     </div>
                     <div class="flex items-start gap-1.5">
-                      <span class="text-rose-600 font-black text-sm leading-none shrink-0">✕</span>
+                      <span class="text-rose-600 font-black text-sm leading-none shrink-0 animate-pulse">✕</span>
                       <span><strong class="text-rose-800 font-extrabold">Ingested</strong> into future model training</span>
                     </div>
                   </div>
@@ -495,13 +574,16 @@ export const HOME_HTML = `<!DOCTYPE html>
               <div class="w-full border-t-2 border-dashed border-slate-400"></div>
               <div class="absolute px-4 py-1.5 rounded-full bg-slate-900 border-2 border-cyan-400 text-xs font-mono font-black text-cyan-300 flex items-center gap-2"
                    style="box-shadow: 3px 3px 0px 0px #0f172a;">
-                <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping"></span>
+                <span class="relative flex h-2 w-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-400"></span>
+                </span>
                 <span>§ INTERCEPTION PERIMETER // ZERO-TRUST GATEWAY</span>
               </div>
             </div>
 
             <!-- =============================================================== -->
-            <!-- FLOW 2: WITH PROJECTSPG (The Protected Gateway)                 -->
+            <!-- FLOW 2: WITH PROJECTSPG (The Protected Gateway - FULLY ANIMATED)-->
             <!-- =============================================================== -->
             <div class="relative rounded-2xl bg-emerald-50/80 border-2 border-emerald-900 p-4 sm:p-5 overflow-hidden"
                  style="box-shadow: 4px 4px 0px 0px rgba(5, 150, 105, 0.35);">
@@ -513,38 +595,56 @@ export const HOME_HTML = `<!DOCTYPE html>
               <!-- Flow 2 Top Strip -->
               <div class="relative z-10 flex items-center justify-between pb-2.5 mb-3 border-b-2 border-emerald-200">
                 <div class="flex items-center gap-2.5">
-                  <span class="w-3 h-3 rounded-full bg-emerald-600 border border-emerald-800 ring-2 ring-emerald-300 animate-pulse"></span>
+                  <span class="relative flex h-3 w-3">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-600 border border-emerald-800"></span>
+                  </span>
                   <span class="text-xs sm:text-sm font-mono font-black uppercase tracking-wider text-emerald-950">
                     § 02 // WITH PROJECTSPG: ZERO-TRUST INTERCEPTION
                   </span>
                 </div>
-                <span class="text-[10px] sm:text-xs font-mono font-black px-2.5 py-1 rounded-md bg-emerald-600 text-white border border-emerald-800 tracking-wider shadow-xs"
+                <!-- Animated 100% Reversible Badge -->
+                <span class="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-mono font-black px-2.5 py-1 rounded-md bg-emerald-600 text-white border border-emerald-800 tracking-wider shadow-xs animate-reversible select-none cursor-default"
                       style="box-shadow: 2px 2px 0px 0px rgba(5, 150, 105, 0.5);">
-                  ✓ 100% REVERSIBLE
+                  <span class="text-white font-black animate-pulse leading-none text-xs">✓</span>
+                  <span>100% REVERSIBLE</span>
                 </span>
               </div>
 
-              <!-- 3-Node Horizontal Pipeline with ProjectSPG in Middle -->
-              <div class="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-3.5 items-center font-mono">
+              <!-- 3-Node Horizontal Pipeline with Live In-Flight Connectors -->
+              <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-3 items-center font-mono">
                 
-                <!-- Client Prompt Box -->
-                <div class="md:col-span-3 p-3 rounded-xl bg-white border-2 border-slate-900 text-slate-900"
+                <!-- Node A: Client Prompt Box -->
+                <div class="lg:col-span-3 p-3 rounded-xl bg-white border-2 border-slate-900 text-slate-900"
                      style="box-shadow: 3px 3px 0px 0px #0f172a;">
                   <div class="flex items-center justify-between pb-1.5 mb-1.5 border-b border-dashed border-slate-300 text-[10px]">
                     <span class="text-slate-700 uppercase font-extrabold tracking-wider">ORIGIN // PROMPT</span>
                     <span class="text-[9px] font-black text-emerald-800 bg-emerald-100 border border-emerald-300 px-1.5 py-0.2 rounded">PROTECTED</span>
                   </div>
                   <div class="text-xs sm:text-[13px] font-bold leading-relaxed text-slate-900 truncate">
-                    "Pay <span class="text-emerald-800 font-black bg-emerald-100 border border-emerald-300 px-1 rounded">John Doe</span>..."
+                    "Pay <span class="text-emerald-900 font-black bg-emerald-100 border border-emerald-300 px-1 rounded animate-token-1">John Doe</span>..."
                   </div>
                   <div class="text-[10px] sm:text-[11px] text-emerald-800 font-black mt-2 pt-1.5 border-t border-dashed border-slate-300 flex items-center gap-1.5">
-                    <span class="text-emerald-600 font-black">✓</span> <span>Receives real data back</span>
+                    <span class="text-emerald-600 font-black animate-pulse">✓</span>
+                    <span>Receives real data back</span>
                   </div>
                 </div>
 
-                <!-- ProjectSPG Gateway Box (The Highlighted Architectural Enclave) -->
-                <div class="md:col-span-5 p-3.5 rounded-xl bg-cyan-50 border-2 border-cyan-800 text-slate-900 relative"
-                     style="box-shadow: 4px 4px 0px 0px #0e7490;">
+                <!-- Transit Connector 1: Prompt ➔ Gateway (Bidirectional Live Wire) -->
+                <div class="hidden lg:flex lg:col-span-1 flex-col items-center justify-center gap-1 select-none text-[9px] font-mono font-black py-1">
+                  <div class="flex items-center gap-1 text-cyan-800 animate-arrow-stream" title="Prompt sent to gateway">
+                    <span class="text-[8px] uppercase tracking-tighter">PROMPT</span>
+                    <i data-lucide="arrow-right" class="w-3.5 h-3.5 stroke-[2.5]"></i>
+                  </div>
+                  <div class="w-full border-t-2 border-dashed border-cyan-400"></div>
+                  <div class="flex items-center gap-1 text-emerald-800 animate-arrow-stream" style="animation-direction: reverse;" title="Rehydrated output returned">
+                    <i data-lucide="arrow-left" class="w-3.5 h-3.5 stroke-[2.5]"></i>
+                    <span class="text-[8px] uppercase tracking-tighter">RESTORE</span>
+                  </div>
+                </div>
+
+                <!-- Node B: ProjectSPG Gateway Box (THE LIVE ANIMATED ENCLAVE) -->
+                <div class="lg:col-span-4 p-3.5 rounded-xl bg-cyan-50 border-2 border-cyan-800 text-slate-900 relative animate-gateway-glow">
                   
                   <!-- Corner ticks (+) on Gateway Node -->
                   <div class="absolute top-1.5 left-1.5 text-cyan-900 font-mono text-[10px] font-black select-none leading-none">+</div>
@@ -552,12 +652,14 @@ export const HOME_HTML = `<!DOCTYPE html>
 
                   <div class="flex items-center justify-between pb-1.5 mb-2 border-b-2 border-cyan-200 text-xs">
                     <div class="flex items-center gap-1.5 font-black text-cyan-950">
-                      <i data-lucide="shield-check" class="w-4 h-4 text-cyan-600 stroke-[2.5]"></i>
+                      <i data-lucide="shield-check" class="w-4 h-4 text-cyan-600 stroke-[2.5] animate-pulse"></i>
                       <span class="tracking-tight">PROJECTSPG_GATEWAY</span>
                     </div>
-                    <span class="text-[10px] font-mono font-black px-2 py-0.5 rounded bg-cyan-600 text-white border border-cyan-800 shadow-xs"
+                    <!-- Live Edge Ping Badge -->
+                    <span class="inline-flex items-center gap-1 text-[10px] font-mono font-black px-2 py-0.5 rounded bg-cyan-600 text-white border border-cyan-800 shadow-xs"
                           style="box-shadow: 1.5px 1.5px 0px 0px #0e7490;">
-                      &lt;20ms EDGE
+                      <span class="w-1.5 h-1.5 rounded-full bg-white animate-ping"></span>
+                      <span>&lt;20ms EDGE</span>
                     </span>
                   </div>
 
@@ -565,8 +667,8 @@ export const HOME_HTML = `<!DOCTYPE html>
                     <div class="flex items-start gap-1.5">
                       <span class="text-cyan-700 font-black shrink-0">1.</span>
                       <span>Strips PII ➔ 
-                        <code class="text-white font-black bg-cyan-600 border border-cyan-800 px-1.5 py-0.5 rounded text-[11px] shadow-xs">[PERSON_1]</code>, 
-                        <code class="text-white font-black bg-amber-600 border border-amber-800 px-1.5 py-0.5 rounded text-[11px] shadow-xs">[SSN_1]</code>
+                        <code class="text-white font-black bg-cyan-600 border border-cyan-800 px-1.5 py-0.5 rounded text-[11px] shadow-xs inline-block animate-token-1">[PERSON_1]</code>, 
+                        <code class="text-white font-black bg-amber-600 border border-amber-800 px-1.5 py-0.5 rounded text-[11px] shadow-xs inline-block animate-token-2">[SSN_1]</code>
                       </span>
                     </div>
                     <div class="flex items-start gap-1.5">
@@ -576,18 +678,32 @@ export const HOME_HTML = `<!DOCTYPE html>
                   </div>
                 </div>
 
-                <!-- AI Provider Target Box (Clean Transit) -->
-                <div class="md:col-span-4 p-3 rounded-xl bg-white border-2 border-emerald-900 text-slate-900"
+                <!-- Transit Connector 2: Gateway ➔ Cloud AI (Bidirectional Tokens Wire) -->
+                <div class="hidden lg:flex lg:col-span-1 flex-col items-center justify-center gap-1 select-none text-[9px] font-mono font-black py-1">
+                  <div class="flex items-center gap-1 text-cyan-800 animate-arrow-stream" title="Only tokens sent to AI">
+                    <span class="text-[8px] uppercase tracking-tighter">TOKENS</span>
+                    <i data-lucide="arrow-right" class="w-3.5 h-3.5 stroke-[2.5]"></i>
+                  </div>
+                  <div class="w-full border-t-2 border-dashed border-emerald-400"></div>
+                  <div class="flex items-center gap-1 text-emerald-800 animate-arrow-stream" style="animation-direction: reverse;" title="Model response with tokens">
+                    <i data-lucide="arrow-left" class="w-3.5 h-3.5 stroke-[2.5]"></i>
+                    <span class="text-[8px] uppercase tracking-tighter">ANSWER</span>
+                  </div>
+                </div>
+
+                <!-- Node C: AI Provider Target Box (Clean Transit) -->
+                <div class="lg:col-span-3 p-3 rounded-xl bg-white border-2 border-emerald-900 text-slate-900"
                      style="box-shadow: 3px 3px 0px 0px rgba(5, 150, 105, 0.45);">
                   <div class="flex items-center justify-between pb-1.5 mb-1.5 border-b border-dashed border-slate-300 text-[10px]">
                     <span class="text-emerald-950 uppercase font-black tracking-wider">CLOUD AI (OPENAI / CLAUDE)</span>
                     <span class="text-[9px] font-black text-emerald-800 bg-emerald-100 border border-emerald-300 px-1.5 py-0.2 rounded">CLEAN</span>
                   </div>
                   <div class="text-xs sm:text-[13px] font-bold text-slate-900">
-                    "Pay <span class="text-cyan-950 font-black bg-cyan-100 border-2 border-cyan-400 px-1.5 py-0.5 rounded shadow-xs">[PERSON_1]</span>..."
+                    "Pay <span class="text-cyan-950 font-black bg-cyan-100 border-2 border-cyan-400 px-1.5 py-0.5 rounded shadow-xs inline-block animate-token-1">[PERSON_1]</span>..."
                   </div>
                   <div class="text-[10px] sm:text-[11px] text-emerald-800 font-black mt-2 pt-1.5 border-t border-dashed border-slate-300 flex items-center gap-1.5">
-                    <span class="text-emerald-600 font-black">✓</span> <span>Sees & logs anonymous tokens only</span>
+                    <span class="text-emerald-600 font-black animate-pulse">✓</span>
+                    <span>Sees & logs anonymous tokens only</span>
                   </div>
                 </div>
 
@@ -641,7 +757,7 @@ export const HOME_HTML = `<!DOCTYPE html>
                   <span>EXPOSURE</span>
                 </div>
                 <div class="w-7 h-7 rounded-lg bg-rose-600 text-white flex items-center justify-center shadow-xs">
-                  <i data-lucide="alert-triangle" class="w-4 h-4 stroke-[2.5]"></i>
+                  <i data-lucide="alert-triangle" class="w-4 h-4 stroke-[2.5] animate-pulse"></i>
                 </div>
               </div>
 
@@ -655,7 +771,10 @@ export const HOME_HTML = `<!DOCTYPE html>
 
             <!-- Sketch Snippet Strip -->
             <div class="relative z-10 mt-3 pt-2.5 border-t-2 border-dashed border-slate-200 font-mono text-xs text-slate-600 flex items-center justify-between font-bold">
-              <span class="text-rose-700 font-extrabold">UNENCRYPTED_PROMPT</span>
+              <span class="text-rose-700 font-extrabold flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-ping"></span>
+                <span>UNENCRYPTED_PROMPT</span>
+              </span>
               <span class="text-slate-800">|← LOGGED →|</span>
             </div>
           </div>
@@ -689,7 +808,7 @@ export const HOME_HTML = `<!DOCTYPE html>
                   <span>INTERCEPTION</span>
                 </div>
                 <div class="w-7 h-7 rounded-lg bg-cyan-600 text-white flex items-center justify-center shadow-xs">
-                  <i data-lucide="shield" class="w-4 h-4 stroke-[2.5]"></i>
+                  <i data-lucide="shield" class="w-4 h-4 stroke-[2.5] animate-pulse"></i>
                 </div>
               </div>
 
@@ -703,7 +822,10 @@ export const HOME_HTML = `<!DOCTYPE html>
 
             <!-- Sketch Snippet Strip -->
             <div class="relative z-10 mt-3 pt-2.5 border-t-2 border-dashed border-slate-200 font-mono text-xs text-slate-600 flex items-center justify-between font-bold">
-              <span class="text-cyan-800 font-extrabold">IN_LINE_REVERSE_PROXY</span>
+              <span class="text-cyan-800 font-extrabold flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-cyan-500 animate-ping"></span>
+                <span>IN_LINE_REVERSE_PROXY</span>
+              </span>
               <span class="text-slate-800">|← &lt;20ms →|</span>
             </div>
           </div>
@@ -737,7 +859,7 @@ export const HOME_HTML = `<!DOCTYPE html>
                   <span>DEFENSE</span>
                 </div>
                 <div class="w-7 h-7 rounded-lg bg-emerald-600 text-white flex items-center justify-center shadow-xs">
-                  <i data-lucide="refresh-cw" class="w-4 h-4 stroke-[2.5]"></i>
+                  <i data-lucide="refresh-cw" class="w-4 h-4 stroke-[2.5] animate-pulse"></i>
                 </div>
               </div>
 
@@ -751,7 +873,10 @@ export const HOME_HTML = `<!DOCTYPE html>
 
             <!-- Sketch Snippet Strip -->
             <div class="relative z-10 mt-3 pt-2.5 border-t-2 border-dashed border-slate-200 font-mono text-xs text-slate-600 flex items-center justify-between font-bold">
-              <span class="text-emerald-800 font-extrabold">[TOKEN] ⇄ [PII]</span>
+              <span class="text-emerald-800 font-extrabold flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
+                <span>[TOKEN] ⇄ [PII]</span>
+              </span>
               <span class="text-slate-800">100% REVERSIBLE</span>
             </div>
           </div>
