@@ -246,10 +246,10 @@ export const HOME_HTML = `<!DOCTYPE html>
     <!-- ========================================================================= -->
     <!-- HERO SECTION: Agentic Infrastructure (with Grid Background & Glowing Keyhole) -->
     <!-- ========================================================================= -->
-    <section id="agentic-hero-section" class="relative overflow-hidden py-16 sm:py-20 lg:py-24 border-b border-gray-200/60">
+    <section id="agentic-hero-section" class="relative overflow-hidden border-b border-gray-200/60 min-h-[calc(100vh-4rem)] lg:h-[calc(100vh-4rem)] flex flex-col justify-between">
     
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full flex-1 flex flex-col justify-between pt-3 sm:pt-4 lg:pt-6 pb-2 sm:pb-3">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center my-auto">
         
         <!-- Left Column: Typography & CTAs -->
         <div class="lg:col-span-5 text-center lg:text-left space-y-6">
@@ -292,7 +292,7 @@ export const HOME_HTML = `<!DOCTYPE html>
         <div class="lg:col-span-4 flex items-center justify-center py-6 lg:py-0">
           <div id="keyhole-stage" class="relative flex flex-col items-center justify-center select-none">
             
-            <svg viewBox="0 0 260 320" class="w-[280px] h-[345px] sm:w-[350px] sm:h-[430px] lg:w-[385px] lg:h-[474px] xl:w-[425px] xl:h-[523px] overflow-visible">
+            <svg viewBox="0 0 260 320" class="w-auto h-[38vh] min-h-[270px] max-h-[460px] overflow-visible">
               <defs>
                 <!-- Sharp Diagonal Cross-Hatching Pattern for Sketch Shadows (No blur) -->
                 <pattern id="sketchHatch" width="6" height="6" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
@@ -384,7 +384,7 @@ export const HOME_HTML = `<!DOCTYPE html>
       </div>
 
 <!-- AI Model & Gateway Ecosystem Infinite Rotating Marquee Ribbon (Sourced from "Logo Pack for Landing Page") -->
-      <div class="pt-10 sm:pt-14 lg:pt-16 mt-10 sm:mt-14 border-t border-gray-200/60 relative overflow-hidden">
+      <div class="pt-3 sm:pt-4 pb-1 sm:pb-2 border-t border-gray-200/60 relative overflow-hidden shrink-0">
         <!-- Edge Gradient Fade Masks for Smooth Continuous Scroll In/Out -->
         <div class="absolute left-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-r from-[#fafafa] to-transparent z-10 pointer-events-none"></div>
         <div class="absolute right-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-l from-[#fafafa] to-transparent z-10 pointer-events-none"></div>
