@@ -245,16 +245,8 @@ export const HOME_HTML = `<!DOCTYPE html>
         <!-- Left Column: Typography & CTAs -->
         <div class="lg:col-span-5 text-center lg:text-left space-y-6">
           <div class="relative inline-block select-none text-center lg:text-left">
-            <!-- Sketch Shadow Behind Text (45-degree diagonal offset hatching) -->
-            <div class="absolute inset-0 transform translate-x-1.5 translate-y-1.5 font-sketch font-bold tracking-tight text-transparent select-none pointer-events-none text-4xl sm:text-6xl lg:text-[68px] leading-[1.05]"
-                 style="-webkit-text-stroke: 1.5px #64748b; background: repeating-linear-gradient(45deg, #94a3b8, #94a3b8 1.5px, transparent 1.5px, transparent 6px); -webkit-background-clip: text; background-clip: text; opacity: 0.5;">
-              Privacy Layer<br />
-              for your Prompts
-            </div>
-
             <!-- Main Sketch Headline Body -->
-            <h1 class="relative z-10 font-sketch font-bold text-4xl sm:text-6xl lg:text-[68px] tracking-tight text-slate-900 leading-[1.05]"
-                style="text-shadow: 2px 2px 0px rgba(100, 116, 139, 0.35);">
+            <h1 class="relative z-10 font-sketch font-bold text-4xl sm:text-6xl lg:text-[68px] tracking-tight text-slate-900 leading-[1.05]">
               Privacy Layer<br />
               for your <span class="relative inline-block text-slate-900">
                 Prompts
