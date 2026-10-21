@@ -199,24 +199,23 @@ export const HOME_HTML = `<!DOCTYPE html>
   <!-- ========================================================================= -->
   <!-- NAVIGATION BAR                                                            -->
   <!-- ========================================================================= -->
-  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-gray-200/80">
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b-2 border-slate-900 shadow-[0_2px_0px_0px_rgba(15,23,42,0.06)]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <div class="flex items-center gap-8">
-        <a href="/home" class="flex items-center gap-2.5">
-          <div class="w-8 h-8 rounded-lg bg-[#f0523d] flex items-center justify-center text-white shadow-xs">
-            <i data-lucide="shield-check" class="w-5 h-5"></i>
+        <a href="/home" class="flex items-center gap-2.5 group">
+          <div class="w-8 h-8 rounded-xl bg-[#f0523d] border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a] flex items-center justify-center text-white group-hover:translate-x-0.5 group-hover:translate-y-0.5 group-hover:shadow-[1px_1px_0px_0px_#0f172a] transition-all">
+            <i data-lucide="shield-check" class="w-5 h-5 stroke-[2.5]"></i>
           </div>
-          <span class="font-bold text-lg text-slate-900 tracking-tight">projectspg</span>
-          <span class="hidden sm:inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold bg-orange-50 text-[#f0523d] border border-orange-200">Gateway v2.0</span>
+          <span class="font-mono font-black text-lg text-slate-950 tracking-tight">projectspg</span>
         </a>
 
-        <nav class="hidden md:flex items-center gap-6 text-xs font-medium text-slate-600">
-          <a href="#security-comparison" class="hover:text-slate-900 transition">Architecture</a>
-          <a href="#demo" class="hover:text-slate-900 transition">Live Demo</a>
-          <a href="#how-it-works" class="hover:text-slate-900 transition">Data Flow</a>
-          <a href="#platform" class="hover:text-slate-900 transition">Platform</a>
-          <a href="#blog" class="hover:text-slate-900 transition">Blog</a>
-          <a href="/#docs" class="hover:text-slate-900 transition">API Docs</a>
+        <nav class="hidden md:flex items-center gap-2 font-mono text-xs font-bold text-slate-800">
+          <a href="#security-comparison" class="px-2.5 py-1.5 rounded-lg border border-transparent hover:border-slate-900 hover:bg-slate-100 hover:shadow-[1.5px_1.5px_0px_0px_#0f172a] transition-all">Architecture</a>
+          <a href="#demo" class="px-2.5 py-1.5 rounded-lg border border-transparent hover:border-slate-900 hover:bg-slate-100 hover:shadow-[1.5px_1.5px_0px_0px_#0f172a] transition-all">Live Demo</a>
+          <a href="#how-it-works" class="px-2.5 py-1.5 rounded-lg border border-transparent hover:border-slate-900 hover:bg-slate-100 hover:shadow-[1.5px_1.5px_0px_0px_#0f172a] transition-all">Data Flow</a>
+          <a href="#platform" class="px-2.5 py-1.5 rounded-lg border border-transparent hover:border-slate-900 hover:bg-slate-100 hover:shadow-[1.5px_1.5px_0px_0px_#0f172a] transition-all">Platform</a>
+          <a href="#blog" class="px-2.5 py-1.5 rounded-lg border border-transparent hover:border-slate-900 hover:bg-slate-100 hover:shadow-[1.5px_1.5px_0px_0px_#0f172a] transition-all">Blog</a>
+          <a href="/#docs" class="px-2.5 py-1.5 rounded-lg border border-transparent hover:border-slate-900 hover:bg-slate-100 hover:shadow-[1.5px_1.5px_0px_0px_#0f172a] transition-all">API Docs</a>
         </nav>
       </div>
 
