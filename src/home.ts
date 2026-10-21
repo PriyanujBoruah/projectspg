@@ -8,12 +8,13 @@ export const HOME_HTML = `<!DOCTYPE html>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23f0523d'><path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cabin+Sketch:wght@400;700&family=Architects+Daughter&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <style>
     body { font-family: 'Inter', sans-serif; }
+    .font-sketch { font-family: 'Cabin Sketch', 'Architects Daughter', cursive, sans-serif; }
     pre, code, .font-mono { font-family: 'JetBrains Mono', monospace; }
     .bg-grid {
       background-size: 32px 32px;
@@ -243,10 +244,36 @@ export const HOME_HTML = `<!DOCTYPE html>
         
         <!-- Left Column: Typography & CTAs -->
         <div class="lg:col-span-5 text-center lg:text-left space-y-6">
-          <h1 class="text-4xl sm:text-6xl lg:text-[64px] font-extrabold tracking-tight text-slate-900 leading-[1.05]">
-            Privacy Layer<br />
-            for your Prompts
-          </h1>
+          <div class="relative inline-block select-none text-center lg:text-left">
+            <!-- Sketch Shadow Behind Text (45-degree diagonal offset hatching) -->
+            <div class="absolute inset-0 transform translate-x-1.5 translate-y-1.5 font-sketch font-bold tracking-tight text-transparent select-none pointer-events-none text-4xl sm:text-6xl lg:text-[68px] leading-[1.05]"
+                 style="-webkit-text-stroke: 1.5px #64748b; background: repeating-linear-gradient(45deg, #94a3b8, #94a3b8 1.5px, transparent 1.5px, transparent 6px); -webkit-background-clip: text; background-clip: text; opacity: 0.5;">
+              Privacy Layer<br />
+              for your Prompts
+            </div>
+
+            <!-- Main Sketch Headline Body -->
+            <h1 class="relative z-10 font-sketch font-bold text-4xl sm:text-6xl lg:text-[68px] tracking-tight text-slate-900 leading-[1.05]"
+                style="text-shadow: 2px 2px 0px rgba(100, 116, 139, 0.35);">
+              Privacy Layer<br />
+              for your <span class="relative inline-block text-slate-900">
+                Prompts
+                <!-- Hand-drawn sketch pen underline stroke -->
+                <svg class="absolute -bottom-2 sm:-bottom-3 left-0 w-full h-3 sm:h-4 text-[#f0523d] overflow-visible pointer-events-none" viewBox="0 0 100 12" preserveAspectRatio="none">
+                  <path d="M0,8 Q25,2 50,7 T100,6" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+                  <path d="M4,11 Q28,4 52,9 T96,8" fill="none" stroke="#f0523d" stroke-width="1.8" stroke-linecap="round" opacity="0.65" />
+                </svg>
+              </span>
+            </h1>
+
+            <!-- Stepped Architectural Drafting Pen Strokes beneath the heading -->
+            <div class="mt-4 flex flex-col items-center lg:items-start space-y-1 opacity-70 select-none">
+              <div class="w-44 h-[2px] bg-slate-900 rounded-full"></div>
+              <div class="w-32 h-[1.5px] bg-slate-700 rounded-full"></div>
+              <div class="w-20 h-[1.2px] bg-slate-500 rounded-full"></div>
+              <div class="w-10 h-[1.0px] bg-slate-400 rounded-full"></div>
+            </div>
+          </div>
 
           <div class="flex items-center justify-center lg:justify-start gap-3 pt-2">
             <a href="#demo" class="px-5 py-2.5 rounded-full bg-slate-900 hover:bg-black text-white text-xs font-semibold transition cursor-pointer shadow-xs">
