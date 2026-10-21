@@ -15,11 +15,6 @@ export const HOME_HTML = `<!DOCTYPE html>
   <style>
     body { font-family: 'Inter', sans-serif; }
     .font-sketch { font-family: 'Cabin Sketch', 'Architects Daughter', cursive, sans-serif; }
-    .font-sketch-dark,
-    #blog .font-sketch:not(.text-white) {
-      -webkit-text-stroke: 1.05px currentColor;
-      text-shadow: 0 0 1px currentColor;
-    }
     pre, code, .font-mono { font-family: 'JetBrains Mono', monospace; }
     .bg-grid {
       background-size: 32px 32px;
@@ -1904,10 +1899,10 @@ export const HOME_HTML = `<!DOCTYPE html>
             <span class="w-2.5 h-2.5 rounded-full bg-[#f0523d] border border-slate-900 animate-pulse"></span>
             <span>§ 07 // TECHNICAL BRIEFINGS &amp; RESEARCH</span>
           </div>
-          <h2 class="text-3xl sm:text-5xl lg:text-[54px] font-sketch font-bold tracking-tight text-slate-900 leading-tight">
+          <h2 class="text-3xl sm:text-5xl lg:text-[46px] font-extrabold tracking-tight text-slate-950 leading-tight">
             Learn More About ProjectSPG
           </h2>
-          <p class="font-mono text-xs sm:text-sm text-slate-700 font-semibold mt-2 max-w-xl leading-relaxed">
+          <p class="text-sm sm:text-base text-slate-600 mt-2 max-w-xl leading-relaxed">
             In-depth architecture analysis, empirical latency benchmarks, and sovereign data residency deep-dives.
           </p>
         </div>
@@ -1966,7 +1961,7 @@ export const HOME_HTML = `<!DOCTYPE html>
                 <div class="relative z-10 flex flex-col sm:flex-row h-full w-full gap-5 sm:gap-2">
                   <!-- Left Side: Title Typography in font-sketch -->
                   <div class="w-full sm:w-[42%] flex flex-col justify-center pr-0 sm:pr-3">
-                    <h3 class="font-sketch text-2xl sm:text-3xl font-bold text-white tracking-tight leading-tight">
+                    <h3 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-tight">
                       The<br class="hidden sm:block"><span class="text-slate-100"> Open</span><br class="hidden sm:block"><span class="text-slate-200"> Model</span><br class="hidden sm:block"><span class="text-slate-300"> AI Stack</span>
                     </h3>
                     <p class="text-[10px] font-mono tracking-wider text-slate-400 mt-2 sm:mt-3 uppercase font-bold">
@@ -2033,10 +2028,10 @@ export const HOME_HTML = `<!DOCTYPE html>
 
               <!-- Post Meta & Details in Sketch Style -->
               <div class="mt-5">
-                <h3 class="font-sketch text-2xl sm:text-3xl font-bold text-slate-950 group-hover:text-[#f0523d] transition-colors leading-snug">
+                <h3 class="text-2xl sm:text-3xl font-extrabold text-slate-950 group-hover:text-[#f0523d] transition-colors leading-snug">
                   The Open Source AI Stack: Why ProjectSPG Ranks #1
                 </h3>
-                <p class="font-mono text-xs sm:text-[13px] text-slate-700 mt-2 font-medium line-clamp-2 leading-relaxed">
+                <p class="text-xs sm:text-sm text-slate-600 mt-2 line-clamp-2 leading-relaxed">
                   A deep dive into the open model AI stack and a ranked comparison of the leading AI security proxies across latency, reversibility, and sovereign compliance.
                 </p>
               </div>
@@ -2073,7 +2068,7 @@ export const HOME_HTML = `<!DOCTYPE html>
                     <span class="w-2 h-2 rounded-full bg-pink-500 border border-slate-900"></span>
                     <span class="text-[9px] font-mono font-black text-gray-900 lowercase tracking-tight">project<span class="text-[#f0523d]">spg</span></span>
                   </div>
-                  <p class="font-sketch text-[12px] font-bold text-gray-950 leading-tight">
+                  <p class="text-[11px] sm:text-[12px] font-bold text-gray-950 leading-tight">
                     Empirical Benchmark: 9.33M Prompts
                   </p>
                 </div>
@@ -2087,10 +2082,10 @@ export const HOME_HTML = `<!DOCTYPE html>
                   </span>
                   <span class="text-[10px] font-mono font-bold text-slate-500">FIDELITY: 100.00%</span>
                 </div>
-                <h4 class="font-sketch text-lg sm:text-xl font-bold text-slate-950 group-hover:text-[#f0523d] transition-colors leading-snug">
+                <h4 class="text-lg sm:text-xl font-bold text-slate-950 group-hover:text-[#f0523d] transition-colors leading-snug">
                   Empirical Benchmark: 9,334,805 Prompts Evaluated with 100.00% Fidelity &amp; 86µs Latency
                 </h4>
-                <p class="font-mono text-xs text-slate-700 mt-1.5 font-medium line-clamp-2 leading-relaxed">
+                <p class="text-xs sm:text-sm text-slate-600 mt-1.5 line-clamp-2 leading-relaxed">
                   Exhaustive empirical validation across 1.94B tokens proving zero-loss de-identification, 17,735 prompts/sec throughput, and 13.3ms HTTPS latency.
                 </p>
               </div>
@@ -2118,7 +2113,7 @@ export const HOME_HTML = `<!DOCTYPE html>
                     <span class="w-2 h-2 rounded-full bg-orange-500 border border-slate-900"></span>
                     <span class="text-[9px] font-mono font-black text-gray-900 lowercase tracking-tight">project<span class="text-[#f0523d]">spg</span></span>
                   </div>
-                  <p class="font-sketch text-[12px] font-bold text-gray-950 leading-tight">
+                  <p class="text-[11px] sm:text-[12px] font-bold text-gray-950 leading-tight">
                     109 Jurisdictions Supported
                   </p>
                 </div>
@@ -2132,10 +2127,10 @@ export const HOME_HTML = `<!DOCTYPE html>
                   </span>
                   <span class="text-[10px] font-mono font-bold text-slate-500">GLOBAL RESIDENCY</span>
                 </div>
-                <h4 class="font-sketch text-lg sm:text-xl font-bold text-slate-950 group-hover:text-[#f0523d] transition-colors leading-snug">
+                <h4 class="text-lg sm:text-xl font-bold text-slate-950 group-hover:text-[#f0523d] transition-colors leading-snug">
                   Global Sovereign AI Privacy: 109 Jurisdictions Supported by ProjectSPG
                 </h4>
-                <p class="font-mono text-xs text-slate-700 mt-1.5 font-medium line-clamp-2 leading-relaxed">
+                <p class="text-xs sm:text-sm text-slate-600 mt-1.5 line-clamp-2 leading-relaxed">
                   Protecting sensitive enterprise data across GDPR, India DPDP, Singapore PDPA, HIPAA, and 109 sovereign national jurisdictions without code changes.
                 </p>
               </div>
@@ -2163,7 +2158,7 @@ export const HOME_HTML = `<!DOCTYPE html>
                     <span class="w-2 h-2 rounded-full bg-purple-500 border border-slate-900"></span>
                     <span class="text-[9px] font-mono font-black text-gray-900 lowercase tracking-tight">project<span class="text-[#f0523d]">spg</span></span>
                   </div>
-                  <p class="font-sketch text-[12px] font-bold text-gray-950 leading-tight">
+                  <p class="text-[11px] sm:text-[12px] font-bold text-gray-950 leading-tight">
                     Enterprise Guardrails &amp; Threat Models
                   </p>
                 </div>
@@ -2177,10 +2172,10 @@ export const HOME_HTML = `<!DOCTYPE html>
                   </span>
                   <span class="text-[10px] font-mono font-bold text-slate-500">DEFENSE &amp; FINTECH</span>
                 </div>
-                <h4 class="font-sketch text-lg sm:text-xl font-bold text-slate-950 group-hover:text-[#f0523d] transition-colors leading-snug">
+                <h4 class="text-lg sm:text-xl font-bold text-slate-950 group-hover:text-[#f0523d] transition-colors leading-snug">
                   Enterprise Guardrails for Regulated Industries: Healthcare, FinTech &amp; Legal
                 </h4>
-                <p class="font-mono text-xs text-slate-700 mt-1.5 font-medium line-clamp-2 leading-relaxed">
+                <p class="text-xs sm:text-sm text-slate-600 mt-1.5 line-clamp-2 leading-relaxed">
                   Protecting clinical PHI under HIPAA, financial assets under PCI-DSS, attorney-client privilege, and defense telemetry across frontier LLMs with zero code changes.
                 </p>
               </div>
