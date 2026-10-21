@@ -15,6 +15,11 @@ export const HOME_HTML = `<!DOCTYPE html>
   <style>
     body { font-family: 'Inter', sans-serif; }
     .font-sketch { font-family: 'Cabin Sketch', 'Architects Daughter', cursive, sans-serif; }
+    .font-sketch-dark,
+    #blog .font-sketch:not(.text-white) {
+      -webkit-text-stroke: 1.05px currentColor;
+      text-shadow: 0 0 1px currentColor;
+    }
     pre, code, .font-mono { font-family: 'JetBrains Mono', monospace; }
     .bg-grid {
       background-size: 32px 32px;
