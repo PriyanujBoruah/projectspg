@@ -192,6 +192,15 @@ export const HOME_HTML = `<!DOCTYPE html>
         background-position: 20px 0;
       }
     }
+
+    .logo-keyhole {
+      fill: #09090b;
+      transition: fill 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s ease;
+    }
+    .group:hover .logo-keyhole,
+    .logo-keyhole:hover {
+      fill: #f0523d !important;
+    }
   </style>
 </head>
 <body class="min-h-full bg-[#fafafa] text-[#1e1e2e] flex flex-col antialiased">
@@ -203,7 +212,7 @@ export const HOME_HTML = `<!DOCTYPE html>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <div class="flex items-center gap-8">
         <a href="/home" class="flex items-center gap-2.5 group">
-          <svg viewBox="82 47 96 211" class="h-6 w-auto shrink-0 group-hover:opacity-80 transition-opacity" fill="#09090b">
+          <svg viewBox="82 47 96 211" class="logo-keyhole h-6 w-auto shrink-0 group-hover:translate-x-0.5 group-hover:translate-y-0.5" fill="#09090b">
             <path d="M 103.5 135 A 48 48 0 1 1 156.5 135 L 178 248 Q 178 258 168 258 L 92 258 Q 82 258 82 248 Z" />
           </svg>
           <span class="font-mono font-black text-lg text-slate-950 tracking-tight">projectspg</span>
@@ -2377,8 +2386,8 @@ export const HOME_HTML = `<!DOCTYPE html>
   <!-- ========================================================================= -->
   <footer class="bg-white border-t border-gray-200 py-8">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-      <div class="flex items-center gap-2">
-        <svg viewBox="82 47 96 211" class="h-5 w-auto shrink-0 group-hover:opacity-80 transition-opacity" fill="#09090b">
+      <div class="flex items-center gap-2 group">
+        <svg viewBox="82 47 96 211" class="logo-keyhole h-5 w-auto shrink-0 cursor-pointer" fill="#09090b">
           <path d="M 103.5 135 A 48 48 0 1 1 156.5 135 L 178 248 Q 178 258 168 258 L 92 258 Q 82 258 82 248 Z" />
         </svg>
         <span class="font-mono font-bold text-slate-900">projectspg</span>
