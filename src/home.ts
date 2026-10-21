@@ -203,10 +203,14 @@ export const HOME_HTML = `<!DOCTYPE html>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <div class="flex items-center gap-8">
         <a href="/home" class="flex items-center gap-2.5 group">
-          <div class="w-8 h-8 rounded-xl bg-[#f0523d] border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a] flex items-center justify-center text-white group-hover:translate-x-0.5 group-hover:translate-y-0.5 group-hover:shadow-[1px_1px_0px_0px_#0f172a] transition-all">
-            <svg viewBox="0 0 24 24" class="w-4.5 h-4.5" fill="currentColor">
-              <path fill-rule="evenodd" clip-rule="evenodd"
-                d="M12 3.5a5.5 5.5 0 0 0-3.8 9.47L6.85 19.3A1 1 0 0 0 7.83 20.5h8.34a1 1 0 0 0 .98-1.2l-1.35-6.33A5.5 5.5 0 0 0 12 3.5zm0 3.5a2 2 0 0 0-1 3.73V13a1 1 0 0 0 2 0v-2.27A2 2 0 0 0 12 7z" />
+          <div class="w-6 h-7 flex items-center justify-center shrink-0 group-hover:translate-x-0.5 group-hover:translate-y-0.5 transition-all">
+            <svg viewBox="0 0 24 28" class="w-6 h-7 overflow-visible">
+              <path d="M12 3.5a5.5 5.5 0 0 0-3.8 9.47L6.85 19.3A1 1 0 0 0 7.83 20.5h8.34a1 1 0 0 0 .98-1.2l-1.35-6.33A5.5 5.5 0 0 0 12 3.5z"
+                    fill="#0f172a" transform="translate(2, 2)" />
+              <path d="M12 3.5a5.5 5.5 0 0 0-3.8 9.47L6.85 19.3A1 1 0 0 0 7.83 20.5h8.34a1 1 0 0 0 .98-1.2l-1.35-6.33A5.5 5.5 0 0 0 12 3.5z"
+                    fill="#f0523d" stroke="#0f172a" stroke-width="1.8" stroke-linejoin="round" />
+              <circle cx="12" cy="8.5" r="1.5" fill="#ffffff" />
+              <path d="M11.2 9.5 L11 13.5 L13 13.5 L12.8 9.5 Z" fill="#ffffff" />
             </svg>
           </div>
           <span class="font-mono font-black text-lg text-slate-950 tracking-tight">projectspg</span>
@@ -2381,10 +2385,14 @@ export const HOME_HTML = `<!DOCTYPE html>
   <footer class="bg-white border-t border-gray-200 py-8">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
       <div class="flex items-center gap-2.5">
-        <div class="w-6 h-6 rounded-lg bg-[#f0523d] border border-slate-900 shadow-[1.5px_1.5px_0px_0px_#0f172a] flex items-center justify-center text-white">
-          <svg viewBox="0 0 24 24" class="w-3.5 h-3.5" fill="currentColor">
-            <path fill-rule="evenodd" clip-rule="evenodd"
-              d="M12 3.5a5.5 5.5 0 0 0-3.8 9.47L6.85 19.3A1 1 0 0 0 7.83 20.5h8.34a1 1 0 0 0 .98-1.2l-1.35-6.33A5.5 5.5 0 0 0 12 3.5zm0 3.5a2 2 0 0 0-1 3.73V13a1 1 0 0 0 2 0v-2.27A2 2 0 0 0 12 7z" />
+        <div class="w-4.5 h-5 flex items-center justify-center shrink-0">
+          <svg viewBox="0 0 24 28" class="w-4.5 h-5 overflow-visible">
+            <path d="M12 3.5a5.5 5.5 0 0 0-3.8 9.47L6.85 19.3A1 1 0 0 0 7.83 20.5h8.34a1 1 0 0 0 .98-1.2l-1.35-6.33A5.5 5.5 0 0 0 12 3.5z"
+                  fill="#0f172a" transform="translate(1.5, 1.5)" />
+            <path d="M12 3.5a5.5 5.5 0 0 0-3.8 9.47L6.85 19.3A1 1 0 0 0 7.83 20.5h8.34a1 1 0 0 0 .98-1.2l-1.35-6.33A5.5 5.5 0 0 0 12 3.5z"
+                  fill="#f0523d" stroke="#0f172a" stroke-width="1.8" stroke-linejoin="round" />
+            <circle cx="12" cy="8.5" r="1.5" fill="#ffffff" />
+            <path d="M11.2 9.5 L11 13.5 L13 13.5 L12.8 9.5 Z" fill="#ffffff" />
           </svg>
         </div>
         <span class="font-mono font-bold text-slate-900">projectspg</span>
