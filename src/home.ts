@@ -1887,230 +1887,311 @@ export const HOME_HTML = `<!DOCTYPE html>
     </section>
 
     <!-- ======================================================================= -->
-    <!-- BLOG & TECHNICAL RESEARCH SECTION                                       -->
+    <!-- BLOG & TECHNICAL RESEARCH SECTION (ARCHITECTURAL SKETCH STYLE)          -->
     <!-- ======================================================================= -->
     <section id="blog" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 border-t border-gray-200/80">
       
-      <!-- Section Header Row -->
-      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12 sm:mb-16">
+      <!-- Section Header Row in Sketch Style -->
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-5 mb-12 sm:mb-16">
         <div>
-          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-gray-200 text-slate-700 text-xs font-semibold uppercase tracking-wider mb-4 shadow-2xs">
-            <span class="w-2 h-2 rounded-full bg-[#f0523d]"></span>
-            <span>Engineering &amp; Research</span>
+          <!-- Blueprint Style Technical Badge -->
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-white border-2 border-slate-900 text-slate-900 text-xs font-mono font-black uppercase tracking-wider mb-4 shadow-[2px_2px_0px_0px_#0f172a]">
+            <span class="w-2.5 h-2.5 rounded-full bg-[#f0523d] border border-slate-900 animate-pulse"></span>
+            <span>§ 07 // TECHNICAL BRIEFINGS &amp; RESEARCH</span>
           </div>
-          <h2 class="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
-            Learn more about ProjectSPG
+          <h2 class="text-3xl sm:text-5xl lg:text-[54px] font-sketch font-bold tracking-tight text-slate-900 leading-tight">
+            Learn More About ProjectSPG
           </h2>
-          <p class="text-sm sm:text-base text-slate-600 mt-2 max-w-xl">
+          <p class="font-mono text-xs sm:text-sm text-slate-700 font-semibold mt-2 max-w-xl leading-relaxed">
             In-depth architecture analysis, empirical latency benchmarks, and sovereign data residency deep-dives.
           </p>
         </div>
-        <a href="/blog/benchmark" class="self-start sm:self-auto px-4 py-2.5 rounded-xl bg-white hover:bg-gray-50 border border-gray-200 text-slate-800 text-xs font-bold tracking-wider uppercase transition shadow-2xs cursor-pointer flex items-center gap-2 group">
+        
+        <!-- Sketch Button for All Posts -->
+        <a href="/blog/benchmark" class="self-start sm:self-auto px-4 py-2.5 rounded-xl bg-white hover:bg-slate-50 border-2 border-slate-900 text-slate-950 font-mono text-xs font-black tracking-wider uppercase transition shadow-[3px_3px_0px_0px_#0f172a] hover:shadow-[1px_1px_0px_0px_#0f172a] hover:translate-x-0.5 hover:translate-y-0.5 flex items-center gap-2 group">
           <span>ALL BLOG POSTS</span>
-          <i data-lucide="arrow-up-right" class="w-4 h-4 text-slate-400 group-hover:text-[#f0523d] transition-colors"></i>
+          <i data-lucide="arrow-up-right" class="w-4 h-4 text-slate-900 stroke-[2.5] group-hover:text-[#f0523d] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"></i>
         </a>
       </div>
 
       <!-- Two-Column Grid: Large Featured Post on Left, 3 Stacked Posts on Right -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
         
-        <!-- Left Column: Featured Post (The Open Source AI Stack) -->
+        <!-- Left Column: Featured Post (The Open Source AI Stack) in Sketch Card -->
         <a href="/blog/stack" class="block lg:col-span-6 group cursor-pointer text-inherit no-underline">
-          <div class="relative">
-            <!-- Architectural Hatch Shadow -->
-            <div class="absolute inset-0 rounded-2xl transform translate-x-2 translate-y-2 z-0 pointer-events-none border border-slate-700/40"
-                 style="background: repeating-linear-gradient(45deg, #475569, #475569 1.3px, transparent 1.3px, transparent 7px); opacity: 0.25;"></div>
+          <div class="relative h-full rounded-2xl bg-white border-2 border-slate-900 p-5 sm:p-7 shadow-[5px_5px_0px_0px_#0f172a] hover:shadow-[7px_7px_0px_0px_#0f172a] hover:-translate-y-1 transition-all flex flex-col justify-between">
+            
+            <!-- Corner Registration Ticks (+) -->
+            <div class="absolute top-2 left-2 text-slate-500 font-mono text-[10px] select-none leading-none font-black">+</div>
+            <div class="absolute top-2 right-2 text-slate-500 font-mono text-[10px] select-none leading-none font-black">+</div>
+            <div class="absolute bottom-2 left-2 text-slate-500 font-mono text-[10px] select-none leading-none font-black">+</div>
+            <div class="absolute bottom-2 right-2 text-slate-500 font-mono text-[10px] select-none leading-none font-black">+</div>
+            
+            <!-- Inset Dashed Drafting Contour -->
+            <div class="absolute inset-1.5 rounded-[12px] border border-dashed border-slate-300 pointer-events-none"></div>
 
-            <!-- Stack Illustration Card -->
-            <div class="relative z-10 w-full min-h-[260px] sm:aspect-[16/10] bg-[#09090b] rounded-2xl p-5 sm:p-7 flex flex-col sm:flex-row justify-between border-2 border-slate-800 shadow-md overflow-hidden transition-all duration-200 group-hover:-translate-y-1 group-hover:border-slate-700">
-              
-              <!-- Corner Registration Ticks (+) -->
-              <div class="absolute top-2.5 left-2.5 text-slate-600 font-mono text-[10px] select-none leading-none opacity-60">+</div>
-              <div class="absolute top-2.5 right-2.5 text-slate-600 font-mono text-[10px] select-none leading-none opacity-60">+</div>
-              <div class="absolute bottom-2.5 left-2.5 text-slate-600 font-mono text-[10px] select-none leading-none opacity-60">+</div>
-              <div class="absolute bottom-2.5 right-2.5 text-slate-600 font-mono text-[10px] select-none leading-none opacity-60">+</div>
-
-              <!-- Inset Dashed Drafting Contour -->
-              <div class="absolute inset-1.5 sm:inset-2 rounded-[14px] border border-dashed border-slate-800/80 pointer-events-none"></div>
-
-              <!-- Background Ambient Glow -->
-              <div class="absolute -right-20 -top-20 w-80 h-80 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
-
-              <div class="relative z-10 flex flex-col sm:flex-row h-full w-full gap-5 sm:gap-2">
-                <!-- Left Side: Title Typography -->
-                <div class="w-full sm:w-[42%] flex flex-col justify-center pr-0 sm:pr-3">
-                  <h3 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-tight">
-                    The<br class="hidden sm:block"><span class="text-slate-100"> Open</span><br class="hidden sm:block"><span class="text-slate-200"> Model</span><br class="hidden sm:block"><span class="text-slate-300"> AI Stack</span>
-                  </h3>
-                  <p class="text-[10px] font-mono tracking-wider text-slate-400 mt-2 sm:mt-4 uppercase">
-                    the <span class="text-white font-bold">MIGHT</span> stack
-                  </p>
+            <div>
+              <!-- Top Strip with Technical Meta -->
+              <div class="flex items-center justify-between pb-3 mb-4 border-b-2 border-dashed border-slate-200">
+                <div class="flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-[#f0523d] border border-slate-900"></span>
+                  <span class="font-mono text-[10px] font-black uppercase tracking-wider text-slate-700">SPEC: OPEN MODEL STACK // ARCH-01</span>
                 </div>
+                <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-950 border-2 border-slate-900 font-mono text-[9px] font-black uppercase tracking-wider shadow-[1.5px_1.5px_0px_0px_#0f172a]">
+                  INFERENCE &amp; SECURITY
+                </span>
+              </div>
 
-                <!-- Right Side: Layered Stack Pills -->
-                <div class="w-full sm:w-[58%] flex flex-col justify-center gap-2 text-[10px] font-sans">
-                  <!-- Layer 1: models -->
-                  <div class="bg-[#121622] border border-slate-800 rounded-lg p-2.5 flex items-center justify-between shadow-2xs">
-                    <span class="text-slate-400 font-mono text-[9.5px] uppercase">models</span>
-                    <div class="flex items-center gap-1.5">
-                      <span class="w-2.5 h-2.5 rounded-full bg-orange-400/90 inline-block shadow-xs"></span>
-                      <span class="w-2.5 h-2.5 rounded-full bg-blue-400/90 inline-block shadow-xs"></span>
-                      <span class="w-2.5 h-2.5 rounded-full bg-purple-400/90 inline-block shadow-xs"></span>
-                      <span class="w-2.5 h-2.5 rounded-full bg-emerald-400/90 inline-block shadow-xs"></span>
-                      <span class="text-[10px] font-bold text-white ml-0.5">∞</span>
-                    </div>
+              <!-- Stack Blueprint Illustration Card (Crisp Drafting Layers) -->
+              <div class="relative w-full min-h-[250px] sm:aspect-[16/10] bg-[#09090b] rounded-xl p-5 sm:p-6 flex flex-col sm:flex-row justify-between border-2 border-slate-900 shadow-[3px_3px_0px_0px_#0f172a] overflow-hidden">
+                
+                <!-- Corner Ticks on dark card -->
+                <div class="absolute top-2 left-2 text-slate-600 font-mono text-[9px] select-none leading-none font-black">+</div>
+                <div class="absolute top-2 right-2 text-slate-600 font-mono text-[9px] select-none leading-none font-black">+</div>
+                <div class="absolute bottom-2 left-2 text-slate-600 font-mono text-[9px] select-none leading-none font-black">+</div>
+                <div class="absolute bottom-2 right-2 text-slate-600 font-mono text-[9px] select-none leading-none font-black">+</div>
+
+                <!-- Inset Dashed Border inside Blueprint -->
+                <div class="absolute inset-1.5 rounded-[9px] border border-dashed border-slate-800 pointer-events-none"></div>
+                
+                <!-- Blueprint Ambient Hatch Overlay -->
+                <div class="absolute inset-0 pointer-events-none opacity-20"
+                     style="background: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.08) 1.2px, transparent 1.2px, transparent 7px);"></div>
+
+                <div class="relative z-10 flex flex-col sm:flex-row h-full w-full gap-5 sm:gap-2">
+                  <!-- Left Side: Title Typography in font-sketch -->
+                  <div class="w-full sm:w-[42%] flex flex-col justify-center pr-0 sm:pr-3">
+                    <h3 class="font-sketch text-2xl sm:text-3xl font-bold text-white tracking-tight leading-tight">
+                      The<br class="hidden sm:block"><span class="text-slate-100"> Open</span><br class="hidden sm:block"><span class="text-slate-200"> Model</span><br class="hidden sm:block"><span class="text-slate-300"> AI Stack</span>
+                    </h3>
+                    <p class="text-[10px] font-mono tracking-wider text-slate-400 mt-2 sm:mt-3 uppercase font-bold">
+                      the <span class="text-white border-b border-dashed border-white pb-0.5">MIGHT</span> stack
+                    </p>
                   </div>
 
-                  <!-- Layer 2: inference -->
-                  <div class="bg-[#121622] border border-slate-800 rounded-lg p-2.5 flex items-center justify-between shadow-2xs">
-                    <span class="text-slate-400 font-mono text-[9.5px] uppercase">inference</span>
-                    <div class="flex items-center gap-1.5 sm:gap-2 text-[9.5px] font-semibold text-slate-200 flex-wrap">
-                      <span>• SGLang</span>
-                      <span>• vLLM</span>
-                      <span>• TRT-LLM</span>
-                      <span class="text-[#f0523d] font-bold flex items-center gap-0.5">♥ ProjectSPG</span>
+                  <!-- Right Side: Layered Stack Pills -->
+                  <div class="w-full sm:w-[58%] flex flex-col justify-center gap-2 text-[10px] font-mono">
+                    <!-- Layer 1: models -->
+                    <div class="bg-[#121622] border-2 border-slate-700/80 rounded-lg p-2 flex items-center justify-between shadow-[2px_2px_0px_0px_#000]">
+                      <span class="text-slate-400 font-mono text-[9px] uppercase font-bold">models</span>
+                      <div class="flex items-center gap-1.5">
+                        <span class="w-2.5 h-2.5 rounded-full bg-orange-400 border border-slate-900 inline-block"></span>
+                        <span class="w-2.5 h-2.5 rounded-full bg-blue-400 border border-slate-900 inline-block"></span>
+                        <span class="w-2.5 h-2.5 rounded-full bg-purple-400 border border-slate-900 inline-block"></span>
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 border border-slate-900 inline-block"></span>
+                        <span class="text-[10px] font-bold text-white ml-0.5">∞</span>
+                      </div>
                     </div>
-                  </div>
 
-                  <!-- Layer 3: gateways & routers -->
-                  <div class="bg-[#121622] border border-slate-800 rounded-lg p-2.5 flex items-center justify-between shadow-2xs">
-                    <span class="text-slate-400 font-mono text-[9.5px] uppercase truncate mr-1">gateways &amp; routers</span>
-                    <div class="flex items-center gap-2 text-[9.5px] font-semibold text-slate-300">
-                      <span>LiteLLM</span>
-                      <span>OpenRouter</span>
-                      <span>AI Gateway</span>
+                    <!-- Layer 2: inference -->
+                    <div class="bg-[#121622] border-2 border-slate-700/80 rounded-lg p-2 flex items-center justify-between shadow-[2px_2px_0px_0px_#000]">
+                      <span class="text-slate-400 font-mono text-[9px] uppercase font-bold">inference</span>
+                      <div class="flex items-center gap-1.5 text-[9px] font-bold text-slate-200 flex-wrap">
+                        <span>SGLang</span>
+                        <span>vLLM</span>
+                        <span>TRT-LLM</span>
+                        <span class="text-white font-black bg-[#f0523d] px-1.5 py-0.5 rounded border border-slate-900">♥ ProjectSPG</span>
+                      </div>
                     </div>
-                  </div>
 
-                  <!-- Layer 4: harness -->
-                  <div class="bg-[#121622] border border-slate-800 rounded-lg p-2.5 flex items-center justify-between shadow-2xs">
-                    <span class="text-slate-400 font-mono text-[9.5px] uppercase">harness</span>
-                    <div class="flex items-center gap-2 text-[9.5px] font-semibold text-slate-300">
-                      <span>opencode</span>
-                      <span>pi</span>
-                      <span>Cursor</span>
+                    <!-- Layer 3: gateways & routers -->
+                    <div class="bg-[#121622] border-2 border-slate-700/80 rounded-lg p-2 flex items-center justify-between shadow-[2px_2px_0px_0px_#000]">
+                      <span class="text-slate-400 font-mono text-[9px] uppercase font-bold truncate mr-1">gateways</span>
+                      <div class="flex items-center gap-2 text-[9px] font-bold text-slate-300">
+                        <span>LiteLLM</span>
+                        <span>OpenRouter</span>
+                        <span>AI Gateway</span>
+                      </div>
                     </div>
-                  </div>
 
-                  <!-- Layer 5: tools -->
-                  <div class="bg-[#121622] border border-slate-800 rounded-lg p-2.5 flex items-center justify-between shadow-2xs">
-                    <span class="text-slate-400 font-mono text-[9.5px] uppercase">tools</span>
-                    <div class="flex items-center gap-2.5 text-[9.5px] font-semibold text-slate-300">
-                      <span>MCP</span>
-                      <span>Skills</span>
+                    <!-- Layer 4: harness -->
+                    <div class="bg-[#121622] border-2 border-slate-700/80 rounded-lg p-2 flex items-center justify-between shadow-[2px_2px_0px_0px_#000]">
+                      <span class="text-slate-400 font-mono text-[9px] uppercase font-bold">harness</span>
+                      <div class="flex items-center gap-2 text-[9px] font-bold text-slate-300">
+                        <span>opencode</span>
+                        <span>pi</span>
+                        <span>Cursor</span>
+                      </div>
+                    </div>
+
+                    <!-- Layer 5: tools -->
+                    <div class="bg-[#121622] border-2 border-slate-700/80 rounded-lg p-2 flex items-center justify-between shadow-[2px_2px_0px_0px_#000]">
+                      <span class="text-slate-400 font-mono text-[9px] uppercase font-bold">tools</span>
+                      <div class="flex items-center gap-2.5 text-[9px] font-bold text-slate-300">
+                        <span>MCP</span>
+                        <span>Skills</span>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
 
-          <!-- Post Meta & Details -->
-          <div class="mt-4">
-            <span class="px-2.5 py-0.5 rounded bg-slate-100 border border-slate-200 text-slate-700 font-bold text-[10px] tracking-wider uppercase">
-              INFERENCE &amp; SECURITY
-            </span>
-            <h3 class="text-xl sm:text-2xl font-bold text-slate-900 mt-2.5 group-hover:text-[#f0523d] transition-colors leading-snug">
-              The Open Source AI Stack: Why ProjectSPG Ranks #1
-            </h3>
-            <p class="text-xs sm:text-sm text-slate-600 mt-1.5 line-clamp-2 leading-relaxed">
-              A deep dive into the open model AI stack and a ranked comparison of the leading AI security proxies across latency, reversibility, and sovereign compliance.
-            </p>
-            <div class="mt-3 flex items-center gap-1.5 text-xs font-semibold text-[#f0523d]">
-              <span>Read article</span>
-              <i data-lucide="arrow-right" class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform"></i>
-            </div>
-          </div>
-        </a>
-
-        <!-- Right Column: 3 Horizontal Post Rows -->
-        <div class="lg:col-span-6 flex flex-col gap-6 sm:gap-7">
-          
-          <!-- Item 1: Empirical Benchmark & Audit Report -->
-          <a href="/blog/benchmark" class="group flex flex-col sm:flex-row items-start gap-4 cursor-pointer text-inherit no-underline">
-            <!-- Pastel Gradient Thumbnail with subtle title overlay -->
-            <div class="w-full sm:w-44 md:w-52 aspect-[16/10] shrink-0 rounded-xl overflow-hidden relative shadow-xs border border-gray-200/80 bg-gradient-to-br from-[#ffd5cc] via-[#f7e0ff] to-[#d8e6ff] flex items-center justify-center p-3 text-center transition-all duration-200 group-hover:shadow-md group-hover:-translate-y-0.5">
-              <div class="flex flex-col items-center">
-                <div class="flex items-center gap-1 mb-1">
-                  <span class="w-2 h-2 rounded-full bg-pink-500"></span>
-                  <span class="text-[9px] font-bold text-gray-800 lowercase tracking-tight">project<span class="text-[#f0523d]">spg</span></span>
-                </div>
-                <p class="text-[10px] sm:text-[11px] font-bold text-gray-900 leading-tight">
-                  Empirical Benchmark: 9.33M Prompts Evaluated with 100.00% Fidelity
+              <!-- Post Meta & Details in Sketch Style -->
+              <div class="mt-5">
+                <h3 class="font-sketch text-2xl sm:text-3xl font-bold text-slate-950 group-hover:text-[#f0523d] transition-colors leading-snug">
+                  The Open Source AI Stack: Why ProjectSPG Ranks #1
+                </h3>
+                <p class="font-mono text-xs sm:text-[13px] text-slate-700 mt-2 font-medium line-clamp-2 leading-relaxed">
+                  A deep dive into the open model AI stack and a ranked comparison of the leading AI security proxies across latency, reversibility, and sovereign compliance.
                 </p>
               </div>
             </div>
 
-            <!-- Text Details -->
-            <div class="flex-1 min-w-0">
-              <span class="px-2.5 py-0.5 rounded bg-slate-100 border border-slate-200 text-slate-700 font-bold text-[10px] tracking-wider uppercase">
-                BENCHMARK
-              </span>
-              <h4 class="text-base sm:text-lg font-bold text-slate-900 mt-1.5 group-hover:text-[#f0523d] transition-colors leading-snug">
-                Empirical Benchmark: 9,334,805 Prompts Evaluated with 100.00% Fidelity &amp; 86µs Latency
-              </h4>
-              <p class="text-xs sm:text-sm text-slate-600 mt-1 line-clamp-2 leading-relaxed">
-                Exhaustive empirical validation across 1.94B tokens proving 100.00% zero-loss de-identification, 17,735 prompts/sec throughput, and 13.3ms HTTPS latency.
-              </p>
+            <div class="mt-4 pt-3 border-t border-dashed border-slate-200 flex items-center gap-2 font-mono text-xs font-black text-[#f0523d]">
+              <span class="uppercase tracking-wider">READ WHITE PAPER // ARCH-01</span>
+              <i data-lucide="arrow-right" class="w-4 h-4 stroke-[2.5] group-hover:translate-x-1.5 transition-transform"></i>
+            </div>
+
+          </div>
+        </a>
+
+        <!-- Right Column: 3 Horizontal Sketch Cards -->
+        <div class="lg:col-span-6 flex flex-col gap-5 sm:gap-6">
+          
+          <!-- Item 1: Empirical Benchmark & Audit Report -->
+          <a href="/blog/benchmark" class="block group cursor-pointer text-inherit no-underline">
+            <div class="relative rounded-2xl bg-white border-2 border-slate-900 p-4 sm:p-5 shadow-[4px_4px_0px_0px_#0f172a] hover:shadow-[6px_6px_0px_0px_#0f172a] hover:-translate-y-0.5 transition-all flex flex-col sm:flex-row items-start gap-4">
+              
+              <!-- Corner Registration Ticks (+) -->
+              <div class="absolute top-1.5 left-1.5 text-slate-400 font-mono text-[9px] select-none leading-none font-bold">+</div>
+              <div class="absolute top-1.5 right-1.5 text-slate-400 font-mono text-[9px] select-none leading-none font-bold">+</div>
+              <div class="absolute bottom-1.5 left-1.5 text-slate-400 font-mono text-[9px] select-none leading-none font-bold">+</div>
+              <div class="absolute bottom-1.5 right-1.5 text-slate-400 font-mono text-[9px] select-none leading-none font-bold">+</div>
+              
+              <!-- Inset Dashed Drafting Contour -->
+              <div class="absolute inset-1 rounded-[12px] border border-dashed border-slate-200 pointer-events-none"></div>
+
+              <!-- Sketch Pastel Thumbnail -->
+              <div class="w-full sm:w-44 md:w-48 aspect-[16/10] shrink-0 rounded-xl overflow-hidden relative border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a] bg-gradient-to-br from-[#ffd5cc] via-[#f7e0ff] to-[#d8e6ff] flex items-center justify-center p-3 text-center transition-all">
+                <div class="flex flex-col items-center">
+                  <div class="flex items-center gap-1 mb-1">
+                    <span class="w-2 h-2 rounded-full bg-pink-500 border border-slate-900"></span>
+                    <span class="text-[9px] font-mono font-black text-gray-900 lowercase tracking-tight">project<span class="text-[#f0523d]">spg</span></span>
+                  </div>
+                  <p class="font-sketch text-[12px] font-bold text-gray-950 leading-tight">
+                    Empirical Benchmark: 9.33M Prompts
+                  </p>
+                </div>
+              </div>
+
+              <!-- Text Details -->
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-2 mb-1.5">
+                  <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-950 border-2 border-slate-900 font-mono text-[9px] font-black uppercase tracking-wider shadow-[1.5px_1.5px_0px_0px_#0f172a]">
+                    BENCHMARK
+                  </span>
+                  <span class="text-[10px] font-mono font-bold text-slate-500">FIDELITY: 100.00%</span>
+                </div>
+                <h4 class="font-sketch text-lg sm:text-xl font-bold text-slate-950 group-hover:text-[#f0523d] transition-colors leading-snug">
+                  Empirical Benchmark: 9,334,805 Prompts Evaluated with 100.00% Fidelity &amp; 86µs Latency
+                </h4>
+                <p class="font-mono text-xs text-slate-700 mt-1.5 font-medium line-clamp-2 leading-relaxed">
+                  Exhaustive empirical validation across 1.94B tokens proving zero-loss de-identification, 17,735 prompts/sec throughput, and 13.3ms HTTPS latency.
+                </p>
+              </div>
+
             </div>
           </a>
 
           <!-- Item 2: Global Sovereign AI Privacy: 109 Jurisdictions Supported -->
-          <a href="/blog/countries" class="group flex flex-col sm:flex-row items-start gap-4 cursor-pointer text-inherit no-underline">
-            <div class="w-full sm:w-44 md:w-52 aspect-[16/10] shrink-0 rounded-xl overflow-hidden relative shadow-xs border border-gray-200/80 bg-gradient-to-br from-[#fed7aa] via-[#fde047]/30 to-[#c7d2fe] flex items-center justify-center p-3 text-center transition-all duration-200 group-hover:shadow-md group-hover:-translate-y-0.5">
-              <div class="flex flex-col items-center">
-                <div class="flex items-center gap-1 mb-1">
-                  <span class="w-2 h-2 rounded-full bg-orange-500"></span>
-                  <span class="text-[9px] font-bold text-gray-800 lowercase tracking-tight">project<span class="text-[#f0523d]">spg</span></span>
+          <a href="/blog/countries" class="block group cursor-pointer text-inherit no-underline">
+            <div class="relative rounded-2xl bg-white border-2 border-slate-900 p-4 sm:p-5 shadow-[4px_4px_0px_0px_#0f172a] hover:shadow-[6px_6px_0px_0px_#0f172a] hover:-translate-y-0.5 transition-all flex flex-col sm:flex-row items-start gap-4">
+              
+              <!-- Corner Registration Ticks (+) -->
+              <div class="absolute top-1.5 left-1.5 text-slate-400 font-mono text-[9px] select-none leading-none font-bold">+</div>
+              <div class="absolute top-1.5 right-1.5 text-slate-400 font-mono text-[9px] select-none leading-none font-bold">+</div>
+              <div class="absolute bottom-1.5 left-1.5 text-slate-400 font-mono text-[9px] select-none leading-none font-bold">+</div>
+              <div class="absolute bottom-1.5 right-1.5 text-slate-400 font-mono text-[9px] select-none leading-none font-bold">+</div>
+              
+              <!-- Inset Dashed Drafting Contour -->
+              <div class="absolute inset-1 rounded-[12px] border border-dashed border-slate-200 pointer-events-none"></div>
+
+              <!-- Sketch Pastel Thumbnail -->
+              <div class="w-full sm:w-44 md:w-48 aspect-[16/10] shrink-0 rounded-xl overflow-hidden relative border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a] bg-gradient-to-br from-[#fed7aa] via-[#fde047]/30 to-[#c7d2fe] flex items-center justify-center p-3 text-center transition-all">
+                <div class="flex flex-col items-center">
+                  <div class="flex items-center gap-1 mb-1">
+                    <span class="w-2 h-2 rounded-full bg-orange-500 border border-slate-900"></span>
+                    <span class="text-[9px] font-mono font-black text-gray-900 lowercase tracking-tight">project<span class="text-[#f0523d]">spg</span></span>
+                  </div>
+                  <p class="font-sketch text-[12px] font-bold text-gray-950 leading-tight">
+                    109 Jurisdictions Supported
+                  </p>
                 </div>
-                <p class="text-[10px] sm:text-[11px] font-bold text-gray-900 leading-tight">
-                  Global Sovereign AI Privacy: 109 Jurisdictions Supported
+              </div>
+
+              <!-- Text Details -->
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-2 mb-1.5">
+                  <span class="px-2 py-0.5 rounded bg-sky-100 text-sky-950 border-2 border-slate-900 font-mono text-[9px] font-black uppercase tracking-wider shadow-[1.5px_1.5px_0px_0px_#0f172a]">
+                    COMPLIANCE
+                  </span>
+                  <span class="text-[10px] font-mono font-bold text-slate-500">GLOBAL RESIDENCY</span>
+                </div>
+                <h4 class="font-sketch text-lg sm:text-xl font-bold text-slate-950 group-hover:text-[#f0523d] transition-colors leading-snug">
+                  Global Sovereign AI Privacy: 109 Jurisdictions Supported by ProjectSPG
+                </h4>
+                <p class="font-mono text-xs text-slate-700 mt-1.5 font-medium line-clamp-2 leading-relaxed">
+                  Protecting sensitive enterprise data across GDPR, India DPDP, Singapore PDPA, HIPAA, and 109 sovereign national jurisdictions without code changes.
                 </p>
               </div>
-            </div>
 
-            <div class="flex-1 min-w-0">
-              <span class="px-2.5 py-0.5 rounded bg-slate-100 border border-slate-200 text-slate-700 font-bold text-[10px] tracking-wider uppercase">
-                COMPLIANCE
-              </span>
-              <h4 class="text-base sm:text-lg font-bold text-slate-900 mt-1.5 group-hover:text-[#f0523d] transition-colors leading-snug">
-                Global Sovereign AI Privacy: 109 Jurisdictions Supported by ProjectSPG
-              </h4>
-              <p class="text-xs sm:text-sm text-slate-600 mt-1 line-clamp-2 leading-relaxed">
-                Protecting sensitive enterprise data across GDPR, India DPDP, Singapore PDPA, HIPAA, and 109 sovereign national jurisdictions without code changes.
-              </p>
             </div>
           </a>
 
           <!-- Item 3: Enterprise Guardrails for Regulated Industries -->
-          <a href="/blog/industries" class="group flex flex-col sm:flex-row items-start gap-4 cursor-pointer text-inherit no-underline">
-            <div class="w-full sm:w-44 md:w-52 aspect-[16/10] shrink-0 rounded-xl overflow-hidden relative shadow-xs border border-gray-200/80 bg-gradient-to-br from-[#fecdd3] via-[#e9d5ff] to-[#bfdbfe] flex items-center justify-center p-3 text-center transition-all duration-200 group-hover:shadow-md group-hover:-translate-y-0.5">
-              <div class="flex flex-col items-center">
-                <div class="flex items-center gap-1 mb-1">
-                  <span class="w-2 h-2 rounded-full bg-purple-500"></span>
-                  <span class="text-[9px] font-bold text-gray-800 lowercase tracking-tight">project<span class="text-[#f0523d]">spg</span></span>
+          <a href="/blog/industries" class="block group cursor-pointer text-inherit no-underline">
+            <div class="relative rounded-2xl bg-white border-2 border-slate-900 p-4 sm:p-5 shadow-[4px_4px_0px_0px_#0f172a] hover:shadow-[6px_6px_0px_0px_#0f172a] hover:-translate-y-0.5 transition-all flex flex-col sm:flex-row items-start gap-4">
+              
+              <!-- Corner Registration Ticks (+) -->
+              <div class="absolute top-1.5 left-1.5 text-slate-400 font-mono text-[9px] select-none leading-none font-bold">+</div>
+              <div class="absolute top-1.5 right-1.5 text-slate-400 font-mono text-[9px] select-none leading-none font-bold">+</div>
+              <div class="absolute bottom-1.5 left-1.5 text-slate-400 font-mono text-[9px] select-none leading-none font-bold">+</div>
+              <div class="absolute bottom-1.5 right-1.5 text-slate-400 font-mono text-[9px] select-none leading-none font-bold">+</div>
+              
+              <!-- Inset Dashed Drafting Contour -->
+              <div class="absolute inset-1 rounded-[12px] border border-dashed border-slate-200 pointer-events-none"></div>
+
+              <!-- Sketch Pastel Thumbnail -->
+              <div class="w-full sm:w-44 md:w-48 aspect-[16/10] shrink-0 rounded-xl overflow-hidden relative border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a] bg-gradient-to-br from-[#fecdd3] via-[#e9d5ff] to-[#bfdbfe] flex items-center justify-center p-3 text-center transition-all">
+                <div class="flex flex-col items-center">
+                  <div class="flex items-center gap-1 mb-1">
+                    <span class="w-2 h-2 rounded-full bg-purple-500 border border-slate-900"></span>
+                    <span class="text-[9px] font-mono font-black text-gray-900 lowercase tracking-tight">project<span class="text-[#f0523d]">spg</span></span>
+                  </div>
+                  <p class="font-sketch text-[12px] font-bold text-gray-950 leading-tight">
+                    Enterprise Guardrails &amp; Threat Models
+                  </p>
                 </div>
-                <p class="text-[10px] sm:text-[11px] font-bold text-gray-900 leading-tight">
-                  Enterprise Guardrails &amp; Threat Models
+              </div>
+
+              <!-- Text Details -->
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-2 mb-1.5">
+                  <span class="px-2 py-0.5 rounded bg-purple-100 text-purple-950 border-2 border-slate-900 font-mono text-[9px] font-black uppercase tracking-wider shadow-[1.5px_1.5px_0px_0px_#0f172a]">
+                    ENTERPRISE
+                  </span>
+                  <span class="text-[10px] font-mono font-bold text-slate-500">DEFENSE &amp; FINTECH</span>
+                </div>
+                <h4 class="font-sketch text-lg sm:text-xl font-bold text-slate-950 group-hover:text-[#f0523d] transition-colors leading-snug">
+                  Enterprise Guardrails for Regulated Industries: Healthcare, FinTech &amp; Legal
+                </h4>
+                <p class="font-mono text-xs text-slate-700 mt-1.5 font-medium line-clamp-2 leading-relaxed">
+                  Protecting clinical PHI under HIPAA, financial assets under PCI-DSS, attorney-client privilege, and defense telemetry across frontier LLMs with zero code changes.
                 </p>
               </div>
-            </div>
 
-            <div class="flex-1 min-w-0">
-              <span class="px-2.5 py-0.5 rounded bg-slate-100 border border-slate-200 text-slate-700 font-bold text-[10px] tracking-wider uppercase">
-                ENTERPRISE
-              </span>
-              <h4 class="text-base sm:text-lg font-bold text-slate-900 mt-1.5 group-hover:text-[#f0523d] transition-colors leading-snug">
-                Enterprise Guardrails for Regulated Industries: Healthcare, FinTech &amp; Legal
-              </h4>
-              <p class="text-xs sm:text-sm text-slate-600 mt-1 line-clamp-2 leading-relaxed">
-                Protecting clinical PHI under HIPAA, financial assets under PCI-DSS, attorney-client privilege, and defense telemetry across frontier LLMs with zero code changes.
-              </p>
             </div>
           </a>
 
         </div>
 
+      </div>
+
+      <!-- Architectural Ground Drafting Hatch Lines beneath Blog Section -->
+      <div class="mt-14 flex flex-col items-center justify-center space-y-1.5 opacity-60">
+        <div class="w-1/2 h-[1.8px] bg-slate-400 rounded-full"></div>
+        <div class="w-1/3 h-[1.2px] bg-slate-300 rounded-full"></div>
+        <div class="w-1/5 h-[1.0px] bg-slate-200 rounded-full"></div>
       </div>
 
     </section>
