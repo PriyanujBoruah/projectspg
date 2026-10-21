@@ -204,7 +204,10 @@ export const HOME_HTML = `<!DOCTYPE html>
       <div class="flex items-center gap-8">
         <a href="/home" class="flex items-center gap-2.5 group">
           <div class="w-8 h-8 rounded-xl bg-[#f0523d] border-2 border-slate-900 shadow-[2px_2px_0px_0px_#0f172a] flex items-center justify-center text-white group-hover:translate-x-0.5 group-hover:translate-y-0.5 group-hover:shadow-[1px_1px_0px_0px_#0f172a] transition-all">
-            <i data-lucide="shield-check" class="w-5 h-5 stroke-[2.5]"></i>
+            <svg viewBox="0 0 24 24" class="w-4.5 h-4.5" fill="currentColor">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M12 3.5a5.5 5.5 0 0 0-3.8 9.47L6.85 19.3A1 1 0 0 0 7.83 20.5h8.34a1 1 0 0 0 .98-1.2l-1.35-6.33A5.5 5.5 0 0 0 12 3.5zm0 3.5a2 2 0 0 0-1 3.73V13a1 1 0 0 0 2 0v-2.27A2 2 0 0 0 12 7z" />
+            </svg>
           </div>
           <span class="font-mono font-black text-lg text-slate-950 tracking-tight">projectspg</span>
         </a>
@@ -2377,9 +2380,14 @@ export const HOME_HTML = `<!DOCTYPE html>
   <!-- ========================================================================= -->
   <footer class="bg-white border-t border-gray-200 py-8">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-      <div class="flex items-center gap-2">
-        <div class="w-5 h-5 rounded bg-[#f0523d] flex items-center justify-center text-white text-[10px] font-bold">P</div>
-        <span class="font-semibold text-slate-700">ProjectSPG</span>
+      <div class="flex items-center gap-2.5">
+        <div class="w-6 h-6 rounded-lg bg-[#f0523d] border border-slate-900 shadow-[1.5px_1.5px_0px_0px_#0f172a] flex items-center justify-center text-white">
+          <svg viewBox="0 0 24 24" class="w-3.5 h-3.5" fill="currentColor">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M12 3.5a5.5 5.5 0 0 0-3.8 9.47L6.85 19.3A1 1 0 0 0 7.83 20.5h8.34a1 1 0 0 0 .98-1.2l-1.35-6.33A5.5 5.5 0 0 0 12 3.5zm0 3.5a2 2 0 0 0-1 3.73V13a1 1 0 0 0 2 0v-2.27A2 2 0 0 0 12 7z" />
+          </svg>
+        </div>
+        <span class="font-mono font-bold text-slate-900">projectspg</span>
         <span>• Enterprise AI Privacy Layer</span>
       </div>
       <div class="flex items-center gap-6">
