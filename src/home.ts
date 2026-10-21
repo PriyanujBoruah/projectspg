@@ -376,8 +376,8 @@ export const HOME_HTML = `<!DOCTYPE html>
         <div class="lg:col-span-3 text-center lg:text-left">
           <div class="text-sm sm:text-base text-slate-600 font-medium leading-relaxed space-y-2">
             <p>For enterprise LLMs</p>
-            <p>To power autonomous AI agents</p>
-            <p>Secured across every workflow</p>
+            <p>To secure frontier AI intelligence</p>
+            <p>Secured across every pipeline</p>
           </div>
         </div>
 
