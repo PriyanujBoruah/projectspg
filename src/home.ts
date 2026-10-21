@@ -204,13 +204,56 @@ export const HOME_HTML = `<!DOCTYPE html>
       <div class="flex items-center gap-8">
         <a href="/home" class="flex items-center gap-2.5 group">
           <div class="w-6 h-7 flex items-center justify-center shrink-0 group-hover:translate-x-0.5 group-hover:translate-y-0.5 transition-all">
-            <svg viewBox="0 0 24 28" class="w-6 h-7 overflow-visible">
-              <path d="M12 3.5a5.5 5.5 0 0 0-3.8 9.47L6.85 19.3A1 1 0 0 0 7.83 20.5h8.34a1 1 0 0 0 .98-1.2l-1.35-6.33A5.5 5.5 0 0 0 12 3.5z"
-                    fill="#0f172a" transform="translate(2, 2)" />
-              <path d="M12 3.5a5.5 5.5 0 0 0-3.8 9.47L6.85 19.3A1 1 0 0 0 7.83 20.5h8.34a1 1 0 0 0 .98-1.2l-1.35-6.33A5.5 5.5 0 0 0 12 3.5z"
-                    fill="#f0523d" stroke="#0f172a" stroke-width="1.8" stroke-linejoin="round" />
-              <circle cx="12" cy="8.5" r="1.5" fill="#ffffff" />
-              <path d="M11.2 9.5 L11 13.5 L13 13.5 L12.8 9.5 Z" fill="#ffffff" />
+            <svg viewBox="55 35 155 245" class="w-6 h-7 overflow-visible">
+              <defs>
+                <pattern id="navHeroHatch" width="10" height="10" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+                  <line x1="0" y1="0" x2="0" y2="10" stroke="#94a3b8" stroke-width="2" stroke-linecap="square" />
+                </pattern>
+                <linearGradient id="navHeroBeam" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#ffffff" />
+                  <stop offset="25%" stop-color="#00d2ff" />
+                  <stop offset="65%" stop-color="#a855f7" />
+                  <stop offset="100%" stop-color="#ec4899" />
+                </linearGradient>
+                <path id="navHeroKey"
+                  d="M 103.5 135 A 48 48 0 1 1 156.5 135 L 178 248 Q 178 258 168 258 L 92 258 Q 82 258 82 248 Z" />
+              </defs>
+
+              <!-- Sketch Cast Shadow -->
+              <use href="#navHeroKey" fill="url(#navHeroHatch)" stroke="#64748b" stroke-width="3" transform="translate(10, 10)" />
+
+              <!-- Ground Lines -->
+              <line x1="68" y1="266" x2="202" y2="266" stroke="#475569" stroke-width="3.5" stroke-linecap="round" />
+              <line x1="88" y1="272" x2="182" y2="272" stroke="#64748b" stroke-width="2.5" stroke-linecap="round" />
+
+              <!-- Solid Obsidian Body -->
+              <use href="#navHeroKey" fill="#09090b" stroke="#09090b" stroke-width="2" />
+
+              <!-- Inset Dashed Drafting Line -->
+              <path
+                d="M 114 136 A 44 44 0 1 1 146 136 L 168 246 Q 168 252 160 252 L 100 252 Q 92 252 92 246 Z"
+                fill="none"
+                stroke="#3f3f46"
+                stroke-width="2.2"
+                stroke-dasharray="8 6"
+                opacity="0.85"
+              />
+
+              <!-- Drafting Crosshair -->
+              <g stroke="#71717a" stroke-width="2" opacity="0.85">
+                <line x1="120" y1="95" x2="140" y2="95" stroke-linecap="round" />
+                <line x1="130" y1="85" x2="130" y2="105" stroke-linecap="round" />
+                <circle cx="130" cy="95" r="4" fill="none" stroke="#71717a" stroke-width="1.8" />
+              </g>
+
+              <!-- Rotating Neon Beam Sweep -->
+              <use href="#navHeroKey"
+                   fill="none"
+                   stroke="url(#navHeroBeam)"
+                   stroke-width="6"
+                   stroke-linecap="round"
+                   stroke-dasharray="100 400"
+                   class="animate-keyhole-edge-sweep" />
             </svg>
           </div>
           <span class="font-mono font-black text-lg text-slate-950 tracking-tight">projectspg</span>
@@ -2386,13 +2429,38 @@ export const HOME_HTML = `<!DOCTYPE html>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
       <div class="flex items-center gap-2.5">
         <div class="w-4.5 h-5 flex items-center justify-center shrink-0">
-          <svg viewBox="0 0 24 28" class="w-4.5 h-5 overflow-visible">
-            <path d="M12 3.5a5.5 5.5 0 0 0-3.8 9.47L6.85 19.3A1 1 0 0 0 7.83 20.5h8.34a1 1 0 0 0 .98-1.2l-1.35-6.33A5.5 5.5 0 0 0 12 3.5z"
-                  fill="#0f172a" transform="translate(1.5, 1.5)" />
-            <path d="M12 3.5a5.5 5.5 0 0 0-3.8 9.47L6.85 19.3A1 1 0 0 0 7.83 20.5h8.34a1 1 0 0 0 .98-1.2l-1.35-6.33A5.5 5.5 0 0 0 12 3.5z"
-                  fill="#f0523d" stroke="#0f172a" stroke-width="1.8" stroke-linejoin="round" />
-            <circle cx="12" cy="8.5" r="1.5" fill="#ffffff" />
-            <path d="M11.2 9.5 L11 13.5 L13 13.5 L12.8 9.5 Z" fill="#ffffff" />
+          <svg viewBox="55 35 155 245" class="w-4.5 h-5 overflow-visible">
+            <defs>
+              <pattern id="footHeroHatch" width="10" height="10" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+                <line x1="0" y1="0" x2="0" y2="10" stroke="#94a3b8" stroke-width="2" stroke-linecap="square" />
+              </pattern>
+              <linearGradient id="footHeroBeam" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#ffffff" />
+                <stop offset="25%" stop-color="#00d2ff" />
+                <stop offset="65%" stop-color="#a855f7" />
+                <stop offset="100%" stop-color="#ec4899" />
+              </linearGradient>
+              <path id="footHeroKey"
+                d="M 103.5 135 A 48 48 0 1 1 156.5 135 L 178 248 Q 178 258 168 258 L 92 258 Q 82 258 82 248 Z" />
+            </defs>
+
+            <!-- Sketch Cast Shadow -->
+            <use href="#footHeroKey" fill="url(#footHeroHatch)" stroke="#64748b" stroke-width="3" transform="translate(10, 10)" />
+
+            <!-- Ground Line -->
+            <line x1="68" y1="266" x2="202" y2="266" stroke="#475569" stroke-width="3.5" stroke-linecap="round" />
+
+            <!-- Solid Obsidian Body -->
+            <use href="#footHeroKey" fill="#09090b" stroke="#09090b" stroke-width="2" />
+
+            <!-- Rotating Neon Beam Sweep -->
+            <use href="#footHeroKey"
+                 fill="none"
+                 stroke="url(#footHeroBeam)"
+                 stroke-width="6"
+                 stroke-linecap="round"
+                 stroke-dasharray="100 400"
+                 class="animate-keyhole-edge-sweep" />
           </svg>
         </div>
         <span class="font-mono font-bold text-slate-900">projectspg</span>
