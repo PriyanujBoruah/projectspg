@@ -1950,7 +1950,7 @@ export const HOME_HTML = `<!DOCTYPE html>
                   type="email"
                   id="bottom-upgrade-email"
                   required
-                  placeholder="Enter your work email..."
+                  placeholder="Enter your email"
                   class="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-50 border-2 border-slate-900 text-slate-900 placeholder-slate-400 text-xs font-mono font-semibold focus:outline-none focus:bg-white focus:border-[#f0523d] shadow-[2px_2px_0px_0px_#0f172a] transition-all"
                 />
               </div>
