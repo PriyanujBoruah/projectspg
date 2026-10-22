@@ -72,12 +72,14 @@ app.use(
 
 app.options("*", (c) => c.body(null, 204));
 
-// Serve Single-File Enterprise Landing Page & Console
-app.get("/", (c) => c.html(DASHBOARD_HTML));
-app.get("/dashboard", (c) => c.html(DASHBOARD_HTML));
-
-// Serve Modern Developer-First Home Landing Page (Interactive Hero Demo & Lead Capture)
+// Serve Modern Developer-First Home Landing Page (Primary Homepage)
+app.get("/", (c) => c.html(HOME_HTML));
 app.get("/home", (c) => c.html(HOME_HTML));
+
+// Serve Single-File Enterprise Console & Interactive Playground
+app.get("/dashboard", (c) => c.html(DASHBOARD_HTML));
+app.get("/console", (c) => c.html(DASHBOARD_HTML));
+app.get("/playground", (c) => c.html(DASHBOARD_HTML));
 
 // Serve Technical Benchmark & Empirical Reliability Blog
 app.get("/blog", (c) => c.redirect("/blog/benchmark"));

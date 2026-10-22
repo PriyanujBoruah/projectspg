@@ -211,7 +211,7 @@ export const HOME_HTML = `<!DOCTYPE html>
   <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b-2 border-slate-900 shadow-[0_2px_0px_0px_rgba(15,23,42,0.06)]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <div class="flex items-center gap-8">
-        <a href="/home" class="flex items-center gap-2.5 group">
+        <a href="/" class="flex items-center gap-2.5 group">
           <svg viewBox="82 47 96 211" class="logo-keyhole h-6 w-auto shrink-0" fill="#09090b">
             <path d="M 103.5 135 A 48 48 0 1 1 156.5 135 L 178 248 Q 178 258 168 258 L 92 258 Q 82 258 82 248 Z" />
           </svg>
@@ -224,16 +224,16 @@ export const HOME_HTML = `<!DOCTYPE html>
           <a href="#how-it-works" class="px-2.5 py-1.5 rounded-lg border border-transparent hover:border-slate-900 hover:bg-slate-100 hover:shadow-[1.5px_1.5px_0px_0px_#0f172a] transition-all">Data Flow</a>
           <a href="#platform" class="px-2.5 py-1.5 rounded-lg border border-transparent hover:border-slate-900 hover:bg-slate-100 hover:shadow-[1.5px_1.5px_0px_0px_#0f172a] transition-all">Platform</a>
           <a href="#blog" class="px-2.5 py-1.5 rounded-lg border border-transparent hover:border-slate-900 hover:bg-slate-100 hover:shadow-[1.5px_1.5px_0px_0px_#0f172a] transition-all">Blog</a>
-          <a href="/#docs" class="px-2.5 py-1.5 rounded-lg border border-transparent hover:border-slate-900 hover:bg-slate-100 hover:shadow-[1.5px_1.5px_0px_0px_#0f172a] transition-all">API Docs</a>
+          <a href="/dashboard#docs" class="px-2.5 py-1.5 rounded-lg border border-transparent hover:border-slate-900 hover:bg-slate-100 hover:shadow-[1.5px_1.5px_0px_0px_#0f172a] transition-all">API Docs</a>
         </nav>
       </div>
 
       <div class="flex items-center gap-3">
-        <a href="/" class="text-xs font-mono font-bold text-slate-900 hover:text-black px-3.5 py-1.5 rounded-xl border-2 border-slate-900 bg-white hover:bg-slate-50 shadow-[2.5px_2.5px_0px_0px_#0f172a] hover:shadow-[1px_1px_0px_0px_#0f172a] hover:translate-x-0.5 hover:translate-y-0.5 transition-all flex items-center gap-1.5 cursor-pointer">
+        <a href="/dashboard" class="text-xs font-mono font-bold text-slate-900 hover:text-black px-3.5 py-1.5 rounded-xl border-2 border-slate-900 bg-white hover:bg-slate-50 shadow-[2.5px_2.5px_0px_0px_#0f172a] hover:shadow-[1px_1px_0px_0px_#0f172a] hover:translate-x-0.5 hover:translate-y-0.5 transition-all flex items-center gap-1.5 cursor-pointer">
           <i data-lucide="terminal" class="w-3.5 h-3.5 text-slate-700 stroke-[2.5]"></i>
           <span>Playground</span>
         </a>
-        <a href="/" class="text-xs font-mono font-bold text-white bg-[#f0523d] hover:bg-[#e0422d] px-4 py-1.5 rounded-xl border-2 border-slate-900 shadow-[2.5px_2.5px_0px_0px_#0f172a] hover:shadow-[1px_1px_0px_0px_#0f172a] hover:translate-x-0.5 hover:translate-y-0.5 transition-all flex items-center gap-1.5 cursor-pointer">
+        <a href="/dashboard" class="text-xs font-mono font-bold text-white bg-[#f0523d] hover:bg-[#e0422d] px-4 py-1.5 rounded-xl border-2 border-slate-900 shadow-[2.5px_2.5px_0px_0px_#0f172a] hover:shadow-[1px_1px_0px_0px_#0f172a] hover:translate-x-0.5 hover:translate-y-0.5 transition-all flex items-center gap-1.5 cursor-pointer">
           <span>Open Console</span>
           <i data-lucide="arrow-right" class="w-3.5 h-3.5 stroke-[2.5]"></i>
         </a>
@@ -281,7 +281,7 @@ export const HOME_HTML = `<!DOCTYPE html>
               <span>Deploy now</span>
               <i data-lucide="arrow-down" class="w-3.5 h-3.5 group-hover:translate-y-0.5 transition-transform stroke-[2.5]"></i>
             </a>
-            <a href="/#docs" class="px-6 py-2.5 rounded-xl bg-white hover:bg-slate-50 text-slate-900 text-xs font-mono font-bold uppercase tracking-wider border-2 border-slate-900 shadow-[3px_3px_0px_0px_#0f172a] hover:shadow-[1px_1px_0px_0px_#0f172a] hover:translate-x-0.5 hover:translate-y-0.5 transition-all cursor-pointer inline-flex items-center gap-2 group">
+            <a href="/dashboard#docs" class="px-6 py-2.5 rounded-xl bg-white hover:bg-slate-50 text-slate-900 text-xs font-mono font-bold uppercase tracking-wider border-2 border-slate-900 shadow-[3px_3px_0px_0px_#0f172a] hover:shadow-[1px_1px_0px_0px_#0f172a] hover:translate-x-0.5 hover:translate-y-0.5 transition-all cursor-pointer inline-flex items-center gap-2 group">
               <span>Talk to sales</span>
               <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all stroke-[2.5]"></i>
             </a>
@@ -667,7 +667,7 @@ export const HOME_HTML = `<!DOCTYPE html>
   <section class="max-w-4xl mx-auto px-4 sm:px-6 pt-12 pb-16 text-center">
       
       <!-- Top Announcement Pill (Matching v0 style) -->
-      <a href="/#docs" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-gray-200/90 hover:border-gray-300 text-slate-700 text-xs font-medium mb-8 shadow-2xs transition group">
+      <a href="/dashboard#docs" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-gray-200/90 hover:border-gray-300 text-slate-700 text-xs font-medium mb-8 shadow-2xs transition group">
         <span class="w-4 h-4 rounded-full bg-[#f0523d] flex items-center justify-center text-white text-[9px]">⚡</span>
         <span>Drop-in OpenAI wire compatibility</span>
         <span class="text-slate-400 group-hover:translate-x-0.5 transition-transform">›</span>
@@ -1979,7 +1979,7 @@ export const HOME_HTML = `<!DOCTYPE html>
                 Your email has been registered for the 100,000 free requests/month developer tier. Your upgraded API key is now active at zero cost.
               </p>
               <div class="mt-2.5 flex items-center gap-3">
-                <a href="/" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white font-mono text-[11px] font-bold transition">
+                <a href="/dashboard" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white font-mono text-[11px] font-bold transition">
                   <span>Open Console</span>
                   <i data-lucide="arrow-right" class="w-3 h-3"></i>
                 </a>
@@ -2368,7 +2368,7 @@ export const HOME_HTML = `<!DOCTYPE html>
       </div>
 
       <div>
-        <a href="/" class="w-full py-2.5 rounded-xl border border-gray-300 bg-white hover:bg-gray-50 text-slate-800 text-xs font-medium transition flex items-center justify-center gap-2">
+        <a href="/dashboard" class="w-full py-2.5 rounded-xl border border-gray-300 bg-white hover:bg-gray-50 text-slate-800 text-xs font-medium transition flex items-center justify-center gap-2">
           <i data-lucide="log-in" class="w-4 h-4 text-slate-500"></i>
           <span>Continue with Google / Account</span>
         </a>
@@ -2394,8 +2394,8 @@ export const HOME_HTML = `<!DOCTYPE html>
         <span>• Enterprise AI Privacy Layer</span>
       </div>
       <div class="flex items-center gap-6">
-        <a href="/" class="hover:text-slate-800">Playground</a>
-        <a href="/#docs" class="hover:text-slate-800">API Documentation</a>
+        <a href="/dashboard" class="hover:text-slate-800">Playground</a>
+        <a href="/dashboard#docs" class="hover:text-slate-800">API Documentation</a>
         <a href="/blog/countries" class="hover:text-slate-800">Compliance & Jurisdictions</a>
         <a href="https://github.com/PriyanujBoruah/projectspg" target="_blank" class="hover:text-slate-800">GitHub</a>
       </div>
