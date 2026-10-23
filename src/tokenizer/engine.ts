@@ -99,12 +99,6 @@ export function tokenize(
       if (targetValue !== fullMatchedText) {
         start = match.index + fullMatchedText.indexOf(targetValue);
       }
-      // Cleanly trim leading/trailing whitespace from targetValue
-      const trimmedValue = targetValue.trim();
-      if (trimmedValue.length > 0 && trimmedValue !== targetValue) {
-        start = start + targetValue.indexOf(trimmedValue);
-        targetValue = trimmedValue;
-      }
       const end = start + targetValue.length;
 
       // Validate checksum/format if validator attached
@@ -231,99 +225,42 @@ export function tokenize(
     return { ...span, syntheticToken };
   });
 
-  // Coreference mention propagation: scan for un-captured repeated mentions of assigned entities
-  const COMMON_NAME_STOPWORDS = new Set([
-    "the", "sir", "mr", "mrs", "ms", "dr", "prof", "attending",
-    "physician", "patient", "name", "md", "do", "np", "pa", "rn",
-    "phd", "mbbs", "dob", "and", "for", "with", "from", "after",
-    "before", "into", "over", "under", "about", "above", "below",
-    "then", "that", "this", "these", "those", "have", "been", "were",
-    "said", "told", "seen", "felt", "done", "will", "would", "could",
-    "time", "year", "years", "month", "months", "week", "weeks", "days",
-    "home", "care", "plan", "team", "room", "unit", "clinic", "hospital"
-  ]);
-
+  // Coreference mention propagation: scan for un-captured repeated mentions of assigned person names
   for (const [targetVal, syntheticToken] of valueToTokenMap.entries()) {
-    const prefix = syntheticToken.split("_")[0];
-    const isPerson = prefix === "PERSON" && targetVal.length >= 2;
-    const isFacility = prefix === "FACILITY" && targetVal.length > 4;
-    const isLocation = prefix === "LOCATION" && targetVal.length > 3;
-    const isDate =
-      prefix === "DATE" &&
-      (/^\d{4}$/.test(targetVal) ||
-        /^\d{1,2}[/-]\d{1,2}(?:[/-]\d{2,4})?$/.test(targetVal) ||
-        /^[A-Za-z]+(?:\s+\d{1,2},?)?\s+\d{4}$/.test(targetVal));
-    const isAge =
-      prefix === "AGE" &&
-      (/^\d{1,3}$/.test(targetVal) ||
-        /^(?:ninety|eighty|seventy|sixty|fifty|forty|thirty|twenty)/i.test(targetVal));
-    const isId =
-      (prefix === "ID" || prefix === "MRN" || prefix === "ACCOUNT" || prefix === "INVOICE" || prefix === "SENSITIVE") &&
-      targetVal.length >= 4;
-    const isGenericSensitive = prefix === "SENSITIVE" && targetVal.length > 3;
-
-    if (isPerson || isFacility || isLocation || isDate || isAge || isId || isGenericSensitive) {
-      const candidatesToScan: string[] = [targetVal];
-      if (isPerson) {
-        const cleanParts = targetVal
-          .split(/[\s,–—-]+/)
-          .map((p) => p.trim())
-          .filter(
-            (p) =>
-              p.length >= 2 &&
-              !/^[0-9]+$/.test(p) &&
-              !COMMON_NAME_STOPWORDS.has(p.toLowerCase())
-          );
-        for (const cp of cleanParts) {
-          if (!candidatesToScan.includes(cp)) {
-            candidatesToScan.push(cp);
-          }
-        }
+    // Only propagate PERSON entities with length > 2
+    if (
+      syntheticToken.startsWith("PERSON") &&
+      targetVal.length > 2 &&
+      /^[A-Z\u00C0-\u00DD\u4E00-\u9FFF]/.test(targetVal)
+    ) {
+      const namesToScan = [targetVal];
+      const parts = targetVal.split(/\s+/);
+      if (parts.length >= 2 && parts[0].length >= 3 && !["The", "Sir", "Mr", "Mrs", "Ms", "Dr", "Prof"].includes(parts[0])) {
+        namesToScan.push(parts[0]);
       }
 
-      for (const candidate of candidatesToScan) {
-        const escapedVal = candidate.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-        // For person names >= 4 characters not in stop words, allow case-insensitive scan (e.g. "near" matching "Near")
-        const allowCaseInsensitive =
-          isPerson && candidate.length >= 4 && !COMMON_NAME_STOPWORDS.has(candidate.toLowerCase());
-        const regex = new RegExp(
-          `(?<![\\p{L}\\p{M}0-9_])${escapedVal}(?![\\p{L}\\p{M}0-9_])`,
-          allowCaseInsensitive ? "giu" : "gu"
-        );
+      for (const nameCandidate of namesToScan) {
+        const escapedVal = nameCandidate.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        const nameRegex = new RegExp(`(?<![A-Za-z0-9_])${escapedVal}(?![A-Za-z0-9_])`, "g");
         let nMatch: RegExpExecArray | null;
 
-        while ((nMatch = regex.exec(text)) !== null) {
+        while ((nMatch = nameRegex.exec(text)) !== null) {
           const nStart = nMatch.index;
-          const nEnd = nStart + nMatch[0].length;
+          const nEnd = nStart + nameCandidate.length;
 
           const overlaps = assignedSpans.some(
             (s) => nStart < s.end && nEnd > s.start
           );
 
           if (!overlaps) {
-            let corefToken = valueToTokenMap.get(nMatch[0]);
-            if (!corefToken) {
-              const count = (counters[prefix] || 0) + 1;
-              counters[prefix] = count;
-              if (mode === "fpe") {
-                corefToken = generateFPEToken(prefix, count, nMatch[0]);
-              } else {
-                corefToken = `${prefix}_${count}`;
-              }
-              valueToTokenMap.set(nMatch[0], corefToken);
-              tokenMap[corefToken] = nMatch[0];
-              totalIntercepted++;
-              entitiesDetected.push({ type: "RULE_COREFERENCE", token: corefToken });
-            }
-
             assignedSpans.push({
               start: nStart,
               end: nEnd,
               ruleId: "RULE_COREFERENCE",
-              tokenPrefix: prefix,
-              targetValue: nMatch[0],
+              tokenPrefix: "PERSON",
+              targetValue: nameCandidate,
               priority: 15,
-              syntheticToken: corefToken,
+              syntheticToken,
             });
           }
         }

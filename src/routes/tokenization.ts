@@ -3,6 +3,12 @@ import { tokenize, rehydrate } from "../tokenizer/engine";
 import { saveTokenSession, getTokenSession, purgeTokenSession } from "../vault/session";
 import { computeSha256Fingerprint } from "../vault/crypto";
 import { recordAuditEvent, recordApiCallLog, AuditEntitySummary } from "../audit/logger";
+import {
+  resolveClientIdentifier,
+  checkFreeTierRateLimit,
+  createRateLimitErrorPayload,
+  getRateLimitHeaders,
+} from "../auth/rate_limiter";
 
 export interface Env {
   DB?: D1Database;
@@ -36,24 +42,12 @@ function resolveCustomKeywords(c: Context): string[] {
 /**
  * Extract Detection Categories from request body or headers
  */
-function resolveCategories(c: Context, bodyCategories?: string[], bodyPolicy?: string): string[] {
+function resolveCategories(c: Context, bodyCategories?: string[]): string[] {
   if (Array.isArray(bodyCategories) && bodyCategories.length > 0) {
     return bodyCategories;
   }
-  if (bodyPolicy && typeof bodyPolicy === "string") {
-    switch (bodyPolicy.toUpperCase()) {
-      case "DPDP_INDIA":
-        return ["asia_non_sea", "global"];
-      case "HIPAA_DEID":
-        return ["north_america", "global"];
-      case "GDPR_GLOBAL":
-        return ["european_union", "europe_non_eu", "global", "north_america", "asia_non_sea", "south_east_asia", "south_america", "africa", "oceania", "corporate"];
-      default:
-        return ["all"];
-    }
-  }
   const headerVal = c.req.header("x-detection-categories") || c.req.header("x-categories");
-  if (!headerVal) return ["all"];
+  if (!headerVal) return [];
 
   try {
     const trimmed = headerVal.trim();
@@ -62,7 +56,7 @@ function resolveCategories(c: Context, bodyCategories?: string[], bodyPolicy?: s
     }
     return trimmed.split(",").map((s: string) => s.trim()).filter(Boolean);
   } catch {
-    return ["all"];
+    return [];
   }
 }
 
@@ -90,7 +84,6 @@ tokenizationApp.post("/tokenize", async (c) => {
       text: string;
       mode?: "structural" | "fpe";
       categories?: string[];
-      policy?: string;
       customKeywords?: string[];
       ttlSeconds?: number;
       encryptionKey?: string;
@@ -111,7 +104,25 @@ tokenizationApp.post("/tokenize", async (c) => {
       );
     }
 
-    const categories = resolveCategories(c, body.categories, body.policy);
+    // Enforce Free Tier Rate Limit: 1 protected request per 15 seconds
+    const apiKeyRecord = (c as any).get("apiKeyRecord");
+    const isFreeTier = !apiKeyRecord || apiKeyRecord.tier === "free";
+
+    if (isFreeTier) {
+      const clientId = resolveClientIdentifier(c, apiKeyRecord);
+      const rateLimit = await checkFreeTierRateLimit(clientId, c.env, {
+        bypassTest: c.req.header("x-test-bypass-rate-limit") === "true",
+      });
+      if (!rateLimit.allowed) {
+        return c.json(
+          createRateLimitErrorPayload(rateLimit.retryAfterSec),
+          429,
+          getRateLimitHeaders(rateLimit.retryAfterSec)
+        );
+      }
+    }
+
+    const categories = resolveCategories(c, body.categories);
     const ttlSeconds = body.ttlSeconds && body.ttlSeconds > 0 ? Math.min(body.ttlSeconds, 86400) : 300;
     const headerKeywords = resolveCustomKeywords(c);
     const combinedKeywords = Array.from(
@@ -173,10 +184,10 @@ tokenizationApp.post("/tokenize", async (c) => {
       executionCtx
     );
 
-    // Record API Call Usage Log (model, token count, protected entity count, timestamp)
-    const apiKeyId = "anonymous";
-    const apiKeyPrefix = "none";
-    const userId = "hackathon";
+    // Record API Call Usage Log (model, token count, protected entity count, timestamp, API key)
+    const apiKeyId = apiKeyRecord?.id || "anonymous";
+    const apiKeyPrefix = apiKeyRecord?.key_prefix || "none";
+    const userId = apiKeyRecord?.user_id || undefined;
     const promptTokens = Math.max(1, Math.ceil(body.text.length / 4));
 
     recordApiCallLog(

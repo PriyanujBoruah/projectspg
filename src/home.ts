@@ -229,11 +229,11 @@ export const HOME_HTML = `<!DOCTYPE html>
       </div>
 
       <div class="flex items-center gap-3">
-        <a href="/dashboard" class="text-xs font-mono font-bold text-slate-900 hover:text-black px-3.5 py-1.5 rounded-xl border-2 border-slate-900 bg-white hover:bg-slate-50 shadow-[2.5px_2.5px_0px_0px_#0f172a] hover:shadow-[1px_1px_0px_0px_#0f172a] hover:translate-x-0.5 hover:translate-y-0.5 transition-all flex items-center gap-1.5 cursor-pointer">
+        <a href="/dashboard#playground" class="text-xs font-mono font-bold text-slate-900 hover:text-black px-3.5 py-1.5 rounded-xl border-2 border-slate-900 bg-white hover:bg-slate-50 shadow-[2.5px_2.5px_0px_0px_#0f172a] hover:shadow-[1px_1px_0px_0px_#0f172a] hover:translate-x-0.5 hover:translate-y-0.5 transition-all flex items-center gap-1.5 cursor-pointer">
           <i data-lucide="terminal" class="w-3.5 h-3.5 text-slate-700 stroke-[2.5]"></i>
           <span>Playground</span>
         </a>
-        <a href="/dashboard" class="text-xs font-mono font-bold text-white bg-[#f0523d] hover:bg-[#e0422d] px-4 py-1.5 rounded-xl border-2 border-slate-900 shadow-[2.5px_2.5px_0px_0px_#0f172a] hover:shadow-[1px_1px_0px_0px_#0f172a] hover:translate-x-0.5 hover:translate-y-0.5 transition-all flex items-center gap-1.5 cursor-pointer">
+        <a href="/dashboard#playground" class="text-xs font-mono font-bold text-white bg-[#f0523d] hover:bg-[#e0422d] px-4 py-1.5 rounded-xl border-2 border-slate-900 shadow-[2.5px_2.5px_0px_0px_#0f172a] hover:shadow-[1px_1px_0px_0px_#0f172a] hover:translate-x-0.5 hover:translate-y-0.5 transition-all flex items-center gap-1.5 cursor-pointer">
           <span>Open Console</span>
           <i data-lucide="arrow-right" class="w-3.5 h-3.5 stroke-[2.5]"></i>
         </a>
@@ -1979,7 +1979,7 @@ export const HOME_HTML = `<!DOCTYPE html>
                 Your email has been registered for the 100,000 free requests/month developer tier. Your upgraded API key is now active at zero cost.
               </p>
               <div class="mt-2.5 flex items-center gap-3">
-                <a href="/dashboard" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white font-mono text-[11px] font-bold transition">
+                <a href="/dashboard#playground" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white font-mono text-[11px] font-bold transition">
                   <span>Open Console</span>
                   <i data-lucide="arrow-right" class="w-3 h-3"></i>
                 </a>
@@ -2368,7 +2368,7 @@ export const HOME_HTML = `<!DOCTYPE html>
       </div>
 
       <div>
-        <a href="/dashboard" class="w-full py-2.5 rounded-xl border border-gray-300 bg-white hover:bg-gray-50 text-slate-800 text-xs font-medium transition flex items-center justify-center gap-2">
+        <a href="/dashboard#playground" class="w-full py-2.5 rounded-xl border border-gray-300 bg-white hover:bg-gray-50 text-slate-800 text-xs font-medium transition flex items-center justify-center gap-2">
           <i data-lucide="log-in" class="w-4 h-4 text-slate-500"></i>
           <span>Continue with Google / Account</span>
         </a>
@@ -2394,7 +2394,7 @@ export const HOME_HTML = `<!DOCTYPE html>
         <span>• Enterprise AI Privacy Layer</span>
       </div>
       <div class="flex items-center gap-6">
-        <a href="/dashboard" class="hover:text-slate-800">Playground</a>
+        <a href="/dashboard#playground" class="hover:text-slate-800">Playground</a>
         <a href="/dashboard#docs" class="hover:text-slate-800">API Documentation</a>
         <a href="/blog/countries" class="hover:text-slate-800">Compliance & Jurisdictions</a>
         <a href="https://github.com/PriyanujBoruah/projectspg" target="_blank" class="hover:text-slate-800">GitHub</a>

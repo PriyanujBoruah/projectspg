@@ -26,6 +26,7 @@ export const EUROPEAN_UNION_RULES: Rule[] = [
     category: "european_union",
     pattern: /(?<!(?:Order|Bank\s*account|account|Extension)\s*(?:number|no|code|id)?\s*[:=]?\s*)\b\d{2}\s?\d{3}\s?\d{3}\s?\d{3}\b/gi,
     tokenPrefix: "STEUER_ID",
+    priority: 25,
   },
   {
     id: "RULE_DE_STEUER_NR",

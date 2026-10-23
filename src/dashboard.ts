@@ -348,13 +348,13 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
   <!-- ========================================================================= -->
   <!-- TOP GLOBAL NAVBAR (Exact 52px height + Mobile Tab Strip) -->
   <!-- ========================================================================= -->
-  <header id="global-header" class="sticky top-0 bg-white z-40 hidden border-b border-gray-100 shadow-2xs">
+  <header id="global-header" class="sticky top-0 bg-white z-40 border-b border-gray-100 shadow-2xs">
     
     <!-- Main Top Row (52px) -->
     <div class="h-[52px] px-3 sm:px-4 lg:px-6 flex items-center justify-between">
       <!-- Left: Brand Logo + Project Selector -->
       <div class="flex items-center gap-2 sm:gap-3.5">
-        <a href="#landing" onclick="switchView('landing')" class="flex items-center gap-2 group cursor-pointer" title="Return to Landing Page">
+        <a href="/" class="flex items-center gap-2 group cursor-pointer" title="Return to Home">
           <div class="w-6 h-6 shrink-0 flex items-center justify-center">
             <svg viewBox="0 0 1024 1024" fill="none" class="w-full h-full">
               <rect x="307" y="486" width="410" height="52" rx="26" fill="#000000" />
@@ -465,7 +465,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     <!-- ======================================================================= -->
     <!-- VIEW 0: LANDING PAGE (ProjectSPG Enterprise Platform) -->
     <!-- ======================================================================= -->
-    <div id="view-landing" class="view-panel flex-1 flex flex-col w-full bg-white relative">
+    <div id="view-landing" class="view-panel hidden flex-1 flex flex-col w-full bg-white relative">
       
 
       <!-- Floating Header (ProjectSPG Floating Navbar) -->
@@ -1533,7 +1533,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
               
               <!-- Brand Logo (Left Column) -->
               <div class="lg:col-span-4 sm:col-span-6">
-                <a href="#landing" onclick="switchView('landing')" class="inline-flex items-center gap-2.5 group cursor-pointer" title="ProjectSPG">
+                <a href="/" class="inline-flex items-center gap-2.5 group cursor-pointer" title="ProjectSPG">
                   <!-- ProjectSPG Official Brand Logo -->
                   <div class="w-8 h-8 shrink-0 flex items-center justify-center">
                     <svg viewBox="0 0 1024 1024" fill="none" class="w-full h-full">
@@ -1649,7 +1649,7 @@ export const DASHBOARD_HTML = `<!DOCTYPE html>
     <!-- ======================================================================= -->
     <!-- VIEW 1: PLAYGROUND (Exact 3-Column Groq Layout) -->
     <!-- ======================================================================= -->
-    <div id="view-playground" class="view-panel hidden border-t border-l border-r border-groq-grayBorder rounded-t-2xl bg-white mx-0 sm:mx-2 lg:mx-3 flex-1 flex flex-col overflow-x-hidden overflow-y-visible lg:overflow-hidden shadow-xs w-full sm:w-auto min-w-0 max-w-full">
+    <div id="view-playground" class="view-panel border-t border-l border-r border-groq-grayBorder rounded-t-2xl bg-white mx-0 sm:mx-2 lg:mx-3 flex-1 flex flex-col overflow-x-hidden overflow-y-visible lg:overflow-hidden shadow-xs w-full sm:w-auto min-w-0 max-w-full">
       
       <!-- Sub-Toolbar (54px height) -->
       <div class="h-auto min-h-[54px] py-2 sm:py-0 border-b border-groq-grayBorder bg-white px-2 sm:px-4 flex flex-wrap items-center justify-between gap-1.5 sm:gap-2 shrink-0 w-full min-w-0 max-w-full">
@@ -4131,7 +4131,7 @@ console.log(data.choices[0].message.content);</div>
     let currentIdToken = null;
     let authMode = 'signin'; // 'signin' or 'signup'
 
-    let activeView = 'landing'; // Default to ProjectSPG Landing Page for unauthenticated/entry visitors
+    let activeView = 'playground'; // Default to ProjectSPG Playground / Console
     let activeDashTab = 'logs';   // Default sub-tab within Dashboard
     let isCodeVisible = true;
     let activeCodeLang = 'python';
@@ -4146,10 +4146,13 @@ console.log(data.choices[0].message.content);</div>
       const inviteParam = urlParams.get('invite') || (window.location.hash.includes('invite=') ? window.location.hash.split('invite=')[1]?.split('&')[0] : '');
 
       const hash = window.location.hash.replace('#', '').split('?')[0];
-      if (['landing', 'playground', 'keys', 'dashboard', 'docs', 'admin-invites'].includes(hash)) {
+      if (hash === 'landing') {
+        window.location.href = '/';
+        return;
+      } else if (['playground', 'keys', 'dashboard', 'docs', 'admin-invites'].includes(hash)) {
         activeView = hash;
       } else {
-        activeView = 'landing';
+        activeView = 'playground';
       }
       switchView(activeView);
       updateMobileResearchHighlight();
@@ -4268,6 +4271,10 @@ console.log(data.choices[0].message.content);</div>
     }
 
     function switchView(viewName) {
+      if (viewName === 'landing') {
+        window.location.href = '/';
+        return;
+      }
       activeView = viewName;
       const urlParams = new URLSearchParams(window.location.search);
       const hasInvite = urlParams.has('invite');
@@ -4276,12 +4283,7 @@ console.log(data.choices[0].message.content);</div>
       }
 
       const globalHeader = document.getElementById('global-header');
-
-      if (viewName === 'landing') {
-        if (globalHeader) globalHeader.classList.add('hidden');
-      } else {
-        if (globalHeader) globalHeader.classList.remove('hidden');
-      }
+      if (globalHeader) globalHeader.classList.remove('hidden');
 
       syncBodyOverflow();
 
@@ -7010,7 +7012,7 @@ response = llm.invoke(<span class="syn-string">"Verify order for Alice"</span>)
       }
       const menu = document.getElementById('user-dropdown-menu');
       if (menu) menu.classList.add('hidden');
-      switchView('landing');
+      switchView('playground');
     }
 
     function toggleUserDropdown(e) {
