@@ -10,11 +10,11 @@
     "deploy": "wrangler deploy",
     "db:setup": "wrangler d1 execute privacy-db --local --file=./schema.sql",
     "test": "vitest run",
-    "test:utility": "node test-utility-apis.js",
-    "test:api": "node test_api_connection.js",
-    "test:connection": "node test_api_connection.js",
-    "test:dataset": "python test_api_dataset.py",
-    "benchmark": "python scripts/benchmark_compliance.py"
+    "test:utility": "node scripts/test-utility-apis.js",
+    "test:api": "node scripts/test_api_connection.js",
+    "test:connection": "node scripts/test_api_connection.js",
+    "test:dataset": "python benchmarks/test_api_dataset.py",
+    "benchmark": "python benchmarks/benchmark_compliance.py"
   },
   "keywords": [
     "privacy",
