@@ -451,6 +451,169 @@ export const HOME_HTML = `<!DOCTYPE html>
   </section>
 
     <!-- ======================================================================= -->
+    <!-- § VALUE PROPOSITION // IN PLAIN ENGLISH CLARITY SECTION                 -->
+    <!-- ======================================================================= -->
+
+    <section id="value-clarity" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 relative">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto space-y-4 mb-14 sm:mb-16">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-orange-50 border border-orange-200/80 text-[#f0523d] text-[11px] font-mono font-bold uppercase tracking-wider">
+          <span class="w-2 h-2 rounded-full bg-[#f0523d] animate-pulse"></span>
+          <span>AT A GLANCE // OUR VALUE PROPOSITION</span>
+        </div>
+        
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+          What Exactly is ProjectSPG?
+          <span class="block text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#f0523d] mt-1.5">
+            The "Privacy Seatbelt" for Your AI Applications.
+          </span>
+        </h2>
+        
+        <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-sans">
+          We aren't an AI model maker, and we aren't a legal consulting firm. We are the <strong>drop-in security gateway</strong> that sits between your users and frontier LLMs—so you can safely build with OpenAI, Claude, and Mistral without risking patient, customer, or proprietary corporate data.
+        </p>
+      </div>
+
+      <!-- Part 1: The 3 Big Clarifications (What We Sell vs What You Keep) -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mb-14">
+        
+        <!-- Clarity Card 1: AI Models -->
+        <div class="relative rounded-2xl bg-white border-2 border-slate-900 p-6 sm:p-7 shadow-[4px_4px_0px_0px_#0f172a] flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-slate-100 border-2 border-slate-900 flex items-center justify-center text-slate-900 shadow-[2px_2px_0px_0px_#0f172a]">
+              <i data-lucide="cpu" class="w-6 h-6 stroke-[2.2]"></i>
+            </div>
+            <div class="space-y-1.5">
+              <span class="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest block">AI Models &amp; Intelligence</span>
+              <h3 class="text-xl font-bold text-slate-900">You Keep Your Models</h3>
+            </div>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              We <strong>do not sell or restrict you to proprietary models</strong>. Keep using the frontier LLMs your team loves: GPT-4o, Claude 3.5, Mistral Large, or Groq. You maintain your direct API accounts, quotas, and volume discounts.
+            </p>
+          </div>
+          <div class="pt-5 border-t border-slate-100 flex items-center gap-2 text-xs font-mono font-bold text-slate-700">
+            <i data-lucide="check" class="w-4 h-4 text-emerald-600 stroke-[3]"></i>
+            <span>Zero model lock-in or token markups</span>
+          </div>
+        </div>
+
+        <!-- Clarity Card 2: Security & Routing -->
+        <div class="relative rounded-2xl bg-white border-2 border-slate-900 p-6 sm:p-7 shadow-[4px_4px_0px_0px_#f0523d] flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-orange-50 border-2 border-slate-900 flex items-center justify-center text-[#f0523d] shadow-[2px_2px_0px_0px_#0f172a]">
+              <i data-lucide="shield-check" class="w-6 h-6 stroke-[2.2]"></i>
+            </div>
+            <div class="space-y-1.5">
+              <span class="text-[10px] font-mono font-bold text-[#f0523d] uppercase tracking-widest block">The Core Product</span>
+              <h3 class="text-xl font-bold text-slate-900">We Sell The Security Gateway</h3>
+            </div>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              We provide the <strong>high-speed proxy routing &amp; reversible de-identification engine</strong>. We intercept private text in sub-millisecond time, mask it before it leaves your network, and rehydrate the response automatically.
+            </p>
+          </div>
+          <div class="pt-5 border-t border-slate-100 flex items-center gap-2 text-xs font-mono font-bold text-[#f0523d]">
+            <i data-lucide="check" class="w-4 h-4 text-[#f0523d] stroke-[3]"></i>
+            <span>1-line integration: base_url replacement</span>
+          </div>
+        </div>
+
+        <!-- Clarity Card 3: Compliance -->
+        <div class="relative rounded-2xl bg-white border-2 border-slate-900 p-6 sm:p-7 shadow-[4px_4px_0px_0px_#0f172a] flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-slate-100 border-2 border-slate-900 flex items-center justify-center text-slate-900 shadow-[2px_2px_0px_0px_#0f172a]">
+              <i data-lucide="check-circle" class="w-6 h-6 stroke-[2.2]"></i>
+            </div>
+            <div class="space-y-1.5">
+              <span class="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest block">Enterprise Outcome</span>
+              <h3 class="text-xl font-bold text-slate-900">You Get Instant Compliance</h3>
+            </div>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              We <strong>eliminate the compliance roadblock</strong> that causes enterprise legal teams and CISOs to ban GenAI. Automatically satisfy HIPAA (18 Safe Harbor rules), GDPR, and PCI-DSS requirements without months of manual audit preparation.
+            </p>
+          </div>
+          <div class="pt-5 border-t border-slate-100 flex items-center gap-2 text-xs font-mono font-bold text-slate-700">
+            <i data-lucide="check" class="w-4 h-4 text-emerald-600 stroke-[3]"></i>
+            <span>Pass enterprise security audits on Day 1</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Part 2: The 4 Core Architectural Layers (Detailed Pillars) -->
+      <div class="rounded-3xl bg-slate-900 text-white border-2 border-slate-900 p-8 sm:p-12 shadow-[6px_6px_0px_0px_#0f172a] relative overflow-hidden">
+        
+        <!-- Architectural Hatching Background -->
+        <div class="absolute inset-0 opacity-5 pointer-events-none"
+             style="background: repeating-linear-gradient(45deg, #ffffff, #ffffff 1px, transparent 1px, transparent 8px);"></div>
+
+        <div class="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-slate-800 mb-8">
+          <div>
+            <span class="text-xs font-mono font-bold text-[#f0523d] uppercase tracking-widest block mb-2">FOUR CORE PILLARS</span>
+            <h3 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">The Complete Enterprise Privacy Stack</h3>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-400 max-w-md font-sans leading-relaxed">
+            Every prompt routing through ProjectSPG undergoes automated sanitization, cryptographic protection, and audit logging before reaching third-party model providers.
+          </p>
+        </div>
+
+        <div class="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+          
+          <!-- Pillar 1 -->
+          <div class="space-y-3 p-4 rounded-xl bg-slate-950/60 border border-slate-800">
+            <div class="flex items-center gap-2 text-[#f0523d] font-mono text-xs font-bold">
+              <span>01 //</span>
+              <span class="text-white font-sans font-semibold">Security Layer</span>
+            </div>
+            <h4 class="text-base font-bold text-slate-100">Sub-ms PII Redaction</h4>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Detects names, social security numbers, medical records, dates, and account numbers on the fly with sub-millisecond edge latency.
+            </p>
+          </div>
+
+          <!-- Pillar 2 -->
+          <div class="space-y-3 p-4 rounded-xl bg-slate-950/60 border border-slate-800">
+            <div class="flex items-center gap-2 text-cyan-400 font-mono text-xs font-bold">
+              <span>02 //</span>
+              <span class="text-white font-sans font-semibold">Reversible Engine</span>
+            </div>
+            <h4 class="text-base font-bold text-slate-100">Smart Rehydration</h4>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Unlike dumb scrubbers that delete text and ruin AI output, our engine seamlessly restores the original names in the response so your app functions normally.
+            </p>
+          </div>
+
+          <!-- Pillar 3 -->
+          <div class="space-y-3 p-4 rounded-xl bg-slate-950/60 border border-slate-800">
+            <div class="flex items-center gap-2 text-emerald-400 font-mono text-xs font-bold">
+              <span>03 //</span>
+              <span class="text-white font-sans font-semibold">Compliance</span>
+            </div>
+            <h4 class="text-base font-bold text-slate-100">Turnkey Regulatory Safe Harbor</h4>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Pre-configured rules for HIPAA Safe Harbor §164.514, GDPR Article 4, PCI-DSS cardholder data, and regional privacy frameworks.
+            </p>
+          </div>
+
+          <!-- Pillar 4 -->
+          <div class="space-y-3 p-4 rounded-xl bg-slate-950/60 border border-slate-800">
+            <div class="flex items-center gap-2 text-purple-400 font-mono text-xs font-bold">
+              <span>04 //</span>
+              <span class="text-white font-sans font-semibold">SIEM Audit</span>
+            </div>
+            <h4 class="text-base font-bold text-slate-100">Immutable Audit Logs</h4>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Cryptographic token fingerprints and tamper-proof audit trails to prove to compliance officers that raw data never touched external servers.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ======================================================================= -->
     <!-- AGENTIC INFRASTRUCTURE COMPARISON SECTION (Dark Showcase)                -->
     <!-- ======================================================================= -->
 
