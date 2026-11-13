@@ -471,7 +471,7 @@ export const HOME_HTML = `<!DOCTYPE html>
         </h2>
         
         <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-sans">
-          We aren't an AI model maker, and we aren't a legal consulting firm. We are the <strong>drop-in security gateway</strong> that sits between your users and frontier LLMs—so you can safely build with OpenAI, Claude, and Mistral without risking patient, customer, or proprietary corporate data.
+          We are the <strong>drop-in security gateway</strong> that sits between your users and frontier LLMs—so you can safely build with OpenAI, Claude, and Mistral without risking patient, customer, or proprietary corporate data.
         </p>
       </div>
 
@@ -486,10 +486,10 @@ export const HOME_HTML = `<!DOCTYPE html>
             </div>
             <div class="space-y-1.5">
               <span class="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest block">AI Models &amp; Intelligence</span>
-              <h3 class="text-xl font-bold text-slate-900">You Keep Your Models</h3>
+              <h3 class="text-xl font-bold text-slate-900">Keep Your Existing Models</h3>
             </div>
             <p class="text-sm text-slate-600 leading-relaxed">
-              We <strong>do not sell or restrict you to proprietary models</strong>. Keep using the frontier LLMs your team loves: GPT-4o, Claude 3.5, Mistral Large, or Groq. You maintain your direct API accounts, quotas, and volume discounts.
+              Continue using the frontier LLMs your team already trusts: GPT-4o, Claude 3.5, Mistral Large, or Groq. Maintain your direct API accounts, quotas, and volume discounts with zero model lock-in.
             </p>
           </div>
           <div class="pt-5 border-t border-slate-100 flex items-center gap-2 text-xs font-mono font-bold text-slate-700">
@@ -506,7 +506,7 @@ export const HOME_HTML = `<!DOCTYPE html>
             </div>
             <div class="space-y-1.5">
               <span class="text-[10px] font-mono font-bold text-[#f0523d] uppercase tracking-widest block">The Core Product</span>
-              <h3 class="text-xl font-bold text-slate-900">We Sell The Security Gateway</h3>
+              <h3 class="text-xl font-bold text-slate-900">Drop-In Security Gateway</h3>
             </div>
             <p class="text-sm text-slate-600 leading-relaxed">
               We provide the <strong>high-speed proxy routing &amp; reversible de-identification engine</strong>. We intercept private text in sub-millisecond time, mask it before it leaves your network, and rehydrate the response automatically.
@@ -526,10 +526,10 @@ export const HOME_HTML = `<!DOCTYPE html>
             </div>
             <div class="space-y-1.5">
               <span class="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest block">Enterprise Outcome</span>
-              <h3 class="text-xl font-bold text-slate-900">You Get Instant Compliance</h3>
+              <h3 class="text-xl font-bold text-slate-900">Instant Regulatory Compliance</h3>
             </div>
             <p class="text-sm text-slate-600 leading-relaxed">
-              We <strong>eliminate the compliance roadblock</strong> that causes enterprise legal teams and CISOs to ban GenAI. Automatically satisfy HIPAA (18 Safe Harbor rules), GDPR, and PCI-DSS requirements without months of manual audit preparation.
+              Eliminate the compliance roadblocks that stop enterprise AI deployments. Automatically satisfy HIPAA (18 Safe Harbor rules), GDPR, and PCI-DSS requirements without months of manual audit preparation.
             </p>
           </div>
           <div class="pt-5 border-t border-slate-100 flex items-center gap-2 text-xs font-mono font-bold text-slate-700">
