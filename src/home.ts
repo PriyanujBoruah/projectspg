@@ -245,7 +245,7 @@ export const HOME_HTML = `<!DOCTYPE html>
                   </div>
                   <div class="flex-1 min-w-0">
                     <span class="font-bold text-slate-900 text-xs block">Healthcare</span>
-                    <p class="text-[11px] text-slate-500 font-normal leading-tight mt-0.5">18 Safe Harbor rules, EHR &amp; clinical transcripts</p>
+                    <p class="text-[11px] text-slate-500 font-normal leading-tight mt-0.5">Hospitals, research labs, clinical usage</p>
                   </div>
                 </a>
 
@@ -255,7 +255,7 @@ export const HOME_HTML = `<!DOCTYPE html>
                   </div>
                   <div class="flex-1 min-w-0">
                     <span class="font-bold text-slate-900 text-xs block">Finance</span>
-                    <p class="text-[11px] text-slate-500 font-normal leading-tight mt-0.5">PCI-DSS, GLBA, trading MNPI &amp; bank feeds</p>
+                    <p class="text-[11px] text-slate-500 font-normal leading-tight mt-0.5">Banks, fintechs, internal accounting</p>
                   </div>
                 </a>
 
@@ -265,7 +265,7 @@ export const HOME_HTML = `<!DOCTYPE html>
                   </div>
                   <div class="flex-1 min-w-0">
                     <span class="font-bold text-slate-900 text-xs block">Institutions</span>
-                    <p class="text-[11px] text-slate-500 font-normal leading-tight mt-0.5">GovCloud, defense, higher ed &amp; legal privilege</p>
+                    <p class="text-[11px] text-slate-500 font-normal leading-tight mt-0.5">Government departments, universities, public bodies</p>
                   </div>
                 </a>
 
