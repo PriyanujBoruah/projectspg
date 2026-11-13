@@ -220,6 +220,79 @@ export const HOME_HTML = `<!DOCTYPE html>
 
         <nav class="hidden md:flex items-center gap-2 font-mono text-xs font-bold text-slate-800">
           <a href="#security-comparison" class="px-2.5 py-1.5 rounded-lg border border-transparent hover:border-slate-900 hover:bg-slate-100 hover:shadow-[1.5px_1.5px_0px_0px_#0f172a] transition-all">Architecture</a>
+
+          <!-- Industries Dropdown Menu -->
+          <div class="relative group">
+            <button type="button" class="flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-transparent group-hover:border-slate-900 group-hover:bg-slate-100 group-hover:shadow-[1.5px_1.5px_0px_0px_#0f172a] transition-all cursor-pointer">
+              <span>Industries</span>
+              <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-600 transition-transform duration-200 group-hover:rotate-180"></i>
+            </button>
+            <div class="absolute left-0 top-full pt-1.5 w-72 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-50 pointer-events-none group-hover:pointer-events-auto">
+              <div class="bg-white rounded-xl border-2 border-slate-900 shadow-[4px_4px_0px_0px_#0f172a] p-2 space-y-1">
+                <a href="/industries#threat-landscape" class="flex items-start gap-3 p-2 rounded-lg hover:bg-slate-100 border border-transparent hover:border-slate-200 transition-all group/item">
+                  <div class="w-7 h-7 rounded-md bg-blue-50 border border-blue-200 flex items-center justify-center shrink-0 mt-0.5 group-hover/item:bg-blue-100 transition-colors">
+                    <i data-lucide="building-2" class="w-3.5 h-3.5 text-blue-600"></i>
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center justify-between">
+                      <span class="font-bold text-slate-900 text-xs">Enterprise AI</span>
+                      <span class="text-[9px] font-mono font-bold text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded border border-blue-200">LLMOps</span>
+                    </div>
+                    <p class="text-[11px] text-slate-500 font-normal leading-tight mt-0.5">Agentic gateways, copilots &amp; proprietary models</p>
+                  </div>
+                </a>
+
+                <a href="/industries#healthcare" class="flex items-start gap-3 p-2 rounded-lg hover:bg-slate-100 border border-transparent hover:border-slate-200 transition-all group/item">
+                  <div class="w-7 h-7 rounded-md bg-emerald-50 border border-emerald-200 flex items-center justify-center shrink-0 mt-0.5 group-hover/item:bg-emerald-100 transition-colors">
+                    <i data-lucide="activity" class="w-3.5 h-3.5 text-emerald-600"></i>
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center justify-between">
+                      <span class="font-bold text-slate-900 text-xs">Healthcare</span>
+                      <span class="text-[9px] font-mono font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">HIPAA</span>
+                    </div>
+                    <p class="text-[11px] text-slate-500 font-normal leading-tight mt-0.5">18 Safe Harbor rules, EHR &amp; clinical transcripts</p>
+                  </div>
+                </a>
+
+                <a href="/industries#fintech" class="flex items-start gap-3 p-2 rounded-lg hover:bg-slate-100 border border-transparent hover:border-slate-200 transition-all group/item">
+                  <div class="w-7 h-7 rounded-md bg-amber-50 border border-amber-200 flex items-center justify-center shrink-0 mt-0.5 group-hover/item:bg-amber-100 transition-colors">
+                    <i data-lucide="landmark" class="w-3.5 h-3.5 text-amber-600"></i>
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center justify-between">
+                      <span class="font-bold text-slate-900 text-xs">Finance</span>
+                      <span class="text-[9px] font-mono font-bold text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200">PCI-DSS</span>
+                    </div>
+                    <p class="text-[11px] text-slate-500 font-normal leading-tight mt-0.5">PCI-DSS, GLBA, trading MNPI &amp; bank feeds</p>
+                  </div>
+                </a>
+
+                <a href="/industries#defense" class="flex items-start gap-3 p-2 rounded-lg hover:bg-slate-100 border border-transparent hover:border-slate-200 transition-all group/item">
+                  <div class="w-7 h-7 rounded-md bg-purple-50 border border-purple-200 flex items-center justify-center shrink-0 mt-0.5 group-hover/item:bg-purple-100 transition-colors">
+                    <i data-lucide="scale" class="w-3.5 h-3.5 text-purple-600"></i>
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center justify-between">
+                      <span class="font-bold text-slate-900 text-xs">Institutions</span>
+                      <span class="text-[9px] font-mono font-bold text-purple-600 bg-purple-50 px-1.5 py-0.5 rounded border border-purple-200">ITAR</span>
+                    </div>
+                    <p class="text-[11px] text-slate-500 font-normal leading-tight mt-0.5">GovCloud, defense, higher ed &amp; legal privilege</p>
+                  </div>
+                </a>
+
+                <div class="pt-1 border-t border-slate-100">
+                  <a href="/industries" class="flex items-center justify-between p-2 rounded-lg hover:bg-orange-50 border border-transparent hover:border-orange-200 transition-all group/item">
+                    <div class="flex items-center gap-2">
+                      <i data-lucide="layers" class="w-3.5 h-3.5 text-[#f0523d]"></i>
+                      <span class="font-bold text-slate-900 text-xs group-hover/item:text-[#f0523d] transition-colors">Regulated Industries</span>
+                    </div>
+                    <i data-lucide="arrow-right" class="w-3 h-3 text-slate-400 group-hover/item:text-[#f0523d] group-hover/item:translate-x-0.5 transition-all"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
           <a href="#demo" class="px-2.5 py-1.5 rounded-lg border border-transparent hover:border-slate-900 hover:bg-slate-100 hover:shadow-[1.5px_1.5px_0px_0px_#0f172a] transition-all">Live Demo</a>
           <a href="#how-it-works" class="px-2.5 py-1.5 rounded-lg border border-transparent hover:border-slate-900 hover:bg-slate-100 hover:shadow-[1.5px_1.5px_0px_0px_#0f172a] transition-all">Data Flow</a>
           <a href="#platform" class="px-2.5 py-1.5 rounded-lg border border-transparent hover:border-slate-900 hover:bg-slate-100 hover:shadow-[1.5px_1.5px_0px_0px_#0f172a] transition-all">Platform</a>
