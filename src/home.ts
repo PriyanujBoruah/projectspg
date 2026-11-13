@@ -234,10 +234,7 @@ export const HOME_HTML = `<!DOCTYPE html>
                     <i data-lucide="building-2" class="w-3.5 h-3.5 text-blue-600"></i>
                   </div>
                   <div class="flex-1 min-w-0">
-                    <div class="flex items-center justify-between">
-                      <span class="font-bold text-slate-900 text-xs">Enterprise AI</span>
-                      <span class="text-[9px] font-mono font-bold text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded border border-blue-200">LLMOps</span>
-                    </div>
+                    <span class="font-bold text-slate-900 text-xs block">Enterprise AI</span>
                     <p class="text-[11px] text-slate-500 font-normal leading-tight mt-0.5">Agentic gateways, copilots &amp; proprietary models</p>
                   </div>
                 </a>
@@ -247,10 +244,7 @@ export const HOME_HTML = `<!DOCTYPE html>
                     <i data-lucide="activity" class="w-3.5 h-3.5 text-emerald-600"></i>
                   </div>
                   <div class="flex-1 min-w-0">
-                    <div class="flex items-center justify-between">
-                      <span class="font-bold text-slate-900 text-xs">Healthcare</span>
-                      <span class="text-[9px] font-mono font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">HIPAA</span>
-                    </div>
+                    <span class="font-bold text-slate-900 text-xs block">Healthcare</span>
                     <p class="text-[11px] text-slate-500 font-normal leading-tight mt-0.5">18 Safe Harbor rules, EHR &amp; clinical transcripts</p>
                   </div>
                 </a>
@@ -260,10 +254,7 @@ export const HOME_HTML = `<!DOCTYPE html>
                     <i data-lucide="landmark" class="w-3.5 h-3.5 text-amber-600"></i>
                   </div>
                   <div class="flex-1 min-w-0">
-                    <div class="flex items-center justify-between">
-                      <span class="font-bold text-slate-900 text-xs">Finance</span>
-                      <span class="text-[9px] font-mono font-bold text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200">PCI-DSS</span>
-                    </div>
+                    <span class="font-bold text-slate-900 text-xs block">Finance</span>
                     <p class="text-[11px] text-slate-500 font-normal leading-tight mt-0.5">PCI-DSS, GLBA, trading MNPI &amp; bank feeds</p>
                   </div>
                 </a>
@@ -273,10 +264,7 @@ export const HOME_HTML = `<!DOCTYPE html>
                     <i data-lucide="scale" class="w-3.5 h-3.5 text-purple-600"></i>
                   </div>
                   <div class="flex-1 min-w-0">
-                    <div class="flex items-center justify-between">
-                      <span class="font-bold text-slate-900 text-xs">Institutions</span>
-                      <span class="text-[9px] font-mono font-bold text-purple-600 bg-purple-50 px-1.5 py-0.5 rounded border border-purple-200">ITAR</span>
-                    </div>
+                    <span class="font-bold text-slate-900 text-xs block">Institutions</span>
                     <p class="text-[11px] text-slate-500 font-normal leading-tight mt-0.5">GovCloud, defense, higher ed &amp; legal privilege</p>
                   </div>
                 </a>
