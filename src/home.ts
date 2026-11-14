@@ -219,8 +219,6 @@ export const HOME_HTML = `<!DOCTYPE html>
         </a>
 
         <nav class="hidden md:flex items-center gap-2 font-mono text-xs font-bold text-slate-800">
-          <a href="#security-comparison" class="px-2.5 py-1.5 rounded-lg border border-transparent hover:border-slate-900 hover:bg-slate-100 hover:shadow-[1.5px_1.5px_0px_0px_#0f172a] transition-all">Architecture</a>
-
           <!-- Industries Dropdown Menu -->
           <div class="relative group">
             <button type="button" class="flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-transparent group-hover:border-slate-900 group-hover:bg-slate-100 group-hover:shadow-[1.5px_1.5px_0px_0px_#0f172a] transition-all cursor-pointer">
@@ -281,11 +279,6 @@ export const HOME_HTML = `<!DOCTYPE html>
               </div>
             </div>
           </div>
-          <a href="#demo" class="px-2.5 py-1.5 rounded-lg border border-transparent hover:border-slate-900 hover:bg-slate-100 hover:shadow-[1.5px_1.5px_0px_0px_#0f172a] transition-all">Live Demo</a>
-          <a href="#how-it-works" class="px-2.5 py-1.5 rounded-lg border border-transparent hover:border-slate-900 hover:bg-slate-100 hover:shadow-[1.5px_1.5px_0px_0px_#0f172a] transition-all">Data Flow</a>
-          <a href="#platform" class="px-2.5 py-1.5 rounded-lg border border-transparent hover:border-slate-900 hover:bg-slate-100 hover:shadow-[1.5px_1.5px_0px_0px_#0f172a] transition-all">Platform</a>
-          <a href="#blog" class="px-2.5 py-1.5 rounded-lg border border-transparent hover:border-slate-900 hover:bg-slate-100 hover:shadow-[1.5px_1.5px_0px_0px_#0f172a] transition-all">Blog</a>
-          <a href="/dashboard#docs" class="px-2.5 py-1.5 rounded-lg border border-transparent hover:border-slate-900 hover:bg-slate-100 hover:shadow-[1.5px_1.5px_0px_0px_#0f172a] transition-all">API Docs</a>
         </nav>
       </div>
 
