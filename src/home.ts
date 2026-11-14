@@ -594,25 +594,11 @@ export const HOME_HTML = `<!DOCTYPE html>
 
       </div>
 
-      <!-- Part 2: Where ProjectSPG Intercepts Your Data Flow (Merged Architecture Blueprint & Mechanics) -->
-      <div id="how-it-works" class="scroll-mt-24">
-      <!-- Section Header with Vibrant Technical Sketch Pill -->
-      <div class="text-center max-w-2xl mx-auto space-y-2.5 mb-10 sm:mb-14 pt-12 sm:pt-16 border-t border-slate-200/80">
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border-2 border-slate-900 text-xs font-mono font-extrabold tracking-wider text-slate-900"
-             style="box-shadow: 3px 3px 0px 0px #0f172a;">
-          <span class="w-2 h-2 rounded-full bg-[#f0523d] animate-pulse"></span>
-          <span>§ 01 // ARCHITECTURAL DATA FLOW</span>
-        </div>
-        <h3 class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight leading-tight">
-          Where ProjectSPG Intercepts Your Data Flow
-        </h3>
-        <p class="text-sm sm:text-base text-slate-700 font-medium leading-relaxed">
-          Direct AI requests leak customer records and secrets to third-party logs. ProjectSPG intercepts prompts at the edge so LLMs only ever see anonymous tokens.
-        </p>
-      </div>
+      <!-- Part 2: Visual Architecture Blueprint & Interception Mechanics -->
+      <div id="how-it-works" class="scroll-mt-24 pt-4 sm:pt-6">
 
-      <!-- Main Visual Architecture Blueprint (Fully Animated Live Drafting Canvas) -->
-      <div class="relative select-none mb-10">
+        <!-- Main Visual Architecture Blueprint (Fully Animated Live Drafting Canvas) -->
+        <div class="relative select-none mb-10">
         
         <!-- Sharp Hatch Shadow Layer (Blueprint Cast Shadow) -->
         <div class="absolute inset-0 rounded-3xl transform translate-x-2.5 translate-y-2.5 z-0 pointer-events-none border-2 border-slate-800"
